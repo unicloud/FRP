@@ -18,18 +18,20 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.FleetPlan.Requests
 {
-    [Export(typeof (RequestVM))]
+    [Export(typeof(RequestVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class RequestVM : EditViewModelBase
     {
         private readonly FleetPlanData _context;
         private readonly IFleetPlanService _service;
+        private FilterDescriptor _planHistoryDescriptor;
 
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public RequestVM(IFleetPlanService service) : base(service)
+        public RequestVM(IFleetPlanService service)
+            : base(service)
         {
             _service = service;
             _context = _service.Context;
@@ -37,6 +39,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             InitialCommand(); //初始化命令
             InitialAircraftType(); //初始化机型
             InitialPlan(); // 初始化计划历史信息
+            InitialPlanHistory();//初始化计划明细信息
             InitialAircraftCategory(); //初始化座级
             InitialActionCategory(); //初始化活动类型历史信息
             InitialAnnual(); //执行年度
@@ -258,11 +261,16 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         public QueryableDataServiceCollectionView<PlanDTO> PlansView { get; set; }
 
         /// <summary>
+        ///     获取所选计划明细信息。
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanHistoryDTO> PlanHistories { get; set; }
+
+        /// <summary>
         ///     初始化计划历史信息。
         /// </summary>
         private void InitialPlan()
         {
-            PlansView = _service.CreateCollection(_context.Plans,c=>c.PlanHistories);
+            PlansView = _service.CreateCollection(_context.Plans);
             _service.RegisterCollectionView(PlansView);
             SetIsBusy();
             PlansView.LoadedData += (sender, e) =>
@@ -278,6 +286,16 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             };
         }
 
+        /// <summary>
+        /// 初始化当前计划明细
+        /// </summary>
+        private void InitialPlanHistory()
+        {
+            PlanHistories = _service.CreateCollection(_context.PlanHistories);
+            _planHistoryDescriptor=new FilterDescriptor("PlanId",FilterOperator.IsEqualTo,-1);
+            PlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
+            _service.RegisterCollectionView(PlanHistories);
+        }
 
         /// <summary>
         ///     设置当前计划
@@ -294,6 +312,18 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             {
                 SelectedPlan = PlansView.OrderBy(p => p.VersionNumber)
                     .LastOrDefault(p => p.AnnualId == currentAnnual.Id);
+                if (SelectedPlan != null)
+                {
+                    _planHistoryDescriptor.Value = SelectedPlan.Id;
+                    if (!PlanHistories.AutoLoad)
+                    {
+                        PlanHistories.AutoLoad = true;
+                    }
+                    else
+                    {
+                        PlanHistories.Load(true);
+                    }
+                }
             }
         }
 
@@ -406,8 +436,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             get
             {
-                return new List<int>
-                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+                return new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
             }
         }
 
@@ -477,7 +506,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 {
                     return false;
                 }
-                return SelectedRequest != null && SelectedRequest.Status < (int) RequestStatus.已审核;
+                return SelectedRequest != null && SelectedRequest.Status < (int)RequestStatus.已审核;
             }
         }
 
@@ -503,9 +532,9 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             base.WindowClosed(doc, sender);
 
-            if (doc!=null)
+            if (doc != null)
             {
-                 if (SelDocType.Equals("地方局申请文档"))
+                if (SelDocType.Equals("地方局申请文档"))
                 {
                     SelectedRequest.RaDocumentId = doc.DocumentId;
                     SelectedRequest.RaDocumentName = doc.Name;
@@ -522,7 +551,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 }
                 SelDocType = null;
             }
-               
+
         }
         #endregion
 
@@ -536,7 +565,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             get
             {
                 return SelectedRequest == null ||
-                       SelectedRequest.Status >= (int) RequestStatus.已审核;
+                       SelectedRequest.Status >= (int)RequestStatus.已审核;
             }
         }
 
@@ -548,7 +577,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         public bool DragPlanHistory(object planHistory)
         {
             return planHistory is PlanHistoryDTO && (planHistory as PlanHistoryDTO).CanRequest == CanRequest.可申请 && SelectedRequest != null &&
-                   SelectedRequest.Status < (int) RequestStatus.已审核 && SubmitedPlan(planHistory as PlanHistoryDTO);
+                   SelectedRequest.Status < (int)RequestStatus.已审核 && SubmitedPlan(planHistory as PlanHistoryDTO);
         }
 
         /// <summary>
@@ -559,7 +588,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         public bool DragApprovalHistory(object approvalHistory)
         {
             return approvalHistory is ApprovalHistoryDTO && SelectedRequest != null &&
-                   SelectedRequest.Status < (int) RequestStatus.已审核;
+                   SelectedRequest.Status < (int)RequestStatus.已审核;
         }
 
         /// <summary>
@@ -604,9 +633,9 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 planHistory.ApprovalHistoryId = approveHistory.Id;
                 planHistory.ManageStatus = (int)ManageStatus.申请;
                 planHistory.RefrashCanRequest(SelectedPlan);
-               
+
                 SelectedRequest.ApprovalHistories.Add(approveHistory);
-                
+
             }
         }
 
@@ -620,8 +649,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 MessageAlert("当前申请明细不可删除");
                 return;
             }
-            var planHistory = SelectedPlan.PlanHistories.FirstOrDefault(p => p.ApprovalHistoryId == approvalHistory.Id);
-            if (planHistory!=null)
+            var planHistory = PlanHistories.FirstOrDefault(p => p.ApprovalHistoryId == approvalHistory.Id);
+            if (planHistory != null)
             {
                 planHistory.ApprovalHistoryId = null;
                 if (planHistory.ManageStatus == (int)ManageStatus.申请)
@@ -642,7 +671,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             var operationAction = ActionCategoriesView.FirstOrDefault(p => p.Id == planHistory.ActionCategoryId);
             if (operationAction != null)
             {
-                return (SelectedPlan.Status == (int) PlanStatus.已提交);
+                return (SelectedPlan.Status == (int)PlanStatus.已提交);
             }
             return false;
         }
@@ -652,9 +681,9 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         private void RefreshCanRequest()
         {
-            if (SelectedPlan==null) return;
-            
-            SelectedPlan.PlanHistories.ToList().ForEach(p => p.RefrashCanRequest(SelectedPlan));
+            if (SelectedPlan == null) return;
+
+            PlanHistories.ToList().ForEach(p => p.RefrashCanRequest(SelectedPlan));
         }
         #endregion
 
@@ -705,7 +734,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 MessageAlert("批文不能为空");
                 return;
             }
-            SelectedRequest.Status = (int) RequestStatus.待审核;
+            SelectedRequest.Status = (int)RequestStatus.待审核;
             RefreshCommandState();
         }
 
@@ -720,7 +749,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             {
                 return false;
             }
-            return SelectedRequest != null && SelectedRequest.Status < (int) RequestStatus.待审核;
+            return SelectedRequest != null && SelectedRequest.Status < (int)RequestStatus.待审核;
         }
 
         #endregion
@@ -740,7 +769,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 MessageAlert("提示", "请选择需要提交审核的记录");
                 return;
             }
-            SelectedRequest.Status = (int) RequestStatus.已审核;
+            SelectedRequest.Status = (int)RequestStatus.已审核;
             RefreshCommandState();
         }
 
@@ -755,8 +784,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             {
                 return false;
             }
-            return SelectedRequest != null && SelectedRequest.Status < (int) RequestStatus.已审核
-                   && SelectedRequest.Status > (int) RequestStatus.草稿;
+            return SelectedRequest != null && SelectedRequest.Status < (int)RequestStatus.已审核
+                   && SelectedRequest.Status > (int)RequestStatus.草稿;
         }
 
         #endregion
@@ -842,8 +871,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         protected override void SetIsBusy()
         {
-            if (RequestsView == null || AircraftTypesView ==null || AnnualsView==null
-                || ActionCategoriesView == null || AircraftCategoriesView == null || PlansView==null)
+            if (RequestsView == null || AircraftTypesView == null || AnnualsView == null
+                || ActionCategoriesView == null || AircraftCategoriesView == null || PlansView == null)
             {
                 IsBusy = true;
                 return;

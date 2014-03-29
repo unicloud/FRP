@@ -441,9 +441,9 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var ph = AllPlanHistories.ToList();
             ph.ForEach(p =>
             {
-                p.ActionCategories.Clear();
-                p.AircraftTypes.Clear();
-                p.AircraftCategories.Clear();
+                p.ActionCategories=new ObservableCollection<ActionCateDTO>();
+                p.AircraftTypes=new ObservableCollection<AircraftTyDTO>();
+                p.AircraftCategories=new ObservableCollection<AircraftCateDTO>();
             });
             return true;
         }
@@ -680,6 +680,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (string.Equals(cell.Column.UniqueName, "ActionType"))
                 {
                     var planhistory = gridView.CurrentCellInfo.Item as PlanHistoryDTO;
+                    _service.GetAircraftCategoriesForPlanHistory(planhistory);
                     if (planhistory != null)
                     {
                         var planAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);
@@ -706,6 +707,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (string.Equals(cell.Column.UniqueName, "Regional"))
                 {
                     var planhistory = gridView.CurrentCellInfo.Item as PlanHistoryDTO;
+                    _service.GetAircraftTypesForPlanHistory(planhistory);
                     if (planhistory != null)
                     {
                         var planAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);

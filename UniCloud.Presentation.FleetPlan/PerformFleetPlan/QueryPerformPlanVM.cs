@@ -15,12 +15,13 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 {
-    [Export(typeof (QueryPerformPlanVM))]
+    [Export(typeof(QueryPerformPlanVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class QueryPerformPlanVM : ViewModelBase
     {
         private readonly FleetPlanData _context;
         private readonly IFleetPlanService _service;
+        private FilterDescriptor _planHistoryDescriptor;
 
         /// <summary>
         ///     构造函数。
@@ -32,6 +33,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             _service = service;
             _context = _service.Context;
             InitialPlan(); //加载计划
+            InitialPlanHistory();//加载计划明细
             InitialCommand();
         }
 
@@ -78,6 +80,12 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         /// </summary>
         public QueryableDataServiceCollectionView<PlanDTO> PlansView { get; set; }
 
+        /// <summary>
+        /// 获取所选计划的计划明细集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanHistoryDTO> SelectedPlanHistories { get; set; }
+
+
         public IEnumerable<PlanHistoryDTO> PlanHistories
         {
             get { return _planHistories; }
@@ -108,8 +116,31 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 if (SelectedPlan == null)
                 {
                     SelectedPlan = e.Entities.Cast<PlanDTO>().FirstOrDefault();
+                    if (SelectedPlan != null)
+                    {
+                        _planHistoryDescriptor.Value = SelectedPlan.Id;
+                        if (!SelectedPlanHistories.AutoLoad)
+                        {
+                            SelectedPlanHistories.AutoLoad = true;
+                        }
+                        else
+                        {
+                            SelectedPlanHistories.Load(true);
+                        }
+                    }
                 }
             };
+        }
+
+        /// <summary>
+        /// 初始化所选计划的计划明细
+        /// </summary>
+        private void InitialPlanHistory()
+        {
+            SelectedPlanHistories = _service.CreateCollection(_context.PlanHistories);
+            _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, -1);
+            SelectedPlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
+            _service.RegisterCollectionView(SelectedPlanHistories);
         }
 
         /// <summary>
@@ -134,8 +165,8 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                      (p.RelatedEndDate != null &&
                       p.RelatedEndDate.Value.Year ==
                       SelectedPlan.Year));
-                var annualPlanHistory = SelectedPlan.PlanHistories.Where(annualPlanHistoryExpress);
-                var performedPlanHistory = SelectedPlan.PlanHistories.Where(performedPlanHistoryExpress);
+                var annualPlanHistory = SelectedPlanHistories.Where(annualPlanHistoryExpress);
+                var performedPlanHistory = SelectedPlanHistories.Where(performedPlanHistoryExpress);
                 PlanHistories = annualPlanHistory.Union(performedPlanHistory);
             }
         }
@@ -195,7 +226,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 PerformPlanHeader = "当前计划完成情况（单位：%）";
                 return;
             }
-            if (currentPlan.PlanHistories.Count == 0)
+            if (SelectedPlanHistories.Count == 0)
             {
                 Performance = 0;
             }
@@ -214,11 +245,11 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                                                                                      currentPlan.Year));
 
                 //某年实际执行条数
-                decimal performedCount = currentPlan.PlanHistories.Count(exprOperationPlanImportAndExport);
+                decimal performedCount = SelectedPlanHistories.Count(exprOperationPlanImportAndExport);
                 //计划执行
-                decimal planPerformCount = currentPlan.PlanHistories.Count(p => p.Year == currentPlan.Year);
+                decimal planPerformCount = SelectedPlanHistories.Count(p => p.Year == currentPlan.Year);
                 //统计执行百分比
-                Performance = planPerformCount == 0 ? 100 : Math.Round(performedCount*100/planPerformCount, 2);
+                Performance = planPerformCount == 0 ? 100 : Math.Round(performedCount * 100 / planPerformCount, 2);
             }
             PerformPlanHeader = currentPlan.Year + "年度计划完成情况（执行率：" + Convert.ToString(Performance) + "%）";
         }
