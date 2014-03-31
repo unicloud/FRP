@@ -66,13 +66,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var group = new GroupDescriptor { Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending };
 
             CaacProgrammings = _service.CreateCollection(_context.CaacProgrammings, o => o.CaacProgrammingLines);
-            //CaacProgrammings.SortDescriptors.Add(sort);
-            //CaacProgrammings.GroupDescriptors.Add(group);
+            CaacProgrammings.SortDescriptors.Add(sort);
+            CaacProgrammings.GroupDescriptors.Add(group);
             _service.RegisterCollectionView(CaacProgrammings);//注册查询集合
 
             ProgrammingFiles = _service.CreateCollection(_context.ProgrammingFiles);
-            //ProgrammingFiles.SortDescriptors.Add(sort);
-            //ProgrammingFiles.GroupDescriptors.Add(group);
+            ProgrammingFiles.SortDescriptors.Add(sort);
+            ProgrammingFiles.GroupDescriptors.Add(group);
             ProgrammingFiles.FilterDescriptors.Add(new FilterDescriptor("Type", FilterOperator.IsEqualTo, 1));
             _service.RegisterCollectionView(ProgrammingFiles);//注册查询集合
 

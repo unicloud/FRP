@@ -138,7 +138,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         private void InitialPlanHistory()
         {
             SelectedPlanHistories = _service.CreateCollection(_context.PlanHistories);
-            _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, -1);
+            _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
             SelectedPlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
             _service.RegisterCollectionView(SelectedPlanHistories);
         }

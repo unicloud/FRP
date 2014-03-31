@@ -292,7 +292,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void InitialPlanHistory()
         {
             PlanHistories = _service.CreateCollection(_context.PlanHistories);
-            _planHistoryDescriptor=new FilterDescriptor("PlanId",FilterOperator.IsEqualTo,-1);
+            _planHistoryDescriptor=new FilterDescriptor("PlanId",FilterOperator.IsEqualTo,Guid.Empty);
             PlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
             _service.RegisterCollectionView(PlanHistories);
         }

@@ -71,7 +71,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            CurAnnuals = new QueryableDataServiceCollectionView<AnnualDTO>(_context,_context.Annuals);
+            CurAnnuals = new QueryableDataServiceCollectionView<AnnualDTO>(_context, _context.Annuals);
             _annualDescriptor = new FilterDescriptor("IsOpen", FilterOperator.IsEqualTo, true);
             CurAnnuals.FilterDescriptors.Add(_annualDescriptor);
             CurAnnuals.LoadedData += (sender, e) =>
@@ -265,11 +265,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         protected override void WindowClosed(DocumentDTO doc, object sender)
         {
             base.WindowClosed(doc, sender);
-            if (sender is Guid)
-            {
-                SelPlan.DocumentId = doc.DocumentId;
-                SelPlan.DocName = doc.Name;
-            }
+            SelPlan.DocumentId = doc.DocumentId;
+            SelPlan.DocName = doc.Name;
         }
         #endregion
 

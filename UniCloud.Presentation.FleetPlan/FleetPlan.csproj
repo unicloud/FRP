@@ -243,10 +243,17 @@
     <Compile Include="Approvals\RequestApprovalDragDrop.cs" />
     <Compile Include="Approvals\RequestApprovalDragVisual.cs" />
     <Compile Include="Converts\OperationStatusConvert.cs" />
+    <Compile Include="PerformFleetPlan\FleetPlanDeliver.xaml.cs">
+      <DependentUpon>FleetPlanDeliver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PerformFleetPlan\FleetPlanDeliverVM.cs" />
     <Compile Include="PerformFleetPlan\OperationChild.xaml.cs">
       <DependentUpon>OperationChild.xaml</DependentUpon>
     </Compile>
     <Compile Include="PerformFleetPlan\OperationChildVM.cs" />
+    <Compile Include="PerformFleetPlan\PlanDeliverEditDialog.xaml.cs">
+      <DependentUpon>PlanDeliverEditDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PerformFleetPlan\QueryPerformPlan.xaml.cs">
       <DependentUpon>QueryPerformPlan.xaml</DependentUpon>
     </Compile>
@@ -269,6 +276,10 @@
     </Compile>
     <Compile Include="PrepareFleetPlan\FleetPlanPrepareVM.cs" />
     <Compile Include="FleetPlanModule.cs" />
+    <Compile Include="PrepareFleetPlan\FleetPlanPublish.xaml.cs">
+      <DependentUpon>FleetPlanPublish.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrepareFleetPlan\FleetPlanPublishVM.cs" />
     <Compile Include="PrepareFleetPlan\FleetPlanSend.xaml.cs">
       <DependentUpon>FleetPlanSend.xaml</DependentUpon>
     </Compile>
@@ -368,7 +379,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PerformFleetPlan\FleetPlanDeliver.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PerformFleetPlan\OperationChild.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PerformFleetPlan\PlanDeliverEditDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -391,6 +410,10 @@
     <Page Include="PrepareFleetPlan\FleetPlanPrepare.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrepareFleetPlan\FleetPlanPublish.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PrepareFleetPlan\FleetPlanSend.xaml">
       <Generator>MSBuild:Compile</Generator>

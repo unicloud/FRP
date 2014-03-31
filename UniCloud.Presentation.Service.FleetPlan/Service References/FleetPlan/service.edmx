@@ -53,6 +53,7 @@
         <Property Name="ImportCategoryName" Type="Edm.String" />
         <Property Name="ManufacturerName" Type="Edm.String" />
         <Property Name="Regional" Type="Edm.String" />
+        <Property Name="OperateStatus" Type="Edm.String" />
         <Property Name="OperationHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.OperationHistoryDTO)" Nullable="false" />
         <Property Name="OwnershipHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.OwnershipHistoryDTO)" Nullable="false" />
         <Property Name="AircraftBusinesses" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.AircraftBusinessDTO)" Nullable="false" />
