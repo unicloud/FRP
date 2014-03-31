@@ -1,7 +1,11 @@
-﻿using System;
+﻿#region 命名空间
+
+using System;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.GridView;
+
+#endregion
 
 namespace UniCloud.Presentation.Input
 {

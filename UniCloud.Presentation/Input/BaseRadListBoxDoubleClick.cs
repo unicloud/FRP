@@ -1,13 +1,13 @@
 ﻿#region Version Info
 /* ========================================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：wuql 时间：2013/11/12 14:46:43
-// 文件名：BaseListBoxDoubleClick
+// 作者：linxw 时间：2014/3/31 11:06:38
+// 文件名：BaseRadListBoxDoubleClick
 // 版本：V1.0.0
 //
-// 修改者： 时间： 
+// 修改者：linxw 时间：2014/3/31 11:06:38
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -15,13 +15,14 @@
 #region 命名空间
 
 using System.Windows;
+using Telerik.Windows.Controls;
 
 #endregion
 
 namespace UniCloud.Presentation.Input
 {
-    public class BaseListBoxDoubleClick<THelper>
-        where THelper : ListBoxDoubleClickHelper
+    public class BaseRadListBoxDoubleClick<THelper>
+        where THelper : RadListBoxDoubleClickHelper
     {
         public static THelper GetHelper(DependencyObject obj)
         {
@@ -34,15 +35,15 @@ namespace UniCloud.Presentation.Input
         }
 
 		// 依赖项属性
-        public static readonly DependencyProperty HelperProperty = DependencyProperty.RegisterAttached("Helper", typeof(THelper), typeof(BaseListBoxDoubleClick<THelper>), new Telerik.Windows.PropertyMetadata(OnHelperChanged));
+        public static readonly DependencyProperty HelperProperty = DependencyProperty.RegisterAttached("Helper", typeof(THelper), typeof(BaseRadListBoxDoubleClick<THelper>), new Telerik.Windows.PropertyMetadata(OnHelperChanged));
 
-        static BaseListBoxDoubleClick()
+        static BaseRadListBoxDoubleClick()
         {
         }
 
         public static void OnHelperChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
 		{
-            var listBox = dependencyObject as System.Windows.Controls.ListBox;
+            var listBox = dependencyObject as RadListBox;
             var helper = e.NewValue as THelper;
             if (helper == null)
                 return;

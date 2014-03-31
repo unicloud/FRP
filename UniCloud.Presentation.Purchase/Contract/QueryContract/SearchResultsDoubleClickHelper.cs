@@ -23,7 +23,7 @@ using UniCloud.Presentation.Service.Purchase.DocumentExtension;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    public class SearchResultsDoubleClickHelper : ListBoxDoubleClickHelper
+    public class SearchResultsDoubleClickHelper : RadListBoxDoubleClickHelper
     {
         protected override void ListBoxDoubleClick(RadListBoxItem listBoxItem)
         {

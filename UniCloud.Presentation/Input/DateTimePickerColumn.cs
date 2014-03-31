@@ -12,12 +12,16 @@
 // ========================================================================*/
 #endregion
 
+#region 命名空间
+
 using System;
 using System.Windows;
 using System.Windows.Data;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.GridView;
 using Telerik.Windows.Input.Touch;
+
+#endregion
 
 namespace UniCloud.Presentation.Input
 {
@@ -42,15 +46,15 @@ namespace UniCloud.Presentation.Input
 
         public override FrameworkElement CreateCellEditElement(GridViewCell cell, object dataItem)
         {
-            this.BindingTarget = RadDateTimePicker.SelectedValueProperty;
+            BindingTarget = RadDateTimePicker.SelectedValueProperty;
 
             RadDateTimePicker picker = new RadDateTimePicker();
             TouchManager.SetIsTouchHitTestVisible(picker, false);
             picker.IsTooltipEnabled = false;
             picker.InputMode = InputMode.DatePicker;
-            picker.TimeInterval = this.TimeInterval;
+            picker.TimeInterval = TimeInterval;
 
-            picker.SetBinding(this.BindingTarget, this.CreateValueBinding());
+            picker.SetBinding(BindingTarget, CreateValueBinding());
 
             return picker;
         }
@@ -73,7 +77,7 @@ namespace UniCloud.Presentation.Input
             valueBinding.NotifyOnValidationError = true;
             valueBinding.ValidatesOnExceptions = true;
             valueBinding.UpdateSourceTrigger = UpdateSourceTrigger.Explicit;
-            valueBinding.Path = new PropertyPath(this.DataMemberBinding.Path.Path);
+            valueBinding.Path = new PropertyPath(DataMemberBinding.Path.Path);
 
             return valueBinding;
         }

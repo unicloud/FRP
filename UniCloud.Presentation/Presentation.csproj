@@ -287,6 +287,7 @@
     <Compile Include="Export\PrintAndExportExtensions.cs" />
     <Compile Include="Export\PrintSettings.cs" />
     <Compile Include="Input\BaseListBoxDoubleClick.cs" />
+    <Compile Include="Input\BaseRadListBoxDoubleClick.cs" />
     <Compile Include="Input\DataPageSerialColumn.cs" />
     <Compile Include="Input\DateTimePickerColumn.cs" />
     <Compile Include="Input\DoubleClick.cs" />
@@ -294,9 +295,11 @@
     <Compile Include="Input\GridViewDoubleClick.cs" />
     <Compile Include="Input\GridViewDoubleClickHelper.cs" />
     <Compile Include="Input\GridViewSelectedItemsBehavior.cs" />
+    <Compile Include="Input\ListBoxDoubleClick.cs" />
     <Compile Include="Input\ListBoxDoubleClickHelper.cs" />
     <Compile Include="Input\ListBoxDragDropBehavior.cs" />
     <Compile Include="Input\RadListBoxDoubleClick.cs" />
+    <Compile Include="Input\RadListBoxDoubleClickHelper.cs" />
     <Compile Include="Input\TreeViewDragDropBehavior.cs" />
     <Compile Include="Localization\LocalizationResource.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -170,12 +170,35 @@
                                                  CanUserClose="False"
                                                  CanUserPin="False"
                                                  ContextMenuTemplate="{x:Null}">
-                                    <telerik:RadListBox Name="DocumentListBox"
+                                    <ListBox Name="DocumentListBox"
                                              HorizontalAlignment="Stretch"
                                              VerticalAlignment="Stretch"
+                                             AllowDrop="True"
+                                             uc:ListBoxDragDropBehavior.IsEnabled="True"
                                              ItemsSource="{Binding CurrentPathItem.SubDocumentPaths}"
                                              SelectedItem="{Binding SelectDocumentPath, Mode=TwoWay}"
                                              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                                        <ListBox.Resources>
+                                            <DataTemplate x:Key="DraggedItemTemplate">
+                                                <StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="拖拽:" />
+                                                        <TextBlock FontWeight="Bold"
+                                                                   Text="{Binding CurrentDraggedItem.Name}" />
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock MinWidth="45"
+                                                                   FontWeight="Bold"
+                                                                   Text="{Binding CurrentDropPosition}" />
+                                                        <TextBlock Foreground="Gray"
+                                                                   Text=", (" />
+                                                        <TextBlock Text="{Binding CurrentDraggedOverItem.Name}" />
+                                                        <TextBlock Foreground="Gray"
+                                                                   Text=")" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.Resources>
                                         <telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadContextMenu>
                                                 <telerik:RadMenuItem Header="新建文件夹"
@@ -192,15 +215,15 @@
                                                                      CommandParameter="文件" />
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
-                                        <uc:RadListBoxDoubleClick.Helper>
+                                        <uc:ListBoxDoubleClick.Helper>
                                             <uc:QueryContractDbClickHelper />
-                                        </uc:RadListBoxDoubleClick.Helper>
-                                        <telerik:RadListBox.ItemsPanel>
+                                        </uc:ListBoxDoubleClick.Helper>
+                                        <ListBox.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <toolkit:WrapPanel MaxWidth="1000" />
                                             </ItemsPanelTemplate>
-                                        </telerik:RadListBox.ItemsPanel>
-                                        <telerik:RadListBox.ItemTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel>
                                                     <telerik:RadContextMenu.ContextMenu>
@@ -237,8 +260,8 @@
                                                                Width="65" />
                                                 </StackPanel>
                                             </DataTemplate>
-                                        </telerik:RadListBox.ItemTemplate>
-                                    </telerik:RadListBox>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
                                 </telerik:RadPane>
                             </telerik:RadPaneGroup>
                         </telerik:RadSplitContainer>

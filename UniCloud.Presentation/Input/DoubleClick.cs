@@ -1,5 +1,9 @@
-﻿using System.Windows;
+﻿#region 命名空间
+
+using System.Windows;
 using Telerik.Windows.Controls;
+
+#endregion
 
 namespace UniCloud.Presentation.Input
 {
