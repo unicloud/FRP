@@ -24,13 +24,13 @@ namespace UniCloud.Presentation.Purchase.Contract
 {
     public class QueryContractDbClickHelper : ListBoxDoubleClickHelper
     {
-        protected override void ListBoxDoubleClick(RadListBoxItem listBoxItem)
+        protected override void ListBoxDoubleClick(System.Windows.Controls.ListBoxItem listBoxItem)
         {
             var viewModel =ServiceLocator.Current.GetInstance<QueryContractVM>();
             viewModel.ListBoxDoubleClick();
         }
 
-        protected override bool CanDoubleClick(RadListBoxItem listBoxItem)
+        protected override bool CanDoubleClick(System.Windows.Controls.ListBoxItem listBoxItem)
         {
             return true; 
         }

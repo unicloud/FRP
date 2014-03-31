@@ -12,8 +12,11 @@
 // ========================================================================*/
 #endregion
 
+#region 命名空间
+
 using System.Windows;
-using Telerik.Windows.Controls;
+
+#endregion
 
 namespace UniCloud.Presentation.Input
 {
@@ -39,7 +42,7 @@ namespace UniCloud.Presentation.Input
 
         public static void OnHelperChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
 		{
-            var listBox = dependencyObject as RadListBox;
+            var listBox = dependencyObject as System.Windows.Controls.ListBox;
             var helper = e.NewValue as THelper;
             if (helper == null)
                 return;

@@ -23,7 +23,7 @@ namespace UniCloud.Presentation.Input
     public class DropIndicationDetails : ViewModelBase
     {
         private object _currentDraggedItem;
-        private DropPosition _currentDropPosition;
+        private string _currentDropPosition;
         private object _currentDraggedOverItem;
 
         public object CurrentDraggedOverItem
@@ -44,7 +44,7 @@ namespace UniCloud.Presentation.Input
 
         public int DropIndex { get; set; }
 
-        public DropPosition CurrentDropPosition
+        public string CurrentDropPosition
         {
             get
             {
@@ -73,6 +73,19 @@ namespace UniCloud.Presentation.Input
                     _currentDraggedItem = value;
                     OnPropertyChanged("CurrentDraggedItem");
                 }
+            }
+        }
+
+        public static string ConverDropPositionToString(DropPosition dropPosition)
+        {
+            switch (dropPosition)
+            {
+                case DropPosition.After:
+                    return "到后面";
+                case DropPosition.Before:
+                    return "到前面";
+                default:
+                    return "到里面";
             }
         }
     }

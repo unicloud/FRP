@@ -12,17 +12,20 @@
 // ========================================================================*/
 #endregion
 
+#region 命名空间
+
 using System;
 using Telerik.Windows;
-using Telerik.Windows.Controls;
-using Telerik.Windows.Input;
 using Telerik.Windows.Controls.Primitives;
+using Telerik.Windows.Input;
+
+#endregion
 
 namespace UniCloud.Presentation.Input
 {
     public abstract class ListBoxDoubleClickHelper
     {
-        internal void HookEvents(RadListBox listBox)
+        internal void HookEvents(System.Windows.Controls.ListBox listBox)
         {
             listBox.AddHandler(ListControl.MouseDoubleClickEvent,
                 new EventHandler<MouseButtonEventArgs>(OnListBoxDoubleClick), true);
@@ -30,16 +33,16 @@ namespace UniCloud.Presentation.Input
 
         private void OnListBoxDoubleClick(object sender, MouseButtonEventArgs args)
         {
-            
-            var listBoxItem = args.Source as RadListBoxItem;
+
+            var listBoxItem = args.Source as System.Windows.Controls.ListBoxItem;
             if (listBoxItem != null && CanDoubleClick(listBoxItem))
             {
                 ListBoxDoubleClick(listBoxItem);
             }
         }
 
-        protected abstract void ListBoxDoubleClick(RadListBoxItem listBoxItem);
+        protected abstract void ListBoxDoubleClick(System.Windows.Controls.ListBoxItem listBoxItem);
 
-        protected abstract bool CanDoubleClick(RadListBoxItem listBoxItem);
+        protected abstract bool CanDoubleClick(System.Windows.Controls.ListBoxItem listBoxItem);
     }
 }

@@ -78,7 +78,7 @@ namespace UniCloud.Presentation.Input
         {
             if (!Instances.ContainsKey(gridview))
             {
-                Instances[gridview] = new TreeViewDragDropBehavior {AssociatedObject = gridview};
+                Instances[gridview] = new TreeViewDragDropBehavior { AssociatedObject = gridview };
             }
 
             return Instances[gridview];
@@ -121,13 +121,13 @@ namespace UniCloud.Presentation.Input
 
             var payload = DragDropPayloadManager.GeneratePayload(null);
 
-            var dropDetails = new DropIndicationDetails {CurrentDraggedItem = data};
+            var dropDetails = new DropIndicationDetails { CurrentDraggedItem = data };
 
             var visual = new DragVisual
                          {
-                Content = dropDetails,
-                //ContentTemplate = data is CategoryViewModel ? AssociatedObject.Resources["CategoryDragTemplate"] as DataTemplate : AssociatedObject.Resources["ProductDragTemplate"] as DataTemplate
-            };
+                             Content = dropDetails,
+                             //ContentTemplate = data is CategoryViewModel ? AssociatedObject.Resources["CategoryDragTemplate"] as DataTemplate : AssociatedObject.Resources["ProductDragTemplate"] as DataTemplate
+                         };
 
             payload.SetData("DraggedData", data);
             payload.SetData("DropDetails", dropDetails);
@@ -234,7 +234,7 @@ namespace UniCloud.Presentation.Input
             }
 
             dropDetails.CurrentDraggedOverItem = item.Item;
-            dropDetails.CurrentDropPosition = position;
+            dropDetails.CurrentDropPosition = DropIndicationDetails.ConverDropPositionToString(position);
 
             if (_isTreeSource && IsChildOfSource(item))
             {
