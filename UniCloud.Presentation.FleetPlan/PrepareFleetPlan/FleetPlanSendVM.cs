@@ -94,7 +94,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             Plans.LoadedData += (sender, e) =>
             {
                 CurPlan.Clear();
-                CurPlan.Add(e.Entities.Cast<PlanDTO>().OrderBy(p => p.VersionNumber).LastOrDefault());
+                CurPlan.Add(Plans.OrderBy(p => p.VersionNumber).LastOrDefault());
                 SelPlan = CurPlan.FirstOrDefault();
                 if (SelPlan != null)
                 {
@@ -237,7 +237,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         protected override bool OnSaveExecuting(object sender)
         {
-            var ph = CurPlanHistories.SourceCollection.Cast<PlanHistoryDTO>().ToList();
+            var ph = CurPlanHistories.ToList();
             ph.ForEach(p =>
             {
                 p.ActionCategories.Clear();

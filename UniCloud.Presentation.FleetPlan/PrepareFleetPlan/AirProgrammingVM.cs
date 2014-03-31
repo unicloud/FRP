@@ -17,6 +17,7 @@
 #region 命名空间
 
 using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -63,11 +64,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
+            var sort = new SortDescriptor { Member = "CreateDate", SortDirection = ListSortDirection.Ascending };
+            var group = new GroupDescriptor { Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending };
             AirProgrammings = _service.CreateCollection(_context.AirProgrammings, o => o.AirProgrammingLines);
+            //AirProgrammings.SortDescriptors.Add(sort);
+            //AirProgrammings.GroupDescriptors.Add(group);
             _service.RegisterCollectionView(AirProgrammings);//注册查询集合
 
             ProgrammingFiles = _service.CreateCollection(_context.ProgrammingFiles);
             ProgrammingFiles.FilterDescriptors.Add(new FilterDescriptor("Type", FilterOperator.IsEqualTo, 2));
+            //ProgrammingFiles.SortDescriptors.Add(sort);
+            //ProgrammingFiles.GroupDescriptors.Add(group);
             _service.RegisterCollectionView(ProgrammingFiles);//注册查询集合
 
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);

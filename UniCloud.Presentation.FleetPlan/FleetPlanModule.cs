@@ -22,20 +22,28 @@ using System.Windows;
 using Microsoft.Practices.Prism.MefExtensions.Modularity;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
+using UniCloud.Presentation.Service.FleetPlan;
 
 #endregion
 
 namespace UniCloud.Presentation.FleetPlan
 {
-    [ModuleExport(typeof (FleetPlanModule))]
+    [ModuleExport(typeof(FleetPlanModule))]
     public class FleetPlanModule : IModule
     {
-        [Import] public IRegionManager regionManager;
+        [Import]
+        public IRegionManager regionManager;
+
+        [Import]
+        public IFleetPlanService _service;
 
         #region IModule 成员
 
         public void Initialize()
         {
+            _service.GetActionCategories(null);
+            _service.GetAircraftTypes(null);
+            _service.GetAircraftCategories(null);
         }
 
         #endregion

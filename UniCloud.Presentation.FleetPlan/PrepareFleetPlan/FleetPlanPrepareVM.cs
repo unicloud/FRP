@@ -46,6 +46,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private AnnualDTO _curAnnual = new AnnualDTO();
         private bool _loadedAnnuals;
         private bool _loadedPlans;
+
         [ImportingConstructor]
         public FleetPlanPrepareVM(IRegionManager regionManager, IFleetPlanService service)
             : base(service)
@@ -188,7 +189,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 {
                     _selAnnual = value;
                     ViewPlans.Clear();
-                    foreach (var plan in AllPlans.SourceCollection.Cast<PlanDTO>().ToList())
+                    foreach (var plan in AllPlans.ToList())
                     {
                         if (plan.Year == value.Year)
                             ViewPlans.Add(plan);
@@ -305,7 +306,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         protected override bool OnSaveExecuting(object sender)
         {
-            var ph = _context.PlanHistories.ToList();
+            var ph = AllPlanHistories.ToList();
             ph.ForEach(p =>
             {
                 p.ActionCategories.Clear();
@@ -326,57 +327,40 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnUnLock(object obj)
         {
-            //var newAnnual = Annuals.SourceCollection.Cast<AnnualDTO>().FirstOrDefault(a => a.Year == _curAnnual.Year + 1);
-            //if (newAnnual == null || _curAnnual == null)
-            //{
-            //    MessageAlert("年度不能为空！");
-            //    return;
-            //}
-            ////获取当前计划作为创建新版本计划的上一版本计划
-            //PlanDTO lastPlan = AllPlans.Where(p => p.Year == _curAnnual.Year).OrderBy(p => p.VersionNumber).LastOrDefault();
-
-            ////设置当前打开年度
-            //newAnnual.IsOpen = true;
-            //_curAnnual.IsOpen = false;
-
-            ////刷新_service中的静态属性CurrentAnnual
-            //_curAnnual = Annuals.SourceCollection.Cast<AnnualDTO>().SingleOrDefault(p => p.IsOpen);
-
-            ////创建新年度的第一版本计划
-            //AllPlans.AddNew(_service.CreateNewYearPlan(lastPlan, AllPlanHistories, newAnnual));
-
-            //SelAnnual = _curAnnual;
-
-            //RefreshCommandState();
-            if (AllPlanHistories.SourceCollection.Cast<PlanHistoryDTO>().ToList().Any())
+            var newAnnual = Annuals.SourceCollection.Cast<AnnualDTO>().FirstOrDefault(a => a.Year == _curAnnual.Year + 1);
+            if (newAnnual == null || _curAnnual == null)
             {
-                var ph = AllPlanHistories.First();
-                var aa = new ActionCateDTO()
-                {
-                    Id = Guid.NewGuid(),
-                    ActionName = "引进",
-                    ActionType = "购买",
-                };
-                ph.ActionCategories.Add(aa);
-                bool a = _service.HasChanges;
-                bool b = Annuals.HasChanges;
-                bool c = AllPlanHistories.HasChanges;
-                bool d = AllPlans.HasChanges;
+                MessageAlert("年度不能为空！");
+                return;
             }
+            //获取当前计划作为创建新版本计划的上一版本计划
+            PlanDTO lastPlan = AllPlans.Where(p => p.Year == _curAnnual.Year).OrderBy(p => p.VersionNumber).LastOrDefault();
 
+            //设置当前打开年度
+            newAnnual.IsOpen = true;
+            _curAnnual.IsOpen = false;
+
+            //刷新_service中的静态属性CurrentAnnual
+            _curAnnual = Annuals.SourceCollection.Cast<AnnualDTO>().SingleOrDefault(p => p.IsOpen);
+
+            //创建新年度的第一版本计划
+            AllPlans.AddNew(_service.CreateNewYearPlan(lastPlan, AllPlanHistories, newAnnual));
+
+            SelAnnual = _curAnnual;
+
+            RefreshCommandState();
         }
 
         private bool CanUnLock(object obj)
         {
-            // 当前月份在允许打开新计划年度的范围内且当前年度在当前打开年度，按钮可用。
-            //if (_curAnnual != null)
-            //{
-            //    if (DateTime.Now.Month > 12 - 3)
-            //        return _curAnnual.Year == DateTime.Now.Year;
-            //    else return _curAnnual.Year == DateTime.Now.Year - 1;
-            //}
-            //return false;
-            return true;
+            //当前月份在允许打开新计划年度的范围内且当前年度在当前打开年度，按钮可用。
+            if (_curAnnual != null)
+            {
+                if (DateTime.Now.Month > 12 - 3)
+                    return _curAnnual.Year == DateTime.Now.Year;
+                else return _curAnnual.Year == DateTime.Now.Year - 1;
+            }
+            return false;
         }
 
         #endregion

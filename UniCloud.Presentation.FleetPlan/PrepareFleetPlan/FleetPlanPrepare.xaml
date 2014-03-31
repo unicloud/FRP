@@ -78,20 +78,9 @@
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="True"
                                                      IsBusy="{Binding Annuals.IsBusy}">
-                                    <!--<telerik:RadGridView.GroupDescriptors>
-                                        <telerik:GroupDescriptor Member="ProgrammingName"
-                                                                 SortDirection="Descending">
-                                        </telerik:GroupDescriptor>
-                                    </telerik:RadGridView.GroupDescriptors>
-                                    <telerik:RadGridView.SortDescriptors>
-                                        <telerik:SortDescriptor Member="Year"
-                                                                 SortDirection="Descending">
-                                        </telerik:SortDescriptor>
-                                    </telerik:RadGridView.SortDescriptors>-->
                                     <telerik:RadGridView.Columns>
                                         <telerik:GridViewDataColumn Header="年度"
-                                                                    DataMemberBinding="{Binding Year}"
-                                                                    SortingState="Descending"/>
+                                                                    DataMemberBinding="{Binding Year}"/>
                                         <telerik:GridViewDataColumn Header="打开/关闭"
                                                                     DataMemberBinding="{Binding OpenState}"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}" />

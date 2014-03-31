@@ -102,16 +102,6 @@
                                                      ItemsSource="{Binding AirProgrammings,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelAirProgramming,Mode=TwoWay}"
                                                      IsBusy="{Binding AirProgrammings.IsBusy}">
-                                    <telerik:RadGridView.GroupDescriptors>
-                                        <telerik:GroupDescriptor Member="ProgrammingName"
-                                                                 SortDirection="Ascending">
-                                        </telerik:GroupDescriptor>
-                                    </telerik:RadGridView.GroupDescriptors>
-                                    <telerik:RadGridView.SortDescriptors>
-                                        <telerik:SortDescriptor Member="CreateDate"
-                                                                SortDirection="Ascending">
-                                        </telerik:SortDescriptor>
-                                    </telerik:RadGridView.SortDescriptors>
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <ei:CallMethodAction TargetObject="{Binding}"
@@ -328,16 +318,6 @@
                                                      ItemsSource="{Binding ProgrammingFiles,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelProgrammingFile,Mode=TwoWay}"
                                                      IsBusy="{Binding ProgrammingFiles.IsBusy}">
-                                    <telerik:RadGridView.GroupDescriptors>
-                                        <telerik:GroupDescriptor Member="ProgrammingName"
-                                                                 SortDirection="Ascending">
-                                        </telerik:GroupDescriptor>
-                                    </telerik:RadGridView.GroupDescriptors>
-                                    <telerik:RadGridView.SortDescriptors>
-                                        <telerik:SortDescriptor Member="CreateDate"
-                                                                SortDirection="Ascending">
-                                        </telerik:SortDescriptor>
-                                    </telerik:RadGridView.SortDescriptors>
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <ei:CallMethodAction TargetObject="{Binding}"

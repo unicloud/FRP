@@ -144,7 +144,7 @@
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewComboBoxColumn Header="活动类别"
-                                                                        ItemsSourceBinding="{Binding ActionCategories}"
+                                                                        ItemsSourceBinding="{Binding ActionCategories,Mode=TwoWay}"
                                                                         DisplayMemberPath="ActionCategoryOperation"
                                                                         DataMemberBinding="{Binding ActionCategoryId}"
                                                                         SelectedValueMemberPath="Id"
@@ -153,7 +153,7 @@
                                         </telerik:GridViewComboBoxColumn>
                                         <telerik:GridViewComboBoxColumn Header="座级"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSourceBinding="{Binding AircraftCategories}"
+                                                                        ItemsSourceBinding="{Binding AircraftCategories,Mode=TwoWay}"
                                                                         DataMemberBinding="{Binding Regional}"
                                                                         DisplayMemberPath="Regional"
                                                                         SelectedValueMemberPath="Regional"
@@ -162,7 +162,7 @@
                                         </telerik:GridViewComboBoxColumn>
                                         <telerik:GridViewComboBoxColumn Header="机型"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSourceBinding="{Binding AircraftTypes}"
+                                                                        ItemsSourceBinding="{Binding AircraftTypes,Mode=TwoWay}"
                                                                         DataMemberBinding="{Binding AircraftTypeId}"
                                                                         DisplayMemberPath="Name"
                                                                         SelectedValueMemberPath="Id"

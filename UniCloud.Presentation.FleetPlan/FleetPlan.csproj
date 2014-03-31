@@ -224,6 +224,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AircraftOwnerShips\AircraftOwnership.xaml.cs">
+      <DependentUpon>AircraftOwnership.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AircraftOwnerShips\AircraftOwnershipVM.cs" />
+    <Compile Include="Approvals\Approval.xaml.cs">
+      <DependentUpon>Approval.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Approvals\ApprovalDoubleClickHelper.cs" />
+    <Compile Include="Approvals\ApprovalDragDrop.cs" />
+    <Compile Include="Approvals\ApprovalDragVisual.cs" />
+    <Compile Include="Approvals\ApprovalVM.cs" />
+    <Compile Include="Approvals\QueryApproval.xaml.cs">
+      <DependentUpon>QueryApproval.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Approvals\QueryApprovalVM.cs" />
+    <Compile Include="Approvals\RequestApprovalDoubleClickHelper.cs" />
+    <Compile Include="Approvals\RequestApprovalDragDrop.cs" />
+    <Compile Include="Approvals\RequestApprovalDragVisual.cs" />
+    <Compile Include="Converts\OperationStatusConvert.cs" />
+    <Compile Include="PerformFleetPlan\OperationChild.xaml.cs">
+      <DependentUpon>OperationChild.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PerformFleetPlan\OperationChildVM.cs" />
+    <Compile Include="PerformFleetPlan\QueryPerformPlan.xaml.cs">
+      <DependentUpon>QueryPerformPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PerformFleetPlan\QueryPerformPlanVM.cs" />
     <Compile Include="PrepareFleetPlan\AirProgramming.xaml.cs">
       <DependentUpon>AirProgramming.xaml</DependentUpon>
     </Compile>
@@ -254,6 +281,53 @@
     </Compile>
     <Compile Include="PrepareFleetPlan\SpareEnginePlanLayVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryAnalyse\AgeDeploy.xaml.cs">
+      <DependentUpon>AgeDeploy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\AgeDeployVm.cs" />
+    <Compile Include="QueryAnalyse\AircraftImportType.xaml.cs">
+      <DependentUpon>AircraftImportType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\AircraftImportTypeVm.cs" />
+    <Compile Include="QueryAnalyse\CountRegisteredFleet.xaml.cs">
+      <DependentUpon>CountRegisteredFleet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\CountRegisteredFleetVm.cs" />
+    <Compile Include="QueryAnalyse\EngineImportType.xaml.cs">
+      <DependentUpon>EngineImportType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\EngineImportTypeVm.cs" />
+    <Compile Include="QueryAnalyse\FleetAge.xaml.cs">
+      <DependentUpon>FleetAge.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\FleetAgeVm.cs" />
+    <Compile Include="QueryAnalyse\FleetStructure.xaml.cs">
+      <DependentUpon>FleetStructure.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\FleetStructureVm.cs" />
+    <Compile Include="QueryAnalyse\FleetTrend.xaml.cs">
+      <DependentUpon>FleetTrend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\FleetTrendVm.cs" />
+    <Compile Include="QueryAnalyse\PassengerAircraftTrend.xaml.cs">
+      <DependentUpon>PassengerAircraftTrend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\PassengerAircraftTrendVm.cs" />
+    <Compile Include="Requests\QueryRequest.xaml.cs">
+      <DependentUpon>QueryRequest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Requests\QueryRequestVM.cs" />
+    <Compile Include="Requests\Request.xaml.cs">
+      <DependentUpon>Request.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Requests\RequestDoubleClickHelper.cs" />
+    <Compile Include="Requests\RequestDragDrop.cs" />
+    <Compile Include="Requests\RequestDragVisual.cs" />
+    <Compile Include="Requests\RequestPlanDoubleClickHelper.cs" />
+    <Compile Include="Requests\RequestPlanDragDrop.cs" />
+    <Compile Include="Requests\RequestPlanDragVisual.cs" />
+    <Compile Include="Requests\RequestStatusConvert.cs" />
+    <Compile Include="Requests\RequestVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -282,6 +356,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AircraftOwnerShips\AircraftOwnership.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Approvals\Approval.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Approvals\QueryApproval.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PerformFleetPlan\OperationChild.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PerformFleetPlan\QueryPerformPlan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PrepareFleetPlan\AirProgramming.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -309,6 +403,46 @@
     <Page Include="PrepareFleetPlan\SpareEnginePlanLay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QueryAnalyse\AgeDeploy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="QueryAnalyse\AircraftImportType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="QueryAnalyse\CountRegisteredFleet.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="QueryAnalyse\EngineImportType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="QueryAnalyse\FleetAge.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="QueryAnalyse\FleetStructure.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="QueryAnalyse\FleetTrend.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="QueryAnalyse\PassengerAircraftTrend.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Requests\QueryRequest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Requests\Request.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

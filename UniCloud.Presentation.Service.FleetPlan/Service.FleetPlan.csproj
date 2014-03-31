@@ -62,6 +62,9 @@
       <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.0\lib\sl4\Microsoft.Data.Services.Client.SL.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\SL30\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System.ComponentModel.Composition, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>False</Private>
