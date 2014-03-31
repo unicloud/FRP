@@ -104,9 +104,9 @@
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="False"
-                                                     ItemsSource="{Binding PlanHistories,Mode=TwoWay}"
+                                                     ItemsSource="{Binding CurPlanHistories,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelPlanHistory,Mode=TwoWay}"
-                                                     IsBusy="{Binding Plans.IsBusy}">
+                                                     IsBusy="{Binding CurPlanHistories.IsBusy}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <ei:CallMethodAction TargetObject="{Binding}"
@@ -124,12 +124,12 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.GroupDescriptors>
-                                        <telerik:GroupDescriptor Member="CanDeliver"
+                                      <!-- <telerik:GroupDescriptor Member="CanDeliver"
                                                                  SortDirection="Ascending">
                                             <telerik:GroupDescriptor.AggregateFunctions>
                                                 <telerik:CountFunction ResultFormatString="小计：{0}项" />
                                             </telerik:GroupDescriptor.AggregateFunctions>
-                                        </telerik:GroupDescriptor>
+                                        </telerik:GroupDescriptor>-->
                                     </telerik:RadGridView.GroupDescriptors>
                                     <telerik:RadGridView.Columns>
                                         <input:DataPageSerialColumn Header="序号"
@@ -211,11 +211,6 @@
                                                                  MethodName="GridViewSelectionChanged" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                    <telerik:RadGridView.GroupDescriptors>
-                                        <telerik:GroupDescriptor Member="OperateStatus"
-                                                                 SortDirection="Descending">
-                                        </telerik:GroupDescriptor>
-                                    </telerik:RadGridView.GroupDescriptors>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"

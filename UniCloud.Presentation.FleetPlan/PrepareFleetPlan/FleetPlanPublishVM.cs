@@ -46,6 +46,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
         private FilterDescriptor _annualDescriptor;
+        private FilterDescriptor _planHistoryDescriptor;
         private AnnualDTO _curAnnual = new AnnualDTO();
 
 
@@ -99,7 +100,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     return;
                 }
                 ViewPlans.Clear();
-                ViewPlans.AddRange(e.Entities.Cast<PlanDTO>().Where(p => p.Year == _curAnnual.Year));
+                ViewPlans.AddRange(e.Entities.Cast<PlanDTO>().Where(p => p.Year == _curAnnual.Year).OrderBy(p=>p.VersionNumber));
                 PublishingPlan = ViewPlans.Where(p =>
                     p.PublishStatus > (int)PlanPublishStatus.待发布 &&
                     p.PublishStatus < (int)PlanPublishStatus.已发布);
@@ -110,6 +111,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 RefreshCommandState();
             };
             _service.RegisterCollectionView(Plans);//注册查询集合
+
+            PlanHistories = new QueryableDataServiceCollectionView<PlanHistoryDTO>(_context, _context.PlanHistories);
+            _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
+            PlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
         }
 
         /// <summary>
@@ -253,12 +258,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (_selPlan != value)
                 {
                     _selPlan = value;
-                    PlanHistories.Clear();
-                    foreach (var ph in value.PlanHistories)
+                    if (value != null)
                     {
-                        PlanHistories.Add(ph);
+                        _planHistoryDescriptor.Value = value.Id;
+                        PlanHistories.Load(true);
                     }
-                    RaisePropertyChanged(() => SelPlan);
                     // 刷新按钮状态
                     RefreshCommandState();
                 }
@@ -267,25 +271,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
-        #region 计划明细集合
 
-        private ObservableCollection<PlanHistoryDTO> _planHistories = new ObservableCollection<PlanHistoryDTO>();
+        #region 所选计划的计划明细集合
 
         /// <summary>
-        ///     计划明细集合
+        /// 所选计划的计划明细集合
         /// </summary>
-        public ObservableCollection<PlanHistoryDTO> PlanHistories
-        {
-            get { return _planHistories; }
-            private set
-            {
-                if (_planHistories != value)
-                {
-                    _planHistories = value;
-                    RaisePropertyChanged(() => PlanHistories);
-                }
-            }
-        }
+        public QueryableDataServiceCollectionView<PlanHistoryDTO> PlanHistories { get; set; }
 
         #endregion
 

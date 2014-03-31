@@ -24,14 +24,11 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     public partial class AircraftDTO
     {
-
-        public OperateStatus OperateStatus
+        partial void OnExportDateChanged()
         {
-            get
-            {
-                if (ExportDate == null) return OperateStatus.运营中;
-                return OperateStatus.已退出;
-            }
+            if (ExportDate == null)
+                OperateStatus = "运营中";
+            else OperateStatus = "已退出";
         }
     }
 }

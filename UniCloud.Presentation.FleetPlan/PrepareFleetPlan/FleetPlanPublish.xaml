@@ -165,7 +165,7 @@
                                                  CanUserResizeColumns="False"
                                                  IsFilteringAllowed="False"
                                                  ItemsSource="{Binding PlanHistories}"
-                                                 IsBusy="{Binding Plans.IsBusy}"
+                                                 IsBusy="{Binding PlanHistories.IsBusy}"
                                                  AutoGenerateColumns="False"
                                                  ShowColumnFooters="True">
                                 <telerik:RadContextMenu.ContextMenu>
