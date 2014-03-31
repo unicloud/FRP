@@ -3,7 +3,6 @@
 using System;
 using System.Collections;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Windows;
 using Telerik.Windows.Controls;
 using Telerik.Windows.DragDrop;
@@ -22,6 +21,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public QueryContract()
         {
             InitializeComponent();
+
             DragDropManager.AddDragOverHandler(FoldersTreeView, OnItemDragOver);
             DragDropManager.AddDropHandler(FoldersTreeView, OnDrop);
         }
@@ -142,5 +142,6 @@ namespace UniCloud.Presentation.Purchase.Contract
 
             return DropPosition.Inside;
         }
+        
     }
 }

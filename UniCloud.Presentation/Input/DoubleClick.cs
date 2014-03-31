@@ -1,41 +1,101 @@
-﻿#region 命名空间
+﻿#region Version Info
+/* ========================================================================
+// 版权所有 (C) 2014 UniCloud 
+//【本类功能概述】
+// 
+// 作者：linxw 时间：2014/3/31 16:14:13
+// 文件名：DoubleClick
+// 版本：V1.0.0
+//
+// 修改者：linxw 时间：2014/3/31 16:14:13
+// 修改说明：
+// ========================================================================*/
+#endregion
 
+#region 命名空间
+
+using System;
 using System.Windows;
-using Telerik.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 #endregion
 
 namespace UniCloud.Presentation.Input
 {
-    public class DoubleClick<THelper>
-        where THelper : GridViewDoubleClickHelper
+    public delegate void MouseLeftDoubleDownEventHandler(object sender, MouseButtonEventArgs e);
+    public delegate void MouseLeftOnceDownEventHandler(object sender, MouseButtonEventArgs e);
+
+    /// <summary>
+    /// 定义了双击事件的类
+    /// </summary>
+    public class DoubleClick
     {
+        /// <summary>
+        /// 双击事件定时器
+        /// </summary>
+        private DispatcherTimer _doubleClickTimer;
 
-        public static THelper GetHelper(DependencyObject obj)
+        /// <summary>
+        /// 是否单击
+        /// </summary>
+        private bool _isOnceClick;
+
+        /// <summary>
+        /// 双击事件
+        /// </summary>
+        public MouseLeftDoubleDownEventHandler MouseLeftDoubleDown;
+
+        /// <summary>
+        /// 单击事件
+        /// </summary>
+        public MouseLeftOnceDownEventHandler MouseLeftOnceDown;
+
+        /// <summary>
+        /// 拥有双击事件的UI
+        /// </summary>
+        private readonly UIElement _owner;
+
+        /// <summary>
+        /// 实例化DoubleClick
+        /// </summary>
+        /// <param name="owner">具有双击事件的UI</param>
+        public DoubleClick(UIElement owner)
         {
-            return (THelper)obj.GetValue(HelperProperty);
+            _owner = owner;
+            BindEvent();
         }
 
-        public static void SetHelper(DependencyObject obj, THelper value)
+        /// <summary>
+        /// 绑定事件
+        /// </summary>
+        private void BindEvent()
         {
-            obj.SetValue(HelperProperty, value);
+            _owner.MouseLeftButtonDown += (OwnerMouseLeftButtonDown);
+            var timer = new DispatcherTimer {Interval = (new TimeSpan(0, 0, 0, 0, 200))};
+            //设置单击事件
+            _doubleClickTimer = timer;
+            _doubleClickTimer.Tick += (DoubleClickTimerTick);
         }
 
-		// 依赖项属性
-        public static readonly DependencyProperty HelperProperty = DependencyProperty.RegisterAttached("Helper", typeof(THelper), typeof(DoubleClick<THelper>), new Telerik.Windows.PropertyMetadata(OnHelperChanged));
-
-        static DoubleClick()
+        private void DoubleClickTimerTick(object sender, EventArgs e)
         {
+            _isOnceClick = false;
+            _doubleClickTimer.Stop();
         }
 
-        public static void OnHelperChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-		{
-            var grid = dependencyObject as RadGridView;
-            var helper = e.NewValue as THelper;
-            if (helper == null)
-                return;
-            helper.HookEvents(grid);
+        private void OwnerMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!_isOnceClick)
+            {
+                _isOnceClick = true;
+                _doubleClickTimer.Start();
+                MouseLeftOnceDown(sender, e);
+            }
+            else
+            {
+                MouseLeftDoubleDown(sender, e);
+            }
         }
-
     }
 }
