@@ -141,10 +141,7 @@
                                                              SelectionMode="Single"
                                                              IsDragDropEnabled="True"
                                                              telerik:TreeViewSettings.DragDropExecutionMode="New"
-                                                             telerik:TextSearch.TextPath="Name"
-                                                             TextDropAfter="在前面 "
-                                                             TextDropBefore="在后面 "
-                                                             TextDropIn="在里面 ">
+                                                             telerik:TextSearch.TextPath="Name">
                                             <telerik:RadTreeView.ItemContainerStyle>
                                                 <Style TargetType="telerik:RadTreeViewItem">
                                                     <Setter Property="DefaultImageSrc"
@@ -187,14 +184,16 @@
                                                                    Text="{Binding CurrentDraggedItem.Name}" />
                                                     </StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock MinWidth="45"
-                                                                   FontWeight="Bold"
-                                                                   Text="{Binding CurrentDropPosition}" />
+                                                        <TextBlock FontWeight="Bold"
+                                                                   Text="到" />
                                                         <TextBlock Foreground="Gray"
-                                                                   Text=", (" />
+                                                                   Text="(" />
                                                         <TextBlock Text="{Binding CurrentDraggedOverItem.Name}" />
                                                         <TextBlock Foreground="Gray"
                                                                    Text=")" />
+                                                        <TextBlock MinWidth="45"
+                                                                   FontWeight="Bold"
+                                                                   Text="{Binding CurrentDropPosition}" />
                                                     </StackPanel>
                                                 </StackPanel>
                                             </DataTemplate>

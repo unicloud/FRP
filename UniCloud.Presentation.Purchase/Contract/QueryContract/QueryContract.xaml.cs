@@ -41,7 +41,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (_destinationItems != null)
                 {
                     int dropIndex = dropDetails != null && dropDetails.DropIndex >= _destinationItems.Count ? _destinationItems.Count : dropDetails != null && dropDetails.DropIndex < 0 ? 0 : dropDetails.DropIndex;
-                    _destinationItems.Insert(dropIndex, ((System.Windows.Controls.ListBoxItem)data).Content);
+                    _destinationItems.Insert(dropIndex, data);
                 }
             }
         }

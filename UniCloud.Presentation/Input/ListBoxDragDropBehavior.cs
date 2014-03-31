@@ -127,7 +127,7 @@ namespace UniCloud.Presentation.Input
             var listBox = sender as System.Windows.Controls.ListBox;
             if (listBox != null)
             {
-                var item = listBoxItem ?? listBox.SelectedItem;
+                var item = listBox.SelectedItem;
                 details.CurrentDraggedItem = item;
 
                 IDragPayload dragPayload = DragDropPayloadManager.GeneratePayload(null);

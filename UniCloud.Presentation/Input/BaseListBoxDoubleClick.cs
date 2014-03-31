@@ -33,7 +33,7 @@ namespace UniCloud.Presentation.Input
             obj.SetValue(HelperProperty, value);
         }
 
-		// 依赖项属性
+        // 依赖项属性
         public static readonly DependencyProperty HelperProperty = DependencyProperty.RegisterAttached("Helper", typeof(THelper), typeof(BaseListBoxDoubleClick<THelper>), new Telerik.Windows.PropertyMetadata(OnHelperChanged));
 
         static BaseListBoxDoubleClick()
@@ -41,7 +41,7 @@ namespace UniCloud.Presentation.Input
         }
 
         public static void OnHelperChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-		{
+        {
             var listBox = dependencyObject as System.Windows.Controls.ListBox;
             var helper = e.NewValue as THelper;
             if (helper == null)
