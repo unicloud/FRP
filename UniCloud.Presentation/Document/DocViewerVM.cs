@@ -398,7 +398,8 @@ namespace UniCloud.Presentation.Document
                     PDFContent = new MemoryStream(_content);
                     break;
                 default:
-                    throw new ArgumentException("不是合法的Word文档或者PDF文档！");
+                    MessageAlert("不是合法的Word文档或者PDF文档！");
+                    break;
             }
             Title = fi.Name;
             _addedDocument = new DocumentDTO
@@ -431,7 +432,8 @@ namespace UniCloud.Presentation.Document
                     PDFContent = new MemoryStream(_content);
                     break;
                 default:
-                    throw new ArgumentException("不是合法的Word文档或者PDF文档！");
+                    MessageAlert("不是合法的Word文档或者PDF文档！");
+                    break;
             }
             Title = doc.Name;
         }

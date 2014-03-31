@@ -1,11 +1,15 @@
 ﻿#region 命名空间
 
+using System;
 using System.Collections;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows;
 using Telerik.Windows.Controls;
 using Telerik.Windows.DragDrop;
 using UniCloud.Presentation.Input;
+using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service.Purchase.DocumentExtension;
 
 #endregion
 
@@ -36,10 +40,27 @@ namespace UniCloud.Presentation.Purchase.Contract
             if (e.Effects != DragDropEffects.None)
             {
                 var destinationItem = (e.OriginalSource as FrameworkElement).ParentOfType<RadTreeViewItem>();
+                var realDestinationItem = destinationItem.DataContext as ListBoxDocumentItem;
+                var realDraggedData = data as ListBoxDocumentItem;
+                if (realDestinationItem.DocumentPathId == realDraggedData.DocumentPathId)
+                {
+                    MessageDialogs.Alert("目标文件夹与源文件夹是同一个文件夹！");
+                    return;
+                }
                 var dropDetails = DragDropPayloadManager.GetDataFromObject(e.Data, "DropDetails") as DropIndicationDetails;
 
                 if (_destinationItems != null)
                 {
+                    foreach (var trigger in _destinationItems)
+                    {
+                        var temp = trigger as ListBoxDocumentItem;
+                        var realData = data as ListBoxDocumentItem;
+                        if (temp.Name.Equals(realData.Name, StringComparison.OrdinalIgnoreCase))
+                        {
+                            MessageDialogs.Alert("目标文件夹的子文件夹中已有同名文件夹！");
+                            return;
+                        }
+                    }
                     int dropIndex = dropDetails != null && dropDetails.DropIndex >= _destinationItems.Count ? _destinationItems.Count : dropDetails != null && dropDetails.DropIndex < 0 ? 0 : dropDetails.DropIndex;
                     _destinationItems.Insert(dropIndex, data);
                 }
