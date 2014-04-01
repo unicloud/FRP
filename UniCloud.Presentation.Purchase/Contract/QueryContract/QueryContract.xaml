@@ -182,15 +182,14 @@
                                                  CanUserClose="False"
                                                  CanUserPin="False"
                                                  ContextMenuTemplate="{x:Null}">
+                                    <ScrollViewer telerik:StyleManager.Theme="Windows8">
                                     <ListBox Name="DocumentListBox"
                                              HorizontalAlignment="Stretch"
                                              VerticalAlignment="Stretch"
                                              AllowDrop="True"
                                              uc:ListBoxDragDropBehavior.IsEnabled="True"
                                              ItemsSource="{Binding CurrentPathItem.SubDocumentPaths}"
-                                             SelectedItem="{Binding SelectDocumentPath, Mode=TwoWay}"
-                                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                             telerik:StyleManager.Theme="Windows8">
+                                             SelectedItem="{Binding SelectDocumentPath, Mode=TwoWay}">
                                         <ListBox.Resources>
                                             <DataTemplate x:Key="DraggedItemTemplate">
                                                 <StackPanel>
@@ -267,6 +266,7 @@
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center" />
                                                     <TextBlock Text="{Binding Path=Name}"
+                                                               FontSize="12"
                                                                TextTrimming="WordEllipsis"
                                                                VerticalAlignment="Center"
                                                                HorizontalAlignment="Center"
@@ -277,6 +277,7 @@
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
                                     </ListBox>
+                                    </ScrollViewer>
                                 </telerik:RadPane>
                             </telerik:RadPaneGroup>
                         </telerik:RadSplitContainer>

@@ -39,10 +39,9 @@
                                  TextWrapping="Wrap"
                                  Foreground="{telerik:Windows8Resource ResourceKey=AccentBrush}" />
                         <TextBox Text="{Binding Path}"
+                                 Style="{StaticResource ReadOnlyTextBox}"
                                  FontSize="12"
-                                 IsReadOnly="True"   
-                                 BorderThickness="0"
-                                 TextWrapping="Wrap"/>
+                                 BorderThickness="0"/>
                     </StackPanel>
                 </Grid>
             </DataTemplate>
