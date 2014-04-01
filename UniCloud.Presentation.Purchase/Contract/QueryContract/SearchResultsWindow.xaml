@@ -35,12 +35,14 @@
                                 Width="480"
                                 HorizontalAlignment="Left">
                         <TextBlock Text="{Binding Name}"
-                                   FontSize="14"
-                                   TextWrapping="Wrap"
-                                   Foreground="{telerik:Windows8Resource ResourceKey=AccentBrush}" />
-                        <TextBlock Text="{Binding Path}"
-                                   FontSize="12"
-                                   TextWrapping="Wrap" />
+                                 FontSize="14"
+                                 TextWrapping="Wrap"
+                                 Foreground="{telerik:Windows8Resource ResourceKey=AccentBrush}" />
+                        <TextBox Text="{Binding Path}"
+                                 FontSize="12"
+                                 IsReadOnly="True"   
+                                 BorderThickness="0"
+                                 TextWrapping="Wrap"/>
                     </StackPanel>
                 </Grid>
             </DataTemplate>

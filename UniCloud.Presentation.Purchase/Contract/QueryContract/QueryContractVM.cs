@@ -20,14 +20,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Threading;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.ServiceLocation;
@@ -232,6 +230,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 //为Treeview集合
                 _listBoxDocumentItems.Clear();
                 _listBoxDocumentItems.Add(RootPath);
+                CurrentPathItem = RootPath;
             }
             else //双击打开文件夹 
                 if (_loadType == "DoubleClick")
