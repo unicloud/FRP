@@ -150,9 +150,10 @@
                                                             Value="True" />
                                                 </Style>
                                             </telerik:RadTreeView.ItemContainerStyle>
-                                            <telerik:RadTreeView.ItemTemplate>
+                                            <telerik:RadTreeView.ItemTemplate >
                                                 <telerik:HierarchicalDataTemplate ItemsSource="{Binding SubFolders}">
-                                                    <TextBlock Text="{Binding Name}" />
+                                                    <TextBlock Text="{Binding Name}"
+                                                               ToolTipService.ToolTip="{Binding Name}" />
                                                 </telerik:HierarchicalDataTemplate>
                                             </telerik:RadTreeView.ItemTemplate>
                                         </telerik:RadTreeView>
@@ -174,7 +175,8 @@
                                              uc:ListBoxDragDropBehavior.IsEnabled="True"
                                              ItemsSource="{Binding CurrentPathItem.SubDocumentPaths}"
                                              SelectedItem="{Binding SelectDocumentPath, Mode=TwoWay}"
-                                             ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                             telerik:StyleManager.Theme="Windows8">
                                         <ListBox.Resources>
                                             <DataTemplate x:Key="DraggedItemTemplate">
                                                 <StackPanel>
@@ -224,7 +226,7 @@
                                         </ListBox.ItemsPanel>
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
-                                                <StackPanel>
+                                                <StackPanel  ToolTipService.ToolTip="{Binding Path=Name}">
                                                     <telerik:RadContextMenu.ContextMenu>
                                                         <telerik:RadContextMenu>
                                                             <telerik:RadMenuItem Header="打开"
@@ -253,10 +255,12 @@
                                                            HorizontalAlignment="Center"
                                                            VerticalAlignment="Center" />
                                                     <TextBlock Text="{Binding Path=Name}"
+                                                               TextTrimming="WordEllipsis"
                                                                VerticalAlignment="Center"
                                                                HorizontalAlignment="Center"
                                                                TextWrapping="Wrap"
-                                                               Width="65" />
+                                                               Height="40"
+                                                               Width="80" />
                                                 </StackPanel>
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
