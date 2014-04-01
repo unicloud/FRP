@@ -216,9 +216,6 @@
                                                                      CommandParameter="文件" />
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
-                                        <uc:ListBoxDoubleClick.Helper>
-                                            <uc:QueryContractDbClickHelper />
-                                        </uc:ListBoxDoubleClick.Helper>
                                         <ListBox.ItemsPanel>
                                             <ItemsPanelTemplate>
                                                 <toolkit:WrapPanel MaxWidth="1000" />
@@ -226,7 +223,8 @@
                                         </ListBox.ItemsPanel>
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
-                                                <StackPanel  ToolTipService.ToolTip="{Binding Path=Name}">
+                                                <StackPanel  ToolTipService.ToolTip="{Binding Path=Name}"
+                                                             MouseLeftButtonDown="StackPanelMouseLeftButtonDown">
                                                     <telerik:RadContextMenu.ContextMenu>
                                                         <telerik:RadContextMenu>
                                                             <telerik:RadMenuItem Header="打开"
