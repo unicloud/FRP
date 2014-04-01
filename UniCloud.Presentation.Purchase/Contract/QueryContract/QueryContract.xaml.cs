@@ -149,7 +149,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         }
         #endregion
 
-        #region
+        #region ListBox双击处理
         /// <summary>
         /// 双击事件定时器
         /// </summary>
@@ -178,7 +178,20 @@ namespace UniCloud.Presentation.Purchase.Contract
         }
         #endregion
 
+        #region Breadcrumb TreeView 联动
+        private void FoldersBreadcrumbCurrentItemChanged(object sender, Telerik.Windows.RadRoutedEventArgs e)
+        {
+            FoldersTreeView.BringPathIntoView(FoldersBreadcrumb.Path);
+            FoldersTreeView.SelectedItem = FoldersBreadcrumb.CurrentItem;
+        }
 
-
+        private void FoldersTreeViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0 && FoldersTreeView.ContainerFromItemRecursive(e.AddedItems[0]) != null)
+            {
+                FoldersBreadcrumb.Path = FoldersTreeView.ContainerFromItemRecursive(e.AddedItems[0]).FullPath;
+            }
+        }
+        #endregion
     }
 }

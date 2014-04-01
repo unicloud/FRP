@@ -39,6 +39,19 @@
                     <ColumnDefinition Width="150" />
                 </Grid.ColumnDefinitions>
                 <telerik:RadBreadcrumb Grid.Column="0"
+                                       Name="FoldersBreadcrumb"
+                                       Header="{Binding RootPath}"
+                                       HeaderMemberPath="Name"
+                                       HierarchicalItemsSource="SubFolders"
+                                       HierarchicalMemberPath="Name"
+                                       ImagePath="SmallIconPath"
+                                       IsIconVisible="True"
+                                       ItemsSource="{Binding RootPath.SubFolders}"
+                                       TextModePath="Name"
+                                       CurrentItemChanged="FoldersBreadcrumbCurrentItemChanged"
+                                       VerticalAlignment="Stretch"
+                                       HorizontalAlignment="Stretch" />
+                <!--<telerik:RadBreadcrumb Grid.Column="0"
                                        VerticalAlignment="Stretch"
                                        Header="{Binding RootPath}"
                                        ImagePath="SmallIconPath"
@@ -63,7 +76,7 @@
                             <TextBlock Text="{Binding Name}" />
                         </telerik:HierarchicalDataTemplate>
                     </telerik:RadBreadcrumb.ItemTemplate>
-                </telerik:RadBreadcrumb>
+                </telerik:RadBreadcrumb>-->
                 <telerik:RadWatermarkTextBox  Grid.Column="1"
                                               CurrentText="{Binding SearchText,Mode=TwoWay}"
                                               HorizontalAlignment="Right"
@@ -141,6 +154,7 @@
                                                              SelectionMode="Single"
                                                              IsDragDropEnabled="True"
                                                              telerik:TreeViewSettings.DragDropExecutionMode="New"
+                                                             SelectionChanged="FoldersTreeViewSelectionChanged"
                                                              telerik:TextSearch.TextPath="Name">
                                             <telerik:RadTreeView.ItemContainerStyle>
                                                 <Style TargetType="telerik:RadTreeViewItem">
