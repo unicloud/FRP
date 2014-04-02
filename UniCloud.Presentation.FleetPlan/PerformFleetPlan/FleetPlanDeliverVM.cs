@@ -20,11 +20,13 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -110,6 +112,19 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             CurPlanHistories = _service.CreateCollection(_context.PlanHistories);
             _planHistoryDescriptor=new FilterDescriptor("PlanId",FilterOperator.IsEqualTo,Guid.Empty);
             CurPlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
+            CurPlanHistories.LoadedData += (sender, e) =>
+            {
+                ViewPlanHistories=new ObservableCollection<PlanHistoryDTO>();
+                foreach (var ph in CurPlanHistories.SourceCollection.Cast<PlanHistoryDTO>())
+                {
+                    ph.ActionCategories.AddRange(_service.GetActionCategoriesForPlanHistory(ph));
+                    ph.AircraftCategories.AddRange(_service.GetAircraftCategoriesForPlanHistory(ph));
+                    ph.AircraftTypes.AddRange(_service.GetAircraftTypesForPlanHistory(ph));
+                    _context.ChangeState(ph, EntityStates.Unchanged);
+                    ViewPlanHistories.Add(ph);
+                }
+                RefreshCommandState();
+            };
             _service.RegisterCollectionView(CurPlanHistories);//注册查询集合
 
             Aircrafts = _service.CreateCollection(_context.Aircrafts);
@@ -162,6 +177,25 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         /// </summary>
         public QueryableDataServiceCollectionView<PlanHistoryDTO> CurPlanHistories { get; set; }
 
+ 
+        private ObservableCollection<PlanHistoryDTO> _viewPlanHistories=new ObservableCollection<PlanHistoryDTO>();
+
+        /// <summary>
+        /// 当前计划的计划明细集合
+        /// </summary>
+        public ObservableCollection<PlanHistoryDTO> ViewPlanHistories
+        {
+            get { return this._viewPlanHistories; }
+            private set
+            {
+                if (this._viewPlanHistories != value)
+                {
+                    _viewPlanHistories = value;
+                    this.RaisePropertyChanged(() => this.ViewPlanHistories);
+                }
+            }
+        }
+        
         #endregion
 
         #region 现役飞机集合
@@ -318,8 +352,8 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 if (_selAircraft != value)
                 {
                     _selAircraft = value;
-                    OperationHistories.Clear();
-                    AircraftBusinesses.Clear();
+                    OperationHistories=new ObservableCollection<OperationHistoryDTO>();
+                    AircraftBusinesses=new ObservableCollection<AircraftBusinessDTO>();
 
                     if (_selAircraft != null)
                     {

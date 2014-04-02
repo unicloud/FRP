@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -89,7 +90,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             _service.RegisterCollectionView(AllPlans);
 
             AllPlanHistories = _service.CreateCollection(_context.PlanHistories);
-            AllPlanHistories.LoadedData += (sender, e) => RaisePropertyChanged(() => SelPlan);
+            AllPlanHistories.LoadedData += (sender, e) =>
+            {
+                foreach (var ph in AllPlanHistories.SourceCollection.Cast<PlanHistoryDTO>())
+                {
+                    ph.ActionCategories.AddRange(_service.GetActionCategoriesForPlanHistory(ph));
+                    ph.AircraftCategories.AddRange(_service.GetAircraftCategoriesForPlanHistory(ph));
+                    ph.AircraftTypes.AddRange(_service.GetAircraftTypesForPlanHistory(ph));
+                    _context.ChangeState(ph, EntityStates.Unchanged);
+                }
+                RaisePropertyChanged(() => SelPlan);
+            };
             _service.RegisterCollectionView(AllPlanHistories);
 
         }
@@ -123,10 +134,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public override void LoadData()
         {
-            _service.GetActionCategories(() => { });
-            _service.GetAircraftCategories(() => { });
-            _service.GetAircraftTypes(() => { });
-
             _loadedAnnuals = false;
             _loadedPlans = false;
             if (!AllPlans.AutoLoad)
@@ -188,7 +195,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (_selAnnual != value)
                 {
                     _selAnnual = value;
-                    ViewPlans.Clear();
+                    ViewPlans=new ObservableCollection<PlanDTO>();
                     foreach (var plan in AllPlans.ToList())
                     {
                         if (plan.Year == value.Year)
@@ -266,18 +273,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (_selPlan != value)
                 {
                     _selPlan = value;
-                    ViewPlanHistories.Clear();
+                    ViewPlanHistories=new ObservableCollection<PlanHistoryDTO>();
                     if (value != null)
                     {
-                        ViewPlanHistories.Clear();
                         foreach (var ph in AllPlanHistories.SourceCollection.Cast<PlanHistoryDTO>())
                         {
                             if (ph.PlanId == value.Id)
                                 ViewPlanHistories.Add(ph);
                         }
-                        RaisePropertyChanged(() => ViewPlanHistories);
                     }
-
+                    RaisePropertyChanged(() => ViewPlanHistories);
                     RaisePropertyChanged(() => SelPlan);
                 }
             }
@@ -309,9 +314,9 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var ph = AllPlanHistories.ToList();
             ph.ForEach(p =>
             {
-                p.ActionCategories.Clear();
-                p.AircraftTypes.Clear();
-                p.AircraftCategories.Clear();
+                p.ActionCategories = new ObservableCollection<ActionCateDTO>();
+                p.AircraftTypes = new ObservableCollection<AircraftTyDTO>();
+                p.AircraftCategories = new ObservableCollection<AircraftCateDTO>();
             });
             return true;
         }

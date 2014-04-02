@@ -202,7 +202,6 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// 获取计划明细中集合属性ActionCategories的值
         /// </summary>
         /// <param name="ph"></param>
-        /// <param name="service"></param>
         public ObservableCollection<ActionCateDTO> GetActionCategoriesForPlanHistory(PlanHistoryDTO ph)
         {
             List<ActionCategoryDTO> actioncategories;
@@ -213,23 +212,21 @@ namespace UniCloud.Presentation.Service.FleetPlan
             else if (ph.PlanType == 2 && ph.ActionType == "变更")
                 actioncategories = this.ActionCategories.Where(p => p.ActionType == "变更").ToList();
             else actioncategories = this.ActionCategories.ToList();
-            ph.ActionCategories = new ObservableCollection<ActionCateDTO>();
-            actioncategories.ForEach(p => ph.ActionCategories.Add(new ActionCateDTO
+            var actionCates = new ObservableCollection<ActionCateDTO>();
+            actioncategories.ForEach(p => actionCates.Add(new ActionCateDTO
             {
                 Id = p.Id,
                 ActionType = p.ActionType,
                 ActionName = p.ActionName,
                 NeedRequest = p.NeedRequest,
             }));
-
-            return ph.ActionCategories;
+            return actionCates;
         }
 
         /// <summary>
         /// 获取计划明细中集合属性AircraftCategories的值
         /// </summary>
         /// <param name="ph"></param>
-        /// <param name="service"></param>
         public ObservableCollection<AircraftCateDTO> GetAircraftCategoriesForPlanHistory(PlanHistoryDTO ph)
         {
             List<AircraftCategoryDTO> aircraftCategories;
@@ -238,21 +235,20 @@ namespace UniCloud.Presentation.Service.FleetPlan
             else if (ph.ActionName == "货改客")
                 aircraftCategories = this.AircraftCategories.Where(p => p.Category == "客机").ToList();
             else aircraftCategories = this.AircraftCategories.ToList();
-            ph.AircraftCategories = new ObservableCollection<AircraftCateDTO>();
-            aircraftCategories.ForEach(p => ph.AircraftCategories.Add(new AircraftCateDTO
+            var aircraftCates = new ObservableCollection<AircraftCateDTO>();
+            aircraftCategories.ForEach(p => aircraftCates.Add(new AircraftCateDTO
             {
                 Id = p.Id,
                 Category = p.Category,
                 Regional = p.Regional,
             }));
-            return ph.AircraftCategories;
+            return aircraftCates;
         }
 
         /// <summary>
         /// 获取计划明细中集合属性AircraftTypes的值
         /// </summary>
         /// <param name="ph"></param>
-        /// <param name="service"></param>
         /// <returns></returns>
         public ObservableCollection<AircraftTyDTO> GetAircraftTypesForPlanHistory(PlanHistoryDTO ph)
         {
@@ -260,23 +256,22 @@ namespace UniCloud.Presentation.Service.FleetPlan
             if (ph.Regional != null)
                 aircraftTypes = this.AircraftTypes.Where(p => p.Regional == ph.Regional).ToList();
             else aircraftTypes = this.AircraftTypes.ToList();
-            ph.AircraftTypes = new ObservableCollection<AircraftTyDTO>();
-            aircraftTypes.ForEach(p => ph.AircraftTypes.Add(new AircraftTyDTO
+            var aircraftTys = new ObservableCollection<AircraftTyDTO>();
+            aircraftTypes.ForEach(p => aircraftTys.Add(new AircraftTyDTO
             {
                 Id = p.Id,
                 Name = p.Name,
                 AircraftCategoryId = p.AircraftCategoryId,
                 Regional = p.Regional,
+                CaacAircraftTypeName = p.CaacAircraftTypeName,
             }));
-
-            return ph.AircraftTypes;
+            return aircraftTys;
         }
 
         /// <summary>
         /// 当计划明细中活动类型发生变化的时候，需要改变相应属性：目标类型、净增座位、净增商载
         /// </summary>
         /// <param name="ph"></param>
-        /// <param name="service"></param>
         public void OnChangedActionCategory(PlanHistoryDTO ph)
         {
             var actionCategory = this.ActionCategories.FirstOrDefault(ac => ac.Id == ph.ActionCategoryId);

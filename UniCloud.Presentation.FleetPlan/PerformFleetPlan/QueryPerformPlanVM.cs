@@ -2,14 +2,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.ServiceLocation;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
+using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
 #endregion
 
@@ -140,6 +143,16 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             SelectedPlanHistories = _service.CreateCollection(_context.PlanHistories);
             _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
             SelectedPlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
+            SelectedPlanHistories.LoadedData += (o, e) =>
+            {
+                foreach (var ph in SelectedPlanHistories.SourceCollection.Cast<PlanHistoryDTO>())
+                {
+                    ph.ActionCategories.AddRange(ph.ActionCategories);
+                    ph.AircraftCategories.AddRange(_service.GetAircraftCategoriesForPlanHistory(ph));
+                    ph.AircraftTypes.AddRange(_service.GetAircraftTypesForPlanHistory(ph));
+                    _context.ChangeState(ph, EntityStates.Unchanged);
+                }
+            };
             _service.RegisterCollectionView(SelectedPlanHistories);
         }
 

@@ -65,7 +65,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var sort = new SortDescriptor { Member = "CreateDate", SortDirection = ListSortDirection.Ascending };
             var group = new GroupDescriptor { Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending };
 
-            CaacProgrammings = _service.CreateCollection(_context.CaacProgrammings, o => o.CaacProgrammingLines);
+            CaacProgrammings = _service.CreateCollection(_context.CaacProgrammings,o=>o.CaacProgrammingLines);
             CaacProgrammings.SortDescriptors.Add(sort);
             CaacProgrammings.GroupDescriptors.Add(group);
             _service.RegisterCollectionView(CaacProgrammings);//注册查询集合

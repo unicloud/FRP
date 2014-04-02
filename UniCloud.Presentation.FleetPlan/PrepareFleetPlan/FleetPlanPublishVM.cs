@@ -99,7 +99,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     e.MarkErrorAsHandled();
                     return;
                 }
-                ViewPlans.Clear();
+                ViewPlans=new ObservableCollection<PlanDTO>();
                 ViewPlans.AddRange(e.Entities.Cast<PlanDTO>().Where(p => p.Year == _curAnnual.Year).OrderBy(p=>p.VersionNumber));
                 PublishingPlan = ViewPlans.Where(p =>
                     p.PublishStatus > (int)PlanPublishStatus.待发布 &&
