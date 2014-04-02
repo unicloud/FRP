@@ -14,7 +14,6 @@
 
 #region 命名空间
 
-using System.ComponentModel.Composition;
 using Microsoft.Practices.ServiceLocation;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.Input;
@@ -24,7 +23,7 @@ using UniCloud.Presentation.Service.CommonService.Common;
 
 namespace UniCloud.Presentation.CommonService.SearchDocument
 {
-    public class DocumentDoubleClickHelper : GridViewDoubleClickHelper
+    public class SearchDocumentDoubleClickHelper : GridViewDoubleClickHelper
     {
         protected override void GridViewDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {

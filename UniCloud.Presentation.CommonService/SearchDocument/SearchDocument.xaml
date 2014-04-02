@@ -99,7 +99,7 @@
                                              ValidatesOnDataErrors="InEditMode"
                                              ShowGroupPanel="False">
                             <uc:GridViewDoubleClick.Helper>
-                                <uc:DocumentDoubleClickHelper />
+                                <uc:SearchDocumentDoubleClickHelper />
                             </uc:GridViewDoubleClick.Helper>
                             <telerik:RadGridView.Columns>
                                 <uc:DataPageSerialColumn  Header="序号" />
