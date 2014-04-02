@@ -80,13 +80,18 @@
                                              FontSize="{StaticResource TextFontSize}"
                                              ValidatesOnDataErrors="InEditMode"
                                              ShowGroupPanel="False">
+                            <uc:GridViewDoubleClick.Helper>
+                                <uc:SearchContractDocumentDoubleClickHelper />
+                            </uc:GridViewDoubleClick.Helper>
                             <telerik:RadGridView.Columns>
                                 <uc:DataPageSerialColumn  Header="序号" />
                                 <telerik:GridViewDataColumn Header="名称"
                                                             IsSortable="True"
                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                             HeaderTextAlignment="Center"
-                                                            DataMemberBinding="{Binding Name}" />
+                                                            DataMemberBinding="{Binding DocumentName}"
+                                                            MaxWidth="200"
+                                                            TextWrapping="Wrap" />
                                 <telerik:GridViewDataColumn Header="摘要"
                                                             IsSortable="True"
                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -100,6 +105,22 @@
                                         </DataTemplate>
                                     </telerik:GridViewColumn.CellTemplate>
                                 </telerik:GridViewDataColumn>
+                                <telerik:GridViewDataColumn Header="合同名称"
+                                                            HeaderTextAlignment="Center"
+                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                            DataMemberBinding="{Binding  ContractName}" />
+                                <telerik:GridViewDataColumn Header="合同编号"
+                                                            HeaderTextAlignment="Center"
+                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                            DataMemberBinding="{Binding  ContractNumber}" />
+                                <telerik:GridViewDataColumn Header="供应商"
+                                                            HeaderTextAlignment="Center"
+                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                            DataMemberBinding="{Binding  SupplierName}" />
+                                <telerik:GridViewDataColumn Header="文档路径"
+                                                            HeaderTextAlignment="Center"
+                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                            DataMemberBinding="{Binding  DocumentPath}" />
                             </telerik:RadGridView.Columns>
                         </telerik:RadGridView>
                     </telerik:RadPane>

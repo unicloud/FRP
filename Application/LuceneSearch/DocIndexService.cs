@@ -14,11 +14,11 @@
 
 #region 命名空间
 
-using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
+using System;
 
 #endregion
 
-namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
+namespace UniCloud.Application.LuceneSearch
 {
     public class DocumentIndexService
     {
@@ -26,14 +26,14 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
         /// 创建文档搜索索引
         /// </summary>
         /// <returns></returns>
-        public void AddDocumentSearchIndex(Document document)
+        public void AddDocumentSearchIndex(Guid documentId, int documentTypeId, string fileName, string fileContent)
         {
-            IndexManager.SetIndexStorePath("E:\\Indexs\\" + document.DocumentTypeId);
+            IndexManager.SetIndexStorePath("E:\\Indexs\\" + documentTypeId);
             IndexManager.GenerateWriter();
             IndexManager.MaxMergeFactor = 301;
             IndexManager.MinMergeDocs = 301;
 
-            LuceneIndex.CreateDocumentIndex(document);
+            LuceneIndex.CreateDocumentIndex(documentId, fileName, fileContent);
             LuceneIndex.CloseWithOptimize();
         }
 
@@ -41,11 +41,11 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
         /// 删除文档搜索索引
         /// </summary>
         /// <returns></returns>
-        public void DeleteDocumentSearchIndex(Document document)
+        public void DeleteDocumentSearchIndex(Guid documentId, int documentTypeId, string fileName, string fileContent)
         {
-            IndexManager.SetIndexStorePath("E:\\Indexs\\" + document.DocumentTypeId);
+            IndexManager.SetIndexStorePath("E:\\Indexs\\" + documentTypeId);
             IndexManager.GenerateWriter();
-            LuceneIndex.DeleteIndex(document.Id.ToString());
+            LuceneIndex.DeleteIndex(documentId.ToString());
             LuceneIndex.CloseWithOptimize();
         }
 
@@ -53,10 +53,10 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
         /// 更新文档搜索索引
         /// </summary>
         /// <returns></returns>
-        public void UpdateDocumentSearchIndex(Document document)
+        public void UpdateDocumentSearchIndex(Guid documentId, int documentTypeId, string fileName, string fileContent)
         {
-            DeleteDocumentSearchIndex(document);
-            AddDocumentSearchIndex(document);
+            DeleteDocumentSearchIndex(documentId, documentTypeId, fileName, fileContent);
+            AddDocumentSearchIndex(documentId, documentTypeId, fileName, fileContent);
         }
     }
 }

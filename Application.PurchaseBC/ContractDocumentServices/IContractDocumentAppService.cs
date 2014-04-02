@@ -13,5 +13,7 @@ namespace UniCloud.Application.PurchaseBC.ContractDocumentServices
         IQueryable<ContractDocumentDTO> GetContractDocumentList();
 
         IQueryable<ContractDocumentDTO> GetContractDocuments();
+
+        List<ContractDocumentDTO> Search(string keyword);
     }
 }

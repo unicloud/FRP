@@ -11,7 +11,7 @@ using Lucene.Net.Store;
 
 #endregion
 
-namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
+namespace UniCloud.Application.LuceneSearch
 {
     /// <summary>
     /// 索引管理
@@ -22,7 +22,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
 
         private static string _indexStorePath = "E:\\Indexs\\";
         private static ParallelMultiSearcher _multiSearch;//索引搜索器
-        private static IndexSearcher searcher;
+        private static IndexSearcher _searcher;
         private static readonly Analyzer analyzer = new PanGuAnalyzer();  //读取索引器
         private static IndexWriter _indexWriter;
         #endregion
@@ -39,7 +39,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
 
         public static IndexSearcher IndexSearcher
         {
-            get { return searcher; }
+            get { return _searcher; }
         }
         public static IndexWriter IndexWriter
         {
@@ -128,9 +128,9 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
         {
             var dirInfo = System.IO.Directory.CreateDirectory(_indexStorePath);
             var directory = FSDirectory.Open(dirInfo);
-            searcher = new IndexSearcher(directory, true);
+            _searcher = new IndexSearcher(directory, true);
             _indexStorePath = "E:\\Indexs\\";
-            return searcher;
+            return _searcher;
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
             {
                 _indexWriter = new IndexWriter(directory, analyzer, false, IndexWriter.MaxFieldLength.LIMITED); //false则在已有索引基础上进行追加
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
                 _indexWriter = new IndexWriter(directory, analyzer, true, IndexWriter.MaxFieldLength.LIMITED);
             }

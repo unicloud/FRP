@@ -14,7 +14,12 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
+using System.Windows;
+using Microsoft.Practices.Prism.Regions;
+using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service.CommonService;
 
 #endregion
 
@@ -22,8 +27,44 @@ namespace UniCloud.Presentation.Purchase.Contract.QueryContracts
 {
     [Export(typeof(QueryContractMainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class QueryContractMainVm
+    public class QueryContractMainVm : ViewModelBase
     {
+        private readonly IRegionManager _regionManager;
+        [ImportingConstructor]
+        public QueryContractMainVm(ICommonService service, IRegionManager regionManager)
+            : base(service)
+        {
+            _regionManager = regionManager;
+        }
 
+        #region 关键字
+        private string _keyword;
+        public string Keyword
+        {
+            get { return _keyword; }
+            set
+            {
+                _keyword = value;
+                RaisePropertyChanged("Keyword");
+            }
+        }
+        #endregion
+        public void RadButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(Keyword))
+            {
+                MessageAlert("请输入搜索关键字！");
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(Keyword))
+            {
+                _regionManager.RequestNavigate(RegionNames.MainRegion, new Uri("UniCloud.Presentation.Purchase.Contract.QueryContracts.QueryContract", UriKind.Relative));
+            }
+        }
+
+        public override void LoadData()
+        {
+        }
     }
 }

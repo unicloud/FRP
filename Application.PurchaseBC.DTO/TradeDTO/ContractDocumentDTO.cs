@@ -59,5 +59,15 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     合同文档检索ID
         /// </summary>
         public Guid DocumentId { get; set; }
+
+        /// <summary>
+        /// 摘要
+        /// </summary>
+        public string Abstract { get; set; }
+
+        /// <summary>
+        /// 文档路径
+        /// </summary>
+        public string DocumentPath { get; set; }
     }
 }

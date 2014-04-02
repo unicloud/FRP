@@ -301,6 +301,7 @@
     </Compile>
     <Compile Include="Contract\QueryContracts\QueryContractMainVm.cs" />
     <Compile Include="Contract\QueryContracts\QueryContractVm.cs" />
+    <Compile Include="Contract\QueryContracts\SearchContractDocumentDoubleClickHelper.cs" />
     <Compile Include="Contract\UndercartMaintain.xaml.cs">
       <DependentUpon>UndercartMaintain.xaml</DependentUpon>
     </Compile>

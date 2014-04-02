@@ -79,7 +79,6 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
         public override void LoadData()
         {
             DocumentTypes.Load();
-            //throw new System.NotImplementedException();
         }
     }
 }
