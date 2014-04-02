@@ -564,16 +564,22 @@ namespace UniCloud.Presentation.Shell
             };
             var menu352 = new MenuItem
             {
+                Text = "查询合同",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.QueryContracts.QueryContractMain"
+            };
+            var menu353 = new MenuItem
+            {
                 Text = "分析飞机价格",
                 NavUri = "UniCloud.Presentation.Purchase.QueryAnalyse.AnalyseAircraftPrice"
             };
-            var menu353 = new MenuItem
+            var menu354 = new MenuItem
             {
                 Text = "分析发动机价格",
             };
             menu35.Items.Add(menu351);
             menu35.Items.Add(menu352);
             menu35.Items.Add(menu353);
+            menu35.Items.Add(menu354);
             menu3.Items.Add(menu35);
 
             _items.Add(menu3);

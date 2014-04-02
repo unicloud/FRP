@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="UniCloud.Presentation.Purchase.Contract.QueryContracts.QueryContract"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             d:DataContext="{d:DesignInstance uc:QueryContractVm}"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="SearchView">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              Margin="0,0,0,5">
+            <TextBlock Text="合 同 查 询"
+                       FontFamily="Microsoft YaHei UI"
+                       FontSize="20"
+                       HorizontalAlignment="Left"
+                       Foreground="CornflowerBlue"
+                       Margin="68,0,0,0" />
+            <telerik:RadWatermarkTextBox HorizontalAlignment="Left"
+                                         VerticalAlignment="Top"
+                                         Grid.Column="0"
+                                         Grid.Row="0"
+                                         FontSize="20"
+                                         WatermarkContent="输入关键字"
+                                         FontFamily="Microsoft YaHei UI"
+                                         Width="303"
+                                         Text="{Binding Keyword,Mode=TwoWay}"
+                                         Margin="10,37,0,0" />
+            <telerik:RadButton Width="100"
+                               Height="35"
+                               Content="搜索"
+                               FontSize="20"
+                               FontFamily="Microsoft YaHei UI"
+                               Foreground="CornflowerBlue"
+                               HorizontalAlignment="Left"
+                               Margin="343,33,0,22">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction  TargetObject="{Binding}"
+                                              MethodName="RadButtonClick" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </telerik:RadButton>
+        </Grid>
+        <Grid Grid.Row="1">
+            <telerik:RadSplitContainer>
+                <telerik:RadPaneGroup>
+                    <telerik:RadPane Header="合同搜索结果"
+                                     FontSize="{StaticResource HeaderFontSize}"
+                                     IsPinned="True"
+                                     CanFloat="False"
+                                     CanUserClose="False"
+                                     CanUserPin="False"
+                                     ContextMenuTemplate="{x:Null}">
+                        <telerik:RadGridView Name="DocumentList"
+                                             AutoExpandGroups="True"
+                                             AutoGenerateColumns="False"
+                                             CanUserSortColumns="True"
+                                             CanUserFreezeColumns="False"
+                                             IsFilteringAllowed="True"
+                                             IsReadOnly="True"
+                                             ItemsSource="{Binding Documents}"
+                                             IsBusy="{Binding IsBusy}"
+                                             FontSize="{StaticResource TextFontSize}"
+                                             ValidatesOnDataErrors="InEditMode"
+                                             ShowGroupPanel="False">
+                            <telerik:RadGridView.Columns>
+                                <uc:DataPageSerialColumn  Header="序号" />
+                                <telerik:GridViewDataColumn Header="名称"
+                                                            IsSortable="True"
+                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                            HeaderTextAlignment="Center"
+                                                            DataMemberBinding="{Binding Name}" />
+                                <telerik:GridViewDataColumn Header="摘要"
+                                                            IsSortable="True"
+                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                            HeaderTextAlignment="Center"
+                                                            MaxWidth="400"
+                                                            TextWrapping="Wrap"
+                                                            DataMemberBinding="{Binding Abstract, Converter={StaticResource StringToXamlConverter}}">
+                                    <telerik:GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ContentControl Content="{Binding Abstract, Converter={StaticResource StringToXamlConverter}, Mode=OneTime}" />
+                                        </DataTemplate>
+                                    </telerik:GridViewColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>
+                            </telerik:RadGridView.Columns>
+                        </telerik:RadGridView>
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+            </telerik:RadSplitContainer>
+        </Grid>
+    </Grid>
+</UserControl>
