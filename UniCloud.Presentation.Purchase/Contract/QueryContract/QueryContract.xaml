@@ -25,7 +25,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <telerik:RadBusyIndicator BusyContent="正在加载，请稍后..."
-                              IsBusy="{Binding DocumentPathsView.IsBusy}">
+                              IsBusy="{Binding IsBusy,Mode=TwoWay}">
         <Grid x:Name="LayoutRoot"
               Background="White">
             <Grid.RowDefinitions>
@@ -164,7 +164,7 @@
                                                             Value="True" />
                                                 </Style>
                                             </telerik:RadTreeView.ItemContainerStyle>
-                                            <telerik:RadTreeView.ItemTemplate >
+                                            <telerik:RadTreeView.ItemTemplate>
                                                 <telerik:HierarchicalDataTemplate ItemsSource="{Binding SubFolders}">
                                                     <TextBlock Text="{Binding Name}"
                                                                ToolTipService.ToolTip="{Binding Name}" />
@@ -183,72 +183,72 @@
                                                  CanUserPin="False"
                                                  ContextMenuTemplate="{x:Null}">
                                     <ScrollViewer telerik:StyleManager.Theme="Windows8">
-                                    <ListBox Name="DocumentListBox"
-                                             HorizontalAlignment="Stretch"
-                                             VerticalAlignment="Stretch"
-                                             AllowDrop="True"
-                                             uc:ListBoxDragDropBehavior.IsEnabled="True"
-                                             ItemsSource="{Binding CurrentPathItem.SubDocumentPaths}"
-                                             SelectedItem="{Binding SelectDocumentPath, Mode=TwoWay}">
-                                        <ListBox.Resources>
-                                            <DataTemplate x:Key="DraggedItemTemplate">
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="拖拽:" />
-                                                        <TextBlock FontWeight="Bold"
-                                                                   Text="{Binding CurrentDraggedItem.Name}" />
+                                        <ListBox Name="DocumentListBox"
+                                                 HorizontalAlignment="Stretch"
+                                                 VerticalAlignment="Stretch"
+                                                 AllowDrop="True"
+                                                 uc:ListBoxDragDropBehavior.IsEnabled="True"
+                                                 ItemsSource="{Binding CurrentPathItem.SubDocumentPaths}"
+                                                 SelectedItem="{Binding SelectDocumentPath, Mode=TwoWay}">
+                                            <ListBox.Resources>
+                                                <DataTemplate x:Key="DraggedItemTemplate">
+                                                    <StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="拖拽:" />
+                                                            <TextBlock FontWeight="Bold"
+                                                                       Text="{Binding CurrentDraggedItem.Name}" />
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock FontWeight="Bold"
+                                                                       Text="到" />
+                                                            <TextBlock Foreground="Gray"
+                                                                       Text="(" />
+                                                            <TextBlock Text="{Binding CurrentDraggedOverItem.Name}" />
+                                                            <TextBlock Foreground="Gray"
+                                                                       Text=")" />
+                                                            <TextBlock MinWidth="45"
+                                                                       FontWeight="Bold"
+                                                                       Text="{Binding CurrentDropPosition}" />
+                                                        </StackPanel>
                                                     </StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock FontWeight="Bold"
-                                                                   Text="到" />
-                                                        <TextBlock Foreground="Gray"
-                                                                   Text="(" />
-                                                        <TextBlock Text="{Binding CurrentDraggedOverItem.Name}" />
-                                                        <TextBlock Foreground="Gray"
-                                                                   Text=")" />
-                                                        <TextBlock MinWidth="45"
-                                                                   FontWeight="Bold"
-                                                                   Text="{Binding CurrentDropPosition}" />
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ListBox.Resources>
-                                        <telerik:RadContextMenu.ContextMenu>
-                                            <telerik:RadContextMenu>
-                                                <telerik:RadMenuItem Header="新建文件夹"
-                                                                     Icon="{Binding AddFolderImage}"
-                                                                     Command="{Binding CreateDocumentPathCommand}"
-                                                                     CommandParameter="文件夹" />
-                                                <telerik:RadMenuItem Header="重命名文件夹"
-                                                                     Icon="{Binding AddFolderImage}"
-                                                                     Command="{Binding CreateDocumentPathCommand}"
-                                                                     CommandParameter="重命名文件夹" />
-                                                <telerik:RadMenuItem Header="添加合同"
-                                                                     Icon="{Binding AddDocumentImage}"
-                                                                     Command="{Binding CreateDocumentPathCommand}"
-                                                                     CommandParameter="文件" />
-                                            </telerik:RadContextMenu>
-                                        </telerik:RadContextMenu.ContextMenu>
-                                        <ListBox.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <toolkit:WrapPanel MaxWidth="1000" />
-                                            </ItemsPanelTemplate>
-                                        </ListBox.ItemsPanel>
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <StackPanel  ToolTipService.ToolTip="{Binding Path=Name}"
-                                                             MouseLeftButtonDown="StackPanelMouseLeftButtonDown">
-                                                    <telerik:RadContextMenu.ContextMenu>
-                                                        <telerik:RadContextMenu>
-                                                            <telerik:RadMenuItem Header="打开"
-                                                                                 Icon="{Binding DataContext.OpenDocumentImage,ElementName=QueryContractView}"
-                                                                                 Command="{Binding DataContext.OpenDocPathListBoxCommand,ElementName=QueryContractView}"
-                                                                                 CommandParameter="{Binding}" />
-                                                            <telerik:RadMenuItem Header="删除"
-                                                                                 Icon="{Binding DataContext.DelDocumentImage,ElementName=QueryContractView}"
-                                                                                 Command="{Binding DataContext.DeleteDocumentPathListBoxCommand,ElementName=QueryContractView}"
-                                                                                 CommandParameter="{Binding}" />
-                                                            <!--<telerik:RadMenuItem Header="新建文件夹"
+                                                </DataTemplate>
+                                            </ListBox.Resources>
+                                            <telerik:RadContextMenu.ContextMenu>
+                                                <telerik:RadContextMenu>
+                                                    <telerik:RadMenuItem Header="新建文件夹"
+                                                                         Icon="{Binding AddFolderImage}"
+                                                                         Command="{Binding CreateDocumentPathCommand}"
+                                                                         CommandParameter="文件夹" />
+                                                    <telerik:RadMenuItem Header="重命名文件夹"
+                                                                         Icon="{Binding AddFolderImage}"
+                                                                         Command="{Binding CreateDocumentPathCommand}"
+                                                                         CommandParameter="重命名文件夹" />
+                                                    <telerik:RadMenuItem Header="添加合同"
+                                                                         Icon="{Binding AddDocumentImage}"
+                                                                         Command="{Binding CreateDocumentPathCommand}"
+                                                                         CommandParameter="文件" />
+                                                </telerik:RadContextMenu>
+                                            </telerik:RadContextMenu.ContextMenu>
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <toolkit:WrapPanel MaxWidth="1000" />
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel  ToolTipService.ToolTip="{Binding Path=Name}"
+                                                                 MouseLeftButtonDown="StackPanelMouseLeftButtonDown">
+                                                        <telerik:RadContextMenu.ContextMenu>
+                                                            <telerik:RadContextMenu>
+                                                                <telerik:RadMenuItem Header="打开"
+                                                                                     Icon="{Binding DataContext.OpenDocumentImage,ElementName=QueryContractView}"
+                                                                                     Command="{Binding DataContext.OpenDocPathListBoxCommand,ElementName=QueryContractView}"
+                                                                                     CommandParameter="{Binding}" />
+                                                                <telerik:RadMenuItem Header="删除"
+                                                                                     Icon="{Binding DataContext.DelDocumentImage,ElementName=QueryContractView}"
+                                                                                     Command="{Binding DataContext.DeleteDocumentPathListBoxCommand,ElementName=QueryContractView}"
+                                                                                     CommandParameter="{Binding}" />
+                                                                <!--<telerik:RadMenuItem Header="新建文件夹"
                                                                                          Icon="{Binding DataContext.AddFolderImage,ElementName=QueryContractView}" 
                                                                                  Command="{Binding DataContext.CreateDocumentPathCommand,ElementName=QueryContractView}"
                                                                                  CommandParameter="文件夹" />
@@ -256,27 +256,27 @@
                                                                                          Icon="{Binding DataContext.AddDocumentImage,ElementName=QueryContractView}" 
                                                                                  Command="{Binding DataContext.CreateDocumentPathCommand,ElementName=QueryContractView}"
                                                                                  CommandParameter="文件" />-->
-                                                        </telerik:RadContextMenu>
-                                                    </telerik:RadContextMenu.ContextMenu>
-                                                    <Image Source="{Binding BigIconPath}"
-                                                           Margin="3"
-                                                           Width="65"
-                                                           Height="65"
-                                                           Stretch="Fill"
-                                                           HorizontalAlignment="Center"
-                                                           VerticalAlignment="Center" />
-                                                    <TextBlock Text="{Binding Path=Name}"
-                                                               FontSize="12"
-                                                               TextTrimming="WordEllipsis"
-                                                               VerticalAlignment="Center"
+                                                            </telerik:RadContextMenu>
+                                                        </telerik:RadContextMenu.ContextMenu>
+                                                        <Image Source="{Binding BigIconPath}"
+                                                               Margin="3"
+                                                               Width="65"
+                                                               Height="65"
+                                                               Stretch="Fill"
                                                                HorizontalAlignment="Center"
-                                                               TextWrapping="Wrap"
-                                                               Height="40"
-                                                               Width="80" />
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
+                                                               VerticalAlignment="Center" />
+                                                        <TextBlock Text="{Binding Path=Name}"
+                                                                   FontSize="12"
+                                                                   TextTrimming="WordEllipsis"
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Center"
+                                                                   TextWrapping="Wrap"
+                                                                   Height="40"
+                                                                   Width="80" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
                                     </ScrollViewer>
                                 </telerik:RadPane>
                             </telerik:RadPaneGroup>
