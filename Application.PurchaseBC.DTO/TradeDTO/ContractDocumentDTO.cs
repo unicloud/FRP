@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -69,5 +70,12 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// 文档路径
         /// </summary>
         public string DocumentPath { get; set; }
+
+        private List<SubContractDocumentDTO> _subDocuments;
+        public List<SubContractDocumentDTO> SubDocuments
+        {
+            get { return _subDocuments ?? new List<SubContractDocumentDTO>(); }
+            set { _subDocuments = value; }
+        }
     }
 }

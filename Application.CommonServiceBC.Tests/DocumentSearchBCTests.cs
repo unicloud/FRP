@@ -20,7 +20,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 //using OfficeFiles.Reader;
 using UniCloud.Application.CommonServiceBC.DocumentServices;
 using UniCloud.Application.CommonServiceBC.DocumnetSearch;
-using UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch;
 using UniCloud.Application.CommonServiceBC.Query.DocumentQueries;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;

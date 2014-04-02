@@ -63,6 +63,7 @@ namespace UniCloud.Application.PurchaseBC.ContractDocumentServices
                                                                                           var document = _contractDocumentQuery.GetContractDocuments(orderDocument, relateDocument, maintainContractDocument).FirstOrDefault();
                                                                                           var contractDocument = new ContractDocumentDTO
                                                                                                  {
+                                                                                                     Id = documentId, 
                                                                                                      DocumentId = documentId,
                                                                                                      Abstract = ResultHighlighter.HighlightContent(keyword, result.Get("fileContent")),
                                                                                                      DocumentName = result.Get("fileName"),
@@ -72,6 +73,7 @@ namespace UniCloud.Application.PurchaseBC.ContractDocumentServices
                                                                                               contractDocument.ContractName = document.ContractName;
                                                                                               contractDocument.ContractNumber = document.ContractName;
                                                                                               contractDocument.SupplierName = document.SupplierName;
+                                                                                              contractDocument.SubDocuments = document.SubDocuments;
                                                                                           }
                                                                                           documentPathAppService.GetDocumentPaths().Where(p => p.DocumentGuid == documentId).ToList()
                                                                                               .ForEach(p => contractDocument.DocumentPath += p.Path + "\r\n");

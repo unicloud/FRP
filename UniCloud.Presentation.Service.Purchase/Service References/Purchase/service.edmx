@@ -776,7 +776,14 @@
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
         <Property Name="Abstract" Type="Edm.String" />
         <Property Name="DocumentPath" Type="Edm.String" />
+        <Property Name="SubDocuments" Type="Collection(UniCloud.Application.PurchaseBC.DTO.SubContractDocumentDTO)" Nullable="false" />
       </EntityType>
+      <ComplexType Name="SubContractDocumentDTO">
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="SupplierName" Type="Edm.String" />
+      </ComplexType>
       <Association Name="ContractAircraftDTO_BFEPurchaseOrders">
         <End Type="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO" Role="ContractAircraftDTO" Multiplicity="*" />
         <End Type="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" Role="BFEPurchaseOrders" Multiplicity="*" />
