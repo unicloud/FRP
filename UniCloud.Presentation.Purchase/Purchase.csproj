@@ -278,19 +278,19 @@
       <DependentUpon>EnginePurchase.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contract\EnginePurchaseVM.cs" />
-    <Compile Include="Contract\QueryContract\AddDocumentPathChild.xaml.cs">
+    <Compile Include="Contract\ManageContracts\AddDocumentPathChild.xaml.cs">
       <DependentUpon>AddDocumentPathChild.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Contract\QueryContract\AddDocumetChild.xaml.cs">
+    <Compile Include="Contract\ManageContracts\AddDocumetChild.xaml.cs">
       <DependentUpon>AddDocumetChild.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Contract\QueryContract\QueryContractDbClickHelper.cs" />
-    <Compile Include="Contract\QueryContract\QueryContract.xaml.cs">
-      <DependentUpon>QueryContract.xaml</DependentUpon>
+    <Compile Include="Contract\ManageContracts\QueryContractDbClickHelper.cs" />
+    <Compile Include="Contract\ManageContracts\ManageContract.xaml.cs">
+      <DependentUpon>ManageContract.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Contract\QueryContract\QueryContractVM.cs" />
-    <Compile Include="Contract\QueryContract\SearchResultsDoubleClickHelper.cs" />
-    <Compile Include="Contract\QueryContract\SearchResultsWindow.xaml.cs">
+    <Compile Include="Contract\ManageContracts\ManageContractVm.cs" />
+    <Compile Include="Contract\ManageContracts\SearchResultsDoubleClickHelper.cs" />
+    <Compile Include="Contract\ManageContracts\SearchResultsWindow.xaml.cs">
       <DependentUpon>SearchResultsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contract\UndercartMaintain.xaml.cs">
@@ -415,19 +415,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Contract\QueryContract\AddDocumentPathChild.xaml">
+    <Page Include="Contract\ManageContracts\AddDocumentPathChild.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Contract\QueryContract\AddDocumetChild.xaml">
+    <Page Include="Contract\ManageContracts\AddDocumetChild.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Contract\QueryContract\QueryContract.xaml">
+    <Page Include="Contract\ManageContracts\ManageContract.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Contract\QueryContract\SearchResultsWindow.xaml">
+    <Page Include="Contract\ManageContracts\SearchResultsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

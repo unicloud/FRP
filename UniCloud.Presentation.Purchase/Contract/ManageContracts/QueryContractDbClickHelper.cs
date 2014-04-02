@@ -15,18 +15,16 @@
 
 #endregion
 
-
 using Microsoft.Practices.ServiceLocation;
-using Telerik.Windows.Controls;
 using UniCloud.Presentation.Input;
 
-namespace UniCloud.Presentation.Purchase.Contract
+namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
 {
     public class QueryContractDbClickHelper : ListBoxDoubleClickHelper
     {
         protected override void ListBoxDoubleClick(System.Windows.Controls.ListBoxItem listBoxItem)
         {
-            var viewModel =ServiceLocator.Current.GetInstance<QueryContractVM>();
+            var viewModel = ServiceLocator.Current.GetInstance<ManageContractVm>();
             viewModel.ListBoxDoubleClick();
         }
 

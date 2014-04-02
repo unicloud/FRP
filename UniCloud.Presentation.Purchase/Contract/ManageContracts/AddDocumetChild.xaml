@@ -1,4 +1,4 @@
-﻿<telerik:RadWindow x:Class="UniCloud.Presentation.Purchase.Contract.AddDocumetChild"
+﻿<telerik:RadWindow x:Class="UniCloud.Presentation.Purchase.Contract.ManageContracts.AddDocumetChild"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
@@ -13,7 +13,7 @@
                    Width="560"
                    Header="添加合同文件"
                    ResizeMode="NoResize"
-                   d:DataContext="{d:DesignInstance uc:QueryContractVM}">
+                   d:DataContext="{d:DesignInstance uc:ManageContractVm}">
     <telerik:RadWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

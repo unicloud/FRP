@@ -559,8 +559,8 @@ namespace UniCloud.Presentation.Shell
             };
             var menu351 = new MenuItem
             {
-                Text = "查询合同",
-                NavUri = "UniCloud.Presentation.Purchase.Contract.QueryContract"
+                Text = "合同管理",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.ManageContracts.ManageContract"
             };
             var menu352 = new MenuItem
             {

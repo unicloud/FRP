@@ -30,18 +30,18 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.DocumentExtension;
 using UniCloud.Presentation.Service.Purchase.Purchase;
-using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
 #endregion
 
-namespace UniCloud.Presentation.Purchase.Contract
+namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
 {
-    [Export(typeof(QueryContractVM))]
+    [Export(typeof(ManageContractVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class QueryContractVM : ViewModelBase
+    public class ManageContractVm : ViewModelBase
     {
         #region 初始化
         private readonly PurchaseData _context; //域上下文
@@ -51,7 +51,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         private FilterDescriptor _pathFilterDes;
 
         [ImportingConstructor]
-        public QueryContractVM(IRegionManager regionManager, IPurchaseService service)
+        public ManageContractVm(IRegionManager regionManager, IPurchaseService service)
             : base(service)
         {
             _regionManager = regionManager;
@@ -430,7 +430,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public DelegateCommand<object> CreateDocumentPathCommand { get; private set; }
         private void CreateDocumentPath(object sender)
         {
-            if (sender.ToString().Equals("文件夹",StringComparison.OrdinalIgnoreCase))
+            if (sender.ToString().Equals("文件夹", StringComparison.OrdinalIgnoreCase))
             {
                 _isRenameFolder = false;
                 DocumentName = string.Empty;
@@ -512,6 +512,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                 return;
             }
             SelectDocumentPath = sender as ListBoxDocumentItem;
+            if (SelectDocumentPath == null)
+            {
+                MessageAlert("提示", "请选择需要删除文件");
+                return;
+            }
             string message = SelectDocumentPath.IsLeaf ? "确定删除此文件 " : "确定删除此文件夹 ";
             message += SelectDocumentPath.Name;
             MessageConfirm("提示", message, (o, e) =>
@@ -530,7 +535,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             var delDocPath = DeleteDocumentPathQuery(SelectDocumentPath.DocumentPathId);
             _context.BeginExecute<string>(delDocPath,
-                p =>Deployment.Current.Dispatcher.BeginInvoke(() => DocumentPathsView.Load(true)),
+                p => Deployment.Current.Dispatcher.BeginInvoke(() => DocumentPathsView.Load(true)),
                 null);
         }
 
@@ -943,6 +948,23 @@ namespace UniCloud.Presentation.Purchase.Contract
                     _pathFilterDes.Value = _tempPrarentId;
                     DocumentPathsView.Load(true);
                 }
+            }
+        }
+        #endregion
+
+        #region 定位Listbox中的item
+        private string _locateText;
+        public string LoacteText
+        {
+            get { return _locateText; }
+            set
+            {
+                _locateText = value;
+                if (!string.IsNullOrEmpty(_locateText))
+                {
+                    SelectDocumentPath = CurrentPathItem.SubDocumentPaths.FirstOrDefault(p => p.Name.Contains(LoacteText));
+                }
+                RaisePropertyChanged(() => LoacteText);
             }
         }
         #endregion
