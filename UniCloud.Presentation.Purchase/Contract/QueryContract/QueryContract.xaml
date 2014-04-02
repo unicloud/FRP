@@ -36,7 +36,7 @@
             <Grid Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="300" />
                 </Grid.ColumnDefinitions>
                 <telerik:RadBreadcrumb Grid.Column="0"
                                        Name="FoldersBreadcrumb"
@@ -80,7 +80,8 @@
                 <telerik:RadWatermarkTextBox  Grid.Column="1"
                                               CurrentText="{Binding SearchText,Mode=TwoWay}"
                                               HorizontalAlignment="Right"
-                                              Width="150">
+                                              VerticalAlignment="Stretch"
+                                              Width="300">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="KeyDown">
                             <ei:CallMethodAction TargetObject="{Binding}"
