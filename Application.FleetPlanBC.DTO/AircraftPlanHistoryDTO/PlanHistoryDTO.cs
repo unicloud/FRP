@@ -127,6 +127,16 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public int Year { get; set; }
 
+        /// <summary>
+        /// 净增货机
+        /// </summary>
+        public int DeltaCargo { get; set; }
+
+        /// <summary>
+        /// 净增客机
+        /// </summary>
+        public int DeltaPnr { get; set; }
+
         #endregion
 
         #region 外键属性
@@ -244,7 +254,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
             get { return _aircraftCateDtos ?? (_aircraftCateDtos = new List<AircraftCateDTO>()); }
             set { _aircraftCateDtos = value; }
         }
-        
+
         public List<AircraftTyDTO> AircraftTypes
         {
             get { return _aircraftTyDtos ?? (_aircraftTyDtos = new List<AircraftTyDTO>()); }

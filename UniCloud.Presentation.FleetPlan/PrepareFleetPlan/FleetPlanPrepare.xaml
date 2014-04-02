@@ -189,9 +189,12 @@
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding Regional}">
                                     </telerik:GridViewDataColumn>
-                                    <telerik:GridViewDataColumn Header="机型"
+                                    <telerik:GridViewDataColumn Header="川航机型"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding AircraftTypeName}" />
+                                    <telerik:GridViewDataColumn Header="民航机型"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding CaacAircraftTypeName}" />
                                     <telerik:GridViewExpressionColumn Header="活动类别"
                                                                       MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                       Expression="(ActionType+'：'+ActionName)" />
@@ -204,6 +207,9 @@
                                     <telerik:GridViewDataColumn Header="净增客机"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding DeltaPnr}">
+                                        <telerik:GridViewDataColumn.AggregateFunctions>
+                                            <telerik:SumFunction ResultFormatString="总计：{0}架" />
+                                        </telerik:GridViewDataColumn.AggregateFunctions>
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="净增座位"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -222,9 +228,9 @@
                                     <telerik:GridViewDataColumn Header="净增货机"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding DeltaCargo}">
-                                        <!--<telerik:GridViewDataColumn.AggregateFunctions>
+                                        <telerik:GridViewDataColumn.AggregateFunctions>
                                             <telerik:SumFunction ResultFormatString="总计：{0}架" />
-                                        </telerik:GridViewDataColumn.AggregateFunctions>-->
+                                        </telerik:GridViewDataColumn.AggregateFunctions>
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="管理状态"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"

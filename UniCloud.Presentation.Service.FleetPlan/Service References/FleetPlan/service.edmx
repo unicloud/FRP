@@ -387,6 +387,8 @@
         <Property Name="TargetType" Type="Edm.String" />
         <Property Name="NeedRequest" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Year" Type="Edm.Int32" Nullable="false" />
+        <Property Name="DeltaCargo" Type="Edm.Int32" Nullable="false" />
+        <Property Name="DeltaPnr" Type="Edm.Int32" Nullable="false" />
         <Property Name="PlanAircraftId" Type="Edm.Guid" />
         <Property Name="PlanId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ActionCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -424,6 +426,7 @@
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="AircraftCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CaacAircraftTypeName" Type="Edm.String" />
         <Property Name="Regional" Type="Edm.String" />
       </ComplexType>
       <EntityType Name="PlanAircraftDTO">

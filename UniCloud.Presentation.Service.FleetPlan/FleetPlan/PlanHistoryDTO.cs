@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -241,7 +242,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         /// 净增客机
         /// </summary>
-        internal int DeltaPnr
+        private int _deltaPnr
         {
             get
             {
@@ -279,7 +280,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         /// 净增货机
         /// </summary>
-        internal int DeltaCargo
+        private int _deltaCargo
         {
             get
             {
@@ -327,41 +328,41 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         #endregion
 
         #region 方法
-        /// <summary>
-        /// 计划类型发生变化触发相关变化
-        /// </summary>
-        partial void OnPlanTypeChanged()
-        {
-            ActionCategories = Service.GetActionCategoriesForPlanHistory(this);
-            OnPropertyChanged("ActionCategories");
-        }
+        ///// <summary>
+        ///// 计划类型发生变化触发相关变化
+        ///// </summary>
+        //partial void OnPlanTypeChanged()
+        //{
+        //    ActionCategories = Service.GetActionCategoriesForPlanHistory(this);
+        //    OnPropertyChanged("ActionCategories");
+        //}
 
-        /// <summary>
-        /// 活动类型发生变化触发相关变化
-        /// </summary>
-        partial void OnActionTypeChanged()
-        {
-            ActionCategories = Service.GetActionCategoriesForPlanHistory(this);
-            OnPropertyChanged("ActionCategories");
-        }
+        ///// <summary>
+        ///// 活动类型发生变化触发相关变化
+        ///// </summary>
+        //partial void OnActionTypeChanged()
+        //{
+        //    ActionCategories = Service.GetActionCategoriesForPlanHistory(this);
+        //    OnPropertyChanged("ActionCategories");
+        //}
 
-        /// <summary>
-        /// 活动类型发生变化触发相关变化
-        /// </summary>
-        partial void OnActionNameChanged()
-        {
-            AircraftCategories = Service.GetAircraftCategoriesForPlanHistory(this);
-            OnPropertyChanged("AircraftCategories");
-        }
+        ///// <summary>
+        ///// 活动类型发生变化触发相关变化
+        ///// </summary>
+        //partial void OnActionNameChanged()
+        //{
+        //    AircraftCategories = Service.GetAircraftCategoriesForPlanHistory(this);
+        //    OnPropertyChanged("AircraftCategories");
+        //}
 
-        /// <summary>
-        /// 座级发生变化触发相关变化
-        /// </summary>
-        partial void OnRegionalChanged()
-        {
-            AircraftTypes = Service.GetAircraftTypesForPlanHistory(this);
-            OnPropertyChanged("AircraftTypes");
-        }
+        ///// <summary>
+        ///// 座级发生变化触发相关变化
+        ///// </summary>
+        //partial void OnRegionalChanged()
+        //{
+        //    AircraftTypes = Service.GetAircraftTypesForPlanHistory(this);
+        //    OnPropertyChanged("AircraftTypes");
+        //}
 
         /// <summary>
         /// 机型发生变化时触发相关变化
@@ -369,7 +370,9 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         partial void OnAircraftTypeIdChanged()
         {
             this.OnPropertyChanged("DeltaPnr");
+            DeltaPnr = _deltaPnr;
             this.OnPropertyChanged("DeltaCargo");
+            DeltaCargo = _deltaCargo;
         }
 
         /// <summary>

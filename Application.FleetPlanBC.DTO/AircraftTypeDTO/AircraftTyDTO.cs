@@ -50,6 +50,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public Guid AircraftCategoryId { get; set; }
 
         /// <summary>
+        /// 民航机型名称
+        /// </summary>
+        public string CaacAircraftTypeName { get; set; }
+
+        /// <summary>
         /// 座级
         /// </summary>
         public string Regional { get; set; }

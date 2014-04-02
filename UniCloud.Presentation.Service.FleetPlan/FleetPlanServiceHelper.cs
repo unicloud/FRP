@@ -274,14 +274,14 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 AirlinesName = plan.AirlinesName,
                 PerformAnnualId = plan.AnnualId,
                 PerformMonth = 1,
-                //PlanType = planType,
-                //ActionType = actionType,
+                PlanType = planType,
+                ActionType = actionType,
                 ManageStatus = (int)ManageStatus.计划,
             };
-            planDetail.PlanType = 1;
-            planDetail.ActionType = actionType;
-            planDetail.ActionName = null;
-            planDetail.Regional = null;
+
+            planDetail.ActionCategories = service.GetActionCategoriesForPlanHistory(planDetail);
+            planDetail.AircraftCategories = service.GetAircraftCategoriesForPlanHistory(planDetail);
+            planDetail.AircraftTypes = service.GetAircraftTypesForPlanHistory(planDetail);
 
             // 1、计划飞机为空
             if (planAircraft == null)

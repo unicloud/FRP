@@ -115,28 +115,24 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// 获取计划明细中集合属性ActionCategories的值
         /// </summary>
         /// <param name="ph"></param>
-        /// <param name="service"></param>
         ObservableCollection<ActionCateDTO> GetActionCategoriesForPlanHistory(PlanHistoryDTO ph);
 
         /// <summary>
         /// 获取计划明细中集合属性AircraftCategories的值
         /// </summary>
         /// <param name="ph"></param>
-        /// <param name="service"></param>
         ObservableCollection<AircraftCateDTO> GetAircraftCategoriesForPlanHistory(PlanHistoryDTO ph);
 
         /// <summary>
         /// 获取计划明细中集合属性AircraftTypes的值
         /// </summary>
         /// <param name="ph"></param>
-        /// <param name="service"></param>
         ObservableCollection<AircraftTyDTO> GetAircraftTypesForPlanHistory(PlanHistoryDTO ph);
 
         /// <summary>
         /// 当计划明细中活动类型发生变化的时候，需要改变相应属性：目标类型、净增座位、净增商载
         /// </summary>
         /// <param name="ph"></param>
-        /// <param name="service"></param>
         void OnChangedActionCategory(PlanHistoryDTO ph);
 
         /// <summary>

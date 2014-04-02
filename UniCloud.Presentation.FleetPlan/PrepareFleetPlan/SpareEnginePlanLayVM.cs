@@ -202,7 +202,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 {
                     _selEnginePlan = value;
                     RaisePropertyChanged(() => SelEnginePlan);
-                    EnginePlanHistories.Clear();
+                    EnginePlanHistories=new ObservableCollection<EnginePlanHistoryDTO>();
                     if (_selEnginePlan != null)
                     {
                         foreach (var enginePh in _selEnginePlan.EnginePlanHistories)

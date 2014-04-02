@@ -104,7 +104,7 @@
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="False"
-                                                     ItemsSource="{Binding CurPlanHistories,Mode=TwoWay}"
+                                                     ItemsSource="{Binding ViewPlanHistories,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelPlanHistory,Mode=TwoWay}"
                                                      IsBusy="{Binding CurPlanHistories.IsBusy}">
                                     <i:Interaction.Triggers>
@@ -124,12 +124,12 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.GroupDescriptors>
-                                      <!-- <telerik:GroupDescriptor Member="CanDeliver"
+                                       <telerik:GroupDescriptor Member="CanDeliver"
                                                                  SortDirection="Ascending">
                                             <telerik:GroupDescriptor.AggregateFunctions>
                                                 <telerik:CountFunction ResultFormatString="小计：{0}项" />
                                             </telerik:GroupDescriptor.AggregateFunctions>
-                                        </telerik:GroupDescriptor>-->
+                                        </telerik:GroupDescriptor>
                                     </telerik:RadGridView.GroupDescriptors>
                                     <telerik:RadGridView.Columns>
                                         <input:DataPageSerialColumn Header="序号"

@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
 using System.Linq;
 using System.Windows;
 using Microsoft.Practices.Prism.Commands;
@@ -93,7 +94,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             Plans.FilterDescriptors.Add(_planDescriptor);
             Plans.LoadedData += (sender, e) =>
             {
-                CurPlan.Clear();
+                CurPlan=new ObservableCollection<PlanDTO>();
                 CurPlan.Add(Plans.OrderBy(p => p.VersionNumber).LastOrDefault());
                 SelPlan = CurPlan.FirstOrDefault();
                 if (SelPlan != null)
@@ -111,6 +112,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             CurPlanHistories = _service.CreateCollection(_context.PlanHistories);
             _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
             CurPlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
+            CurPlanHistories.LoadedData += (o, e) =>
+            {
+                foreach (var ph in CurPlanHistories.SourceCollection.Cast<PlanHistoryDTO>())
+                {
+                    ph.ActionCategories.AddRange(ph.ActionCategories);
+                    ph.AircraftCategories.AddRange(_service.GetAircraftCategoriesForPlanHistory(ph));
+                    ph.AircraftTypes.AddRange(_service.GetAircraftTypesForPlanHistory(ph));
+                    _context.ChangeState(ph, EntityStates.Unchanged);
+                }
+            };
             _service.RegisterCollectionView(CurPlanHistories);//注册查询集合
         }
 
@@ -240,9 +251,9 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var ph = CurPlanHistories.ToList();
             ph.ForEach(p =>
             {
-                p.ActionCategories.Clear();
-                p.AircraftTypes.Clear();
-                p.AircraftCategories.Clear();
+                p.ActionCategories=new ObservableCollection<ActionCateDTO>();
+                p.AircraftTypes=new ObservableCollection<AircraftTyDTO>();
+                p.AircraftCategories=new ObservableCollection<AircraftCateDTO>();
             });
             return true;
         }

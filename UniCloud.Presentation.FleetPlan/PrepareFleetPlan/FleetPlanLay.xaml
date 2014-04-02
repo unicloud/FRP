@@ -122,7 +122,7 @@
                                             <ei:CallMethodAction TargetObject="{Binding}"
                                                                  MethodName="GridViewSelectionChanged" />
                                         </i:EventTrigger>
-                                        <i:EventTrigger EventName="CurrentCellChanged">
+                                        <i:EventTrigger EventName="CellEditEnded">
                                             <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
                                                                    CommandParameter="{Binding ElementName=PlanLay}" />
                                         </i:EventTrigger>
@@ -160,7 +160,7 @@
                                                                         EditorStyle="{StaticResource EditComboBox}"
                                                                         UniqueName="Regional">
                                         </telerik:GridViewComboBoxColumn>
-                                        <telerik:GridViewComboBoxColumn Header="机型"
+                                        <telerik:GridViewComboBoxColumn Header="川航机型"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         ItemsSourceBinding="{Binding AircraftTypes,Mode=TwoWay}"
                                                                         DataMemberBinding="{Binding AircraftTypeId}"
@@ -169,9 +169,14 @@
                                                                         EditorStyle="{StaticResource EditComboBox}"
                                                                         UniqueName="AircraftType">
                                         </telerik:GridViewComboBoxColumn>
+                                        <telerik:GridViewDataColumn Header="民航机型"
+                                                                    IsReadOnly="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding CaacAircraftTypeName}" />
                                         <telerik:GridViewDataColumn Header="机号"
                                                                     IsReadOnly="True"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding RegNumber}" />
                                         <telerik:GridViewComboBoxColumn Header="执行年度"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         ItemsSource="{Binding DataContext.Annuals,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
@@ -354,16 +359,14 @@
                                                            Margin="3,0" />
                                                 <TextBlock Text="出厂:"
                                                            HorizontalAlignment="Center" />
-                                                <TextBlock
-                                                    Text="{Binding FactoryDate, StringFormat={StaticResource DateStringFormat}}"
-                                                    HorizontalAlignment="Center"
-                                                    Margin="3,0" />
+                                                <TextBlock Text="{Binding FactoryDate, StringFormat={StaticResource DateStringFormat}}"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="3,0" />
                                                 <TextBlock Text="引进:"
                                                            HorizontalAlignment="Center" />
-                                                <TextBlock
-                                                    Text="{Binding ImportDate, StringFormat={StaticResource DateStringFormat}}"
-                                                    HorizontalAlignment="Center"
-                                                    Margin="3,0" />
+                                                <TextBlock Text="{Binding ImportDate, StringFormat={StaticResource DateStringFormat}}"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="3,0" />
                                             </StackPanel>
                                         </DataTemplate>
                                     </telerik:RadGridView.Resources>
