@@ -30,10 +30,10 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
     {
         public List<DocumentDTO> Search(string keyword, string documentType)
         {
-            var aa = LuceneSearch.LuceneSearch.PanguQuery(keyword, documentType);
-            if (aa == null) return new List<DocumentDTO>();
+            var queryResults = LuceneSearch.LuceneSearch.PanguQuery(keyword, documentType);
+            if (queryResults == null) return new List<DocumentDTO>();
             var multiSearcher = IndexManager.GenerateMultiSearcher(documentType);
-            var documents = aa.scoreDocs.Select(a => multiSearcher.Doc(a.doc)).Select(result => new DocumentDTO
+            var documents = queryResults.scoreDocs.Select(a => multiSearcher.Doc(a.doc)).Select(result => new DocumentDTO
                                                                                                   {
                                                                                                       DocumentId = Guid.Parse(result.Get("ID")),
                                                                                                       Extension = result.Get("extendType"),

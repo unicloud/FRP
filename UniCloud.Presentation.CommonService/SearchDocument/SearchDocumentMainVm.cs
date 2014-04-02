@@ -18,6 +18,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
@@ -54,6 +55,13 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             {
                 _keyword = value;
                 RaisePropertyChanged("Keyword");
+            }
+        }
+        public void RadWatermarkTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                RadButtonClick(sender, e);
             }
         }
         #endregion

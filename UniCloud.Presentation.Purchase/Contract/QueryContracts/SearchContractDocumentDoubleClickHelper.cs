@@ -31,10 +31,10 @@ namespace UniCloud.Presentation.Purchase.Contract.QueryContracts
             var view = ServiceLocator.Current.GetInstance<QueryContract>();
             var docViewer = ServiceLocator.Current.GetInstance<DocViewer>();
             var docViewerVM = ServiceLocator.Current.GetInstance<DocViewerVM>();
-            if (view.DocumentList.CurrentItem != null)
+            if (view.DocumentList.SelectedItem != null)
             {
                 docViewer.ShowDialog();
-                docViewerVM.InitDocument(((ContractDocumentDTO)view.DocumentList.CurrentItem).DocumentId);
+                docViewerVM.InitDocument(((ContractDocumentDTO)view.DocumentList.SelectedItem).DocumentId);
             }
         }
         protected override bool CanDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)

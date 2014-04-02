@@ -6,11 +6,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.LuceneSearch;
+using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
+using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
 
@@ -48,10 +50,11 @@ namespace UniCloud.Application.PurchaseBC.ContractDocumentServices
 
         public List<ContractDocumentDTO> Search(string keyword)
         {
-            var aa = LuceneSearch.LuceneSearch.PanguQuery(keyword, "3");
-            if (aa == null) return new List<ContractDocumentDTO>();
+            var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
+            var queryResults = LuceneSearch.LuceneSearch.PanguQuery(keyword, "3");
+            if (queryResults == null) return new List<ContractDocumentDTO>();
             var multiSearcher = IndexManager.GenerateMultiSearcher("3");
-            var documents = aa.scoreDocs.Select(a => multiSearcher.Doc(a.doc)).Select(result =>
+            var documents = queryResults.scoreDocs.Select(a => multiSearcher.Doc(a.doc)).Select(result =>
                                                                                       {
                                                                                           Guid documentId = Guid.Parse(result.Get("ID"));
                                                                                           Expression<Func<Order, bool>> orderDocument = p => p.ContractDocGuid == documentId;
@@ -70,6 +73,8 @@ namespace UniCloud.Application.PurchaseBC.ContractDocumentServices
                                                                                               contractDocument.ContractNumber = document.ContractName;
                                                                                               contractDocument.SupplierName = document.SupplierName;
                                                                                           }
+                                                                                          documentPathAppService.GetDocumentPaths().Where(p => p.DocumentGuid == documentId).ToList()
+                                                                                              .ForEach(p => contractDocument.DocumentPath += p.Path + "\r\n");
                                                                                           return contractDocument;
                                                                                       }).ToList();
             return documents;

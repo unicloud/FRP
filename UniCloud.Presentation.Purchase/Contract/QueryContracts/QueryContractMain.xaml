@@ -45,7 +45,14 @@
                                          WatermarkContent="输入关键字"
                                          FontFamily="Microsoft YaHei UI"
                                          Width="303"
-                                         Text="{Binding Keyword,Mode=TwoWay}" />
+                                         CurrentText="{Binding Keyword,Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyDown">
+                        <ei:CallMethodAction TargetObject="{Binding}"
+                                             MethodName="RadWatermarkTextBoxKeyDown" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </telerik:RadWatermarkTextBox>
         </Grid>
         <Grid  Grid.Column="2">
             <Grid.RowDefinitions>

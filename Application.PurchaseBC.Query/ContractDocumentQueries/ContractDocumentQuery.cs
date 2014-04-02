@@ -77,9 +77,16 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries
                              DocumentId = p.DocumentId,
                          }).ToList().ForEach(p =>
                                              {
-                                                 if (documents.All(t => t.DocumentId != p.DocumentId))
+                                                 var document = documents.FirstOrDefault(t => t.DocumentId == p.DocumentId);
+                                                 if (document==null)
                                                  {
                                                      documents.Add(p);
+                                                 }
+                                                 else
+                                                 {
+                                                     document.ContractName += "\r\n" + p.ContractName;
+                                                     document.ContractNumber += "\r\n" + p.ContractNumber;
+                                                     document.SupplierName += "\r\n" + p.SupplierName;
                                                  }
                                              }));
             _maintainContractRepository.GetAll().Where(maintainContractDocument)
@@ -93,9 +100,16 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries
                                  DocumentId = o.DocumentId,
                              }).ToList().ForEach(p =>
                                                  {
-                                                     if (documents.All(t => t.DocumentId != p.DocumentId))
+                                                     var document = documents.FirstOrDefault(t => t.DocumentId == p.DocumentId);
+                                                     if (document == null)
                                                      {
                                                          documents.Add(p);
+                                                     }
+                                                     else
+                                                     {
+                                                         document.ContractName += "\r\n" + p.ContractName;
+                                                         document.ContractNumber += "\r\n" + p.ContractNumber;
+                                                         document.SupplierName += "\r\n" + p.SupplierName;
                                                      }
                                                  });
             return documents;

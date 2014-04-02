@@ -20,6 +20,7 @@ using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using Microsoft.Practices.ServiceLocation;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService;
@@ -51,6 +52,13 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             {
                 _keyword = value;
                 RaisePropertyChanged("Keyword");
+            }
+        }
+        public void RadWatermarkTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                RadButtonClick(sender, e);
             }
         }
         #endregion

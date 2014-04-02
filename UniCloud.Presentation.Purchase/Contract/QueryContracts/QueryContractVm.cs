@@ -20,8 +20,10 @@ using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using Microsoft.Practices.ServiceLocation;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Purchase.Contract.ManageContracts;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -51,6 +53,13 @@ namespace UniCloud.Presentation.Purchase.Contract.QueryContracts
             {
                 _keyword = value;
                 RaisePropertyChanged("Keyword");
+            }
+        }
+        public void RadWatermarkTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                RadButtonClick(sender, e);
             }
         }
         #endregion
