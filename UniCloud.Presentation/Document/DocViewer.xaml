@@ -9,7 +9,6 @@
                    xmlns:converters="clr-namespace:Telerik.Windows.Documents.Converters;assembly=Telerik.Windows.Controls.FixedDocumentViewers"
                    WindowStartupLocation="CenterScreen"
                    Header="{Binding Title}"
-                   IsTopmost="True"
                    mc:Ignorable="d"
                    Height="600"
                    Width="900"

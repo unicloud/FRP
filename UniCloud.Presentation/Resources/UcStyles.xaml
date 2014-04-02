@@ -72,8 +72,24 @@
         <Setter Property="FontSize" Value="{StaticResource TextFontSize}" />
     </Style>
 
-    <!--TextBlock相关样式-->
-
+    <!--TextBox相关样式-->
+    <Style x:Key="ReadOnlyTextBox"
+           TargetType="TextBox">
+        <Setter Property="IsReadOnly"
+                Value="True" />
+        <Setter Property="TextWrapping"
+                Value="Wrap" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid>
+                        <ContentPresenter x:Name="ContentElement" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
     <!--ComboBox相关样式-->
     <Style TargetType="telerik:RadComboBox" x:Key="BaseRadComboBox" />
     <Style TargetType="telerik:RadComboBox" BasedOn="{StaticResource BaseRadComboBox}">

@@ -40,6 +40,7 @@
                                      ItemsSource="{Binding ContractDocuments}"
                                      IsBusy="{Binding ContractDocuments.IsBusy}"
                                      SelectedItem="{Binding ContractDocument, Mode=TwoWay}"
+                                     SelectionMode="Extended"
                                      AutoGenerateColumns="False"
                                      ShowGroupPanel="True"
                                      CanUserSortColumns="True"

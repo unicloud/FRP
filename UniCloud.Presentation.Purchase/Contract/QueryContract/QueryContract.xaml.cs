@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.ComponentModel.Composition;
 using System.Windows;
+using System.Windows.Threading;
 using Telerik.Windows.Controls;
 using Telerik.Windows.DragDrop;
 using UniCloud.Presentation.Input;
@@ -24,6 +25,11 @@ namespace UniCloud.Presentation.Purchase.Contract
 
             DragDropManager.AddDragOverHandler(FoldersTreeView, OnItemDragOver);
             DragDropManager.AddDropHandler(FoldersTreeView, OnDrop);
+
+            var timer = new DispatcherTimer { Interval = (new TimeSpan(0, 0, 0, 0, 200)) };
+            //设置单击事件
+            _doubleClickTimer = timer;
+            _doubleClickTimer.Tick += (DoubleClickTimerTick);
         }
 
         [Import(typeof(QueryContractVM))]
@@ -33,6 +39,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             set { DataContext = value; }
         }
 
+        #region TreeView拖拽
         private void OnDrop(object sender, Telerik.Windows.DragDrop.DragEventArgs e)
         {
             var data = DragDropPayloadManager.GetDataFromObject(e.Data, "DraggedData");
@@ -126,8 +133,6 @@ namespace UniCloud.Presentation.Purchase.Contract
             e.Handled = true;
         }
 
-
-
         private DropPosition GetPosition(RadTreeViewItem item, Point point)
         {
             const double treeViewItemHeight = 24;
@@ -142,6 +147,51 @@ namespace UniCloud.Presentation.Purchase.Contract
 
             return DropPosition.Inside;
         }
-        
+        #endregion
+
+        #region ListBox双击处理
+        /// <summary>
+        /// 双击事件定时器
+        /// </summary>
+        private readonly DispatcherTimer _doubleClickTimer;
+
+        /// <summary>
+        /// 是否单击
+        /// </summary>
+        private bool _isOnceClick;
+        private void DoubleClickTimerTick(object sender, EventArgs e)
+        {
+            _isOnceClick = false;
+            _doubleClickTimer.Stop();
+        }
+        private void StackPanelMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (!_isOnceClick)
+            {
+                _isOnceClick = true;
+                _doubleClickTimer.Start();
+            }
+            else
+            {
+                ViewModel.ListBoxDoubleClick();
+            }
+        }
+        #endregion
+
+        #region Breadcrumb TreeView 联动
+        private void FoldersBreadcrumbCurrentItemChanged(object sender, Telerik.Windows.RadRoutedEventArgs e)
+        {
+            FoldersTreeView.BringPathIntoView(FoldersBreadcrumb.Path);
+            FoldersTreeView.SelectedItem = FoldersBreadcrumb.CurrentItem;
+        }
+
+        private void FoldersTreeViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0 && FoldersTreeView.ContainerFromItemRecursive(e.AddedItems[0]) != null)
+            {
+                FoldersBreadcrumb.Path = FoldersTreeView.ContainerFromItemRecursive(e.AddedItems[0]).FullPath;
+            }
+        }
+        #endregion
     }
 }
