@@ -109,82 +109,84 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
-        <telerik:RadDocking BorderThickness="0"
-                            Padding="0"
-                            HasDocumentHost="False">
-            <telerik:RadSplitContainer>
-                <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
-                    <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="查询文档类型"
-                                         FontSize="{StaticResource HeaderFontSize}"
-                                         IsPinned="True"
-                                         CanFloat="False"
-                                         CanUserClose="False"
-                                         CanUserPin="False"
-                                         ContextMenuTemplate="{x:Null}">
-                            <telerik:RadGridView Name="DocumentTypeList"
-                                                 AutoExpandGroups="True"
-                                                 AutoGenerateColumns="False"
-                                                 CanUserSortColumns="True"
-                                                 CanUserFreezeColumns="False"
-                                                 IsFilteringAllowed="True"
-                                                 IsReadOnly="True"
-                                                 ItemsSource="{Binding DocumentTypes}"
-                                                 IsBusy="{Binding DocumentTypes.IsBusy}"
-                                                 SelectedItem="{Binding DocumentType,Mode=TwoWay}"
-                                                 CanUserSelect="{Binding CanSelectDocumentType}"
-                                                 FontSize="{StaticResource TextFontSize}"
-                                                 ValidatesOnDataErrors="InEditMode"
-                                                 RowIndicatorVisibility="Visible">
-                                <telerik:RadGridView.Columns>
-                                    <input:DataPageSerialColumn  Header="序号" />
-                                    <telerik:GridViewDataColumn Header="名称"
-                                                                IsSortable="True"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding Name}" />
-                                    <telerik:GridViewDataColumn Header="描述"
-                                                                IsSortable="True"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                HeaderTextAlignment="Center"
-                                                                MaxWidth="250"
-                                                                TextWrapping="Wrap"
-                                                                DataMemberBinding="{Binding Description}" />
-                                </telerik:RadGridView.Columns>
-                            </telerik:RadGridView>
-                        </telerik:RadPane>
-                    </telerik:RadPaneGroup>
-                </telerik:RadSplitContainer>
-                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
-                    <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="编辑文档类型"
-                                         IsPinned="True"
-                                         CanFloat="False"
-                                         CanDockInDocumentHost="False"
-                                         CanUserClose="False"
-                                         CanUserPin="True"
-                                         ContextMenuTemplate="{x:Null}">
-                            <Grid>
-                                <telerik:RadDataForm x:Name="DocumentTypeForm"
-                                                     CancelButtonContent="取消"
-                                                     CommitButtonContent="确定"
+    <telerik:RadBusyIndicator BusyContent="{Binding BusyContent,Mode=TwoWay}"
+                              IsBusy="{Binding DocumentTypes.IsBusy,Mode=TwoWay}">
+        <Grid>
+            <telerik:RadDocking BorderThickness="0"
+                                Padding="0"
+                                HasDocumentHost="False">
+                <telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
+                        <telerik:RadPaneGroup>
+                            <telerik:RadPane Header="查询文档类型"
+                                             FontSize="{StaticResource HeaderFontSize}"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
+                                <telerik:RadGridView Name="DocumentTypeList"
+                                                     AutoExpandGroups="True"
+                                                     AutoGenerateColumns="False"
+                                                     CanUserSortColumns="True"
+                                                     CanUserFreezeColumns="False"
+                                                     IsFilteringAllowed="True"
+                                                     IsReadOnly="True"
                                                      ItemsSource="{Binding DocumentTypes}"
-                                                     AutoGenerateFields="False"
-                                                     AutoCommit="True"
-                                                     ReadOnlyTemplate="{StaticResource ReadTemplate}"
-                                                     EditTemplate="{StaticResource EditNewTemplate}"
-                                                     NewItemTemplate="{StaticResource EditNewTemplate}">
-                                    <telerik:RadDataForm.CommandProvider>
-                                        <uc:MasterCommandProvider  DataForm="{Binding ElementName=DocumentTypeForm}"
-                                                                   QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=DocumentTypeForm}"></uc:MasterCommandProvider>
-                                    </telerik:RadDataForm.CommandProvider>
-                                </telerik:RadDataForm>
-                            </Grid>
-                        </telerik:RadPane>
-                    </telerik:RadPaneGroup>
+                                                     SelectedItem="{Binding DocumentType,Mode=TwoWay}"
+                                                     CanUserSelect="{Binding CanSelectDocumentType}"
+                                                     FontSize="{StaticResource TextFontSize}"
+                                                     ValidatesOnDataErrors="InEditMode"
+                                                     RowIndicatorVisibility="Visible">
+                                    <telerik:RadGridView.Columns>
+                                        <input:DataPageSerialColumn  Header="序号" />
+                                        <telerik:GridViewDataColumn Header="名称"
+                                                                    IsSortable="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding Name}" />
+                                        <telerik:GridViewDataColumn Header="描述"
+                                                                    IsSortable="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MaxWidth="250"
+                                                                    TextWrapping="Wrap"
+                                                                    DataMemberBinding="{Binding Description}" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
+                        <telerik:RadPaneGroup>
+                            <telerik:RadPane Header="编辑文档类型"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanDockInDocumentHost="False"
+                                             CanUserClose="False"
+                                             CanUserPin="True"
+                                             ContextMenuTemplate="{x:Null}">
+                                <Grid>
+                                    <telerik:RadDataForm x:Name="DocumentTypeForm"
+                                                         CancelButtonContent="取消"
+                                                         CommitButtonContent="确定"
+                                                         ItemsSource="{Binding DocumentTypes}"
+                                                         AutoGenerateFields="False"
+                                                         AutoCommit="True"
+                                                         ReadOnlyTemplate="{StaticResource ReadTemplate}"
+                                                         EditTemplate="{StaticResource EditNewTemplate}"
+                                                         NewItemTemplate="{StaticResource EditNewTemplate}">
+                                        <telerik:RadDataForm.CommandProvider>
+                                            <uc:MasterCommandProvider  DataForm="{Binding ElementName=DocumentTypeForm}"
+                                                                       QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=DocumentTypeForm}"></uc:MasterCommandProvider>
+                                        </telerik:RadDataForm.CommandProvider>
+                                    </telerik:RadDataForm>
+                                </Grid>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
                 </telerik:RadSplitContainer>
-            </telerik:RadSplitContainer>
-        </telerik:RadDocking>
-    </Grid>
+            </telerik:RadDocking>
+        </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

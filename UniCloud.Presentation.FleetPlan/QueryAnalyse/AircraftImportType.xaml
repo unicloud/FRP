@@ -45,8 +45,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
-                              FontSize="{StaticResource TextFontSize}"
-                              BusyContent="加载中，请稍候…">
+                              BusyContent="{Binding BusyContent,Mode=TwoWay}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
