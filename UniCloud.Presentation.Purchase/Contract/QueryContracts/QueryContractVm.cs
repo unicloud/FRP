@@ -3,11 +3,11 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2014/1/21 14:12:17
-// 文件名：SearchDocumentVm
+// 作者：linxw 时间：2014/4/2 14:51:39
+// 文件名：QueryContractVm
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2014/1/21 14:12:17
+// 修改者：linxw 时间：2014/4/2 14:51:39
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -23,21 +23,22 @@ using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.ServiceLocation;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service.CommonService;
-using UniCloud.Presentation.Service.CommonService.Common;
+using UniCloud.Presentation.Purchase.Contract.ManageContracts;
+using UniCloud.Presentation.Service.Purchase;
+using UniCloud.Presentation.Service.Purchase.Purchase;
 
 #endregion
 
-namespace UniCloud.Presentation.CommonService.SearchDocument
+namespace UniCloud.Presentation.Purchase.Contract.QueryContracts
 {
-    [Export(typeof(SearchDocumentVm))]
+    [Export(typeof(QueryContractVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class SearchDocumentVm : ViewModelBase
+    public class QueryContractVm : ViewModelBase
     {
-        private readonly CommonServiceData _context;
+        private readonly PurchaseData _context;
 
         [ImportingConstructor]
-        public SearchDocumentVm(ICommonService service)
+        public QueryContractVm(IPurchaseService service)
             : base(service)
         {
             _context = service.Context;
@@ -64,27 +65,14 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
         #endregion
 
         #region 搜索到的文档集合
-        private List<DocumentDTO> _documents;
-        public List<DocumentDTO> Documents
+        private List<ContractDocumentDTO> _documents;
+        public List<ContractDocumentDTO> Documents
         {
             get { return _documents; }
             set
             {
                 _documents = value;
                 RaisePropertyChanged(() => Documents);
-            }
-        }
-        #endregion
-
-        #region 文档类型
-        private IEnumerable<DocumentTypeDTO> _documentTypes;
-        public IEnumerable<DocumentTypeDTO> DocumentTypes
-        {
-            get { return _documentTypes; }
-            set
-            {
-                _documentTypes = value;
-                RaisePropertyChanged(() => DocumentTypes);
             }
         }
         #endregion
@@ -96,32 +84,19 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 MessageAlert("请输入搜索关键字！");
                 return;
             }
-            if (DocumentTypes.All(p => p.IsChecked == false))
-            {
-                MessageAlert("请选择搜索范围！");
-                return;
-            }
-            var documentType = string.Empty;
-            DocumentTypes.ToList().ForEach(p =>
-                                           {
-                                               if (p.IsChecked)
-                                               {
-                                                   documentType += p.DocumentTypeId + ",";
-                                               }
-                                           });
-            documentType = documentType.TrimEnd(',');
-            var keyword = SearchDocuments(Keyword, documentType);
+
+            var keyword = SearchContractDocuments(Keyword);
             IsBusy = true;
-            _context.BeginExecute<DocumentDTO>(keyword,
+            _context.BeginExecute<ContractDocumentDTO>(keyword,
                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
                {
-                   var context = result.AsyncState as CommonServiceData;
+                   var context = result.AsyncState as PurchaseData;
                    try
                    {
                        if (context != null)
                        {
                            context.MergeOption = MergeOption.OverwriteChanges;
-                           Documents = context.EndExecute<DocumentDTO>(result).ToList();
+                           Documents = context.EndExecute<ContractDocumentDTO>(result).ToList();
                        }
                    }
                    catch (DataServiceQueryException ex)
@@ -137,20 +112,17 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
         ///     搜索文档
         /// </summary>
         /// <param name="keyword"></param>
-        /// <param name="documentType"></param>
         /// <returns></returns>
-        private Uri SearchDocuments(string keyword, string documentType)
+        private Uri SearchContractDocuments(string keyword)
         {
-            return new Uri(string.Format("SearchDocument?keyword='{0}'&documentType='{1}'", keyword, documentType),
-                UriKind.Relative);
+            return new Uri(string.Format("SearchContractDocument?keyword='{0}'", keyword), UriKind.Relative);
         }
 
         public override void LoadData()
         {
-            var main = ServiceLocator.Current.GetInstance<SearchDocumentMainVm>();
+            var main = ServiceLocator.Current.GetInstance<QueryContractMainVm>();
             Keyword = main.Keyword;
             main.Keyword = string.Empty;
-            DocumentTypes = main.DocumentTypes.ToList();
             RadButtonClick(null, null);
         }
     }

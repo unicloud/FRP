@@ -774,7 +774,16 @@
         <Property Name="SupplierName" Type="Edm.String" />
         <Property Name="DocumentName" Type="Edm.String" />
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Abstract" Type="Edm.String" />
+        <Property Name="DocumentPath" Type="Edm.String" />
+        <Property Name="SubDocuments" Type="Collection(UniCloud.Application.PurchaseBC.DTO.SubContractDocumentDTO)" Nullable="false" />
       </EntityType>
+      <ComplexType Name="SubContractDocumentDTO">
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="SupplierName" Type="Edm.String" />
+      </ComplexType>
       <Association Name="ContractAircraftDTO_BFEPurchaseOrders">
         <End Type="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO" Role="ContractAircraftDTO" Multiplicity="*" />
         <End Type="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" Role="BFEPurchaseOrders" Multiplicity="*" />
@@ -885,6 +894,9 @@
         <FunctionImport Name="SearchDocumentPath" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.DocumentPathDTO)" EntitySet="DocumentPaths" m:HttpMethod="GET">
           <Parameter Name="documentPathId" Type="Edm.Int32" Nullable="false" />
           <Parameter Name="name" Type="Edm.String" />
+        </FunctionImport>
+        <FunctionImport Name="SearchContractDocument" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.ContractDocumentDTO)" EntitySet="ContractDocuments" m:HttpMethod="GET">
+          <Parameter Name="keyword" Type="Edm.String" />
         </FunctionImport>
         <AssociationSet Name="ContractAircraftDTO_BFEPurchaseOrders" Association="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO_BFEPurchaseOrders">
           <End Role="ContractAircraftDTO" EntitySet="ContractAircrafts" />

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UniCloud.Presentation.CommonService.SearchDocument.SearchDocumentMain"
+﻿<UserControl x:Class="UniCloud.Presentation.Purchase.Contract.QueryContracts.QueryContractMain"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-             d:DataContext="{d:DesignInstance uc:SearchDocumentMainVm}"
+             d:DataContext="{d:DesignInstance uc:QueryContractMainVm}"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800">
@@ -29,10 +29,9 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="284" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
-                       Text="文 档 搜 索"
+                       Text="合 同 查 询"
                        FontFamily="Microsoft YaHei UI"
                        FontSize="25"
                        Height="40"
@@ -43,7 +42,7 @@
                                          HorizontalAlignment="Right"
                                          VerticalAlignment="Center"
                                          FontSize="20"
-                                         WatermarkContent="输入文档关键字"
+                                         WatermarkContent="输入关键字"
                                          FontFamily="Microsoft YaHei UI"
                                          Width="303"
                                          CurrentText="{Binding Keyword,Mode=TwoWay}">
@@ -54,24 +53,6 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </telerik:RadWatermarkTextBox>
-            <telerik:RadComboBox Grid.Row="2"
-                                 ItemsSource="{Binding DocumentTypes,Mode=TwoWay}"
-                                 EmptyText="搜索范围"
-                                 FontSize="18"
-                                 FontFamily="Microsoft YaHei UI"
-                                 HorizontalAlignment="Right"
-                                 VerticalAlignment="Top"
-                                 Margin="0,10,10,-10"
-                                 Height="35"
-                                 Width="100">
-                <telerik:RadComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox telerik:StyleManager.Theme="Windows8"
-                                  IsChecked="{Binding IsChecked, Mode=TwoWay}"
-                                  Content="{Binding Name}" />
-                    </DataTemplate>
-                </telerik:RadComboBox.ItemTemplate>
-            </telerik:RadComboBox>
         </Grid>
         <Grid  Grid.Column="2">
             <Grid.RowDefinitions>

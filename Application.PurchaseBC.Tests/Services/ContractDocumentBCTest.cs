@@ -4,7 +4,10 @@ using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PurchaseBC.ContractDocumentServices;
+using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries;
+using UniCloud.Application.PurchaseBC.Query.DocumentQueries;
+using UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
@@ -30,6 +33,10 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                          .RegisterType<IContractDocumentAppService, ContractDocumentAppService>()
                          .RegisterType<IContractDocumentQuery, ContractDocumentQuery>()
                           .RegisterType<IMaintainContractRepository, MaintainContractRepository>()
+                          .RegisterType<IDocumentPathAppService, DocumentPathAppService>()
+                         .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
+                         .RegisterType<IDocumentPathQuery, DocumentPathQuery>()
+
                 #endregion
 
                 ;
@@ -47,6 +54,8 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
             {
                 // Arrange
                 var service = DefaultContainer.Resolve<IContractDocumentAppService>();
+              var aaa=  service.Search("会议纪要");
+                var bbb = service.Search("的");
                 var result = service.GetContractDocuments();
                 Assert.IsTrue(result.Any());
             }

@@ -14,10 +14,18 @@
 
 #region 命名空间
 
+using System.IO;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+//using OfficeFiles.Reader;
+using UniCloud.Application.CommonServiceBC.DocumentServices;
 using UniCloud.Application.CommonServiceBC.DocumnetSearch;
+using UniCloud.Application.CommonServiceBC.Query.DocumentQueries;
+using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
+using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
+using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentTypeAgg;
 using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Data.CommonServiceBC.Repositories;
 using UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
 
@@ -36,7 +44,11 @@ namespace UniCloud.Application.CommonServiceBC.Tests
             DefaultContainer.CreateContainer()
                          .RegisterType<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
             #region 文档相关配置，包括查询，应用服务，仓储注册
-
+.RegisterType<IDocumentAppService, DocumentAppService>()
+                         .RegisterType<IDocumentQuery, DocumentQuery>()
+                         .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
+                         .RegisterType<IDocumentRepository, DocumentRepository>()
+                          .RegisterType<IDocumentTypeRepository, DocumentTypeRepository>()
 .RegisterType<IDocumentSearchAppService, DocumentSearchAppService>()
             #endregion
 
@@ -46,7 +58,7 @@ namespace UniCloud.Application.CommonServiceBC.Tests
         [TestCleanup]
         public void TestCleanup()
         {
-            
+
         }
 
         [TestMethod]
@@ -56,6 +68,35 @@ namespace UniCloud.Application.CommonServiceBC.Tests
             var result = service.Search("之", "1");
         }
 
+        [TestMethod]
+        public void AddIndex()
+        {
+            var service = DefaultContainer.Resolve<IQueryableUnitOfWork>();
+            var documents = service.CreateSet<Document>();
+            //foreach (var document in documents)
+            //{
+            //    if (document.FileStorage != null)
+            //    {
+            //        string path = @"d:\" + document.FileName;
+            //        File.WriteAllBytes(path, document.FileStorage);
+            //        string content = string.Empty;
+            //        if (document.Extension.Contains("docx"))
+            //        {
+            //            DocxFile file = new DocxFile(path);
+            //            content = file.ParagraphText;
+            //        }
+            //        else if (document.Extension.Contains("pdf"))
+            //        {
+            //            content = PdfFile.ReadPdfFile(path);
+            //        }
+            //        var service1 = new DocumentIndexService();
+
+            //        Document document1 = DocumentFactory.CreateStandardDocument(document.Id, document.FileName, document.Extension, document.Abstract, document.Note, document.Uploader,
+            //            true, null, content, document.DocumentTypeId);
+            //        service1.AddDocumentSearchIndex(document1);
+            //    }
+            //}
+        }
         #endregion
     }
 }

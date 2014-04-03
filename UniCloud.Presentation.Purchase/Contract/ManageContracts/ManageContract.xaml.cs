@@ -13,13 +13,13 @@ using UniCloud.Presentation.Service.Purchase.DocumentExtension;
 
 #endregion
 
-namespace UniCloud.Presentation.Purchase.Contract
+namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
 {
-    [Export(typeof(QueryContract))]
+    [Export(typeof(ManageContract))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class QueryContract
+    public partial class ManageContract
     {
-        public QueryContract()
+        public ManageContract()
         {
             InitializeComponent();
 
@@ -32,10 +32,10 @@ namespace UniCloud.Presentation.Purchase.Contract
             _doubleClickTimer.Tick += (DoubleClickTimerTick);
         }
 
-        [Import(typeof(QueryContractVM))]
-        public QueryContractVM ViewModel
+        [Import(typeof(ManageContractVm))]
+        public ManageContractVm ViewModel
         {
-            get { return DataContext as QueryContractVM; }
+            get { return DataContext as ManageContractVm; }
             set { DataContext = value; }
         }
 

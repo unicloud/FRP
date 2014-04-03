@@ -34,8 +34,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp">
+      <HintPath>..\packages\Lucene\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\packages\Lucene\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="OfficeFiles.Reader">
+      <HintPath>..\packages\Lucene\OfficeFiles.Reader.dll</HintPath>
+    </Reference>
+    <Reference Include="PanGu">
+      <HintPath>..\packages\Lucene\PanGu.dll</HintPath>
+    </Reference>
+    <Reference Include="PanGu.HighLight">
+      <HintPath>..\packages\Lucene\PanGu.HighLight.dll</HintPath>
+    </Reference>
+    <Reference Include="PanGu.Lucene.Analyzer">
+      <HintPath>..\packages\Lucene\PanGu.Lucene.Analyzer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,6 +74,11 @@
     <Compile Include="ApplicationExtension\InsertAttribute.cs" />
     <Compile Include="ApplicationExtension\UpdateAttribute.cs" />
     <Compile Include="DataHelper.cs" />
+    <Compile Include="LuceneSearch\DocIndexService.cs" />
+    <Compile Include="LuceneSearch\IndexManager.cs" />
+    <Compile Include="LuceneSearch\LuceneIndex.cs" />
+    <Compile Include="LuceneSearch\LuceneSearch.cs" />
+    <Compile Include="LuceneSearch\ResultHighlighter.cs" />
     <Compile Include="PropertiesHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryBuilder.cs" />

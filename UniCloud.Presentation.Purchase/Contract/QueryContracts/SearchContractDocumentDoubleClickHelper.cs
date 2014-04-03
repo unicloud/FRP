@@ -14,27 +14,27 @@
 
 #region 命名空间
 
-using System.ComponentModel.Composition;
 using Microsoft.Practices.ServiceLocation;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.Input;
 using UniCloud.Presentation.Service.CommonService.Common;
+using UniCloud.Presentation.Service.Purchase.Purchase;
 
 #endregion
 
-namespace UniCloud.Presentation.CommonService.SearchDocument
+namespace UniCloud.Presentation.Purchase.Contract.QueryContracts
 {
-    public class DocumentDoubleClickHelper : GridViewDoubleClickHelper
+    public class SearchContractDocumentDoubleClickHelper : GridViewDoubleClickHelper
     {
         protected override void GridViewDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {
-            var view = ServiceLocator.Current.GetInstance<SearchDocument>();
+            var view = ServiceLocator.Current.GetInstance<QueryContract>();
             var docViewer = ServiceLocator.Current.GetInstance<DocViewer>();
             var docViewerVM = ServiceLocator.Current.GetInstance<DocViewerVM>();
-            if (view.DocumentList.CurrentItem != null)
+            if (view.DocumentList.SelectedItem != null)
             {
                 docViewer.ShowDialog();
-                docViewerVM.InitDocument(((DocumentDTO)view.DocumentList.CurrentItem).DocumentId);
+                docViewerVM.InitDocument(((ContractDocumentDTO)view.DocumentList.SelectedItem).DocumentId);
             }
         }
         protected override bool CanDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)

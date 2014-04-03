@@ -21,7 +21,7 @@ using UniCloud.Presentation.Service.Purchase.DocumentExtension;
 
 #endregion
 
-namespace UniCloud.Presentation.Purchase.Contract
+namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
 {
     public class SearchResultsDoubleClickHelper : RadListBoxDoubleClickHelper
     {
@@ -29,16 +29,18 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             var boxItem = listBoxItem.Content as ListBoxDocumentItem;
             if (boxItem != null)
+            {
+                var viewModel = ServiceLocator.Current.GetInstance<ManageContractVm>();
                 if (boxItem.IsLeaf)
                 {
-                    var viewModel = ServiceLocator.Current.GetInstance<QueryContractVM>();
+
                     viewModel.OpenDocument(boxItem.DocumentGuid);
                 }
                 else
                 {
-                    var viewModel = ServiceLocator.Current.GetInstance<QueryContractVM>();
                     viewModel.OpenFolderInSearchResults(boxItem.DocumentPathId);
                 }
+            }
         }
 
         protected override bool CanDoubleClick(RadListBoxItem listBoxItem)

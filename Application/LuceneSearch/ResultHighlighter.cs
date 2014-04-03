@@ -21,7 +21,7 @@ using PanGu.HighLight;
 
 #endregion
 
-namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
+namespace UniCloud.Application.LuceneSearch
 {
     public static class ResultHighlighter
     {

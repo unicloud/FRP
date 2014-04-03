@@ -22,6 +22,7 @@ using System.Data.Services;
 using System.Data.Services.Common;
 using System.ServiceModel.Web;
 using System.Web;
+using UniCloud.Application.PurchaseBC.ContractDocumentServices;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -50,6 +51,7 @@ namespace UniCloud.DistributedServices.Purchase
             config.SetServiceOperationAccessRule("DelDocPath", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("ModifyDocPath", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("SearchDocumentPath", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("SearchContractDocument", ServiceOperationRights.All);
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
@@ -85,7 +87,7 @@ namespace UniCloud.DistributedServices.Purchase
 
         #endregion
 
-        #region 文档路径增加、删除
+        #region 文档路径增加、删除、修改、查找
 
         /// <summary>
         ///     添加文档路径
@@ -124,6 +126,13 @@ namespace UniCloud.DistributedServices.Purchase
         {
             var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
             return documentPathAppService.SearchDocumentPath(documentPathId, name);
+        }
+
+        [WebGet]
+        public List<ContractDocumentDTO> SearchContractDocument(string keyword)
+        {
+            var searchDocument = DefaultContainer.Resolve<IContractDocumentAppService>();
+            return searchDocument.Search(keyword);
         }
         #endregion
     }

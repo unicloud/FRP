@@ -3,11 +3,11 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2014/1/23 10:36:09
-// 文件名：SearchDocumentMainVm
+// 作者：linxw 时间：2014/4/2 14:50:19
+// 文件名：QueryContractMainVm
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2014/1/23 10:36:09
+// 修改者：linxw 时间：2014/4/2 14:50:19
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -16,36 +16,28 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Regions;
-using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService;
-using UniCloud.Presentation.Service.CommonService.Common;
 
 #endregion
 
-namespace UniCloud.Presentation.CommonService.SearchDocument
+namespace UniCloud.Presentation.Purchase.Contract.QueryContracts
 {
-    [Export(typeof(SearchDocumentMainVm))]
+    [Export(typeof(QueryContractMainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class SearchDocumentMainVm : ViewModelBase
+    public class QueryContractMainVm : ViewModelBase
     {
         private readonly IRegionManager _regionManager;
         [ImportingConstructor]
-        public SearchDocumentMainVm(ICommonService service, IRegionManager regionManager)
+        public QueryContractMainVm(ICommonService service, IRegionManager regionManager)
             : base(service)
         {
             _regionManager = regionManager;
-            DocumentTypes = new QueryableDataServiceCollectionView<DocumentTypeDTO>(service.Context, service.Context.DocumentTypes);
         }
 
-        /// <summary>
-        /// 文档类型
-        /// </summary>
-        public QueryableDataServiceCollectionView<DocumentTypeDTO> DocumentTypes { get; set; }
         #region 关键字
         private string _keyword;
         public string Keyword
@@ -72,21 +64,15 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 MessageAlert("请输入搜索关键字！");
                 return;
             }
-            if (DocumentTypes.All(p => p.IsChecked == false))
-            {
-                MessageAlert("请选择搜索范围！");
-                return;
-            }
 
             if (!string.IsNullOrEmpty(Keyword))
             {
-                _regionManager.RequestNavigate(RegionNames.MainRegion, new Uri("UniCloud.Presentation.CommonService.SearchDocument.SearchDocument", UriKind.Relative));
+                _regionManager.RequestNavigate(RegionNames.MainRegion, new Uri("UniCloud.Presentation.Purchase.Contract.QueryContracts.QueryContract", UriKind.Relative));
             }
         }
 
         public override void LoadData()
         {
-            DocumentTypes.Load();
         }
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel.Composition;
 
 #endregion
 
-namespace UniCloud.Presentation.Purchase.Contract
+namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
 {
     [Export(typeof(SearchResultsWindow))]
     [PartCreationPolicy(CreationPolicy.Shared)]
@@ -16,9 +16,9 @@ namespace UniCloud.Presentation.Purchase.Contract
         }
 
         [Import]
-        public QueryContractVM ViewModel
+        public ManageContractVm ViewModel
         {
-            get { return DataContext as QueryContractVM; }
+            get { return DataContext as ManageContractVm; }
             set { DataContext = value; }
         }
     }

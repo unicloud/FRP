@@ -1,7 +1,9 @@
 ﻿#region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
@@ -16,12 +18,12 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries
     public class ContractDocumentQuery : IContractDocumentQuery
     {
         private readonly IQueryableUnitOfWork _unitOfWork;
-        private readonly IMaintainContractRepository _contractRepository;
+        private readonly IMaintainContractRepository _maintainContractRepository;
 
-        public ContractDocumentQuery(IQueryableUnitOfWork unitOfWork, IMaintainContractRepository contractRepository)
+        public ContractDocumentQuery(IQueryableUnitOfWork unitOfWork, IMaintainContractRepository maintainContractRepository)
         {
             _unitOfWork = unitOfWork;
-            _contractRepository = contractRepository;
+            _maintainContractRepository = maintainContractRepository;
         }
 
         /// <summary>
@@ -45,11 +47,11 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries
             return result;
         }
 
-        public IEnumerable<ContractDocumentDTO> GetContractDocuments()
+        public IEnumerable<ContractDocumentDTO> GetContractDocuments(Expression<Func<Order, bool>> orderDocument, Expression<Func<RelatedDoc, bool>> relateDocument, Expression<Func<MaintainContract, bool>> maintainContractDocument)
         {
             var documents = new List<ContractDocumentDTO>();
             var dbTrade = _unitOfWork.CreateSet<Trade>();
-            _unitOfWork.CreateSet<Order>()
+            _unitOfWork.CreateSet<Order>().Where(orderDocument)
                 .Select(o => new ContractDocumentDTO
                              {
                                  Id = o.ContractDocGuid,
@@ -59,9 +61,14 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries
                                  ContractNumber = o.ContractNumber,
                                  DocumentName = o.ContractName,
                                  DocumentId = o.ContractDocGuid,
-                             }).ToList().ForEach(documents.Add);
+                             }).ToList().ForEach(p =>
+                                                 {
+                                                     var document = p;
+                                                     SetSubContractDocument(p, document);
+                                                     documents.Add(document);
+                                                 });
             _unitOfWork.CreateSet<Order>().ToList().ForEach(o => _unitOfWork.CreateSet<RelatedDoc>()
-                .Where(r => r.SourceId == o.SourceGuid)
+                .Where(r => r.SourceId == o.SourceGuid).Where(relateDocument)
                 .Select(p => new ContractDocumentDTO
                          {
                              Id = p.DocumentId,
@@ -73,8 +80,21 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries
                              ContractNumber = o.ContractNumber,
                              DocumentName = p.DocumentName,
                              DocumentId = p.DocumentId,
-                         }).ToList().ForEach(documents.Add));
-            _contractRepository.GetAll()
+                         }).ToList().ForEach(p =>
+                                             {
+                                                 var document = documents.FirstOrDefault(t => t.DocumentId == p.DocumentId);
+                                                 if (document == null)
+                                                 {
+                                                     var addedDocument = p;
+                                                     SetSubContractDocument(p, addedDocument);
+                                                     documents.Add(addedDocument);
+                                                 }
+                                                 else
+                                                 {
+                                                     SetSubContractDocument(p, document);
+                                                 }
+                                             }));
+            _maintainContractRepository.GetAll().Where(maintainContractDocument)
                 .Select(o => new ContractDocumentDTO
                              {
                                  Id = o.DocumentId,
@@ -83,8 +103,48 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries
                                  ContractName = o.Name,
                                  DocumentName = o.DocumentName,
                                  DocumentId = o.DocumentId,
-                             }).ToList().ForEach(documents.Add);
+                             }).ToList().ForEach(p =>
+                                                 {
+                                                     var document = documents.FirstOrDefault(t => t.DocumentId == p.DocumentId);
+                                                     if (document == null)
+                                                     {
+                                                         var addedDocument = p;
+                                                         SetSubContractDocument(p, addedDocument);
+                                                         documents.Add(addedDocument);
+                                                     }
+                                                     else
+                                                     {
+                                                         SetSubContractDocument(p, document);
+                                                     }
+                                                 });
             return documents;
+        }
+
+        private void SetSubContractDocument(ContractDocumentDTO source, ContractDocumentDTO dst)
+        {
+            if (dst.SubDocuments.Count == 0)
+            {
+                dst.SubDocuments = new List<SubContractDocumentDTO>
+                               {
+                                   new SubContractDocumentDTO
+                                   {
+                                       Id = Guid.NewGuid(),
+                                       SupplierName = source.SupplierName,
+                                       ContractName = source.ContractName,
+                                       ContractNumber = source.ContractNumber,
+                                   }
+                               };
+            }
+            else
+            {
+                dst.SubDocuments.Add(new SubContractDocumentDTO
+                                   {
+                                       Id = Guid.NewGuid(),
+                                       SupplierName = source.SupplierName,
+                                       ContractName = source.ContractName,
+                                       ContractNumber = source.ContractNumber,
+                                   });
+            }
         }
     }
 }
