@@ -27,17 +27,19 @@ using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PartBC.Aggregates.AirStructureDamageAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
+using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 using UniCloud.Domain.PartBC.Aggregates.ModAgg;
 using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
-using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
 using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql;
 
@@ -56,10 +58,12 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<AircraftSeries> _aircraftSeries;
         private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<Aircraft> _aircrafts;
-        private IDbSet<BasicConfigGroup> _basicConfigGroups;
         private IDbSet<BasicConfig> _basicConfigs;
+        private IDbSet<BasicConfigGroup> _basicConfigGroups;
+        private IDbSet<BasicConfigHistory> _basicConfigHistories;
         private IDbSet<ContractAircraft> _contractAircrafts;
         private IDbSet<CtrlUnit> _ctrlUnits;
+        private IDbSet<Item> _items;
         private IDbSet<MaintainCtrl> _maintainCtrls;
         private IDbSet<MaintainWork> _maintainWorks;
         private IDbSet<Mod> _mods;
@@ -67,8 +71,8 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<PnReg> _pneRegs;
         private IDbSet<Scn> _scns;
         private IDbSet<SnReg> _snRegs;
+        private IDbSet<SnInstallHistory> _snInstallHistories;
         private IDbSet<SpecialConfig> _specialConfigs;
-        private IDbSet<TechnicalSolution> _technicalSolutions;
         private IDbSet<Thrust> _thrusts;
 
         public IDbSet<AcDailyUtilization> AcDailyUtilizations
@@ -101,14 +105,19 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
             get { return _adSbs ?? (_adSbs = Set<AdSb>()); }
         }
 
+        public IDbSet<BasicConfig> BasicConfigs
+        {
+            get { return _basicConfigs ?? (_basicConfigs = base.Set<BasicConfig>()); }
+        }
+
         public IDbSet<BasicConfigGroup> BasicConfigGroups
         {
             get { return _basicConfigGroups ?? (_basicConfigGroups = base.Set<BasicConfigGroup>()); }
         }
 
-        public IDbSet<BasicConfig> BasicConfigs
+        public IDbSet<BasicConfigHistory> BasicConfigHistories
         {
-            get { return _basicConfigs ?? (_basicConfigs = base.Set<BasicConfig>()); }
+            get { return _basicConfigHistories ?? (_basicConfigHistories = base.Set<BasicConfigHistory>()); }
         }
 
 
@@ -120,6 +129,11 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         public IDbSet<CtrlUnit> CtrlUnits
         {
             get { return _ctrlUnits ?? (_ctrlUnits = base.Set<CtrlUnit>()); }
+        }
+
+        public IDbSet<Item> Items
+        {
+            get { return _items ?? (_items = base.Set<Item>()); }
         }
 
         public IDbSet<MaintainCtrl> MaintainCtrls
@@ -162,14 +176,14 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
             get { return _snRegs ?? (_snRegs = base.Set<SnReg>()); }
         }
 
+        public IDbSet<SnInstallHistory> SnInstallHistories
+        {
+            get { return _snInstallHistories ?? (_snInstallHistories = base.Set<SnInstallHistory>()); }
+        }
+
         public IDbSet<SpecialConfig> SpecialConfigs
         {
             get { return _specialConfigs ?? (_specialConfigs = base.Set<SpecialConfig>()); }
-        }
-
-        public IDbSet<TechnicalSolution> TechnicalSolutions
-        {
-            get { return _technicalSolutions ?? (_technicalSolutions = base.Set<TechnicalSolution>()); }
         }
 
         public IDbSet<Thrust> Thrusts
@@ -236,6 +250,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
 
                 .Add(new BasicConfigGroupEntityConfiguration())
                 .Add(new BasicConfigEntityConfiguration())
+                .Add(new BasicConfigHistoryEntityConfiguration())
 
                 #endregion
 
@@ -248,6 +263,12 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
                 #region CtrlUnitAgg
 
                 .Add(new CtrlUnitEntityConfiguration())
+
+                #endregion
+
+                #region ItemAgg
+
+                .Add(new ItemEntityConfiguration())
 
                 #endregion
 
@@ -283,7 +304,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
                 #region PnRegAgg
 
                 .Add(new PnRegEntityConfiguration())
-
+                .Add(new DependencyEntityConfiguration())
                 #endregion
 
                 #region ScnAgg
@@ -297,10 +318,15 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
                 #region SnRegAgg
 
                 .Add(new SnRegEntityConfiguration())
-                .Add(new SnHistoryEntityConfiguration())
                 .Add(new LifeMonitorEntityConfiguration())
                 .Add(new EngineRegEntityConfiguration())
                 .Add(new APURegEntityConfiguration())
+
+                #endregion
+
+                #region SnInstallHistoryAgg
+
+                .Add(new SnInstallHistoryEntityConfiguration())
 
                 #endregion
 
@@ -308,14 +334,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
 
                 .Add(new AcConfigEntityConfiguration())
                 .Add(new SpecialConfigEntityConfiguration())
-
-                #endregion
-
-                #region TechnicalSolutionAgg
-
-                .Add(new TechnicalSolutionEntityConfiguration())
-                .Add(new TsLineEntityConfiguration())
-                .Add(new DependencyEntityConfiguration())
 
                 #endregion
 

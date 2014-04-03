@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,114 +12,79 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
-using System;
-using System.Collections.Generic;
+
 using System.Data.Services.Common;
+
 #endregion
 
 namespace UniCloud.Application.PartBC.DTO
 {
     /// <summary>
-    /// BasicConfig
+    ///     BasicConfig
     /// </summary>
     [DataServiceKey("Id")]
     public class BasicConfigDTO
     {
-
         #region 属性
+
         /// <summary>
-        /// 主键
+        ///     主键
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// 基本构型组ID
+        ///     基本构型组ID
         /// </summary>
-        public int BasicConfigGroupId
-        {
-            get;
-            set;
-        }
+        public int BasicConfigGroupId { get; set; }
 
         /// <summary>
-        /// TS号
+        ///     FI号
         /// </summary>
-        public string TsNumber
-        {
-            get;
-            set;
-        }
+        public string FiNumber { get; set; }
 
         /// <summary>
-        /// FI号
+        ///     项号
         /// </summary>
-        public string FiNumber
-        {
-            get;
-            set;
-        }
+        public string ItemNo { get; set; }
 
         /// <summary>
-        /// 项号
+        ///     上层项号
         /// </summary>
-        public string ItemNo
-        {
-            get;
-            set;
-        }
+        public string ParentItemNo { get; set; }
 
         /// <summary>
-        /// 上层项号
+        ///     位置信息
         /// </summary>
-        public string ParentItemNo
-        {
-            get;
-            set;
-        }
+        public string Position { get; set; }
 
         /// <summary>
-        /// 描述
+        ///     描述
         /// </summary>
-        public string Description
-        {
-            get;
-            set;
-        }
+        public string Description { get; set; }
 
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        /// 技术解决方案ID
+        ///     项(Item)ID
         /// </summary>
-        public int? TsId
-        {
-            get;
-            set;
-        }
+        public int ItemId { get; set; }
 
         /// <summary>
-        /// 父项ID
+        ///     父项(AcConfig)ID
         /// </summary>
-        public int? ParentId
-        {
-            get;
-            set;
-        }
+        public int? ParentId { get; set; }
 
         /// <summary>
-        /// 根节点ID
+        ///     根节点(AcConfig)ID
         /// </summary>
-        public int RootId
-        {
-            get;
-            set;
-        }
+        public int RootId { get; set; }
+
         #endregion
-
     }
 }

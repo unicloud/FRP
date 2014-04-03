@@ -44,11 +44,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.UpdateDate).HasColumnName("UpdateDate").HasColumnType("datetime2");
             Property(p => p.RegNumber).HasColumnName("RegNumber").HasMaxLength(100);
             Property(p => p.Status).HasColumnName("Status");
+            Property(p => p.AllSnName).HasColumnName("AllSnName");
+            Property(p => p.AllPnName).HasColumnName("AllPnName");
 
             Property(p => p.PnRegId).HasColumnName("PnRegId");
             Property(p => p.AircraftId).HasColumnName("AircraftId");
 
-            HasMany(o => o.SnHistories).WithRequired().HasForeignKey(o => o.SnRegId);
             HasMany(o => o.LifeMonitors).WithRequired().HasForeignKey(o => o.SnRegId);
         }
 

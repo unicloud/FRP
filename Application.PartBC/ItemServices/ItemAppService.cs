@@ -1,0 +1,99 @@
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2013 UniCloud 
+//【本类功能概述】
+// 
+// 作者：HuangQibin 时间：2014/04/03，10:04
+// 文件名：ItemAppService.cs
+// 程序集：UniCloud.Application.PartBC
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+#region 命名空间
+
+using System.Linq;
+using UniCloud.Application.ApplicationExtension;
+using UniCloud.Application.PartBC.DTO;
+using UniCloud.Application.PartBC.Query.ItemQueries;
+using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
+
+#endregion
+
+namespace UniCloud.Application.PartBC.ItemServices
+{
+    /// <summary>
+    ///     实现附件项服务接口。
+    ///     用于处理附件项相关信息的服务，供Distributed Services调用。
+    /// </summary>
+    public class ItemAppService : IItemAppService
+    {
+        private readonly IItemQuery _itemQuery;
+        private readonly IItemRepository _itemRepository;
+        public ItemAppService(IItemQuery itemQuery,IItemRepository itemRepository)
+        {
+            _itemQuery = itemQuery;
+            _itemRepository = itemRepository;
+        }
+
+        #region ItemDTO
+
+        /// <summary>
+        ///     获取所有附件项
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<ItemDTO> GetItems()
+        {
+            var queryBuilder =
+                new QueryBuilder<Item>();
+            return _itemQuery.ItemDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///  新增Item。
+        /// </summary>
+        /// <param name="dto">ItemDTO。</param>
+        [Insert(typeof(ItemDTO))]
+        public void InsertItem(ItemDTO dto)
+        {
+            var newItem = ItemFactory.CreateItem(dto.Name,dto.ItemNo,dto.FiNumber,dto.Description);
+
+            _itemRepository.Add(newItem);
+        }
+
+        /// <summary>
+        ///  更新Item。
+        /// </summary>
+        /// <param name="dto">ItemDTO。</param>
+        [Update(typeof(ItemDTO))]
+        public void ModifyItem(ItemDTO dto)
+        {
+            var dbItem = _itemRepository.Get(dto.Id); //获取需要更新的对象。
+
+            if (dbItem != null)
+            {
+                var updateItem = ItemFactory.CreateItem(dto.Name, dto.ItemNo, dto.FiNumber, dto.Description);
+                updateItem.ChangeCurrentIdentity(dbItem.Id);
+                _itemRepository.Modify(updateItem);
+            }
+        }
+
+        /// <summary>
+        ///  删除Item。
+        /// </summary>
+        /// <param name="dto">ItemDTO。</param>
+        [Delete(typeof(ItemDTO))]
+        public void DeleteItem(ItemDTO dto)
+        {
+            var delItem = _itemRepository.Get(dto.Id); //获取需要删除的对象。
+            _itemRepository.Remove(delItem); //删除Item。
+        }
+
+        #endregion
+    }
+}

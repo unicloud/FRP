@@ -16,7 +16,7 @@ namespace UniCloud.Application.PartBC.DTO
     {
         #region 属性
 
-        private List<SnHistoryDTO> _snHistories;
+        private List<SnInstallHistoryDTO> _snInstallHistories;
 
         /// <summary>
         ///     主键
@@ -76,10 +76,10 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         ///     装机历史
         /// </summary>
-        public virtual List<SnHistoryDTO> SnHistories
+        public virtual List<SnInstallHistoryDTO> SnInstallHistories
         {
-            get { return _snHistories ?? (_snHistories = new List<SnHistoryDTO>()); }
-            set { _snHistories = value; }
+            get { return _snInstallHistories ?? (_snInstallHistories = new List<SnInstallHistoryDTO>()); }
+            set { _snInstallHistories = value; }
         }
 
         #endregion

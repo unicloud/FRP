@@ -39,6 +39,7 @@ using UniCloud.Domain.UberModel.Aggregates.AtaAgg;
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
 using UniCloud.Domain.UberModel.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg;
+using UniCloud.Domain.UberModel.Aggregates.BasicConfigHistoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
@@ -57,6 +58,7 @@ using UniCloud.Domain.UberModel.Aggregates.ForwarderAgg;
 using UniCloud.Domain.UberModel.Aggregates.FunctionItemAgg;
 using UniCloud.Domain.UberModel.Aggregates.GuaranteeAgg;
 using UniCloud.Domain.UberModel.Aggregates.InvoiceAgg;
+using UniCloud.Domain.UberModel.Aggregates.ItemAgg;
 using UniCloud.Domain.UberModel.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
 using UniCloud.Domain.UberModel.Aggregates.MailAddressAgg;
@@ -89,6 +91,7 @@ using UniCloud.Domain.UberModel.Aggregates.RequestAgg;
 using UniCloud.Domain.UberModel.Aggregates.RoleAgg;
 using UniCloud.Domain.UberModel.Aggregates.RoleFunctionAgg;
 using UniCloud.Domain.UberModel.Aggregates.ScnAgg;
+using UniCloud.Domain.UberModel.Aggregates.SnInstallHistoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.SnRegAgg;
 using UniCloud.Domain.UberModel.Aggregates.SpecialConfigAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
@@ -96,7 +99,6 @@ using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.UberModel.Aggregates.TaskStandardAgg;
-using UniCloud.Domain.UberModel.Aggregates.TechnicalSolutionAgg;
 using UniCloud.Domain.UberModel.Aggregates.ThrustAgg;
 using UniCloud.Domain.UberModel.Aggregates.TradeAgg;
 using UniCloud.Domain.UberModel.Aggregates.UserAgg;
@@ -135,7 +137,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Ata> _atas;
         private IDbSet<BankAccount> _bankAccounts;
         private IDbSet<BasicConfig> _basicConfigs;
-        private IDbSet<BasicConfigGroup> _basicConfigGroups; 
+        private IDbSet<BasicConfigGroup> _basicConfigGroups;
+        private IDbSet<BasicConfigHistory> _basicConfigHistories;
         private IDbSet<CaacProgramming> _caacProgrammings;
         private IDbSet<ContractAircraftBFE> _contractAircraftBfes;
         private IDbSet<ContractAircraft> _contractAircrafts;
@@ -152,6 +155,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Forwarder> _forwarders;
         private IDbSet<Guarantee> _guarantees;
         private IDbSet<Invoice> _invoices;
+        private IDbSet<Item> _items;
         private IDbSet<LicenseType> _licenseTypes;
         private IDbSet<Linkman> _linkmen;
         private IDbSet<MailAddress> _mailAddresses;
@@ -181,13 +185,13 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Request> _requests;
         private IDbSet<Scn> _scns;
         private IDbSet<SnReg> _snRegs;
+        private IDbSet<SnInstallHistory> _snInstallHistories;
         private IDbSet<SpecialConfig> _specialConfigs;
         private IDbSet<SupplierCompany> _supplierCompanies;
         private IDbSet<SupplierCompanyMaterial> _supplierCompanyMaterials;
         private IDbSet<SupplierRole> _supplierRoles;
         private IDbSet<Supplier> _suppliers;
         private IDbSet<TaskStandard> _taskStandards;
-        private IDbSet<TechnicalSolution> _technicalSolutions;
         private IDbSet<Thrust> _thrusts;
         private IDbSet<Trade> _trades;
         private IDbSet<User> _users;
@@ -307,6 +311,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             get { return _basicConfigGroups ?? (_basicConfigGroups = Set<BasicConfigGroup>()); }
         }
 
+        public IDbSet<BasicConfigHistory> BasicConfigHistories
+        {
+            get { return _basicConfigHistories ?? (_basicConfigHistories = base.Set<BasicConfigHistory>()); }
+        }
+
         public IDbSet<CaacProgramming> CaacProgrammings
         {
             get { return _caacProgrammings ?? (_caacProgrammings = Set<CaacProgramming>()); }
@@ -380,6 +389,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<Invoice> Invoices
         {
             get { return _invoices ?? (_invoices = Set<Invoice>()); }
+        }
+
+        public IDbSet<Item> Items
+        {
+            get { return _items ?? (_items = base.Set<Item>()); }
         }
 
         public IDbSet<Linkman> Linkmen
@@ -521,6 +535,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         {
             get { return _snRegs ?? (_snRegs = Set<SnReg>()); }
         }
+        
+        public IDbSet<SnInstallHistory> SnInstallHistories
+        {
+            get { return _snInstallHistories ?? (_snInstallHistories = base.Set<SnInstallHistory>()); }
+        }
 
         public IDbSet<SpecialConfig> SpecialConfigs
         {
@@ -575,11 +594,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<TaskStandard> TaskStandards
         {
             get { return _taskStandards ?? (_taskStandards = Set<TaskStandard>()); }
-        }
-
-        public IDbSet<TechnicalSolution> TechnicalSolutions
-        {
-            get { return _technicalSolutions ?? (_technicalSolutions = Set<TechnicalSolution>()); }
         }
 
         public IDbSet<Thrust> Thrusts
@@ -758,6 +772,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 .Add(new BasicConfigEntityConfiguration())
                 .Add(new BasicConfigGroupEntityConfiguration())
+                .Add(new BasicConfigHistoryEntityConfiguration())
                 #endregion
 
                 #region CaacProgrammingAgg
@@ -869,6 +884,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new LeaseInvoiceEntityConfiguration())
                 .Add(new PurchaseInvoiceEntityConfiguration())
                 .Add(new PrepaymentInvoiceEntityConfiguration())
+
+                #endregion
+
+                 #region ItemAgg
+
+                .Add(new ItemEntityConfiguration())
 
                 #endregion
 
@@ -1006,6 +1027,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 #region PnRegAgg
 
                 .Add(new PnRegEntityConfiguration())
+                .Add(new DependencyEntityConfiguration())
                 #endregion
 
                 #region ProgrammingAgg
@@ -1059,10 +1081,15 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 #region SnRegAgg
 
                 .Add(new SnRegEntityConfiguration())
-                .Add(new SnHistoryEntityConfiguration())
                 .Add(new LifeMonitorEntityConfiguration())
                 .Add(new EngineRegEntityConfiguration())
                 .Add(new APURegEntityConfiguration())
+
+                #endregion
+
+                #region SnInstallHistoryAgg
+
+                .Add(new SnInstallHistoryEntityConfiguration())
 
                 #endregion
 
@@ -1102,14 +1129,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new MaintainSupplierEntityConfiguration())
 
                 #endregion
-
-                #region TechnicalSolutionAgg
-
-                .Add(new TechnicalSolutionEntityConfiguration())
-                .Add(new TsLineEntityConfiguration())
-                .Add(new DependencyEntityConfiguration())
-                #endregion
-
+                
                 #region TradeAgg
 
                 .Add(new TradeEntityConfiguration())

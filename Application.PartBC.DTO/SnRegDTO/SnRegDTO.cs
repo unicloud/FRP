@@ -29,7 +29,7 @@ namespace UniCloud.Application.PartBC.DTO
     {
         #region 私有字段
 
-        private List<SnHistoryDTO> _snHistories;
+        private List<SnInstallHistoryDTO> _snInstallHistories;
 
         private List<LifeMonitorDTO> _lifeMonitors;
         #endregion
@@ -39,6 +39,7 @@ namespace UniCloud.Application.PartBC.DTO
         /// 主键
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
         /// 序号
         /// </summary>
@@ -128,6 +129,16 @@ namespace UniCloud.Application.PartBC.DTO
             get;
             set;
         }
+
+        /// <summary>
+        /// 是否寿控件
+        /// </summary>
+        public bool IsLife
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region 外键属性
@@ -157,10 +168,10 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         ///     装机历史
         /// </summary>
-        public virtual List<SnHistoryDTO> SnHistories
+        public virtual List<SnInstallHistoryDTO> SnInstallHistories
         {
-            get { return _snHistories ?? (_snHistories = new List<SnHistoryDTO>()); }
-            set { _snHistories = value; }
+            get { return _snInstallHistories ?? (_snInstallHistories = new List<SnInstallHistoryDTO>()); }
+            set { _snInstallHistories = value; }
         }
 
         /// <summary>

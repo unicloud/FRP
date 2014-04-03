@@ -27,13 +27,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// </summary>
         /// <param name="snReg"></param>
         void DeleteSnReg(SnReg snReg);
-
-        /// <summary>
-        ///     移除装机历史
-        /// </summary>
-        /// <param name="snHistory">装机历史</param>
-        void RemoveSnHistory(SnHistory snHistory);
-
+        
         /// <summary>
         ///     移除到寿监控
         /// </summary>

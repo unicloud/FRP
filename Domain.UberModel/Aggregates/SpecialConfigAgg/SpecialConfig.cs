@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,6 +12,7 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 using System;
@@ -19,7 +21,7 @@ using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
 namespace UniCloud.Domain.UberModel.Aggregates.SpecialConfigAgg
 {
     /// <summary>
-    /// SpecialConfig聚合根。
+    ///     SpecialConfig聚合根。
     /// </summary>
     public class SpecialConfig : AcConfig
     {
@@ -38,51 +40,29 @@ namespace UniCloud.Domain.UberModel.Aggregates.SpecialConfigAgg
         #region 属性
 
         /// <summary>
-        /// 开始时间
+        ///     开始时间
         /// </summary>
-        public DateTime StartDate
-        {
-            get;
-            private set;
-        }
+        public DateTime StartDate { get; private set; }
 
         /// <summary>
-        /// 结束时间
+        ///     结束时间
         /// </summary>
-        public DateTime? EndDate
-        {
-            get;
-            private set;
-        }
+        public DateTime? EndDate { get; private set; }
 
         /// <summary>
-        /// 是否有效
+        ///     是否有效
         /// </summary>
-        public bool IsValid
-        {
-            get;
-            private set;
-        }
+        public bool IsValid { get; private set; }
 
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public DateTime CreateDate
-        {
-            get;
-            internal set;
-        }
         #endregion
 
         #region 外键属性
+
         /// <summary>
-        /// 合同飞机ID
+        ///     合同飞机ID
         /// </summary>
-        public int ContractAircraftId
-        {
-            get;
-            set;
-        }
+        public int ContractAircraftId { get; private set; }
+
         #endregion
 
         #region 导航属性
@@ -90,6 +70,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SpecialConfigAgg
         #endregion
 
         #region 操作
+
         /// <summary>
         ///     设置开始时间
         /// </summary>
@@ -106,15 +87,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.SpecialConfigAgg
         public void SetEndDate(DateTime? date)
         {
             EndDate = date;
-        }
-
-        /// <summary>
-        ///     设置是否有效
-        /// </summary>
-        /// <param name="isValid">是否有效</param>
-        public void SetIsValid(bool isValid)
-        {
-            IsValid = isValid;
+            if (EndDate != null)
+            {
+                IsValid = false;
+            }
+            else IsValid = true;
         }
 
         /// <summary>
@@ -130,6 +107,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SpecialConfigAgg
 
             ContractAircraftId = contractAircraft.Id;
         }
+
         #endregion
     }
 }

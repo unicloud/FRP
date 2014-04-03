@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.UberModel.Aggregates.ItemAgg;
 
 #endregion
 
@@ -53,9 +54,9 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
         #region 外键属性
 
         /// <summary>
-        ///     构型ID
+        ///     附件项ID
         /// </summary>
-        public int AcConfigId { get; private set; }
+        public int ItemId { get; private set; }
 
         #endregion
 
@@ -66,18 +67,18 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
         #region 操作
 
         /// <summary>
-        ///     设置构型
+        ///     设置附件项
         /// </summary>
-        /// <param name="acConfig">构型</param>
-        public void SetAcConfig(AcConfig acConfig)
+        /// <param name="item">附件项</param>
+        public void SetItem(Item item)
         {
-            if (acConfig == null || acConfig.IsTransient())
+            if (item == null || item.IsTransient())
             {
-                throw new ArgumentException("构型参数为空！");
+                throw new ArgumentException("附件项参数为空！");
             }
 
-            AcConfigId = acConfig.Id;
-            ItemNo = acConfig.ItemNo;
+            ItemId = item.Id;
+            ItemNo = item.ItemNo;
         }
 
         #endregion

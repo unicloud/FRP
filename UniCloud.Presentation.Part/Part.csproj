@@ -192,22 +192,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseConfigurations\BaseConfiguration.xaml.cs">
-      <DependentUpon>BaseConfiguration.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="BaseConfigurations\BaseConfigurationVm.cs" />
-    <Compile Include="EngineConfig\BasicConfigGroupView.xaml.cs">
-      <DependentUpon>BasicConfigGroupView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EngineConfig\BasicConfigGroupVm.cs" />
-    <Compile Include="EngineConfig\ConfigCompareView.xaml.cs">
-      <DependentUpon>ConfigCompareView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EngineConfig\ConfigCompareVm.cs" />
-    <Compile Include="EngineConfig\SpecialConfigView.xaml.cs">
-      <DependentUpon>SpecialConfigView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EngineConfig\SpecialConfigVm.cs" />
     <Compile Include="MaintainAcDailyUtilization\CorrectAcDailyUtilization.xaml.cs">
       <DependentUpon>CorrectAcDailyUtilization.xaml</DependentUpon>
     </Compile>
@@ -235,31 +219,15 @@
     </Compile>
     <Compile Include="ManageSCN\MaintainScnVm.cs" />
     <Compile Include="ManageSCN\SelectAircraftsVm.cs" />
-    <Compile Include="ManageTS\TechnicalSolutionView.xaml.cs">
-      <DependentUpon>TechnicalSolutionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ManageTS\TechnicalSolutionVm.cs" />
     <Compile Include="OilMonitor\EngineOil.xaml.cs">
       <DependentUpon>EngineOil.xaml</DependentUpon>
     </Compile>
     <Compile Include="OilMonitor\EngineOilVM.cs" />
     <Compile Include="PartModule.cs" />
-    <Compile Include="PnRegAndSnReg\ManagePnAndSnView.xaml.cs">
-      <DependentUpon>ManagePnAndSnView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PnRegAndSnReg\ManagePnAndSnVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\MonthlyUtilizationReport.xaml.cs">
       <DependentUpon>MonthlyUtilizationReport.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SnHistories\QuerySnHistory.xaml.cs">
-      <DependentUpon>QuerySnHistory.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SnHistories\QuerySnHistoryVm.cs" />
-    <Compile Include="SnHistories\SnHistory.xaml.cs">
-      <DependentUpon>SnHistory.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SnHistories\SnHistoryVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -291,22 +259,6 @@
     <Folder Include="MaintainControl\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="BaseConfigurations\BaseConfiguration.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EngineConfig\BasicConfigGroupView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EngineConfig\ConfigCompareView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EngineConfig\SpecialConfigView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MaintainAcDailyUtilization\CorrectAcDailyUtilization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -335,27 +287,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ManageTS\TechnicalSolutionView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PnRegAndSnReg\ManagePnAndSnView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="OilMonitor\EngineOil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Report\MonthlyUtilizationReport.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SnHistories\QuerySnHistory.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SnHistories\SnHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -44,18 +44,17 @@ namespace UniCloud.Application.PartBC.Query.SpecialConfigQueries
             {
                 Id = p.Id,
                 StartDate = p.StartDate,
-                CreateDate = p.CreateDate,
                 Description = p.Description,
                 ContractAircraftId = p.ContractAircraftId,
                 EndDate = p.EndDate,
                 FiNumber = p.FiNumber,
                 IsValid = p.IsValid,
                 ItemNo = p.ItemNo,
+                ItemId = p.ItemId,
                 ParentId = p.ParentId,
                 ParentItemNo = p.ParentItemNo,
-                TsNumber = p.TsNumber,
-                TsId = p.TsId,
                 RootId = p.RootId,
+                Position = p.Position,
             });
         }
     }

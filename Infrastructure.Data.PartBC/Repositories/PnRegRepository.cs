@@ -14,7 +14,12 @@
 #endregion
 
 #region 命名空间
+
+using System.Data.Entity;
+using System.Linq;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
+using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PartBC.Repositories
@@ -31,6 +36,37 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
         }
 
         #region 方法重载
+        public override PnReg Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            return currentUnitOfWork.PnRegs.Include(p => p.Dependencies).FirstOrDefault(p => p.Id == (int)id);
+        }
         #endregion
+
+        /// <summary>
+        ///     删除附件
+        /// </summary>
+        /// <param name="pnReg"></param>
+        public void DeletePnReg(PnReg pnReg)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var dbDependencies = currentUnitOfWork.CreateSet<Dependency>();
+            var dbPnRegs = currentUnitOfWork.CreateSet<PnReg>();
+            dbDependencies.RemoveRange(pnReg.Dependencies);
+            dbPnRegs.Remove(pnReg);
+        }
+
+        /// <summary>
+        ///     移除依赖项
+        /// </summary>
+        /// <param name="dependency">依赖项</param>
+        public void RemoveDependency(Dependency dependency)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<Dependency>().Remove(dependency);
+        }
     }
 }

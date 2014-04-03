@@ -44,14 +44,14 @@ namespace UniCloud.Application.PartBC.Query.BasicConfigQueries
          {
              Id = p.Id,
              BasicConfigGroupId = p.BasicConfigGroupId,
-             Description = p.Description,
              FiNumber = p.FiNumber,
              ItemNo = p.ItemNo,
-             TsNumber = p.TsNumber,
+             ItemId = p.ItemId,
              ParentItemNo = p.ParentItemNo,
              ParentId = p.ParentId,
-             TsId = p.TsId,
              RootId = p.RootId,
+             Position = p.Position,
+             Description = p.Description,
          });
       }
    }

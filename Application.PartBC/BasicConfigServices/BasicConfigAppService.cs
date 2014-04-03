@@ -26,7 +26,7 @@ using UniCloud.Application.PartBC.Query.BasicConfigQueries;
 using UniCloud.Domain.PartBC.Aggregates;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
-using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
+using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 
 #endregion
 
@@ -41,16 +41,14 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
     {
         private readonly IBasicConfigQuery _basicConfigQuery;
         private readonly IBasicConfigRepository _basicConfigRepository;
-        private readonly ITechnicalSolutionRepository _technicalSolutionRepository;
-        private readonly IBasicConfigGroupRepository _basicConfigGroupRepository;
+        private readonly IItemRepository _itemRepository;
+
         public BasicConfigAppService(IBasicConfigQuery basicConfigQuery, IBasicConfigRepository basicConfigRepository,
-            ITechnicalSolutionRepository technicalSolutionRepository,
-            IBasicConfigGroupRepository basicConfigGroupRepository)
+            IItemRepository itemRepository)
         {
             _basicConfigQuery = basicConfigQuery;
             _basicConfigRepository = basicConfigRepository;
-            _technicalSolutionRepository = technicalSolutionRepository;
-            _basicConfigGroupRepository = basicConfigGroupRepository;
+            _itemRepository = itemRepository;
         }
 
         #region BasicConfigDTO
@@ -72,13 +70,11 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
         [Insert(typeof (BasicConfigDTO))]
         public void InsertBasicConfig(BasicConfigDTO dto)
         {
-            TechnicalSolution ts = _technicalSolutionRepository.Get(dto.TsId); //获取技术解决方案
-            AcConfig acConfig = _basicConfigRepository.Get(dto.ParentId);
+            Item item = _itemRepository.Get(dto.ItemId);
+            AcConfig parentAcConfig = _basicConfigRepository.Get(dto.ParentId);
 
             //创建基本构型
-            BasicConfig newBasicConfig = BasicConfigFactory.CreateBasicConfig(dto.Description, dto.ItemNo,
-                dto.ParentId, dto.ParentItemNo, ts, dto.BasicConfigGroupId);
-            newBasicConfig.SetRootId(acConfig);
+            BasicConfig newBasicConfig = BasicConfigFactory.CreateBasicConfig(dto.Position,dto.Description,item,parentAcConfig, dto.BasicConfigGroupId);
 
             _basicConfigRepository.Add(newBasicConfig);
         }
@@ -90,23 +86,18 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
         [Update(typeof (BasicConfigDTO))]
         public void ModifyBasicConfig(BasicConfigDTO dto)
         {
-            TechnicalSolution ts = _technicalSolutionRepository.Get(dto.TsId); //获取技术解决方案
-            AcConfig acConfig = _basicConfigRepository.Get(dto.ParentId);
+            Item item = _itemRepository.Get(dto.ItemId);
+            AcConfig parentAcConfig = _basicConfigRepository.Get(dto.ParentId);
 
             //获取需要更新的对象
-            BasicConfig updateBasicConfig = _basicConfigRepository.Get(dto.Id);
-
-            if (updateBasicConfig != null)
+            BasicConfig dbBasicConfig = _basicConfigRepository.Get(dto.Id);
+            
+            if (dbBasicConfig != null)
             {
-                //更新主表：
-                updateBasicConfig.SetDescription(dto.Description);
-                updateBasicConfig.SetItemNo(dto.ItemNo);
-                updateBasicConfig.SetParentAcConfigId(dto.ParentId);
-                updateBasicConfig.SetParentItemNo(dto.ParentItemNo);
-                updateBasicConfig.SetTechnicalSolution(ts);
-                updateBasicConfig.SetRootId(acConfig);
+                BasicConfig updateBasicConfig = BasicConfigFactory.CreateBasicConfig(dto.Position, dto.Description, item, parentAcConfig, dto.BasicConfigGroupId);
+                updateBasicConfig.ChangeCurrentIdentity(dbBasicConfig.Id);
+                _basicConfigRepository.Modify(updateBasicConfig);
             }
-            _basicConfigRepository.Modify(updateBasicConfig);
         }
 
         /// <summary>

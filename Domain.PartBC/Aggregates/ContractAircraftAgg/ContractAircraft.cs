@@ -72,11 +72,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg
 
         #region 外键属性
 
-        /// <summary>
-        ///     基本构型组
-        /// </summary>
-        public int? BasicConfigGroupId { get; private set; }
-
         #endregion
 
         #region 导航属性
@@ -85,14 +80,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg
 
         #region 操作
 
-        /// <summary>
-        ///     设置基本构型组
-        /// </summary>
-        /// <param name="basicConfigGroupId">基本构型组Id</param>
-        public void SetBasicConfigGroup(int? basicConfigGroupId)
-        {
-            BasicConfigGroupId = basicConfigGroupId;
-        }
         #endregion
 
         #region IValidatableObject 成员

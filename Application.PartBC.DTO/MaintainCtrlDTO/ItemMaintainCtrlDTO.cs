@@ -62,9 +62,9 @@ namespace UniCloud.Application.PartBC.DTO
         #region 外键属性
 
         /// <summary>
-        /// 构型ID
+        /// 项ID
         /// </summary>
-        public int AcConfigId
+        public int ItemId
         {
             get;
             set;

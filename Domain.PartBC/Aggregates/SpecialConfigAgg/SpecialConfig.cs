@@ -63,15 +63,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
             get;
             private set;
         }
-
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public DateTime CreateDate
-        {
-            get;
-            internal set;
-        }
         #endregion
 
         #region 外键属性
@@ -106,15 +97,11 @@ namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
         public void SetEndDate(DateTime? date)
         {
             EndDate = date;
-        }
-
-        /// <summary>
-        ///     设置是否有效
-        /// </summary>
-        /// <param name="isValid">是否有效</param>
-        public void SetIsValid(bool isValid)
-        {
-            IsValid = isValid;
+            if (EndDate != null)
+            {
+                IsValid = false;
+            }
+            else IsValid = true;
         }
 
         /// <summary>
