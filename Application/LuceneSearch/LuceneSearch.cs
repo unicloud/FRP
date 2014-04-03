@@ -35,13 +35,9 @@ namespace UniCloud.Application.LuceneSearch
             }
             #region 生成Query语句
 
-            var field = new string[6];
+            var field = new string[2];
             field[0] = "fileName";
             field[1] = "fileContent";
-            field[2] = "abstract";
-            field[3] = "extendType";
-            field[4] = "tag";
-            field[5] = "author";
 
             var boolQuery = new BooleanQuery();
 
@@ -66,37 +62,8 @@ namespace UniCloud.Application.LuceneSearch
                 keywordQuery.Add(fileContentQuery, BooleanClause.Occur.SHOULD);
 
                 #endregion
-                #region 查询abstract
-
-                //var abstractParser = new QueryParser(Lucene.Net.Util.Version.LUCENE_29, field[2], IndexManager.Analyzer);
-                //abstractParser.SetDefaultOperator(QueryParser.Operator.AND);
-                //Lucene.Net.Search.Query abstractQuery = abstractParser.Parse(queryKeyword + "~");
-                //keywordQuery.Add(abstractQuery, BooleanClause.Occur.SHOULD);
-                #endregion
-                #region  查询tag
-
-                //var tagParser = new QueryParser(Lucene.Net.Util.Version.LUCENE_29, field[4], IndexManager.Analyzer);
-                //tagParser.SetDefaultOperator(QueryParser.Operator.AND);
-                //Lucene.Net.Search.Query tagQuery = tagParser.Parse(queryKeyword + "~");  // ~ 提供模糊查询
-                //keywordQuery.Add(tagQuery, BooleanClause.Occur.SHOULD);
-                #endregion
-                #region 查询author
-
-                //var authorParser = new QueryParser(Lucene.Net.Util.Version.LUCENE_29, field[5], IndexManager.Analyzer);
-                //authorParser.SetDefaultOperator(QueryParser.Operator.AND);
-                //Lucene.Net.Search.Query authorQuery = authorParser.Parse(queryKeyword + "~");  // ~ 提供模糊查询
-                //keywordQuery.Add(authorQuery, BooleanClause.Occur.SHOULD);
-                #endregion
                 boolQuery.Add(keywordQuery, BooleanClause.Occur.MUST);
             }
-            //if (!string.IsNullOrEmpty(extendType))
-            //{
-            //    string queryExtendType = GetKeyWordsSplitBySpace(extendType, new PanGuTokenizer());
-            //    var extendTypeParser = new QueryParser(Lucene.Net.Util.Version.LUCENE_29, field[3], IndexManager.Analyzer);
-            //    Lucene.Net.Search.Query extendTypeQuery = extendTypeParser.Parse(queryExtendType);
-
-            //    boolQuery.Add(extendTypeQuery, BooleanClause.Occur.MUST);
-            //}
             #endregion
 
             return multiSearch.Search(boolQuery, null, 1000);

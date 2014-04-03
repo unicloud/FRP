@@ -95,6 +95,7 @@ namespace UniCloud.Presentation.Purchase.Contract.QueryContracts
                    {
                        if (context != null)
                        {
+                           context.MergeOption = MergeOption.OverwriteChanges;
                            Documents = context.EndExecute<ContractDocumentDTO>(result).ToList();
                        }
                    }

@@ -55,6 +55,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                 // Arrange
                 var service = DefaultContainer.Resolve<IContractDocumentAppService>();
               var aaa=  service.Search("会议纪要");
+                var bbb = service.Search("的");
                 var result = service.GetContractDocuments();
                 Assert.IsTrue(result.Any());
             }

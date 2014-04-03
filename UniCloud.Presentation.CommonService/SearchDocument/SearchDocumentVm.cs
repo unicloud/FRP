@@ -120,6 +120,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                    {
                        if (context != null)
                        {
+                           context.MergeOption = MergeOption.OverwriteChanges;
                            Documents = context.EndExecute<DocumentDTO>(result).ToList();
                        }
                    }

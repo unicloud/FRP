@@ -133,14 +133,14 @@
                                                          ShowGroupPanel="False"
                                                          IsReadOnly="True">
                                         <telerik:RadGridView.Columns>
-                                            <telerik:GridViewDataColumn Header="合同名称"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding  ContractName}" />
                                             <telerik:GridViewDataColumn Header="合同编号"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding  ContractNumber}" />
+                                            <telerik:GridViewDataColumn Header="合同名称"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding  ContractName}" />
                                             <telerik:GridViewDataColumn Header="供应商"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
