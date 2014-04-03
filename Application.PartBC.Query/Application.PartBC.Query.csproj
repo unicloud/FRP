@@ -58,14 +58,16 @@
     <Compile Include="AirStructureDamageQueries\IAirStructureDamageQuery.cs" />
     <Compile Include="BasicConfigGroupQueries\BasicConfigGroupQuery.cs" />
     <Compile Include="BasicConfigGroupQueries\IBasicConfigGroupQuery.cs" />
+    <Compile Include="BasicConfigHistoryQueries\BasicConfigHistoryQuery.cs" />
+    <Compile Include="BasicConfigHistoryQueries\IBasicConfigHistoryQuery.cs" />
     <Compile Include="BasicConfigQueries\BasicConfigQuery.cs" />
     <Compile Include="BasicConfigQueries\IBasicConfigQuery.cs" />
-    <Compile Include="ConfigGroupQueries\ConfigGroupQuery.cs" />
-    <Compile Include="ConfigGroupQueries\IConfigGroupQuery.cs" />
     <Compile Include="ContractAircraftQueries\ContractAircraftQuery.cs" />
     <Compile Include="ContractAircraftQueries\IContractAircraftQuery.cs" />
     <Compile Include="CtrlUnitQueries\CtrlUnitQuery.cs" />
     <Compile Include="CtrlUnitQueries\ICtrlUnitQuery.cs" />
+    <Compile Include="ItemQueries\IItemQuery.cs" />
+    <Compile Include="ItemQueries\ItemQuery.cs" />
     <Compile Include="MaintainCtrlQueries\IMaintainCtrlQuery.cs" />
     <Compile Include="MaintainCtrlQueries\MaintainCtrlQuery.cs" />
     <Compile Include="MaintainWorkQueries\IMaintainWorkQuery.cs" />
@@ -79,12 +81,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScnQueries\IScnQuery.cs" />
     <Compile Include="ScnQueries\ScnQuery.cs" />
+    <Compile Include="SnInstallHistoryQueries\ISnInstallHistoryQuery.cs" />
+    <Compile Include="SnInstallHistoryQueries\SnInstallHistoryQuery.cs" />
     <Compile Include="SnRegQueries\ISnRegQuery.cs" />
     <Compile Include="SnRegQueries\SnRegQuery.cs" />
     <Compile Include="SpecialConfigQueries\ISpecialConfigQuery.cs" />
     <Compile Include="SpecialConfigQueries\SpecialConfigQuery.cs" />
-    <Compile Include="TechnicalSolutionQueries\ITechnicalSolutionQuery.cs" />
-    <Compile Include="TechnicalSolutionQueries\TechnicalSolutionQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -120,6 +122,7 @@
       <Name>Infrastructure.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

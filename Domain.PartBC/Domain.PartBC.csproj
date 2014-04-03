@@ -58,6 +58,18 @@
     <Compile Include="Aggregates\BasicConfigAgg\BasicConfigFactory.cs" />
     <Compile Include="Aggregates\BasicConfigAgg\BasicConfigSpecifications.cs" />
     <Compile Include="Aggregates\BasicConfigAgg\IBasicConfigRepository.cs" />
+    <Compile Include="Aggregates\BasicConfigHistoryAgg\BasicConfigHistory.cs" />
+    <Compile Include="Aggregates\BasicConfigHistoryAgg\BasicConfigHistoryFactory.cs" />
+    <Compile Include="Aggregates\BasicConfigHistoryAgg\BasicConfigHistorySpecifications.cs" />
+    <Compile Include="Aggregates\BasicConfigHistoryAgg\IBasicConfigHistoryRepository.cs" />
+    <Compile Include="Aggregates\ItemAgg\IItemRepository.cs" />
+    <Compile Include="Aggregates\ItemAgg\Item.cs" />
+    <Compile Include="Aggregates\ItemAgg\ItemFactory.cs" />
+    <Compile Include="Aggregates\ItemAgg\ItemSpecifications.cs" />
+    <Compile Include="Aggregates\SnInstallHistoryAgg\ISnInstallHistoryRepository.cs" />
+    <Compile Include="Aggregates\SnInstallHistoryAgg\SnInstallHistory.cs" />
+    <Compile Include="Aggregates\SnInstallHistoryAgg\SnInstallHistoryFactory.cs" />
+    <Compile Include="Aggregates\SnInstallHistoryAgg\SnInstallHistorySpecifications.cs" />
     <Compile Include="Aggregates\SnRegAgg\APUReg.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -120,7 +132,6 @@
     <Compile Include="Aggregates\ScnAgg\ScnSpecifications.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\SnMaintainCtrl.cs" />
     <Compile Include="Aggregates\SnRegAgg\ISnRegRepository.cs" />
-    <Compile Include="Aggregates\SnRegAgg\SnHistory.cs" />
     <Compile Include="Aggregates\SnRegAgg\SnReg.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\ISpecialConfigRepository.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfig.cs" />
@@ -128,12 +139,7 @@
     <Compile Include="Aggregates\SnRegAgg\SnRegSpecifications.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfigFactory.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfigSpecifications.cs" />
-    <Compile Include="Aggregates\TechnicalSolutionAgg\Dependency.cs" />
-    <Compile Include="Aggregates\TechnicalSolutionAgg\ITechnicalSolutionRepository.cs" />
-    <Compile Include="Aggregates\TechnicalSolutionAgg\TechnicalSolution.cs" />
-    <Compile Include="Aggregates\TechnicalSolutionAgg\TechnicalSolutionFactory.cs" />
-    <Compile Include="Aggregates\TechnicalSolutionAgg\TechnicalSolutionSpecifications.cs" />
-    <Compile Include="Aggregates\TechnicalSolutionAgg\TsLine.cs" />
+    <Compile Include="Aggregates\PnRegAgg\Dependency.cs" />
     <Compile Include="Aggregates\ThrustAgg\IThrustRepository.cs" />
     <Compile Include="Aggregates\ThrustAgg\Thrust.cs" />
     <Compile Include="Aggregates\ThrustAgg\ThrustFactory.cs" />

@@ -126,11 +126,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg
         /// </summary>
         public int SupplierId { get; private set; }
 
-        /// <summary>
-        ///     基本构型组
-        /// </summary>
-        public int? BasicConfigGroupId { get; private set; }
-
         #endregion
 
         #region 导航属性
@@ -358,14 +353,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg
             }
         }
 
-        /// <summary>
-        ///     设置基本构型组
-        /// </summary>
-        /// <param name="basicConfigGroupId">基本构型组Id</param>
-        public void SetBasicConfigGroup(int? basicConfigGroupId)
-        {
-            BasicConfigGroupId = basicConfigGroupId;
-        }
         #endregion
 
         #region IValidatableObject 成员

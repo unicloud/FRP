@@ -52,14 +52,16 @@
     <Compile Include="AirStructureDamageServices\IAirStructureDamageAppService.cs" />
     <Compile Include="BasicConfigGroupServices\BasicConfigGroupAppService.cs" />
     <Compile Include="BasicConfigGroupServices\IBasicConfigGroupAppService.cs" />
+    <Compile Include="BasicConfigHistoryServices\BasicConfigHistoryAppService.cs" />
+    <Compile Include="BasicConfigHistoryServices\IBasicConfigHistoryAppService.cs" />
     <Compile Include="BasicConfigServices\BasicConfigAppService.cs" />
     <Compile Include="BasicConfigServices\IBasicConfigAppService.cs" />
-    <Compile Include="ConfigGroupServices\ConfigGroupAppService.cs" />
-    <Compile Include="ConfigGroupServices\IConfigGroupAppService.cs" />
     <Compile Include="ContractAircraftServices\ContractAircraftAppService.cs" />
     <Compile Include="ContractAircraftServices\IContractAircraftAppService.cs" />
     <Compile Include="CtrlUnitServices\CtrlUnitAppService.cs" />
     <Compile Include="CtrlUnitServices\ICtrlUnitAppService.cs" />
+    <Compile Include="ItemServices\IItemAppService.cs" />
+    <Compile Include="ItemServices\ItemAppService.cs" />
     <Compile Include="MaintainCtrlServices\IMaintainCtrlAppService.cs" />
     <Compile Include="MaintainCtrlServices\MaintainCtrlAppService.cs" />
     <Compile Include="MaintainWorkServices\IMaintainWorkAppService.cs" />
@@ -73,12 +75,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScnServices\IScnAppService.cs" />
     <Compile Include="ScnServices\ScnAppService.cs" />
+    <Compile Include="SnInstallHistoryServices\ISnInstallHistoryAppService.cs" />
+    <Compile Include="SnInstallHistoryServices\SnInstallHistoryAppService.cs" />
     <Compile Include="SnRegServices\ISnRegAppService.cs" />
     <Compile Include="SnRegServices\SnRegAppService.cs" />
     <Compile Include="SpecialConfigServices\ISpecialConfigAppService.cs" />
     <Compile Include="SpecialConfigServices\SpecialConfigAppService.cs" />
-    <Compile Include="TechnicalSolutionServices\ITechnicalSolutionAppService.cs" />
-    <Compile Include="TechnicalSolutionServices\TechnicalSolutionAppService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application.PartBC.DTO\Application.PartBC.DTO.csproj">
@@ -110,6 +112,7 @@
       <Name>Infrastructure.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

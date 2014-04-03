@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,46 +12,46 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
+
 using System;
+
 #endregion
 
 namespace UniCloud.Domain.PartBC.Aggregates.PnRegAgg
 {
     /// <summary>
-    /// PnReg工厂。
+    ///     PnReg工厂。
     /// </summary>
     public static class PnRegFactory
     {
         /// <summary>
-        /// 创建PnReg。
+        ///     创建PnReg。
         /// </summary>
-        ///  <returns>PnReg</returns>
+        /// <returns>PnReg</returns>
         public static PnReg CreatePnReg()
         {
-            var pnReg = new PnReg
-            {
-            };
+            var pnReg = new PnReg();
             pnReg.GenerateNewIdentity();
             return pnReg;
         }
 
         /// <summary>
-        /// 创建附件
+        ///     创建附件
         /// </summary>
         /// <param name="isLife">是否寿控</param>
         /// <param name="pn">附件件号</param>
         /// <returns></returns>
-        public static PnReg CreatePnReg(bool isLife,string pn)
+        public static PnReg CreatePnReg(bool isLife, string pn)
         {
-            var pnReg = new PnReg
-            {
-            };
+            var pnReg = new PnReg();
             pnReg.GenerateNewIdentity();
             pnReg.SetIsLife(isLife);
             pnReg.SetPn(pn);
+            pnReg.CreateDate = DateTime.Now;
             return pnReg;
         }
     }

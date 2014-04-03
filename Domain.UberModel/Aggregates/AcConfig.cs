@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,17 +12,18 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.UberModel.Aggregates.TechnicalSolutionAgg;
+using UniCloud.Domain.UberModel.Aggregates.ItemAgg;
 
 namespace UniCloud.Domain.UberModel.Aggregates
 {
     /// <summary>
-    /// AcConfig聚合根。
+    ///     AcConfig聚合根。
     /// </summary>
     public class AcConfig : EntityInt, IValidatableObject
     {
@@ -46,74 +48,51 @@ namespace UniCloud.Domain.UberModel.Aggregates
         #region 属性
 
         /// <summary>
-        /// TS号
+        ///     FI号
         /// </summary>
-        public string TsNumber
-        {
-            get;
-            private set;
-        }
+        public string FiNumber { get; private set; }
 
         /// <summary>
-        /// FI号
+        ///     项号
         /// </summary>
-        public string FiNumber
-        {
-            get;
-            private set;
-        }
+        public string ItemNo { get; private set; }
 
         /// <summary>
-        /// 项号
+        ///     上层项号
         /// </summary>
-        public string ItemNo
-        {
-            get;
-            private set;
-        }
+        public string ParentItemNo { get; private set; }
 
         /// <summary>
-        /// 上层项号
+        ///     创建时间
         /// </summary>
-        public string ParentItemNo
-        {
-            get;
-            private set;
-        }
+        public DateTime CreateDate { get; internal set; }
 
         /// <summary>
-        /// 描述
+        ///     位置信息
         /// </summary>
-        public string Description
-        {
-            get;
-            private set;
-        }
+        public string Position { get; private set; }
+
+        /// <summary>
+        ///     描述
+        /// </summary>
+        public string Description { get; private set; }
 
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        /// 技术解决方案ID
+        ///     项(Item)ID
         /// </summary>
-        public int? TsId
-        {
-            get;
-            private set;
-        }
+        public int ItemId { get; private set; }
 
         /// <summary>
-        /// 父项ID
+        ///     父项(AcConfig)ID
         /// </summary>
-        public int? ParentId
-        {
-            get;
-            private set;
-        }
-        
+        public int? ParentId { get; private set; }
+
         /// <summary>
-        ///   根节点ID
+        ///     根节点(AcConfig)ID
         /// </summary>
         public int RootId { get; private set; }
 
@@ -122,7 +101,7 @@ namespace UniCloud.Domain.UberModel.Aggregates
         #region 导航属性
 
         /// <summary>
-        /// 下层项集合
+        ///     下层项集合
         /// </summary>
         public virtual ICollection<AcConfig> SubAcConfigs
         {
@@ -135,26 +114,46 @@ namespace UniCloud.Domain.UberModel.Aggregates
         #region 操作
 
         /// <summary>
-        ///     设置项号
+        ///     设置附件项
         /// </summary>
-        /// <param name="itemNo">项号</param>
-        public void SetItemNo(string itemNo)
+        /// <param name="item">附件项</param>
+        public void SetItem(Item item)
         {
-            if (string.IsNullOrWhiteSpace(itemNo))
+            if (item == null || item.IsTransient())
             {
-                throw new ArgumentException("项号参数为空！");
+                throw new ArgumentException("附件项参数为空！");
             }
 
-            ItemNo = itemNo;
+            ItemId = item.Id;
+            FiNumber = item.FiNumber;
+            ItemNo = item.ItemNo;
         }
-        
+
         /// <summary>
-        ///     设置父项项号
+        ///     设置父项
         /// </summary>
-        /// <param name="parentItemNo">父项项号</param>
-        public void SetParentItemNo(string parentItemNo)
+        /// <param name="parentAcConfig">父项</param>
+        public void SetParentItem(AcConfig parentAcConfig)
         {
-            ParentItemNo = parentItemNo;
+            if (parentAcConfig != null)
+            {
+                ParentItemNo = parentAcConfig.ItemNo;
+                ParentId = parentAcConfig.Id;
+                SetRootId(parentAcConfig);
+            }
+        }
+
+        /// <summary>
+        ///     设置位置信息
+        /// </summary>
+        /// <param name="position">位置信息</param>
+        public void SetPosition(string position)
+        {
+            if (string.IsNullOrWhiteSpace(position))
+            {
+                throw new ArgumentException("位置信息参数为空！");
+            }
+            Position = position;
         }
 
         /// <summary>
@@ -164,26 +163,6 @@ namespace UniCloud.Domain.UberModel.Aggregates
         public void SetDescription(string description)
         {
             Description = description;
-        }
-
-        /// <summary>
-        ///     设置当前飞机
-        /// </summary>
-        /// <param name="ts">当前飞机</param>
-        public void SetTechnicalSolution(TechnicalSolution ts)
-        {
-            TsId = ts.Id;
-            TsNumber = ts.TsNumber;
-            FiNumber = ts.FiNumber;
-        }
-
-        /// <summary>
-        ///     设置父项构型
-        /// </summary>
-        /// <param name="parentId">父项构型ID</param>
-        public void SetParentAcConfigId(int? parentId)
-        {
-            ParentId = parentId;
         }
 
         /// <summary>

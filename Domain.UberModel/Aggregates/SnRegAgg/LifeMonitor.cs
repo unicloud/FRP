@@ -27,7 +27,8 @@ using UniCloud.Domain.UberModel.Aggregates.MaintainWorkAgg;
 namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
 {
     /// <summary>
-    ///     LifeMonitor聚合根。
+    ///     SnReg聚合根。
+    ///     LifeMonitor非聚合根
     ///     到寿监控
     /// </summary>
     public class LifeMonitor : EntityInt, IValidatableObject

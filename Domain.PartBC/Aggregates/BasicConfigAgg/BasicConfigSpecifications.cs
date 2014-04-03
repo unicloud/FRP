@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,14 +12,15 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
 {
-   /// <summary>
-   /// BasicConfig规约集合。
-   /// </summary>
-   public static class BasicConfigSpecifications
-   {
-   }
+    /// <summary>
+    ///     BasicConfig规约集合。
+    /// </summary>
+    public static class BasicConfigSpecifications
+    {
+    }
 }

@@ -41,7 +41,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
         {
             var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
             if (currentUnitOfWork == null) return null;
-            return currentUnitOfWork.SnRegs.Include(p => p.SnHistories).Include(p=>p.LifeMonitors).FirstOrDefault(p => p.Id == (int)id);
+            return currentUnitOfWork.SnRegs.Include(p=>p.LifeMonitors).FirstOrDefault(p => p.Id == (int)id);
         }
         #endregion
 
@@ -53,24 +53,12 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
         {
             var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
             if (currentUnitOfWork == null) return;
-            var dbSnHistories = currentUnitOfWork.CreateSet<SnHistory>();
             var dbLifeMonitors = currentUnitOfWork.CreateSet<LifeMonitor>();
             var dbSnRegs = currentUnitOfWork.CreateSet<SnReg>();
-            dbSnHistories.RemoveRange(snReg.SnHistories);
             dbLifeMonitors.RemoveRange(snReg.LifeMonitors);
             dbSnRegs.Remove(snReg);
         }
         
-        /// <summary>
-        ///     移除装机历史
-        /// </summary>
-        /// <param name="snHistory">装机历史</param>
-        public void RemoveSnHistory(SnHistory snHistory)
-        {
-            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
-            if (currentUnitOfWork == null) return;
-            currentUnitOfWork.CreateSet<SnHistory>().Remove(snHistory);
-        }
 
         /// <summary>
         ///     移除到寿监控

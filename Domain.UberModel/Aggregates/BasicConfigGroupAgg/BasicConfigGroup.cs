@@ -35,8 +35,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
     {
         #region 私有字段
 
-        private HashSet<BasicConfig> _basicConfigs;
-
         #endregion
 
         #region 构造函数
@@ -54,11 +52,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
         #region 属性
 
         /// <summary>
-        ///     启用日期
-        /// </summary>
-        public DateTime StartDate { get; private set; }
-
-        /// <summary>
         ///     描述
         /// </summary>
         public string Description { get; private set; }
@@ -73,7 +66,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
         #region 外键属性
 
         /// <summary>
-        ///     机型外键
+        ///     川航机型外键
         /// </summary>
         public Guid AircraftTypeId { get; private set; }
 
@@ -86,26 +79,9 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
         /// </summary>
         public AircraftType AircraftType { get; set; }
 
-        /// <summary>
-        /// 基本构型集合
-        /// </summary>
-        public virtual ICollection<BasicConfig> BasicConfigs
-        {
-            get { return _basicConfigs ?? (_basicConfigs = new HashSet<BasicConfig>()); }
-            set { _basicConfigs = new HashSet<BasicConfig>(value); }
-        }
         #endregion
 
         #region 操作
-
-        /// <summary>
-        ///     设置启用日期
-        /// </summary>
-        /// <param name="date">启用日期</param>
-        public void SetStartDate(DateTime date)
-        {
-            StartDate = date;
-        }
 
         /// <summary>
         ///     设置描述

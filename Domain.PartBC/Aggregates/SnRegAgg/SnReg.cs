@@ -37,7 +37,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         #region 私有字段
 
         private HashSet<LifeMonitor> _lifeMonitors;
-        private HashSet<SnHistory> _snHistories;
 
         #endregion
 
@@ -56,9 +55,14 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         #region 属性
 
         /// <summary>
-        ///     序号
+        ///     当前序号
         /// </summary>
         public string Sn { get; internal set; }
+
+        /// <summary>
+        ///     所有曾经使用过的序号名称
+        /// </summary>
+        public string AllSnName { get; set; }
 
         /// <summary>
         ///     TSN，自装机以来使用小时数
@@ -86,9 +90,14 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public DateTime InstallDate { get; internal set; }
 
         /// <summary>
-        ///     件号
+        ///     当前件号
         /// </summary>
         public string Pn { get; private set; }
+
+        /// <summary>
+        ///     所有曾经使用过件号名称
+        /// </summary>
+        public string AllPnName { get; set; }
 
         /// <summary>
         ///     是否停用
@@ -114,6 +123,12 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         ///     序号件状态
         /// </summary>
         public SnStatus Status { get; private set; }
+
+        /// <summary>
+        ///     是否寿控件
+        /// </summary>
+        public bool IsLife { get; private set; }
+
         #endregion
 
         #region 外键属性
@@ -139,15 +154,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         {
             get { return _lifeMonitors ?? (_lifeMonitors = new HashSet<LifeMonitor>()); }
             set { _lifeMonitors = new HashSet<LifeMonitor>(value); }
-        }
-
-        /// <summary>
-        ///     装机历史
-        /// </summary>
-        public virtual ICollection<SnHistory> SnHistories
-        {
-            get { return _snHistories ?? (_snHistories = new HashSet<SnHistory>()); }
-            set { _snHistories = new HashSet<SnHistory>(value); }
         }
 
         #endregion
@@ -183,6 +189,15 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public void SetIsStop(bool isStop)
         {
             IsStop = isStop;
+        }
+
+        /// <summary>
+        ///     设置是否寿控件
+        /// </summary>
+        /// <param name="isLife">是否寿控件</param>
+        public void SetIsLife(bool isLife)
+        {
+            IsLife = isLife;
         }
 
         /// <summary>
@@ -234,23 +249,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
             LifeMonitors.Add(lifeMonitor);
 
             return lifeMonitor;
-        }
-
-        /// <summary>
-        ///     新增装机历史
-        /// </summary>
-        /// <returns></returns>
-        public SnHistory AddNewSnHistory()
-        {
-            var snHistory = new SnHistory
-            {
-                SnRegId = Id,
-                Sn = Sn,
-            };
-            snHistory.GenerateNewIdentity();
-            SnHistories.Add(snHistory);
-
-            return snHistory;
         }
 
         #endregion

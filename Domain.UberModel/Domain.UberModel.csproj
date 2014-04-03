@@ -94,6 +94,7 @@
     <Compile Include="Aggregates\BankAccountAgg\BankAccount.cs" />
     <Compile Include="Aggregates\BasicConfigAgg\BasicConfig.cs" />
     <Compile Include="Aggregates\BasicConfigGroupAgg\BasicConfigGroup.cs" />
+    <Compile Include="Aggregates\BasicConfigHistoryAgg\BasicConfigHistory.cs" />
     <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftTypeFactory.cs" />
     <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftType.cs" />
     <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftTypeSpecifications.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Aggregates\InvoiceAgg\LeaseInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PrepaymentInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoice.cs" />
+    <Compile Include="Aggregates\ItemAgg\Item.cs" />
     <Compile Include="Aggregates\LicenseTypeAgg\LicenseType.cs" />
     <Compile Include="Aggregates\LicenseTypeAgg\LicenseTypeFactory.cs" />
     <Compile Include="Aggregates\LinkmanAgg\Linkman.cs" />
@@ -236,10 +238,10 @@
     <Compile Include="Aggregates\ScnAgg\AirBusScn.cs" />
     <Compile Include="Aggregates\ScnAgg\ApplicableAircraft.cs" />
     <Compile Include="Aggregates\ScnAgg\Scn.cs" />
+    <Compile Include="Aggregates\SnInstallHistoryAgg\SnInstallHistory.cs" />
     <Compile Include="Aggregates\SnRegAgg\APUReg.cs" />
     <Compile Include="Aggregates\SnRegAgg\EngineReg.cs" />
     <Compile Include="Aggregates\SnRegAgg\LifeMonitor.cs" />
-    <Compile Include="Aggregates\SnRegAgg\SnHistory.cs" />
     <Compile Include="Aggregates\SnRegAgg\SnReg.cs" />
     <Compile Include="Aggregates\AcConfig.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfig.cs" />
@@ -262,9 +264,7 @@
     <Compile Include="Aggregates\TaskStandardAgg\TaskCase.cs" />
     <Compile Include="Aggregates\TaskStandardAgg\TaskStandard.cs" />
     <Compile Include="Aggregates\TaskStandardAgg\TaskStandardFactory.cs" />
-    <Compile Include="Aggregates\TechnicalSolutionAgg\Dependency.cs" />
-    <Compile Include="Aggregates\TechnicalSolutionAgg\TechnicalSolution.cs" />
-    <Compile Include="Aggregates\TechnicalSolutionAgg\TsLine.cs" />
+    <Compile Include="Aggregates\PnRegAgg\Dependency.cs" />
     <Compile Include="Aggregates\ThrustAgg\Thrust.cs" />
     <Compile Include="Aggregates\ThrustAgg\ThrustFactory.cs" />
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />

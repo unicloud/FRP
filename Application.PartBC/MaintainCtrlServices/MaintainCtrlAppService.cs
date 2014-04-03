@@ -25,12 +25,11 @@ using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.MaintainCtrlQueries;
 using UniCloud.Domain.Common.Enums;
-using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
+using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
-using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
 
 #endregion
 
@@ -43,29 +42,26 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
     [LogAOP]
     public class MaintainCtrlAppService : ContextBoundObject, IMaintainCtrlAppService
     {
-        private readonly IBasicConfigRepository _basicConfigRepository;
         private readonly ICtrlUnitRepository _ctrlUnitRepository;
+        private readonly IItemRepository _itemRepository;
         private readonly IMaintainCtrlQuery _maintainCtrlQuery;
         private readonly IMaintainCtrlRepository _maintainCtrlRepository;
         private readonly IMaintainWorkRepository _maintainWorkRepository;
         private readonly IPnRegRepository _pnRegRepository;
-        private readonly ISpecialConfigRepository _specialConfigRepository;
 
         public MaintainCtrlAppService(IMaintainCtrlQuery maintainCtrlQuery,
+            IItemRepository itemRepository,
             IMaintainCtrlRepository maintainCtrlRepository,
             ICtrlUnitRepository ctrlUnitRepository,
             IMaintainWorkRepository maintainWorkRepository,
-            IPnRegRepository pnRegRepository,
-            IBasicConfigRepository basicConfigRepository,
-            ISpecialConfigRepository specialConfigRepository)
+            IPnRegRepository pnRegRepository)
         {
+            _ctrlUnitRepository = ctrlUnitRepository;
+            _itemRepository = itemRepository;
             _maintainCtrlQuery = maintainCtrlQuery;
             _maintainCtrlRepository = maintainCtrlRepository;
-            _ctrlUnitRepository = ctrlUnitRepository;
             _maintainWorkRepository = maintainWorkRepository;
             _pnRegRepository = pnRegRepository;
-            _basicConfigRepository = basicConfigRepository;
-            _specialConfigRepository = specialConfigRepository;
         }
 
         #region ItemMaintainCtrlDTO
@@ -87,29 +83,15 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
         [Insert(typeof (ItemMaintainCtrlDTO))]
         public void InsertItemMaintainCtrl(ItemMaintainCtrlDTO dto)
         {
-            BasicConfig basicConfig = _basicConfigRepository.Get(dto.Id);
-            SpecialConfig specialConfig = _specialConfigRepository.Get(dto.Id);
+            Item item = _itemRepository.Get(dto.ItemId);
 
-            if (basicConfig != null && specialConfig == null)
-            {
-                //创建项维修控制组
-                ItemMaintainCtrl newItemMainCtrl = MaintainCtrlFactory.CreateItemMaintainCtrl(basicConfig,
-                    ((ControlStrategy) dto.CtrlStrategy));
-                //添加维修控制明细
-                dto.MaintainCtrlLines.ToList().ForEach(line => InsertMainCtrlLine(newItemMainCtrl, line));
+            //创建项维修控制组
+            ItemMaintainCtrl newItemMainCtrl = MaintainCtrlFactory.CreateItemMaintainCtrl(item,
+                ((ControlStrategy) dto.CtrlStrategy));
+            //添加维修控制明细
+            dto.MaintainCtrlLines.ToList().ForEach(line => InsertMainCtrlLine(newItemMainCtrl, line));
 
-                _maintainCtrlRepository.Add(newItemMainCtrl);
-            }
-            else if (basicConfig == null && specialConfig != null)
-            {
-                //创建项维修控制组
-                ItemMaintainCtrl newItemMainCtrl = MaintainCtrlFactory.CreateItemMaintainCtrl(specialConfig,
-                    ((ControlStrategy) dto.CtrlStrategy));
-                //添加维修控制明细
-                dto.MaintainCtrlLines.ToList().ForEach(line => InsertMainCtrlLine(newItemMainCtrl, line));
-
-                _maintainCtrlRepository.Add(newItemMainCtrl);
-            }
+            _maintainCtrlRepository.Add(newItemMainCtrl);
         }
 
         /// <summary>
@@ -124,19 +106,11 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
 
             if (updateItemMainCtrl != null)
             {
-                BasicConfig basicConfig = _basicConfigRepository.Get(dto.Id);
-                SpecialConfig specialConfig = _specialConfigRepository.Get(dto.Id);
+                Item item = _itemRepository.Get(dto.ItemId);
 
                 //更新主表：
                 updateItemMainCtrl.SetCtrlStrategy((ControlStrategy) dto.CtrlStrategy);
-                if (basicConfig != null && specialConfig == null)
-                {
-                    updateItemMainCtrl.SetAcConfig(basicConfig);
-                }
-                else if (basicConfig == null && specialConfig != null)
-                {
-                    updateItemMainCtrl.SetAcConfig(specialConfig);
-                }
+                updateItemMainCtrl.SetItem(item);
 
                 //更新维修控制明细：
                 List<MaintainCtrlLineDTO> dtoMaintainCtrlLines = dto.MaintainCtrlLines;
@@ -196,7 +170,8 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
             PnReg pnReg = _pnRegRepository.Get(dto.PnRegId);
 
             //创建附件维修控制组
-            PnMaintainCtrl newPnMainCtrl = MaintainCtrlFactory.CreatePnMaintainCtrl(pnReg,(ControlStrategy) dto.CtrlStrategy);
+            PnMaintainCtrl newPnMainCtrl = MaintainCtrlFactory.CreatePnMaintainCtrl(pnReg,
+                (ControlStrategy) dto.CtrlStrategy);
 
             //添加维修控制明细
             dto.MaintainCtrlLines.ToList().ForEach(line => InsertMainCtrlLine(newPnMainCtrl, line));
@@ -278,7 +253,8 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
         public void InsertSnMaintainCtrl(SnMaintainCtrlDTO dto)
         {
             //创建序号维修控制组
-            SnMaintainCtrl newSnMainCtrl = MaintainCtrlFactory.CreateSnMaintainCtrl(dto.SnScope, (ControlStrategy)dto.CtrlStrategy);
+            SnMaintainCtrl newSnMainCtrl = MaintainCtrlFactory.CreateSnMaintainCtrl(dto.SnScope,
+                (ControlStrategy) dto.CtrlStrategy);
 
             //添加维修控制明细
             dto.MaintainCtrlLines.ToList().ForEach(line => InsertMainCtrlLine(newSnMainCtrl, line));

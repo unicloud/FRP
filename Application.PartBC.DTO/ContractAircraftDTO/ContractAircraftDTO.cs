@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,25 +12,36 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
-using System;
+
 using System.Collections.Generic;
 using System.Data.Services.Common;
+
 #endregion
 
 namespace UniCloud.Application.PartBC.DTO
 {
     /// <summary>
-    /// ContractAircraft
+    ///     ContractAircraft
     /// </summary>
     [DataServiceKey("Id")]
     public class ContractAircraftDTO
     {
+        #region 私有字段
+
+        private List<BasicConfigHistoryDTO> _basicConfigHistories;
+
+        private List<SpecialConfigDTO> _specialConfigs;
+
+        #endregion
+
         #region 属性
+
         /// <summary>
-        /// 主键
+        ///     主键
         /// </summary>
         public int Id { get; set; }
 
@@ -63,11 +75,28 @@ namespace UniCloud.Application.PartBC.DTO
         /// </summary>
         public bool IsValid { get; set; }
 
-        /// <summary>
-        ///     基本构型组Id
-        /// </summary>
-        public int? BasicConfigGroupId { get; set; }
         #endregion
 
+        #region 导航属性
+
+        /// <summary>
+        ///     基本构型历史集合
+        /// </summary>
+        public virtual List<BasicConfigHistoryDTO> BasicConfigHistories
+        {
+            get { return _basicConfigHistories ?? (_basicConfigHistories = new List<BasicConfigHistoryDTO>()); }
+            set { _basicConfigHistories = value; }
+        }
+
+        /// <summary>
+        ///     特定选型集合
+        /// </summary>
+        public virtual List<SpecialConfigDTO> SpecialConfigs
+        {
+            get { return _specialConfigs ?? (_specialConfigs = new List<SpecialConfigDTO>()); }
+            set { _specialConfigs = value; }
+        }
+
+        #endregion
     }
 }

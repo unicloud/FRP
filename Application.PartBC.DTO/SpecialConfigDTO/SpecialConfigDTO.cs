@@ -61,24 +61,6 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
-        /// 创建时间
-        /// </summary>
-        public DateTime CreateDate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// TS号
-        /// </summary>
-        public string TsNumber
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// FI号
         /// </summary>
         public string FiNumber
@@ -106,6 +88,15 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
+        /// 位置信息
+        /// </summary>
+        public string Position
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 描述
         /// </summary>
         public string Description
@@ -119,16 +110,16 @@ namespace UniCloud.Application.PartBC.DTO
         #region 外键属性
 
         /// <summary>
-        /// 技术解决方案ID
+        /// 项(Item)ID
         /// </summary>
-        public int? TsId
+        public int ItemId
         {
             get;
             set;
         }
 
         /// <summary>
-        /// 父项ID
+        /// 父项(AcConfig)ID
         /// </summary>
         public int? ParentId
         {
@@ -146,7 +137,7 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
-        /// 根节点ID
+        /// 根节点(AcConfig)ID
         /// </summary>
         public int RootId
         {

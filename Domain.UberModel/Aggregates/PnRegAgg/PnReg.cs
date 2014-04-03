@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.ItemAgg;
 
 namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
 {
@@ -24,6 +25,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
     /// </summary>
     public class PnReg : EntityInt, IValidatableObject
     {
+        #region 私有字段
+
+        private HashSet<Dependency> _dependencies;
+
+        #endregion
+
         #region 构造函数
 
         /// <summary>
@@ -39,47 +46,51 @@ namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
         #region 属性
 
         /// <summary>
-        /// 件号
+        ///     件号
         /// </summary>
         public string Pn { get; private set; }
 
         /// <summary>
-        /// 是否寿控
+        ///     是否寿控
         /// </summary>
-        public bool IsLife
-        {
-            get;
-            private set;
-        }
+        public bool IsLife { get; private set; }
 
         /// <summary>
-        /// 创建日期
+        ///     创建日期
         /// </summary>
-        public DateTime CreateDate
-        {
-            get;
-            set;
-        }
+        public DateTime CreateDate { get; internal set; }
 
         /// <summary>
-        /// 最近一次更新日期
+        ///     最近一次更新日期
         /// </summary>
-        public DateTime? UpdateDate
-        {
-            get;
-            set;
-        }
+        public DateTime? UpdateDate { get; set; }
+
         #endregion
 
         #region 外键属性
+
+        /// <summary>
+        /// 项外键
+        /// </summary>
+        public int? ItemId { get; private set; }
 
         #endregion
 
         #region 导航属性
 
+        /// <summary>
+        ///     依赖项集合
+        /// </summary>
+        public virtual ICollection<Dependency> Dependencies
+        {
+            get { return _dependencies ?? (_dependencies = new HashSet<Dependency>()); }
+            set { _dependencies = new HashSet<Dependency>(value); }
+        }
+
         #endregion
 
         #region 操作
+
         /// <summary>
         ///     设置件号
         /// </summary>
@@ -95,6 +106,18 @@ namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
         }
 
         /// <summary>
+        ///     设置附件项外键
+        /// </summary>
+        /// <param name="item">附件项</param>
+        public void SetItem(Item item)
+        {
+            if (item != null)
+            {
+                ItemId = item.Id;
+            }
+        }
+
+        /// <summary>
         ///     设置是否寿控
         /// </summary>
         /// <param name="isLife">是否寿控</param>
@@ -102,6 +125,24 @@ namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
         {
             IsLife = isLife;
         }
+
+        /// <summary>
+        ///     新增依赖项
+        /// </summary>
+        /// <param name="dependencyPnReg">依赖项附件</param>
+        /// <returns>依赖项</returns>
+        public Dependency AddNewDependency(PnReg dependencyPnReg)
+        {
+            var dependency = new Dependency
+            {
+                PnRegId = Id,
+            };
+            dependency.GenerateNewIdentity();
+            dependency.SetPnReg(dependencyPnReg);
+
+            return dependency;
+        }
+
         #endregion
 
         #region IValidatableObject 成员

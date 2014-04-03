@@ -48,9 +48,21 @@ namespace UniCloud.Application.PartBC.Query.BasicConfigGroupQueries
                 Id = p.Id,
                 Description = p.Description,
                 GroupNo = p.GroupNo,
-                StartDate = p.StartDate,
                 AircraftTypeId = p.AircraftTypeId,
                 AircraftTypeName = p.AircraftType.Name,
+                BasicConfigs = basicConfigs.Where(q=>q.BasicConfigGroupId==p.Id).Select(r=>new BasicConfigDTO
+                {
+                    Id = r.Id,
+                    BasicConfigGroupId = r.BasicConfigGroupId,
+                    FiNumber = r.FiNumber,
+                    ItemId = r.ItemId,
+                    ItemNo = r.ItemNo,
+                    ParentId = r.ParentId,
+                    ParentItemNo = r.ParentItemNo,
+                    RootId = r.RootId,
+                    Position = r.Position,
+                    Description = r.Description,
+                }).ToList(),
             });
         }
     }

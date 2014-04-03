@@ -59,17 +59,14 @@
     <Compile Include="AirStructureDamageDTO\AirStructureDamageDTO.cs" />
     <Compile Include="BasicConfigDTO\BasicConfigDTO.cs" />
     <Compile Include="BasicConfigGroupDTO\BasicConfigGroupDTO.cs" />
-    <Compile Include="ConfigGroupDTO\BcGroupDTO.cs" />
-    <Compile Include="ConfigGroupDTO\CaDTO.cs" />
-    <Compile Include="ConfigGroupDTO\ConfigGroupDTO.cs" />
-    <Compile Include="ConfigGroupDTO\GroupAcDTO.cs" />
-    <Compile Include="ConfigGroupDTO\TsDTO.cs" />
+    <Compile Include="BasicConfigHistoryDTO\BasicConfigHistoryDTO.cs" />
     <Compile Include="ConstituentAssemblyDTO\ConstituentDTO.cs" />
     <Compile Include="ConstituentAssemblyDTO\ControlSchemeDTO.cs" />
     <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
     <Compile Include="CtrlUnitDTO\CtrlUnitDTO.cs" />
     <Compile Include="EngineMaintainCtrlDTO\EnginePartDTO.cs" />
     <Compile Include="EngineMaintainCtrlDTO\EngineRegDTO.cs" />
+    <Compile Include="ItemDTO\ItemDTO.cs" />
     <Compile Include="MaintainCtrlDTO\ItemMaintainCtrlDTO.cs" />
     <Compile Include="MaintainCtrlDTO\MaintainCtrlLineDTO.cs" />
     <Compile Include="MaintainCtrlDTO\PnMaintainCtrlDTO.cs" />
@@ -86,14 +83,12 @@
     <Compile Include="ScnDTO\AirBusScnDTO.cs" />
     <Compile Include="ScnDTO\ApplicableAircraftDTO.cs" />
     <Compile Include="ScnDTO\ScnDTO.cs" />
+    <Compile Include="SnInstallHistoryDTO\SnInstallHistoryDTO.cs" />
     <Compile Include="SnRegDTO\LifeMonitorDTO.cs" />
-    <Compile Include="SnRegDTO\SnHistoryDTO.cs" />
     <Compile Include="SnRegDTO\ApuEngineSnRegDTO.cs" />
     <Compile Include="SnRegDTO\SnRegDTO.cs" />
     <Compile Include="SpecialConfigDTO\SpecialConfigDTO.cs" />
-    <Compile Include="TechnicalSolutionDTO\DependencyDTO.cs" />
-    <Compile Include="TechnicalSolutionDTO\TechnicalSolutionDTO.cs" />
-    <Compile Include="TechnicalSolutionDTO\TsLineDTO.cs" />
+    <Compile Include="PnRegDTO\DependencyDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

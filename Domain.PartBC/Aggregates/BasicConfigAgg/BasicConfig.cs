@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,16 +12,14 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
-#endregion
 
-using System;
-using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
+#endregion
 
 namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
 {
     /// <summary>
-    /// BasicConfig聚合根.
-    /// 基本构型
+    ///     BasicConfig聚合根.
+    ///     基本构型
     /// </summary>
     public class BasicConfig : AcConfig
     {
@@ -43,13 +42,10 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
         #region 外键属性
 
         /// <summary>
-        /// 基本构型组ID
+        ///     基本构型组ID
         /// </summary>
-        public int BasicConfigGroupId
-        {
-            get;
-            internal set;
-        }
+        public int BasicConfigGroupId { get; internal set; }
+
         #endregion
 
         #region 导航属性

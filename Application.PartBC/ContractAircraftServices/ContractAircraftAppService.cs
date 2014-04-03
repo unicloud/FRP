@@ -65,7 +65,6 @@ namespace UniCloud.Application.PartBC.ContractAircraftServices
             var updateContractAircraft = _contractAircraftRepository.Get(dto.Id); //获取需要更新的对象。
 
             //更新。
-            updateContractAircraft.SetBasicConfigGroup(dto.BasicConfigGroupId);
             _contractAircraftRepository.Modify(updateContractAircraft);
         }
         #endregion

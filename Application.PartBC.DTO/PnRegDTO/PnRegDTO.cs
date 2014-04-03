@@ -27,6 +27,12 @@ namespace UniCloud.Application.PartBC.DTO
     [DataServiceKey("Id")]
     public class PnRegDTO
     {
+        #region 私有字段
+
+        private List<DependencyDTO> _dependencies;
+
+        #endregion
+
         #region 属性
         /// <summary>
         /// 主键
@@ -46,8 +52,37 @@ namespace UniCloud.Application.PartBC.DTO
             get;
             set;
         }
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        /// 项外键(带相同项外键的附件，属于可互换的件）
+        /// </summary>
+        public int? ItemId { get; set; }
 
         #endregion
 
+        #region 导航属性
+
+        /// <summary>
+        /// 附件控制组（寿控件可维护附件维修控制组）
+        /// </summary>
+        public virtual PnMaintainCtrlDTO PnMaintainCtrl
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        ///     依赖项集合
+        /// </summary>
+        public virtual List<DependencyDTO> Dependencies
+        {
+            get { return _dependencies ?? (_dependencies = new List<DependencyDTO>()); }
+            set { _dependencies = value; }
+        }
+
+        #endregion
     }
 }

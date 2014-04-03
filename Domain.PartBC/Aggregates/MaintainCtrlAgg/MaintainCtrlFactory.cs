@@ -18,6 +18,7 @@
 #region 命名空间
 
 using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 
 #endregion
@@ -32,14 +33,14 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         /// <summary>
         ///     创建项维修控制组
         /// </summary>
-        /// <param name="acConfig">构型</param>
+        /// <param name="item">附件项</param>
         /// <param name="ctrlStrategy">控制策略</param>
         /// <returns>项维修控制组</returns>
-        public static ItemMaintainCtrl CreateItemMaintainCtrl(AcConfig acConfig, ControlStrategy ctrlStrategy)
+        public static ItemMaintainCtrl CreateItemMaintainCtrl(Item item, ControlStrategy ctrlStrategy)
         {
             var itemMaintainCtrl = new ItemMaintainCtrl();
             itemMaintainCtrl.GenerateNewIdentity();
-            itemMaintainCtrl.SetAcConfig(acConfig);
+            itemMaintainCtrl.SetItem(item);
             itemMaintainCtrl.SetCtrlStrategy(ctrlStrategy);
             return itemMaintainCtrl;
         }

@@ -25,7 +25,6 @@ using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.BasicConfigGroupQueries;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
-using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
 
 #endregion
 
@@ -35,7 +34,7 @@ namespace UniCloud.Application.PartBC.BasicConfigGroupServices
     ///     实现BasicConfigGroup的服务接口。
     ///     用于处理BasicConfigGroup相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class BasicConfigGroupAppService : ContextBoundObject, IBasicConfigGroupAppService
     {
         private readonly IAircraftTypeRepository _aircraftTypeRepository;
@@ -74,7 +73,7 @@ namespace UniCloud.Application.PartBC.BasicConfigGroupServices
 
             //创建基本构型组
             BasicConfigGroup newBasicConfigGroup = BasicConfigGroupFactory.CreateBasicConfigGroup(aircraftType,
-                dto.Description, dto.GroupNo, dto.StartDate);
+                dto.Description, dto.GroupNo);
 
             newBasicConfigGroup.ChangeCurrentIdentity(dto.Id);
 
@@ -91,17 +90,14 @@ namespace UniCloud.Application.PartBC.BasicConfigGroupServices
             AircraftType aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId); //获取机型
 
             //获取需要更新的对象
-            BasicConfigGroup updateBasicConfigGroup = _basicConfigGroupRepository.Get(dto.Id);
-
-            if (updateBasicConfigGroup != null)
+            BasicConfigGroup dbBasicConfigGroup = _basicConfigGroupRepository.Get(dto.Id);
+            if (dbBasicConfigGroup != null)
             {
-                //更新主表：
-                updateBasicConfigGroup.SetAircraftType(aircraftType);
-                updateBasicConfigGroup.SetDescription(dto.Description);
-                updateBasicConfigGroup.SetGroupNo(dto.GroupNo);
-                updateBasicConfigGroup.SetStartDate(dto.StartDate);
+                BasicConfigGroup updateBasicConfigGroup = BasicConfigGroupFactory.CreateBasicConfigGroup(aircraftType,
+                    dto.Description, dto.GroupNo);
+                updateBasicConfigGroup.ChangeCurrentIdentity(dbBasicConfigGroup.Id);
+                _basicConfigGroupRepository.Modify(updateBasicConfigGroup);
             }
-            _basicConfigGroupRepository.Modify(updateBasicConfigGroup);
         }
 
         /// <summary>

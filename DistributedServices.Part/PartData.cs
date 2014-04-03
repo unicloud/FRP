@@ -24,19 +24,21 @@ using UniCloud.Application.PartBC.AircraftServices;
 using UniCloud.Application.PartBC.AircraftTypeServices;
 using UniCloud.Application.PartBC.AirStructureDamageServices;
 using UniCloud.Application.PartBC.BasicConfigGroupServices;
+using UniCloud.Application.PartBC.BasicConfigHistoryServices;
 using UniCloud.Application.PartBC.BasicConfigServices;
 using UniCloud.Application.PartBC.ContractAircraftServices;
 using UniCloud.Application.PartBC.CtrlUnitServices;
 using UniCloud.Application.PartBC.DTO;
+using UniCloud.Application.PartBC.ItemServices;
 using UniCloud.Application.PartBC.MaintainCtrlServices;
 using UniCloud.Application.PartBC.MaintainWorkServices;
 using UniCloud.Application.PartBC.ModServices;
 using UniCloud.Application.PartBC.OilMonitorServices;
 using UniCloud.Application.PartBC.PnRegServices;
 using UniCloud.Application.PartBC.ScnServices;
+using UniCloud.Application.PartBC.SnInstallHistoryServices;
 using UniCloud.Application.PartBC.SnRegServices;
 using UniCloud.Application.PartBC.SpecialConfigServices;
-using UniCloud.Application.PartBC.TechnicalSolutionServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -49,23 +51,26 @@ namespace UniCloud.DistributedServices.Part
     public class PartData : ExposeData.ExposeData
     {
         private readonly IAcDailyUtilizationAppService _acDailyUtilizationAppService;
+        private readonly IAdSbAppService _adSbAppService;
+        private readonly IAirStructureDamageAppService _airStructureDamageAppService;
         private readonly IAircraftAppService _aircraftAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
-        private readonly IBasicConfigGroupAppService _basicConfigGroupAppService;
         private readonly IBasicConfigAppService _basicConfigAppService;
+        private readonly IBasicConfigGroupAppService _basicConfigGroupAppService;
+        private readonly IBasicConfigHistoryAppService _basicConfigHistoryAppService;
         private readonly IContractAircraftAppService _contractAircraftAppService;
         private readonly ICtrlUnitAppService _ctrlUnitAppService;
+        private readonly IItemAppService _itemAppService;
         private readonly IMaintainCtrlAppService _maintainCtrlAppService;
         private readonly IMaintainWorkAppService _maintainWorkAppService;
         private readonly IModAppService _modAppService;
         private readonly IOilMonitorAppService _oilMonitorAppService;
         private readonly IPnRegAppService _pnRegAppService;
         private readonly IScnAppService _scnAppService;
+        private readonly ISnInstallHistoryAppService _snInstallHistoryAppService;
         private readonly ISnRegAppService _snRegAppService;
         private readonly ISpecialConfigAppService _specialConfigAppService;
-        private readonly ITechnicalSolutionAppService _technicalSolutionAppService;
-        private readonly IAirStructureDamageAppService _airStructureDamageAppService;
-        private readonly IAdSbAppService _adSbAppService;
+
         public PartData()
             : base("UniCloud.Application.PartBC.DTO")
         {
@@ -74,8 +79,10 @@ namespace UniCloud.DistributedServices.Part
             _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
             _basicConfigAppService = DefaultContainer.Resolve<IBasicConfigAppService>();
             _basicConfigGroupAppService = DefaultContainer.Resolve<IBasicConfigGroupAppService>();
+            _basicConfigHistoryAppService = DefaultContainer.Resolve<IBasicConfigHistoryAppService>();
             _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
             _ctrlUnitAppService = DefaultContainer.Resolve<ICtrlUnitAppService>();
+            _itemAppService = DefaultContainer.Resolve<IItemAppService>();
             _maintainCtrlAppService = DefaultContainer.Resolve<IMaintainCtrlAppService>();
             _maintainWorkAppService = DefaultContainer.Resolve<IMaintainWorkAppService>();
             _modAppService = DefaultContainer.Resolve<IModAppService>();
@@ -83,8 +90,8 @@ namespace UniCloud.DistributedServices.Part
             _pnRegAppService = DefaultContainer.Resolve<IPnRegAppService>();
             _scnAppService = DefaultContainer.Resolve<IScnAppService>();
             _snRegAppService = DefaultContainer.Resolve<ISnRegAppService>();
+            _snInstallHistoryAppService = DefaultContainer.Resolve<ISnInstallHistoryAppService>();
             _specialConfigAppService = DefaultContainer.Resolve<ISpecialConfigAppService>();
-            _technicalSolutionAppService = DefaultContainer.Resolve<ITechnicalSolutionAppService>();
             _airStructureDamageAppService = DefaultContainer.Resolve<IAirStructureDamageAppService>();
             _adSbAppService = DefaultContainer.Resolve<IAdSbAppService>();
         }
@@ -130,6 +137,7 @@ namespace UniCloud.DistributedServices.Part
         {
             get { return _aircraftTypeAppService.GetAircraftSeriess(); }
         }
+
         #endregion
 
         #region 基本构型组集合
@@ -142,10 +150,6 @@ namespace UniCloud.DistributedServices.Part
             get { return _basicConfigGroupAppService.GetBasicConfigGroups(); }
         }
 
-        public IQueryable<ConfigGroupDTO> ConfigGroups
-        {
-            get { return null; }
-        }
         #endregion
 
         #region 基本构型集合
@@ -156,6 +160,18 @@ namespace UniCloud.DistributedServices.Part
         public IQueryable<BasicConfigDTO> BasicConfigs
         {
             get { return _basicConfigAppService.GetBasicConfigs(); }
+        }
+
+        #endregion
+
+        #region 基本构型历史集合
+
+        /// <summary>
+        ///     基本构型历史集合
+        /// </summary>
+        public IQueryable<BasicConfigHistoryDTO> BasicConfigHistories
+        {
+            get { return _basicConfigHistoryAppService.GetBasicConfigHistories(); }
         }
 
         #endregion
@@ -180,6 +196,18 @@ namespace UniCloud.DistributedServices.Part
         public IQueryable<CtrlUnitDTO> CtrlUnits
         {
             get { return _ctrlUnitAppService.GetCtrlUnits(); }
+        }
+
+        #endregion
+
+        #region 附件项集合
+
+        /// <summary>
+        ///     附件项集合
+        /// </summary>
+        public IQueryable<ItemDTO> Items
+        {
+            get { return _itemAppService.GetItems(); }
         }
 
         #endregion
@@ -307,11 +335,23 @@ namespace UniCloud.DistributedServices.Part
         }
 
         /// <summary>
-        /// Apu、Engine的序号件集合
+        ///     Apu、Engine的序号件集合
         /// </summary>
         public IQueryable<ApuEngineSnRegDTO> ApuEngineSnRegs
         {
             get { return _snRegAppService.GetApuEngineSnRegs(); }
+        }
+
+        #endregion
+
+        #region 序号件装机历史集合
+
+        /// <summary>
+        ///     序号件装机历史集合
+        /// </summary>
+        public IQueryable<SnInstallHistoryDTO> SnInstallHistories
+        {
+            get { return _snInstallHistoryAppService.GetSnInstallHistories(); }
         }
 
         #endregion
@@ -328,19 +368,8 @@ namespace UniCloud.DistributedServices.Part
 
         #endregion
 
-        #region 技术解决方案集合
-
-        /// <summary>
-        ///     技术解决方案集合
-        /// </summary>
-        public IQueryable<TechnicalSolutionDTO> TechnicalSolutions
-        {
-            get { return _technicalSolutionAppService.GetTechnicalSolutions(); }
-        }
-
-        #endregion
-
         #region 结构损伤集合
+
         /// <summary>
         ///     结构损伤集合
         /// </summary>
@@ -348,9 +377,11 @@ namespace UniCloud.DistributedServices.Part
         {
             get { return _airStructureDamageAppService.GetAirStructureDamages(); }
         }
+
         #endregion
 
         #region AdSb集合
+
         /// <summary>
         ///     AdSb集合
         /// </summary>
@@ -358,6 +389,7 @@ namespace UniCloud.DistributedServices.Part
         {
             get { return _adSbAppService.GetAdSbs(); }
         }
+
         #endregion
 
         public IQueryable<UtilizationReportDTO> UtilizationReports

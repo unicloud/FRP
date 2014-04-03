@@ -27,7 +27,8 @@ using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
 {
     /// <summary>
-    ///     LifeMonitor聚合根。
+    ///     SnReg聚合根。
+    ///     LifeMonitor非聚合根
     ///     到寿监控
     /// </summary>
     public class LifeMonitor : EntityInt, IValidatableObject
@@ -90,7 +91,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// </summary>
         /// <param name="start">预计到寿开始</param>
         /// <param name="end">预计到寿期限</param>
-        public void SetMointorPeriod(DateTime start,DateTime end)
+        public void SetMointorPeriod(DateTime start, DateTime end)
         {
             MointorStart = start;
             MointorEnd = end;

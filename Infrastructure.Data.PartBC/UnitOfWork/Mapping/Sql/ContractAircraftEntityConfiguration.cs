@@ -39,7 +39,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.SerialNumber).HasColumnName("SerialNumber").HasMaxLength(100);
             Property(p => p.IsValid).HasColumnName("IsValid");
             
-            Property(p => p.BasicConfigGroupId).HasColumnName("BasicConfigGroupId");
         }
 
     }

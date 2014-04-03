@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel.Web;
 using System.Web;
-using UniCloud.Application.PartBC.ConfigGroupServices;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Infrastructure.Utilities.Container;
 
@@ -34,7 +33,7 @@ namespace UniCloud.DistributedServices.Part
 
             #region 服务操作访问控制
 
-            config.SetServiceOperationAccessRule("GetConfigGroups", ServiceOperationRights.All);
+            //config.SetServiceOperationAccessRule("GetConfigGroups", ServiceOperationRights.All);
 
             #endregion
 
@@ -73,13 +72,13 @@ namespace UniCloud.DistributedServices.Part
 
         #region 构型组查询
 
-        [WebGet]
-        public List<ConfigGroupDTO> GetConfigGroups()
-        {
-            var configGroupService = DefaultContainer.Resolve<IConfigGroupAppService>();
-            List<ConfigGroupDTO> result = configGroupService.GetConfigGroups();
-            return result;
-        }
+        //[WebGet]
+        //public List<ConfigGroupDTO> GetConfigGroups()
+        //{
+        //    var configGroupService = DefaultContainer.Resolve<IConfigGroupAppService>();
+        //    List<ConfigGroupDTO> result = configGroupService.GetConfigGroups();
+        //    return result;
+        //}
 
         #endregion
     }
