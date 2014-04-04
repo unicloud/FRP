@@ -75,7 +75,6 @@ namespace UniCloud.DataService.DataSync
                 foreach (PnRegDTO pnReg in AmasisDatas)
                 {
                     PnReg pn = PnRegFactory.CreatePnReg(pnReg.IsLife, pnReg.Pn);
-                    pn.CreateDate = DateTime.Now;
                     datas.AddOrUpdate(p => p.Pn, pn);
                 }
             }

@@ -106,10 +106,10 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
                 MaintainWorks.AutoLoad = true;
             MaintainWorks.Load(true);
 
-            ////// 将CollectionView的AutoLoad属性设为True
-            //if (!CtrlUnits.AutoLoad)
-            //    CtrlUnits.AutoLoad = true;
-            //CtrlUnits.Load(true);
+            //// 将CollectionView的AutoLoad属性设为True
+            if (!CtrlUnits.AutoLoad)
+                CtrlUnits.AutoLoad = true;
+            CtrlUnits.Load(true);
         }
 
         #region 工作代码

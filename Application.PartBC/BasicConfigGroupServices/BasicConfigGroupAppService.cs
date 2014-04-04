@@ -90,13 +90,14 @@ namespace UniCloud.Application.PartBC.BasicConfigGroupServices
             AircraftType aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId); //获取机型
 
             //获取需要更新的对象
-            BasicConfigGroup dbBasicConfigGroup = _basicConfigGroupRepository.Get(dto.Id);
-            if (dbBasicConfigGroup != null)
+            BasicConfigGroup updateBasicConfigGroup = _basicConfigGroupRepository.Get(dto.Id);
+
+            if (updateBasicConfigGroup != null)
             {
-                BasicConfigGroup updateBasicConfigGroup = BasicConfigGroupFactory.CreateBasicConfigGroup(aircraftType,
-                    dto.Description, dto.GroupNo);
-                updateBasicConfigGroup.ChangeCurrentIdentity(dbBasicConfigGroup.Id);
-                _basicConfigGroupRepository.Modify(updateBasicConfigGroup);
+                updateBasicConfigGroup.SetAircraftType(aircraftType);
+                updateBasicConfigGroup.SetDescription(dto.Description);
+                updateBasicConfigGroup.SetGroupNo(dto.GroupNo);
+                _basicConfigGroupRepository.Modify(updateBasicConfigGroup); 
             }
         }
 

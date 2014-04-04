@@ -109,9 +109,8 @@
         <Property Name="Name" Type="Edm.String" />
         <Property Name="ItemNo" Type="Edm.String" />
         <Property Name="FiNumber" Type="Edm.String" />
+        <Property Name="IsLife" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Description" Type="Edm.String" />
-        <NavigationProperty Name="ItemMaintainCtrl" Relationship="UniCloud.Application.PartBC.DTO.ItemDTO_ItemMaintainCtrl" ToRole="ItemMaintainCtrl" FromRole="ItemDTO" />
-        <NavigationProperty Name="PnRegs" Relationship="UniCloud.Application.PartBC.DTO.ItemDTO_PnRegs" ToRole="PnRegs" FromRole="ItemDTO" />
       </EntityType>
       <EntityType Name="ItemMaintainCtrlDTO">
         <Key>
@@ -214,9 +213,9 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="Pn" Type="Edm.String" />
         <Property Name="IsLife" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
         <Property Name="ItemId" Type="Edm.Int32" />
         <Property Name="Dependencies" Type="Collection(UniCloud.Application.PartBC.DTO.DependencyDTO)" Nullable="false" />
-        <NavigationProperty Name="PnMaintainCtrl" Relationship="UniCloud.Application.PartBC.DTO.PnRegDTO_PnMaintainCtrl" ToRole="PnMaintainCtrl" FromRole="PnRegDTO" />
       </EntityType>
       <ComplexType Name="DependencyDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
@@ -435,18 +434,6 @@
         <End Type="UniCloud.Application.PartBC.DTO.SpecialConfigDTO" Role="SpecialConfigs" Multiplicity="*" />
         <End Type="UniCloud.Application.PartBC.DTO.ContractAircraftDTO" Role="ContractAircraftDTO" Multiplicity="*" />
       </Association>
-      <Association Name="ItemDTO_ItemMaintainCtrl">
-        <End Type="UniCloud.Application.PartBC.DTO.ItemMaintainCtrlDTO" Role="ItemMaintainCtrl" Multiplicity="0..1" />
-        <End Type="UniCloud.Application.PartBC.DTO.ItemDTO" Role="ItemDTO" Multiplicity="*" />
-      </Association>
-      <Association Name="ItemDTO_PnRegs">
-        <End Type="UniCloud.Application.PartBC.DTO.PnRegDTO" Role="PnRegs" Multiplicity="*" />
-        <End Type="UniCloud.Application.PartBC.DTO.ItemDTO" Role="ItemDTO" Multiplicity="*" />
-      </Association>
-      <Association Name="PnRegDTO_PnMaintainCtrl">
-        <End Type="UniCloud.Application.PartBC.DTO.PnRegDTO" Role="PnRegDTO" Multiplicity="*" />
-        <End Type="UniCloud.Application.PartBC.DTO.PnMaintainCtrlDTO" Role="PnMaintainCtrl" Multiplicity="0..1" />
-      </Association>
       <Association Name="SnRegDTO_SnInstallHistories">
         <End Type="UniCloud.Application.PartBC.DTO.SnRegDTO" Role="SnRegDTO" Multiplicity="*" />
         <End Type="UniCloud.Application.PartBC.DTO.SnInstallHistoryDTO" Role="SnInstallHistories" Multiplicity="*" />
@@ -497,18 +484,6 @@
         <AssociationSet Name="ContractAircraftDTO_SpecialConfigs" Association="UniCloud.Application.PartBC.DTO.ContractAircraftDTO_SpecialConfigs">
           <End Role="ContractAircraftDTO" EntitySet="ContractAircrafts" />
           <End Role="SpecialConfigs" EntitySet="SpecialConfigs" />
-        </AssociationSet>
-        <AssociationSet Name="ItemDTO_ItemMaintainCtrl" Association="UniCloud.Application.PartBC.DTO.ItemDTO_ItemMaintainCtrl">
-          <End Role="ItemDTO" EntitySet="Items" />
-          <End Role="ItemMaintainCtrl" EntitySet="ItemMaintainCtrls" />
-        </AssociationSet>
-        <AssociationSet Name="ItemDTO_PnRegs" Association="UniCloud.Application.PartBC.DTO.ItemDTO_PnRegs">
-          <End Role="ItemDTO" EntitySet="Items" />
-          <End Role="PnRegs" EntitySet="PnRegs" />
-        </AssociationSet>
-        <AssociationSet Name="PnRegDTO_PnMaintainCtrl" Association="UniCloud.Application.PartBC.DTO.PnRegDTO_PnMaintainCtrl">
-          <End Role="PnRegDTO" EntitySet="PnRegs" />
-          <End Role="PnMaintainCtrl" EntitySet="PnMaintainCtrls" />
         </AssociationSet>
         <AssociationSet Name="SnRegDTO_SnInstallHistories" Association="UniCloud.Application.PartBC.DTO.SnRegDTO_SnInstallHistories">
           <End Role="SnRegDTO" EntitySet="SnRegs" />

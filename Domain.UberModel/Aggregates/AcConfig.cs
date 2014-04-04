@@ -141,6 +141,12 @@ namespace UniCloud.Domain.UberModel.Aggregates
                 ParentId = parentAcConfig.Id;
                 SetRootId(parentAcConfig);
             }
+            else
+            {
+                ParentItemNo = null;
+                ParentId = null;
+                SetRootId(null);
+            }
         }
 
         /// <summary>

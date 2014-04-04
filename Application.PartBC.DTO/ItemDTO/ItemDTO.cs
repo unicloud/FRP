@@ -31,8 +31,6 @@ namespace UniCloud.Application.PartBC.DTO
     {
         #region 私有字段
 
-        private List<PnRegDTO> _pnRegs;
-
         #endregion
 
         #region 属性
@@ -60,6 +58,11 @@ namespace UniCloud.Application.PartBC.DTO
         public string FiNumber { get; set; }
 
         /// <summary>
+        ///     是否寿控项
+        /// </summary>
+        public bool IsLife { get; set; }
+
+        /// <summary>
         ///     描述
         /// </summary>
         public string Description { get; set; }
@@ -67,20 +70,6 @@ namespace UniCloud.Application.PartBC.DTO
         #endregion
 
         #region 导航属性
-
-        /// <summary>
-        ///     项控制组（寿控件必须维护项维修控制组）
-        /// </summary>
-        public virtual ItemMaintainCtrlDTO ItemMaintainCtrl { get; set; }
-
-        /// <summary>
-        ///     互换件集合
-        /// </summary>
-        public virtual List<PnRegDTO> PnRegs
-        {
-            get { return _pnRegs ?? (_pnRegs = new List<PnRegDTO>()); }
-            set { _pnRegs = value; }
-        }
 
         #endregion
     }

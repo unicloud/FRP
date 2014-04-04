@@ -90,12 +90,14 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
             AcConfig parentAcConfig = _basicConfigRepository.Get(dto.ParentId);
 
             //获取需要更新的对象
-            BasicConfig dbBasicConfig = _basicConfigRepository.Get(dto.Id);
-            
-            if (dbBasicConfig != null)
+            BasicConfig updateBasicConfig = _basicConfigRepository.Get(dto.Id);
+
+            if (updateBasicConfig != null)
             {
-                BasicConfig updateBasicConfig = BasicConfigFactory.CreateBasicConfig(dto.Position, dto.Description, item, parentAcConfig, dto.BasicConfigGroupId);
-                updateBasicConfig.ChangeCurrentIdentity(dbBasicConfig.Id);
+                updateBasicConfig.SetDescription(dto.Description);
+                updateBasicConfig.SetItem(item);
+                updateBasicConfig.SetParentItem(parentAcConfig);
+                updateBasicConfig.SetPosition(dto.Position);
                 _basicConfigRepository.Modify(updateBasicConfig);
             }
         }
