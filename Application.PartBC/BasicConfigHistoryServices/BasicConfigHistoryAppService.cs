@@ -92,15 +92,15 @@ namespace UniCloud.Application.PartBC.BasicConfigHistoryServices
         {
             BasicConfigGroup basicConfigGroup = _basicConfigGroupRepository.Get(dto.BasicConfigGroupId); //获取基本构型组
             ContractAircraft contractAircraft = _contractAircraftRepository.Get(dto.ContractAircraftId); //获取合同飞机
-
-
+            
             //获取需要更新的对象
-            BasicConfigHistory dbBasicConfigHistory = _basicConfigHistoryRepository.Get(dto.Id);
-            if (dbBasicConfigHistory != null)
+            BasicConfigHistory updateBasicConfigHistory = _basicConfigHistoryRepository.Get(dto.Id);
+            if (updateBasicConfigHistory != null)
             {
-                BasicConfigHistory updateBasicConfigHistory = BasicConfigHistoryFactory.CreateBasicConfigHistory(
-                    contractAircraft, basicConfigGroup, dto.StartDate, dto.EndDate);
-                updateBasicConfigHistory.ChangeCurrentIdentity(dbBasicConfigHistory.Id);
+                updateBasicConfigHistory.SetBasicConfigGroup(basicConfigGroup);
+                updateBasicConfigHistory.SetContractAircraft(contractAircraft);
+                updateBasicConfigHistory.SetEndDate(dto.EndDate);
+                updateBasicConfigHistory.SetStartDate(dto.StartDate);
                 _basicConfigHistoryRepository.Modify(updateBasicConfigHistory);
             }
         }

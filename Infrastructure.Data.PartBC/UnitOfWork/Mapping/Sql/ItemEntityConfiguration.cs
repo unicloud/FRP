@@ -38,6 +38,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.Name).HasColumnName("Name");
             Property(p => p.ItemNo).HasColumnName("ItemNo");
             Property(p => p.FiNumber).HasColumnName("FiNumber");
+            Property(p => p.IsLife).HasColumnName("IsLife");
             Property(p => p.Description).HasColumnName("Description");
         }
     }

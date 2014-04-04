@@ -41,33 +41,13 @@ namespace UniCloud.Application.PartBC.Query.PnRegQueries
         ///  <returns>PnRegDTO集合</returns>
         public IQueryable<PnRegDTO> PnRegDTOQuery(QueryBuilder<PnReg> query)
         {
-            var pnMaintainCtrls = _unitOfWork.CreateSet<PnMaintainCtrl>();
-
             return query.ApplyTo(_unitOfWork.CreateSet<PnReg>()).Select(p => new PnRegDTO
             {
                 Id = p.Id,
                 Pn = p.Pn,
                 IsLife = p.IsLife,
                 ItemId = p.ItemId,
-                PnMaintainCtrl = pnMaintainCtrls.Where(q => q.PnRegId == p.Id).Select(t => new PnMaintainCtrlDTO
-                {
-                    Id = t.Id,
-                    CtrlStrategy = (int)t.CtrlStrategy,
-                    Pn = t.Pn,
-                    PnRegId = t.PnRegId,
-                    MaintainCtrlLines = t.MaintainCtrlLines.Select(l => new MaintainCtrlLineDTO
-                    {
-                        Id = l.Id,
-                        CtrlUnitId = l.CtrlUnitId,
-                        CtrlUnitName = l.CtrlUnit.Name,
-                        MaintainCtrlId = l.MaintainCtrlId,
-                        MaintainWorkId = l.MaintainWorkId,
-                        MaxInterval = l.MaxInterval,
-                        MinInterval = l.MinInterval,
-                        StandardInterval = l.StandardInterval,
-                        WorkCode = l.MaintainWork.WorkCode,
-                    }).ToList(),
-                }).FirstOrDefault(),
+                Description = p.Description,
                 Dependencies = p.Dependencies.Select(q => new DependencyDTO
                 {
                     Id = q.Id,

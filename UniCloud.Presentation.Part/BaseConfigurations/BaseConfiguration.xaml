@@ -321,7 +321,8 @@
                                 </telerik:RadPane>
                             </telerik:RadPaneGroup>
                         </telerik:RadSplitContainer>
-                        <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
+                        <!--<telerik:RadSplitContainer Visibility="Collapsed"
+                                                   telerik:ProportionalStackPanel.RelativeSize="300, 600">
                             <telerik:RadPaneGroup>
                                 <telerik:RadPane Header="编辑控制单位"
                                                  IsPinned="True"
@@ -348,7 +349,7 @@
                                     </Grid>
                                 </telerik:RadPane>
                             </telerik:RadPaneGroup>
-                        </telerik:RadSplitContainer>
+                        </telerik:RadSplitContainer>-->
                     </telerik:RadSplitContainer>
                 </telerik:RadDocking>
             </telerik:RadTabItem>

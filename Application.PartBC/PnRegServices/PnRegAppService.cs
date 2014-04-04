@@ -71,7 +71,7 @@ namespace UniCloud.Application.PartBC.PnRegServices
         {
             Item item = _itemRepository.Get(dto.ItemId);
 
-            PnReg newPnReg = PnRegFactory.CreatePnReg(dto.IsLife, dto.Pn);
+            PnReg newPnReg = PnRegFactory.CreatePnReg(dto.IsLife, dto.Pn,dto.Description);
             newPnReg.SetItem(item);
 
             //添加依赖项
@@ -95,6 +95,7 @@ namespace UniCloud.Application.PartBC.PnRegServices
             updatePnReg.SetPn(dto.Pn);
             updatePnReg.SetIsLife(dto.IsLife);
             updatePnReg.SetItem(item);
+            updatePnReg.SetDescription(dto.Description);
 
             //更新依赖项集合：
             List<DependencyDTO> dtoDependencies = dto.Dependencies;

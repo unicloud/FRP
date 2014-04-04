@@ -46,12 +46,13 @@ namespace UniCloud.Domain.PartBC.Aggregates.ItemAgg
         /// <param name="fiNumber">功能标识号</param>
         /// <param name="description">描述</param>
         /// <returns></returns>
-        public static Item CreateItem(string name, string itemNo, string fiNumber, string description)
+        public static Item CreateItem(string name, string itemNo, string fiNumber, string description,bool isLife)
         {
             var item = new Item();
             item.GenerateNewIdentity();
             item.SetDescription(description);
             item.SetName(name);
+            item.SetIsLife(isLife);
             item.SetItemNoOrFiNumber(itemNo, fiNumber);
             return item;
         }

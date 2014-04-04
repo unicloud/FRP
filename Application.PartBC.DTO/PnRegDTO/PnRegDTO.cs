@@ -52,6 +52,11 @@ namespace UniCloud.Application.PartBC.DTO
             get;
             set;
         }
+
+        /// <summary>
+        ///     描述
+        /// </summary>
+        public string Description { get; set; }
         #endregion
 
         #region 外键属性
@@ -64,15 +69,6 @@ namespace UniCloud.Application.PartBC.DTO
         #endregion
 
         #region 导航属性
-
-        /// <summary>
-        /// 附件控制组（寿控件可维护附件维修控制组）
-        /// </summary>
-        public virtual PnMaintainCtrlDTO PnMaintainCtrl
-        {
-            get;
-            set;
-        }
 
         /// <summary>
         ///     依赖项集合

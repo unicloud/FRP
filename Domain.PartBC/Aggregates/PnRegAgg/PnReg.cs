@@ -58,6 +58,11 @@ namespace UniCloud.Domain.PartBC.Aggregates.PnRegAgg
         public bool IsLife { get; private set; }
 
         /// <summary>
+        ///     描述
+        /// </summary>
+        public string Description { get; private set; }
+
+        /// <summary>
         ///     创建日期
         /// </summary>
         public DateTime CreateDate { get; internal set; }
@@ -113,10 +118,11 @@ namespace UniCloud.Domain.PartBC.Aggregates.PnRegAgg
         /// <param name="item">附件项</param>
         public void SetItem(Item item)
         {
-            if (item!=null)
+            if (item != null)
             {
                 ItemId = item.Id;
             }
+            else ItemId = null;
         }
 
         /// <summary>
@@ -126,6 +132,15 @@ namespace UniCloud.Domain.PartBC.Aggregates.PnRegAgg
         public void SetIsLife(bool isLife)
         {
             IsLife = isLife;
+        }
+
+        /// <summary>
+        ///     设置描述
+        /// </summary>
+        /// <param name="description">描述</param>
+        public void SetDescription(string description)
+        {
+            Description = description;
         }
 
         /// <summary>

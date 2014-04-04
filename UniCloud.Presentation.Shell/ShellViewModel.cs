@@ -835,8 +835,8 @@ namespace UniCloud.Presentation.Shell
 
             var menu73 = new MenuItem
             {
-                Text = "管理技术解决方案",
-                NavUri = "UniCloud.Presentation.Part.ManageTS.TechnicalSolutionView",
+                Text = "维护附件项",
+                NavUri = "UniCloud.Presentation.Part.ManageItem.ItemView",
             };
             menu7.Items.Add(menu73);
 

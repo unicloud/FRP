@@ -97,14 +97,17 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
             ContractAircraft contractAircraft = _contractAircraftRepository.Get(dto.ContractAircraftId);
             SpecialConfig parentAcConfig = _specialConfigRepository.Get(dto.ParentId);
 
-            SpecialConfig dbSpecialConfig = _specialConfigRepository.Get(dto.Id); //获取需要更新的对象。
+            SpecialConfig updateSpecialConfig = _specialConfigRepository.Get(dto.Id); //获取需要更新的对象。
 
-            if (dbSpecialConfig != null)
+            if (updateSpecialConfig != null)
             {
-                SpecialConfig updateSpecialConfig = SpecialConfigFactory.CreateSpecialConfig(dto.Position,
-                    dto.Description, item, parentAcConfig,
-                    dto.StartDate, dto.EndDate, contractAircraft);
-                updateSpecialConfig.ChangeCurrentIdentity(dbSpecialConfig.Id);
+                updateSpecialConfig.SetContractAircraf(contractAircraft);
+                updateSpecialConfig.SetDescription(dto.Description);
+                updateSpecialConfig.SetEndDate(dto.EndDate);
+                updateSpecialConfig.SetItem(item);
+                updateSpecialConfig.SetParentItem(parentAcConfig);
+                updateSpecialConfig.SetPosition(dto.Position);
+                updateSpecialConfig.SetStartDate(dto.StartDate);
                 _specialConfigRepository.Modify(updateSpecialConfig);
             }
         }

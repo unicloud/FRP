@@ -61,7 +61,7 @@ namespace UniCloud.Application.PartBC.ItemServices
         [Insert(typeof(ItemDTO))]
         public void InsertItem(ItemDTO dto)
         {
-            var newItem = ItemFactory.CreateItem(dto.Name,dto.ItemNo,dto.FiNumber,dto.Description);
+            var newItem = ItemFactory.CreateItem(dto.Name,dto.ItemNo,dto.FiNumber,dto.Description,dto.IsLife);
 
             _itemRepository.Add(newItem);
         }
@@ -73,12 +73,14 @@ namespace UniCloud.Application.PartBC.ItemServices
         [Update(typeof(ItemDTO))]
         public void ModifyItem(ItemDTO dto)
         {
-            var dbItem = _itemRepository.Get(dto.Id); //获取需要更新的对象。
+            var updateItem = _itemRepository.Get(dto.Id); //获取需要更新的对象。
 
-            if (dbItem != null)
+            if (updateItem != null)
             {
-                var updateItem = ItemFactory.CreateItem(dto.Name, dto.ItemNo, dto.FiNumber, dto.Description);
-                updateItem.ChangeCurrentIdentity(dbItem.Id);
+                updateItem.SetDescription(dto.Description);
+                updateItem.SetIsLife(dto.IsLife);
+                updateItem.SetItemNoOrFiNumber(dto.ItemNo, dto.FiNumber);
+                updateItem.SetName(dto.Name);
                 _itemRepository.Modify(updateItem);
             }
         }

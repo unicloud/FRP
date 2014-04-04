@@ -96,14 +96,20 @@ namespace UniCloud.Application.PartBC.SnInstallHistoryServices
             var pnReg = _pnRegRepository.Get(dto.PnRegId);
             var aircraft = _aircraftRepository.Get(dto.AircraftId);
 
-            var dbSnInstallHistory = _snInstallHistoryRepository.Get(dto.Id); //获取需要更新的对象。
+            var updateSnInstallHistory = _snInstallHistoryRepository.Get(dto.Id); //获取需要更新的对象。
 
-            if (dbSnInstallHistory != null)
+            if (updateSnInstallHistory != null)
             {
                 //更新。
-                var updateSnInstallHistory = SnInstallHistoryFactory.CreateSnInstallHistory(snReg, pnReg,
-                    dto.CSN, dto.CSR, dto.TSN, dto.TSR, aircraft, dto.InstallDate, dto.RemoveDate);
-                updateSnInstallHistory.ChangeCurrentIdentity(dbSnInstallHistory.Id);
+                updateSnInstallHistory.SetAircraft(aircraft);
+                updateSnInstallHistory.SetInstallDate(dto.InstallDate);
+                updateSnInstallHistory.SetRemoveDate(dto.RemoveDate);
+                updateSnInstallHistory.SetSn(snReg);
+                updateSnInstallHistory.SetPn(pnReg);
+                updateSnInstallHistory.SetCSN(dto.CSN);
+                updateSnInstallHistory.SetCSR(dto.CSR);
+                updateSnInstallHistory.SetTSN(dto.TSN);
+                updateSnInstallHistory.SetTSR(dto.TSR);
                 _snInstallHistoryRepository.Modify(updateSnInstallHistory);
             }
         }

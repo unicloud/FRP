@@ -192,6 +192,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseConfigurations\BaseConfiguration.xaml.cs">
+      <DependentUpon>BaseConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BaseConfigurations\BaseConfigurationVm.cs" />
     <Compile Include="MaintainAcDailyUtilization\CorrectAcDailyUtilization.xaml.cs">
       <DependentUpon>CorrectAcDailyUtilization.xaml</DependentUpon>
     </Compile>
@@ -204,6 +208,13 @@
       <DependentUpon>MaintainAirStructureDamage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageAirStructureDamage\MaintainAirStructureDamageVm.cs" />
+    <Compile Include="ManageItem\ItemView.xaml.cs">
+      <DependentUpon>ItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageItem\ItemVm.cs" />
+    <Compile Include="ManageItem\PnRegsChildView.xaml.cs">
+      <DependentUpon>PnRegsChildView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManageSCN\SelectAircrafts.xaml.cs">
       <DependentUpon>SelectAircrafts.xaml</DependentUpon>
     </Compile>
@@ -259,6 +270,10 @@
     <Folder Include="MaintainControl\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="BaseConfigurations\BaseConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MaintainAcDailyUtilization\CorrectAcDailyUtilization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -268,6 +283,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManageAirStructureDamage\MaintainAirStructureDamage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageItem\ItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageItem\PnRegsChildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -58,6 +58,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.ItemAgg
         public string FiNumber { get; private set; }
 
         /// <summary>
+        ///     是否寿控件
+        /// </summary>
+        public bool IsLife { get; private set; }
+
+        /// <summary>
         ///     描述
         /// </summary>
         public string Description { get; private set; }
@@ -102,6 +107,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.ItemAgg
 
             ItemNo = itemNo;
             FiNumber = fiNumber;
+        }
+
+        /// <summary>
+        ///     设置是否寿控
+        /// </summary>
+        /// <param name="isLife">是否寿控</param>
+        public void SetIsLife(bool isLife)
+        {
+            IsLife = isLife;
         }
 
         /// <summary>

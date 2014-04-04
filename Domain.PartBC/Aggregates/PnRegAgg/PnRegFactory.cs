@@ -44,12 +44,14 @@ namespace UniCloud.Domain.PartBC.Aggregates.PnRegAgg
         /// </summary>
         /// <param name="isLife">是否寿控</param>
         /// <param name="pn">附件件号</param>
+        /// <param name="description">描述</param>
         /// <returns></returns>
-        public static PnReg CreatePnReg(bool isLife, string pn)
+        public static PnReg CreatePnReg(bool isLife, string pn,string description)
         {
             var pnReg = new PnReg();
             pnReg.GenerateNewIdentity();
             pnReg.SetIsLife(isLife);
+            pnReg.SetDescription(description);
             pnReg.SetPn(pn);
             pnReg.CreateDate = DateTime.Now;
             return pnReg;
