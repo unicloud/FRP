@@ -100,17 +100,17 @@ namespace UniCloud.Application.PartBC.Tests.Services
 
             LifeMonitor lifeMonitor = newSnReg.AddNewLifeMonitor(maintainWork, DateTime.Now, DateTime.Now);
 
-            SnHistory snHistory = newSnReg.AddNewSnHistory();
-            snHistory.SetAircraft(aircraft);
-            snHistory.SetCSN("1234");
-            snHistory.SetCSR("123");
-            snHistory.SetFiNumber("sadsag");
-            snHistory.SetInstallDate(DateTime.Now);
-            snHistory.SetRemoveDate(DateTime.Now);
-            snHistory.SetTSN("34234");
-            snHistory.SetTSR("23443");
+            //SnHistory snHistory = newSnReg.AddNewSnHistory();
+            //snHistory.SetAircraft(aircraft);
+            //snHistory.SetCSN("1234");
+            //snHistory.SetCSR("123");
+            //snHistory.SetFiNumber("sadsag");
+            //snHistory.SetInstallDate(DateTime.Now);
+            //snHistory.SetRemoveDate(DateTime.Now);
+            //snHistory.SetTSN("34234");
+            //snHistory.SetTSR("23443");
 
-            context.Add(newSnReg);
+            //context.Add(newSnReg);
             context.UnitOfWork.Commit();
         }
 

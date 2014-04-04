@@ -54,6 +54,7 @@ namespace UniCloud.Application.BaseManagementBC.Query.UserQueries
                 Description = p.Description,
                 Email = p.Email,
                 EmployeeCode = p.EmployeeCode,
+                OrganizationNo = p.OrganizationNo,
                 Mobile = p.Mobile,
                 Password = p.Password,
                 OrganizationName = (from t in dbOrganization
