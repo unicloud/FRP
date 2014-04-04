@@ -176,7 +176,7 @@ namespace UniCloud.Presentation.Shell
             var menu1 = new MenuItem
             {
                 Text = "飞机构型",
-                IsEnabled = false
+                IsEnabled = true
             };
 
             var menu11 = new MenuItem
@@ -230,7 +230,7 @@ namespace UniCloud.Presentation.Shell
             var menu2 = new MenuItem
             {
                 Text = "运力规划",
-                IsEnabled = false
+                IsEnabled = true
             };
             _items.Add(menu2);
 
@@ -410,7 +410,7 @@ namespace UniCloud.Presentation.Shell
             var menu3 = new MenuItem
             {
                 Text = "采购合同",
-                IsEnabled = false
+                IsEnabled = true
             };
 
             var menu31 = new MenuItem
@@ -591,7 +591,7 @@ namespace UniCloud.Presentation.Shell
             var menu4 = new MenuItem
             {
                 Text = "应付款",
-                IsEnabled = false
+                IsEnabled = true
             };
             var menu41 = new MenuItem
             {
