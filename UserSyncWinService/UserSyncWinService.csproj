@@ -67,6 +67,12 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UniCloud.UserDataService\UniCloud.UserDataService.csproj">
+      <Project>{01fad990-51b2-4963-b08f-0492ec8d9b00}</Project>
+      <Name>UniCloud.UserDataService</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
