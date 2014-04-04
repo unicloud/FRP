@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="FunctionItemServices\FunctionItemAppService.cs" />
     <Compile Include="FunctionItemServices\IFunctionItemAppService.cs" />
+    <Compile Include="OrganizationServices\IOrganizationAppService.cs" />
+    <Compile Include="OrganizationServices\OrganizationAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleServices\IRoleAppService.cs" />
     <Compile Include="RoleServices\RoleAppService.cs" />

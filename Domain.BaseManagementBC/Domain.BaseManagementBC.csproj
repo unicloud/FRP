@@ -49,6 +49,7 @@
     <Compile Include="Aggregates\FunctionItemAgg\IFunctionItemRepository.cs" />
     <Compile Include="Aggregates\OrganizationAgg\IOrganizationRepository.cs" />
     <Compile Include="Aggregates\OrganizationAgg\Organization.cs" />
+    <Compile Include="Aggregates\OrganizationAgg\OrganizationFactory.cs" />
     <Compile Include="Aggregates\OrganizationAgg\OrganizationSpecifications.cs" />
     <Compile Include="Aggregates\OrganizationRoleAgg\IOrganizationRoleRepository.cs" />
     <Compile Include="Aggregates\OrganizationRoleAgg\OrganizationRole.cs" />

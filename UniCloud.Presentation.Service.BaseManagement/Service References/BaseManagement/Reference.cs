@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/4/4 15:10:41
+// 生成日期: 2014/4/4 16:56:27
 namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
 {
     
@@ -78,6 +78,23 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<UserDTO> _Users;
         /// <summary>
+        /// 架构中不存在 Organizations 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<OrganizationDTO> Organizations
+        {
+            get
+            {
+                if ((this._Organizations == null))
+                {
+                    this._Organizations = base.CreateQuery<OrganizationDTO>("Organizations");
+                }
+                return this._Organizations;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<OrganizationDTO> _Organizations;
+        /// <summary>
         /// 架构中不存在 FunctionItems 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -120,6 +137,14 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
             base.AddObject("Users", userDTO);
         }
         /// <summary>
+        /// 架构中不存在 Organizations 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToOrganizations(OrganizationDTO organizationDTO)
+        {
+            base.AddObject("Organizations", organizationDTO);
+        }
+        /// <summary>
         /// 架构中不存在 FunctionItems 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -157,42 +182,51 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
                 "/EntityType><ComplexType Name=\"UserRoleDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\"" +
                 " Nullable=\"false\" /><Property Name=\"UserId\" Type=\"Edm.Int32\" Nullable=\"false\" />" +
                 "<Property Name=\"RoleId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><Entit" +
-                "yType Name=\"FunctionItemDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=" +
-                "\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ParentItemId\" Type=\"Edm" +
-                ".Int32\" /><Property Name=\"IsLeaf\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Propert" +
-                "y Name=\"Sort\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Ed" +
-                "m.String\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"Nav" +
-                "iUrl\" Type=\"Edm.String\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"" +
-                "false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" /><Property Name=\"Image" +
-                "Url\" Type=\"Edm.String\" /><Property Name=\"IsButton\" Type=\"Edm.Boolean\" Nullable=\"" +
-                "false\" /><Property Name=\"IsChecked\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Navig" +
-                "ationProperty Name=\"SubFunctionItems\" Relationship=\"UniCloud.Application.BaseMan" +
-                "agementBC.DTO.FunctionItemDTO_SubFunctionItems\" ToRole=\"SubFunctionItems\" FromRo" +
-                "le=\"FunctionItemDTO\" /></EntityType><EntityType Name=\"RoleDTO\"><Key><PropertyRef" +
-                " Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
-                "erty Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"Edm.Stri" +
-                "ng\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Proper" +
-                "ty Name=\"RoleFunctions\" Type=\"Collection(UniCloud.Application.BaseManagementBC.D" +
-                "TO.RoleFunctionDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"RoleFunc" +
-                "tionDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=" +
-                "\"FunctionItemId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RoleId\" Typ" +
-                "e=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><Association Name=\"FunctionItemDT" +
-                "O_SubFunctionItems\"><End Type=\"UniCloud.Application.BaseManagementBC.DTO.Functio" +
-                "nItemDTO\" Role=\"SubFunctionItems\" Multiplicity=\"*\" /><End Type=\"UniCloud.Applica" +
-                "tion.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"FunctionItemDTO\" Multiplicity=\"" +
-                "*\" /></Association></Schema><Schema Namespace=\"UniCloud.DistributedServices.Base" +
-                "Management\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContaine" +
-                "r Name=\"BaseManagementData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"U" +
-                "sers\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.UserDTO\" /><EntitySe" +
-                "t Name=\"FunctionItems\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.Fun" +
-                "ctionItemDTO\" /><EntitySet Name=\"Roles\" EntityType=\"UniCloud.Application.BaseMan" +
-                "agementBC.DTO.RoleDTO\" /><FunctionImport Name=\"GetFunctionItemsWithHierarchy\" Re" +
-                "turnType=\"Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)\"" +
-                " EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\" /><AssociationSet Name=\"FunctionIt" +
-                "emDTO_SubFunctionItems\" Association=\"UniCloud.Application.BaseManagementBC.DTO.F" +
-                "unctionItemDTO_SubFunctionItems\"><End Role=\"FunctionItemDTO\" EntitySet=\"Function" +
-                "Items\" /><End Role=\"SubFunctionItems\" EntitySet=\"FunctionItems\" /></AssociationS" +
-                "et></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+                "yType Name=\"OrganizationDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=" +
+                "\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Code\" Type=\"Edm.String\"" +
+                " /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"LastUpdateTime\" Typ" +
+                "e=\"Edm.DateTime\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" " +
+                "/><Property Name=\"ParentCode\" Type=\"Edm.Int32\" /><Property Name=\"Sort\" Type=\"Edm" +
+                ".Int32\" Nullable=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nulla" +
+                "ble=\"false\" /><Property Name=\"Description\" Type=\"Edm.String\" /></EntityType><Ent" +
+                "ityType Name=\"FunctionItemDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Nam" +
+                "e=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ParentItemId\" Type=\"E" +
+                "dm.Int32\" /><Property Name=\"IsLeaf\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"Sort\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"" +
+                "Edm.String\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"N" +
+                "aviUrl\" Type=\"Edm.String\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable" +
+                "=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" /><Property Name=\"Ima" +
+                "geUrl\" Type=\"Edm.String\" /><Property Name=\"IsButton\" Type=\"Edm.Boolean\" Nullable" +
+                "=\"false\" /><Property Name=\"IsChecked\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Nav" +
+                "igationProperty Name=\"SubFunctionItems\" Relationship=\"UniCloud.Application.BaseM" +
+                "anagementBC.DTO.FunctionItemDTO_SubFunctionItems\" ToRole=\"SubFunctionItems\" From" +
+                "Role=\"FunctionItemDTO\" /></EntityType><EntityType Name=\"RoleDTO\"><Key><PropertyR" +
+                "ef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"Edm.St" +
+                "ring\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"RoleFunctions\" Type=\"Collection(UniCloud.Application.BaseManagementBC" +
+                ".DTO.RoleFunctionDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"RoleFu" +
+                "nctionDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Nam" +
+                "e=\"FunctionItemId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RoleId\" T" +
+                "ype=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><Association Name=\"FunctionItem" +
+                "DTO_SubFunctionItems\"><End Type=\"UniCloud.Application.BaseManagementBC.DTO.Funct" +
+                "ionItemDTO\" Role=\"SubFunctionItems\" Multiplicity=\"*\" /><End Type=\"UniCloud.Appli" +
+                "cation.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"FunctionItemDTO\" Multiplicity" +
+                "=\"*\" /></Association></Schema><Schema Namespace=\"UniCloud.DistributedServices.Ba" +
+                "seManagement\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContai" +
+                "ner Name=\"BaseManagementData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=" +
+                "\"Users\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.UserDTO\" /><Entity" +
+                "Set Name=\"Organizations\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.O" +
+                "rganizationDTO\" /><EntitySet Name=\"FunctionItems\" EntityType=\"UniCloud.Applicati" +
+                "on.BaseManagementBC.DTO.FunctionItemDTO\" /><EntitySet Name=\"Roles\" EntityType=\"U" +
+                "niCloud.Application.BaseManagementBC.DTO.RoleDTO\" /><FunctionImport Name=\"GetFun" +
+                "ctionItemsWithHierarchy\" ReturnType=\"Collection(UniCloud.Application.BaseManagem" +
+                "entBC.DTO.FunctionItemDTO)\" EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\" /><Asso" +
+                "ciationSet Name=\"FunctionItemDTO_SubFunctionItems\" Association=\"UniCloud.Applica" +
+                "tion.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems\"><End Role=\"FunctionI" +
+                "temDTO\" EntitySet=\"FunctionItems\" /><End Role=\"SubFunctionItems\" EntitySet=\"Func" +
+                "tionItems\" /></AssociationSet></EntityContainer></Schema></edmx:DataServices></e" +
+                "dmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -592,6 +626,242 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         private global::System.Collections.ObjectModel.ObservableCollection<UserRoleDTO> _UserRoles = new global::System.Collections.ObjectModel.ObservableCollection<UserRoleDTO>();
         partial void OnUserRolesChanging(global::System.Collections.ObjectModel.ObservableCollection<UserRoleDTO> value);
         partial void OnUserRolesChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.BaseManagementBC.DTO.OrganizationDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("Organizations")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class OrganizationDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 OrganizationDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="isValid">IsValid 的初始值。</param>
+        /// <param name="sort">Sort 的初始值。</param>
+        /// <param name="createDate">CreateDate 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static OrganizationDTO CreateOrganizationDTO(int ID, bool isValid, int sort, global::System.DateTime createDate)
+        {
+            OrganizationDTO organizationDTO = new OrganizationDTO();
+            organizationDTO.Id = ID;
+            organizationDTO.IsValid = isValid;
+            organizationDTO.Sort = sort;
+            organizationDTO.CreateDate = createDate;
+            return organizationDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Code 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Code
+        {
+            get
+            {
+                return this._Code;
+            }
+            set
+            {
+                this.OnCodeChanging(value);
+                this._Code = value;
+                this.OnCodeChanged();
+                this.OnPropertyChanged("Code");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Code;
+        partial void OnCodeChanging(string value);
+        partial void OnCodeChanged();
+        /// <summary>
+        /// 架构中不存在属性 Name 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 LastUpdateTime 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.DateTime> LastUpdateTime
+        {
+            get
+            {
+                return this._LastUpdateTime;
+            }
+            set
+            {
+                this.OnLastUpdateTimeChanging(value);
+                this._LastUpdateTime = value;
+                this.OnLastUpdateTimeChanged();
+                this.OnPropertyChanged("LastUpdateTime");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.DateTime> _LastUpdateTime;
+        partial void OnLastUpdateTimeChanging(global::System.Nullable<global::System.DateTime> value);
+        partial void OnLastUpdateTimeChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsValid 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsValid
+        {
+            get
+            {
+                return this._IsValid;
+            }
+            set
+            {
+                this.OnIsValidChanging(value);
+                this._IsValid = value;
+                this.OnIsValidChanged();
+                this.OnPropertyChanged("IsValid");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsValid;
+        partial void OnIsValidChanging(bool value);
+        partial void OnIsValidChanged();
+        /// <summary>
+        /// 架构中不存在属性 ParentCode 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<int> ParentCode
+        {
+            get
+            {
+                return this._ParentCode;
+            }
+            set
+            {
+                this.OnParentCodeChanging(value);
+                this._ParentCode = value;
+                this.OnParentCodeChanged();
+                this.OnPropertyChanged("ParentCode");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<int> _ParentCode;
+        partial void OnParentCodeChanging(global::System.Nullable<int> value);
+        partial void OnParentCodeChanged();
+        /// <summary>
+        /// 架构中不存在属性 Sort 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Sort
+        {
+            get
+            {
+                return this._Sort;
+            }
+            set
+            {
+                this.OnSortChanging(value);
+                this._Sort = value;
+                this.OnSortChanged();
+                this.OnPropertyChanged("Sort");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Sort;
+        partial void OnSortChanging(int value);
+        partial void OnSortChanged();
+        /// <summary>
+        /// 架构中不存在属性 CreateDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime CreateDate
+        {
+            get
+            {
+                return this._CreateDate;
+            }
+            set
+            {
+                this.OnCreateDateChanging(value);
+                this._CreateDate = value;
+                this.OnCreateDateChanged();
+                this.OnPropertyChanged("CreateDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _CreateDate;
+        partial void OnCreateDateChanging(global::System.DateTime value);
+        partial void OnCreateDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 Description 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                this.OnDescriptionChanging(value);
+                this._Description = value;
+                this.OnDescriptionChanged();
+                this.OnPropertyChanged("Description");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Description;
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

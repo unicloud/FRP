@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="FunctionItemQueries\FunctionItemQuery.cs" />
     <Compile Include="FunctionItemQueries\IFunctionItemQuery.cs" />
+    <Compile Include="OrganizationQueries\IOrganizationQuery.cs" />
+    <Compile Include="OrganizationQueries\OrganizationQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleQueries\IRoleQuery.cs" />
     <Compile Include="RoleQueries\RoleQuery.cs" />

@@ -14,9 +14,13 @@
 
 #endregion
 
+using System;
+using System.Linq.Expressions;
+
 namespace UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationAgg
 {
     public interface IOrganizationRepository : IRepository<Organization>
     {
+        Organization GetOrganization(Expression<Func<Organization, bool>> condition);
     }
 }

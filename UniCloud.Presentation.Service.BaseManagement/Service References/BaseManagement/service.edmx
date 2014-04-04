@@ -22,6 +22,20 @@
         <Property Name="UserId" Type="Edm.Int32" Nullable="false" />
         <Property Name="RoleId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
+      <EntityType Name="OrganizationDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Code" Type="Edm.String" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="LastUpdateTime" Type="Edm.DateTime" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="ParentCode" Type="Edm.Int32" />
+        <Property Name="Sort" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+      </EntityType>
       <EntityType Name="FunctionItemDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -63,6 +77,7 @@
     <Schema Namespace="UniCloud.DistributedServices.BaseManagement" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="BaseManagementData" m:IsDefaultEntityContainer="true">
         <EntitySet Name="Users" EntityType="UniCloud.Application.BaseManagementBC.DTO.UserDTO" />
+        <EntitySet Name="Organizations" EntityType="UniCloud.Application.BaseManagementBC.DTO.OrganizationDTO" />
         <EntitySet Name="FunctionItems" EntityType="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" />
         <EntitySet Name="Roles" EntityType="UniCloud.Application.BaseManagementBC.DTO.RoleDTO" />
         <FunctionImport Name="GetFunctionItemsWithHierarchy" ReturnType="Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)" EntitySet="FunctionItems" m:HttpMethod="GET" />

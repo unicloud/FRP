@@ -20,22 +20,6 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationAgg
         {
         }
 
-        /// <summary>
-        /// 初始化组织机构构造函数
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="parentCode"></param>
-        /// <param name="description"></param>
-        public Organization(string name,int?parentCode,string description=null,bool isvalid=true)
-        {
-            Name = name;
-            ParentCode = parentCode;
-            Description = description;
-            CreateDate = DateTime.Now;
-            LastUpdateTime = DateTime.Now;
-            IsValid = isvalid;
-        }
-
         #endregion
 
         #region 属性

@@ -22,7 +22,7 @@ using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
 namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
 {
     /// <summary>
-    ///     文档工厂
+    ///     工厂
     /// </summary>
     public static class UserFactory
     {
