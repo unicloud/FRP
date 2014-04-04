@@ -44,6 +44,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.PnRegAgg
         /// </summary>
         /// <param name="isLife">是否寿控</param>
         /// <param name="pn">附件件号</param>
+        /// <param name="description">描述</param>
         /// <returns></returns>
         public static PnReg CreatePnReg(bool isLife, string pn,string description)
         {
