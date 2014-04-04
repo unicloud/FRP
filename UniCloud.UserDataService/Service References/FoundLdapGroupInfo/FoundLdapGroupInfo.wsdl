@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:intf="http://172.18.8.168:10000/SINGPOINT/services/FoundLdapGroupInfo" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://172.18.8.168:10000/SINGPOINT/services/FoundLdapGroupInfo" targetNamespace="http://172.18.8.168:10000/SINGPOINT/services/FoundLdapGroupInfo" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types />
+  <wsdl:message name="foundLdapGroupResponse">
+    <wsdl:part name="foundLdapGroupReturn" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="foundLdapGroupRequest">
+    <wsdl:part name="ldapHost" type="xsd:string" />
+    <wsdl:part name="ldapPort" type="xsd:string" />
+    <wsdl:part name="adminAcnt" type="xsd:string" />
+    <wsdl:part name="adminPwd" type="xsd:string" />
+    <wsdl:part name="orgNo" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:portType name="FoundLdapGroupInfo">
+    <wsdl:operation name="foundLdapGroup" parameterOrder="ldapHost ldapPort adminAcnt adminPwd orgNo">
+      <wsdl:input name="foundLdapGroupRequest" message="impl:foundLdapGroupRequest" />
+      <wsdl:output name="foundLdapGroupResponse" message="impl:foundLdapGroupResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FoundLdapGroupInfoSoapBinding" type="impl:FoundLdapGroupInfo">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="foundLdapGroup">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="foundLdapGroupRequest">
+        <wsdlsoap:body use="encoded" namespace="http://singlepoint.soa.com" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="foundLdapGroupResponse">
+        <wsdlsoap:body use="encoded" namespace="http://172.18.8.168:10000/SINGPOINT/services/FoundLdapGroupInfo" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FoundLdapGroupInfoService">
+    <wsdl:port name="FoundLdapGroupInfo" binding="impl:FoundLdapGroupInfoSoapBinding">
+      <wsdlsoap:address location="http://172.18.8.168:10000/SINGPOINT/services/FoundLdapGroupInfo" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

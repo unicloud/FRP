@@ -88,6 +88,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Service References\FoundLdapGroupInfo\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\FoundLdapUserInfo\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -149,12 +154,17 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\FoundLdapGroupInfo\FoundLdapGroupInfo.wsdl" />
+    <None Include="Service References\FoundLdapGroupInfo\UniCloud.UserDataService.FoundLdapGroupInfo.foundLdapGroupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\FoundLdapUserInfo\FoundLdapUserInfo.wsdl" />
     <None Include="Service References\FoundLdapUserInfo\UniCloud.UserDataService.FoundLdapUserInfo.foundLdapUsersResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\FoundLdapGroupInfo\" />
     <WCFMetadataStorage Include="Service References\FoundLdapUserInfo\" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +175,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\FoundLdapUserInfo\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FoundLdapGroupInfo\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FoundLdapGroupInfo\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FoundLdapGroupInfo\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

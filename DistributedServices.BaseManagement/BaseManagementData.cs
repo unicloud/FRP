@@ -7,6 +7,7 @@
 using System.Linq;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
+using UniCloud.Application.BaseManagementBC.OrganizationServices;
 using UniCloud.Application.BaseManagementBC.RoleServices;
 using UniCloud.Application.BaseManagementBC.UserServices;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -25,12 +26,15 @@ namespace UniCloud.DistributedServices.BaseManagement
         private readonly IUserAppService _userAppService;
         private readonly IFunctionItemAppService _functionItemAppService;
         private readonly IRoleAppService _roleAppService;
+        private readonly IOrganizationAppService _organizationAppService;
+
         public BaseManagementData()
             : base("UniCloud.Application.BaseManagementBC.DTO")
         {
             _userAppService = DefaultContainer.Resolve<IUserAppService>();
             _functionItemAppService = DefaultContainer.Resolve<IFunctionItemAppService>();
             _roleAppService = DefaultContainer.Resolve<IRoleAppService>();
+            _organizationAppService = DefaultContainer.Resolve<IOrganizationAppService>();
         }
 
 
@@ -43,6 +47,17 @@ namespace UniCloud.DistributedServices.BaseManagement
             get { return _userAppService.GetUsers(); }
         }
         #endregion
+
+        #region Organization集合
+        /// <summary>
+        /// Organization集合
+        /// </summary>
+        public IQueryable<OrganizationDTO> Organizations
+        {
+            get { return _organizationAppService.GetOrganizations(); }
+        }
+        #endregion
+
 
         #region FunctionItem集合
         /// <summary>

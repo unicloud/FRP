@@ -6,12 +6,15 @@
 
 using Microsoft.Practices.Unity;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
+using UniCloud.Application.BaseManagementBC.OrganizationServices;
 using UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries;
+using UniCloud.Application.BaseManagementBC.Query.OrganizationQueries;
 using UniCloud.Application.BaseManagementBC.Query.RoleQueries;
 using UniCloud.Application.BaseManagementBC.Query.UserQueries;
 using UniCloud.Application.BaseManagementBC.RoleServices;
 using UniCloud.Application.BaseManagementBC.UserServices;
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 using UniCloud.Infrastructure.Data;
@@ -40,6 +43,11 @@ namespace UniCloud.DistributedServices.BaseManagement.InstanceProviders
                          .RegisterType<IUserRepository, UserRepository>()
             #endregion
 
+            #region Organization相关配置，包括查询，应用服务，仓储注册
+.RegisterType<IOrganizationAppService, OrganizationAppService>()
+                         .RegisterType<IOrganizationQuery, OrganizationQuery>()
+                         .RegisterType<IOrganizationRepository, OrganizationRepository>()
+            #endregion
             #region FunctionItem相关配置，包括查询，应用服务，仓储注册
 .RegisterType<IFunctionItemAppService, FunctionItemAppService>()
                          .RegisterType<IFunctionItemQuery, FunctionItemQuery>()

@@ -44,8 +44,7 @@ namespace UniCloud.Application.BaseManagementBC.Query.UserQueries
         ///  <returns>UserDTO集合</returns>
         public IQueryable<UserDTO> UsersQuery(QueryBuilder<User> query)
         {
-            var dbOrganization = _unitOfWork.CreateSet<Organization>();
-            var dbOrganizationUser = _unitOfWork.CreateSet<OrganizationUser>();
+            var dbOrganization = _unitOfWork.CreateSet<Organization>().OrderByDescending(p=>p.Code);
             return query.ApplyTo(_unitOfWork.CreateSet<User>()).Select(p => new UserDTO
             {
                 Id = p.Id,
@@ -57,10 +56,7 @@ namespace UniCloud.Application.BaseManagementBC.Query.UserQueries
                 OrganizationNo = p.OrganizationNo,
                 Mobile = p.Mobile,
                 Password = p.Password,
-                OrganizationName = (from t in dbOrganization
-                                    from c in dbOrganizationUser
-                                    where c.OrganizationId == t.Id && c.UserId == p.Id
-                                    select t.Name).FirstOrDefault(),//获取用户组织机构
+                OrganizationName = dbOrganization.FirstOrDefault(t=>p.OrganizationNo.StartsWith(t.Code)).Name,
                 UserRoles = p.UserRoles.Select(q => new UserRoleDTO
                 {
                     Id = q.Id,

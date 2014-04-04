@@ -10,7 +10,7 @@ namespace UniCloud.UserSync.Tests
         public void TestMethod()
         {
             var userDataSync = new UserDataSync();
-            userDataSync.SyncUserInfo();
+            userDataSync.SyncOrganizationInfo();
         }
     }
 }
