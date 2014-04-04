@@ -27,6 +27,11 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         public string EmployeeCode { get; set; }
 
         /// <summary>
+        ///     组织机构编号
+        /// </summary>
+        public string OrganizationNo { get; set; }
+
+        /// <summary>
         ///     显示名称
         /// </summary>
         public string DisplayName { get; set; }

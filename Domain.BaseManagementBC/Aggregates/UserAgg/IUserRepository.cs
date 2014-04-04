@@ -16,6 +16,8 @@
 
 #region 命名空间
 
+using System;
+using System.Linq.Expressions;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
 
 #endregion
@@ -29,5 +31,7 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         /// </summary>
         /// <param name="userRole"></param>
         void DeleteUserRole(UserRole userRole);
+
+        User GetUser(Expression<Func<User, bool>> condition);
     }
 }

@@ -24,7 +24,7 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <telerik:RadBusyIndicator BusyContent="正在加载，请稍后..."
+    <telerik:RadBusyIndicator BusyContent="{Binding BusyContent,Mode=TwoWay}"
                               IsBusy="{Binding IsBusy,Mode=TwoWay}">
         <Grid x:Name="LayoutRoot"
               Background="White">

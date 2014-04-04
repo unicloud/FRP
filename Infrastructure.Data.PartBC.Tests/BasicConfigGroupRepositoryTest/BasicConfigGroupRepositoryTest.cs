@@ -21,7 +21,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
-using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -42,7 +41,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests.BasicConfigGroupRepositoryTe
                 .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .RegisterType<IBasicConfigGroupRepository, BasicConfigGroupRepository>()
                          .RegisterType<IBasicConfigRepository, BasicConfigRepository>()
-       .RegisterType<ITechnicalSolutionRepository, TechnicalSolutionRepository>()
        .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>();
         }
 
@@ -57,20 +55,20 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests.BasicConfigGroupRepositoryTe
         public void CreateBasicConfigGroupTest()
         {
             // Arrange
-            var bcGroupRep = DefaultContainer.Resolve<IBasicConfigGroupRepository>();
-            var bcRep = DefaultContainer.Resolve<IBasicConfigRepository>();
-            var tsRep = DefaultContainer.Resolve<ITechnicalSolutionRepository>();
-            var acTypeRep = DefaultContainer.Resolve<IAircraftTypeRepository>();
-            var ts = tsRep.GetAll().FirstOrDefault();
-            var acType = acTypeRep.GetAll().FirstOrDefault();
-            // Act
-            var bcGroup = BasicConfigGroupFactory.CreateBasicConfigGroup(acType, "基本构型组0001", "EngineBc0001", new DateTime(2014, 1, 1));
-            var bcGroup2 = BasicConfigGroupFactory.CreateBasicConfigGroup(acType, "基本构型组0003", "EngineBc0003", new DateTime(2014, 1, 1));
-            bcGroupRep.Add(bcGroup2);
-            var bc = BasicConfigFactory.CreateBasicConfig("", "2345", null, null, ts,bcGroup.Id);
-            bcGroup.BasicConfigs.Add(bc);
-            bcGroupRep.Add(bcGroup);
-            bcGroupRep.UnitOfWork.Commit();
+            //var bcGroupRep = DefaultContainer.Resolve<IBasicConfigGroupRepository>();
+            //var bcRep = DefaultContainer.Resolve<IBasicConfigRepository>();
+            //var tsRep = DefaultContainer.Resolve<ITechnicalSolutionRepository>();
+            //var acTypeRep = DefaultContainer.Resolve<IAircraftTypeRepository>();
+            //var ts = tsRep.GetAll().FirstOrDefault();
+            //var acType = acTypeRep.GetAll().FirstOrDefault();
+            //// Act
+            //var bcGroup = BasicConfigGroupFactory.CreateBasicConfigGroup(acType, "基本构型组0001", "EngineBc0001", new DateTime(2014, 1, 1));
+            //var bcGroup2 = BasicConfigGroupFactory.CreateBasicConfigGroup(acType, "基本构型组0003", "EngineBc0003", new DateTime(2014, 1, 1));
+            //bcGroupRep.Add(bcGroup2);
+            //var bc = BasicConfigFactory.CreateBasicConfig("", "2345", null, null, ts,bcGroup.Id);
+            //bcGroup.BasicConfigs.Add(bc);
+            //bcGroupRep.Add(bcGroup);
+            //bcGroupRep.UnitOfWork.Commit();
             //bcRep.UnitOfWork.Commit();
         }
     }

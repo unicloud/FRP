@@ -29,9 +29,10 @@ namespace UniCloud.Presentation.Shell
         public ShellView()
         {
             InitializeComponent();
+            ViewModel = new ShellViewModel();
         }
 
-        [Import(typeof (ShellViewModel))]
+        [Import(typeof(ShellViewModel))]
         public ShellViewModel ViewModel
         {
             get { return DataContext as ShellViewModel; }

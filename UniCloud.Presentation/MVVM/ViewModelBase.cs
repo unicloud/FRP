@@ -104,9 +104,8 @@ namespace UniCloud.Presentation.MVVM
         #region Protected Properties
 
         private bool _isBusy;
-
         /// <summary>
-        ///     界面是否在加载
+        ///     界面是否繁忙
         /// </summary>
         public bool IsBusy
         {
@@ -121,6 +120,16 @@ namespace UniCloud.Presentation.MVVM
             }
         }
 
+        private string _busyContent = "正在加载，请稍后...";
+        public string BusyContent
+        {
+            get { return _busyContent; }
+            set
+            {
+                _busyContent = value;
+                RaisePropertyChanged(() => BusyContent);
+            }
+        }
         #endregion
 
         #region ViewModel

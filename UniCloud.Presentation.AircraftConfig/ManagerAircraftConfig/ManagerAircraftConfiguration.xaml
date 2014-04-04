@@ -20,163 +20,20 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
-        <telerik:RadDocking BorderThickness="0"
-                            Padding="0"
-                            HasDocumentHost="False">
-            <telerik:RadSplitContainer Orientation="Vertical">
-                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
-                    <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="飞机配置信息"
-                                         FontSize="{StaticResource TextFontSize}"
-                                         IsPinned="True"
-                                         CanFloat="False"
-                                         CanDockInDocumentHost="False"
-                                         CanUserClose="False"
-                                         CanUserPin="False"
-                                         ContextMenuTemplate="{x:Null}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="30" />
-                                </Grid.RowDefinitions>
-                                <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                    Margin="0 0 0 -1"
-                                                    OverflowButtonVisibility="Collapsed">
-                                    <telerik:RadButton Margin="4,2,2,-2"
-                                                       Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding AircraftConfigurations}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Save.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="保存" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding AircraftConfigurations}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="放弃更改" />
-                                    </telerik:RadButton>
-                                    <telerik:RadToolBarSeparator />
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AddAircraftConfigCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/New.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="创建飞机配置" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding RemoveAircraftConfigCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="删除飞机配置" />
-                                    </telerik:RadButton>
-                                    <telerik:RadToolBarSeparator />
-                                </telerik:RadToolBar>
-                                <Grid Row="1">
-                                    <telerik:RadGridView Name="AircraftConfigurationInfos"
-                                                         FontSize="{StaticResource TextFontSize}"
-                                                         AutoExpandGroups="True"
-                                                         AutoGenerateColumns="False"
-                                                         CanUserFreezeColumns="False"
-                                                         ShowGroupPanel="True"
-                                                         RowIndicatorVisibility="Collapsed"
-                                                         IsBusy="{Binding AircraftConfigurations.IsBusy,Mode=TwoWay}"
-                                                         ItemsSource="{Binding AircraftConfigurations,Mode=TwoWay}"
-                                                         SelectedItem="{Binding AircraftConfiguration,Mode=TwoWay}">
-                                        <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
-                                                                     HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn Header="配置代码"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding ConfigCode}" />
-                                            <telerik:GridViewComboBoxColumn Header="机型"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            HeaderTextAlignment="Center"
-                                                                            ItemsSource="{Binding DataContext.AircraftTypes, Mode=TwoWay, ElementName=AircraftConfigurationView}"
-                                                                            DataMemberBinding="{Binding AircraftTypeId}"
-                                                                            SelectedValueMemberPath="AircraftTypeId"
-                                                                            DisplayMemberPath="Name" />
-                                            <telerik:GridViewComboBoxColumn Header="系列"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            HeaderTextAlignment="Center"
-                                                                            IsReadOnly="True"
-                                                                            ItemsSource="{Binding DataContext.AircraftSerieses, Mode=TwoWay, ElementName=AircraftConfigurationView}"
-                                                                            DataMemberBinding="{Binding AircraftSeriesId}"
-                                                                            SelectedValueMemberPath="Id"
-                                                                            DisplayMemberPath="Name" />
-                                            <telerik:GridViewDataColumn Header="基本空重"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding BEW}" />
-                                            <telerik:GridViewDataColumn Header="基本重量"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding BW}" />
-                                            <telerik:GridViewDataColumn Header="基本重量重心"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding BWF}" />
-                                            <telerik:GridViewDataColumn Header="基本重量指数"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding BWI}" />
-                                            <telerik:GridViewDataColumn Header="最大滑行重量"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding MTW}" />
-                                            <telerik:GridViewDataColumn Header="最大起飞重量"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding MTOW}" />
-                                            <telerik:GridViewDataColumn Header="最大着陆重量"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding MLW}" />
-                                            <telerik:GridViewDataColumn Header="最大零燃油重量"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding MZFW}" />
-                                            <telerik:GridViewDataColumn Header="最大可用燃油"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding MMFW}" />
-                                            <telerik:GridViewDataColumn Header="最大商载"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding MCC}" />
-                                            <telerik:GridViewDataColumn Header="LOPA图"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        IsReadOnly="True"
-                                                                        DataMemberBinding="{Binding FileName}" />
-                                            <telerik:GridViewDataColumn Header="描述"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding Description}" />
-                                        </telerik:RadGridView.Columns>
-                                    </telerik:RadGridView>
-                                </Grid>
-                                <Grid Grid.Row="2">
-                                    <telerik:RadDataPager Name="RadPage"
-                                                          BorderThickness="1,0,1,1"
-                                                          AutoEllipsisMode="Both"
-                                                          DisplayMode="All"
-                                                          Source="{Binding AircraftConfigurations}" />
-                                </Grid>
-                            </Grid>
-                        </telerik:RadPane>
-                    </telerik:RadPaneGroup>
-                </telerik:RadSplitContainer>
-                <telerik:RadSplitContainer Orientation="Horizontal"
-                                           telerik:ProportionalStackPanel.RelativeSize="300, 600">
-                    <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
+    <telerik:RadBusyIndicator BusyContent="{Binding BusyContent,Mode=TwoWay}"
+                              IsBusy="{Binding AircraftConfigurations.IsBusy,Mode=TwoWay}">
+        <Grid>
+            <telerik:RadDocking BorderThickness="0"
+                                Padding="0"
+                                HasDocumentHost="False">
+                <telerik:RadSplitContainer Orientation="Vertical">
+                    <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
                         <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="座位布局"
-                                             FontSize="{StaticResource HeaderFontSize}"
+                            <telerik:RadPane Header="飞机配置信息"
+                                             FontSize="{StaticResource TextFontSize}"
                                              IsPinned="True"
                                              CanFloat="False"
+                                             CanDockInDocumentHost="False"
                                              CanUserClose="False"
                                              CanUserPin="False"
                                              ContextMenuTemplate="{x:Null}">
@@ -184,108 +41,252 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
                                     </Grid.RowDefinitions>
                                     <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                         Margin="0 0 0 -1"
                                                         OverflowButtonVisibility="Collapsed">
-                                        <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding AddCabinCommand}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                                        <telerik:RadButton Margin="4,2,2,-2"
+                                                           Command="{Binding SaveCommand}"
+                                                           CommandParameter="{Binding AircraftConfigurations}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                    Stretch="Fill"
-                                                   ToolTipService.ToolTip="增加舱位类型" />
+                                                   ToolTipService.ToolTip="保存" />
                                         </telerik:RadButton>
                                         <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding RemoveCabinCommand}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                                           Command="{Binding AbortCommand}"
+                                                           CommandParameter="{Binding AircraftConfigurations}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                    Stretch="Fill"
-                                                   ToolTipService.ToolTip="移除舱位类型" />
+                                                   ToolTipService.ToolTip="放弃更改" />
                                         </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding AddAircraftConfigCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="创建飞机配置" />
+                                        </telerik:RadButton>
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding RemoveAircraftConfigCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="删除飞机配置" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
                                     </telerik:RadToolBar>
                                     <Grid Row="1">
-                                        <telerik:RadGridView Name="AircraftCabinList"
+                                        <telerik:RadGridView Name="AircraftConfigurationInfos"
+                                                             FontSize="{StaticResource TextFontSize}"
                                                              AutoExpandGroups="True"
                                                              AutoGenerateColumns="False"
-                                                             CanUserSortColumns="True"
                                                              CanUserFreezeColumns="False"
-                                                             IsFilteringAllowed="True"
-                                                             ShowGroupPanel="False"
-                                                             IsBusy="{Binding AircraftConfigurations.IsBusy,Mode=TwoWay}"
-                                                             ItemsSource="{Binding AircraftConfiguration.AircraftCabins,Mode=TwoWay}"
-                                                             SelectedItem="{Binding AircraftCabin,Mode=TwoWay}"
-                                                             FontSize="{StaticResource TextFontSize}"
-                                                             ValidatesOnDataErrors="InEditMode"
-                                                             RowIndicatorVisibility="Visible">
+                                                             ShowGroupPanel="True"
+                                                             RowIndicatorVisibility="Collapsed"
+                                                             ItemsSource="{Binding AircraftConfigurations,Mode=TwoWay}"
+                                                             SelectedItem="{Binding AircraftConfiguration,Mode=TwoWay}">
                                             <telerik:RadGridView.Columns>
-                                                <input:DataPageSerialColumn Header="序号" />
-                                                <telerik:GridViewComboBoxColumn Header="飞机舱位"
+                                                <uc:DataPageSerialColumn Header="序号"
+                                                                         HeaderTextAlignment="Center" />
+                                                <telerik:GridViewDataColumn Header="配置代码"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding ConfigCode}" />
+                                                <telerik:GridViewComboBoxColumn Header="机型"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 HeaderTextAlignment="Center"
-                                                                                ItemsSource="{Binding DataContext.AircraftCabinTypes, Mode=TwoWay, ElementName=AircraftConfigurationView}"
-                                                                                DataMemberBinding="{Binding AircraftCabinTypeId}"
+                                                                                ItemsSource="{Binding DataContext.AircraftTypes, Mode=TwoWay, ElementName=AircraftConfigurationView}"
+                                                                                DataMemberBinding="{Binding AircraftTypeId}"
+                                                                                SelectedValueMemberPath="AircraftTypeId"
+                                                                                DisplayMemberPath="Name" />
+                                                <telerik:GridViewComboBoxColumn Header="系列"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                HeaderTextAlignment="Center"
+                                                                                IsReadOnly="True"
+                                                                                ItemsSource="{Binding DataContext.AircraftSerieses, Mode=TwoWay, ElementName=AircraftConfigurationView}"
+                                                                                DataMemberBinding="{Binding AircraftSeriesId}"
                                                                                 SelectedValueMemberPath="Id"
                                                                                 DisplayMemberPath="Name" />
-                                                <telerik:GridViewDataColumn Header="座位数"
+                                                <telerik:GridViewDataColumn Header="基本空重"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
-                                                                            DataMemberBinding="{Binding SeatNumber}" />
-                                                <telerik:GridViewDataColumn Header="备注"
+                                                                            DataMemberBinding="{Binding BEW}" />
+                                                <telerik:GridViewDataColumn Header="基本重量"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
-                                                                            DataMemberBinding="{Binding Note}" />
+                                                                            DataMemberBinding="{Binding BW}" />
+                                                <telerik:GridViewDataColumn Header="基本重量重心"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding BWF}" />
+                                                <telerik:GridViewDataColumn Header="基本重量指数"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding BWI}" />
+                                                <telerik:GridViewDataColumn Header="最大滑行重量"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding MTW}" />
+                                                <telerik:GridViewDataColumn Header="最大起飞重量"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding MTOW}" />
+                                                <telerik:GridViewDataColumn Header="最大着陆重量"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding MLW}" />
+                                                <telerik:GridViewDataColumn Header="最大零燃油重量"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding MZFW}" />
+                                                <telerik:GridViewDataColumn Header="最大可用燃油"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding MMFW}" />
+                                                <telerik:GridViewDataColumn Header="最大商载"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding MCC}" />
+                                                <telerik:GridViewDataColumn Header="LOPA图"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            IsReadOnly="True"
+                                                                            DataMemberBinding="{Binding FileName}" />
+                                                <telerik:GridViewDataColumn Header="描述"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding Description}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
+                                    </Grid>
+                                    <Grid Grid.Row="2">
+                                        <telerik:RadDataPager Name="RadPage"
+                                                              BorderThickness="1,0,1,1"
+                                                              AutoEllipsisMode="Both"
+                                                              DisplayMode="All"
+                                                              Source="{Binding AircraftConfigurations}" />
                                     </Grid>
                                 </Grid>
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>
                     </telerik:RadSplitContainer>
-                    <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
-                        <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="LOPA图"
-                                             IsPinned="True"
-                                             CanFloat="False"
-                                             CanDockInDocumentHost="False"
-                                             CanUserClose="False"
-                                             CanUserPin="True"
-                                             ContextMenuTemplate="{x:Null}">
-                                <Grid x:Name="LayoutRoot">
+                    <telerik:RadSplitContainer Orientation="Horizontal"
+                                               telerik:ProportionalStackPanel.RelativeSize="300, 600">
+                        <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header="座位布局"
+                                                 FontSize="{StaticResource HeaderFontSize}"
+                                                 IsPinned="True"
+                                                 CanFloat="False"
+                                                 CanUserClose="False"
+                                                 CanUserPin="False"
+                                                 ContextMenuTemplate="{x:Null}">
                                     <Grid>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="30" />
+                                            <RowDefinition Height="Auto" />
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                             Margin="0 0 0 -1"
                                                             OverflowButtonVisibility="Collapsed">
-                                            <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/open.png"
-                                                                          Command="{Binding DataContext.AddDocumentCommand, ElementName=AircraftConfigurationView}" />
-                                            <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/save.png"
-                                                                          Command="{Binding Path=Commands.Save, ElementName=ImageEditor}" />
-                                            <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CW.png"
-                                                                          Command="{Binding Path=Commands.Rotate90Clockwise, ElementName=ImageEditor}" />
-                                            <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CCW.png"
-                                                                          Command="{Binding Path=Commands.Rotate90Counterclockwise, ElementName=ImageEditor}" />
-                                            <telerik:RadComboBox Margin="0,3"
-                                                                 Width="70"
-                                                                 HorizontalAlignment="Stretch"
-                                                                 VerticalAlignment="Center"
-                                                                 ItemsSource="{Binding DataContext.Percents, Mode=TwoWay, ElementName=AircraftConfigurationView}"
-                                                                 SelectedValue="{Binding Percent,Mode=TwoWay}"
-                                                                 SelectedValuePath="Key"
-                                                                 DisplayMemberPath="Value"/>
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding AddCabinCommand}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="增加舱位类型" />
+                                            </telerik:RadButton>
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding RemoveCabinCommand}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="移除舱位类型" />
+                                            </telerik:RadButton>
                                         </telerik:RadToolBar>
-                                        <telerik:RadImageEditor Grid.Row="1"
-                                                                x:Name="ImageEditor"
-                                                                HorizontalAlignment="Stretch"
-                                                                VerticalAlignment="Stretch">
-                                        </telerik:RadImageEditor>
+                                        <Grid Row="1">
+                                            <telerik:RadGridView Name="AircraftCabinList"
+                                                                 AutoExpandGroups="True"
+                                                                 AutoGenerateColumns="False"
+                                                                 CanUserSortColumns="True"
+                                                                 CanUserFreezeColumns="False"
+                                                                 IsFilteringAllowed="True"
+                                                                 ShowGroupPanel="False"
+                                                                 ItemsSource="{Binding AircraftConfiguration.AircraftCabins,Mode=TwoWay}"
+                                                                 SelectedItem="{Binding AircraftCabin,Mode=TwoWay}"
+                                                                 FontSize="{StaticResource TextFontSize}"
+                                                                 ValidatesOnDataErrors="InEditMode"
+                                                                 RowIndicatorVisibility="Visible">
+                                                <telerik:RadGridView.Columns>
+                                                    <input:DataPageSerialColumn Header="序号" />
+                                                    <telerik:GridViewComboBoxColumn Header="飞机舱位"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    ItemsSource="{Binding DataContext.AircraftCabinTypes, Mode=TwoWay, ElementName=AircraftConfigurationView}"
+                                                                                    DataMemberBinding="{Binding AircraftCabinTypeId}"
+                                                                                    SelectedValueMemberPath="Id"
+                                                                                    DisplayMemberPath="Name" />
+                                                    <telerik:GridViewDataColumn Header="座位数"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                HeaderTextAlignment="Center"
+                                                                                DataMemberBinding="{Binding SeatNumber}" />
+                                                    <telerik:GridViewDataColumn Header="备注"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                HeaderTextAlignment="Center"
+                                                                                DataMemberBinding="{Binding Note}" />
+                                                </telerik:RadGridView.Columns>
+                                            </telerik:RadGridView>
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            </telerik:RadPane>
-                        </telerik:RadPaneGroup>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
+                        <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header="LOPA图"
+                                                 IsPinned="True"
+                                                 CanFloat="False"
+                                                 CanDockInDocumentHost="False"
+                                                 CanUserClose="False"
+                                                 CanUserPin="True"
+                                                 ContextMenuTemplate="{x:Null}">
+                                    <Grid x:Name="LayoutRoot">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                                Margin="0 0 0 -1"
+                                                                OverflowButtonVisibility="Collapsed">
+                                                <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/open.png"
+                                                                              Command="{Binding DataContext.AddDocumentCommand, ElementName=AircraftConfigurationView}" />
+                                                <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/save.png"
+                                                                              Command="{Binding Path=Commands.Save, ElementName=ImageEditor}" />
+                                                <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CW.png"
+                                                                              Command="{Binding Path=Commands.Rotate90Clockwise, ElementName=ImageEditor}" />
+                                                <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CCW.png"
+                                                                              Command="{Binding Path=Commands.Rotate90Counterclockwise, ElementName=ImageEditor}" />
+                                                <telerik:RadComboBox Margin="0,3"
+                                                                     Width="70"
+                                                                     HorizontalAlignment="Stretch"
+                                                                     VerticalAlignment="Center"
+                                                                     ItemsSource="{Binding DataContext.Percents, Mode=TwoWay, ElementName=AircraftConfigurationView}"
+                                                                     SelectedValue="{Binding Percent,Mode=TwoWay}"
+                                                                     SelectedValuePath="Key"
+                                                                     DisplayMemberPath="Value" />
+                                            </telerik:RadToolBar>
+                                            <telerik:RadImageEditor Grid.Row="1"
+                                                                    x:Name="ImageEditor"
+                                                                    HorizontalAlignment="Stretch"
+                                                                    VerticalAlignment="Stretch">
+                                            </telerik:RadImageEditor>
+                                        </Grid>
+                                    </Grid>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
                     </telerik:RadSplitContainer>
                 </telerik:RadSplitContainer>
-            </telerik:RadSplitContainer>
-        </telerik:RadDocking>
-    </Grid>
+            </telerik:RadDocking>
+        </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

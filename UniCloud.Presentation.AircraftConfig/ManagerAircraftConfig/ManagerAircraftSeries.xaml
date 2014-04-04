@@ -47,7 +47,7 @@
                              Margin="0,3"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Name, Mode=TwoWay}"
-                             IsReadOnly="True"/>
+                             IsReadOnly="True" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
                                Text="制造商"
@@ -69,7 +69,7 @@
                              Grid.Row="2"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Description, Mode=TwoWay}"
-                             IsReadOnly="True"/>
+                             IsReadOnly="True" />
                 </Grid>
             </DataTemplate>
 
@@ -101,7 +101,7 @@
                     <TextBox Grid.Row="0"
                              Grid.Column="2"
                              Margin="0,3"
-                             Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
+                             Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
                                Text="制造商"
@@ -126,108 +126,110 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="2"
-                             Text="{Binding Description, Mode=TwoWay}"/>
+                             Text="{Binding Description, Mode=TwoWay}" />
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
-        <telerik:RadDocking BorderThickness="0"
-                            Padding="0"
-                            HasDocumentHost="False">
-            <telerik:RadSplitContainer>
-                <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
-                    <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="查询飞机系列"
-                                         FontSize="{StaticResource HeaderFontSize}"
-                                         IsPinned="True"
-                                         CanFloat="False"
-                                         CanUserClose="False"
-                                         CanUserPin="False"
-                                         ContextMenuTemplate="{x:Null}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="30" />
-                                </Grid.RowDefinitions>
-                                <Grid Row="0">
-                                    <telerik:RadGridView Name="AircraftSeriesList"
-                                                         AutoExpandGroups="True"
-                                                         AutoGenerateColumns="False"
-                                                         CanUserSortColumns="True"
-                                                         CanUserFreezeColumns="False"
-                                                         IsFilteringAllowed="True"
-                                                         IsReadOnly="True"
-                                                         ItemsSource="{Binding AircraftSerieses}"
-                                                         IsBusy="{Binding AircraftSerieses.IsBusy}"
-                                                         SelectedItem="{Binding AircraftSeries,Mode=TwoWay}"
-                                                         CanUserSelect="{Binding CanSelectAircraftSeries}"
-                                                         FontSize="{StaticResource TextFontSize}"
-                                                         ValidatesOnDataErrors="InEditMode"
-                                                         RowIndicatorVisibility="Visible">
-                                        <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn  Header="序号" />
-                                            <telerik:GridViewDataColumn Header="系列名称"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding Name}" />
-                                            <telerik:GridViewComboBoxColumn Header="制造商"
+    <telerik:RadBusyIndicator BusyContent="{Binding BusyContent,Mode=TwoWay}"
+                              IsBusy="{Binding AircraftSerieses.IsBusy,Mode=TwoWay}">
+        <Grid>
+            <telerik:RadDocking BorderThickness="0"
+                                Padding="0"
+                                HasDocumentHost="False">
+                <telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
+                        <telerik:RadPaneGroup>
+                            <telerik:RadPane Header="查询飞机系列"
+                                             FontSize="{StaticResource HeaderFontSize}"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Row="0">
+                                        <telerik:RadGridView Name="AircraftSeriesList"
+                                                             AutoExpandGroups="True"
+                                                             AutoGenerateColumns="False"
+                                                             CanUserSortColumns="True"
+                                                             CanUserFreezeColumns="False"
+                                                             IsFilteringAllowed="True"
+                                                             IsReadOnly="True"
+                                                             ItemsSource="{Binding AircraftSerieses}"
+                                                             SelectedItem="{Binding AircraftSeries,Mode=TwoWay}"
+                                                             CanUserSelect="{Binding CanSelectAircraftSeries}"
+                                                             FontSize="{StaticResource TextFontSize}"
+                                                             ValidatesOnDataErrors="InEditMode"
+                                                             RowIndicatorVisibility="Visible">
+                                            <telerik:RadGridView.Columns>
+                                                <input:DataPageSerialColumn  Header="序号" />
+                                                <telerik:GridViewDataColumn Header="系列名称"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
-                                                                            ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, ElementName=AircraftSeries}"
-                                                                            DataMemberBinding="{Binding ManufacturerId}"
-                                                                            SelectedValueMemberPath="Id"
-                                                                            DisplayMemberPath="CnName" />
-                                            <telerik:GridViewDataColumn Header="描述"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MaxWidth="250"
-                                                                        TextWrapping="Wrap"
-                                                                        DataMemberBinding="{Binding Description}" />
-                                        </telerik:RadGridView.Columns>
-                                    </telerik:RadGridView>
+                                                                            DataMemberBinding="{Binding Name}" />
+                                                <telerik:GridViewComboBoxColumn Header="制造商"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                HeaderTextAlignment="Center"
+                                                                                ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, ElementName=AircraftSeries}"
+                                                                                DataMemberBinding="{Binding ManufacturerId}"
+                                                                                SelectedValueMemberPath="Id"
+                                                                                DisplayMemberPath="CnName" />
+                                                <telerik:GridViewDataColumn Header="描述"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MaxWidth="250"
+                                                                            TextWrapping="Wrap"
+                                                                            DataMemberBinding="{Binding Description}" />
+                                            </telerik:RadGridView.Columns>
+                                        </telerik:RadGridView>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <telerik:RadDataPager Name="RadPage"
+                                                              BorderThickness="1,0,1,1"
+                                                              AutoEllipsisMode="Both"
+                                                              DisplayMode="All"
+                                                              Source="{Binding AircraftSerieses}" />
+                                    </Grid>
                                 </Grid>
-                                <Grid Grid.Row="1">
-                                    <telerik:RadDataPager Name="RadPage"
-                                                          BorderThickness="1,0,1,1"
-                                                          AutoEllipsisMode="Both"
-                                                          DisplayMode="All"
-                                                          Source="{Binding AircraftSerieses}" />
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
+                        <telerik:RadPaneGroup>
+                            <telerik:RadPane Header="编辑飞机系列"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanDockInDocumentHost="False"
+                                             CanUserClose="False"
+                                             CanUserPin="True"
+                                             ContextMenuTemplate="{x:Null}">
+                                <Grid>
+                                    <telerik:RadDataForm x:Name="AircraftSeriesForm"
+                                                         CancelButtonContent="取消"
+                                                         CommitButtonContent="确定"
+                                                         ItemsSource="{Binding AircraftSerieses}"
+                                                         AutoGenerateFields="False"
+                                                         AutoCommit="True"
+                                                         ReadOnlyTemplate="{StaticResource ReadTemplate}"
+                                                         EditTemplate="{StaticResource EditNewTemplate}"
+                                                         NewItemTemplate="{StaticResource EditNewTemplate}">
+                                        <telerik:RadDataForm.CommandProvider>
+                                            <uc:MasterCommandProvider  DataForm="{Binding ElementName=AircraftSeriesForm}"
+                                                                       QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=AircraftSeriesForm}"></uc:MasterCommandProvider>
+                                        </telerik:RadDataForm.CommandProvider>
+                                    </telerik:RadDataForm>
                                 </Grid>
-                            </Grid>
-                        </telerik:RadPane>
-                    </telerik:RadPaneGroup>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
                 </telerik:RadSplitContainer>
-                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
-                    <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="编辑飞机系列"
-                                         IsPinned="True"
-                                         CanFloat="False"
-                                         CanDockInDocumentHost="False"
-                                         CanUserClose="False"
-                                         CanUserPin="True"
-                                         ContextMenuTemplate="{x:Null}">
-                            <Grid>
-                                <telerik:RadDataForm x:Name="AircraftSeriesForm"
-                                                     CancelButtonContent="取消"
-                                                     CommitButtonContent="确定"
-                                                     ItemsSource="{Binding AircraftSerieses}"
-                                                     AutoGenerateFields="False"
-                                                     AutoCommit="True"  
-                                                     ReadOnlyTemplate="{StaticResource ReadTemplate}"
-                                                     EditTemplate="{StaticResource EditNewTemplate}"
-                                                     NewItemTemplate="{StaticResource EditNewTemplate}">
-                                    <telerik:RadDataForm.CommandProvider>
-                                        <uc:MasterCommandProvider  DataForm="{Binding ElementName=AircraftSeriesForm}"
-                                                                   QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=AircraftSeriesForm}"></uc:MasterCommandProvider>
-                                    </telerik:RadDataForm.CommandProvider>
-                                </telerik:RadDataForm>
-                            </Grid>
-                        </telerik:RadPane>
-                    </telerik:RadPaneGroup>
-                </telerik:RadSplitContainer>
-            </telerik:RadSplitContainer>
-        </telerik:RadDocking>
-    </Grid>
+            </telerik:RadDocking>
+        </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

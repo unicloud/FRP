@@ -51,241 +51,241 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <telerik:RadDocking BorderThickness="0"
-                            Padding="0"
-                            HasDocumentHost="False">
-            <telerik:RadSplitContainer Orientation="Horizontal">
-                <telerik:RadSplitContainer  InitialPosition="DockedLeft"
-                                            Orientation="Vertical"
-                                            telerik:ProportionalStackPanel.RelativeSize="300, 300">
-                    <telerik:RadSplitContainer InitialPosition="DockedTop"
-                                               telerik:ProportionalStackPanel.RelativeSize="300,300">
-                        <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="用户基本信息"
-                                             FontSize="{StaticResource HeaderFontSize}"
-                                             IsPinned="True"
-                                             CanFloat="False"
-                                             CanDockInDocumentHost="False"
-                                             CanUserClose="False"
-                                             CanUserPin="False"
-                                             ContextMenuTemplate="{x:Null}">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="30" />
-                                    </Grid.RowDefinitions>
-                                    <Grid Row="0">
-                                        <telerik:RadGridView x:Name="UserList"
-                                                             AutoExpandGroups="True"
-                                                             AutoGenerateColumns="False"
-                                                             CanUserSortColumns="True"
-                                                             RowIndicatorVisibility="Visible"
-                                                             CanUserFreezeColumns="False"
-                                                             FontSize="{StaticResource TextFontSize}"
-                                                             IsReadOnly="True"
-                                                             ValidatesOnDataErrors="InEditMode"
-                                                             IsBusy="{Binding Users.IsBusy,Mode=TwoWay}"
-                                                             ItemsSource="{Binding Users,Mode=TwoWay}"
-                                                             SelectedItem="{Binding User, Mode=TwoWay}">
-                                            <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号"
-                                                                         HeaderTextAlignment="Center" />
-                                                <telerik:GridViewDataColumn Header="工号"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding EmployeeCode}" />
-                                                <telerik:GridViewDataColumn Header="用户名"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding DisplayName}" />
-                                                <telerik:GridViewDataColumn Header="手机号"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding Mobile}" />
-                                                <telerik:GridViewDataColumn Header="E-mail"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding Email}" />
-                                            </telerik:RadGridView.Columns>
-                                        </telerik:RadGridView>
+    <telerik:RadBusyIndicator BusyContent="{Binding BusyContent,Mode=TwoWay}"
+                              IsBusy="{Binding Users.IsBusy,Mode=TwoWay}">
+        <Grid>
+            <telerik:RadDocking BorderThickness="0"
+                                Padding="0"
+                                HasDocumentHost="False">
+                <telerik:RadSplitContainer Orientation="Horizontal">
+                    <telerik:RadSplitContainer  InitialPosition="DockedLeft"
+                                                Orientation="Vertical"
+                                                telerik:ProportionalStackPanel.RelativeSize="300, 300">
+                        <telerik:RadSplitContainer InitialPosition="DockedTop"
+                                                   telerik:ProportionalStackPanel.RelativeSize="300,300">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header="用户基本信息"
+                                                 FontSize="{StaticResource HeaderFontSize}"
+                                                 IsPinned="True"
+                                                 CanFloat="False"
+                                                 CanDockInDocumentHost="False"
+                                                 CanUserClose="False"
+                                                 CanUserPin="False"
+                                                 ContextMenuTemplate="{x:Null}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="30" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Row="0">
+                                            <telerik:RadGridView x:Name="UserList"
+                                                                 AutoExpandGroups="True"
+                                                                 AutoGenerateColumns="False"
+                                                                 CanUserSortColumns="True"
+                                                                 RowIndicatorVisibility="Visible"
+                                                                 CanUserFreezeColumns="False"
+                                                                 FontSize="{StaticResource TextFontSize}"
+                                                                 IsReadOnly="True"
+                                                                 ValidatesOnDataErrors="InEditMode"
+                                                                 ItemsSource="{Binding Users,Mode=TwoWay}"
+                                                                 SelectedItem="{Binding User, Mode=TwoWay}">
+                                                <telerik:RadGridView.Columns>
+                                                    <uc:DataPageSerialColumn Header="序号"
+                                                                             HeaderTextAlignment="Center" />
+                                                    <telerik:GridViewDataColumn Header="工号"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding EmployeeCode}" />
+                                                    <telerik:GridViewDataColumn Header="用户名"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding DisplayName}" />
+                                                    <telerik:GridViewDataColumn Header="手机号"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding Mobile}" />
+                                                    <telerik:GridViewDataColumn Header="E-mail"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding Email}" />
+                                                </telerik:RadGridView.Columns>
+                                            </telerik:RadGridView>
+                                        </Grid>
+                                        <Grid Row="1">
+                                            <telerik:RadDataPager Name="UserRadPage"
+                                                                  BorderThickness="1,0,1,1"
+                                                                  AutoEllipsisMode="Both"
+                                                                  DisplayMode="All"
+                                                                  Source="{Binding Users}" />
+                                        </Grid>
                                     </Grid>
-                                    <Grid Row="1">
-                                        <telerik:RadDataPager Name="UserRadPage"
-                                                              BorderThickness="1,0,1,1"
-                                                              AutoEllipsisMode="Both"
-                                                              DisplayMode="All"
-                                                              Source="{Binding Users}" />
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
+                        <telerik:RadSplitContainer InitialPosition="DockedBottom"
+                                                   telerik:ProportionalStackPanel.RelativeSize="300,300">
+                            <telerik:RadPaneGroup Margin="0,0,0,6">
+                                <telerik:RadPane Header="用户对应角色"
+                                                 FontSize="{StaticResource HeaderFontSize}"
+                                                 IsPinned="True"
+                                                 CanFloat="False"
+                                                 CanDockInDocumentHost="False"
+                                                 CanUserClose="False"
+                                                 CanUserPin="False"
+                                                 ContextMenuTemplate="{x:Null}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <telerik:RadToolBar Grid.Row="0"
+                                                            HorizontalAlignment="Stretch"
+                                                            Margin="0 0 0 -1"
+                                                            OverflowButtonVisibility="Collapsed">
+                                            <telerik:RadButton Margin="4,2,2,-2"
+                                                               Command="{Binding SaveCommand}"
+                                                               CommandParameter="{Binding Users}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="保存" />
+                                            </telerik:RadButton>
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding AbortCommand}"
+                                                               CommandParameter="{Binding Users}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="放弃更改" />
+                                            </telerik:RadButton>
+                                            <telerik:RadToolBarSeparator />
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding RemoveRoleCommand}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="删除角色" />
+                                            </telerik:RadButton>
+                                        </telerik:RadToolBar>
+                                        <Grid Row="1">
+                                            <telerik:RadGridView x:Name="UserInRoleList"
+                                                                 AutoExpandGroups="True"
+                                                                 AutoGenerateColumns="False"
+                                                                 CanUserSortColumns="True"
+                                                                 RowIndicatorVisibility="Visible"
+                                                                 CanUserFreezeColumns="False"
+                                                                 IsReadOnly="True"
+                                                                 FontSize="{StaticResource TextFontSize}"
+                                                                 ValidatesOnDataErrors="InEditMode"
+                                                                 ItemsSource="{Binding UserRoles,Mode=TwoWay}"
+                                                                 SelectedItem="{Binding UserRole, Mode=TwoWay}">
+                                                <telerik:RadGridView.Columns>
+                                                    <uc:DataPageSerialColumn Header="序号"
+                                                                             HeaderTextAlignment="Center" />
+                                                    <telerik:GridViewDataColumn Header="角色名"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                IsReadOnly="True"
+                                                                                IsFilterable="True"
+                                                                                IsGroupable="True"
+                                                                                DataMemberBinding="{Binding Name}" />
+                                                    <telerik:GridViewDataColumn Header="说明"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                IsReadOnly="True"
+                                                                                IsFilterable="True"
+                                                                                IsGroupable="True"
+                                                                                DataMemberBinding="{Binding Description}" />
+                                                </telerik:RadGridView.Columns>
+                                            </telerik:RadGridView>
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            </telerik:RadPane>
-                        </telerik:RadPaneGroup>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
                     </telerik:RadSplitContainer>
-                    <telerik:RadSplitContainer InitialPosition="DockedBottom"
+                    <telerik:RadSplitContainer InitialPosition="DockedRight"
+                                               Orientation="Vertical"
                                                telerik:ProportionalStackPanel.RelativeSize="300,300">
-                        <telerik:RadPaneGroup Margin="0,0,0,6">
-                            <telerik:RadPane Header="用户对应角色"
-                                             FontSize="{StaticResource HeaderFontSize}"
-                                             IsPinned="True"
-                                             CanFloat="False"
-                                             CanDockInDocumentHost="False"
-                                             CanUserClose="False"
-                                             CanUserPin="False"
-                                             ContextMenuTemplate="{x:Null}">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <telerik:RadToolBar Grid.Row="0"
-                                                        HorizontalAlignment="Stretch"
-                                                        Margin="0 0 0 -1"
-                                                        OverflowButtonVisibility="Collapsed">
-                                        <telerik:RadButton Margin="4,2,2,-2"
-                                                           Command="{Binding SaveCommand}"
-                                                           CommandParameter="{Binding Users}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/Save.png"
-                                                   Stretch="Fill"
-                                                   ToolTipService.ToolTip="保存" />
-                                        </telerik:RadButton>
-                                        <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding AbortCommand}"
-                                                           CommandParameter="{Binding Users}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
-                                                   Stretch="Fill"
-                                                   ToolTipService.ToolTip="放弃更改" />
-                                        </telerik:RadButton>
-                                        <telerik:RadToolBarSeparator />
-                                        <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding RemoveRoleCommand}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
-                                                   Stretch="Fill"
-                                                   ToolTipService.ToolTip="删除角色" />
-                                        </telerik:RadButton>
-                                    </telerik:RadToolBar>
-                                    <Grid Row="1">
-                                        <telerik:RadGridView x:Name="UserInRoleList"
-                                                             AutoExpandGroups="True"
-                                                             AutoGenerateColumns="False"
-                                                             CanUserSortColumns="True"
-                                                             RowIndicatorVisibility="Visible"
-                                                             CanUserFreezeColumns="False"
-                                                             IsReadOnly="True"
-                                                             IsBusy="{Binding Users.IsBusy,Mode=TwoWay}"
-                                                             FontSize="{StaticResource TextFontSize}"
-                                                             ValidatesOnDataErrors="InEditMode"
-                                                             ItemsSource="{Binding UserRoles,Mode=TwoWay}"
-                                                             SelectedItem="{Binding UserRole, Mode=TwoWay}">
-                                            <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号"
-                                                                         HeaderTextAlignment="Center" />
-                                                <telerik:GridViewDataColumn Header="角色名"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
-                                                                            DataMemberBinding="{Binding Name}" />
-                                                <telerik:GridViewDataColumn Header="说明"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
-                                                                            DataMemberBinding="{Binding Description}" />
-                                            </telerik:RadGridView.Columns>
-                                        </telerik:RadGridView>
+                        <telerik:RadSplitContainer InitialPosition="DockedTop"
+                                                   telerik:ProportionalStackPanel.RelativeSize="300,300">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header="角色列表"
+                                                 FontSize="{StaticResource HeaderFontSize}"
+                                                 IsPinned="True"
+                                                 CanFloat="False"
+                                                 CanDockInDocumentHost="False"
+                                                 CanUserClose="False"
+                                                 CanUserPin="False"
+                                                 ContextMenuTemplate="{x:Null}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="30" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Row="0">
+                                            <telerik:RadGridView x:Name="RoleList"
+                                                                 AutoExpandGroups="True"
+                                                                 AutoGenerateColumns="False"
+                                                                 CanUserSortColumns="True"
+                                                                 RowIndicatorVisibility="Visible"
+                                                                 CanUserFreezeColumns="False"
+                                                                 IsReadOnly="True"
+                                                                 FontSize="{StaticResource TextFontSize}"
+                                                                 ValidatesOnDataErrors="InEditMode"
+                                                                 ItemsSource="{Binding Roles,Mode=TwoWay}"
+                                                                 SelectedItem="{Binding Role, Mode=TwoWay}">
+                                                <uc:GridViewDoubleClick.Helper>
+                                                    <uc:UserRoleDoubleClickHelper />
+                                                </uc:GridViewDoubleClick.Helper>
+                                                <telerik:RadGridView.Columns>
+                                                    <uc:DataPageSerialColumn Header="序号"
+                                                                             HeaderTextAlignment="Center" />
+                                                    <telerik:GridViewDataColumn Header="角色名"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding Name}" />
+                                                    <telerik:GridViewDataColumn Header="说明"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding Description}" />
+                                                </telerik:RadGridView.Columns>
+                                            </telerik:RadGridView>
+                                        </Grid>
+                                        <Grid Row="1">
+                                            <telerik:RadDataPager Name="RadPage"
+                                                                  BorderThickness="1,0,1,1"
+                                                                  AutoEllipsisMode="Both"
+                                                                  DisplayMode="All"
+                                                                  Source="{Binding Roles}" />
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            </telerik:RadPane>
-                        </telerik:RadPaneGroup>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
+                        <telerik:RadSplitContainer InitialPosition="DockedBottom"
+                                                   telerik:ProportionalStackPanel.RelativeSize="300,300">
+                            <telerik:RadPaneGroup Margin="0,0,0,6">
+                                <telerik:RadPane  Header="角色功能"
+                                                  FontSize="{StaticResource HeaderFontSize}"
+                                                  IsPinned="True"
+                                                  CanFloat="False"
+                                                  CanDockInDocumentHost="False"
+                                                  CanUserClose="False"
+                                                  CanUserPin="False"
+                                                  ContextMenuTemplate="{x:Null}">
+                                    <telerik:RadTreeView  x:Name="FunctionRole"
+                                                          SelectionMode="Extended"
+                                                          ItemTemplate="{StaticResource ApplicationTemplate}"
+                                                          ItemsSource="{Binding DisplayFunctionItems,Mode=TwoWay}"
+                                                          ItemContainerStyle="{StaticResource ItemContainerStyle}"
+                                                          FontSize="13"
+                                                          IsOptionElementsEnabled="False"
+                                                          IsRootLinesEnabled="False"
+                                                          IsTriStateMode="True" />
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
                     </telerik:RadSplitContainer>
                 </telerik:RadSplitContainer>
-                <telerik:RadSplitContainer InitialPosition="DockedRight"
-                                           Orientation="Vertical"
-                                           telerik:ProportionalStackPanel.RelativeSize="300,300">
-                    <telerik:RadSplitContainer InitialPosition="DockedTop"
-                                               telerik:ProportionalStackPanel.RelativeSize="300,300">
-                        <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="角色列表"
-                                             FontSize="{StaticResource HeaderFontSize}"
-                                             IsPinned="True"
-                                             CanFloat="False"
-                                             CanDockInDocumentHost="False"
-                                             CanUserClose="False"
-                                             CanUserPin="False"
-                                             ContextMenuTemplate="{x:Null}">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="30" />
-                                    </Grid.RowDefinitions>
-                                    <Grid Row="0">
-                                        <telerik:RadGridView x:Name="RoleList"
-                                                             AutoExpandGroups="True"
-                                                             AutoGenerateColumns="False"
-                                                             CanUserSortColumns="True"
-                                                             RowIndicatorVisibility="Visible"
-                                                             CanUserFreezeColumns="False"
-                                                             IsReadOnly="True"
-                                                             FontSize="{StaticResource TextFontSize}"
-                                                             ValidatesOnDataErrors="InEditMode"
-                                                             IsBusy="{Binding Roles.IsBusy,Mode=TwoWay}"
-                                                             ItemsSource="{Binding Roles,Mode=TwoWay}"
-                                                             SelectedItem="{Binding Role, Mode=TwoWay}">
-                                            <uc:GridViewDoubleClick.Helper>
-                                                <uc:UserRoleDoubleClickHelper />
-                                            </uc:GridViewDoubleClick.Helper>
-                                            <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号"
-                                                                         HeaderTextAlignment="Center" />
-                                                <telerik:GridViewDataColumn Header="角色名"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding Name}" />
-                                                <telerik:GridViewDataColumn Header="说明"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding Description}" />
-                                            </telerik:RadGridView.Columns>
-                                        </telerik:RadGridView>
-                                    </Grid>
-                                    <Grid Row="1">
-                                        <telerik:RadDataPager Name="RadPage"
-                                                              BorderThickness="1,0,1,1"
-                                                              AutoEllipsisMode="Both"
-                                                              DisplayMode="All"
-                                                              Source="{Binding Roles}" />
-                                    </Grid>
-                                </Grid>
-                            </telerik:RadPane>
-                        </telerik:RadPaneGroup>
-                    </telerik:RadSplitContainer>
-                    <telerik:RadSplitContainer InitialPosition="DockedBottom"
-                                               telerik:ProportionalStackPanel.RelativeSize="300,300">
-                        <telerik:RadPaneGroup Margin="0,0,0,6">
-                            <telerik:RadPane  Header="角色功能"
-                                              FontSize="{StaticResource HeaderFontSize}"
-                                              IsPinned="True"
-                                              CanFloat="False"
-                                              CanDockInDocumentHost="False"
-                                              CanUserClose="False"
-                                              CanUserPin="False"
-                                              ContextMenuTemplate="{x:Null}">
-                                <telerik:RadTreeView  x:Name="FunctionRole"
-                                                      SelectionMode="Extended"
-                                                      ItemTemplate="{StaticResource ApplicationTemplate}"
-                                                      ItemsSource="{Binding DisplayFunctionItems,Mode=TwoWay}"
-                                                      ItemContainerStyle="{StaticResource ItemContainerStyle}"
-                                                      FontSize="13"
-                                                      IsOptionElementsEnabled="False"
-                                                      IsRootLinesEnabled="False"
-                                                      IsTriStateMode="True" />
-                            </telerik:RadPane>
-                        </telerik:RadPaneGroup>
-                    </telerik:RadSplitContainer>
-                </telerik:RadSplitContainer>
-            </telerik:RadSplitContainer>
-        </telerik:RadDocking>
-    </Grid>
+            </telerik:RadDocking>
+        </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

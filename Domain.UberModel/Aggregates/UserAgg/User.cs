@@ -52,6 +52,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         public string EmployeeCode { get; internal set; }
 
         /// <summary>
+        ///     组织机构名称
+        /// </summary>
+        public string OrganizationNo { get; internal set; }
+
+        /// <summary>
         ///     名
         /// </summary>
         public string FirstName { get; internal set; }

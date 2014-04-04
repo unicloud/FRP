@@ -29,8 +29,7 @@
         </ResourceDictionary>
     </telerik:RadWindow.Resources>
     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
-                              FontSize="{StaticResource TextFontSize}"
-                              BusyContent="">
+                              BusyContent="{Binding BusyContent,Mode=TwoWay}">
 
         <Border BorderThickness="0"
                 Margin="5,3"
@@ -48,7 +47,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                    Margin="0" 
+                                    Margin="0"
                                     OverflowButtonVisibility="Collapsed">
                     <Button x:Name="Save"
                             ToolTipService.ToolTip="保存"

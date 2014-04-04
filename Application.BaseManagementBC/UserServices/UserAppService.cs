@@ -16,7 +16,9 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.BaseManagementBC.DTO;
@@ -63,7 +65,7 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         [Insert(typeof(UserDTO))]
         public void InsertUser(UserDTO user)
         {
-            var newUser = UserFactory.CreateUser(user.EmployeeCode, string.Empty, string.Empty, user.DisplayName, user.Password, user.Email,
+            var newUser = UserFactory.CreateUser(user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty, user.DisplayName, user.Password, user.Email,
                 user.Mobile, user.Description, true);
             _userRepository.Add(newUser);
         }
@@ -77,7 +79,8 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         public void ModifyUser(UserDTO user)
         {
             var updateUser = _userRepository.Get(user.Id); //获取需要更新的对象。
-            UserFactory.SetUser(updateUser, user.Mobile, user.Email);
+            UserFactory.SetUser(updateUser, user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty, user.DisplayName, user.Password, user.Email,
+                user.Mobile, user.Description, true);
 
             var dtoUserRoles = user.UserRoles;
             var userRoles = updateUser.UserRoles;
@@ -122,6 +125,27 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         {
             // 更新UserRole
             UserFactory.SetUserRole(userRole, userRoleDto.UserId, userRoleDto.RoleId);
+        }
+
+        public void SyncUserInfo(List<UserDTO> users)
+        {
+            foreach (var user in users)
+            {
+                Expression<Func<User, bool>> condition = p => p.EmployeeCode == user.EmployeeCode;
+
+                var tempUser = _userRepository.GetUser(condition);
+                if (tempUser != null)
+                {
+                    UserFactory.SetUser(tempUser, user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty, user.DisplayName, user.Password, user.Email,
+                     user.Mobile, user.Description, true);
+                    _userRepository.Modify(tempUser);
+                }
+                else
+                {
+                    InsertUser(user);
+                }
+            }
+            _userRepository.UnitOfWork.CommitAndRefreshChanges();
         }
         #endregion
 
