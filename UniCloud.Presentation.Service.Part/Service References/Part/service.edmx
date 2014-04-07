@@ -112,6 +112,28 @@
         <Property Name="IsLife" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Description" Type="Edm.String" />
       </EntityType>
+      <EntityType Name="InstallControllerDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="EndDate" Type="Edm.DateTime" />
+        <Property Name="ItemNo" Type="Edm.String" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ItemId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Dependencies" Type="Collection(UniCloud.Application.PartBC.DTO.DependencyDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="DependencyDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="InstallControllerId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="DependencyPnId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
       <EntityType Name="ItemMaintainCtrlDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -215,14 +237,7 @@
         <Property Name="IsLife" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="ItemId" Type="Edm.Int32" />
-        <Property Name="Dependencies" Type="Collection(UniCloud.Application.PartBC.DTO.DependencyDTO)" Nullable="false" />
       </EntityType>
-      <ComplexType Name="DependencyDTO">
-        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Pn" Type="Edm.String" />
-        <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="DependencyPnId" Type="Edm.Int32" Nullable="false" />
-      </ComplexType>
       <EntityType Name="ScnDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -455,6 +470,7 @@
         <EntitySet Name="ContractAircrafts" EntityType="UniCloud.Application.PartBC.DTO.ContractAircraftDTO" />
         <EntitySet Name="CtrlUnits" EntityType="UniCloud.Application.PartBC.DTO.CtrlUnitDTO" />
         <EntitySet Name="Items" EntityType="UniCloud.Application.PartBC.DTO.ItemDTO" />
+        <EntitySet Name="InstallControllers" EntityType="UniCloud.Application.PartBC.DTO.InstallControllerDTO" />
         <EntitySet Name="ItemMaintainCtrls" EntityType="UniCloud.Application.PartBC.DTO.ItemMaintainCtrlDTO" />
         <EntitySet Name="PnMaintainCtrls" EntityType="UniCloud.Application.PartBC.DTO.PnMaintainCtrlDTO" />
         <EntitySet Name="SnMaintainCtrls" EntityType="UniCloud.Application.PartBC.DTO.SnMaintainCtrlDTO" />

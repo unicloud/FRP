@@ -55,7 +55,7 @@ namespace UniCloud.Application.PartBC.Tests.Services
                 .RegisterType<IItemAppService, ItemAppService>()
                 .RegisterType<IItemRepository, ItemRepository>()
                 .RegisterType<IMaintainCtrlRepository, MaintainCtrlRepository>()
-                .RegisterType<IPnRegRepository, PnRegRepository>()
+                .RegisterType<IPnRegRepository, PnRegRepository >()
             #endregion
 
 ;

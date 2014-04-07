@@ -62,6 +62,11 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
 
         #region 导航属性
 
+        /// <summary>
+        /// 附件项
+        /// </summary>
+        public virtual Item Item { get; set; }
+
         #endregion
 
         #region 操作

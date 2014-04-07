@@ -22,16 +22,5 @@ namespace UniCloud.Domain.PartBC.Aggregates.PnRegAgg
     /// </summary>
     public interface IPnRegRepository : IRepository<PnReg>
     {
-        /// <summary>
-        ///     删除附件
-        /// </summary>
-        /// <param name="pnReg"></param>
-        void DeletePnReg(PnReg pnReg);
-
-        /// <summary>
-        ///     移除依赖项
-        /// </summary>
-        /// <param name="dependency">依赖项</param>
-        void RemoveDependency(Dependency dependency);
     }
 }

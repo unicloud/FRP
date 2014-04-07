@@ -16,9 +16,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 
-namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
-
+namespace UniCloud.Domain.PartBC.Aggregates.InstallControllerAgg
 {
     /// <summary>
     /// PnReg聚合根。
@@ -54,9 +54,9 @@ namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
         #region 外键属性
 
         /// <summary>
-        /// 附件Id
+        /// 装机控制Id
         /// </summary>
-        public int PnRegId
+        public int InstallControllerId
         {
             get;
             internal set;

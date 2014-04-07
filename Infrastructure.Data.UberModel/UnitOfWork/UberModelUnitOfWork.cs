@@ -57,6 +57,7 @@ using UniCloud.Domain.UberModel.Aggregates.FlightLogAgg;
 using UniCloud.Domain.UberModel.Aggregates.ForwarderAgg;
 using UniCloud.Domain.UberModel.Aggregates.FunctionItemAgg;
 using UniCloud.Domain.UberModel.Aggregates.GuaranteeAgg;
+using UniCloud.Domain.UberModel.Aggregates.InstallControllerAgg;
 using UniCloud.Domain.UberModel.Aggregates.InvoiceAgg;
 using UniCloud.Domain.UberModel.Aggregates.ItemAgg;
 using UniCloud.Domain.UberModel.Aggregates.LicenseTypeAgg;
@@ -156,6 +157,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Guarantee> _guarantees;
         private IDbSet<Invoice> _invoices;
         private IDbSet<Item> _items;
+        private IDbSet<InstallController> _installControllers; 
         private IDbSet<LicenseType> _licenseTypes;
         private IDbSet<Linkman> _linkmen;
         private IDbSet<MailAddress> _mailAddresses;
@@ -394,6 +396,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<Item> Items
         {
             get { return _items ?? (_items = base.Set<Item>()); }
+        }
+
+        public IDbSet<InstallController> InstallControllers
+        {
+            get { return _installControllers ?? (_installControllers = base.Set<InstallController>()); }
         }
 
         public IDbSet<Linkman> Linkmen
@@ -890,7 +897,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                  #region ItemAgg
 
                 .Add(new ItemEntityConfiguration())
+                #endregion
 
+                 #region ItemAgg
+
+                .Add(new InstallControllerEntityConfiguration())
+                .Add(new DependencyEntityConfiguration())
                 #endregion
 
                 #region LinkmanAgg
@@ -1027,7 +1039,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 #region PnRegAgg
 
                 .Add(new PnRegEntityConfiguration())
-                .Add(new DependencyEntityConfiguration())
                 #endregion
 
                 #region ProgrammingAgg

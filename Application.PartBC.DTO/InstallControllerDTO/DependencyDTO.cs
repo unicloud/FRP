@@ -14,9 +14,9 @@
 #endregion
 
 #region 命名空间
-using System;
-using System.Collections.Generic;
+
 using System.Data.Services.Common;
+
 #endregion
 
 namespace UniCloud.Application.PartBC.DTO
@@ -47,9 +47,9 @@ namespace UniCloud.Application.PartBC.DTO
         #region 外键属性
 
         /// <summary>
-        /// 附件Id
+        /// 装机控制Id
         /// </summary>
-        public int PnRegId
+        public int InstallControllerId
         {
             get;
             set;

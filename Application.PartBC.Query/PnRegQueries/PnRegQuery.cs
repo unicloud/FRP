@@ -48,13 +48,6 @@ namespace UniCloud.Application.PartBC.Query.PnRegQueries
                 IsLife = p.IsLife,
                 ItemId = p.ItemId,
                 Description = p.Description,
-                Dependencies = p.Dependencies.Select(q => new DependencyDTO
-                {
-                    Id = q.Id,
-                    Pn = q.Pn,
-                    PnRegId = q.PnRegId,
-                    DependencyPnId = q.DependencyPnId,
-                }).ToList(),
             });
         }
     }

@@ -29,6 +29,7 @@ using UniCloud.Application.PartBC.BasicConfigServices;
 using UniCloud.Application.PartBC.ContractAircraftServices;
 using UniCloud.Application.PartBC.CtrlUnitServices;
 using UniCloud.Application.PartBC.DTO;
+using UniCloud.Application.PartBC.InstallControllerServices;
 using UniCloud.Application.PartBC.ItemServices;
 using UniCloud.Application.PartBC.MaintainCtrlServices;
 using UniCloud.Application.PartBC.MaintainWorkServices;
@@ -61,6 +62,7 @@ namespace UniCloud.DistributedServices.Part
         private readonly IContractAircraftAppService _contractAircraftAppService;
         private readonly ICtrlUnitAppService _ctrlUnitAppService;
         private readonly IItemAppService _itemAppService;
+        private readonly IInstallControllerAppService _installControllerAppService;
         private readonly IMaintainCtrlAppService _maintainCtrlAppService;
         private readonly IMaintainWorkAppService _maintainWorkAppService;
         private readonly IModAppService _modAppService;
@@ -83,6 +85,7 @@ namespace UniCloud.DistributedServices.Part
             _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
             _ctrlUnitAppService = DefaultContainer.Resolve<ICtrlUnitAppService>();
             _itemAppService = DefaultContainer.Resolve<IItemAppService>();
+            _installControllerAppService = DefaultContainer.Resolve<IInstallControllerAppService>();
             _maintainCtrlAppService = DefaultContainer.Resolve<IMaintainCtrlAppService>();
             _maintainWorkAppService = DefaultContainer.Resolve<IMaintainWorkAppService>();
             _modAppService = DefaultContainer.Resolve<IModAppService>();
@@ -208,6 +211,18 @@ namespace UniCloud.DistributedServices.Part
         public IQueryable<ItemDTO> Items
         {
             get { return _itemAppService.GetItems(); }
+        }
+
+        #endregion
+
+        #region 装机控制集合
+
+        /// <summary>
+        ///     装机控制集合
+        /// </summary>
+        public IQueryable<InstallControllerDTO> InstallControllers
+        {
+            get { return _installControllerAppService.GetInstallControllers(); }
         }
 
         #endregion

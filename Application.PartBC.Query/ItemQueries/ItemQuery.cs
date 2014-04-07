@@ -44,6 +44,7 @@ namespace UniCloud.Application.PartBC.Query.ItemQueries
         public IQueryable<ItemDTO> ItemDTOQuery(
             QueryBuilder<Item> query)
         {
+            var pnRegs = _unitOfWork.CreateSet<PnReg>();
             return query.ApplyTo(_unitOfWork.CreateSet<Item>()).Select(p => new ItemDTO
             {
                 Id=p.Id,

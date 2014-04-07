@@ -16,7 +16,6 @@
 
 #region 命名空间
 
-using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -29,10 +28,6 @@ namespace UniCloud.Application.PartBC.DTO
     [DataServiceKey("Id")]
     public class ItemDTO
     {
-        #region 私有字段
-
-        #endregion
-
         #region 属性
 
         /// <summary>

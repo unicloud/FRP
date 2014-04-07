@@ -60,6 +60,8 @@
     <Compile Include="ContractAircraftServices\IContractAircraftAppService.cs" />
     <Compile Include="CtrlUnitServices\CtrlUnitAppService.cs" />
     <Compile Include="CtrlUnitServices\ICtrlUnitAppService.cs" />
+    <Compile Include="InstallControllerServices\IInstallControllerAppService.cs" />
+    <Compile Include="InstallControllerServices\InstallControllerAppService.cs" />
     <Compile Include="ItemServices\IItemAppService.cs" />
     <Compile Include="ItemServices\ItemAppService.cs" />
     <Compile Include="MaintainCtrlServices\IMaintainCtrlAppService.cs" />
