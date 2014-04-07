@@ -12,6 +12,9 @@
 // ========================================================================*/
 #endregion
 
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.BaseManagementBC.Query.UserQueries;
 using UniCloud.Application.BaseManagementBC.UserServices;
@@ -57,6 +60,16 @@ namespace UniCloud.Application.BaseManagementBC.Tests
         {
             var service = DefaultContainer.Resolve<IUserAppService>();
             var result = service.GetUsers();
+            var md5 = new MD5CryptoServiceProvider();
+            byte[] inBytes = Encoding.GetEncoding("GB2312").GetBytes("123456a");
+            byte[] outBytes = md5.ComputeHash(inBytes);
+            string outString = "";
+            for (int i = 0; i < outBytes.Length; i++)
+            {
+                outString += outBytes[i].ToString("x2");
+            }
+
+            var first = result.FirstOrDefault(p => p.EmployeeCode == "010768" && p.Password == outString);
         }
     }
 }

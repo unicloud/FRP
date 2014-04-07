@@ -23,10 +23,10 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.Cryptography;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.BaseManagement;
 using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
-
 #endregion
 
 namespace UniCloud.Presentation.Shell.Login
@@ -54,8 +54,8 @@ namespace UniCloud.Presentation.Shell.Login
             LoginCancelCommand = new DelegateCommand<object>(OnLoginCancel);
 
             Users = _service.CreateCollection(_context.Users);
-             _workNumberFilter = new FilterDescriptor("EmployeeCode", FilterOperator.IsEqualTo, string.Empty);
-             _pwdNumberFilter = new FilterDescriptor("Password", FilterOperator.IsEqualTo, string.Empty);
+            _workNumberFilter = new FilterDescriptor("EmployeeCode", FilterOperator.IsEqualTo, string.Empty);
+            _pwdNumberFilter = new FilterDescriptor("Password", FilterOperator.IsEqualTo, string.Empty);
             Users.FilterDescriptors.Add(_workNumberFilter);
             Users.FilterDescriptors.Add(_pwdNumberFilter);
             Users.LoadedData += (sender, o) =>
@@ -86,7 +86,7 @@ namespace UniCloud.Presentation.Shell.Login
             if (loginForm != null && loginForm.ValidateItem())
             {
                 _workNumberFilter.Value = LogInfo.UserName;
-                _pwdNumberFilter.Value = LogInfo.Password;
+                _pwdNumberFilter.Value = MD5CryptoServiceProvider.GetMd5String(LogInfo.Password);
                 Users.Load(true);
             }
             else

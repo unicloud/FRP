@@ -268,6 +268,8 @@
     <Compile Include="CommonExtension\RandomHelper.cs" />
     <Compile Include="ControlExtension\DataForm\MasterCommandProvider.cs" />
     <Compile Include="ControlExtension\ScheduleView\MonthlyTickProvider.cs" />
+    <Compile Include="Cryptography\MD5.cs" />
+    <Compile Include="Cryptography\MD5CryptoServiceProvider.cs" />
     <Compile Include="Document\DocumentDoubleClickHelper.cs" />
     <Compile Include="Document\DocumentViewer.xaml.cs">
       <DependentUpon>DocumentViewer.xaml</DependentUpon>
