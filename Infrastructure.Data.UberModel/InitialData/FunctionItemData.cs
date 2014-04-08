@@ -359,11 +359,13 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
 
             var menu91 = FunctionItemFactory.CreateFunctionItem("管理授权", menu9.Id, 901, false, false, string.Empty);
             var menu911 = FunctionItemFactory.CreateFunctionItem("管理用户", menu91.Id, 90101, false, false, "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUser");
-            var menu912 = FunctionItemFactory.CreateFunctionItem("管理角色", menu91.Id, 90102, false, false, "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUserInRole");
-            var menu913 = FunctionItemFactory.CreateFunctionItem("管理权限", menu91.Id, 90103, false, false, "UniCloud.Presentation.BaseManagement.ManagePermission.ManageFunctionsInRole");
+            var menu912 = FunctionItemFactory.CreateFunctionItem("管理权限", menu91.Id, 90102, false, false, "UniCloud.Presentation.BaseManagement.ManagePermission.ManageFunctionsInRole");
+            var menu913 = FunctionItemFactory.CreateFunctionItem("管理用户角色", menu91.Id, 90103, false, false, "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUserInRole");
+            var menu914 = FunctionItemFactory.CreateFunctionItem("管理组织机构角色", menu91.Id, 90104, false, false, "UniCloud.Presentation.BaseManagement.ManagePermission.ManageOrganizationInRole");
             menu91.SubFunctionItems.Add(menu911);
             menu91.SubFunctionItems.Add(menu912);
             menu91.SubFunctionItems.Add(menu913);
+            menu91.SubFunctionItems.Add(menu914);
             menu9.SubFunctionItems.Add(menu91);
 
             var menu92 = FunctionItemFactory.CreateFunctionItem("管理运营资质", menu9.Id, 902, false, false, string.Empty);

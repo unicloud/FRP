@@ -988,17 +988,24 @@ namespace UniCloud.Presentation.Shell
             };
             var menu912 = new MenuItem
             {
-                Text = "管理角色",
-                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUserInRole"
-            };
-            var menu913 = new MenuItem
-            {
                 Text = "管理权限",
                 NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageFunctionsInRole"
             };
+            var menu913 = new MenuItem
+            {
+                Text = "管理用户角色",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUserInRole"
+            };
+            var menu914 = new MenuItem
+            {
+                Text = "管理组织机构角色",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageOrganizationInRole"
+            };
+
             menu91.Items.Add(menu911);
             menu91.Items.Add(menu912);
             menu91.Items.Add(menu913);
+            menu91.Items.Add(menu914);
             menu9.Items.Add(menu91);
 
             var menu92 = new MenuItem

@@ -20,6 +20,7 @@ using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.Query.OrganizationQueries;
 using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationRoleAgg;
 
 namespace UniCloud.Application.BaseManagementBC.OrganizationServices
 {
@@ -59,6 +60,51 @@ namespace UniCloud.Application.BaseManagementBC.OrganizationServices
             var newOrganization = OrganizationFactory.CreateOrganization(organization.Code, organization.Name,
                 organization.Sort, organization.Description, organization.IsValid);
             _organizationRepository.Add(newOrganization);
+        }
+
+        /// <summary>
+        ///     更新Organization。
+        /// </summary>
+        /// <param name="organization">OrganizationDTO。</param>
+        [Update(typeof(OrganizationDTO))]
+        public void ModifyOrganization(OrganizationDTO organization)
+        {
+            var updateOrganization = _organizationRepository.Get(organization.Id); //获取需要更新的对象。
+            OrganizationFactory.SetOrganization(updateOrganization, organization.Code, organization.Name,
+                organization.Sort, organization.Description, organization.IsValid);
+
+            var dtoOrganizationRoles = organization.OrganizationRoles;
+            var organizationRoles = updateOrganization.OrganizationRoles;
+            DataHelper.DetailHandle(dtoOrganizationRoles.ToArray(),
+                organizationRoles.ToArray(),
+                c => c.Id, p => p.Id,
+                i => InsertOrganizationRole(updateOrganization, i),
+                UpdateOrganizationRole,
+                d => _organizationRepository.DeleteOrganizationRole(d));
+            _organizationRepository.Modify(updateOrganization);
+        }
+
+        /// <summary>
+        ///     插入OrganizationRole
+        /// </summary>
+        /// <param name="organization">Organization</param>
+        /// <param name="organizationRoleDto">OrganizationRoleDTO</param>
+        private void InsertOrganizationRole(Organization organization, OrganizationRoleDTO organizationRoleDto)
+        {
+            // 添加OrganizationRole
+            var organizationRole = organization.AddNewOrganizationRole();
+            OrganizationFactory.SetOrganizationRole(organizationRole, organizationRoleDto.OrganizationId, organizationRoleDto.RoleId);
+        }
+
+        /// <summary>
+        ///     更新OrganizationRole
+        /// </summary>
+        /// <param name="organizationRoleDto">OrganizationRoleDTO</param>
+        /// <param name="organizationRole">OrganizationRole</param>
+        private void UpdateOrganizationRole(OrganizationRoleDTO organizationRoleDto, OrganizationRole organizationRole)
+        {
+            // 更新OrganizationRole
+            OrganizationFactory.SetOrganizationRole(organizationRole, organizationRoleDto.OrganizationId, organizationRoleDto.RoleId);
         }
 
         public void SyncOrganizationInfo(List<OrganizationDTO> organizations)

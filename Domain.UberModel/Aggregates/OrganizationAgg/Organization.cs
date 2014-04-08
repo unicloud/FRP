@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.OrganizationRoleAgg;
 
 #endregion
 
@@ -85,6 +86,34 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrganizationAgg
             set { _subOrganizations = new HashSet<Organization>(value); }
         }
 
+        /// <summary>
+        /// 角色集合
+        /// </summary>
+        private ICollection<OrganizationRole> _organizationRoles;
+        public ICollection<OrganizationRole> OrganizationRoles
+        {
+            get { return _organizationRoles ?? (_organizationRoles = new HashSet<OrganizationRole>()); }
+            set { _organizationRoles = new HashSet<OrganizationRole>(value); }
+        }
+        #endregion
+
+        #region 操作
+        /// <summary>
+        /// 新增OrganizationRole
+        /// </summary>
+        /// <returns></returns>
+        public OrganizationRole AddNewOrganizationRole()
+        {
+            var organizationRole = new OrganizationRole
+            {
+                OrganizationId = Id,
+            };
+
+            organizationRole.GenerateNewIdentity();
+            OrganizationRoles.Add(organizationRole);
+
+            return organizationRole;
+        }
         #endregion
 
         #region IValidatableObject 成员

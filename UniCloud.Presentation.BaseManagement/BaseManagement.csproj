@@ -189,6 +189,10 @@
       <DependentUpon>ManageFunctionsInRole.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagePermission\ManageFunctionsInRoleVm.cs" />
+    <Compile Include="ManagePermission\ManageOrganizationInRole.xaml.cs">
+      <DependentUpon>ManageOrganizationInRole.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagePermission\ManageOrganizationInRoleVm.cs" />
     <Compile Include="ManagePermission\ManageUser.xaml.cs">
       <DependentUpon>ManageUser.xaml</DependentUpon>
     </Compile>
@@ -197,6 +201,7 @@
     </Compile>
     <Compile Include="ManagePermission\ManageUserInRoleVm.cs" />
     <Compile Include="ManagePermission\ManageUserVm.cs" />
+    <Compile Include="ManagePermission\OrganizationRoleDoubleClickHelper.cs" />
     <Compile Include="ManagePermission\UserRoleDoubleClickHelper.cs" />
     <Compile Include="ManageSubsidiary\BranchCompany.xaml.cs">
       <DependentUpon>BranchCompany.xaml</DependentUpon>
@@ -232,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManagePermission\ManageFunctionsInRole.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagePermission\ManageOrganizationInRole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
