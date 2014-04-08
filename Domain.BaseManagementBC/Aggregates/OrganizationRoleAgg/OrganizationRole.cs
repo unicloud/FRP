@@ -35,7 +35,7 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationRoleAgg
         public  int OrganizationId
         {
             get;
-           private set;
+           internal set;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationRoleAgg
         public  int RoleId
         {
             get;
-           private set;
+            internal set;
         }
 
 

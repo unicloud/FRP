@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/4/4 16:56:27
+// 生成日期: 2014/4/8 10:28:05
 namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
 {
     
@@ -188,45 +188,49 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
                 "e=\"Edm.DateTime\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" " +
                 "/><Property Name=\"ParentCode\" Type=\"Edm.Int32\" /><Property Name=\"Sort\" Type=\"Edm" +
                 ".Int32\" Nullable=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nulla" +
-                "ble=\"false\" /><Property Name=\"Description\" Type=\"Edm.String\" /></EntityType><Ent" +
-                "ityType Name=\"FunctionItemDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Nam" +
-                "e=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ParentItemId\" Type=\"E" +
-                "dm.Int32\" /><Property Name=\"IsLeaf\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Prope" +
-                "rty Name=\"Sort\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"" +
-                "Edm.String\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"N" +
-                "aviUrl\" Type=\"Edm.String\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable" +
-                "=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" /><Property Name=\"Ima" +
-                "geUrl\" Type=\"Edm.String\" /><Property Name=\"IsButton\" Type=\"Edm.Boolean\" Nullable" +
-                "=\"false\" /><Property Name=\"IsChecked\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Nav" +
-                "igationProperty Name=\"SubFunctionItems\" Relationship=\"UniCloud.Application.BaseM" +
-                "anagementBC.DTO.FunctionItemDTO_SubFunctionItems\" ToRole=\"SubFunctionItems\" From" +
-                "Role=\"FunctionItemDTO\" /></EntityType><EntityType Name=\"RoleDTO\"><Key><PropertyR" +
-                "ef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
-                "operty Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"Edm.St" +
-                "ring\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Prop" +
-                "erty Name=\"RoleFunctions\" Type=\"Collection(UniCloud.Application.BaseManagementBC" +
-                ".DTO.RoleFunctionDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"RoleFu" +
-                "nctionDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Nam" +
-                "e=\"FunctionItemId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RoleId\" T" +
-                "ype=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><Association Name=\"FunctionItem" +
-                "DTO_SubFunctionItems\"><End Type=\"UniCloud.Application.BaseManagementBC.DTO.Funct" +
-                "ionItemDTO\" Role=\"SubFunctionItems\" Multiplicity=\"*\" /><End Type=\"UniCloud.Appli" +
-                "cation.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"FunctionItemDTO\" Multiplicity" +
-                "=\"*\" /></Association></Schema><Schema Namespace=\"UniCloud.DistributedServices.Ba" +
-                "seManagement\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContai" +
-                "ner Name=\"BaseManagementData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=" +
-                "\"Users\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.UserDTO\" /><Entity" +
-                "Set Name=\"Organizations\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.O" +
-                "rganizationDTO\" /><EntitySet Name=\"FunctionItems\" EntityType=\"UniCloud.Applicati" +
-                "on.BaseManagementBC.DTO.FunctionItemDTO\" /><EntitySet Name=\"Roles\" EntityType=\"U" +
-                "niCloud.Application.BaseManagementBC.DTO.RoleDTO\" /><FunctionImport Name=\"GetFun" +
-                "ctionItemsWithHierarchy\" ReturnType=\"Collection(UniCloud.Application.BaseManagem" +
-                "entBC.DTO.FunctionItemDTO)\" EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\" /><Asso" +
-                "ciationSet Name=\"FunctionItemDTO_SubFunctionItems\" Association=\"UniCloud.Applica" +
-                "tion.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems\"><End Role=\"FunctionI" +
-                "temDTO\" EntitySet=\"FunctionItems\" /><End Role=\"SubFunctionItems\" EntitySet=\"Func" +
-                "tionItems\" /></AssociationSet></EntityContainer></Schema></edmx:DataServices></e" +
-                "dmx:Edmx>";
+                "ble=\"false\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"O" +
+                "rganizationRoles\" Type=\"Collection(UniCloud.Application.BaseManagementBC.DTO.Org" +
+                "anizationRoleDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"Organizati" +
+                "onRoleDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Nam" +
+                "e=\"OrganizationId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RoleId\" T" +
+                "ype=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"FunctionItemD" +
+                "TO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nul" +
+                "lable=\"false\" /><Property Name=\"ParentItemId\" Type=\"Edm.Int32\" /><Property Name=" +
+                "\"IsLeaf\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Sort\" Type=\"Edm.I" +
+                "nt32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Nam" +
+                "e=\"Description\" Type=\"Edm.String\" /><Property Name=\"NaviUrl\" Type=\"Edm.String\" /" +
+                "><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"" +
+                "CreateDate\" Type=\"Edm.DateTime\" /><Property Name=\"ImageUrl\" Type=\"Edm.String\" />" +
+                "<Property Name=\"IsButton\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"" +
+                "IsChecked\" Type=\"Edm.Boolean\" Nullable=\"false\" /><NavigationProperty Name=\"SubFu" +
+                "nctionItems\" Relationship=\"UniCloud.Application.BaseManagementBC.DTO.FunctionIte" +
+                "mDTO_SubFunctionItems\" ToRole=\"SubFunctionItems\" FromRole=\"FunctionItemDTO\" /></" +
+                "EntityType><EntityType Name=\"RoleDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Prope" +
+                "rty Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Ed" +
+                "m.String\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"Cre" +
+                "ateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"RoleFunctions\" T" +
+                "ype=\"Collection(UniCloud.Application.BaseManagementBC.DTO.RoleFunctionDTO)\" Null" +
+                "able=\"false\" /></EntityType><ComplexType Name=\"RoleFunctionDTO\"><Property Name=\"" +
+                "Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"FunctionItemId\" Type=\"Ed" +
+                "m.Int32\" Nullable=\"false\" /><Property Name=\"RoleId\" Type=\"Edm.Int32\" Nullable=\"f" +
+                "alse\" /></ComplexType><Association Name=\"FunctionItemDTO_SubFunctionItems\"><End " +
+                "Type=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"SubFuncti" +
+                "onItems\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.BaseManagementBC.DTO" +
+                ".FunctionItemDTO\" Role=\"FunctionItemDTO\" Multiplicity=\"*\" /></Association></Sche" +
+                "ma><Schema Namespace=\"UniCloud.DistributedServices.BaseManagement\" xmlns=\"http:/" +
+                "/schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"BaseManagementDat" +
+                "a\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Users\" EntityType=\"UniClou" +
+                "d.Application.BaseManagementBC.DTO.UserDTO\" /><EntitySet Name=\"Organizations\" En" +
+                "tityType=\"UniCloud.Application.BaseManagementBC.DTO.OrganizationDTO\" /><EntitySe" +
+                "t Name=\"FunctionItems\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.Fun" +
+                "ctionItemDTO\" /><EntitySet Name=\"Roles\" EntityType=\"UniCloud.Application.BaseMan" +
+                "agementBC.DTO.RoleDTO\" /><FunctionImport Name=\"GetFunctionItemsWithHierarchy\" Re" +
+                "turnType=\"Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)\"" +
+                " EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\" /><AssociationSet Name=\"FunctionIt" +
+                "emDTO_SubFunctionItems\" Association=\"UniCloud.Application.BaseManagementBC.DTO.F" +
+                "unctionItemDTO_SubFunctionItems\"><End Role=\"FunctionItemDTO\" EntitySet=\"Function" +
+                "Items\" /><End Role=\"SubFunctionItems\" EntitySet=\"FunctionItems\" /></AssociationS" +
+                "et></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -638,6 +642,103 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         }
     }
     /// <summary>
+    /// 架构中不存在 ComplexType UniCloud.Application.BaseManagementBC.DTO.OrganizationRoleDTO 的注释。
+    /// </summary>
+    public partial class OrganizationRoleDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 OrganizationRoleDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="organizationId">OrganizationId 的初始值。</param>
+        /// <param name="roleId">RoleId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static OrganizationRoleDTO CreateOrganizationRoleDTO(int ID, int organizationId, int roleId)
+        {
+            OrganizationRoleDTO organizationRoleDTO = new OrganizationRoleDTO();
+            organizationRoleDTO.Id = ID;
+            organizationRoleDTO.OrganizationId = organizationId;
+            organizationRoleDTO.RoleId = roleId;
+            return organizationRoleDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 OrganizationId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int OrganizationId
+        {
+            get
+            {
+                return this._OrganizationId;
+            }
+            set
+            {
+                this.OnOrganizationIdChanging(value);
+                this._OrganizationId = value;
+                this.OnOrganizationIdChanged();
+                this.OnPropertyChanged("OrganizationId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _OrganizationId;
+        partial void OnOrganizationIdChanging(int value);
+        partial void OnOrganizationIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 RoleId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int RoleId
+        {
+            get
+            {
+                return this._RoleId;
+            }
+            set
+            {
+                this.OnRoleIdChanging(value);
+                this._RoleId = value;
+                this.OnRoleIdChanged();
+                this.OnPropertyChanged("RoleId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _RoleId;
+        partial void OnRoleIdChanging(int value);
+        partial void OnRoleIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
     /// 架构中不存在 UniCloud.Application.BaseManagementBC.DTO.OrganizationDTO 的注释。
     /// </summary>
     /// <KeyProperties>
@@ -654,14 +755,20 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         /// <param name="isValid">IsValid 的初始值。</param>
         /// <param name="sort">Sort 的初始值。</param>
         /// <param name="createDate">CreateDate 的初始值。</param>
+        /// <param name="organizationRoles">OrganizationRoles 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static OrganizationDTO CreateOrganizationDTO(int ID, bool isValid, int sort, global::System.DateTime createDate)
+        public static OrganizationDTO CreateOrganizationDTO(int ID, bool isValid, int sort, global::System.DateTime createDate, global::System.Collections.ObjectModel.ObservableCollection<OrganizationRoleDTO> organizationRoles)
         {
             OrganizationDTO organizationDTO = new OrganizationDTO();
             organizationDTO.Id = ID;
             organizationDTO.IsValid = isValid;
             organizationDTO.Sort = sort;
             organizationDTO.CreateDate = createDate;
+            if ((organizationRoles == null))
+            {
+                throw new global::System.ArgumentNullException("organizationRoles");
+            }
+            organizationDTO.OrganizationRoles = organizationRoles;
             return organizationDTO;
         }
         /// <summary>
@@ -862,6 +969,28 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         private string _Description;
         partial void OnDescriptionChanging(string value);
         partial void OnDescriptionChanged();
+        /// <summary>
+        /// 架构中不存在属性 OrganizationRoles 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<OrganizationRoleDTO> OrganizationRoles
+        {
+            get
+            {
+                return this._OrganizationRoles;
+            }
+            set
+            {
+                this.OnOrganizationRolesChanging(value);
+                this._OrganizationRoles = value;
+                this.OnOrganizationRolesChanged();
+                this.OnPropertyChanged("OrganizationRoles");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<OrganizationRoleDTO> _OrganizationRoles = new global::System.Collections.ObjectModel.ObservableCollection<OrganizationRoleDTO>();
+        partial void OnOrganizationRolesChanging(global::System.Collections.ObjectModel.ObservableCollection<OrganizationRoleDTO> value);
+        partial void OnOrganizationRolesChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

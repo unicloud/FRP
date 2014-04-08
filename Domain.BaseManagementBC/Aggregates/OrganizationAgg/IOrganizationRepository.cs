@@ -16,11 +16,18 @@
 
 using System;
 using System.Linq.Expressions;
+using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationRoleAgg;
 
 namespace UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationAgg
 {
     public interface IOrganizationRepository : IRepository<Organization>
     {
         Organization GetOrganization(Expression<Func<Organization, bool>> condition);
+
+        /// <summary>
+        /// 删除OrganizationRole
+        /// </summary>
+        /// <param name="organizationRole"></param>
+        void DeleteOrganizationRole(OrganizationRole organizationRole);
     }
 }

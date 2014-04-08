@@ -59,7 +59,7 @@ namespace UniCloud.Application.BaseManagementBC.Tests
         public void TestGetUsers()
         {
             var service = DefaultContainer.Resolve<IUserAppService>();
-            var result = service.GetUsers();
+            var result = service.GetUsers().ToList();
             var md5 = new MD5CryptoServiceProvider();
             byte[] inBytes = Encoding.GetEncoding("GB2312").GetBytes("123456a");
             byte[] outBytes = md5.ComputeHash(inBytes);

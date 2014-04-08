@@ -17,6 +17,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -61,10 +62,12 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             RemoveRoleCommand = new DelegateCommand<object>(OnRemoveRole, CanRemoveRole);
             //创建并注册CollectionView
             Users = _service.CreateCollection(_context.Users, o => o.UserRoles);
+            Users.PageSize = 8;
             _service.RegisterCollectionView(Users);
             FunctionItems = _service.CreateCollection(_context.FunctionItems);
             FunctionItems.LoadedData += (o, e) => FunctionItems.ToList().ForEach(GenerateFunctionItemStructure);
             Roles = _service.CreateCollection(_context.Roles, o => o.RoleFunctions);
+            Roles.PageSize = 8;
         }
 
         #endregion
@@ -93,6 +96,8 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 FunctionItems.AutoLoad = true;
             if (!Roles.AutoLoad)
                 Roles.AutoLoad = true;
+            else
+                Roles.Load(true);
         }
 
         #region 用户
@@ -141,7 +146,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 if (_userRole != null)
                 {
                     _applications = FunctionItems.Where(p => p.ParentItemId == null).ToList();
-                    SelectFunctionItems(_userRole, _applications);
+                    RoleCommonMethod.SelectFunctionItems(_userRole, _applications);
                     DisplayFunctionItems = _applications;
                 }
                 RaisePropertyChanged(() => UserRole);
@@ -195,7 +200,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 if (_role != null)
                 {
                     _applications = FunctionItems.Where(p => p.ParentItemId == null).ToList();
-                    SelectFunctionItems(_role, _applications);
+                    RoleCommonMethod.SelectFunctionItems(_role, _applications);
                     DisplayFunctionItems = _applications;
                 }
                 RaisePropertyChanged(() => Role);
@@ -219,21 +224,35 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         }
         #endregion
 
-        #region 筛选角色功能
-        private void SelectFunctionItems(RoleDTO role, List<FunctionItemDTO> functionItems)
-        {
-            for (int i = functionItems.Count - 1; i >= 0; i--)
-            {
-                var temp = functionItems[i];
-                if (role.RoleFunctions.All(p => p.FunctionItemId != temp.Id))
-                {
-                    functionItems.Remove(temp);
-                    continue;
-                }
-                SelectFunctionItems(role, temp.SubFunctionItems.ToList());
-            }
-        }
-        #endregion
+        //#region 筛选角色功能
+        //private void SelectFunctionItems(RoleDTO role, List<FunctionItemDTO> functionItems)
+        //{
+        //    for (int i = functionItems.Count - 1; i >= 0; i--)
+        //    {
+        //        var temp = functionItems[i];
+        //        if (role.RoleFunctions.All(p => p.FunctionItemId != temp.Id))
+        //        {
+        //            functionItems.Remove(temp);
+        //            continue;
+        //        }
+        //        SelectFunctionItems(role, temp.SubFunctionItems);
+        //    }
+        //}
+
+        //private void SelectFunctionItems(RoleDTO role, DataServiceCollection<FunctionItemDTO> functionItems)
+        //{
+        //    for (int i = functionItems.Count - 1; i >= 0; i--)
+        //    {
+        //        var temp = functionItems[i];
+        //        if (role.RoleFunctions.All(p => p.FunctionItemId != temp.Id))
+        //        {
+        //            functionItems.Remove(temp);
+        //            continue;
+        //        }
+        //        SelectFunctionItems(role, temp.SubFunctionItems);
+        //    }
+        //}
+        //#endregion
 
         #region 添加用户角色
         public void AddUserRole()

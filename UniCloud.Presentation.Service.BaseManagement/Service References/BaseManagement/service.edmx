@@ -35,7 +35,13 @@
         <Property Name="Sort" Type="Edm.Int32" Nullable="false" />
         <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Description" Type="Edm.String" />
+        <Property Name="OrganizationRoles" Type="Collection(UniCloud.Application.BaseManagementBC.DTO.OrganizationRoleDTO)" Nullable="false" />
       </EntityType>
+      <ComplexType Name="OrganizationRoleDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="OrganizationId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RoleId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
       <EntityType Name="FunctionItemDTO">
         <Key>
           <PropertyRef Name="Id" />

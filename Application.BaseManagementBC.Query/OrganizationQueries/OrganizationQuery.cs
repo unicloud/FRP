@@ -47,6 +47,12 @@ namespace UniCloud.Application.BaseManagementBC.Query.OrganizationQueries
                 LastUpdateTime = p.LastUpdateTime,
                 Sort = p.Sort,
                 Name = p.Name,
+                OrganizationRoles = p.OrganizationRoles.Select(q => new OrganizationRoleDTO
+                {
+                    Id = q.Id,
+                    RoleId = q.RoleId,
+                    OrganizationId = q.OrganizationId
+                }).ToList()
             });
         }
     }

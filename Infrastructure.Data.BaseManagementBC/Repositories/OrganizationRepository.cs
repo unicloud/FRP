@@ -19,6 +19,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationRoleAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork;
 
@@ -46,6 +47,18 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.Repositories
             if (currentUnitOfWork == null) return null;
             var set = currentUnitOfWork.CreateSet<Organization>();
             return set.FirstOrDefault(condition);
+        }
+
+        /// <summary>
+        /// 删除OrganizationRole
+        /// </summary>
+        /// <param name="organizationRole"></param>
+        public void DeleteOrganizationRole(OrganizationRole organizationRole)
+        {
+            var currentUnitOfWork = UnitOfWork as BaseManagementBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var organizationRoles = currentUnitOfWork.CreateSet<OrganizationRole>();
+            organizationRoles.Remove(organizationRole);
         }
     }
 }

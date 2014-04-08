@@ -32,19 +32,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrganizationRoleAgg
         /// <summary>
         /// 组织机构Id
         /// </summary>
-        public  int OrganizationId
+        public int OrganizationId
         {
             get;
-           private set;
+            internal set;
         }
 
         /// <summary>
         /// 角色Id
         /// </summary>
-        public  int RoleId
+        public int RoleId
         {
             get;
-           private set;
+            internal set;
         }
 
 

@@ -11,8 +11,14 @@
 // 修改说明：
 // ========================================================================*/
 #endregion
+
+#region 命名空间
+
 using System;
+using System.Collections.Generic;
 using System.Data.Services.Common;
+
+#endregion
 
 namespace UniCloud.Application.BaseManagementBC.DTO
 {
@@ -62,6 +68,16 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         /// 描述
         /// </summary>
         public String Description { get; set; }
+
+        /// <summary>
+        /// OrganizationRole集合
+        /// </summary>
+        private List<OrganizationRoleDTO> _organizationRoles;
+        public List<OrganizationRoleDTO> OrganizationRoles
+        {
+            get { return _organizationRoles ?? new List<OrganizationRoleDTO>(); }
+            set { _organizationRoles = value; }
+        }
         #endregion
     }
 }

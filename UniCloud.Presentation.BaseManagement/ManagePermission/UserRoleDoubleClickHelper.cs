@@ -25,8 +25,8 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
     {
         protected override void GridViewDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {
-            var view = ServiceLocator.Current.GetInstance<ManageUserInRole>();
-            view.ViewModel.AddUserRole();
+            var viewModel = ServiceLocator.Current.GetInstance<ManageUserInRoleVm>();
+            viewModel.AddUserRole();
         }
         protected override bool CanDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {

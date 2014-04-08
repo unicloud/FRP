@@ -12,6 +12,7 @@
 // ========================================================================*/
 #endregion
 using System;
+using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationRoleAgg;
 
 namespace UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationAgg
 {
@@ -62,6 +63,18 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationAgg
             organization.Description = description;
             organization.IsValid = isValid;
             organization.LastUpdateTime = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 设置OrganizationRole
+        /// </summary>
+        /// <param name="organizationRole">组织机构角色</param>
+        /// <param name="organizationId">组织机构</param>
+        /// <param name="roleId">角色</param>
+        public static void SetOrganizationRole(OrganizationRole organizationRole, int organizationId, int roleId)
+        {
+            organizationRole.OrganizationId = organizationId;
+            organizationRole.RoleId = roleId;
         }
     }
 }
