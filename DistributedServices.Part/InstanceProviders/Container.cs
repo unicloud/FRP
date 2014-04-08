@@ -28,6 +28,7 @@ using UniCloud.Application.PartBC.BasicConfigHistoryServices;
 using UniCloud.Application.PartBC.BasicConfigServices;
 using UniCloud.Application.PartBC.ContractAircraftServices;
 using UniCloud.Application.PartBC.CtrlUnitServices;
+using UniCloud.Application.PartBC.InstallControllerServices;
 using UniCloud.Application.PartBC.ItemServices;
 using UniCloud.Application.PartBC.MaintainCtrlServices;
 using UniCloud.Application.PartBC.MaintainWorkServices;
@@ -44,6 +45,7 @@ using UniCloud.Application.PartBC.Query.BasicConfigHistoryQueries;
 using UniCloud.Application.PartBC.Query.BasicConfigQueries;
 using UniCloud.Application.PartBC.Query.ContractAircraftQueries;
 using UniCloud.Application.PartBC.Query.CtrlUnitQueries;
+using UniCloud.Application.PartBC.Query.InstallControllerQueries;
 using UniCloud.Application.PartBC.Query.ItemQueries;
 using UniCloud.Application.PartBC.Query.MaintainCtrlQueries;
 using UniCloud.Application.PartBC.Query.MaintainWorkQueries;
@@ -70,6 +72,7 @@ using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
+using UniCloud.Domain.PartBC.Aggregates.InstallControllerAgg;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
@@ -171,6 +174,13 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
                 .RegisterType<IItemQuery, ItemQuery>()
                 .RegisterType<IItemAppService, ItemAppService>()
                 .RegisterType<IItemRepository, ItemRepository>()
+                #endregion
+
+                #region 装机控制相关配置，包括查询，应用服务，仓储注册
+
+                .RegisterType<IInstallControllerQuery, InstallControllerQuery>()
+                .RegisterType<IInstallControllerAppService, InstallControllerAppService>()
+                .RegisterType<IInstallControllerRepository, InstallControllerRepository>()
                 #endregion
 
                 #region 维修控制组相关配置，包括查询，应用服务，仓储注册

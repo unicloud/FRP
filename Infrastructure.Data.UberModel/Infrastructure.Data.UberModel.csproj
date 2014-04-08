@@ -162,6 +162,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\FlightLogEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\FunctionItemEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\GuaranteeEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\InstallControllerEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\InvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\InvoiceLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ItemEntityConfiguration.cs" />

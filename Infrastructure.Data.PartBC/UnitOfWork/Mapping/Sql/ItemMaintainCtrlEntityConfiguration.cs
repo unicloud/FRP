@@ -41,6 +41,8 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
 
             Property(p => p.ItemNo).HasColumnName("ItemNo").HasMaxLength(100);
             Property(p => p.ItemId).HasColumnName("ItemId");
+
+            HasRequired(o => o.Item).WithMany().HasForeignKey(o => o.ItemId);
         }
     }
 }

@@ -19,7 +19,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.UberModel.Aggregates.PnRegAgg;
+using UniCloud.Domain.UberModel.Aggregates.InstallControllerAgg;
 
 #endregion
 
@@ -36,7 +36,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(p => p.PnRegId).HasColumnName("PnRegId");
+            Property(p => p.InstallControllerId).HasColumnName("InstallControllerId");
             Property(p => p.DependencyPnId).HasColumnName("DependencyPnId");
             Property(p => p.Pn).HasColumnName("Pn").HasMaxLength(100);
         }

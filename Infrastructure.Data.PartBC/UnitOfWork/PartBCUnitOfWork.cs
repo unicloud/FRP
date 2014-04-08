@@ -30,6 +30,7 @@ using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
+using UniCloud.Domain.PartBC.Aggregates.InstallControllerAgg;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
@@ -64,6 +65,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<ContractAircraft> _contractAircrafts;
         private IDbSet<CtrlUnit> _ctrlUnits;
         private IDbSet<Item> _items;
+        private IDbSet<InstallController> _installControllers;
         private IDbSet<MaintainCtrl> _maintainCtrls;
         private IDbSet<MaintainWork> _maintainWorks;
         private IDbSet<Mod> _mods;
@@ -134,6 +136,11 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         public IDbSet<Item> Items
         {
             get { return _items ?? (_items = base.Set<Item>()); }
+        }
+        
+        public IDbSet<InstallController> InstallControllers
+        {
+            get { return _installControllers ?? (_installControllers = base.Set<InstallController>()); }
         }
 
         public IDbSet<MaintainCtrl> MaintainCtrls
@@ -269,7 +276,12 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
                 #region ItemAgg
 
                 .Add(new ItemEntityConfiguration())
+                #endregion
 
+                #region ItemAgg
+
+                .Add(new InstallControllerEntityConfiguration())
+                .Add(new DependencyEntityConfiguration())
                 #endregion
 
                 #region MaintainCtrlAgg
@@ -304,7 +316,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
                 #region PnRegAgg
 
                 .Add(new PnRegEntityConfiguration())
-                .Add(new DependencyEntityConfiguration())
                 #endregion
 
                 #region ScnAgg

@@ -136,6 +136,7 @@
     <Compile Include="Aggregates\GuaranteeAgg\GuaranteeFactory.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\LeaseGuarantee.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\MaintainGuarantee.cs" />
+    <Compile Include="Aggregates\InstallControllerAgg\InstallController.cs" />
     <Compile Include="Aggregates\InvoiceAgg\CreditNoteInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\Invoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\InvoiceFactory.cs" />
@@ -264,7 +265,7 @@
     <Compile Include="Aggregates\TaskStandardAgg\TaskCase.cs" />
     <Compile Include="Aggregates\TaskStandardAgg\TaskStandard.cs" />
     <Compile Include="Aggregates\TaskStandardAgg\TaskStandardFactory.cs" />
-    <Compile Include="Aggregates\PnRegAgg\Dependency.cs" />
+    <Compile Include="Aggregates\InstallControllerAgg\Dependency.cs" />
     <Compile Include="Aggregates\ThrustAgg\Thrust.cs" />
     <Compile Include="Aggregates\ThrustAgg\ThrustFactory.cs" />
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />

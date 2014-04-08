@@ -66,6 +66,7 @@
     <Compile Include="CtrlUnitDTO\CtrlUnitDTO.cs" />
     <Compile Include="EngineMaintainCtrlDTO\EnginePartDTO.cs" />
     <Compile Include="EngineMaintainCtrlDTO\EngineRegDTO.cs" />
+    <Compile Include="InstallControllerDTO\InstallControllerDTO.cs" />
     <Compile Include="ItemDTO\ItemDTO.cs" />
     <Compile Include="MaintainCtrlDTO\ItemMaintainCtrlDTO.cs" />
     <Compile Include="MaintainCtrlDTO\MaintainCtrlLineDTO.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="SnRegDTO\ApuEngineSnRegDTO.cs" />
     <Compile Include="SnRegDTO\SnRegDTO.cs" />
     <Compile Include="SpecialConfigDTO\SpecialConfigDTO.cs" />
-    <Compile Include="PnRegDTO\DependencyDTO.cs" />
+    <Compile Include="InstallControllerDTO\DependencyDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

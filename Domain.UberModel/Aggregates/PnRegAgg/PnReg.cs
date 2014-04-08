@@ -25,11 +25,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
     /// </summary>
     public class PnReg : EntityInt, IValidatableObject
     {
-        #region 私有字段
-
-        private HashSet<Dependency> _dependencies;
-
-        #endregion
 
         #region 构造函数
 
@@ -83,15 +78,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
 
         #region 导航属性
 
-        /// <summary>
-        ///     依赖项集合
-        /// </summary>
-        public virtual ICollection<Dependency> Dependencies
-        {
-            get { return _dependencies ?? (_dependencies = new HashSet<Dependency>()); }
-            set { _dependencies = new HashSet<Dependency>(value); }
-        }
-
         #endregion
 
         #region 操作
@@ -139,23 +125,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
         public void SetDescription(string description)
         {
             Description = description;
-        }
-
-        /// <summary>
-        ///     新增依赖项
-        /// </summary>
-        /// <param name="dependencyPnReg">依赖项附件</param>
-        /// <returns>依赖项</returns>
-        public Dependency AddNewDependency(PnReg dependencyPnReg)
-        {
-            var dependency = new Dependency
-            {
-                PnRegId = Id,
-            };
-            dependency.GenerateNewIdentity();
-            dependency.SetPnReg(dependencyPnReg);
-
-            return dependency;
         }
 
         #endregion

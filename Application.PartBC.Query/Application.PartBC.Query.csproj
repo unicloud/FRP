@@ -66,6 +66,8 @@
     <Compile Include="ContractAircraftQueries\IContractAircraftQuery.cs" />
     <Compile Include="CtrlUnitQueries\CtrlUnitQuery.cs" />
     <Compile Include="CtrlUnitQueries\ICtrlUnitQuery.cs" />
+    <Compile Include="InstallControllerQueries\IInstallControllerQuery.cs" />
+    <Compile Include="InstallControllerQueries\InstallControllerQuery.cs" />
     <Compile Include="ItemQueries\IItemQuery.cs" />
     <Compile Include="ItemQueries\ItemQuery.cs" />
     <Compile Include="MaintainCtrlQueries\IMaintainCtrlQuery.cs" />

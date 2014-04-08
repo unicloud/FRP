@@ -69,8 +69,7 @@ namespace UniCloud.Presentation.Part.ManageItem
             ItemMaintainCtrls = _service.CreateCollection(_context.ItemMaintainCtrls, o => o.MaintainCtrlLines);
             _service.RegisterCollectionView(ItemMaintainCtrls);
 
-            PnRegs = _service.CreateCollection(_context.PnRegs);
-            _service.RegisterCollectionView(PnRegs);
+            PnRegs = new QueryableDataServiceCollectionView<PnRegDTO>(_context, _context.PnRegs);
 
             CtrlUnits = new QueryableDataServiceCollectionView<CtrlUnitDTO>(_context, _context.CtrlUnits);
             MaintainWorks = new QueryableDataServiceCollectionView<MaintainWorkDTO>(_context, _context.MaintainWorks);
@@ -108,6 +107,11 @@ namespace UniCloud.Presentation.Part.ManageItem
         ///     维修工作集合
         /// </summary>
         public QueryableDataServiceCollectionView<MaintainWorkDTO> MaintainWorks { get; set; }
+
+        /// <summary>
+        ///     附件集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PnRegDTO> PnRegs { get; set; }
 
         /// <summary>
         ///     维修发票维修项
@@ -169,10 +173,6 @@ namespace UniCloud.Presentation.Part.ManageItem
                     _selItem = value;
                     if (value != null)
                     {
-                        ViewPnRegs = PnRegs.SourceCollection.Cast<PnRegDTO>().Where(p => p.ItemId == value.Id);
-                        EditViewPnRegs =
-                            PnRegs.SourceCollection.Cast<PnRegDTO>()
-                                .Where(p => p.IsLife == value.IsLife && p.ItemId == null);
                         CurItemMaintainCtrl = ItemMaintainCtrls.SingleOrDefault(p => p.ItemId == value.Id);
                     }
                     RaisePropertyChanged(() => SelItem);
@@ -198,7 +198,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public ItemMaintainCtrlDTO CurItemMaintainCtrl
         {
             get { return _curItemMaintainCtrl; }
-            private set
+            private set 
             {
                 if (_curItemMaintainCtrl != value)
                     _curItemMaintainCtrl = value;
@@ -210,57 +210,6 @@ namespace UniCloud.Presentation.Part.ManageItem
 
         #region 附件集合
 
-        private IEnumerable<PnRegDTO> _viewPnRegs;
-        private IEnumerable<PnRegDTO> _editViewPnRegs;
-        private PnRegDTO _selPnReg;
-
-        /// <summary>
-        ///     附件集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<PnRegDTO> PnRegs { get; set; }
-
-        /// <summary>
-        /// 选中的附件项下可互换的件的集合
-        /// </summary>
-        public IEnumerable<PnRegDTO> ViewPnRegs
-        {
-            get { return _viewPnRegs; }
-            private set
-            {
-                if (_viewPnRegs != value)
-                    _viewPnRegs = value;
-                RaisePropertyChanged(() => ViewPnRegs);
-            }
-        }
-
-        /// <summary>
-        /// 界面中选中的附件
-        /// </summary>
-        public PnRegDTO SelPnReg
-        {
-            get { return _selPnReg; }
-            private set
-            {
-                if (_selPnReg != value)
-                    _selPnReg = value;
-                RaisePropertyChanged(() => SelPnReg);
-                RefreshCommandState();
-            }
-        }
-
-        /// <summary>
-        /// 子窗体中用于选择的件号
-        /// </summary>
-        public IEnumerable<PnRegDTO> EditViewPnRegs
-        {
-            get { return _editViewPnRegs; }
-            private set
-            {
-                if (_editViewPnRegs != value)
-                    _editViewPnRegs = value;
-                RaisePropertyChanged(() => EditViewPnRegs);
-            }
-        }
 
         #endregion
 
@@ -421,18 +370,12 @@ namespace UniCloud.Presentation.Part.ManageItem
 
         private void OnRemoveEntity(object obj)
         {
-            if (SelPnReg != null)
-                PnRegs.First(p => p == SelPnReg).ItemId = null;
-            ViewPnRegs = PnRegs.Where(p => p.ItemId == SelItem.Id);
-            EditViewPnRegs = PnRegs.Where(p => p.ItemId == null && p.IsLife == SelItem.IsLife);
-            RaisePropertyChanged(() => ViewPnRegs);
+
         }
 
         private bool CanRemoveEntity(object obj)
         {
-            if (SelPnReg != null)
-                return true;
-            else return false;
+             return false;
         }
 
         #endregion
@@ -570,10 +513,6 @@ namespace UniCloud.Presentation.Part.ManageItem
             if (radGridView == null) return;
             if (SelItem != null)
             {
-                radGridView.SelectedItems.ToList().ForEach(p => (p as PnRegDTO).ItemId = SelItem.Id);
-                ViewPnRegs = PnRegs.Where(p => p.ItemId == SelItem.Id);
-                EditViewPnRegs = PnRegs.Where(p => p.ItemId == null && p.IsLife == SelItem.IsLife);
-                RaisePropertyChanged(() => ViewPnRegs);
             }
             PnRegsChildView.Close();
         }

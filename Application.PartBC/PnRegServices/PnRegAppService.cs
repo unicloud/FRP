@@ -18,7 +18,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
@@ -74,9 +73,6 @@ namespace UniCloud.Application.PartBC.PnRegServices
             PnReg newPnReg = PnRegFactory.CreatePnReg(dto.IsLife, dto.Pn,dto.Description);
             newPnReg.SetItem(item);
 
-            //添加依赖项
-            dto.Dependencies.ToList().ForEach(dependency => InsertDependency(newPnReg, dependency));
-
             _pnRegRepository.Add(newPnReg);
         }
 
@@ -97,16 +93,6 @@ namespace UniCloud.Application.PartBC.PnRegServices
             updatePnReg.SetItem(item);
             updatePnReg.SetDescription(dto.Description);
 
-            //更新依赖项集合：
-            List<DependencyDTO> dtoDependencies = dto.Dependencies;
-            ICollection<Dependency> dependencies = updatePnReg.Dependencies;
-            DataHelper.DetailHandle(dtoDependencies.ToArray(),
-                dependencies.ToArray(),
-                c => c.Id, p => p.Id,
-                i => InsertDependency(updatePnReg, i),
-                UpdateDependency,
-                d => _pnRegRepository.RemoveDependency(d));
-
             _pnRegRepository.Modify(updatePnReg);
         }
 
@@ -119,40 +105,8 @@ namespace UniCloud.Application.PartBC.PnRegServices
         {
             PnReg delPnReg = _pnRegRepository.Get(dto.Id); //获取需要删除的对象。
 
-            _pnRegRepository.DeletePnReg(delPnReg); //删除PnReg。
+            _pnRegRepository.Remove(delPnReg); //删除PnReg。
         }
-
-        #region 处理依赖项
-
-        /// <summary>
-        ///     插入依赖项
-        /// </summary>
-        /// <param name="pnReg">附件</param>
-        /// <param name="dependencyDto">依赖项DTO</param>
-        private void InsertDependency(PnReg pnReg, DependencyDTO dependencyDto)
-        {
-            //获取
-            PnReg dependencyPnReg = _pnRegRepository.Get(dependencyDto.DependencyPnId);
-
-            // 添加依赖项
-            pnReg.AddNewDependency(dependencyPnReg);
-        }
-
-        /// <summary>
-        ///     更新依赖项
-        /// </summary>
-        /// <param name="dependencyDto">依赖项DTO</param>
-        /// <param name="dependency">依赖项</param>
-        private void UpdateDependency(DependencyDTO dependencyDto, Dependency dependency)
-        {
-            //获取
-            PnReg dependencyPnReg = _pnRegRepository.Get(dependencyDto.DependencyPnId);
-
-            dependency.SetPnReg(dependencyPnReg);
-        }
-
-        #endregion
-
         #endregion
     }
 }

@@ -27,12 +27,6 @@ namespace UniCloud.Application.PartBC.DTO
     [DataServiceKey("Id")]
     public class PnRegDTO
     {
-        #region 私有字段
-
-        private List<DependencyDTO> _dependencies;
-
-        #endregion
-
         #region 属性
         /// <summary>
         /// 主键
@@ -69,15 +63,6 @@ namespace UniCloud.Application.PartBC.DTO
         #endregion
 
         #region 导航属性
-
-        /// <summary>
-        ///     依赖项集合
-        /// </summary>
-        public virtual List<DependencyDTO> Dependencies
-        {
-            get { return _dependencies ?? (_dependencies = new List<DependencyDTO>()); }
-            set { _dependencies = value; }
-        }
 
         #endregion
     }
