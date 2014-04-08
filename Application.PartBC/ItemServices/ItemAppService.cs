@@ -62,7 +62,7 @@ namespace UniCloud.Application.PartBC.ItemServices
         public void InsertItem(ItemDTO dto)
         {
             var newItem = ItemFactory.CreateItem(dto.Name,dto.ItemNo,dto.FiNumber,dto.Description,dto.IsLife);
-
+            newItem.ChangeCurrentIdentity(dto.Id);
             _itemRepository.Add(newItem);
         }
 
