@@ -22,12 +22,15 @@ using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Data;
 using Telerik.Windows.Media.Imaging.FormatProviders;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.AircraftConfig;
 using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig;
+using UniCloud.Presentation.Service.BaseManagement;
+using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 
 #endregion
 
@@ -71,7 +74,8 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             AircraftSerieses = _service.CreateCollection(_context.AircraftSeries);
             AircraftConfigurations = _service.CreateCollection(_context.AircraftConfigurations, o => o.AircraftCabins);
             _service.RegisterCollectionView(AircraftConfigurations);
-            AircraftCabinTypes = _service.CreateCollection(_context.AircraftCabinTypes);
+            var baseManagementService = ServiceLocator.Current.GetInstance<IBaseManagementService>();
+            AircraftCabinTypes = _service.CreateCollection(baseManagementService.Context.AircraftCabinTypes);
         }
 
         #endregion

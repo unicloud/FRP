@@ -105,7 +105,6 @@ namespace UniCloud.DistributedServices.AircraftConfig.InstanceProviders
 .RegisterType<IAircraftConfigurationQuery, AircraftConfigurationQuery>()
                 .RegisterType<IAircraftConfigurationAppService, AircraftConfigurationAppService>()
                 .RegisterType<IAircraftConfigurationRepository, AircraftConfigurationRepository>()
-                .RegisterType<IAircraftCabinTypeRepository, AircraftCabinTypeRepository>()
             #endregion
 
 ;
