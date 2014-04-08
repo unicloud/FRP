@@ -72,7 +72,7 @@ namespace UniCloud.Application.PartBC.PnRegServices
 
             PnReg newPnReg = PnRegFactory.CreatePnReg(dto.IsLife, dto.Pn,dto.Description);
             newPnReg.SetItem(item);
-
+            newPnReg.ChangeCurrentIdentity(dto.Id);
             _pnRegRepository.Add(newPnReg);
         }
 

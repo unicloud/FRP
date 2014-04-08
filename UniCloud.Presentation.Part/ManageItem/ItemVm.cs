@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -43,6 +44,8 @@ namespace UniCloud.Presentation.Part.ManageItem
         private readonly PartData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
+        private bool _addToInstallController=false;
+        private bool _addToDependency=false;
 
         [ImportingConstructor]
         public ItemVm(IRegionManager regionManager, IPartService service)
@@ -69,10 +72,14 @@ namespace UniCloud.Presentation.Part.ManageItem
             ItemMaintainCtrls = _service.CreateCollection(_context.ItemMaintainCtrls, o => o.MaintainCtrlLines);
             _service.RegisterCollectionView(ItemMaintainCtrls);
 
+            InstallControllers = _service.CreateCollection(_context.InstallControllers, o => o.Dependencies);
+            _service.RegisterCollectionView(InstallControllers);
+
             PnRegs = new QueryableDataServiceCollectionView<PnRegDTO>(_context, _context.PnRegs);
 
             CtrlUnits = new QueryableDataServiceCollectionView<CtrlUnitDTO>(_context, _context.CtrlUnits);
             MaintainWorks = new QueryableDataServiceCollectionView<MaintainWorkDTO>(_context, _context.MaintainWorks);
+            AircraftTypes=new QueryableDataServiceCollectionView<AircraftTypeDTO>(_context,_context.AircraftTypes);
         }
 
         /// <summary>
@@ -84,6 +91,8 @@ namespace UniCloud.Presentation.Part.ManageItem
             RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
             AddEntityCommand = new DelegateCommand<object>(OnAddEntity, CanAddEntity);
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
+            AddDependencyCommand=new DelegateCommand<object>(OnAddDependency,CanAddDependency);
+            RemoveDependencyCommand=new DelegateCommand<object>(OnRemoveDependency,CanRemoveDependency);
             AddMaintainCtrlCommand = new DelegateCommand<object>(OnAddCtrl, CanAddCtrl);
             AddCtrlLineCommand = new DelegateCommand<object>(OnAddCtrlLine, CanAddCtrlLine);
             RemoveCtrlLineCommand = new DelegateCommand<object>(OnRemoveCtrlLine, CanRemoveCtrlLine);
@@ -114,6 +123,11 @@ namespace UniCloud.Presentation.Part.ManageItem
         public QueryableDataServiceCollectionView<PnRegDTO> PnRegs { get; set; }
 
         /// <summary>
+        ///     机型集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypes { get; set; }
+
+        /// <summary>
         ///     维修发票维修项
         /// </summary>
         public Dictionary<int, ControlStrategy> ControlStrategies
@@ -135,6 +149,8 @@ namespace UniCloud.Presentation.Part.ManageItem
         {
             CtrlUnits.Load(true);
             MaintainWorks.Load(true);
+            PnRegs.Load(true);
+            AircraftTypes.Load(true);
 
             if (!Items.AutoLoad)
                 Items.AutoLoad = true;
@@ -144,9 +160,9 @@ namespace UniCloud.Presentation.Part.ManageItem
                 ItemMaintainCtrls.AutoLoad = true;
             ItemMaintainCtrls.Load(true);
 
-            if (!PnRegs.AutoLoad)
-                PnRegs.AutoLoad = true;
-            PnRegs.Load(true);
+            if (!InstallControllers.AutoLoad)
+                InstallControllers.AutoLoad = true;
+            InstallControllers.Load(true);
         }
 
         #region 业务
@@ -165,17 +181,19 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         public ItemDTO SelItem
         {
-            get { return _selItem; }
+            get { return this._selItem; }
             private set
             {
-                if (_selItem != value)
+                if (this._selItem != value)
                 {
-                    _selItem = value;
+                    this._selItem = value;
+                    ViewInstallControllers=new Collection<InstallControllerDTO>();
                     if (value != null)
                     {
+                        ViewInstallControllers = InstallControllers.Where(p => p.ItemId == value.Id);
                         CurItemMaintainCtrl = ItemMaintainCtrls.SingleOrDefault(p => p.ItemId == value.Id);
                     }
-                    RaisePropertyChanged(() => SelItem);
+                    RaisePropertyChanged(() => this.SelItem);
                     RefreshCommandState();
                 }
             }
@@ -197,28 +215,24 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         public ItemMaintainCtrlDTO CurItemMaintainCtrl
         {
-            get { return _curItemMaintainCtrl; }
-            private set 
+            get { return this._curItemMaintainCtrl; }
+            private set
             {
-                if (_curItemMaintainCtrl != value)
+                if (this._curItemMaintainCtrl != value)
+                {
                     _curItemMaintainCtrl = value;
-                RaisePropertyChanged(() => CurItemMaintainCtrl);
+                    this.RaisePropertyChanged(() => this.CurItemMaintainCtrl);
+                }
             }
         }
-
         #endregion
 
-        #region 附件集合
-
-
-        #endregion
-
-        #region 选择的维修控制明细
+        #region 选择的项维修控制明细
 
         private MaintainCtrlLineDTO _selCtrlLine;
 
         /// <summary>
-        /// 选择的维修控制明细
+        /// 选择的项维修控制明细
         /// </summary>
         public MaintainCtrlLineDTO SelCtrlLine
         {
@@ -229,6 +243,76 @@ namespace UniCloud.Presentation.Part.ManageItem
                 {
                     _selCtrlLine = value;
                     this.RaisePropertyChanged(() => this.SelCtrlLine);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 装机控制集合
+
+        private IEnumerable<InstallControllerDTO> _viewInstallControllers=new Collection<InstallControllerDTO>(); 
+
+        /// <summary>
+        ///     装机控制集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<InstallControllerDTO> InstallControllers { get; set; }
+
+        /// <summary>
+        /// 选中项对应的装机控制集合
+        /// </summary>
+        public IEnumerable<InstallControllerDTO> ViewInstallControllers
+        {
+            get { return this._viewInstallControllers; }
+            private set
+            {
+                if (!this._viewInstallControllers.Equals(value))
+                    _viewInstallControllers = value;
+                RaisePropertyChanged(()=>ViewInstallControllers);
+            }
+        }
+
+        #endregion
+
+        #region 选择的装机控制
+
+        private InstallControllerDTO _selInstallController;
+
+        /// <summary>
+        /// 选择的装机控制
+        /// </summary>
+        public InstallControllerDTO SelInstallController
+        {
+            get { return this._selInstallController; }
+            private set
+            {
+                if (this._selInstallController != value)
+                {
+                    _selInstallController = value;
+                    this.RaisePropertyChanged(() => this.SelInstallController);
+                }
+                RefreshCommandState();
+            }
+        }
+
+        #endregion
+
+        #region 选择的依赖项
+
+        private DependencyDTO _selDependency;
+
+        /// <summary>
+        /// 选择的依赖项
+        /// </summary>
+        public DependencyDTO SelDependency
+        {
+            get { return this._selDependency; }
+            private set
+            {
+                if (this._selDependency != value)
+                {
+                    _selDependency = value;
+                    this.RaisePropertyChanged(() => this.SelDependency);
                 }
             }
         }
@@ -254,6 +338,8 @@ namespace UniCloud.Presentation.Part.ManageItem
             AddMaintainCtrlCommand.RaiseCanExecuteChanged();
             AddCtrlLineCommand.RaiseCanExecuteChanged();
             RemoveCtrlLineCommand.RaiseCanExecuteChanged();
+            AddDependencyCommand.RaiseCanExecuteChanged();
+            RemoveDependencyCommand.RaiseCanExecuteChanged();
         }
 
         #endregion
@@ -273,6 +359,15 @@ namespace UniCloud.Presentation.Part.ManageItem
             };
             Items.AddNew(item);
             SelItem = item;
+            //TODO:同时添加一个控制组
+            var itemMaintainCtrl = new ItemMaintainCtrlDTO
+            {
+                Id = RandomHelper.Next(),
+                ItemId = SelItem.Id,
+                CtrlStrategy = 1,
+            };
+            ItemMaintainCtrls.AddNew(itemMaintainCtrl);
+            CurItemMaintainCtrl = itemMaintainCtrl;
             RefreshCommandState();
         }
 
@@ -292,14 +387,14 @@ namespace UniCloud.Presentation.Part.ManageItem
 
         private void OnChanged(object obj)
         {
-            if (SelItem != null && SelItem.IsLife == false && CurItemMaintainCtrl!=null)
+            if (SelItem != null && SelItem.IsLife == false && CurItemMaintainCtrl != null)
             {
                 var content = "将此项设置改为非寿控项，将移除已维护的维修控制组，是否继续？";
                 MessageConfirm("确认修改为非寿控项", content, (o, e) =>
                 {
                     if (e.DialogResult == true)
                     {
-                        if (SelItem!=null && CurItemMaintainCtrl!=null)
+                        if (SelItem != null && CurItemMaintainCtrl != null)
                         {
                             ItemMaintainCtrls.Remove(CurItemMaintainCtrl);
                             CurItemMaintainCtrl = null;
@@ -349,7 +444,13 @@ namespace UniCloud.Presentation.Part.ManageItem
         {
             if (SelItem == null)
                 MessageAlert("提示", "请先选中附件项！");
-            else PnRegsChildView.ShowDialog();
+            else
+            {
+                _addToInstallController = true;
+                _addToDependency = false;
+                PnRegsChildView.ShowDialog();
+            }
+            RefreshCommandState();
         }
 
         private bool CanAddEntity(object obj)
@@ -370,12 +471,67 @@ namespace UniCloud.Presentation.Part.ManageItem
 
         private void OnRemoveEntity(object obj)
         {
-
+            InstallControllers.Remove(SelInstallController);
+            ViewInstallControllers = InstallControllers.Where(p => p.ItemId == SelItem.Id);
+            RefreshCommandState();
         }
 
         private bool CanRemoveEntity(object obj)
         {
-             return false;
+            if (SelItem!=null && SelInstallController != null)
+                return true;
+            return false;
+        }
+
+        #endregion
+
+        #region 增加依赖项
+
+        /// <summary>
+        ///     增加依赖项
+        /// </summary>
+        public DelegateCommand<object> AddDependencyCommand { get; private set; }
+
+        private void OnAddDependency(object obj)
+        {
+            if (SelInstallController == null)
+                MessageAlert("提示", "请先选中装机控制项！");
+            else
+            {
+                _addToDependency = true;
+                _addToInstallController = false;
+                PnRegsChildView.ShowDialog();
+            }
+            RefreshCommandState();
+        }
+
+        private bool CanAddDependency(object obj)
+        {
+            if (SelInstallController == null)
+                return false;
+            return true;
+        }
+
+        #endregion
+
+        #region 移除依赖项
+
+        /// <summary>
+        ///     移除依赖项
+        /// </summary>
+        public DelegateCommand<object> RemoveDependencyCommand { get; private set; }
+
+        private void OnRemoveDependency(object obj)
+        {
+            SelInstallController.Dependencies.Remove(SelDependency);
+            RefreshCommandState();
+        }
+
+        private bool CanRemoveDependency(object obj)
+        {
+            if (SelInstallController != null && SelDependency != null)
+                return true;
+            return false;
         }
 
         #endregion
@@ -484,6 +640,8 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// <param name="sender"></param>
         public void OnCancelExecute(object sender)
         {
+            _addToInstallController = false;
+            _addToDependency = false;
             PnRegsChildView.Close();
         }
 
@@ -511,8 +669,48 @@ namespace UniCloud.Presentation.Part.ManageItem
         {
             var radGridView = sender as RadGridView;
             if (radGridView == null) return;
-            if (SelItem != null)
+            if (SelItem != null && _addToInstallController)
             {
+                radGridView.SelectedItems.ToList().ForEach(p =>
+                {
+                    var pnRegDTO = p as PnRegDTO;
+                    if (pnRegDTO != null)
+                    {
+                        var installController = new InstallControllerDTO
+                        {
+                            Id = RandomHelper.Next(),
+                            Pn = pnRegDTO.Pn,
+                            PnRegId = pnRegDTO.Id,
+                            ItemId = SelItem.Id,
+                            ItemNo = SelItem.ItemNo,
+                            Description = pnRegDTO.Description,
+                            StartDate = DateTime.Now,
+                        };
+                        InstallControllers.AddNew(installController);
+                    }
+                });
+                ViewInstallControllers = InstallControllers.Where(p => p.ItemId == SelItem.Id);
+                RaisePropertyChanged(() => ViewInstallControllers);
+                _addToInstallController = false;
+            }
+            else if (_selInstallController != null && _addToDependency)
+            {
+                radGridView.SelectedItems.ToList().ForEach(p =>
+                {
+                    var pnRegDTO = p as PnRegDTO;
+                    if (pnRegDTO != null)
+                    {
+                        var dependency = new DependencyDTO()
+                        {
+                            Id = RandomHelper.Next(),
+                            Pn = pnRegDTO.Pn,
+                            DependencyPnId = pnRegDTO.Id,
+                            InstallControllerId = SelInstallController.Id,
+                        };
+                        SelInstallController.Dependencies.Add(dependency);
+                    }
+                });
+                _addToDependency = false;
             }
             PnRegsChildView.Close();
         }

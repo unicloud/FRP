@@ -31,7 +31,7 @@
         <Grid>
             <telerik:RadGridView Grid.Row="0"
                                  Name="ChildViewPnRegs"
-                                 ItemsSource="{Binding EditViewPnRegs}"
+                                 ItemsSource="{Binding PnRegs}"
                                  IsBusy="{Binding PnRegs.IsBusy}"
                                  AutoGenerateColumns="False"
                                  ShowGroupPanel="True"
