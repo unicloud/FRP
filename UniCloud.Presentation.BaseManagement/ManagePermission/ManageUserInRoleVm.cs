@@ -61,10 +61,12 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             RemoveRoleCommand = new DelegateCommand<object>(OnRemoveRole, CanRemoveRole);
             //创建并注册CollectionView
             Users = _service.CreateCollection(_context.Users, o => o.UserRoles);
+            Users.PageSize = 8;
             _service.RegisterCollectionView(Users);
             FunctionItems = _service.CreateCollection(_context.FunctionItems);
             FunctionItems.LoadedData += (o, e) => FunctionItems.ToList().ForEach(GenerateFunctionItemStructure);
             Roles = _service.CreateCollection(_context.Roles, o => o.RoleFunctions);
+            Roles.PageSize = 8;
         }
 
         #endregion

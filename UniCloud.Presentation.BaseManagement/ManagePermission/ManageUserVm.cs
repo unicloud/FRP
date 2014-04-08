@@ -55,6 +55,8 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         {
             //创建并注册CollectionView
             Users = _service.CreateCollection(_context.Users);
+            Users.PageSize = 20;
+            _service.RegisterCollectionView(Users);
         }
 
         #endregion

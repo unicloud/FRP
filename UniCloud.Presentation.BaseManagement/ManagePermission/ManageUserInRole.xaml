@@ -100,6 +100,11 @@
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 DataMemberBinding="{Binding DisplayName}" />
+                                                    <telerik:GridViewDataColumn Header="部门"
+                                                                                HeaderTextAlignment="Center"
+                                                                                IsReadOnly="True"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding OrganizationName}" />
                                                     <telerik:GridViewDataColumn Header="手机号"
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
