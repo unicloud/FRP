@@ -5,9 +5,11 @@
 #region 命名空间
 
 using Microsoft.Practices.Unity;
+using UniCloud.Application.BaseManagementBC.AircraftCabinTypeServices;
 using UniCloud.Application.BaseManagementBC.BusinessLicenseServices;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
 using UniCloud.Application.BaseManagementBC.OrganizationServices;
+using UniCloud.Application.BaseManagementBC.Query.AircraftCabinTypeQueries;
 using UniCloud.Application.BaseManagementBC.Query.BusinessLicenseQueries;
 using UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries;
 using UniCloud.Application.BaseManagementBC.Query.OrganizationQueries;
@@ -15,6 +17,7 @@ using UniCloud.Application.BaseManagementBC.Query.RoleQueries;
 using UniCloud.Application.BaseManagementBC.Query.UserQueries;
 using UniCloud.Application.BaseManagementBC.RoleServices;
 using UniCloud.Application.BaseManagementBC.UserServices;
+using UniCloud.Domain.BaseManagementBC.Aggregates.AircraftCabinTypeAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.BusinessLicenseAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationAgg;
@@ -67,6 +70,12 @@ namespace UniCloud.DistributedServices.BaseManagement.InstanceProviders
 .RegisterType<IBusinessLicenseAppService, BusinessLicenseAppService>()
                          .RegisterType<IBusinessLicenseQuery, BusinessLicenseQuery>()
                          .RegisterType<IBusinessLicenseRepository, BusinessLicenseRepository>()
+            #endregion
+
+            #region AircraftCabinType相关配置，包括查询，应用服务，仓储注册
+.RegisterType<IAircraftCabinTypeAppService, AircraftCabinTypeAppService>()
+                         .RegisterType<IAircraftCabinTypeQuery, AircraftCabinTypeQuery>()
+                         .RegisterType<IAircraftCabinTypeRepository, AircraftCabinTypeRepository>()
             #endregion
 ;
         }

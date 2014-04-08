@@ -14,9 +14,9 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.AircraftCabinTypeAgg;
 
-namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork.Mapping.Sql
+namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql
 {
     /// <summary>
     ///     AircraftCabin实体相关配置

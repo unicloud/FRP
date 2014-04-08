@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AircraftCabinTypeQueries\AircraftCabinTypeQuery.cs" />
+    <Compile Include="AircraftCabinTypeQueries\IAircraftCabinTypeQuery.cs" />
     <Compile Include="BusinessLicenseQueries\BusinessLicenseQuery.cs" />
     <Compile Include="BusinessLicenseQueries\IBusinessLicenseQuery.cs" />
     <Compile Include="FunctionItemQueries\FunctionItemQuery.cs" />

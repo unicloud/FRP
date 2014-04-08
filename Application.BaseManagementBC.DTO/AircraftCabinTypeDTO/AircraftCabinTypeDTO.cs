@@ -14,7 +14,7 @@
 
 using System.Data.Services.Common;
 
-namespace UniCloud.Application.AircraftConfigBC.DTO
+namespace UniCloud.Application.BaseManagementBC.DTO
 {
     /// <summary>
     /// 舱位类型

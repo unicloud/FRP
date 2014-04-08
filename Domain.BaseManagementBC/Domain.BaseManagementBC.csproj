@@ -44,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\AircraftCabinTypeAgg\AircraftCabinType.cs" />
+    <Compile Include="Aggregates\AircraftCabinTypeAgg\AircraftCabinTypeFactory.cs" />
+    <Compile Include="Aggregates\AircraftCabinTypeAgg\AircraftCabinTypeSpecifications.cs" />
+    <Compile Include="Aggregates\AircraftCabinTypeAgg\IAircraftCabinTypeRepository.cs" />
     <Compile Include="Aggregates\BusinessLicenseAgg\BusinessLicense.cs" />
     <Compile Include="Aggregates\BusinessLicenseAgg\BusinessLicenseFactory.cs" />
     <Compile Include="Aggregates\BusinessLicenseAgg\BusinessLicenseSpecifications.cs" />

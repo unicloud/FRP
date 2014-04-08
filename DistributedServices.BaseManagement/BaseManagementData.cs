@@ -5,6 +5,7 @@
 #region 命名空间
 
 using System.Linq;
+using UniCloud.Application.BaseManagementBC.AircraftCabinTypeServices;
 using UniCloud.Application.BaseManagementBC.BusinessLicenseServices;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
@@ -29,7 +30,7 @@ namespace UniCloud.DistributedServices.BaseManagement
         private readonly IRoleAppService _roleAppService;
         private readonly IOrganizationAppService _organizationAppService;
         private readonly IBusinessLicenseAppService _businessLicenseAppService;
-
+        private readonly IAircraftCabinTypeAppService _aircraftCabinTypeAppService;
         public BaseManagementData()
             : base("UniCloud.Application.BaseManagementBC.DTO")
         {
@@ -38,6 +39,7 @@ namespace UniCloud.DistributedServices.BaseManagement
             _roleAppService = DefaultContainer.Resolve<IRoleAppService>();
             _organizationAppService = DefaultContainer.Resolve<IOrganizationAppService>();
             _businessLicenseAppService = DefaultContainer.Resolve<IBusinessLicenseAppService>();
+            _aircraftCabinTypeAppService = DefaultContainer.Resolve<IAircraftCabinTypeAppService>();
         }
 
 
@@ -82,6 +84,16 @@ namespace UniCloud.DistributedServices.BaseManagement
         public IQueryable<BusinessLicenseDTO> BusinessLicenses
         {
             get { return _businessLicenseAppService.GetBusinessLicenses(); }
+        }
+        #endregion
+
+        #region 飞机舱位类型集合
+        /// <summary>
+        ///     飞机舱位类型集合
+        /// </summary>
+        public IQueryable<AircraftCabinTypeDTO> AircraftCabinTypes
+        {
+            get { return _aircraftCabinTypeAppService.GetAircraftCabinTypes(); }
         }
         #endregion
     }

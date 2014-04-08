@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AircraftCabinTypeDTO\AircraftCabinTypeDTO.cs" />
     <Compile Include="BusinessLicenseDTO\BusinessLicenseDTO.cs" />
     <Compile Include="FunctionItemDTO\FunctionItemDTO.cs" />
     <Compile Include="OrganizationDTO\OrganizationDTO.cs" />

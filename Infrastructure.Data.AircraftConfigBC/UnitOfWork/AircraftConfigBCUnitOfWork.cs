@@ -50,7 +50,6 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         private IDbSet<Ata> _atas;
         private IDbSet<AircraftConfiguration> _aircraftConfigurations;
         private IDbSet<AircraftCabin> _aircraftCabins;
-        private IDbSet<AircraftCabinType> _aircraftCabinTypes;
 
         public IDbSet<ActionCategory> ActionCategories
         {
@@ -121,10 +120,6 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
             get { return _aircraftCabins ?? (_aircraftCabins = Set<AircraftCabin>()); }
         }
 
-        public IDbSet<AircraftCabinType> AircraftCabinTypes
-        {
-            get { return _aircraftCabinTypes ?? (_aircraftCabinTypes = Set<AircraftCabinType>()); }
-        }
         #endregion
 
         #region DbContext 重载
@@ -219,7 +214,6 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
 
 .Add(new AircraftConfigurationEntityConfiguration())
                 .Add(new AircraftCabinEntityConfiguration())
-                .Add(new AircraftCabinTypeEntityConfiguration())
             #endregion
 
 ;

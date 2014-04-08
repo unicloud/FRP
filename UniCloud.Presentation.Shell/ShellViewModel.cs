@@ -1038,6 +1038,7 @@ namespace UniCloud.Presentation.Shell
             var menu932 = new MenuItem
             {
                 Text = "管理系统配置",
+                NavUri = "UniCloud.Presentation.BaseManagement.MaintainBaseSettings.ManageSystemConfig",
             };
             var menu933 = new MenuItem
             {

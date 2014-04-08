@@ -181,6 +181,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseManagementModule.cs" />
+    <Compile Include="MaintainBaseSettings\ManageSystemConfig.xaml.cs">
+      <DependentUpon>ManageSystemConfig.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainBaseSettings\ManageSystemConfigVm.cs" />
     <Compile Include="ManageOperationQualification\ManageBusinessLicense.xaml.cs">
       <DependentUpon>ManageBusinessLicense.xaml</DependentUpon>
     </Compile>
@@ -233,6 +237,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="MaintainBaseSettings\ManageSystemConfig.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManageOperationQualification\ManageBusinessLicense.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

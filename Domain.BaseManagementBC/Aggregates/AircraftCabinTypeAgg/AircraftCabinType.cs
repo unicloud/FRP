@@ -15,7 +15,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg
+namespace UniCloud.Domain.BaseManagementBC.Aggregates.AircraftCabinTypeAgg
 {
     /// <summary>
     ///     飞机舱位类型聚合根

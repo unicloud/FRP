@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/4/8 14:48:33
+// 生成日期: 2014/4/8 15:50:23
 namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
 {
     
@@ -146,6 +146,23 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<BusinessLicenseDTO> _BusinessLicenses;
         /// <summary>
+        /// 架构中不存在 AircraftCabinTypes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<AircraftCabinTypeDTO> AircraftCabinTypes
+        {
+            get
+            {
+                if ((this._AircraftCabinTypes == null))
+                {
+                    this._AircraftCabinTypes = base.CreateQuery<AircraftCabinTypeDTO>("AircraftCabinTypes");
+                }
+                return this._AircraftCabinTypes;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<AircraftCabinTypeDTO> _AircraftCabinTypes;
+        /// <summary>
         /// 架构中不存在 Users 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -184,6 +201,14 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         public void AddToBusinessLicenses(BusinessLicenseDTO businessLicenseDTO)
         {
             base.AddObject("BusinessLicenses", businessLicenseDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 AircraftCabinTypes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToAircraftCabinTypes(AircraftCabinTypeDTO aircraftCabinTypeDTO)
+        {
+            base.AddObject("AircraftCabinTypes", aircraftCabinTypeDTO);
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private abstract class GeneratedEdmModel
@@ -246,26 +271,30 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
                 "32\" Nullable=\"false\" /><Property Name=\"ExpireDate\" Type=\"Edm.DateTime\" Nullable=" +
                 "\"false\" /><Property Name=\"State\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
                 "ame=\"FileContent\" Type=\"Edm.Binary\" /><Property Name=\"FileName\" Type=\"Edm.String" +
-                "\" /></EntityType><Association Name=\"FunctionItemDTO_SubFunctionItems\"><End Type=" +
-                "\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"SubFunctionIte" +
-                "ms\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.BaseManagementBC.DTO.Func" +
-                "tionItemDTO\" Role=\"FunctionItemDTO\" Multiplicity=\"*\" /></Association></Schema><S" +
-                "chema Namespace=\"UniCloud.DistributedServices.BaseManagement\" xmlns=\"http://sche" +
-                "mas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"BaseManagementData\" m:" +
-                "IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Users\" EntityType=\"UniCloud.App" +
-                "lication.BaseManagementBC.DTO.UserDTO\" /><EntitySet Name=\"Organizations\" EntityT" +
-                "ype=\"UniCloud.Application.BaseManagementBC.DTO.OrganizationDTO\" /><EntitySet Nam" +
-                "e=\"FunctionItems\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.Function" +
-                "ItemDTO\" /><EntitySet Name=\"Roles\" EntityType=\"UniCloud.Application.BaseManageme" +
-                "ntBC.DTO.RoleDTO\" /><EntitySet Name=\"BusinessLicenses\" EntityType=\"UniCloud.Appl" +
-                "ication.BaseManagementBC.DTO.BusinessLicenseDTO\" /><FunctionImport Name=\"GetFunc" +
-                "tionItemsWithHierarchy\" ReturnType=\"Collection(UniCloud.Application.BaseManageme" +
-                "ntBC.DTO.FunctionItemDTO)\" EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\" /><Assoc" +
-                "iationSet Name=\"FunctionItemDTO_SubFunctionItems\" Association=\"UniCloud.Applicat" +
-                "ion.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems\"><End Role=\"FunctionIt" +
-                "emDTO\" EntitySet=\"FunctionItems\" /><End Role=\"SubFunctionItems\" EntitySet=\"Funct" +
-                "ionItems\" /></AssociationSet></EntityContainer></Schema></edmx:DataServices></ed" +
-                "mx:Edmx>";
+                "\" /></EntityType><EntityType Name=\"AircraftCabinTypeDTO\"><Key><PropertyRef Name=" +
+                "\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
+                "ame=\"Name\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /></Entit" +
+                "yType><Association Name=\"FunctionItemDTO_SubFunctionItems\"><End Type=\"UniCloud.A" +
+                "pplication.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"SubFunctionItems\" Multipl" +
+                "icity=\"*\" /><End Type=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" +
+                "\" Role=\"FunctionItemDTO\" Multiplicity=\"*\" /></Association></Schema><Schema Names" +
+                "pace=\"UniCloud.DistributedServices.BaseManagement\" xmlns=\"http://schemas.microso" +
+                "ft.com/ado/2009/11/edm\"><EntityContainer Name=\"BaseManagementData\" m:IsDefaultEn" +
+                "tityContainer=\"true\"><EntitySet Name=\"Users\" EntityType=\"UniCloud.Application.Ba" +
+                "seManagementBC.DTO.UserDTO\" /><EntitySet Name=\"Organizations\" EntityType=\"UniClo" +
+                "ud.Application.BaseManagementBC.DTO.OrganizationDTO\" /><EntitySet Name=\"Function" +
+                "Items\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO\" />" +
+                "<EntitySet Name=\"Roles\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.Ro" +
+                "leDTO\" /><EntitySet Name=\"BusinessLicenses\" EntityType=\"UniCloud.Application.Bas" +
+                "eManagementBC.DTO.BusinessLicenseDTO\" /><EntitySet Name=\"AircraftCabinTypes\" Ent" +
+                "ityType=\"UniCloud.Application.BaseManagementBC.DTO.AircraftCabinTypeDTO\" /><Func" +
+                "tionImport Name=\"GetFunctionItemsWithHierarchy\" ReturnType=\"Collection(UniCloud." +
+                "Application.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySet=\"FunctionItems\" m:H" +
+                "ttpMethod=\"GET\" /><AssociationSet Name=\"FunctionItemDTO_SubFunctionItems\" Associ" +
+                "ation=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItem" +
+                "s\"><End Role=\"FunctionItemDTO\" EntitySet=\"FunctionItems\" /><End Role=\"SubFunctio" +
+                "nItems\" EntitySet=\"FunctionItems\" /></AssociationSet></EntityContainer></Schema>" +
+                "</edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -1864,6 +1893,104 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         private string _FileName;
         partial void OnFileNameChanging(string value);
         partial void OnFileNameChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.BaseManagementBC.DTO.AircraftCabinTypeDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("AircraftCabinTypes")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class AircraftCabinTypeDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 AircraftCabinTypeDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static AircraftCabinTypeDTO CreateAircraftCabinTypeDTO(int ID)
+        {
+            AircraftCabinTypeDTO aircraftCabinTypeDTO = new AircraftCabinTypeDTO();
+            aircraftCabinTypeDTO.Id = ID;
+            return aircraftCabinTypeDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Name 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Note 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Note
+        {
+            get
+            {
+                return this._Note;
+            }
+            set
+            {
+                this.OnNoteChanging(value);
+                this._Note = value;
+                this.OnNoteChanged();
+                this.OnPropertyChanged("Note");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Note;
+        partial void OnNoteChanging(string value);
+        partial void OnNoteChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

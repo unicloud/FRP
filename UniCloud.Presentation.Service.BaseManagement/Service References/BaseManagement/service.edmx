@@ -90,6 +90,14 @@
         <Property Name="FileContent" Type="Edm.Binary" />
         <Property Name="FileName" Type="Edm.String" />
       </EntityType>
+      <EntityType Name="AircraftCabinTypeDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Note" Type="Edm.String" />
+      </EntityType>
       <Association Name="FunctionItemDTO_SubFunctionItems">
         <End Type="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" Role="SubFunctionItems" Multiplicity="*" />
         <End Type="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" Role="FunctionItemDTO" Multiplicity="*" />
@@ -102,6 +110,7 @@
         <EntitySet Name="FunctionItems" EntityType="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" />
         <EntitySet Name="Roles" EntityType="UniCloud.Application.BaseManagementBC.DTO.RoleDTO" />
         <EntitySet Name="BusinessLicenses" EntityType="UniCloud.Application.BaseManagementBC.DTO.BusinessLicenseDTO" />
+        <EntitySet Name="AircraftCabinTypes" EntityType="UniCloud.Application.BaseManagementBC.DTO.AircraftCabinTypeDTO" />
         <FunctionImport Name="GetFunctionItemsWithHierarchy" ReturnType="Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)" EntitySet="FunctionItems" m:HttpMethod="GET" />
         <AssociationSet Name="FunctionItemDTO_SubFunctionItems" Association="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems">
           <End Role="FunctionItemDTO" EntitySet="FunctionItems" />

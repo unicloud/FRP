@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AircraftCabinTypeServices\AircraftCabinTypeAppService.cs" />
+    <Compile Include="AircraftCabinTypeServices\IAircraftCabinTypeAppService.cs" />
     <Compile Include="BusinessLicenseServices\BusinessLicenseAppService.cs" />
     <Compile Include="BusinessLicenseServices\IBusinessLicenseAppService.cs" />
     <Compile Include="FunctionItemServices\FunctionItemAppService.cs" />
