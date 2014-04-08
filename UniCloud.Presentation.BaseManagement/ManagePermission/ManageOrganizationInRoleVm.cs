@@ -17,6 +17,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -145,7 +146,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 if (_organizationRole != null)
                 {
                     _applications = FunctionItems.Where(p => p.ParentItemId == null).ToList();
-                    SelectFunctionItems(_organizationRole, _applications);
+                    RoleCommonMethod.SelectFunctionItems(_organizationRole, _applications);
                     DisplayFunctionItems = _applications;
                 }
                 RaisePropertyChanged(() => OrganizationRole);
@@ -199,7 +200,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 if (_role != null)
                 {
                     _applications = FunctionItems.Where(p => p.ParentItemId == null).ToList();
-                    SelectFunctionItems(_role, _applications);
+                    RoleCommonMethod.SelectFunctionItems(_role, _applications);
                     DisplayFunctionItems = _applications;
                 }
                 RaisePropertyChanged(() => Role);
@@ -223,21 +224,35 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         }
         #endregion
 
-        #region 筛选角色功能
-        private void SelectFunctionItems(RoleDTO role, List<FunctionItemDTO> functionItems)
-        {
-            for (int i = functionItems.Count - 1; i >= 0; i--)
-            {
-                var temp = functionItems[i];
-                if (role.RoleFunctions.All(p => p.FunctionItemId != temp.Id))
-                {
-                    functionItems.Remove(temp);
-                    continue;
-                }
-                SelectFunctionItems(role, temp.SubFunctionItems.ToList());
-            }
-        }
-        #endregion
+        //#region 筛选角色功能
+        //private void SelectFunctionItems(RoleDTO role, List<FunctionItemDTO> functionItems)
+        //{
+        //    for (int i = functionItems.Count - 1; i >= 0; i--)
+        //    {
+        //        var temp = functionItems[i];
+        //        if (role.RoleFunctions.All(p => p.FunctionItemId != temp.Id))
+        //        {
+        //            functionItems.Remove(temp);
+        //            continue;
+        //        }
+        //        SelectFunctionItems(role, temp.SubFunctionItems);
+        //    }
+        //}
+
+        //private void SelectFunctionItems(RoleDTO role, DataServiceCollection<FunctionItemDTO> functionItems)
+        //{
+        //    for (int i = functionItems.Count - 1; i >= 0; i--)
+        //    {
+        //        var temp = functionItems[i];
+        //        if (role.RoleFunctions.All(p => p.FunctionItemId != temp.Id))
+        //        {
+        //            functionItems.Remove(temp);
+        //            continue;
+        //        }
+        //        SelectFunctionItems(role, temp.SubFunctionItems);
+        //    }
+        //}
+        //#endregion
 
         #region 添加组织机构角色
         public void AddOrganizationRole()
