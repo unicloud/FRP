@@ -14,6 +14,7 @@
 
 #region 命名空间
 
+using System;
 using UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg;
 
 #endregion

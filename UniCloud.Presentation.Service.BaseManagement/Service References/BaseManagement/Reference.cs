@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/4/8 15:50:23
+// 生成日期: 2014/4/8 18:08:59
 namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
 {
     
@@ -290,11 +290,14 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
                 "ityType=\"UniCloud.Application.BaseManagementBC.DTO.AircraftCabinTypeDTO\" /><Func" +
                 "tionImport Name=\"GetFunctionItemsWithHierarchy\" ReturnType=\"Collection(UniCloud." +
                 "Application.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySet=\"FunctionItems\" m:H" +
-                "ttpMethod=\"GET\" /><AssociationSet Name=\"FunctionItemDTO_SubFunctionItems\" Associ" +
-                "ation=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItem" +
-                "s\"><End Role=\"FunctionItemDTO\" EntitySet=\"FunctionItems\" /><End Role=\"SubFunctio" +
-                "nItems\" EntitySet=\"FunctionItems\" /></AssociationSet></EntityContainer></Schema>" +
-                "</edmx:DataServices></edmx:Edmx>";
+                "ttpMethod=\"GET\" /><FunctionImport Name=\"GetFunctionItemsByUser\" ReturnType=\"Coll" +
+                "ection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySet=\"Fu" +
+                "nctionItems\" m:HttpMethod=\"GET\"><Parameter Name=\"userId\" Type=\"Edm.String\" /></F" +
+                "unctionImport><AssociationSet Name=\"FunctionItemDTO_SubFunctionItems\" Associatio" +
+                "n=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems\"><" +
+                "End Role=\"FunctionItemDTO\" EntitySet=\"FunctionItems\" /><End Role=\"SubFunctionIte" +
+                "ms\" EntitySet=\"FunctionItems\" /></AssociationSet></EntityContainer></Schema></ed" +
+                "mx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {

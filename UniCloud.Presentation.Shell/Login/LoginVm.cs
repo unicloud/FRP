@@ -14,7 +14,9 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Browser;
@@ -34,16 +36,14 @@ namespace UniCloud.Presentation.Shell.Login
     [Export(typeof(LoginVm))]
     public class LoginVm : ViewModelBase
     {
-        #region private fields
+        #region 声明、初始化
         private readonly BaseManagementData _context;
         private readonly IBaseManagementService _service;
         private readonly FilterDescriptor _workNumberFilter;
         private readonly FilterDescriptor _pwdNumberFilter;
         private TextBox _userNameTextBox;
         private bool _isDfFocused;
-        #endregion
 
-        #region Ctor
         [ImportingConstructor]
         public LoginVm(IBaseManagementService service)
             : base(service)
@@ -66,6 +66,7 @@ namespace UniCloud.Presentation.Shell.Login
                                         MessageAlert("登录失败，请检查工号和密码。");
                                         return;
                                     }
+                                    GetFunctionItemsByUser(user.Id);
                                     LoginShellView();
                                 };
         }
@@ -86,7 +87,7 @@ namespace UniCloud.Presentation.Shell.Login
             if (loginForm != null && loginForm.ValidateItem())
             {
                 _workNumberFilter.Value = LogInfo.UserName;
-                _pwdNumberFilter.Value = MD5CryptoServiceProvider.GetMd5String(LogInfo.Password);
+                _pwdNumberFilter.Value =  MD5CryptoServiceProvider.GetMd5String(LogInfo.Password);
                 Users.Load(true);
             }
             else
@@ -121,6 +122,46 @@ namespace UniCloud.Presentation.Shell.Login
 
         #endregion
 
+        #endregion
+
+        #region 获取用户功能
+        private void GetFunctionItemsByUser(int userId)
+        {
+            var validateUserUri = GetFunctionItemsByUserUri(userId.ToString(CultureInfo.InvariantCulture));
+            _context.BeginExecute<FunctionItemDTO>(validateUserUri,
+             result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+             {
+                 var context = result.AsyncState as BaseManagementData;
+                 try
+                 {
+                     if (context != null)
+                     {
+                         //context.MergeOption = MergeOption.OverwriteChanges;
+                         var functionItems = context.EndExecute<FunctionItemDTO>(result).ToList();
+                         if (functionItems == null)
+                         {
+
+                         }
+                     }
+                 }
+                 catch (Exception ex)
+                 {
+                     MessageAlert(ex.ToString());
+                 }
+                 IsBusy = false;
+             }), _context);
+        }
+
+        /// <summary>
+        ///  获取用户功能  
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        private Uri GetFunctionItemsByUserUri(string userId)
+        {
+            return new Uri(string.Format("GetFunctionItemsByUser?userId='{0}'", userId),
+                UriKind.Relative);
+        }
         #endregion
 
         #region ViewModel 属性 --登录实体

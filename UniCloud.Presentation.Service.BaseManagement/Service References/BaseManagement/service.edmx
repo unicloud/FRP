@@ -112,6 +112,9 @@
         <EntitySet Name="BusinessLicenses" EntityType="UniCloud.Application.BaseManagementBC.DTO.BusinessLicenseDTO" />
         <EntitySet Name="AircraftCabinTypes" EntityType="UniCloud.Application.BaseManagementBC.DTO.AircraftCabinTypeDTO" />
         <FunctionImport Name="GetFunctionItemsWithHierarchy" ReturnType="Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)" EntitySet="FunctionItems" m:HttpMethod="GET" />
+        <FunctionImport Name="GetFunctionItemsByUser" ReturnType="Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)" EntitySet="FunctionItems" m:HttpMethod="GET">
+          <Parameter Name="userId" Type="Edm.String" />
+        </FunctionImport>
         <AssociationSet Name="FunctionItemDTO_SubFunctionItems" Association="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems">
           <End Role="FunctionItemDTO" EntitySet="FunctionItems" />
           <End Role="SubFunctionItems" EntitySet="FunctionItems" />
