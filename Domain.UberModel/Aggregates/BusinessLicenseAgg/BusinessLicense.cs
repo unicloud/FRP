@@ -4,7 +4,7 @@
 //【本类功能概述】
 // 
 // 作者：linxw 时间：2014/1/15 9:35:40
-// 文件名：AircraftLicense
+// 文件名：BusinessLicense
 // 版本：V1.0.0
 //
 // 修改者：linxw 时间：2014/1/15 9:35:40
@@ -15,17 +15,16 @@
 #region 命名空间
 
 using System;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.Common.Enums;
 
 #endregion
 
-namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg
+namespace UniCloud.Domain.UberModel.Aggregates.BusinessLicenseAgg
 {
     /// <summary>
-    ///     飞机证照聚合根
+    ///     经营证照聚合根
     /// </summary>
-    public class AircraftLicense : EntityInt
+    public class BusinessLicense : EntityInt
     {
         #region 构造函数
 
@@ -33,7 +32,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal AircraftLicense()
+        internal BusinessLicense()
         {
         }
 
@@ -84,26 +83,6 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg
         /// 扫描件名字
         /// </summary>
         public string FileName { get; internal set; }
-        #endregion
-
-        #region 外键属性
-        /// <summary>
-        /// 飞机
-        /// </summary>
-        public Guid AircraftId { get; internal set; }
-
-        /// <summary>
-        /// 证照类型
-        /// </summary>
-        public int LicenseTypeId { get; internal set; }
-        #endregion
-
-        #region 导航属性
-
-        /// <summary>
-        /// 证照类型
-        /// </summary>
-        public virtual LicenseType LicenseType { get; internal set; }
         #endregion
     }
 }

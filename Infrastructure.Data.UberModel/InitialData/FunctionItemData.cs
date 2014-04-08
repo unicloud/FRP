@@ -370,7 +370,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
 
             var menu92 = FunctionItemFactory.CreateFunctionItem("管理运营资质", menu9.Id, 902, false, false, string.Empty);
             var menu921 = FunctionItemFactory.CreateFunctionItem("维护证照种类", menu92.Id, 90201, false, false, "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerLicenseType");
-            var menu922 = FunctionItemFactory.CreateFunctionItem("维护经营证照", menu92.Id, 90202, false, false, "UniCloud.Presentation.BaseManagement.ManageOperationQualification.ManageOperationLicense");
+            var menu922 = FunctionItemFactory.CreateFunctionItem("维护经营证照", menu92.Id, 90202, false, false, "UniCloud.Presentation.BaseManagement.ManageOperationQualification.ManageBusinessLicense");
             menu92.SubFunctionItems.Add(menu921);
             menu92.SubFunctionItems.Add(menu922);
             menu9.SubFunctionItems.Add(menu92);

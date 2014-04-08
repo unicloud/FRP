@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLicenseServices\BusinessLicenseAppService.cs" />
+    <Compile Include="BusinessLicenseServices\IBusinessLicenseAppService.cs" />
     <Compile Include="FunctionItemServices\FunctionItemAppService.cs" />
     <Compile Include="FunctionItemServices\IFunctionItemAppService.cs" />
     <Compile Include="OrganizationServices\IOrganizationAppService.cs" />

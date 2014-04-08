@@ -2,6 +2,7 @@
 
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using UniCloud.Domain.BaseManagementBC.Aggregates.BusinessLicenseAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationRoleAgg;
@@ -28,7 +29,7 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork
         private IDbSet<Role> _roles;
         private IDbSet<UserRole> _userRoles;
         private IDbSet<User> _users;
-
+        private IDbSet<BusinessLicense> _businessLicenses; 
         public IDbSet<FunctionItem> FunctionItems
         {
             get { return _functionItems ?? (_functionItems = Set<FunctionItem>()); }
@@ -69,6 +70,10 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork
             get { return _userRoles ?? (_userRoles = Set<UserRole>()); }
         }
 
+        public IDbSet<BusinessLicense> BusinessLicenses
+        {
+            get { return _businessLicenses ?? (_businessLicenses = Set<BusinessLicense>()); }
+        }
         #endregion
 
         #region DbContext 重载
@@ -144,6 +149,9 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork
 
                 .Add(new UserEntityConfiguration())
 
+                #endregion
+                #region BusinessLicenseAgg
+                .Add(new BusinessLicenseEntityConfiguration())
                 #endregion
 
                 ;

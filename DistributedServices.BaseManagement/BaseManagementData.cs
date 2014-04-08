@@ -5,6 +5,7 @@
 #region 命名空间
 
 using System.Linq;
+using UniCloud.Application.BaseManagementBC.BusinessLicenseServices;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
 using UniCloud.Application.BaseManagementBC.OrganizationServices;
@@ -27,6 +28,7 @@ namespace UniCloud.DistributedServices.BaseManagement
         private readonly IFunctionItemAppService _functionItemAppService;
         private readonly IRoleAppService _roleAppService;
         private readonly IOrganizationAppService _organizationAppService;
+        private readonly IBusinessLicenseAppService _businessLicenseAppService;
 
         public BaseManagementData()
             : base("UniCloud.Application.BaseManagementBC.DTO")
@@ -35,6 +37,7 @@ namespace UniCloud.DistributedServices.BaseManagement
             _functionItemAppService = DefaultContainer.Resolve<IFunctionItemAppService>();
             _roleAppService = DefaultContainer.Resolve<IRoleAppService>();
             _organizationAppService = DefaultContainer.Resolve<IOrganizationAppService>();
+            _businessLicenseAppService = DefaultContainer.Resolve<IBusinessLicenseAppService>();
         }
 
 
@@ -58,7 +61,6 @@ namespace UniCloud.DistributedServices.BaseManagement
         }
         #endregion
 
-
         #region FunctionItem集合
         /// <summary>
         /// FunctionItem集合
@@ -73,6 +75,13 @@ namespace UniCloud.DistributedServices.BaseManagement
         public IQueryable<RoleDTO> Roles
         {
             get { return _roleAppService.GetRoles(); }
+        }
+        #endregion
+
+        #region RoleBusinessLicense集合
+        public IQueryable<BusinessLicenseDTO> BusinessLicenses
+        {
+            get { return _businessLicenseAppService.GetBusinessLicenses(); }
         }
         #endregion
     }

@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BusinessLicenseRepository.cs" />
     <Compile Include="Repositories\FunctionItemRepository.cs" />
     <Compile Include="Repositories\OrganizationRepository.cs" />
     <Compile Include="Repositories\OrganizationRoleRepository.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\UserRoleRepository.cs" />
     <Compile Include="UnitOfWork\BaseManagementBCUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\BusinessLicenseEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\FunctionItemEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrganizationEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrganizationRoleEntityConfiguration.cs" />
@@ -84,6 +86,10 @@
     <ProjectReference Include="..\Domain.BaseManagementBC\Domain.BaseManagementBC.csproj">
       <Project>{169fa81a-b240-422a-aebf-756be4a98b03}</Project>
       <Name>Domain.BaseManagementBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
+      <Name>Domain.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>

@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLicenseDTO\BusinessLicenseDTO.cs" />
     <Compile Include="FunctionItemDTO\FunctionItemDTO.cs" />
     <Compile Include="OrganizationDTO\OrganizationDTO.cs" />
     <Compile Include="OrganizationDTO\OrganizationRoleDTO.cs" />
