@@ -22,6 +22,7 @@ using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
+using Telerik.Windows.Media.Imaging;
 using Telerik.Windows.Media.Imaging.FormatProviders;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -109,8 +110,7 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
                 {
                     if (_businessLicense.FileContent != null)
                     {
-                        IImageFormatProvider providerByExtension =
-                            ImageFormatProviderManager.GetFormatProviderByExtension(
+                        IImageFormatProvider providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(
                                 Path.GetExtension(_businessLicense.FileName));
                         if (providerByExtension == null)
                         {
@@ -118,13 +118,12 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
                         }
                         else
                         {
-                            CurrentBusinessLicense.ImageEditor.Image =
-                                providerByExtension.Import(BusinessLicense.FileContent);
+                            Image = providerByExtension.Import(BusinessLicense.FileContent);
                         }
                     }
                     else
                     {
-                        CurrentBusinessLicense.ImageEditor.Image = null;
+                        Image = null;
                     }
                 }
                 AddDocumentCommand.RaiseCanExecuteChanged();
@@ -162,6 +161,17 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
                 RaisePropertyChanged("Percent");
             }
         }
+
+        private RadBitmap _image;
+        public RadBitmap Image
+        {
+            get { return _image; }
+            set
+            {
+                _image = value;
+                RaisePropertyChanged(() => Image);
+            }
+        }
         #endregion
         #endregion
 
@@ -185,7 +195,7 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
                 ExpireDate = DateTime.Now
             };
             BusinessLicenses.AddNew(BusinessLicense);
-            CurrentBusinessLicense.ImageEditor.Image = null;
+            Image = null;
         }
 
         protected virtual bool CanAddBusinessLicense(object obj)
@@ -224,10 +234,6 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
         #endregion
 
         #region 打开文档
-
-        [Import]
-        public ManageBusinessLicense CurrentBusinessLicense;
-
         public DelegateCommand<object> AddDocumentCommand { get; set; }
 
         private void AddDocument(object sender)
@@ -246,8 +252,8 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
                     else
                     {
                         BusinessLicense.FileName = openFileDialog.File.Name;
-                        CurrentBusinessLicense.ImageEditor.Image = providerByExtension.Import(stream);
-                        BusinessLicense.FileContent = providerByExtension.Export(CurrentBusinessLicense.ImageEditor.Image);
+                        Image = providerByExtension.Import(stream);
+                        BusinessLicense.FileContent = providerByExtension.Export(Image);
                     }
                 }
             }

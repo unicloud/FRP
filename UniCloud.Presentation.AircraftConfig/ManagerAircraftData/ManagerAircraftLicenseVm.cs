@@ -23,6 +23,7 @@ using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
+using Telerik.Windows.Media.Imaging;
 using Telerik.Windows.Media.Imaging.FormatProviders;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -144,13 +145,12 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
                         }
                         else
                         {
-                            CurrentAircraftLicense.ImageEditor.Image =
-                                providerByExtension.Import(AircraftLicense.FileContent);
+                            Image = providerByExtension.Import(AircraftLicense.FileContent);
                         }
                     }
                     else
                     {
-                        CurrentAircraftLicense.ImageEditor.Image = null;
+                        Image = null;
                     }
                 }
                 AddDocumentCommand.RaiseCanExecuteChanged();
@@ -188,6 +188,17 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
                 RaisePropertyChanged("Percent");
             }
         }
+
+        private RadBitmap _image;
+        public RadBitmap Image
+        {
+            get { return _image; }
+            set
+            {
+                _image = value;
+                RaisePropertyChanged(() => Image);
+            }
+        }
         #endregion
         #endregion
 
@@ -219,7 +230,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             if (firstOrDefault != null)
                 aircraftLicense.LicenseTypeId = firstOrDefault.LicenseTypeId;
             Aircraft.AircraftLicenses.Add(aircraftLicense);
-            CurrentAircraftLicense.ImageEditor.Image = null;
+            Image = null;
         }
 
         protected virtual bool CanAddAircraftLicense(object obj)
@@ -258,10 +269,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         #endregion
 
         #region 打开文档
-
-        [Import]
-        public ManagerAircraftLicense CurrentAircraftLicense;
-
         public DelegateCommand<object> AddDocumentCommand { get; set; }
 
         private void AddDocument(object sender)
@@ -280,8 +287,8 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
                     else
                     {
                         AircraftLicense.FileName = openFileDialog.File.Name;
-                        CurrentAircraftLicense.ImageEditor.Image = providerByExtension.Import(stream);
-                        AircraftLicense.FileContent = providerByExtension.Export(CurrentAircraftLicense.ImageEditor.Image);
+                        Image = providerByExtension.Import(stream);
+                        AircraftLicense.FileContent = providerByExtension.Export(Image);
                     }
                 }
             }

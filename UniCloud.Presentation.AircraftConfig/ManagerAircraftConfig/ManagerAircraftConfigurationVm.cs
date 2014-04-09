@@ -24,6 +24,7 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Data;
+using Telerik.Windows.Media.Imaging;
 using Telerik.Windows.Media.Imaging.FormatProviders;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -130,12 +131,12 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                         }
                         else
                         {
-                            CurrentAircraftConfiguration.ImageEditor.Image = providerByExtension.Import(AircraftConfiguration.FileContent);
+                            Image = providerByExtension.Import(AircraftConfiguration.FileContent);
                         }
                     }
                     else
                     {
-                        CurrentAircraftConfiguration.ImageEditor.Image = null;
+                        Image = null;
                     }
                 }
                 AddDocumentCommand.RaiseCanExecuteChanged();
@@ -198,6 +199,17 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             {
                 _percent = value;
                 RaisePropertyChanged("Percent");
+            }
+        }
+
+        private RadBitmap _image;
+        public RadBitmap Image
+        {
+            get { return _image; }
+            set
+            {
+                _image = value;
+                RaisePropertyChanged(() => Image);
             }
         }
         #endregion
@@ -320,10 +332,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         #endregion
 
         #region 打开文档
-
-        [Import]
-        public ManagerAircraftConfiguration CurrentAircraftConfiguration;
-
         public DelegateCommand<object> AddDocumentCommand { get; set; }
 
         private void AddDocument(object sender)
@@ -342,8 +350,8 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                     else
                     {
                         AircraftConfiguration.FileName = openFileDialog.File.Name;
-                        CurrentAircraftConfiguration.ImageEditor.Image = providerByExtension.Import(stream);
-                        AircraftConfiguration.FileContent = providerByExtension.Export(CurrentAircraftConfiguration.ImageEditor.Image);
+                        Image = providerByExtension.Import(stream);
+                        AircraftConfiguration.FileContent = providerByExtension.Export(Image);
                     }
                 }
             }

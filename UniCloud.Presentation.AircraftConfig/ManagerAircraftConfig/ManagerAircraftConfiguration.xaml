@@ -277,6 +277,7 @@
                                             <telerik:RadImageEditor Grid.Row="1"
                                                                     x:Name="ImageEditor"
                                                                     ScaleFactor="{Binding Percent,Mode=TwoWay}"
+                                                                    Image="{Binding Image,Mode=TwoWay}"
                                                                     HorizontalAlignment="Stretch"
                                                                     VerticalAlignment="Stretch">
                                             </telerik:RadImageEditor>

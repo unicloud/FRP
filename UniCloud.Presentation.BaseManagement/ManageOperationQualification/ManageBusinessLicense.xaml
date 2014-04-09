@@ -148,6 +148,8 @@
                                                             OverflowButtonVisibility="Collapsed">
                                             <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/open.png"
                                                                           Command="{Binding DataContext.AddDocumentCommand, ElementName=BusinessLicenseView}" />
+                                            <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/save.png"
+                                                                          Command="{Binding Path=Commands.Save, ElementName=ImageEditor}" />
                                             <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CW.png"
                                                                           Command="{Binding Path=Commands.Rotate90Clockwise, ElementName=ImageEditor}" />
                                             <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CCW.png"
@@ -164,6 +166,7 @@
                                         <telerik:RadImageEditor Grid.Row="1"
                                                                 x:Name="ImageEditor"
                                                                 ScaleFactor="{Binding Percent,Mode=TwoWay}"
+                                                                Image="{Binding Image,Mode=TwoWay}"
                                                                 HorizontalAlignment="Stretch"
                                                                 VerticalAlignment="Stretch" />
                                     </Grid>
