@@ -22,12 +22,16 @@ using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Data;
+using Telerik.Windows.Media.Imaging;
 using Telerik.Windows.Media.Imaging.FormatProviders;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.AircraftConfig;
 using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig;
+using UniCloud.Presentation.Service.BaseManagement;
+using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 
 #endregion
 
@@ -70,8 +74,10 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             AircraftTypes = _service.CreateCollection(_context.AircraftTypes);
             AircraftSerieses = _service.CreateCollection(_context.AircraftSeries);
             AircraftConfigurations = _service.CreateCollection(_context.AircraftConfigurations, o => o.AircraftCabins);
+            AircraftConfigurations.PageSize = 6;
             _service.RegisterCollectionView(AircraftConfigurations);
-            AircraftCabinTypes = _service.CreateCollection(_context.AircraftCabinTypes);
+            var baseManagementService = ServiceLocator.Current.GetInstance<IBaseManagementService>();
+            AircraftCabinTypes = _service.CreateCollection(baseManagementService.Context.AircraftCabinTypes);
         }
 
         #endregion
@@ -126,12 +132,12 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                         }
                         else
                         {
-                            CurrentAircraftConfiguration.ImageEditor.Image = providerByExtension.Import(AircraftConfiguration.FileContent);
+                            Image = providerByExtension.Import(AircraftConfiguration.FileContent);
                         }
                     }
                     else
                     {
-                        CurrentAircraftConfiguration.ImageEditor.Image = null;
+                        Image = null;
                     }
                 }
                 AddDocumentCommand.RaiseCanExecuteChanged();
@@ -193,8 +199,18 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             set
             {
                 _percent = value;
-                CurrentAircraftConfiguration.ImageEditor.ScaleFactor = _percent;
                 RaisePropertyChanged("Percent");
+            }
+        }
+
+        private RadBitmap _image;
+        public RadBitmap Image
+        {
+            get { return _image; }
+            set
+            {
+                _image = value;
+                RaisePropertyChanged(() => Image);
             }
         }
         #endregion
@@ -317,10 +333,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         #endregion
 
         #region 打开文档
-
-        [Import]
-        public ManagerAircraftConfiguration CurrentAircraftConfiguration;
-
         public DelegateCommand<object> AddDocumentCommand { get; set; }
 
         private void AddDocument(object sender)
@@ -339,8 +351,8 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                     else
                     {
                         AircraftConfiguration.FileName = openFileDialog.File.Name;
-                        CurrentAircraftConfiguration.ImageEditor.Image = providerByExtension.Import(stream);
-                        AircraftConfiguration.FileContent = providerByExtension.Export(CurrentAircraftConfiguration.ImageEditor.Image);
+                        Image = providerByExtension.Import(stream);
+                        AircraftConfiguration.FileContent = providerByExtension.Export(Image);
                     }
                 }
             }

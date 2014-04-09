@@ -10,8 +10,10 @@ namespace UniCloud.Presentation.CommonExtension
         /// <returns></returns>
         public static int Next()
         {
-            var ra = new Random((int)DateTime.Now.Ticks);
-            return ra.Next();
+            //var ra = new Random((int)DateTime.Now.Ticks);
+            //return ra.Next();
+
+            return int.Parse(DateTime.Now.ToString("ddHHmmss"));
         }
     }
 }

@@ -12,9 +12,9 @@
 // ========================================================================*/
 #endregion
 
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.AircraftCabinTypeAgg;
 
-namespace UniCloud.Infrastructure.Data.AircraftConfigBC.Repositories
+namespace UniCloud.Infrastructure.Data.BaseManagementBC.Repositories
 {
     /// <summary>
     ///     飞机舱位类型仓储实现

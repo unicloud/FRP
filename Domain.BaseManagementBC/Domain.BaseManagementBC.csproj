@@ -44,6 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\AircraftCabinTypeAgg\AircraftCabinType.cs" />
+    <Compile Include="Aggregates\AircraftCabinTypeAgg\AircraftCabinTypeFactory.cs" />
+    <Compile Include="Aggregates\AircraftCabinTypeAgg\AircraftCabinTypeSpecifications.cs" />
+    <Compile Include="Aggregates\AircraftCabinTypeAgg\IAircraftCabinTypeRepository.cs" />
+    <Compile Include="Aggregates\BusinessLicenseAgg\BusinessLicense.cs" />
+    <Compile Include="Aggregates\BusinessLicenseAgg\BusinessLicenseFactory.cs" />
+    <Compile Include="Aggregates\BusinessLicenseAgg\BusinessLicenseSpecifications.cs" />
+    <Compile Include="Aggregates\BusinessLicenseAgg\IBusinessLicenseRepository.cs" />
     <Compile Include="Aggregates\FunctionItemAgg\FunctionItem.cs" />
     <Compile Include="Aggregates\FunctionItemAgg\FunctionItemSpecifications.cs" />
     <Compile Include="Aggregates\FunctionItemAgg\IFunctionItemRepository.cs" />
@@ -85,6 +93,10 @@
     <Folder Include="Events\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
       <Name>Domain</Name>

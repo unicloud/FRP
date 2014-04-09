@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UniCloud.Presentation.BaseManagement.ManageOperationQualification.ManageOperationLicense"
+﻿<UserControl x:Class="UniCloud.Presentation.BaseManagement.ManageOperationQualification.ManageBusinessLicense"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,9 +6,10 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance uc:ManageOperationLicenseVm}"
+             d:DataContext="{d:DesignInstance uc:ManageBusinessLicenseVm}"
              d:DesignHeight="600"
-             d:DesignWidth="800">
+             d:DesignWidth="800"
+             Name="BusinessLicenseView">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,7 +18,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <telerik:RadBusyIndicator BusyContent="{Binding BusyContent,Mode=TwoWay}"
-                              IsBusy="{Binding Aircrafts.IsBusy,Mode=TwoWay}">
+                              IsBusy="{Binding BusinessLicenses.IsBusy,Mode=TwoWay}">
         <Grid>
             <telerik:RadDocking BorderThickness="0"
                                 Padding="0"
@@ -44,41 +45,41 @@
                                                         OverflowButtonVisibility="Collapsed">
                                         <telerik:RadButton Margin="4,2,2,-2"
                                                            Command="{Binding SaveCommand}"
-                                                           CommandParameter="{Binding Aircrafts}">
+                                                           CommandParameter="{Binding BusinessLicenses}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="保存" />
                                         </telerik:RadButton>
                                         <telerik:RadButton Margin="2,2,2,-2"
                                                            Command="{Binding AbortCommand}"
-                                                           CommandParameter="{Binding Aircrafts}">
+                                                           CommandParameter="{Binding BusinessLicenses}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="放弃更改" />
                                         </telerik:RadButton>
                                         <telerik:RadToolBarSeparator />
                                         <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding AddAircraftLicenseCommand}">
+                                                           Command="{Binding AddBusinessLicenseCommand}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Add.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="增加经营证照" />
                                         </telerik:RadButton>
                                         <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding RemoveAircraftLicenseCommand}">
+                                                           Command="{Binding RemoveBusinessLicenseCommand}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="移除经营证照" />
                                         </telerik:RadButton>
                                     </telerik:RadToolBar>
                                     <Grid Row="1">
-                                        <telerik:RadGridView Name="AircraftLicenseList"
+                                        <telerik:RadGridView Name="BusinessLicenseList"
                                                              AutoExpandGroups="True"
                                                              AutoGenerateColumns="False"
                                                              CanUserSortColumns="True"
                                                              CanUserFreezeColumns="False"
                                                              IsFilteringAllowed="True"
-                                                             ItemsSource="{Binding Aircraft.AircraftLicenses}"
-                                                             SelectedItem="{Binding AircraftLicense,Mode=TwoWay}"
+                                                             ItemsSource="{Binding BusinessLicenses}"
+                                                             SelectedItem="{Binding BusinessLicense,Mode=TwoWay}"
                                                              FontSize="{StaticResource TextFontSize}"
                                                              ValidatesOnDataErrors="InEditMode"
                                                              RowIndicatorVisibility="Visible">
@@ -88,13 +89,6 @@
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
                                                                             DataMemberBinding="{Binding Name}" />
-                                                <telerik:GridViewComboBoxColumn Header="证照种类"
-                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                HeaderTextAlignment="Center"
-                                                                                ItemsSource="{Binding DataContext.LicenseTypes, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                                                                DataMemberBinding="{Binding LicenseTypeId, Mode=TwoWay}"
-                                                                                SelectedValueMemberPath="LicenseTypeId"
-                                                                                DisplayMemberPath="Name" />
                                                 <telerik:GridViewDataColumn Header="发证单位"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
@@ -153,15 +147,26 @@
                                                             Margin="0 0 0 -1"
                                                             OverflowButtonVisibility="Collapsed">
                                             <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/open.png"
-                                                                          Command="{Binding DataContext.AddDocumentCommand, ElementName=AircraftLicenseView}" />
+                                                                          Command="{Binding DataContext.AddDocumentCommand, ElementName=BusinessLicenseView}" />
+                                            <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/save.png"
+                                                                          Command="{Binding Path=Commands.Save, ElementName=ImageEditor}" />
                                             <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CW.png"
                                                                           Command="{Binding Path=Commands.Rotate90Clockwise, ElementName=ImageEditor}" />
                                             <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CCW.png"
                                                                           Command="{Binding Path=Commands.Rotate90Counterclockwise, ElementName=ImageEditor}" />
+                                            <telerik:RadComboBox Margin="0,3"
+                                                                 Width="70"
+                                                                 HorizontalAlignment="Stretch"
+                                                                 VerticalAlignment="Center"
+                                                                 ItemsSource="{Binding DataContext.Percents, Mode=TwoWay, ElementName=BusinessLicenseView}"
+                                                                 SelectedValue="{Binding Percent,Mode=TwoWay}"
+                                                                 SelectedValuePath="Key"
+                                                                 DisplayMemberPath="Value" />
                                         </telerik:RadToolBar>
                                         <telerik:RadImageEditor Grid.Row="1"
                                                                 x:Name="ImageEditor"
-                                                                ScaleFactor="0"
+                                                                ScaleFactor="{Binding Percent,Mode=TwoWay}"
+                                                                Image="{Binding Image,Mode=TwoWay}"
                                                                 HorizontalAlignment="Stretch"
                                                                 VerticalAlignment="Stretch" />
                                     </Grid>

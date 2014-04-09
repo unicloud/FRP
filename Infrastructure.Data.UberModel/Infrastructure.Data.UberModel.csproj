@@ -135,6 +135,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseSupplierEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\BusinessLicenseEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CAACAircraftTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CaacProgrammingEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CaacProgrammingLineEntityConfiguration.cs" />

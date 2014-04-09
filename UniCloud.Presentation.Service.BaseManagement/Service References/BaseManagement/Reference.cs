@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/4/8 10:28:05
+// 生成日期: 2014/4/8 18:08:59
 namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
 {
     
@@ -129,6 +129,40 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<RoleDTO> _Roles;
         /// <summary>
+        /// 架构中不存在 BusinessLicenses 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<BusinessLicenseDTO> BusinessLicenses
+        {
+            get
+            {
+                if ((this._BusinessLicenses == null))
+                {
+                    this._BusinessLicenses = base.CreateQuery<BusinessLicenseDTO>("BusinessLicenses");
+                }
+                return this._BusinessLicenses;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<BusinessLicenseDTO> _BusinessLicenses;
+        /// <summary>
+        /// 架构中不存在 AircraftCabinTypes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<AircraftCabinTypeDTO> AircraftCabinTypes
+        {
+            get
+            {
+                if ((this._AircraftCabinTypes == null))
+                {
+                    this._AircraftCabinTypes = base.CreateQuery<AircraftCabinTypeDTO>("AircraftCabinTypes");
+                }
+                return this._AircraftCabinTypes;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<AircraftCabinTypeDTO> _AircraftCabinTypes;
+        /// <summary>
         /// 架构中不存在 Users 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -159,6 +193,22 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         public void AddToRoles(RoleDTO roleDTO)
         {
             base.AddObject("Roles", roleDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 BusinessLicenses 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToBusinessLicenses(BusinessLicenseDTO businessLicenseDTO)
+        {
+            base.AddObject("BusinessLicenses", businessLicenseDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 AircraftCabinTypes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToAircraftCabinTypes(AircraftCabinTypeDTO aircraftCabinTypeDTO)
+        {
+            base.AddObject("AircraftCabinTypes", aircraftCabinTypeDTO);
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private abstract class GeneratedEdmModel
@@ -213,24 +263,41 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
                 "able=\"false\" /></EntityType><ComplexType Name=\"RoleFunctionDTO\"><Property Name=\"" +
                 "Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"FunctionItemId\" Type=\"Ed" +
                 "m.Int32\" Nullable=\"false\" /><Property Name=\"RoleId\" Type=\"Edm.Int32\" Nullable=\"f" +
-                "alse\" /></ComplexType><Association Name=\"FunctionItemDTO_SubFunctionItems\"><End " +
-                "Type=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"SubFuncti" +
-                "onItems\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.BaseManagementBC.DTO" +
-                ".FunctionItemDTO\" Role=\"FunctionItemDTO\" Multiplicity=\"*\" /></Association></Sche" +
-                "ma><Schema Namespace=\"UniCloud.DistributedServices.BaseManagement\" xmlns=\"http:/" +
-                "/schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"BaseManagementDat" +
-                "a\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Users\" EntityType=\"UniClou" +
-                "d.Application.BaseManagementBC.DTO.UserDTO\" /><EntitySet Name=\"Organizations\" En" +
-                "tityType=\"UniCloud.Application.BaseManagementBC.DTO.OrganizationDTO\" /><EntitySe" +
-                "t Name=\"FunctionItems\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.Fun" +
-                "ctionItemDTO\" /><EntitySet Name=\"Roles\" EntityType=\"UniCloud.Application.BaseMan" +
-                "agementBC.DTO.RoleDTO\" /><FunctionImport Name=\"GetFunctionItemsWithHierarchy\" Re" +
-                "turnType=\"Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)\"" +
-                " EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\" /><AssociationSet Name=\"FunctionIt" +
-                "emDTO_SubFunctionItems\" Association=\"UniCloud.Application.BaseManagementBC.DTO.F" +
-                "unctionItemDTO_SubFunctionItems\"><End Role=\"FunctionItemDTO\" EntitySet=\"Function" +
-                "Items\" /><End Role=\"SubFunctionItems\" EntitySet=\"FunctionItems\" /></AssociationS" +
-                "et></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+                "alse\" /></ComplexType><EntityType Name=\"BusinessLicenseDTO\"><Key><PropertyRef Na" +
+                "me=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Propert" +
+                "y Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"Edm.String\"" +
+                " /><Property Name=\"IssuedUnit\" Type=\"Edm.String\" /><Property Name=\"IssuedDate\" T" +
+                "ype=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"ValidMonths\" Type=\"Edm.Int" +
+                "32\" Nullable=\"false\" /><Property Name=\"ExpireDate\" Type=\"Edm.DateTime\" Nullable=" +
+                "\"false\" /><Property Name=\"State\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
+                "ame=\"FileContent\" Type=\"Edm.Binary\" /><Property Name=\"FileName\" Type=\"Edm.String" +
+                "\" /></EntityType><EntityType Name=\"AircraftCabinTypeDTO\"><Key><PropertyRef Name=" +
+                "\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
+                "ame=\"Name\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /></Entit" +
+                "yType><Association Name=\"FunctionItemDTO_SubFunctionItems\"><End Type=\"UniCloud.A" +
+                "pplication.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"SubFunctionItems\" Multipl" +
+                "icity=\"*\" /><End Type=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" +
+                "\" Role=\"FunctionItemDTO\" Multiplicity=\"*\" /></Association></Schema><Schema Names" +
+                "pace=\"UniCloud.DistributedServices.BaseManagement\" xmlns=\"http://schemas.microso" +
+                "ft.com/ado/2009/11/edm\"><EntityContainer Name=\"BaseManagementData\" m:IsDefaultEn" +
+                "tityContainer=\"true\"><EntitySet Name=\"Users\" EntityType=\"UniCloud.Application.Ba" +
+                "seManagementBC.DTO.UserDTO\" /><EntitySet Name=\"Organizations\" EntityType=\"UniClo" +
+                "ud.Application.BaseManagementBC.DTO.OrganizationDTO\" /><EntitySet Name=\"Function" +
+                "Items\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO\" />" +
+                "<EntitySet Name=\"Roles\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.Ro" +
+                "leDTO\" /><EntitySet Name=\"BusinessLicenses\" EntityType=\"UniCloud.Application.Bas" +
+                "eManagementBC.DTO.BusinessLicenseDTO\" /><EntitySet Name=\"AircraftCabinTypes\" Ent" +
+                "ityType=\"UniCloud.Application.BaseManagementBC.DTO.AircraftCabinTypeDTO\" /><Func" +
+                "tionImport Name=\"GetFunctionItemsWithHierarchy\" ReturnType=\"Collection(UniCloud." +
+                "Application.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySet=\"FunctionItems\" m:H" +
+                "ttpMethod=\"GET\" /><FunctionImport Name=\"GetFunctionItemsByUser\" ReturnType=\"Coll" +
+                "ection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySet=\"Fu" +
+                "nctionItems\" m:HttpMethod=\"GET\"><Parameter Name=\"userId\" Type=\"Edm.String\" /></F" +
+                "unctionImport><AssociationSet Name=\"FunctionItemDTO_SubFunctionItems\" Associatio" +
+                "n=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems\"><" +
+                "End Role=\"FunctionItemDTO\" EntitySet=\"FunctionItems\" /><End Role=\"SubFunctionIte" +
+                "ms\" EntitySet=\"FunctionItems\" /></AssociationSet></EntityContainer></Schema></ed" +
+                "mx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -1562,6 +1629,371 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         private global::System.Collections.ObjectModel.ObservableCollection<RoleFunctionDTO> _RoleFunctions = new global::System.Collections.ObjectModel.ObservableCollection<RoleFunctionDTO>();
         partial void OnRoleFunctionsChanging(global::System.Collections.ObjectModel.ObservableCollection<RoleFunctionDTO> value);
         partial void OnRoleFunctionsChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.BaseManagementBC.DTO.BusinessLicenseDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("BusinessLicenses")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class BusinessLicenseDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 BusinessLicenseDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="issuedDate">IssuedDate 的初始值。</param>
+        /// <param name="validMonths">ValidMonths 的初始值。</param>
+        /// <param name="expireDate">ExpireDate 的初始值。</param>
+        /// <param name="state">State 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static BusinessLicenseDTO CreateBusinessLicenseDTO(int ID, global::System.DateTime issuedDate, int validMonths, global::System.DateTime expireDate, int state)
+        {
+            BusinessLicenseDTO businessLicenseDTO = new BusinessLicenseDTO();
+            businessLicenseDTO.Id = ID;
+            businessLicenseDTO.IssuedDate = issuedDate;
+            businessLicenseDTO.ValidMonths = validMonths;
+            businessLicenseDTO.ExpireDate = expireDate;
+            businessLicenseDTO.State = state;
+            return businessLicenseDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Name 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Description 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                this.OnDescriptionChanging(value);
+                this._Description = value;
+                this.OnDescriptionChanged();
+                this.OnPropertyChanged("Description");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Description;
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
+        /// <summary>
+        /// 架构中不存在属性 IssuedUnit 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string IssuedUnit
+        {
+            get
+            {
+                return this._IssuedUnit;
+            }
+            set
+            {
+                this.OnIssuedUnitChanging(value);
+                this._IssuedUnit = value;
+                this.OnIssuedUnitChanged();
+                this.OnPropertyChanged("IssuedUnit");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _IssuedUnit;
+        partial void OnIssuedUnitChanging(string value);
+        partial void OnIssuedUnitChanged();
+        /// <summary>
+        /// 架构中不存在属性 IssuedDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime IssuedDate
+        {
+            get
+            {
+                return this._IssuedDate;
+            }
+            set
+            {
+                this.OnIssuedDateChanging(value);
+                this._IssuedDate = value;
+                this.OnIssuedDateChanged();
+                this.OnPropertyChanged("IssuedDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _IssuedDate;
+        partial void OnIssuedDateChanging(global::System.DateTime value);
+        partial void OnIssuedDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 ValidMonths 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int ValidMonths
+        {
+            get
+            {
+                return this._ValidMonths;
+            }
+            set
+            {
+                this.OnValidMonthsChanging(value);
+                this._ValidMonths = value;
+                this.OnValidMonthsChanged();
+                this.OnPropertyChanged("ValidMonths");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _ValidMonths;
+        partial void OnValidMonthsChanging(int value);
+        partial void OnValidMonthsChanged();
+        /// <summary>
+        /// 架构中不存在属性 ExpireDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime ExpireDate
+        {
+            get
+            {
+                return this._ExpireDate;
+            }
+            set
+            {
+                this.OnExpireDateChanging(value);
+                this._ExpireDate = value;
+                this.OnExpireDateChanged();
+                this.OnPropertyChanged("ExpireDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _ExpireDate;
+        partial void OnExpireDateChanging(global::System.DateTime value);
+        partial void OnExpireDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 State 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int State
+        {
+            get
+            {
+                return this._State;
+            }
+            set
+            {
+                this.OnStateChanging(value);
+                this._State = value;
+                this.OnStateChanged();
+                this.OnPropertyChanged("State");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _State;
+        partial void OnStateChanging(int value);
+        partial void OnStateChanged();
+        /// <summary>
+        /// 架构中不存在属性 FileContent 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public byte[] FileContent
+        {
+            get
+            {
+                if ((this._FileContent != null))
+                {
+                    return ((byte[])(this._FileContent.Clone()));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                this.OnFileContentChanging(value);
+                this._FileContent = value;
+                this.OnFileContentChanged();
+                this.OnPropertyChanged("FileContent");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private byte[] _FileContent;
+        partial void OnFileContentChanging(byte[] value);
+        partial void OnFileContentChanged();
+        /// <summary>
+        /// 架构中不存在属性 FileName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string FileName
+        {
+            get
+            {
+                return this._FileName;
+            }
+            set
+            {
+                this.OnFileNameChanging(value);
+                this._FileName = value;
+                this.OnFileNameChanged();
+                this.OnPropertyChanged("FileName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _FileName;
+        partial void OnFileNameChanging(string value);
+        partial void OnFileNameChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.BaseManagementBC.DTO.AircraftCabinTypeDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("AircraftCabinTypes")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class AircraftCabinTypeDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 AircraftCabinTypeDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static AircraftCabinTypeDTO CreateAircraftCabinTypeDTO(int ID)
+        {
+            AircraftCabinTypeDTO aircraftCabinTypeDTO = new AircraftCabinTypeDTO();
+            aircraftCabinTypeDTO.Id = ID;
+            return aircraftCabinTypeDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Name 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Note 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Note
+        {
+            get
+            {
+                return this._Note;
+            }
+            set
+            {
+                this.OnNoteChanging(value);
+                this._Note = value;
+                this.OnNoteChanged();
+                this.OnPropertyChanged("Note");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Note;
+        partial void OnNoteChanging(string value);
+        partial void OnNoteChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

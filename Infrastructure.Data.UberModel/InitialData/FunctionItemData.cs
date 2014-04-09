@@ -370,14 +370,14 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
 
             var menu92 = FunctionItemFactory.CreateFunctionItem("管理运营资质", menu9.Id, 902, false, false, string.Empty);
             var menu921 = FunctionItemFactory.CreateFunctionItem("维护证照种类", menu92.Id, 90201, false, false, "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerLicenseType");
-            var menu922 = FunctionItemFactory.CreateFunctionItem("维护经营证照", menu92.Id, 90202, false, false, "UniCloud.Presentation.BaseManagement.ManageOperationQualification.ManageOperationLicense");
+            var menu922 = FunctionItemFactory.CreateFunctionItem("维护经营证照", menu92.Id, 90202, false, false, "UniCloud.Presentation.BaseManagement.ManageOperationQualification.ManageBusinessLicense");
             menu92.SubFunctionItems.Add(menu921);
             menu92.SubFunctionItems.Add(menu922);
             menu9.SubFunctionItems.Add(menu92);
 
             var menu93 = FunctionItemFactory.CreateFunctionItem("维护基础配置", menu9.Id, 903, false, false, string.Empty);
             var menu931 = FunctionItemFactory.CreateFunctionItem("维护分支机构", menu93.Id, 90301, false, false, "UniCloud.Presentation.BaseManagement.ManageSubsidiary.BranchCompany");
-            var menu932 = FunctionItemFactory.CreateFunctionItem("管理系统配置", menu93.Id, 90302, false, false, string.Empty);
+            var menu932 = FunctionItemFactory.CreateFunctionItem("管理系统配置", menu93.Id, 90302, false, false, "UniCloud.Presentation.BaseManagement.MaintainBaseSettings.ManageSystemConfig");
             var menu933 = FunctionItemFactory.CreateFunctionItem("管理提醒策略", menu93.Id, 90303, false, false, string.Empty);
             menu93.SubFunctionItems.Add(menu931);
             menu93.SubFunctionItems.Add(menu932);

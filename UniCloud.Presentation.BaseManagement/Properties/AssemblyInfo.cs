@@ -41,3 +41,4 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.BaseManagement.ManagePermission")]
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.BaseManagement.ManageOperationQualification")]
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.BaseManagement.ManageSubsidiary")]
+[assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.BaseManagement.MaintainBaseSettings")]

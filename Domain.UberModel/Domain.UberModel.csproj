@@ -95,6 +95,8 @@
     <Compile Include="Aggregates\BasicConfigAgg\BasicConfig.cs" />
     <Compile Include="Aggregates\BasicConfigGroupAgg\BasicConfigGroup.cs" />
     <Compile Include="Aggregates\BasicConfigHistoryAgg\BasicConfigHistory.cs" />
+    <Compile Include="Aggregates\BusinessLicenseAgg\BusinessLicense.cs" />
+    <Compile Include="Aggregates\BusinessLicenseAgg\BusinessLicenseFactory.cs" />
     <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftTypeFactory.cs" />
     <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftType.cs" />
     <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftTypeSpecifications.cs" />

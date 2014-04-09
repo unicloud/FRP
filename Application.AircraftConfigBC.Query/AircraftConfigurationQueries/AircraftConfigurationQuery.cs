@@ -65,21 +65,5 @@ namespace UniCloud.Application.AircraftConfigBC.Query.AircraftConfigurationQueri
                                                          }).ToList(),
             });
         }
-
-        /// <summary>
-        ///     飞机舱位类型查询。
-        /// </summary>
-        /// <param name="query">查询表达式。</param>
-        /// <returns>飞机舱位类型DTO集合。</returns>
-        public IQueryable<AircraftCabinTypeDTO> AircraftCabinTypeDTOQuery(
-            QueryBuilder<AircraftCabinType> query)
-        {
-            return query.ApplyTo(_unitOfWork.CreateSet<AircraftCabinType>()).Select(p => new AircraftCabinTypeDTO
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Note = p.Note
-            });
-        }
     }
 }

@@ -15,7 +15,6 @@
 #region 命名空间
 
 using System;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.Common.Enums;
 

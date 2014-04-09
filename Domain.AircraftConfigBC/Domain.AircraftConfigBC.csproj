@@ -48,9 +48,6 @@
     <Compile Include="Aggregates\ActionCategoryAgg\ActionCategorySpecifications.cs" />
     <Compile Include="Aggregates\ActionCategoryAgg\IActionCategoryRepository.cs" />
     <Compile Include="Aggregates\AircraftCabinTypeAgg\AircraftCabinType.cs" />
-    <Compile Include="Aggregates\AircraftCabinTypeAgg\AircraftCabinTypeFactory.cs" />
-    <Compile Include="Aggregates\AircraftCabinTypeAgg\AircraftCabinTypeSpecifications.cs" />
-    <Compile Include="Aggregates\AircraftCabinTypeAgg\IAircraftCabinTypeRepository.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategory.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategorySepcifications.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\IAircraftCategoryRepository.cs" />

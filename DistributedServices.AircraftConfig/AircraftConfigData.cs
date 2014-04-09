@@ -148,14 +148,6 @@ namespace UniCloud.DistributedServices.AircraftConfig
         {
             get { return _aircraftConfigurationAppService.GetAircraftConfigurations(); }
         }
-
-        /// <summary>
-        ///     飞机舱位类型集合
-        /// </summary>
-        public IQueryable<AircraftCabinTypeDTO> AircraftCabinTypes
-        {
-            get { return _aircraftConfigurationAppService.GetAircraftCabinTypes(); }
-        }
         #endregion
     }
 }

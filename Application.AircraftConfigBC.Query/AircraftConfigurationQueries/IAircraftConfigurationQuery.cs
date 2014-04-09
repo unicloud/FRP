@@ -28,13 +28,6 @@ namespace UniCloud.Application.AircraftConfigBC.Query.AircraftConfigurationQueri
         /// <returns>飞机配置DTO集合</returns>
         IQueryable<AircraftConfigurationDTO> AircraftConfigurationDTOQuery(
             QueryBuilder<AircraftConfiguration> query);
-
-        /// <summary>
-        ///     飞机舱位类型查询
-        /// </summary>
-        /// <param name="query">查询表达式</param>
-        /// <returns>飞机舱位类型DTO集合</returns>
-        IQueryable<AircraftCabinTypeDTO> AircraftCabinTypeDTOQuery(
-            QueryBuilder<AircraftCabinType> query);
+       
     }
 }

@@ -22,7 +22,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg
     /// </summary>
     public class AircraftCabinType : EntityInt, IValidatableObject
     {
-          #region 构造函数
+        #region 构造函数
 
         /// <summary>
         ///     内部构造函数

@@ -40,6 +40,7 @@ using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
 using UniCloud.Domain.UberModel.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.UberModel.Aggregates.BasicConfigHistoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.BusinessLicenseAgg;
 using UniCloud.Domain.UberModel.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
@@ -209,7 +210,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<RoleFunction> _roleFunctions;
         private IDbSet<Role> _roles;
         private IDbSet<UserRole> _userRoles;
-
+        private IDbSet<BusinessLicense> _businessLicenses;
+ 
         public IDbSet<AcDailyUtilization> AcDailyUtilizations
         {
             get { return _acDailyUtilizations ?? (_acDailyUtilizations = Set<AcDailyUtilization>()); }
@@ -315,7 +317,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<BasicConfigHistory> BasicConfigHistories
         {
-            get { return _basicConfigHistories ?? (_basicConfigHistories = base.Set<BasicConfigHistory>()); }
+            get { return _basicConfigHistories ?? (_basicConfigHistories = Set<BasicConfigHistory>()); }
         }
 
         public IDbSet<CaacProgramming> CaacProgrammings
@@ -395,12 +397,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<Item> Items
         {
-            get { return _items ?? (_items = base.Set<Item>()); }
+            get { return _items ?? (_items = Set<Item>()); }
         }
 
         public IDbSet<InstallController> InstallControllers
         {
-            get { return _installControllers ?? (_installControllers = base.Set<InstallController>()); }
+            get { return _installControllers ?? (_installControllers = Set<InstallController>()); }
         }
 
         public IDbSet<Linkman> Linkmen
@@ -545,7 +547,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         
         public IDbSet<SnInstallHistory> SnInstallHistories
         {
-            get { return _snInstallHistories ?? (_snInstallHistories = base.Set<SnInstallHistory>()); }
+            get { return _snInstallHistories ?? (_snInstallHistories = Set<SnInstallHistory>()); }
         }
 
         public IDbSet<SpecialConfig> SpecialConfigs
@@ -653,13 +655,15 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             get { return _roleFunctions ?? (_roleFunctions = Set<RoleFunction>()); }
         }
 
-
-
         public IDbSet<UserRole> UserRoles
         {
             get { return _userRoles ?? (_userRoles = Set<UserRole>()); }
         }
 
+        public IDbSet<BusinessLicense> BusinessLicenses
+        {
+            get { return _businessLicenses ?? (_businessLicenses = Set<BusinessLicense>()); }
+        }
         #endregion
 
         #region DbContext 重载
@@ -1264,6 +1268,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
             #endregion
 
+            #region BusinessLicenseAgg
+.Add(new BusinessLicenseEntityConfiguration())
+            #endregion
                 .Add(new AddressConfiguration());
         }
 

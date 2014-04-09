@@ -12,7 +12,7 @@
 // ========================================================================*/
 #endregion
 
-namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg
+namespace UniCloud.Domain.BaseManagementBC.Aggregates.AircraftCabinTypeAgg
 {
     /// <summary>
     ///     飞机舱位类型规约集合
