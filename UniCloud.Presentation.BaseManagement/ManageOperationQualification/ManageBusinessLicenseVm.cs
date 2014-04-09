@@ -159,7 +159,6 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
             set
             {
                 _percent = value;
-                CurrentBusinessLicense.ImageEditor.ScaleFactor = _percent;
                 RaisePropertyChanged("Percent");
             }
         }

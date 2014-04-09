@@ -185,7 +185,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             set
             {
                 _percent = value;
-                CurrentAircraftLicense.ImageEditor.ScaleFactor = _percent;
                 RaisePropertyChanged("Percent");
             }
         }

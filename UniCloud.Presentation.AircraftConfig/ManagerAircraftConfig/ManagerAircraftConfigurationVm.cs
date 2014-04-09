@@ -197,7 +197,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             set
             {
                 _percent = value;
-                CurrentAircraftConfiguration.ImageEditor.ScaleFactor = _percent;
                 RaisePropertyChanged("Percent");
             }
         }

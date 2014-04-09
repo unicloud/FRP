@@ -276,6 +276,7 @@
                                             </telerik:RadToolBar>
                                             <telerik:RadImageEditor Grid.Row="1"
                                                                     x:Name="ImageEditor"
+                                                                    ScaleFactor="{Binding Percent,Mode=TwoWay}"
                                                                     HorizontalAlignment="Stretch"
                                                                     VerticalAlignment="Stretch">
                                             </telerik:RadImageEditor>
