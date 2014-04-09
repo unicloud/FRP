@@ -74,6 +74,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             AircraftTypes = _service.CreateCollection(_context.AircraftTypes);
             AircraftSerieses = _service.CreateCollection(_context.AircraftSeries);
             AircraftConfigurations = _service.CreateCollection(_context.AircraftConfigurations, o => o.AircraftCabins);
+            AircraftConfigurations.PageSize = 6;
             _service.RegisterCollectionView(AircraftConfigurations);
             var baseManagementService = ServiceLocator.Current.GetInstance<IBaseManagementService>();
             AircraftCabinTypes = _service.CreateCollection(baseManagementService.Context.AircraftCabinTypes);

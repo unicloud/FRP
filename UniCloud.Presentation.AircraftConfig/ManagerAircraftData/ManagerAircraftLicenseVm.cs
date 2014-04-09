@@ -67,6 +67,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             AddDocumentCommand = new DelegateCommand<object>(AddDocument, CanAddDocument);
             //创建并注册CollectionView
             Aircrafts = _service.CreateCollection(_context.Aircrafts, o => o.AircraftLicenses);
+            Aircrafts.PageSize = 7;
             _service.RegisterCollectionView(Aircrafts);
             LicenseTypes = new QueryableDataServiceCollectionView<LicenseTypeDTO>(_context, _context.LicenseTypes);
         }

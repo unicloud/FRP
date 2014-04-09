@@ -58,6 +58,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         {
             //创建并注册CollectionView
             AircraftSerieses = _service.CreateCollection(_context.AircraftSeries);
+            AircraftSerieses.PageSize = 20;
             _service.RegisterCollectionView(AircraftSerieses);
             AircraftSerieses.PropertyChanged += (sender, e) =>
             {
