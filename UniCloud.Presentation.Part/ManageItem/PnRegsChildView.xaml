@@ -12,7 +12,7 @@
                    WindowStartupLocation="CenterScreen"
                    Height="300"
                    Width="600"
-                   d:DataContext="{d:DesignInstance uc:ItemVm}">
+                   d:DataContext="{d:DesignInstance uc:ItemControlVm}">
     <telerik:RadWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -31,7 +31,7 @@
         <Grid>
             <telerik:RadGridView Grid.Row="0"
                                  Name="ChildViewPnRegs"
-                                 ItemsSource="{Binding PnRegs}"
+                                 ItemsSource="{Binding ViewPnRegs}"
                                  IsBusy="{Binding PnRegs.IsBusy}"
                                  AutoGenerateColumns="False"
                                  ShowGroupPanel="True"

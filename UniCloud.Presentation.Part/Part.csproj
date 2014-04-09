@@ -208,6 +208,10 @@
       <DependentUpon>MaintainAirStructureDamage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageAirStructureDamage\MaintainAirStructureDamageVm.cs" />
+    <Compile Include="ManageItem\ItemControlView.xaml.cs">
+      <DependentUpon>ItemControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageItem\ItemControlVm.cs" />
     <Compile Include="ManageItem\ItemView.xaml.cs">
       <DependentUpon>ItemView.xaml</DependentUpon>
     </Compile>
@@ -235,6 +239,14 @@
     </Compile>
     <Compile Include="OilMonitor\EngineOilVM.cs" />
     <Compile Include="PartModule.cs" />
+    <Compile Include="PnRegAndSnReg\PnRegView.xaml.cs">
+      <DependentUpon>PnRegView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PnRegAndSnReg\PnRegVm.cs" />
+    <Compile Include="PnRegAndSnReg\SnRegView.xaml.cs">
+      <DependentUpon>SnRegView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PnRegAndSnReg\SnRegVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\MonthlyUtilizationReport.xaml.cs">
       <DependentUpon>MonthlyUtilizationReport.xaml</DependentUpon>
@@ -286,6 +298,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ManageItem\ItemControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManageItem\ItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -311,6 +327,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OilMonitor\EngineOil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PnRegAndSnReg\PnRegView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PnRegAndSnReg\SnRegView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
