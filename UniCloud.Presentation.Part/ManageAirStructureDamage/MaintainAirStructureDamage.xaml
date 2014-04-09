@@ -469,159 +469,160 @@
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid>
-        <telerik:RadDocking BorderThickness="0"
-                            Padding="0"
-                            HasDocumentHost="False">
-            <telerik:RadSplitContainer>
-                <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
-                    <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="查询结构损伤记录"
-                                         FontSize="{StaticResource HeaderFontSize}"
-                                         IsPinned="True"
-                                         CanFloat="False"
-                                         CanUserClose="False"
-                                         CanUserPin="False"
-                                         ContextMenuTemplate="{x:Null}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="30" />
-                                </Grid.RowDefinitions>
-                                <Grid Row="0">
-                                    <telerik:RadGridView Name="AirStructureDamageList"
-                                                         AutoExpandGroups="True"
-                                                         AutoGenerateColumns="False"
-                                                         CanUserSortColumns="True"
-                                                         CanUserFreezeColumns="False"
-                                                         IsFilteringAllowed="True"
-                                                         IsReadOnly="True"
+    <telerik:RadBusyIndicator BusyContent="{Binding BusyContent,Mode=TwoWay}"
+                              IsBusy="{Binding AirStructureDamages.IsBusy,Mode=TwoWay}">
+        <Grid>
+            <telerik:RadDocking BorderThickness="0"
+                                Padding="0"
+                                HasDocumentHost="False">
+                <telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
+                        <telerik:RadPaneGroup>
+                            <telerik:RadPane Header="查询结构损伤记录"
+                                             FontSize="{StaticResource HeaderFontSize}"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Row="0">
+                                        <telerik:RadGridView Name="AirStructureDamageList"
+                                                             AutoExpandGroups="True"
+                                                             AutoGenerateColumns="False"
+                                                             CanUserSortColumns="True"
+                                                             CanUserFreezeColumns="False"
+                                                             IsFilteringAllowed="True"
+                                                             IsReadOnly="True"
+                                                             ItemsSource="{Binding AirStructureDamages}"
+                                                             SelectedItem="{Binding AirStructureDamage,Mode=TwoWay}"
+                                                             CanUserSelect="{Binding CanSelectAirStructureDamage}"
+                                                             FontSize="{StaticResource TextFontSize}"
+                                                             ValidatesOnDataErrors="InEditMode"
+                                                             RowIndicatorVisibility="Visible">
+                                            <telerik:RadGridView.Columns>
+                                                <input:DataPageSerialColumn  Header="序号" />
+                                                <telerik:GridViewDataColumn Header="机号"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding AircraftReg}" />
+                                                <telerik:GridViewDataColumn Header="系列"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding AircraftSeries}" />
+                                                <telerik:GridViewDataColumn Header="机型"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding AircraftType}"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                                <telerik:GridViewDataColumn Header="报告号"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding ReportNo}"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                                <telerik:GridViewDataColumn Header="报告种类"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding ReportType, ConverterParameter=AirStructureReportType, Converter={StaticResource EnumToStringConverter}}"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                                <telerik:GridViewDataColumn Header="来源"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding Source}" />
+                                                <telerik:GridViewDataColumn Header="腐蚀级别"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding Level, ConverterParameter=AircraftDamageLevel, Converter={StaticResource EnumToStringConverter}}" />
+                                                <telerik:GridViewDataColumn Header="是否保留"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding IsDefer}" />
+                                                <telerik:GridViewDataColumn Header="状态"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding Status, ConverterParameter=AirStructureDamageStatus, Converter={StaticResource EnumToStringConverter}}" />
+                                                <telerik:GridViewDataColumn Header="修理期限"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding RepairDeadline}" />
+                                                <telerik:GridViewDataColumn  Header="报告日期"
+                                                                             DataMemberBinding="{Binding ReportDate, StringFormat={StaticResource DateStringFormat}}"
+                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                             HeaderTextAlignment="Center" />
+                                                <telerik:GridViewDataColumn  Header="关闭日期"
+                                                                             DataMemberBinding="{Binding CloseDate, StringFormat={StaticResource DateStringFormat}}"
+                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                             HeaderTextAlignment="Center" />
+                                                <telerik:GridViewMaskedInputColumn Header="费用"
+                                                                                   IsReadOnly="True"
+                                                                                   MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                   TextAlignment="Right"
+                                                                                   HeaderTextAlignment="Center"
+                                                                                   DataMemberBinding="{Binding TotalCost,StringFormat={StaticResource CurrencyStringFormat}}"
+                                                                                   MaskType="Numeric"
+                                                                                   Mask="###,###,###.##"
+                                                                                   FooterTextAlignment="Right" />
+                                                <telerik:GridViewDataColumn  Header="伤损描述"
+                                                                             DataMemberBinding="{Binding Description}"
+                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                             HeaderTextAlignment="Center" />
+                                                <telerik:GridViewDataColumn  Header="技术评估"
+                                                                             DataMemberBinding="{Binding TecAssess}"
+                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                             HeaderTextAlignment="Center" />
+                                                <telerik:GridViewDataColumn  Header="处理结果"
+                                                                             DataMemberBinding="{Binding TreatResult}"
+                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                             HeaderTextAlignment="Center" />
+                                                <telerik:GridViewDataColumn  Header="文档名称"
+                                                                             DataMemberBinding="{Binding DocumentName}"
+                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                             HeaderTextAlignment="Center" />
+                                            </telerik:RadGridView.Columns>
+                                        </telerik:RadGridView>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <telerik:RadDataPager Name="RadPage"
+                                                              BorderThickness="1,0,1,1"
+                                                              AutoEllipsisMode="Both"
+                                                              DisplayMode="All"
+                                                              Source="{Binding AirStructureDamages}" />
+                                    </Grid>
+                                </Grid>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
+                        <telerik:RadPaneGroup>
+                            <telerik:RadPane Header="编辑结构损伤记录"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanDockInDocumentHost="False"
+                                             CanUserClose="False"
+                                             CanUserPin="True"
+                                             ContextMenuTemplate="{x:Null}">
+                                <Grid>
+                                    <telerik:RadDataForm x:Name="AirStructureDamageForm"
+                                                         CancelButtonContent="取消"
+                                                         CommitButtonContent="确定"
                                                          ItemsSource="{Binding AirStructureDamages}"
-                                                         IsBusy="{Binding AirStructureDamages.IsBusy}"
-                                                         SelectedItem="{Binding AirStructureDamage,Mode=TwoWay}"
-                                                         CanUserSelect="{Binding CanSelectAirStructureDamage}"
-                                                         FontSize="{StaticResource TextFontSize}"
-                                                         ValidatesOnDataErrors="InEditMode"
-                                                         RowIndicatorVisibility="Visible">
-                                        <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn  Header="序号" />
-                                            <telerik:GridViewDataColumn Header="机号"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding AircraftReg}" />
-                                            <telerik:GridViewDataColumn Header="系列"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding AircraftSeries}" />
-                                            <telerik:GridViewDataColumn Header="机型"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding AircraftType}"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}" />
-                                            <telerik:GridViewDataColumn Header="报告号"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding ReportNo}"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}" />
-                                            <telerik:GridViewDataColumn Header="报告种类"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding ReportType, ConverterParameter=AirStructureReportType, Converter={StaticResource EnumToStringConverter}}"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}" />
-                                            <telerik:GridViewDataColumn Header="来源"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Source}" />
-                                            <telerik:GridViewDataColumn Header="腐蚀级别"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Level, ConverterParameter=AircraftDamageLevel, Converter={StaticResource EnumToStringConverter}}" />
-                                            <telerik:GridViewDataColumn Header="是否保留"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding IsDefer}" />
-                                            <telerik:GridViewDataColumn Header="状态"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Status, ConverterParameter=AirStructureDamageStatus, Converter={StaticResource EnumToStringConverter}}" />
-                                            <telerik:GridViewDataColumn Header="修理期限"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding RepairDeadline}" />
-                                            <telerik:GridViewDataColumn  Header="报告日期"
-                                                                         DataMemberBinding="{Binding ReportDate, StringFormat={StaticResource DateStringFormat}}"
-                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                         HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn  Header="关闭日期"
-                                                                         DataMemberBinding="{Binding CloseDate, StringFormat={StaticResource DateStringFormat}}"
-                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                         HeaderTextAlignment="Center" />
-                                            <telerik:GridViewMaskedInputColumn Header="费用"
-                                                                               IsReadOnly="True"
-                                                                               MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                               TextAlignment="Right"
-                                                                               HeaderTextAlignment="Center"
-                                                                               DataMemberBinding="{Binding TotalCost,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                               MaskType="Numeric"
-                                                                               Mask="###,###,###.##"
-                                                                               FooterTextAlignment="Right" />
-                                            <telerik:GridViewDataColumn  Header="伤损描述"
-                                                                         DataMemberBinding="{Binding Description}"
-                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                         HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn  Header="技术评估"
-                                                                         DataMemberBinding="{Binding TecAssess}"
-                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                         HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn  Header="处理结果"
-                                                                         DataMemberBinding="{Binding TreatResult}"
-                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                         HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn  Header="文档名称"
-                                                                         DataMemberBinding="{Binding DocumentName}"
-                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                         HeaderTextAlignment="Center" />
-                                        </telerik:RadGridView.Columns>
-                                    </telerik:RadGridView>
+                                                         AutoGenerateFields="False"
+                                                         AutoCommit="True"
+                                                         ReadOnlyTemplate="{StaticResource ReadTemplate}"
+                                                         EditTemplate="{StaticResource EditNewTemplate}"
+                                                         NewItemTemplate="{StaticResource EditNewTemplate}">
+                                        <telerik:RadDataForm.CommandProvider>
+                                            <uc:MasterCommandProvider  DataForm="{Binding ElementName=AirStructureDamageForm}"
+                                                                       QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=AirStructureDamageForm}" />
+                                        </telerik:RadDataForm.CommandProvider>
+                                    </telerik:RadDataForm>
                                 </Grid>
-                                <Grid Grid.Row="1">
-                                    <telerik:RadDataPager Name="RadPage"
-                                                          BorderThickness="1,0,1,1"
-                                                          AutoEllipsisMode="Both"
-                                                          DisplayMode="All"
-                                                          Source="{Binding AirStructureDamages}" />
-                                </Grid>
-                            </Grid>
-                        </telerik:RadPane>
-                    </telerik:RadPaneGroup>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
                 </telerik:RadSplitContainer>
-                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
-                    <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="编辑结构损伤记录"
-                                         IsPinned="True"
-                                         CanFloat="False"
-                                         CanDockInDocumentHost="False"
-                                         CanUserClose="False"
-                                         CanUserPin="True"
-                                         ContextMenuTemplate="{x:Null}">
-                            <Grid>
-                                <telerik:RadDataForm x:Name="AirStructureDamageForm"
-                                                     CancelButtonContent="取消"
-                                                     CommitButtonContent="确定"
-                                                     ItemsSource="{Binding AirStructureDamages}"
-                                                     AutoGenerateFields="False"
-                                                     AutoCommit="True"
-                                                     ReadOnlyTemplate="{StaticResource ReadTemplate}"
-                                                     EditTemplate="{StaticResource EditNewTemplate}"
-                                                     NewItemTemplate="{StaticResource EditNewTemplate}">
-                                    <telerik:RadDataForm.CommandProvider>
-                                        <uc:MasterCommandProvider  DataForm="{Binding ElementName=AirStructureDamageForm}"
-                                                                   QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=AirStructureDamageForm}" />
-                                    </telerik:RadDataForm.CommandProvider>
-                                </telerik:RadDataForm>
-                            </Grid>
-                        </telerik:RadPane>
-                    </telerik:RadPaneGroup>
-                </telerik:RadSplitContainer>
-            </telerik:RadSplitContainer>
-        </telerik:RadDocking>
-    </Grid>
+            </telerik:RadDocking>
+        </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>
