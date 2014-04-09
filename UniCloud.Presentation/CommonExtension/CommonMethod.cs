@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -163,8 +162,12 @@ namespace UniCloud.Presentation.CommonExtension
                                     new System.Windows.Data.Binding("ImportCategoryName")
                             };
 
-            var gvColumn8 = new GridViewDataColumn { Header = "出厂日期", HeaderTextAlignment = TextAlignment.Center,
-                                MinWidth = 80, };
+            var gvColumn8 = new GridViewDataColumn
+            {
+                Header = "出厂日期",
+                HeaderTextAlignment = TextAlignment.Center,
+                MinWidth = 80,
+            };
             var bingding8 = new System.Windows.Data.Binding("FactoryDate") { StringFormat = "yyyy/M/d" };
             gvColumn8.DataMemberBinding = bingding8;
 
@@ -193,8 +196,11 @@ namespace UniCloud.Presentation.CommonExtension
             //gvColumn10.DataMemberBinding = bingding10;
 
             var gvColumn11 = new DataPageSerialColumn();
-            var dictionary = new ResourceDictionary();
-            dictionary.Source = new Uri("/UniCloud.Presentation;component/Resources/UcStyles.xaml", UriKind.Relative);
+            var dictionary = new ResourceDictionary
+                             {
+                                 Source = new Uri("/UniCloud.Presentation;component/Resources/UcStyles.xaml",
+                                     UriKind.Relative)
+                             };
             gvColumn11.Header = "序号";
             gvColumn11.CellStyle = (Style)dictionary["style"];
 
@@ -297,7 +303,7 @@ namespace UniCloud.Presentation.CommonExtension
 
             if (dialog.ShowDialog() == true)
             {
-                using (Stream stream = dialog.OpenFile())
+                using (var stream = dialog.OpenFile())
                 {
                     Telerik.Windows.Media.Imaging.ExportExtensions.ExportToImage(
                          element, stream, new Telerik.Windows.Media.Imaging.PngBitmapEncoder());

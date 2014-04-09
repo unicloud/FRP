@@ -14,6 +14,7 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
@@ -28,7 +29,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
 {
     [Export(typeof(ManagerLicenseTypeVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class ManagerLicenseTypeVm: EditViewModelBase
+    public class ManagerLicenseTypeVm : EditViewModelBase
     {
         #region 声明、初始化
 
@@ -55,19 +56,19 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         private void InitializeVm()
         {
             //创建并注册CollectionView
-           LicenseTypes = _service.CreateCollection(_context.LicenseTypes);
+            LicenseTypes = _service.CreateCollection(_context.LicenseTypes);
             _service.RegisterCollectionView(LicenseTypes);
             LicenseTypes.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
                     var newItem = LicenseTypes.CurrentAddItem as LicenseTypeDTO;
                     if (newItem != null)
                     {
-                        newItem.LicenseTypeId =RandomHelper.Next();
+                        newItem.LicenseTypeId = RandomHelper.Next();
                     }
                 }
-                else if (e.PropertyName == "HasChanges")
+                else if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     CanSelectLicenseType = !LicenseTypes.HasChanges;
                 }
@@ -100,11 +101,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         }
 
         #region 证照类型
-
-        private LicenseTypeDTO _licenseType;
-
-        private bool _canSelectLicenseType = true;
-
         /// <summary>
         ///     证照类型集合
         /// </summary>
@@ -113,6 +109,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         /// <summary>
         ///     选中的证照类型
         /// </summary>
+        private LicenseTypeDTO _licenseType;
         public LicenseTypeDTO LicenseType
         {
             get { return _licenseType; }
@@ -127,6 +124,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         }
 
         //用户能否选择
+        private bool _canSelectLicenseType = true;
         public bool CanSelectLicenseType
         {
             get { return _canSelectLicenseType; }
@@ -141,15 +139,10 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         }
 
         #endregion
-
-
-
         #endregion
-
         #endregion
 
         #region 操作
-
 
         #region 重载操作
 

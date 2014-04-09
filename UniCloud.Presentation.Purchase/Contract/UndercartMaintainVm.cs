@@ -65,15 +65,12 @@ namespace UniCloud.Presentation.Purchase.Contract
             _service.RegisterCollectionView(UndercartMaintainContracts);
             UndercartMaintainContracts.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
-                    var newItem =
-                        UndercartMaintainContracts.CurrentAddItem as
-                            UndercartMaintainContractDTO;
+                    var newItem = UndercartMaintainContracts.CurrentAddItem as UndercartMaintainContractDTO;
                     if (newItem != null)
                     {
-                        newItem.UndercartMaintainContractId =
-                            RandomHelper.Next();
+                        newItem.UndercartMaintainContractId = RandomHelper.Next();
                         newItem.SignDate = DateTime.Now;
                         newItem.CreateDate = DateTime.Now;
                         var firstOrDefault = Suppliers.FirstOrDefault();
@@ -87,10 +84,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                         _document.Name = string.Empty;
                     }
                 }
-                else if (e.PropertyName == "HasChanges")
+                else if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
-                    CanSelectUndercartMaintain =
-                        !UndercartMaintainContracts.HasChanges;
+                    CanSelectUndercartMaintain = !UndercartMaintainContracts.HasChanges;
                 }
             };
 

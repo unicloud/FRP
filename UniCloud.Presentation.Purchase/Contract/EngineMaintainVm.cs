@@ -65,15 +65,12 @@ namespace UniCloud.Presentation.Purchase.Contract
             _service.RegisterCollectionView(EngineMaintainContracts);
             EngineMaintainContracts.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
-                    var newItem =
-                        EngineMaintainContracts.CurrentAddItem as
-                            EngineMaintainContractDTO;
+                    var newItem = EngineMaintainContracts.CurrentAddItem as EngineMaintainContractDTO;
                     if (newItem != null)
                     {
-                        newItem.EngineMaintainContractId =
-                            RandomHelper.Next();
+                        newItem.EngineMaintainContractId = RandomHelper.Next();
                         newItem.SignDate = DateTime.Now;
                         newItem.CreateDate = DateTime.Now;
                         var firstOrDefault = Suppliers.FirstOrDefault();
@@ -87,10 +84,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                         _document.Name = string.Empty;
                     }
                 }
-                else if (e.PropertyName == "HasChanges")
+                else if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
-                    CanSelectEngineMaintain =
-                        !EngineMaintainContracts.HasChanges;
+                    CanSelectEngineMaintain = !EngineMaintainContracts.HasChanges;
                 }
             };
 

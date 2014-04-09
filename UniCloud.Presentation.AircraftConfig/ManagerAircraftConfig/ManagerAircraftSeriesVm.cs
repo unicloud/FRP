@@ -62,7 +62,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             _service.RegisterCollectionView(AircraftSerieses);
             AircraftSerieses.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
                     var newItem = AircraftSerieses.CurrentAddItem as AircraftSeriesDTO;
                     if (newItem != null)
@@ -73,7 +73,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                             newItem.ManufacturerId = firstOrDefault.Id;
                     }
                 }
-                else if (e.PropertyName == "HasChanges")
+                else if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     CanSelectAircraftSeries = !AircraftSerieses.HasChanges;
                 }
@@ -110,16 +110,12 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         }
 
         #region 系列
-
-        private AircraftSeriesDTO _aircraftSeries;
-
-        private bool _canSelectAircraftSeries = true;
-
         /// <summary>
         ///     系列集合
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftSeriesDTO> AircraftSerieses { get; set; }
 
+        private AircraftSeriesDTO _aircraftSeries;
         /// <summary>
         ///     选中的系列
         /// </summary>
@@ -137,6 +133,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         }
 
         //用户能否选择
+        private bool _canSelectAircraftSeries = true;
         public bool CanSelectAircraftSeries
         {
             get { return _canSelectAircraftSeries; }
@@ -151,15 +148,10 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         }
 
         #endregion
-
-
-
         #endregion
-
         #endregion
 
         #region 操作
-
 
         #region 重载操作
 

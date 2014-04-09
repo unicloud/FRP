@@ -33,6 +33,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class SearchDocumentMainVm : ViewModelBase
     {
+        #region 声明、初始化
         private readonly IRegionManager _regionManager;
         [ImportingConstructor]
         public SearchDocumentMainVm(ICommonService service, IRegionManager regionManager)
@@ -41,13 +42,18 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             _regionManager = regionManager;
             DocumentTypes = new QueryableDataServiceCollectionView<DocumentTypeDTO>(service.Context, service.Context.DocumentTypes);
         }
+        #endregion
 
+        #region 属性
         /// <summary>
         /// 文档类型
         /// </summary>
         public QueryableDataServiceCollectionView<DocumentTypeDTO> DocumentTypes { get; set; }
-        #region 关键字
+
         private string _keyword;
+        /// <summary>
+        /// 关键字
+        /// </summary>
         public string Keyword
         {
             get { return _keyword; }
@@ -57,6 +63,9 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RaisePropertyChanged("Keyword");
             }
         }
+        #endregion
+
+        #region 操作
         public void RadWatermarkTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -64,7 +73,6 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RadButtonClick(sender, e);
             }
         }
-        #endregion
         public void RadButtonClick(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(Keyword))
@@ -88,5 +96,6 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
         {
             DocumentTypes.Load();
         }
+        #endregion
     }
 }

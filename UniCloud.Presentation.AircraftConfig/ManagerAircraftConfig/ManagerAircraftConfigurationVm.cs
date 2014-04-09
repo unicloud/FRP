@@ -89,7 +89,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         ///    飞机舱位
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftCabinTypeDTO> AircraftCabinTypes { get; set; }
-
         #endregion
 
         #region 加载数据
@@ -224,7 +223,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         ///     创建新飞机配置
         /// </summary>
         public DelegateCommand<object> AddAircraftConfigCommand { get; set; }
-
         protected void OnAddAircraftConfig(object obj)
         {
             AircraftConfiguration = new AircraftConfigurationDTO
@@ -239,7 +237,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             }
             AircraftConfigurations.AddNew(AircraftConfiguration);
         }
-
         protected bool CanAddAircraftConfig(object obj)
         {
             return true;
@@ -252,7 +249,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         ///     删除飞机配置
         /// </summary>
         public DelegateCommand<object> RemoveAircraftConfigCommand { get; set; }
-
         protected void OnRemoveAircraftConfig(object obj)
         {
             if (AircraftConfiguration == null)
@@ -266,7 +262,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 AircraftConfigurations.Remove(AircraftConfiguration);
             });
         }
-
         protected bool CanRemoveAircraftConfig(object obj)
         {
             return true;
@@ -279,7 +274,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         ///     增加舱位
         /// </summary>
         public DelegateCommand<object> AddCabinCommand { get; set; }
-
         protected void OnAddCabin(object obj)
         {
             if (AircraftConfiguration == null)
@@ -297,7 +291,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 AircraftCabin.AircraftCabinTypeId = aircraftCabinTypeDto.Id;
             AircraftConfiguration.AircraftCabins.Add(AircraftCabin);
         }
-
         protected bool CanAddCabin(object obj)
         {
             return true;
@@ -310,7 +303,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         ///     移除舱位
         /// </summary>
         public DelegateCommand<object> RemoveCabinCommand { get; set; }
-
         protected void OnRemoveCabin(object obj)
         {
             if (AircraftCabin == null)
@@ -324,7 +316,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 AircraftConfiguration.AircraftCabins.Remove(AircraftCabin);
             });
         }
-
         protected bool CanRemoveCabin(object obj)
         {
             return true;
@@ -334,7 +325,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 
         #region 打开文档
         public DelegateCommand<object> AddDocumentCommand { get; set; }
-
         private void AddDocument(object sender)
         {
             try
@@ -361,7 +351,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 MessageAlert(e.Message);
             }
         }
-
         private bool CanAddDocument(object obj)
         {
             return AircraftConfiguration != null;

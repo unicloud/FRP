@@ -14,6 +14,7 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
@@ -58,7 +59,7 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
             _service.RegisterCollectionView(AircraftCabinTypes);
             AircraftCabinTypes.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "HasChanges")
+                if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     CanSelectAircraftCabinType = !AircraftCabinTypes.HasChanges;
                 }

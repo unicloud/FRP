@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
@@ -36,7 +37,7 @@ namespace UniCloud.Presentation.Input
             var textBlock = cell.Content as TextBlock ?? new TextBlock();
 
             textBlock.Text = string.Format("{0}",
-                DataControl.Items.IndexOf(dataItem) + 1 + DataPage.pageSize*DataPage.pageIndex);
+                DataControl.Items.IndexOf(dataItem) + 1 + DataPage.PageSize * DataPage.PageIndex);
             textBlock.Foreground = new SolidColorBrush(Colors.Black);
             textBlock.TextAlignment = TextAlignment.Center;
             return textBlock;
@@ -46,7 +47,7 @@ namespace UniCloud.Presentation.Input
         {
             base.OnPropertyChanged(args);
 
-            if (args.PropertyName == "DataControl")
+            if (args.PropertyName.Equals("DataControl", StringComparison.OrdinalIgnoreCase))
             {
                 if (DataControl != null && DataControl.Items != null)
                 {
@@ -64,7 +65,7 @@ namespace UniCloud.Presentation.Input
 
     public static class DataPage
     {
-        public static int pageIndex = 0;
-        public static int pageSize = 0;
+        public static int PageIndex = 0;
+        public static int PageSize = 0;
     }
 }

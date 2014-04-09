@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace UniCloud.Presentation.CommonExtension
 {
@@ -10,10 +11,16 @@ namespace UniCloud.Presentation.CommonExtension
         /// <returns></returns>
         public static int Next()
         {
-            //var ra = new Random((int)DateTime.Now.Ticks);
-            //return ra.Next();
-
-            return int.Parse(DateTime.Now.ToString("ddHHmmss"));
+            var ra = new Random(Guid.NewGuid().GetHashCode());
+            int randomValue = ra.Next();
+            while (Randoms.Contains(randomValue))
+            {
+                randomValue = ra.Next();
+            }
+            Randoms.Add(randomValue);
+            return randomValue;
         }
+
+        private static readonly List<int> Randoms = new List<int>();
     }
 }
