@@ -828,16 +828,38 @@ namespace UniCloud.Presentation.Shell
 
             var menu72 = new MenuItem
             {
-                Text = "维护件序号",
-                NavUri = "UniCloud.Presentation.Part.PnRegAndSnReg.ManagePnAndSnView",
+                Text = "管理附件项",
             };
-            menu7.Items.Add(menu72);
-
-            var menu73 = new MenuItem
+            var menu721 = new MenuItem
             {
                 Text = "维护附件项",
                 NavUri = "UniCloud.Presentation.Part.ManageItem.ItemView",
             };
+            var menu722 = new MenuItem
+            {
+                Text = "维护装机控制信息",
+                NavUri = "UniCloud.Presentation.Part.ManageItem.ItemControlView",
+            };
+            menu72.Items.Add(menu721);
+            menu72.Items.Add(menu722);
+            menu7.Items.Add(menu72);
+
+            var menu73 = new MenuItem
+            {
+                Text = "管理件序号",
+            };
+            var menu731 = new MenuItem
+            {
+                Text = "维护件号",
+                NavUri = "UniCloud.Presentation.Part.PnRegAndSnReg.PnRegView",
+            };
+            var menu732 = new MenuItem
+            {
+                Text = "维护序号",
+                NavUri = "UniCloud.Presentation.Part.PnRegAndSnReg.SnRegView",
+            };
+            menu73.Items.Add(menu731);
+            menu73.Items.Add(menu732);
             menu7.Items.Add(menu73);
 
             var menu74 = new MenuItem
@@ -846,17 +868,17 @@ namespace UniCloud.Presentation.Shell
             };
             var menu741 = new MenuItem
             {
-                Text = "管理基本构型组",
+                Text = "维护基本构型",
                 NavUri = "UniCloud.Presentation.Part.EngineConfig.BasicConfigGroupView",
             };
             var menu742 = new MenuItem
             {
-                Text = "管理特定选型",
+                Text = "维护发动机选型",
                 NavUri = "UniCloud.Presentation.Part.EngineConfig.SpecialConfigView",
             };
             var menu743 = new MenuItem
             {
-                Text = "比较构型差异",
+                Text = "比较发动机构型差异",
                 NavUri = "UniCloud.Presentation.Part.EngineConfig.ConfigCompareView",
             };
             menu74.Items.Add(menu741);

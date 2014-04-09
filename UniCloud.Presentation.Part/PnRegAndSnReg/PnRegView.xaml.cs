@@ -1,21 +1,21 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Controls;
 
-namespace UniCloud.Presentation.Part.ManageItem
+namespace UniCloud.Presentation.Part.PnRegAndSnReg
 {
-    [Export(typeof (ItemView))]
+    [Export(typeof (PnRegView))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class ItemView : UserControl
+    public partial class PnRegView : UserControl
     {
-        public ItemView()
+        public PnRegView()
         {
             InitializeComponent();
         }
 
         [Import]
-        public ItemVm ViewModel
+        public PnRegVm ViewModel
         {
-            get { return DataContext as ItemVm; }
+            get { return DataContext as PnRegVm; }
             set { DataContext = value; }
         }
     }

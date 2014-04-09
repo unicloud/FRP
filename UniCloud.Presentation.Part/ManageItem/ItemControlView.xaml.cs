@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.Composition;
+using System.Windows.Controls;
 
 namespace UniCloud.Presentation.Part.ManageItem
 {
-    [Export(typeof(PnRegsChildView))]
+    [Export(typeof (ItemControlView))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class PnRegsChildView
+    public partial class ItemControlView : UserControl
     {
-        public PnRegsChildView()
+        public ItemControlView()
         {
             InitializeComponent();
         }

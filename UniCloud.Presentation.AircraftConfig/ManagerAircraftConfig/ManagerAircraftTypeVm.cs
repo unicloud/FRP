@@ -68,7 +68,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                     {
                         newItem.AircraftTypeId = Guid.NewGuid();
                         var caacAircraftType = CaacAircraftTypes.FirstOrDefault();
-                        if (caacAircraftType != null)
+                        if (caacAircraftType != null) 
                             newItem.CaacAircraftTypeId = caacAircraftType.CAACAircraftTypeId;
                     }
                 }

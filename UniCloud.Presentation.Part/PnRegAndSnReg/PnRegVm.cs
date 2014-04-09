@@ -1,25 +1,25 @@
 ﻿#region 版本信息
-
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2014/4/3 14:52:41
-// 文件名：ItemVm
+// 作者：HuangQiBin 时间：2014/4/8 14:52:17
+// 文件名：PnRegVm
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
-
 #endregion
 
 #region 命名空间
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using Microsoft.Practices.Prism;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -32,21 +32,20 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 #endregion
 
-namespace UniCloud.Presentation.Part.ManageItem
+namespace UniCloud.Presentation.Part.PnRegAndSnReg
 {
-    [Export(typeof(ItemVm))]
+    [Export(typeof(PnRegVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class ItemVm : EditViewModelBase
+    public class PnRegVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
-        private FilterDescriptor _pnRegFilter;
 
         [ImportingConstructor]
-        public ItemVm(IRegionManager regionManager, IPartService service)
+        public PnRegVm(IRegionManager regionManager, IPartService service)
             : base(service)
         {
             _regionManager = regionManager;
@@ -64,19 +63,25 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         private void InitializeVM()
         {
-            Items = _service.CreateCollection(_context.Items);
-            _service.RegisterCollectionView(Items);
+            PnRegs = _service.CreateCollection(_context.PnRegs);
+            _service.RegisterCollectionView(PnRegs);
 
-            ItemMaintainCtrls = _service.CreateCollection(_context.ItemMaintainCtrls, o => o.MaintainCtrlLines);
-            _service.RegisterCollectionView(ItemMaintainCtrls);
+            PnMaintainCtrls = _service.CreateCollection(_context.PnMaintainCtrls);
+            _service.RegisterCollectionView(PnMaintainCtrls);
 
+            ItemMaintainCtrls = new QueryableDataServiceCollectionView<ItemMaintainCtrlDTO>(_context, _context.ItemMaintainCtrls);
+            ItemMaintainCtrls.LoadedData += (s, e) =>
+            {
+                if (!PnMaintainCtrls.AutoLoad)
+                    PnMaintainCtrls.AutoLoad = true;
+                PnMaintainCtrls.Load(true);
+
+                if (!PnRegs.AutoLoad)
+                    PnRegs.AutoLoad = true;
+                PnRegs.Load(true);
+            };
             CtrlUnits = new QueryableDataServiceCollectionView<CtrlUnitDTO>(_context, _context.CtrlUnits);
             MaintainWorks = new QueryableDataServiceCollectionView<MaintainWorkDTO>(_context, _context.MaintainWorks);
-
-            PnRegs = new QueryableDataServiceCollectionView<PnRegDTO>(_context, _context.PnRegs);
-            _pnRegFilter = new FilterDescriptor("ItemId", FilterOperator.IsEqualTo, -1);
-            PnRegs.FilterDescriptors.Add(_pnRegFilter);
-            PnRegs.LoadedData += (s, e) => RefreshCommandState();
         }
 
         /// <summary>
@@ -84,8 +89,6 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         private void InitializerCommand()
         {
-            NewCommand = new DelegateCommand<object>(OnNew, CanNew);
-            RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
             AddMaintainCtrlCommand = new DelegateCommand<object>(OnAddCtrl, CanAddCtrl);
             AddCtrlLineCommand = new DelegateCommand<object>(OnAddCtrlLine, CanAddCtrlLine);
             RemoveCtrlLineCommand = new DelegateCommand<object>(OnRemoveCtrlLine, CanRemoveCtrlLine);
@@ -97,21 +100,30 @@ namespace UniCloud.Presentation.Part.ManageItem
         #region 数据
 
         #region 公共属性
-
+        private ObservableCollection<CtrlUnitDTO> _viewCtrlUnits = new ObservableCollection<CtrlUnitDTO>();
         /// <summary>
         ///     控制单位集合
         /// </summary>
         public QueryableDataServiceCollectionView<CtrlUnitDTO> CtrlUnits { get; set; }
 
         /// <summary>
+        /// 选中的件号对应的项号的维修控制组中已维护了的那些控制单位
+        /// </summary>
+        public ObservableCollection<CtrlUnitDTO> ViewCtrlUnits
+        {
+            get { return _viewCtrlUnits; }
+            private set
+            {
+                if (!_viewCtrlUnits.Equals(value))
+                    _viewCtrlUnits = value;
+                RaisePropertyChanged(() => ViewCtrlUnits);
+            }
+        }
+
+        /// <summary>
         ///     维修工作集合
         /// </summary>
         public QueryableDataServiceCollectionView<MaintainWorkDTO> MaintainWorks { get; set; }
-
-        /// <summary>
-        ///     附件集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<PnRegDTO> PnRegs { get; set; }
 
 
         /// <summary>
@@ -121,66 +133,6 @@ namespace UniCloud.Presentation.Part.ManageItem
         {
             get { return Enum.GetValues(typeof(ControlStrategy)).Cast<object>().ToDictionary(value => (int)value, value => (ControlStrategy)value); }
         }
-        #endregion
-
-        #region 加载数据
-
-        /// <summary>
-        ///     加载数据方法
-        ///     <remarks>
-        ///         导航到此页面时调用。
-        ///         可在此处将CollectionView的AutoLoad属性设为True，以实现数据的自动加载。
-        ///     </remarks>
-        /// </summary>
-        public override void LoadData()
-        {
-            CtrlUnits.Load(true);
-            MaintainWorks.Load(true);
-
-            if (!Items.AutoLoad)
-                Items.AutoLoad = true;
-            Items.Load(true);
-
-            if (!ItemMaintainCtrls.AutoLoad)
-                ItemMaintainCtrls.AutoLoad = true;
-            ItemMaintainCtrls.Load(true);
-        }
-
-        #region 业务
-
-        #region 附件项
-
-        private ItemDTO _selItem;
-
-        /// <summary>
-        ///     附件项集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<ItemDTO> Items { get; set; }
-
-        /// <summary>
-        ///     选择的附件项
-        /// </summary>
-        public ItemDTO SelItem
-        {
-            get { return this._selItem; }
-            private set
-            {
-                if (this._selItem != value)
-                {
-                    this._selItem = value;
-                    if (value != null)
-                    {
-                        _pnRegFilter.Value = value.Id;
-                        PnRegs.Load(true);
-                        CurItemMaintainCtrl = ItemMaintainCtrls.SingleOrDefault(p => p.ItemId == value.Id);
-                    }
-                    RaisePropertyChanged(() => this.SelItem);
-                    RefreshCommandState();
-                }
-            }
-        }
-
-        #endregion
 
         #region 项维修控制组
 
@@ -208,12 +160,94 @@ namespace UniCloud.Presentation.Part.ManageItem
         }
         #endregion
 
-        #region 选择的项维修控制明细
+        #endregion
+
+        #region 加载数据
+
+        /// <summary>
+        ///     加载数据方法
+        ///     <remarks>
+        ///         导航到此页面时调用。
+        ///         可在此处将CollectionView的AutoLoad属性设为True，以实现数据的自动加载。
+        ///     </remarks>
+        /// </summary>
+        public override void LoadData()
+        {
+            CtrlUnits.Load(true);
+            MaintainWorks.Load(true);
+            ItemMaintainCtrls.Load(true);
+        }
+
+        #region 业务
+
+        #region 附件
+
+        private PnRegDTO _selPnReg;
+
+        /// <summary>
+        ///     附件集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PnRegDTO> PnRegs { get; set; }
+
+        /// <summary>
+        ///     选择的附件
+        /// </summary>
+        public PnRegDTO SelPnReg
+        {
+            get { return this._selPnReg; }
+            private set
+            {
+                if (this._selPnReg != value)
+                {
+                    this._selPnReg = value;
+                    ViewCtrlUnits.Clear();
+                    CurPnMaintainCtrl = PnMaintainCtrls.SingleOrDefault(p => p.PnRegId == value.Id);
+                    if (value != null)
+                    {
+                        CurItemMaintainCtrl = ItemMaintainCtrls.SourceCollection.Cast<ItemMaintainCtrlDTO>().FirstOrDefault(q => q.ItemId == value.ItemId);
+                        if (CurItemMaintainCtrl != null && CurItemMaintainCtrl.MaintainCtrlLines != null && CtrlUnits.SourceCollection.Cast<CtrlUnitDTO>() != null)
+                        {
+                            ViewCtrlUnits.AddRange(CtrlUnits.SourceCollection.Cast<CtrlUnitDTO>().Where(
+                                p => CurItemMaintainCtrl.MaintainCtrlLines.ToList().Any(q => q.CtrlUnitId == p.Id)));
+                        }
+                    }
+                    RefreshCommandState();
+                    RaisePropertyChanged(() => this.SelPnReg);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 附件维修控制组
+
+        private PnMaintainCtrlDTO _curPnMaintainCtrl;
+
+        public QueryableDataServiceCollectionView<PnMaintainCtrlDTO> PnMaintainCtrls { get; set; }
+
+        /// <summary>
+        /// 选中的附件的维修控制组
+        /// </summary>
+        public PnMaintainCtrlDTO CurPnMaintainCtrl
+        {
+            get { return this._curPnMaintainCtrl; }
+            private set
+            {
+                if (this._curPnMaintainCtrl != value)
+                {
+                    _curPnMaintainCtrl = value;
+                    this.RaisePropertyChanged(() => this.CurPnMaintainCtrl);
+                }
+            }
+        }
+        #endregion
+
+        #region 选择的附件维修控制明细
 
         private MaintainCtrlLineDTO _selCtrlLine;
 
         /// <summary>
-        /// 选择的项维修控制明细
+        /// 选择的附件维修控制明细
         /// </summary>
         public MaintainCtrlLineDTO SelCtrlLine
         {
@@ -224,6 +258,7 @@ namespace UniCloud.Presentation.Part.ManageItem
                 {
                     _selCtrlLine = value;
                     this.RaisePropertyChanged(() => this.SelCtrlLine);
+                    RefreshCommandState();
                 }
             }
         }
@@ -242,36 +277,9 @@ namespace UniCloud.Presentation.Part.ManageItem
 
         protected override void RefreshCommandState()
         {
-            NewCommand.RaiseCanExecuteChanged();
-            RemoveCommand.RaiseCanExecuteChanged();
             AddMaintainCtrlCommand.RaiseCanExecuteChanged();
             AddCtrlLineCommand.RaiseCanExecuteChanged();
             RemoveCtrlLineCommand.RaiseCanExecuteChanged();
-        }
-
-        #endregion
-
-        #region 创建附件项
-
-        /// <summary>
-        ///     创建附件项
-        /// </summary>
-        public DelegateCommand<object> NewCommand { get; private set; }
-
-        private void OnNew(object obj)
-        {
-            var item = new ItemDTO
-            {
-                Id = RandomHelper.Next(),
-            };
-            Items.AddNew(item);
-            SelItem = item;
-            RefreshCommandState();
-        }
-
-        private bool CanNew(object obj)
-        {
-            return true;
         }
 
         #endregion
@@ -291,66 +299,32 @@ namespace UniCloud.Presentation.Part.ManageItem
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "IsLife"))
                 {
-                    if (SelItem!=null&&SelItem.IsLife && CurItemMaintainCtrl==null)
+                    if (SelPnReg != null && SelPnReg.IsLife && CurPnMaintainCtrl == null)
                     {
-                        var itemMaintainCtrl = new ItemMaintainCtrlDTO
-                        {
-                            Id = RandomHelper.Next(),
-                            ItemId = SelItem.Id,
-                            CtrlStrategy = 1,
-                        };
-                        ItemMaintainCtrls.AddNew(itemMaintainCtrl);
-                        CurItemMaintainCtrl = itemMaintainCtrl;
+                        RefreshCommandState();
                     }
-                   else if (SelItem != null && !SelItem.IsLife && CurItemMaintainCtrl != null)
-                   {
-                       const string content = "将此项设置改为非寿控项，将移除已维护的维修控制组，是否继续？";
-                       MessageConfirm("确认修改为非寿控项", content, (o, e) =>
-                       {
-                           if (e.DialogResult == true)
-                           {
-                               if (SelItem != null && CurItemMaintainCtrl != null)
-                               {
-                                   ItemMaintainCtrls.Remove(CurItemMaintainCtrl);
-                                   CurItemMaintainCtrl = null;
-                                   RefreshCommandState();
-                               }
-                           }
-                           else
-                           {
-                               SelItem.IsLife = true;
-                           }
-                       });
-                   }
+                    else if (SelPnReg != null && !SelPnReg.IsLife && CurItemMaintainCtrl != null)
+                    {
+                        const string content = "将此附件设置改为非寿控件，将移除已维护的维修控制组，是否继续？";
+                        MessageConfirm("确认修改为非寿控件", content, (o, e) =>
+                        {
+                            if (e.DialogResult == true)
+                            {
+                                if (SelPnReg != null && CurPnMaintainCtrl != null)
+                                {
+                                    PnMaintainCtrls.Remove(CurPnMaintainCtrl);
+                                    CurPnMaintainCtrl = null;
+                                    RefreshCommandState();
+                                }
+                            }
+                            else
+                            {
+                                SelPnReg.IsLife = true;
+                            }
+                        });
+                    }
                 }
             }
-        }
-
-        #endregion
-
-        #region 删除附件项
-
-        /// <summary>
-        ///     删除附件项
-        /// </summary>
-        public DelegateCommand<object> RemoveCommand { get; private set; }
-
-        private void OnRemove(object obj)
-        {
-            if (SelItem != null)
-            {
-                Items.Remove(SelItem);
-            }
-            RefreshCommandState();
-        }
-
-        private bool CanRemove(object obj)
-        {
-            if (SelItem == null)
-                return false;
-            if (!PnRegs.SourceCollection.Cast<PnRegDTO>().Any())
-                return true;
-            return false;
         }
 
         #endregion
@@ -364,27 +338,25 @@ namespace UniCloud.Presentation.Part.ManageItem
 
         private void OnAddCtrl(object obj)
         {
-            if (SelItem != null)
+            if (SelPnReg != null)
             {
-                CurItemMaintainCtrl = new ItemMaintainCtrlDTO
+                CurPnMaintainCtrl = new PnMaintainCtrlDTO
                 {
                     Id = RandomHelper.Next(),
-                    ItemId = SelItem.Id,
-                    ItemNo = SelItem.ItemNo,
+                    Pn = SelPnReg.Pn,
+                    PnRegId = SelPnReg.Id,
+                    CtrlStrategy = 1,
                 };
-                ItemMaintainCtrls.AddNew(CurItemMaintainCtrl);
+                PnMaintainCtrls.AddNew(CurPnMaintainCtrl);
+                RefreshCommandState();
             }
         }
 
         private bool CanAddCtrl(object obj)
         {
-            if (SelItem == null)
-                return false;
-            if (!SelItem.IsLife)
-                return false;
-            if (ItemMaintainCtrls.Any(p => p.ItemId == SelItem.Id))
-                return false;
-            return true;
+            if (SelPnReg != null && SelPnReg.IsLife && ViewCtrlUnits.Any() && PnMaintainCtrls.SourceCollection.Cast<PnMaintainCtrlDTO>().All(p => p.PnRegId != SelPnReg.Id))
+                return true;
+            return false;
         }
 
         #endregion
@@ -398,20 +370,20 @@ namespace UniCloud.Presentation.Part.ManageItem
 
         private void OnAddCtrlLine(object obj)
         {
-            if (CurItemMaintainCtrl != null)
+            if (CurPnMaintainCtrl != null)
             {
                 var maintainCtrlLine = new MaintainCtrlLineDTO
                 {
                     Id = RandomHelper.Next(),
-                    MaintainCtrlId = CurItemMaintainCtrl.Id,
+                    MaintainCtrlId = CurPnMaintainCtrl.Id,
                 };
-                CurItemMaintainCtrl.MaintainCtrlLines.Add(maintainCtrlLine);
+                CurPnMaintainCtrl.MaintainCtrlLines.Add(maintainCtrlLine);
             }
         }
 
         private bool CanAddCtrlLine(object obj)
         {
-            if (CurItemMaintainCtrl != null)
+            if (CurPnMaintainCtrl != null)
                 return true;
             return false;
         }
@@ -428,7 +400,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         private void OnRemoveCtrlLine(object obj)
         {
             if (SelCtrlLine != null)
-                CurItemMaintainCtrl.MaintainCtrlLines.Remove(SelCtrlLine);
+                CurPnMaintainCtrl.MaintainCtrlLines.Remove(SelCtrlLine);
         }
 
         private bool CanRemoveCtrlLine(object obj)

@@ -1,0 +1,263 @@
+﻿<UserControl x:Class="UniCloud.Presentation.Part.ManageItem.ItemControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:input="clr-namespace:UniCloud.Presentation.Input;assembly=UniCloud.Presentation"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance uc:ItemControlVm}"
+             Name="ManageItemView">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="EditComboBox"
+                   TargetType="telerik:RadComboBox">
+                <Setter Property="FontFamily"
+                        Value="Microsoft YaHei UI" />
+                <Setter Property="FontSize"
+                        Value="13" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="OpenDropDownOnFocus"
+                        Value="True" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False"
+                            FlowDirection="LeftToRight">
+            <telerik:RadSplitContainer Orientation="Horizontal">
+                <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="450,800">
+                    <telerik:RadPane Header="装机控制（选择机型和项维护可互换的件）"
+                                     CanFloat="False"
+                                     CanUserClose="False"
+                                     CanUserPin="False"
+                                     FontSize="{StaticResource TextFontSize}"
+                                     ContextMenuTemplate="{x:Null}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition  MaxWidth="150" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition MaxWidth="150" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition MaxWidth="100" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal"
+                                            Grid.Column="0"
+                                            Grid.Row="0"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch">
+                                    <TextBlock Text="机型"
+                                               TextAlignment="Left"
+                                               FontSize="{StaticResource TextFontSize}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center">
+                                    <telerik:RadComboBox ItemsSource="{Binding AircraftTypes}"
+                                                         Height="{StaticResource ControlHeight}"
+                                                         SelectedItem="{Binding SelAircraftType,Mode=TwoWay}"
+                                                         DisplayMemberPath="Name">
+                                    </telerik:RadComboBox>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            Grid.Column="2"
+                                            Grid.Row="0"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch">
+                                    <TextBlock Text="项号"
+                                               TextAlignment="Left"
+                                               FontSize="{StaticResource TextFontSize}" />
+                                </StackPanel>
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="3"
+                                            VerticalAlignment="Center">
+                                    <telerik:RadComboBox  ItemsSource="{Binding Items}"
+                                                          Height="{StaticResource ControlHeight}"
+                                                          SelectedItem="{Binding SelItem,Mode=TwoWay}"
+                                                          DisplayMemberPath="Name" />
+                                </StackPanel>
+                            </Grid>
+                            <telerik:RadToolBar Grid.Row="1"
+                                                HorizontalAlignment="Stretch"
+                                                Margin="-1 -2 -1 0"
+                                                OverflowButtonVisibility="Collapsed">
+                                <telerik:RadButton Margin="4,2,2,-2"
+                                                   Command="{Binding SaveCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="保存" />
+                                </telerik:RadButton>
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding AbortCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="放弃更改" />
+                                </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding NewCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="创建装机控制" />
+                                </telerik:RadButton>
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding RemoveCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="删除装机控制" />
+                                </telerik:RadButton>
+                            </telerik:RadToolBar>
+                            <telerik:RadGridView x:Name="InstallControllers"
+                                                 ShowGroupPanel="False"
+                                                 AutoExpandGroups="True"
+                                                 IsReadOnly="False"
+                                                 Grid.Row="2"
+                                                 CanUserFreezeColumns="False"
+                                                 RowIndicatorVisibility="Collapsed"
+                                                 CanUserResizeColumns="False"
+                                                 IsFilteringAllowed="False"
+                                                 ItemsSource="{Binding InstallControllers,Mode=TwoWay}"
+                                                 SelectedItem="{Binding SelInstallController,Mode=TwoWay}"
+                                                 IsBusy="{Binding InstallControllers.IsBusy}"
+                                                 AutoGenerateColumns="False"
+                                                 ShowColumnFooters="True">
+                                <telerik:RadContextMenu.ContextMenu>
+                                    <telerik:RadContextMenu>
+                                        <telerik:RadMenuItem Header="导出Excel"
+                                                             Command="{Binding ExcelExportCommand}"
+                                                             CommandParameter="{Binding ElementName=InstallControllers, Mode=OneWay}" />
+                                        <telerik:RadMenuItem Header="导出Word"
+                                                             Command="{Binding WordExportCommand}"
+                                                             CommandParameter="{Binding ElementName=InstallControllers, Mode=OneWay}" />
+                                    </telerik:RadContextMenu>
+                                </telerik:RadContextMenu.ContextMenu>
+                                <telerik:RadGridView.Columns>
+                                    <input:DataPageSerialColumn Header="序号"
+                                                                HeaderTextAlignment="Center" />
+                                    <telerik:GridViewDataColumn Header="机型"
+                                                                IsReadOnly="True"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding AircraftTypeName}" />
+                                    <telerik:GridViewDataColumn Header="项号"
+                                                                IsReadOnly="True"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding ItemNo}" />
+                                    <telerik:GridViewDataColumn Header="件号"
+                                                                IsReadOnly="True"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding Pn}" />
+                                    <telerik:GridViewDataColumn Header="附件描述"
+                                                                HeaderTextAlignment="Center"
+                                                                IsReadOnly="True"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding Description}" />
+                                    <telerik:GridViewDataColumn Header="启用日期"
+                                                                DataMemberBinding="{Binding StartDate}"
+                                                                DataFormatString="{StaticResource DateStringFormat}" />
+                                    <telerik:GridViewDataColumn Header="失效日期"
+                                                                DataMemberBinding="{Binding EndDate}"
+                                                                DataFormatString="{StaticResource DateStringFormat}" />
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
+                        </Grid>
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+                <telerik:RadPaneGroup VerticalAlignment="Stretch"
+                                      telerik:ProportionalStackPanel.RelativeSize="150,800">
+                    <telerik:RadPane Header="拆换依赖的附件"
+                                     PaneHeaderVisibility="Collapsed"
+                                     CanFloat="False"
+                                     CanUserClose="False"
+                                     CanUserPin="False"
+                                     FontSize="{StaticResource TextFontSize}"
+                                     ContextMenuTemplate="{x:Null}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                Margin="-1 -2 -1 0"
+                                                OverflowButtonVisibility="Collapsed">
+                                <telerik:RadButton Margin="4,2,2,-2"
+                                                   Command="{Binding AddDependencyCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="添加依赖件" />
+                                </telerik:RadButton>
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding RemoveDependencyCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="移除依赖件" />
+                                </telerik:RadButton>
+                            </telerik:RadToolBar>
+                            <telerik:RadGridView x:Name="Dependencies"
+                                                 ShowGroupPanel="False"
+                                                 AutoExpandGroups="True"
+                                                 IsReadOnly="False"
+                                                 Grid.Row="1"
+                                                 CanUserFreezeColumns="False"
+                                                 RowIndicatorVisibility="Collapsed"
+                                                 CanUserResizeColumns="False"
+                                                 IsFilteringAllowed="False"
+                                                 ItemsSource="{Binding SelInstallController.Dependencies,Mode=TwoWay}"
+                                                 SelectedItem="{Binding SelDependency,Mode=TwoWay}"
+                                                 IsBusy="{Binding InstallControllers.IsBusy}"
+                                                 AutoGenerateColumns="False"
+                                                 ShowColumnFooters="True">
+                                <telerik:RadContextMenu.ContextMenu>
+                                    <telerik:RadContextMenu>
+                                        <telerik:RadMenuItem Header="导出Excel"
+                                                             Command="{Binding ExcelExportCommand}"
+                                                             CommandParameter="{Binding ElementName=Dependencies, Mode=OneWay}" />
+                                        <telerik:RadMenuItem Header="导出Word"
+                                                             Command="{Binding WordExportCommand}"
+                                                             CommandParameter="{Binding ElementName=Dependencies, Mode=OneWay}" />
+                                    </telerik:RadContextMenu>
+                                </telerik:RadContextMenu.ContextMenu>
+                                <telerik:RadGridView.Columns>
+                                    <input:DataPageSerialColumn Header="序号"
+                                                                HeaderTextAlignment="Center" />
+                                    <telerik:GridViewDataColumn Header="依赖项件号"
+                                                                IsReadOnly="True"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding Pn}" />
+                                    <telerik:GridViewDataColumn Header="附件描述"
+                                                                IsReadOnly="True"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding Description}" />
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
+                        </Grid>
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+            </telerik:RadSplitContainer>
+        </telerik:RadDocking>
+    </Grid>
+</UserControl>
