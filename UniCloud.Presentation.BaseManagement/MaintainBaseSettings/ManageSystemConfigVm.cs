@@ -15,13 +15,18 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Regions;
+using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.BaseManagement;
 using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
-
+using UniCloud.Presentation.Service.FleetPlan;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
+using System.Xml.Linq;
 #endregion
 
 namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
@@ -64,6 +69,115 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
                     CanSelectAircraftCabinType = !AircraftCabinTypes.HasChanges;
                 }
             };
+
+            var fleetService = ServiceLocator.Current.GetInstance<IFleetPlanService>();
+            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(fleetService.Context,
+              fleetService.Context.XmlSettings);
+            XmlSettings.LoadedData += (o, e) =>
+            {
+                var xmlconfig = XmlSettings.FirstOrDefault(p => p.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
+                if (xmlconfig != null)
+                {
+                    XElement xelement = XElement.Parse(xmlconfig.SettingContent);
+                    if (xelement != null)
+                    {
+                        foreach (XElement type in xelement.Descendants("Type"))
+                        {
+                            if (type.Attribute("TypeName").Value.Equals("航空公司", StringComparison.OrdinalIgnoreCase))
+                            {
+                                foreach (XElement item in type.Descendants("Item"))
+                                {
+                                    //if (ValidName(item.Attribute("Name").Value)) //判断是否为当前航空公司或其子公司
+                                    {
+                                        var xmlItem = new XmlItem
+                                                      {
+                                                          Name = item.Attribute("Name").Value,
+                                                          Color = item.Attribute("Color").Value
+                                                      };
+                                        _airlinelist.Add(xmlItem);
+                                    }
+                                    //else
+                                    //{
+                                    //    var xmlItem = new XmlItem
+                                    //                  {
+                                    //                      Name = item.Attribute("Name").Value,
+                                    //                      Color = item.Attribute("Color").Value
+                                    //                  };
+                                    //    _restairlinelist.Add(xmlItem);
+                                    //}
+                                }
+                                AirLineList = _airlinelist;
+                                RestAirLineList = _restairlinelist;
+                            }
+                            else if (type.Attribute("TypeName").Value.Equals("座级", StringComparison.OrdinalIgnoreCase))
+                            {
+                                foreach (XElement item in type.Descendants("Item"))
+                                {
+                                    var xmlItem = new XmlItem
+                                                  {
+                                                      Name = item.Attribute("Name").Value,
+                                                      Color = item.Attribute("Color").Value
+                                                  };
+                                    _regionallist.Add(xmlItem);
+                                }
+                                RegionalList = _regionallist;
+                            }
+                            else if (type.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase))
+                            {
+                                foreach (XElement item in type.Descendants("Item"))
+                                {
+                                    var xmlItem = new XmlItem
+                                                  {
+                                                      Name = item.Attribute("Name").Value,
+                                                      Color = item.Attribute("Color").Value
+                                                  };
+                                    _aircrafttypelist.Add(xmlItem);
+                                }
+                                AircraftTypeList = _aircrafttypelist;
+                            }
+                            else if (type.Attribute("TypeName").Value.Equals("引进方式", StringComparison.OrdinalIgnoreCase))
+                            {
+                                foreach (XElement item in type.Descendants("Item"))
+                                {
+                                    var xmlItem = new XmlItem
+                                                  {
+                                                      Name = item.Attribute("Name").Value,
+                                                      Color = item.Attribute("Color").Value
+                                                  };
+                                    _importtypelist.Add(xmlItem);
+                                }
+                                ImportTypeList = _importtypelist;
+                            }
+                            else if (type.Attribute("TypeName").Value.Equals("机龄", StringComparison.OrdinalIgnoreCase))
+                            {
+                                foreach (XElement item in type.Descendants("Item"))
+                                {
+                                    var xmlItem = new XmlItem
+                                                  {
+                                                      Name = item.Attribute("Name").Value,
+                                                      Color = item.Attribute("Color").Value
+                                                  };
+                                    _aircraftagelist.Add(xmlItem);
+                                }
+                                AircraftAgeList = _aircraftagelist;
+                            }
+                            else if (type.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase))
+                            {
+                                foreach (XElement item in type.Descendants("Item"))
+                                {
+                                    var xmlItem = new XmlItem
+                                                  {
+                                                      Name = item.Attribute("Name").Value,
+                                                      Color = item.Attribute("Color").Value
+                                                  };
+                                    _aircraftrendlist.Add(xmlItem);
+                                }
+                                AircraftTrendList = _aircraftrendlist;
+                            }
+                        }
+                    }
+                }
+            };
         }
 
         #endregion
@@ -89,6 +203,7 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
             if (!AircraftCabinTypes.AutoLoad)
                 AircraftCabinTypes.AutoLoad = true;
             AircraftCabinTypes.Load(true);
+            XmlSettings.Load(true);
         }
 
         #region 飞机舱位类型
@@ -131,6 +246,119 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
 
         #endregion
 
+        #region 颜色配置
+        public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
+
+        private readonly List<XmlItem> _airlinelist = new List<XmlItem>();
+        private readonly List<XmlItem> _restairlinelist = new List<XmlItem>();//用来保存展示没被用到的航空公司
+        private readonly List<XmlItem> _regionallist = new List<XmlItem>();
+        private readonly List<XmlItem> _aircrafttypelist = new List<XmlItem>();
+        private readonly List<XmlItem> _importtypelist = new List<XmlItem>();
+        private readonly List<XmlItem> _aircraftagelist = new List<XmlItem>();
+        private readonly List<XmlItem> _aircraftrendlist = new List<XmlItem>();
+
+        private List<XmlItem> _airLineList;
+        /// <summary>
+        /// 航空公司颜色配置集合
+        /// </summary>
+        public List<XmlItem> AirLineList
+        {
+            get { return _airLineList; }
+            set
+            {
+                if (_airLineList != value)
+                {
+                    _airLineList = value;
+                    RaisePropertyChanged(() => AirLineList);
+                }
+            }
+        }
+
+        private List<XmlItem> _restAirLineList;
+        /// <summary>
+        /// 暂时用不上的航空公司颜色配置集合
+        /// </summary>
+        public List<XmlItem> RestAirLineList
+        {
+            get { return _restAirLineList; }
+            set
+            {
+                _restAirLineList = value;
+                RaisePropertyChanged(() => RestAirLineList);
+            }
+        }
+
+        private List<XmlItem> _regionalList;
+        /// <summary>
+        /// 座级颜色配置集合
+        /// </summary>
+        public List<XmlItem> RegionalList
+        {
+            get { return _regionalList; }
+            set
+            {
+
+                _regionalList = value;
+                RaisePropertyChanged(() => RegionalList);
+            }
+        }
+
+        private List<XmlItem> _aircraftTypeList;
+        /// <summary>
+        /// 机型颜色配置集合
+        /// </summary>
+        public List<XmlItem> AircraftTypeList
+        {
+            get { return _aircraftTypeList; }
+            set
+            {
+                _aircraftTypeList = value;
+                RaisePropertyChanged(() => AircraftTypeList);
+            }
+        }
+
+        private List<XmlItem> _importTypeList;
+        /// <summary>
+        /// 引进方式颜色配置集合
+        /// </summary>
+        public List<XmlItem> ImportTypeList
+        {
+            get { return _importTypeList; }
+            set
+            {
+                _importTypeList = value;
+                RaisePropertyChanged(() => ImportTypeList);
+            }
+        }
+
+        private List<XmlItem> _aircraftAgeList;
+        /// <summary>
+        /// 机龄颜色配置集合
+        /// </summary>
+        public List<XmlItem> AircraftAgeList
+        {
+            get { return _aircraftAgeList; }
+            set
+            {
+                _aircraftAgeList = value;
+                RaisePropertyChanged(() => AircraftAgeList);
+            }
+        }
+
+        private List<XmlItem> _aircraftTrendList;
+        /// <summary>
+        /// 运力字段颜色配置集合
+        /// </summary>
+        public List<XmlItem> AircraftTrendList
+        {
+            get { return _aircraftTrendList; }
+            set
+            {
+                _aircraftTrendList = value;
+                RaisePropertyChanged(() => AircraftTrendList);
+            }
+        }
+        #endregion
         #endregion
 
         #endregion
@@ -142,5 +370,15 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
         #endregion
 
         #endregion
+    }
+
+    /// <summary>
+    ///XML读取的项
+    /// </summary>
+    public class XmlItem
+    {
+        public string Name { get; set; }
+        public string Color { get; set; }
+        // public Color ChangeColor { get; set; }
     }
 }
