@@ -19,13 +19,10 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Regions;
-using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.BaseManagement;
 using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
-using UniCloud.Presentation.Service.FleetPlan;
-using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using System.Xml.Linq;
 #endregion
 
@@ -70,9 +67,7 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
                 }
             };
 
-            var fleetService = ServiceLocator.Current.GetInstance<IFleetPlanService>();
-            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(fleetService.Context,
-              fleetService.Context.XmlSettings);
+            XmlSettings = _service.CreateCollection(_context.XmlSettings);
             XmlSettings.LoadedData += (o, e) =>
             {
                 var xmlconfig = XmlSettings.FirstOrDefault(p => p.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));

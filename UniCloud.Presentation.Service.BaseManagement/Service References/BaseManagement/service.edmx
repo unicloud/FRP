@@ -98,6 +98,15 @@
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
       </EntityType>
+      <EntityType Name="XmlSettingDTO">
+        <Key>
+          <PropertyRef Name="XmlSettingId" />
+        </Key>
+        <Property Name="XmlSettingId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SettingType" Type="Edm.String" />
+        <Property Name="SettingContent" Type="Edm.String" />
+        <Property Name="XmlContent" Type="Edm.String" />
+      </EntityType>
       <Association Name="FunctionItemDTO_SubFunctionItems">
         <End Type="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" Role="SubFunctionItems" Multiplicity="*" />
         <End Type="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" Role="FunctionItemDTO" Multiplicity="*" />
@@ -111,6 +120,7 @@
         <EntitySet Name="Roles" EntityType="UniCloud.Application.BaseManagementBC.DTO.RoleDTO" />
         <EntitySet Name="BusinessLicenses" EntityType="UniCloud.Application.BaseManagementBC.DTO.BusinessLicenseDTO" />
         <EntitySet Name="AircraftCabinTypes" EntityType="UniCloud.Application.BaseManagementBC.DTO.AircraftCabinTypeDTO" />
+        <EntitySet Name="XmlSettings" EntityType="UniCloud.Application.BaseManagementBC.DTO.XmlSettingDTO" />
         <FunctionImport Name="GetFunctionItemsWithHierarchy" ReturnType="Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)" EntitySet="FunctionItems" m:HttpMethod="GET" />
         <FunctionImport Name="GetFunctionItemsByUser" ReturnType="Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)" EntitySet="FunctionItems" m:HttpMethod="GET">
           <Parameter Name="userId" Type="Edm.String" />

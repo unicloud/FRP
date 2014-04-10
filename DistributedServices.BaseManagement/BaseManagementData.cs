@@ -12,6 +12,7 @@ using UniCloud.Application.BaseManagementBC.FunctionItemServices;
 using UniCloud.Application.BaseManagementBC.OrganizationServices;
 using UniCloud.Application.BaseManagementBC.RoleServices;
 using UniCloud.Application.BaseManagementBC.UserServices;
+using UniCloud.Application.BaseManagementBC.XmlSettingServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -31,6 +32,7 @@ namespace UniCloud.DistributedServices.BaseManagement
         private readonly IOrganizationAppService _organizationAppService;
         private readonly IBusinessLicenseAppService _businessLicenseAppService;
         private readonly IAircraftCabinTypeAppService _aircraftCabinTypeAppService;
+        private readonly IXmlSettingAppService _xmlSettingAppService;
         public BaseManagementData()
             : base("UniCloud.Application.BaseManagementBC.DTO")
         {
@@ -40,6 +42,7 @@ namespace UniCloud.DistributedServices.BaseManagement
             _organizationAppService = DefaultContainer.Resolve<IOrganizationAppService>();
             _businessLicenseAppService = DefaultContainer.Resolve<IBusinessLicenseAppService>();
             _aircraftCabinTypeAppService = DefaultContainer.Resolve<IAircraftCabinTypeAppService>();
+            _xmlSettingAppService = DefaultContainer.Resolve<IXmlSettingAppService>();
         }
 
 
@@ -95,6 +98,18 @@ namespace UniCloud.DistributedServices.BaseManagement
         {
             get { return _aircraftCabinTypeAppService.GetAircraftCabinTypes(); }
         }
+        #endregion
+
+        #region 配置相关的xml
+
+        /// <summary>
+        ///     配置相关的xml集合
+        /// </summary>
+        public IQueryable<XmlSettingDTO> XmlSettings
+        {
+            get { return _xmlSettingAppService.GetXmlSettings(); }
+        }
+
         #endregion
     }
 }

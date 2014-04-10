@@ -227,11 +227,6 @@
       <Name>Service.BaseManagement</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\UniCloud.Presentation.Service.FleetPlan\Service.FleetPlan.csproj">
-      <Project>{b2d2a463-a571-4467-b552-338d89d322f8}</Project>
-      <Name>Service.FleetPlan</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service\Service.csproj">
       <Project>{5f45eae5-2f35-4ad1-bf0e-f5fd5539fd32}</Project>
       <Name>Service</Name>
