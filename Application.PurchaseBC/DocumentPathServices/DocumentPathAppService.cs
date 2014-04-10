@@ -48,8 +48,7 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
 
         public IQueryable<DocumentPathDTO> GetDocumentPaths()
         {
-            var queryBuilder =
-                new QueryBuilder<DocumentPath>();
+            var queryBuilder = new QueryBuilder<DocumentPath>();
             return _documentPathQuery.DocumentPathsQuery(queryBuilder);
         }
 
@@ -95,8 +94,34 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
         public void ModifyDocPath(int documentPathId, string name, int parentId)
         {
             var documentPath = _documentPathRepository.Get(documentPathId);
-            DocumentPathFactory.ModifyDocumentPath(documentPath, name, parentId);
+            string beforePath = documentPath.Path;
+            string afterPath = beforePath;
+            if (!documentPath.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+            {
+                afterPath = afterPath.Remove(afterPath.LastIndexOf('\\'));
+                afterPath += "\\" + name;
+            }
+            if (documentPath.ParentId != parentId)
+            {
+                var beforeParent = _documentPathRepository.Get(documentPath.ParentId);
+                var afterParent = _documentPathRepository.Get(parentId);
+                afterPath = afterPath.Replace(beforeParent.Path, afterParent.Path);
+            }
+            DocumentPathFactory.ModifyDocumentPath(documentPath, name, parentId, afterPath);
             _documentPathRepository.Modify(documentPath);
+
+            if (!beforePath.Equals(afterPath, StringComparison.OrdinalIgnoreCase))
+            {
+                var subItems = _documentPathQuery.FindSubDocumentPaths(documentPathId);
+                subItems.ForEach(p =>
+                {
+                    documentPath = _documentPathRepository.Get(p.Id);
+                    string path = documentPath.Path.Replace(beforePath, afterPath);
+                    DocumentPathFactory.ModifyDocumentPath(documentPath, documentPath.Name, (int)documentPath.ParentId, path);
+                    _documentPathRepository.Modify(documentPath);
+                });
+            }
+
             _documentPathRepository.UnitOfWork.Commit();
         }
 

@@ -444,6 +444,11 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                     MessageAlert("请选择相应的文件夹！");
                     return;
                 }
+                if (CurrentPathItem.ParentId == null)
+                {
+                    MessageAlert("根文件夹不能重命名！");
+                    return;
+                }
                 _isRenameFolder = true;
                 DocumentName = CurrentPathItem.Name;
                 AddDocumentPathChildView.Header = "重命名文件夹";
