@@ -150,9 +150,6 @@
     <Compile Include="Aggregates\XmlConfigAgg\IXmlConfigRepository.cs" />
     <Compile Include="Aggregates\XmlConfigAgg\XmlConfig.cs" />
     <Compile Include="Aggregates\XmlConfigAgg\XmlConfigSpecifications.cs" />
-    <Compile Include="Aggregates\XmlSettingAgg\IXmlSettingRepository.cs" />
-    <Compile Include="Aggregates\XmlSettingAgg\XmlSetting.cs" />
-    <Compile Include="Aggregates\XmlSettingAgg\XmlSettingSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

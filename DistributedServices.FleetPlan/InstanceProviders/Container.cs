@@ -56,11 +56,9 @@ using UniCloud.Application.FleetPlanBC.Query.ProgrammingQueries;
 using UniCloud.Application.FleetPlanBC.Query.RequestQueries;
 using UniCloud.Application.FleetPlanBC.Query.SupplierQueries;
 using UniCloud.Application.FleetPlanBC.Query.XmlConfigQueries;
-using UniCloud.Application.FleetPlanBC.Query.XmlSettingQueries;
 using UniCloud.Application.FleetPlanBC.RequestServices;
 using UniCloud.Application.FleetPlanBC.SupplierServices;
 using UniCloud.Application.FleetPlanBC.XmlConfigServices;
-using UniCloud.Application.FleetPlanBC.XmlSettingServices;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
@@ -88,7 +86,6 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.XmlConfigAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.XmlSettingAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
@@ -289,13 +286,6 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IXmlConfigQuery, XmlConfigQuery>()
                 .RegisterType<IXmlConfigAppService, XmlConfigAppService>()
                 .RegisterType<IXmlConfigRepository, XmlConfigRepository>()
-                #endregion
-
-                #region 配置相关的xml相关配置，包括查询，应用服务，仓储注册
-
-                .RegisterType<IXmlSettingQuery, XmlSettingQuery>()
-                .RegisterType<IXmlSettingAppService, XmlSettingAppService>()
-                .RegisterType<IXmlSettingRepository, XmlSettingRepository>()
                 #endregion
 
                 #region 申请相关配置，包括查询，应用服务，仓储注册

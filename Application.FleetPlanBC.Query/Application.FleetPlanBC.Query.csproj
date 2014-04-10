@@ -105,8 +105,6 @@
     <Compile Include="SupplierQueries\SupplierQuery.cs" />
     <Compile Include="XmlConfigQueries\IXmlConfigQuery.cs" />
     <Compile Include="XmlConfigQueries\XmlConfigQuery.cs" />
-    <Compile Include="XmlSettingQueries\IXmlSettingQuery.cs" />
-    <Compile Include="XmlSettingQueries\XmlSettingQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

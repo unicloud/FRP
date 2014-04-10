@@ -33,7 +33,6 @@ using UniCloud.Application.FleetPlanBC.ProgrammingServices;
 using UniCloud.Application.FleetPlanBC.RequestServices;
 using UniCloud.Application.FleetPlanBC.SupplierServices;
 using UniCloud.Application.FleetPlanBC.XmlConfigServices;
-using UniCloud.Application.FleetPlanBC.XmlSettingServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -72,7 +71,6 @@ namespace UniCloud.DistributedServices.FleetPlan
         private readonly IRequestAppService _requestAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly IXmlConfigAppService _xmlConfigAppService;
-        private readonly IXmlSettingAppService _xmlSettingAppService;
 
         public FleetPlanData()
             : base("UniCloud.Application.FleetPlanBC.DTO")
@@ -104,7 +102,6 @@ namespace UniCloud.DistributedServices.FleetPlan
             _requestAppService = DefaultContainer.Resolve<IRequestAppService>();
             _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
             _xmlConfigAppService = DefaultContainer.Resolve<IXmlConfigAppService>();
-            _xmlSettingAppService = DefaultContainer.Resolve<IXmlSettingAppService>();
             _requestAppService = DefaultContainer.Resolve<IRequestAppService>();
             _approvalDocAppService = DefaultContainer.Resolve<IApprovalDocAppService>();
         }
@@ -453,16 +450,5 @@ namespace UniCloud.DistributedServices.FleetPlan
 
         #endregion
 
-        #region 配置相关的xml
-
-        /// <summary>
-        ///     配置相关的xml集合
-        /// </summary>
-        public IQueryable<XmlSettingDTO> XmlSettings
-        {
-            get { return _xmlSettingAppService.GetXmlSettings(); }
-        }
-
-        #endregion
     }
 }

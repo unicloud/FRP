@@ -580,15 +580,6 @@
         <Property Name="VersionNumber" Type="Edm.Int32" Nullable="false" />
         <Property Name="XmlContent" Type="Edm.String" />
       </EntityType>
-      <EntityType Name="XmlSettingDTO">
-        <Key>
-          <PropertyRef Name="XmlSettingId" />
-        </Key>
-        <Property Name="XmlSettingId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="SettingType" Type="Edm.String" />
-        <Property Name="SettingContent" Type="Edm.String" />
-        <Property Name="XmlContent" Type="Edm.String" />
-      </EntityType>
       <ComplexType Name="PerformPlan">
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
         <Property Name="ApprovalHistory" Type="UniCloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO" />
@@ -627,7 +618,6 @@
         <EntitySet Name="ApprovalRequests" EntityType="UniCloud.Application.FleetPlanBC.DTO.ApprovalRequestDTO" />
         <EntitySet Name="Suppliers" EntityType="UniCloud.Application.FleetPlanBC.DTO.SupplierDTO" />
         <EntitySet Name="XmlConfigs" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlConfigDTO" />
-        <EntitySet Name="XmlSettings" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlSettingDTO" />
         <FunctionImport Name="PerformPlanQuery" ReturnType="UniCloud.Application.FleetPlanBC.DTO.PerformPlan" m:HttpMethod="GET">
           <Parameter Name="planHistoryId" Type="Edm.String" />
           <Parameter Name="approvalHistoryId" Type="Edm.String" />

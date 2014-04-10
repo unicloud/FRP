@@ -26,6 +26,8 @@ using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
+using UniCloud.Presentation.Service.BaseManagement;
+using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
@@ -80,8 +82,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 _loadXmlConfig = true;
                 CreatAgeDeployCollection(); //将机龄配置XML转换成机龄配置对象的集合
             };
-            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanContext,
-                _fleetPlanContext.XmlSettings);
+            var baseManagementService = ServiceLocator.Current.GetInstance<IBaseManagementService>();
+            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(baseManagementService.Context,
+                baseManagementService.Context.XmlSettings);
             XmlSettings.LoadedData += (o, e) =>
             {
                 _loadXmlSetting = true;

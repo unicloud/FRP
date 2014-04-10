@@ -45,7 +45,6 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.XmlConfigAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.XmlSettingAgg;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql;
 
 #endregion
@@ -83,7 +82,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         private IDbSet<Request> _requests;
         private IDbSet<Supplier> _suppliers;
         private IDbSet<XmlConfig> _xmlConfigs;
-        private IDbSet<XmlSetting> _xmlSettings;
 
         public IDbSet<ActionCategory> ActionCategories
         {
@@ -218,11 +216,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         public IDbSet<XmlConfig> XmlConfigs
         {
             get { return _xmlConfigs ?? (_xmlConfigs = base.Set<XmlConfig>()); }
-        }
-
-        public IDbSet<XmlSetting> XmlSettings
-        {
-            get { return _xmlSettings ?? (_xmlSettings = base.Set<XmlSetting>()); }
         }
 
         #endregion
@@ -429,8 +422,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
                 #endregion
 
                 #region XmlSettingAgg
-
-                .Add(new XmlSettingEntityConfiguration())
 
                 #endregion
 
