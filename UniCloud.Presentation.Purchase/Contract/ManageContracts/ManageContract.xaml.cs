@@ -10,6 +10,7 @@ using Telerik.Windows.DragDrop;
 using UniCloud.Presentation.Input;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Purchase.DocumentExtension;
+using DragDropCompletedEventArgs = Telerik.Windows.DragDrop.DragDropCompletedEventArgs;
 
 #endregion
 
@@ -25,6 +26,7 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
 
             DragDropManager.AddDragOverHandler(FoldersTreeView, OnItemDragOver);
             DragDropManager.AddDropHandler(FoldersTreeView, OnDrop);
+            DragDropManager.AddDragDropCompletedHandler(DocumentListBox, OnDragDropCompleted);
 
             var timer = new DispatcherTimer { Interval = (new TimeSpan(0, 0, 0, 0, 200)) };
             //设置单击事件
@@ -49,9 +51,10 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                 var destinationItem = (e.OriginalSource as FrameworkElement).ParentOfType<RadTreeViewItem>();
                 var realDestinationItem = destinationItem.DataContext as ListBoxDocumentItem;
                 var realDraggedData = data as ListBoxDocumentItem;
-                if (realDestinationItem.DocumentPathId == realDraggedData.DocumentPathId)
+                if (realDraggedData != null && (realDestinationItem != null && realDestinationItem.DocumentPathId == realDraggedData.DocumentPathId))
                 {
                     MessageDialogs.Alert("目标文件夹与源文件夹是同一个文件夹！");
+                    _canRemove = false;
                     return;
                 }
                 var dropDetails = DragDropPayloadManager.GetDataFromObject(e.Data, "DropDetails") as DropIndicationDetails;
@@ -62,14 +65,16 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                     {
                         var temp = trigger as ListBoxDocumentItem;
                         var realData = data as ListBoxDocumentItem;
-                        if (temp.Name.Equals(realData.Name, StringComparison.OrdinalIgnoreCase))
+                        if (realData != null && (temp != null && temp.Name.Equals(realData.Name, StringComparison.OrdinalIgnoreCase)))
                         {
                             MessageDialogs.Alert("目标文件夹的子文件夹中已有同名文件夹！");
+                            _canRemove = false;
                             return;
                         }
                     }
                     int dropIndex = dropDetails != null && dropDetails.DropIndex >= _destinationItems.Count ? _destinationItems.Count : dropDetails != null && dropDetails.DropIndex < 0 ? 0 : dropDetails.DropIndex;
                     _destinationItems.Insert(dropIndex, data);
+                    _canRemove = true;
                 }
             }
         }
@@ -84,7 +89,7 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                 e.Handled = true;
                 return;
             }
-            var position = GetPosition(item, e.GetPosition(item));
+            var position = GetPosition(e.GetPosition(item));
             if (item.Level == 0 && position != DropPosition.Inside)
             {
                 e.Effects = DragDropEffects.None;
@@ -133,7 +138,7 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             e.Handled = true;
         }
 
-        private DropPosition GetPosition(RadTreeViewItem item, Point point)
+        private DropPosition GetPosition(Point point)
         {
             const double treeViewItemHeight = 24;
             if (point.Y < treeViewItemHeight / 4)
@@ -146,6 +151,24 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             }
 
             return DropPosition.Inside;
+        }
+        #endregion
+
+        #region ListBox拖拽
+        private bool _canRemove;
+        private void OnDragDropCompleted(object sender, DragDropCompletedEventArgs e)
+        {
+            var draggedItem = DragDropPayloadManager.GetDataFromObject(e.Data, "DraggedData");
+
+            if (e.Effects != DragDropEffects.None)
+            {
+                var listBox = sender as System.Windows.Controls.ListBox;
+                if (listBox != null && _canRemove)
+                {
+                    var collection = listBox.ItemsSource as IList;
+                    if (collection != null) collection.Remove(draggedItem);
+                }
+            }
         }
         #endregion
 
