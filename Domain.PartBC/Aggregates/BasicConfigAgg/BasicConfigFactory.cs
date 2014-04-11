@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 
 #endregion
@@ -47,10 +48,10 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
         /// <param name="description"></param>
         /// <param name="item"></param>
         /// <param name="parentAcConfig"></param>
-        /// <param name="bcGroupId"></param>
+        /// <param name="basicConfigGroup"></param>
         /// <returns></returns>
         public static BasicConfig CreateBasicConfig(string position, string description, Item item,
-            AcConfig parentAcConfig, int bcGroupId)
+            AcConfig parentAcConfig, BasicConfigGroup basicConfigGroup)
         {
             var basicConfig = new BasicConfig();
             basicConfig.GenerateNewIdentity();
@@ -59,7 +60,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
             basicConfig.SetDescription(description);
             basicConfig.SetItem(item);
             basicConfig.SetParentItem(parentAcConfig);
-            basicConfig.BasicConfigGroupId = bcGroupId;
+            basicConfig.SetBasicConfigGroup(basicConfigGroup);
             return basicConfig;
         }
     }

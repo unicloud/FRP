@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -52,11 +53,6 @@ namespace UniCloud.Application.PartBC.DTO
         public string ItemNo { get; set; }
 
         /// <summary>
-        ///     上层项号
-        /// </summary>
-        public string ParentItemNo { get; set; }
-
-        /// <summary>
         ///     位置信息
         /// </summary>
         public string Position { get; set; }
@@ -86,5 +82,16 @@ namespace UniCloud.Application.PartBC.DTO
         public int RootId { get; set; }
 
         #endregion
+
+        private List<BasicConfigDTO> _subBasicConfigs;
+
+        /// <summary>
+        ///     子基本构型集合
+        /// </summary>
+        public List<BasicConfigDTO> SubBasicConfigs
+        {
+            get { return _subBasicConfigs ?? new List<BasicConfigDTO>(); }
+            set { _subBasicConfigs = value; }
+        }
     }
 }

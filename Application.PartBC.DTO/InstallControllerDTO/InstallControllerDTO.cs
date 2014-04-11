@@ -57,6 +57,11 @@ namespace UniCloud.Application.PartBC.DTO
         public string ItemNo { get; set; }
 
         /// <summary>
+        ///     项名称
+        /// </summary>
+        public string ItemName { get; set; }
+
+        /// <summary>
         ///     可互换附件件号
         /// </summary>
         public string Pn { get; set; }

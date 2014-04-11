@@ -19,6 +19,7 @@
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.PartBC.Aggregates.InstallControllerAgg;
+using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -42,11 +43,13 @@ namespace UniCloud.Application.PartBC.Query.InstallControllerQueries
         public IQueryable<InstallControllerDTO> InstallControllerDTOQuery(
             QueryBuilder<InstallController> query)
         {
+            var pnReg = _unitOfWork.CreateSet<PnReg>();
             return query.ApplyTo(_unitOfWork.CreateSet<InstallController>()).Select(p => new InstallControllerDTO
             {
                 Id = p.Id,
                 ItemId = p.ItemId,
                 ItemNo = p.Item.ItemNo,
+                ItemName = p.Item.Name,
                 PnRegId = p.PnRegId,
                 Pn = p.PnReg.Pn,
                 Description = p.PnReg.Description,
@@ -60,6 +63,7 @@ namespace UniCloud.Application.PartBC.Query.InstallControllerQueries
                     DependencyPnId = q.DependencyPnId,
                     InstallControllerId = q.DependencyPnId,
                     Pn = q.Pn,
+                    Description = pnReg.FirstOrDefault(l=>l.Id==q.DependencyPnId).Description,
                 }).ToList(),
             });
 

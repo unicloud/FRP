@@ -42,6 +42,14 @@ namespace UniCloud.Application.PartBC.DTO
             set;
         }
 
+        /// <summary>
+        /// 依赖项附件描述
+        /// </summary>
+        public string Description
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region 外键属性

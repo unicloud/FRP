@@ -16,7 +16,6 @@
 #region 命名空间
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
-using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Infrastructure.Data;
 #endregion
@@ -41,8 +40,6 @@ namespace UniCloud.Application.PartBC.Query.BasicConfigGroupQueries
         ///  <returns>BasicConfigGroupDTO集合</returns>
         public IQueryable<BasicConfigGroupDTO> BasicConfigGroupDTOQuery(QueryBuilder<BasicConfigGroup> query)
         {
-            var basicConfigs = _unitOfWork.CreateSet<BasicConfig>();
-
             return query.ApplyTo(_unitOfWork.CreateSet<BasicConfigGroup>()).Select(p => new BasicConfigGroupDTO
             {
                 Id = p.Id,
@@ -50,19 +47,6 @@ namespace UniCloud.Application.PartBC.Query.BasicConfigGroupQueries
                 GroupNo = p.GroupNo,
                 AircraftTypeId = p.AircraftTypeId,
                 AircraftTypeName = p.AircraftType.Name,
-                BasicConfigs = basicConfigs.Where(q=>q.BasicConfigGroupId==p.Id).Select(r=>new BasicConfigDTO
-                {
-                    Id = r.Id,
-                    BasicConfigGroupId = r.BasicConfigGroupId,
-                    FiNumber = r.FiNumber,
-                    ItemId = r.ItemId,
-                    ItemNo = r.ItemNo,
-                    ParentId = r.ParentId,
-                    ParentItemNo = r.ParentItemNo,
-                    RootId = r.RootId,
-                    Position = r.Position,
-                    Description = r.Description,
-                }).ToList(),
             });
         }
     }

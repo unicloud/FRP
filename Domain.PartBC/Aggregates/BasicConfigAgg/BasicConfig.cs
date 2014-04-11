@@ -15,6 +15,9 @@
 
 #endregion
 
+using System;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
+
 namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
 {
     /// <summary>
@@ -44,7 +47,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
         /// <summary>
         ///     基本构型组ID
         /// </summary>
-        public int BasicConfigGroupId { get; internal set; }
+        public int BasicConfigGroupId { get; private set; }
 
         #endregion
 
@@ -54,6 +57,19 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置基本构型组外键
+        /// </summary>
+        /// <param name="basicConfigGroup">基本构型组</param>
+        public void SetBasicConfigGroup(BasicConfigGroup basicConfigGroup)
+        {
+            if (basicConfigGroup == null || basicConfigGroup.IsTransient())
+            {
+                throw new ArgumentException("基本构型组参数为空！");
+            }
+
+            BasicConfigGroupId = basicConfigGroup.Id;
+        }
         #endregion
     }
 }

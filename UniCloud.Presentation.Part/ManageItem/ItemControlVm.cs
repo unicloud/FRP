@@ -67,11 +67,13 @@ namespace UniCloud.Presentation.Part.ManageItem
         {
             InstallControllers = _service.CreateCollection(_context.InstallControllers, o => o.Dependencies);
             InstallControllers.GroupDescriptors.Add(new GroupDescriptor { Member = "AircraftTypeName", SortDirection = ListSortDirection.Ascending });
-            InstallControllers.GroupDescriptors.Add(new GroupDescriptor { Member = "ItemNo", SortDirection = ListSortDirection.Ascending });
+            InstallControllers.GroupDescriptors.Add(new GroupDescriptor { Member = "ItemName", SortDirection = ListSortDirection.Ascending });
             _service.RegisterCollectionView(InstallControllers);
 
+            PnRegs = _service.CreateCollection(_context.PnRegs);
+            _service.RegisterCollectionView(PnRegs);
+
             Items = new QueryableDataServiceCollectionView<ItemDTO>(_context, _context.Items);
-            PnRegs = new QueryableDataServiceCollectionView<PnRegDTO>(_context, _context.PnRegs);
             AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_context, _context.AircraftTypes);
         }
 
@@ -187,9 +189,13 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         public override void LoadData()
         {
-            PnRegs.Load(true);
+
             AircraftTypes.Load(true);
             Items.Load(true);
+
+            if (!PnRegs.AutoLoad)
+                PnRegs.AutoLoad = true;
+            PnRegs.Load(true);
 
             if (!InstallControllers.AutoLoad)
                 InstallControllers.AutoLoad = true;
@@ -284,10 +290,11 @@ namespace UniCloud.Presentation.Part.ManageItem
             else
             {
                 ViewPnRegs = new ObservableCollection<PnRegDTO>();
-                if (SelItem != null)
+                if (SelItem != null && SelAircraftType != null)
                 {
                     ViewPnRegs.AddRange(
-                        PnRegs.Where(p => p.IsLife == SelItem.IsLife && (p.ItemId == SelItem.Id || p.ItemId == null)));
+                        PnRegs.Where(p => p.IsLife == SelItem.IsLife && (p.ItemId == SelItem.Id || p.ItemId == null)
+                            && !InstallControllers.SourceCollection.Cast<InstallControllerDTO>().Any(q => q.AircraftTypeId == SelAircraftType.Id && q.ItemId == SelItem.Id && q.PnRegId == p.Id)));
                 }
                 _addToInstallController = true;
                 _addToDependency = false;
@@ -314,6 +321,13 @@ namespace UniCloud.Presentation.Part.ManageItem
 
         private void OnRemove(object obj)
         {
+            //如果要删除的装机控制中，附件只在这一条记录中维护了与附件项的关系，则在删除的同时，将件与项的关系断开
+            if (InstallControllers.SourceCollection.Cast<InstallControllerDTO>()
+                    .Count(p => p.PnRegId == SelInstallController.PnRegId) == 1)
+            {
+                var pnReg = PnRegs.SourceCollection.Cast<PnRegDTO>().FirstOrDefault(p => p.Id == SelInstallController.PnRegId);
+                if (pnReg != null) pnReg.ItemId = null;
+            }
             InstallControllers.Remove(SelInstallController);
             RefreshCommandState();
         }
@@ -436,6 +450,8 @@ namespace UniCloud.Presentation.Part.ManageItem
                     var pnRegDTO = p as PnRegDTO;
                     if (pnRegDTO != null)
                     {
+                        if (pnRegDTO.ItemId == null)
+                            pnRegDTO.ItemId = SelItem.Id;
                         var installController = new InstallControllerDTO
                         {
                             Id = RandomHelper.Next(),

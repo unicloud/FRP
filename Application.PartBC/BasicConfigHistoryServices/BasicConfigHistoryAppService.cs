@@ -79,6 +79,7 @@ namespace UniCloud.Application.PartBC.BasicConfigHistoryServices
             //创建基本构型历史
             BasicConfigHistory newBasicConfigHistory = BasicConfigHistoryFactory.CreateBasicConfigHistory(
                 contractAircraft, basicConfigGroup, dto.StartDate, dto.EndDate);
+            newBasicConfigHistory.ChangeCurrentIdentity(dto.Id);
 
             _basicConfigHistoryRepository.Add(newBasicConfigHistory);
         }

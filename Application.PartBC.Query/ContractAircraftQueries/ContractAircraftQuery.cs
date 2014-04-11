@@ -14,10 +14,12 @@
 #endregion
 
 #region 命名空间
+
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
+using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
 using UniCloud.Infrastructure.Data;
 #endregion
@@ -44,6 +46,7 @@ namespace UniCloud.Application.PartBC.Query.ContractAircraftQueries
         {
             var basicConfigHistories = _unitOfWork.CreateSet<BasicConfigHistory>();
             var specialConfigs = _unitOfWork.CreateSet<SpecialConfig>();
+            var items = _unitOfWork.CreateSet<Item>();
 
             return query.ApplyTo(_unitOfWork.CreateSet<ContractAircraft>()).Select(p => new ContractAircraftDTO
             {
@@ -69,11 +72,10 @@ namespace UniCloud.Application.PartBC.Query.ContractAircraftQueries
                     StartDate = r.StartDate,
                     EndDate = r.EndDate,
                     IsValid = r.IsValid,
-                    FiNumber = r.FiNumber,
+                    FiNumber = items.FirstOrDefault(l=>l.Id==r.ItemId).FiNumber,
                     ItemId = r.ItemId,
-                    ItemNo = r.ItemNo,
+                    ItemNo = items.FirstOrDefault(l => l.Id == r.ItemId).ItemNo,
                     ParentId = r.ParentId,
-                    ParentItemNo = r.ParentItemNo,
                     Position = r.Position,
                     RootId = r.RootId,
                     Description = r.Description,

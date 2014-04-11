@@ -81,7 +81,7 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
             SpecialConfig newSpecialConfig = SpecialConfigFactory.CreateSpecialConfig(dto.Position, dto.Description,
                 item, parentAcConfig,
                 dto.StartDate, dto.EndDate, contractAircraft);
-
+            newSpecialConfig.ChangeCurrentIdentity(dto.Id);
             _specialConfigRepository.Add(newSpecialConfig);
         }
 

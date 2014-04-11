@@ -31,12 +31,6 @@ namespace UniCloud.Application.PartBC.DTO
     [DataServiceKey("Id")]
     public class BasicConfigGroupDTO
     {
-        #region 私有字段
-
-        private List<BasicConfigDTO> _basicConfigs;
-
-        #endregion
-
         #region 属性
 
         /// <summary>
@@ -72,14 +66,6 @@ namespace UniCloud.Application.PartBC.DTO
 
         #region 导航属性
 
-        /// <summary>
-        ///     基本构型集合
-        /// </summary>
-        public virtual List<BasicConfigDTO> BasicConfigs
-        {
-            get { return _basicConfigs ?? (_basicConfigs = new List<BasicConfigDTO>()); }
-            set { _basicConfigs = value; }
-        }
 
         #endregion
     }

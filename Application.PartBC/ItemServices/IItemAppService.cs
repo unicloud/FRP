@@ -17,6 +17,8 @@
 
 #region 命名空间
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 
@@ -34,5 +36,12 @@ namespace UniCloud.Application.PartBC.ItemServices
         /// </summary>
         /// <returns></returns>
         IQueryable<ItemDTO> GetItems();
+
+        /// <summary>
+        /// 获取机型对应的项的集合
+        /// </summary>
+        /// <param name="aircraftTypeId"></param>
+        /// <returns></returns>
+        List<ItemDTO> GetItemsByAircraftType(Guid aircraftTypeId);
     }
 }

@@ -79,15 +79,6 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
-        /// 上层项号
-        /// </summary>
-        public string ParentItemNo
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// 位置信息
         /// </summary>
         public string Position
@@ -145,6 +136,17 @@ namespace UniCloud.Application.PartBC.DTO
             set;
         }
         #endregion
+
+        private List<SpecialConfigDTO> _subSpecialConfigs;
+
+        /// <summary>
+        ///     子特定构型集合
+        /// </summary>
+        public List<SpecialConfigDTO> SubSpecialConfigs
+        {
+            get { return _subSpecialConfigs ?? new List<SpecialConfigDTO>(); }
+            set { _subSpecialConfigs = value; }
+        }
 
     }
 }

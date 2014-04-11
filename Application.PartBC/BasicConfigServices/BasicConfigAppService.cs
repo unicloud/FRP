@@ -42,12 +42,15 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
         private readonly IBasicConfigQuery _basicConfigQuery;
         private readonly IBasicConfigRepository _basicConfigRepository;
         private readonly IItemRepository _itemRepository;
+        private readonly IBasicConfigGroupRepository _basicConfigGroupRepository;
 
         public BasicConfigAppService(IBasicConfigQuery basicConfigQuery, IBasicConfigRepository basicConfigRepository,
+            IBasicConfigGroupRepository basicConfigGroupRepository,
             IItemRepository itemRepository)
         {
             _basicConfigQuery = basicConfigQuery;
             _basicConfigRepository = basicConfigRepository;
+            _basicConfigGroupRepository = basicConfigGroupRepository;
             _itemRepository = itemRepository;
         }
 
@@ -72,10 +75,11 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
         {
             Item item = _itemRepository.Get(dto.ItemId);
             AcConfig parentAcConfig = _basicConfigRepository.Get(dto.ParentId);
+            BasicConfigGroup basicConfigGroup = _basicConfigGroupRepository.Get(dto.BasicConfigGroupId);
 
             //创建基本构型
-            BasicConfig newBasicConfig = BasicConfigFactory.CreateBasicConfig(dto.Position,dto.Description,item,parentAcConfig, dto.BasicConfigGroupId);
-
+            BasicConfig newBasicConfig = BasicConfigFactory.CreateBasicConfig(dto.Position, dto.Description, item, parentAcConfig, basicConfigGroup);
+            newBasicConfig.ChangeCurrentIdentity(dto.Id);
             _basicConfigRepository.Add(newBasicConfig);
         }
 

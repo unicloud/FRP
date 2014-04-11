@@ -17,6 +17,7 @@
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
+using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Infrastructure.Data;
 #endregion
 
@@ -40,14 +41,14 @@ namespace UniCloud.Application.PartBC.Query.BasicConfigQueries
       ///  <returns>BasicConfigDTO集合</returns>
       public IQueryable<BasicConfigDTO> BasicConfigDTOQuery(QueryBuilder<BasicConfig> query)
       {
+          var items = _unitOfWork.CreateSet<Item>();
          return query.ApplyTo(_unitOfWork.CreateSet<BasicConfig>()).Select(p => new BasicConfigDTO
          {
              Id = p.Id,
              BasicConfigGroupId = p.BasicConfigGroupId,
-             FiNumber = p.FiNumber,
-             ItemNo = p.ItemNo,
+             FiNumber = items.FirstOrDefault(l=>l.Id==p.ItemId).FiNumber,
+             ItemNo = items.FirstOrDefault(l=>l.Id==p.ItemId).ItemNo,
              ItemId = p.ItemId,
-             ParentItemNo = p.ParentItemNo,
              ParentId = p.ParentId,
              RootId = p.RootId,
              Position = p.Position,

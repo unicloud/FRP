@@ -196,6 +196,10 @@
       <DependentUpon>BaseConfiguration.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseConfigurations\BaseConfigurationVm.cs" />
+    <Compile Include="EngineConfig\BasicConfigGroupView.xaml.cs">
+      <DependentUpon>BasicConfigGroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineConfig\BasicConfigGroupVm.cs" />
     <Compile Include="MaintainAcDailyUtilization\CorrectAcDailyUtilization.xaml.cs">
       <DependentUpon>CorrectAcDailyUtilization.xaml</DependentUpon>
     </Compile>
@@ -285,6 +289,10 @@
     <Page Include="BaseConfigurations\BaseConfiguration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EngineConfig\BasicConfigGroupView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MaintainAcDailyUtilization\CorrectAcDailyUtilization.xaml">
       <SubType>Designer</SubType>

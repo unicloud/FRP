@@ -74,8 +74,10 @@ namespace UniCloud.Application.PartBC.Tests.Services
             // Arrange
             var service = DefaultContainer.Resolve<IItemAppService>();
 
+            Guid aircraftTypeId = Guid.Parse("5C690CB2-2D33-4006-858B-0BE610E9CB47");
+
             // Act
-            List<ItemDTO> result = service.GetItems().ToList();
+            List<ItemDTO> result = service.GetItemsByAircraftType(aircraftTypeId);
 
             // Assert
             Assert.IsTrue(result.Any());

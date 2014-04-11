@@ -16,8 +16,11 @@
 
 #region 命名空间
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
+using UniCloud.Domain.PartBC.Aggregates.InstallControllerAgg;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
@@ -54,6 +57,29 @@ namespace UniCloud.Application.PartBC.Query.ItemQueries
                 IsLife = p.IsLife,
                 Description = p.Description,
              });
+        }
+
+        /// <summary>
+        /// 获取机型的项
+        /// </summary>
+        /// <param name="aircraftTypeId"></param>
+        /// <returns></returns>
+        public List<ItemDTO> GetItemsByAircraftType(Guid aircraftTypeId)
+        {
+            var installControllers =
+                _unitOfWork.CreateSet<InstallController>().Where(p => p.AircraftTypeId == aircraftTypeId);
+            var items = _unitOfWork.CreateSet<Item>().Where(p => installControllers.Any(l=>l.ItemId==p.Id)).ToList();
+            var result=new List<ItemDTO>();
+            items.ForEach(p =>result.Add( new ItemDTO
+            {
+                Id = p.Id,
+                Name = p.Name,
+                FiNumber = p.FiNumber,
+                ItemNo = p.ItemNo,
+                IsLife = p.IsLife,
+                Description = p.Description,
+            }));
+            return result;
         }
     }
 }

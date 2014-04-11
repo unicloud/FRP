@@ -4,11 +4,13 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel.Web;
 using System.Web;
 using UniCloud.Application.PartBC.DTO;
+using UniCloud.Application.PartBC.ItemServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
 namespace UniCloud.DistributedServices.Part
@@ -34,6 +36,7 @@ namespace UniCloud.DistributedServices.Part
             #region 服务操作访问控制
 
             //config.SetServiceOperationAccessRule("GetConfigGroups", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("GetItemsByAircraftType", ServiceOperationRights.All);
 
             #endregion
 
@@ -79,6 +82,20 @@ namespace UniCloud.DistributedServices.Part
         //    List<ConfigGroupDTO> result = configGroupService.GetConfigGroups();
         //    return result;
         //}
+
+        #endregion
+
+
+        #region 机型对应的项集合查询
+
+        [WebGet]
+        public List<ItemDTO> GetItemsByAircraftType(string aircraftTypeId)
+        {
+            Guid id = Guid.Parse(aircraftTypeId);
+            var itemService = DefaultContainer.Resolve<IItemAppService>();
+            List<ItemDTO> result = itemService.GetItemsByAircraftType(id);
+            return result;
+        }
 
         #endregion
     }

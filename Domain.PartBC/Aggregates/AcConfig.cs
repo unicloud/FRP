@@ -52,21 +52,6 @@ namespace UniCloud.Domain.PartBC.Aggregates
         #region 属性
 
         /// <summary>
-        ///     FI号
-        /// </summary>
-        public string FiNumber { get; private set; }
-
-        /// <summary>
-        ///     项号
-        /// </summary>
-        public string ItemNo { get; private set; }
-
-        /// <summary>
-        ///     上层项号
-        /// </summary>
-        public string ParentItemNo { get; private set; }
-
-        /// <summary>
         ///     创建时间
         /// </summary>
         public DateTime CreateDate { get; internal set; }
@@ -129,8 +114,6 @@ namespace UniCloud.Domain.PartBC.Aggregates
             }
 
             ItemId = item.Id;
-            FiNumber = item.FiNumber;
-            ItemNo = item.ItemNo;
         }
 
         /// <summary>
@@ -141,13 +124,11 @@ namespace UniCloud.Domain.PartBC.Aggregates
         {
             if (parentAcConfig != null)
             {
-                ParentItemNo = parentAcConfig.ItemNo;
                 ParentId = parentAcConfig.Id;
                 SetRootId(parentAcConfig);
             }
             else
             {
-                ParentItemNo = null;
                 ParentId = null;
                 SetRootId(null);
             }
