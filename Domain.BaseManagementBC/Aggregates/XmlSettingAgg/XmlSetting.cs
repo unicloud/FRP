@@ -39,14 +39,8 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.XmlSettingAgg
 
         #region 属性
 
-        public string SettingType { get; protected set; }
-        public string SettingContent { get; protected set; }
-
-        public XElement XmlContent
-        {
-            get { return XElement.Parse(SettingContent); }
-            set { SettingContent = value.ToString(); }
-        }
+        public string SettingType { get; internal set; }
+        public string SettingContent { get; internal set; }
 
         #endregion
 

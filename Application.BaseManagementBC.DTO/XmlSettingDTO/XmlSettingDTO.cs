@@ -36,13 +36,6 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         public Guid XmlSettingId { get; set; }
         public string SettingType { get; set; }
         public string SettingContent { get; set; }
-
-        public XElement XmlContent
-        {
-            get { return XElement.Parse(SettingContent); }
-            set { SettingContent = value.ToString(); }
-        }
-
         #endregion
     }
 }

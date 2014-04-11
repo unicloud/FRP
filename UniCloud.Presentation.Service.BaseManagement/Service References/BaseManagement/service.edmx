@@ -105,7 +105,6 @@
         <Property Name="XmlSettingId" Type="Edm.Guid" Nullable="false" />
         <Property Name="SettingType" Type="Edm.String" />
         <Property Name="SettingContent" Type="Edm.String" />
-        <Property Name="XmlContent" Type="Edm.String" />
       </EntityType>
       <Association Name="FunctionItemDTO_SubFunctionItems">
         <End Type="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" Role="SubFunctionItems" Multiplicity="*" />

@@ -30,7 +30,7 @@ namespace UniCloud.Application.BaseManagementBC.XmlSettingServices
     ///     实现配置相关的xml接口。
     ///     用于处于维修发票相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class XmlSettingAppService : ContextBoundObject, IXmlSettingAppService
     {
         private readonly IXmlSettingQuery _xmlSettingQuery;
@@ -60,25 +60,25 @@ namespace UniCloud.Application.BaseManagementBC.XmlSettingServices
         [Insert(typeof(XmlSettingDTO))]
         public void InsertXmlSetting(XmlSettingDTO xmlSetting)
         {
-            //var newEngineXmlSetting = XmlSettingFactory.CreateEngineXmlSetting();
+            //var newXmlSetting = XmlSettingFactory.CreateXmlSetting();
             //var date = DateTime.Now.Date;
             //var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
-            //newEngineXmlSetting.SetInvoiceNumber(seq);
-            //XmlSettingFactory.SetXmlSetting(newEngineXmlSetting, engineXmlSetting.SerialNumber, 
-            //    engineXmlSetting.InvoideCode, engineXmlSetting.InvoiceDate, engineXmlSetting.SupplierName, engineXmlSetting.SupplierId,
-            //    engineXmlSetting.InvoiceValue, engineXmlSetting.PaidAmount, engineXmlSetting.OperatorName,
-            //    engineXmlSetting.Reviewer, engineXmlSetting.Status, engineXmlSetting.CurrencyId, engineXmlSetting.DocumentName, engineXmlSetting.DocumentId);
-            //if (engineXmlSetting.XmlSettingLines != null)
+            //newXmlSetting.SetInvoiceNumber(seq);
+            //XmlSettingFactory.SetXmlSetting(newXmlSetting, XmlSetting.SerialNumber, 
+            //    XmlSetting.InvoideCode, XmlSetting.InvoiceDate, XmlSetting.SupplierName, XmlSetting.SupplierId,
+            //    XmlSetting.InvoiceValue, XmlSetting.PaidAmount, XmlSetting.OperatorName,
+            //    XmlSetting.Reviewer, XmlSetting.Status, XmlSetting.CurrencyId, XmlSetting.DocumentName, XmlSetting.DocumentId);
+            //if (XmlSetting.XmlSettingLines != null)
             //{
-            //    foreach (var XmlSettingLine in engineXmlSetting.XmlSettingLines)
+            //    foreach (var XmlSettingLine in XmlSetting.XmlSettingLines)
             //    {
             //        var newXmlSettingLine = XmlSettingFactory.CreateXmlSettingLine();
             //        XmlSettingFactory.SetXmlSettingLine(newXmlSettingLine, XmlSettingLine.MaintainItem, XmlSettingLine.ItemName, XmlSettingLine.UnitPrice,
             //            XmlSettingLine.Amount, XmlSettingLine.Note);
-            //        newEngineXmlSetting.XmlSettingLines.Add(newXmlSettingLine);
+            //        newXmlSetting.XmlSettingLines.Add(newXmlSettingLine);
             //    }
             //}
-            //_invoiceRepository.Add(newEngineXmlSetting);
+            //_invoiceRepository.Add(newXmlSetting);
         }
 
 
@@ -89,14 +89,9 @@ namespace UniCloud.Application.BaseManagementBC.XmlSettingServices
         [Update(typeof(XmlSettingDTO))]
         public void ModifyXmlSetting(XmlSettingDTO xmlSetting)
         {
-            //var updateEngineXmlSetting =
-            //    _invoiceRepository.Get(engineXmlSetting.EngineXmlSettingId); //获取需要更新的对象。
-            //XmlSettingFactory.SetXmlSetting(updateEngineXmlSetting, engineXmlSetting.SerialNumber, 
-            //    engineXmlSetting.InvoideCode, engineXmlSetting.InvoiceDate, engineXmlSetting.SupplierName, engineXmlSetting.SupplierId,
-            //    engineXmlSetting.InvoiceValue, engineXmlSetting.PaidAmount, engineXmlSetting.OperatorName,
-            //   engineXmlSetting.Reviewer, engineXmlSetting.Status, engineXmlSetting.CurrencyId, engineXmlSetting.DocumentName, engineXmlSetting.DocumentId);
-            //UpdateXmlSettingLines(engineXmlSetting.XmlSettingLines, updateEngineXmlSetting);
-            //_invoiceRepository.Modify(updateEngineXmlSetting);
+            var updateXmlSetting = _xmlSettingRepository.Get(xmlSetting.XmlSettingId); //获取需要更新的对象。
+            XmlSettingFactory.SetXmlSetting(updateXmlSetting, xmlSetting.SettingContent);
+            _xmlSettingRepository.Modify(updateXmlSetting);
         }
 
         /// <summary>
@@ -106,10 +101,10 @@ namespace UniCloud.Application.BaseManagementBC.XmlSettingServices
         [Delete(typeof(XmlSettingDTO))]
         public void DeleteXmlSetting(XmlSettingDTO xmlSetting)
         {
-            //var deleteEngineXmlSetting =
-            //    _invoiceRepository.Get(engineXmlSetting.EngineXmlSettingId); //获取需要删除的对象。
-            //UpdateXmlSettingLines(new List<XmlSettingLineDTO>(), deleteEngineXmlSetting);
-            //_invoiceRepository.Remove(deleteEngineXmlSetting); //删除配置相关的xml。
+            //var deleteXmlSetting =
+            //    _invoiceRepository.Get(XmlSetting.XmlSettingId); //获取需要删除的对象。
+            //UpdateXmlSettingLines(new List<XmlSettingLineDTO>(), deleteXmlSetting);
+            //_invoiceRepository.Remove(deleteXmlSetting); //删除配置相关的xml。
         }
         #endregion
     }

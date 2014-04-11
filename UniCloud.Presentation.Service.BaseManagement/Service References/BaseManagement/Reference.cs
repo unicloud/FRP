@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/4/10 18:08:12
+// 生成日期: 2014/4/11 11:16:47
 namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
 {
     
@@ -302,32 +302,31 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
                 "yType><EntityType Name=\"XmlSettingDTO\"><Key><PropertyRef Name=\"XmlSettingId\" /><" +
                 "/Key><Property Name=\"XmlSettingId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property " +
                 "Name=\"SettingType\" Type=\"Edm.String\" /><Property Name=\"SettingContent\" Type=\"Edm" +
-                ".String\" /><Property Name=\"XmlContent\" Type=\"Edm.String\" /></EntityType><Associa" +
-                "tion Name=\"FunctionItemDTO_SubFunctionItems\"><End Type=\"UniCloud.Application.Bas" +
-                "eManagementBC.DTO.FunctionItemDTO\" Role=\"SubFunctionItems\" Multiplicity=\"*\" /><E" +
-                "nd Type=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"Functi" +
-                "onItemDTO\" Multiplicity=\"*\" /></Association></Schema><Schema Namespace=\"UniCloud" +
-                ".DistributedServices.BaseManagement\" xmlns=\"http://schemas.microsoft.com/ado/200" +
-                "9/11/edm\"><EntityContainer Name=\"BaseManagementData\" m:IsDefaultEntityContainer=" +
-                "\"true\"><EntitySet Name=\"Users\" EntityType=\"UniCloud.Application.BaseManagementBC" +
-                ".DTO.UserDTO\" /><EntitySet Name=\"Organizations\" EntityType=\"UniCloud.Application" +
-                ".BaseManagementBC.DTO.OrganizationDTO\" /><EntitySet Name=\"FunctionItems\" EntityT" +
-                "ype=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO\" /><EntitySet Nam" +
-                "e=\"Roles\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.RoleDTO\" /><Enti" +
-                "tySet Name=\"BusinessLicenses\" EntityType=\"UniCloud.Application.BaseManagementBC." +
-                "DTO.BusinessLicenseDTO\" /><EntitySet Name=\"AircraftCabinTypes\" EntityType=\"UniCl" +
-                "oud.Application.BaseManagementBC.DTO.AircraftCabinTypeDTO\" /><EntitySet Name=\"Xm" +
-                "lSettings\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.XmlSettingDTO\" " +
-                "/><FunctionImport Name=\"GetFunctionItemsWithHierarchy\" ReturnType=\"Collection(Un" +
-                "iCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySet=\"FunctionIte" +
-                "ms\" m:HttpMethod=\"GET\" /><FunctionImport Name=\"GetFunctionItemsByUser\" ReturnTyp" +
-                "e=\"Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)\" Entity" +
-                "Set=\"FunctionItems\" m:HttpMethod=\"GET\"><Parameter Name=\"userId\" Type=\"Edm.String" +
-                "\" /></FunctionImport><AssociationSet Name=\"FunctionItemDTO_SubFunctionItems\" Ass" +
-                "ociation=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionI" +
-                "tems\"><End Role=\"FunctionItemDTO\" EntitySet=\"FunctionItems\" /><End Role=\"SubFunc" +
-                "tionItems\" EntitySet=\"FunctionItems\" /></AssociationSet></EntityContainer></Sche" +
-                "ma></edmx:DataServices></edmx:Edmx>";
+                ".String\" /></EntityType><Association Name=\"FunctionItemDTO_SubFunctionItems\"><En" +
+                "d Type=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"SubFunc" +
+                "tionItems\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.BaseManagementBC.D" +
+                "TO.FunctionItemDTO\" Role=\"FunctionItemDTO\" Multiplicity=\"*\" /></Association></Sc" +
+                "hema><Schema Namespace=\"UniCloud.DistributedServices.BaseManagement\" xmlns=\"http" +
+                "://schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"BaseManagementD" +
+                "ata\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Users\" EntityType=\"UniCl" +
+                "oud.Application.BaseManagementBC.DTO.UserDTO\" /><EntitySet Name=\"Organizations\" " +
+                "EntityType=\"UniCloud.Application.BaseManagementBC.DTO.OrganizationDTO\" /><Entity" +
+                "Set Name=\"FunctionItems\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.F" +
+                "unctionItemDTO\" /><EntitySet Name=\"Roles\" EntityType=\"UniCloud.Application.BaseM" +
+                "anagementBC.DTO.RoleDTO\" /><EntitySet Name=\"BusinessLicenses\" EntityType=\"UniClo" +
+                "ud.Application.BaseManagementBC.DTO.BusinessLicenseDTO\" /><EntitySet Name=\"Aircr" +
+                "aftCabinTypes\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.AircraftCab" +
+                "inTypeDTO\" /><EntitySet Name=\"XmlSettings\" EntityType=\"UniCloud.Application.Base" +
+                "ManagementBC.DTO.XmlSettingDTO\" /><FunctionImport Name=\"GetFunctionItemsWithHier" +
+                "archy\" ReturnType=\"Collection(UniCloud.Application.BaseManagementBC.DTO.Function" +
+                "ItemDTO)\" EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\" /><FunctionImport Name=\"G" +
+                "etFunctionItemsByUser\" ReturnType=\"Collection(UniCloud.Application.BaseManagemen" +
+                "tBC.DTO.FunctionItemDTO)\" EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\"><Paramete" +
+                "r Name=\"userId\" Type=\"Edm.String\" /></FunctionImport><AssociationSet Name=\"Funct" +
+                "ionItemDTO_SubFunctionItems\" Association=\"UniCloud.Application.BaseManagementBC." +
+                "DTO.FunctionItemDTO_SubFunctionItems\"><End Role=\"FunctionItemDTO\" EntitySet=\"Fun" +
+                "ctionItems\" /><End Role=\"SubFunctionItems\" EntitySet=\"FunctionItems\" /></Associa" +
+                "tionSet></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -2122,28 +2121,6 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         private string _SettingContent;
         partial void OnSettingContentChanging(string value);
         partial void OnSettingContentChanged();
-        /// <summary>
-        /// 架构中不存在属性 XmlContent 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string XmlContent
-        {
-            get
-            {
-                return this._XmlContent;
-            }
-            set
-            {
-                this.OnXmlContentChanging(value);
-                this._XmlContent = value;
-                this.OnXmlContentChanged();
-                this.OnPropertyChanged("XmlContent");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _XmlContent;
-        partial void OnXmlContentChanging(string value);
-        partial void OnXmlContentChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
