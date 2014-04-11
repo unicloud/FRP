@@ -44,7 +44,7 @@ namespace UniCloud.Presentation.MVVM
         public DocViewerVM docViewerVM;
 
         //[Import]
-        public ListDocuments ListDocuments ;
+        public ListDocuments ListDocuments;
         protected Action<DocumentDTO> _windowClosed;
         #region ctor
 
@@ -61,7 +61,7 @@ namespace UniCloud.Presentation.MVVM
             {
                 service.PropertyChanged += (o, e) =>
                 {
-                    if (e.PropertyName == "IsBusy")
+                    if (e.PropertyName.Equals("IsBusy", StringComparison.OrdinalIgnoreCase))
                     {
                         IsBusy = service.IsBusy;
                     }

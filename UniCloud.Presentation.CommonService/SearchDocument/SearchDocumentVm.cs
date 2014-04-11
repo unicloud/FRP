@@ -34,6 +34,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class SearchDocumentVm : ViewModelBase
     {
+        #region 声明、初始化
         private readonly CommonServiceData _context;
 
         [ImportingConstructor]
@@ -42,9 +43,13 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
         {
             _context = service.Context;
         }
+        #endregion
 
-        #region 关键字
+        #region 属性
         private string _keyword;
+        /// <summary>
+        /// 关键字
+        /// </summary>
         public string Keyword
         {
             get { return _keyword; }
@@ -54,17 +59,11 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RaisePropertyChanged("Keyword");
             }
         }
-        public void RadWatermarkTextBoxKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                RadButtonClick(sender, e);
-            }
-        }
-        #endregion
 
-        #region 搜索到的文档集合
         private List<DocumentDTO> _documents;
+        /// <summary>
+        /// 搜索到的文档集合
+        /// </summary>
         public List<DocumentDTO> Documents
         {
             get { return _documents; }
@@ -74,10 +73,11 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RaisePropertyChanged(() => Documents);
             }
         }
-        #endregion
 
-        #region 文档类型
         private IEnumerable<DocumentTypeDTO> _documentTypes;
+        /// <summary>
+        /// 文档类型
+        /// </summary>
         public IEnumerable<DocumentTypeDTO> DocumentTypes
         {
             get { return _documentTypes; }
@@ -89,6 +89,14 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
         }
         #endregion
 
+        #region 操作
+        public void RadWatermarkTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                RadButtonClick(sender, e);
+            }
+        }
         public void RadButtonClick(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(Keyword))
@@ -144,7 +152,6 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             return new Uri(string.Format("SearchDocument?keyword='{0}'&documentType='{1}'", keyword, documentType),
                 UriKind.Relative);
         }
-
         public override void LoadData()
         {
             var main = ServiceLocator.Current.GetInstance<SearchDocumentMainVm>();
@@ -153,5 +160,6 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             DocumentTypes = main.DocumentTypes.ToList();
             RadButtonClick(null, null);
         }
+        #endregion
     }
 }

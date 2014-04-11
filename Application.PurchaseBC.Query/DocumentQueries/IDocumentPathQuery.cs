@@ -42,5 +42,7 @@ namespace UniCloud.Application.PurchaseBC.Query.DocumentQueries
             QueryBuilder<DocumentPath> query);
 
         IEnumerable<DocumentPathDTO> SearchDocumentPath(int documentPathId, string name);
+
+        List<DocumentPath> FindSubDocumentPaths(int documentPathId);
     }
 }

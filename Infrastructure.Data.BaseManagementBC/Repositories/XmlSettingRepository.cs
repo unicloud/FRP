@@ -14,11 +14,11 @@
 
 #region 命名空间
 
-using UniCloud.Domain.FleetPlanBC.Aggregates.XmlSettingAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.XmlSettingAgg;
 
 #endregion
 
-namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
+namespace UniCloud.Infrastructure.Data.BaseManagementBC.Repositories
 {
     /// <summary>
     ///     配置信息xml仓储实现

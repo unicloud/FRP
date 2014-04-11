@@ -33,7 +33,8 @@ namespace UniCloud.Presentation.MVVM
     {
         private readonly IService _service;
 
-        protected EditViewModelBase(IService service) : base(service)
+        protected EditViewModelBase(IService service)
+            : base(service)
         {
             _service = service;
             SaveCommand = new DelegateCommand<object>(OnSave, CanSave);
@@ -42,7 +43,7 @@ namespace UniCloud.Presentation.MVVM
             {
                 service.PropertyChanged += (o, e) =>
                 {
-                    if (e.PropertyName == "HasChanges")
+                    if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                     {
                         SaveCommand.RaiseCanExecuteChanged();
                         AbortCommand.RaiseCanExecuteChanged();

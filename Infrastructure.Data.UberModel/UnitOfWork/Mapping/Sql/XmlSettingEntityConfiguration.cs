@@ -33,7 +33,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-            Ignore(x => x.XmlContent);
 
             Property(p => p.SettingType).HasColumnName("SettingType");
             Property(p => p.SettingContent).HasColumnName("SettingContent").HasColumnType("xml");

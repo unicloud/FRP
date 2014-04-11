@@ -14,6 +14,7 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
@@ -28,7 +29,7 @@ namespace UniCloud.Presentation.CommonService.DocumentTypeManager
 {
     [Export(typeof(ManagerDocumentTypeVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class ManagerDocumentTypeVm: EditViewModelBase
+    public class ManagerDocumentTypeVm : EditViewModelBase
     {
         #region 声明、初始化
 
@@ -55,11 +56,11 @@ namespace UniCloud.Presentation.CommonService.DocumentTypeManager
         private void InitializeVm()
         {
             //创建并注册CollectionView
-           DocumentTypes = _service.CreateCollection(_context.DocumentTypes);
+            DocumentTypes = _service.CreateCollection(_context.DocumentTypes);
             _service.RegisterCollectionView(DocumentTypes);
             DocumentTypes.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
                     var newItem = DocumentTypes.CurrentAddItem as DocumentTypeDTO;
                     if (newItem != null)
@@ -67,7 +68,7 @@ namespace UniCloud.Presentation.CommonService.DocumentTypeManager
                         newItem.DocumentTypeId = RandomHelper.Next();
                     }
                 }
-                else if (e.PropertyName == "HasChanges")
+                else if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     CanSelectDocumentType = !DocumentTypes.HasChanges;
                 }
@@ -80,7 +81,7 @@ namespace UniCloud.Presentation.CommonService.DocumentTypeManager
         #region 数据
 
         #region 公共属性
-        
+
         #endregion
 
         #region 加载数据
@@ -101,16 +102,12 @@ namespace UniCloud.Presentation.CommonService.DocumentTypeManager
         }
 
         #region 文档类型
-
-        private DocumentTypeDTO _documentType;
-
-        private bool _canSelectDocumentType = true;
-
         /// <summary>
         ///     文档类型集合
         /// </summary>
         public QueryableDataServiceCollectionView<DocumentTypeDTO> DocumentTypes { get; set; }
 
+        private DocumentTypeDTO _documentType;
         /// <summary>
         ///     选中的文档类型
         /// </summary>
@@ -128,6 +125,7 @@ namespace UniCloud.Presentation.CommonService.DocumentTypeManager
         }
 
         //用户能否选择
+        private bool _canSelectDocumentType = true;
         public bool CanSelectDocumentType
         {
             get { return _canSelectDocumentType; }
@@ -143,14 +141,11 @@ namespace UniCloud.Presentation.CommonService.DocumentTypeManager
 
         #endregion
 
-
-
         #endregion
 
         #endregion
 
         #region 操作
-
 
         #region 重载操作
 

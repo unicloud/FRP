@@ -99,7 +99,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         }
 
         #region 飞机
-
         /// <summary>
         ///     飞机集合
         /// </summary>
@@ -125,7 +124,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         #endregion
 
         #region 飞机证照
-
         private AircraftLicenseDTO _aircraftLicense;
         public AircraftLicenseDTO AircraftLicense
         {
@@ -137,8 +135,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
                 {
                     if (_aircraftLicense.FileContent != null)
                     {
-                        IImageFormatProvider providerByExtension =
-                            ImageFormatProviderManager.GetFormatProviderByExtension(
+                        IImageFormatProvider providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(
                                 Path.GetExtension(_aircraftLicense.FileName));
                         if (providerByExtension == null)
                         {
@@ -208,12 +205,10 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         #region 操作
 
         #region 增加飞机证照
-
         /// <summary>
         ///     增加飞机证照
         /// </summary>
         public DelegateCommand<object> AddAircraftLicenseCommand { get; set; }
-
         protected virtual void OnAddAircraftLicense(object obj)
         {
             if (Aircraft == null)
@@ -233,7 +228,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             Aircraft.AircraftLicenses.Add(aircraftLicense);
             Image = null;
         }
-
         protected virtual bool CanAddAircraftLicense(object obj)
         {
             return true;
@@ -242,12 +236,10 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         #endregion
 
         #region 移除飞机证照
-
         /// <summary>
         ///     移除飞机证照
         /// </summary>
         public DelegateCommand<object> RemoveAircraftLicenseCommand { get; private set; }
-
         protected virtual void OnRemoveAircraftLicense(object obj)
         {
             if (AircraftLicense == null)
@@ -261,7 +253,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
                 Aircraft.AircraftLicenses.Remove(AircraftLicense);
             });
         }
-
         protected virtual bool CanRemoveAircraftLicense(object obj)
         {
             return true;
@@ -271,7 +262,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
 
         #region 打开文档
         public DelegateCommand<object> AddDocumentCommand { get; set; }
-
         private void AddDocument(object sender)
         {
             try
@@ -298,7 +288,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
                 MessageAlert(e.Message);
             }
         }
-
         private bool CanAddDocument(object obj)
         {
             return AircraftLicense != null;

@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/4/8 18:08:59
+// 生成日期: 2014/4/11 11:16:47
 namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
 {
     
@@ -163,6 +163,23 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<AircraftCabinTypeDTO> _AircraftCabinTypes;
         /// <summary>
+        /// 架构中不存在 XmlSettings 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<XmlSettingDTO> XmlSettings
+        {
+            get
+            {
+                if ((this._XmlSettings == null))
+                {
+                    this._XmlSettings = base.CreateQuery<XmlSettingDTO>("XmlSettings");
+                }
+                return this._XmlSettings;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<XmlSettingDTO> _XmlSettings;
+        /// <summary>
         /// 架构中不存在 Users 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -209,6 +226,14 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         public void AddToAircraftCabinTypes(AircraftCabinTypeDTO aircraftCabinTypeDTO)
         {
             base.AddObject("AircraftCabinTypes", aircraftCabinTypeDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 XmlSettings 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToXmlSettings(XmlSettingDTO xmlSettingDTO)
+        {
+            base.AddObject("XmlSettings", xmlSettingDTO);
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private abstract class GeneratedEdmModel
@@ -274,30 +299,34 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
                 "\" /></EntityType><EntityType Name=\"AircraftCabinTypeDTO\"><Key><PropertyRef Name=" +
                 "\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
                 "ame=\"Name\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /></Entit" +
-                "yType><Association Name=\"FunctionItemDTO_SubFunctionItems\"><End Type=\"UniCloud.A" +
-                "pplication.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"SubFunctionItems\" Multipl" +
-                "icity=\"*\" /><End Type=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" +
-                "\" Role=\"FunctionItemDTO\" Multiplicity=\"*\" /></Association></Schema><Schema Names" +
-                "pace=\"UniCloud.DistributedServices.BaseManagement\" xmlns=\"http://schemas.microso" +
-                "ft.com/ado/2009/11/edm\"><EntityContainer Name=\"BaseManagementData\" m:IsDefaultEn" +
-                "tityContainer=\"true\"><EntitySet Name=\"Users\" EntityType=\"UniCloud.Application.Ba" +
-                "seManagementBC.DTO.UserDTO\" /><EntitySet Name=\"Organizations\" EntityType=\"UniClo" +
-                "ud.Application.BaseManagementBC.DTO.OrganizationDTO\" /><EntitySet Name=\"Function" +
-                "Items\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO\" />" +
-                "<EntitySet Name=\"Roles\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.Ro" +
-                "leDTO\" /><EntitySet Name=\"BusinessLicenses\" EntityType=\"UniCloud.Application.Bas" +
-                "eManagementBC.DTO.BusinessLicenseDTO\" /><EntitySet Name=\"AircraftCabinTypes\" Ent" +
-                "ityType=\"UniCloud.Application.BaseManagementBC.DTO.AircraftCabinTypeDTO\" /><Func" +
-                "tionImport Name=\"GetFunctionItemsWithHierarchy\" ReturnType=\"Collection(UniCloud." +
-                "Application.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySet=\"FunctionItems\" m:H" +
-                "ttpMethod=\"GET\" /><FunctionImport Name=\"GetFunctionItemsByUser\" ReturnType=\"Coll" +
-                "ection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySet=\"Fu" +
-                "nctionItems\" m:HttpMethod=\"GET\"><Parameter Name=\"userId\" Type=\"Edm.String\" /></F" +
-                "unctionImport><AssociationSet Name=\"FunctionItemDTO_SubFunctionItems\" Associatio" +
-                "n=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems\"><" +
-                "End Role=\"FunctionItemDTO\" EntitySet=\"FunctionItems\" /><End Role=\"SubFunctionIte" +
-                "ms\" EntitySet=\"FunctionItems\" /></AssociationSet></EntityContainer></Schema></ed" +
-                "mx:DataServices></edmx:Edmx>";
+                "yType><EntityType Name=\"XmlSettingDTO\"><Key><PropertyRef Name=\"XmlSettingId\" /><" +
+                "/Key><Property Name=\"XmlSettingId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property " +
+                "Name=\"SettingType\" Type=\"Edm.String\" /><Property Name=\"SettingContent\" Type=\"Edm" +
+                ".String\" /></EntityType><Association Name=\"FunctionItemDTO_SubFunctionItems\"><En" +
+                "d Type=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"SubFunc" +
+                "tionItems\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.BaseManagementBC.D" +
+                "TO.FunctionItemDTO\" Role=\"FunctionItemDTO\" Multiplicity=\"*\" /></Association></Sc" +
+                "hema><Schema Namespace=\"UniCloud.DistributedServices.BaseManagement\" xmlns=\"http" +
+                "://schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"BaseManagementD" +
+                "ata\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Users\" EntityType=\"UniCl" +
+                "oud.Application.BaseManagementBC.DTO.UserDTO\" /><EntitySet Name=\"Organizations\" " +
+                "EntityType=\"UniCloud.Application.BaseManagementBC.DTO.OrganizationDTO\" /><Entity" +
+                "Set Name=\"FunctionItems\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.F" +
+                "unctionItemDTO\" /><EntitySet Name=\"Roles\" EntityType=\"UniCloud.Application.BaseM" +
+                "anagementBC.DTO.RoleDTO\" /><EntitySet Name=\"BusinessLicenses\" EntityType=\"UniClo" +
+                "ud.Application.BaseManagementBC.DTO.BusinessLicenseDTO\" /><EntitySet Name=\"Aircr" +
+                "aftCabinTypes\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.AircraftCab" +
+                "inTypeDTO\" /><EntitySet Name=\"XmlSettings\" EntityType=\"UniCloud.Application.Base" +
+                "ManagementBC.DTO.XmlSettingDTO\" /><FunctionImport Name=\"GetFunctionItemsWithHier" +
+                "archy\" ReturnType=\"Collection(UniCloud.Application.BaseManagementBC.DTO.Function" +
+                "ItemDTO)\" EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\" /><FunctionImport Name=\"G" +
+                "etFunctionItemsByUser\" ReturnType=\"Collection(UniCloud.Application.BaseManagemen" +
+                "tBC.DTO.FunctionItemDTO)\" EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\"><Paramete" +
+                "r Name=\"userId\" Type=\"Edm.String\" /></FunctionImport><AssociationSet Name=\"Funct" +
+                "ionItemDTO_SubFunctionItems\" Association=\"UniCloud.Application.BaseManagementBC." +
+                "DTO.FunctionItemDTO_SubFunctionItems\"><End Role=\"FunctionItemDTO\" EntitySet=\"Fun" +
+                "ctionItems\" /><End Role=\"SubFunctionItems\" EntitySet=\"FunctionItems\" /></Associa" +
+                "tionSet></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -1994,6 +2023,104 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         private string _Note;
         partial void OnNoteChanging(string value);
         partial void OnNoteChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.BaseManagementBC.DTO.XmlSettingDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// XmlSettingId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("XmlSettings")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("XmlSettingId")]
+    public partial class XmlSettingDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 XmlSettingDTO 对象。
+        /// </summary>
+        /// <param name="xmlSettingId">XmlSettingId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static XmlSettingDTO CreateXmlSettingDTO(global::System.Guid xmlSettingId)
+        {
+            XmlSettingDTO xmlSettingDTO = new XmlSettingDTO();
+            xmlSettingDTO.XmlSettingId = xmlSettingId;
+            return xmlSettingDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 XmlSettingId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid XmlSettingId
+        {
+            get
+            {
+                return this._XmlSettingId;
+            }
+            set
+            {
+                this.OnXmlSettingIdChanging(value);
+                this._XmlSettingId = value;
+                this.OnXmlSettingIdChanged();
+                this.OnPropertyChanged("XmlSettingId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _XmlSettingId;
+        partial void OnXmlSettingIdChanging(global::System.Guid value);
+        partial void OnXmlSettingIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 SettingType 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SettingType
+        {
+            get
+            {
+                return this._SettingType;
+            }
+            set
+            {
+                this.OnSettingTypeChanging(value);
+                this._SettingType = value;
+                this.OnSettingTypeChanged();
+                this.OnPropertyChanged("SettingType");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SettingType;
+        partial void OnSettingTypeChanging(string value);
+        partial void OnSettingTypeChanged();
+        /// <summary>
+        /// 架构中不存在属性 SettingContent 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SettingContent
+        {
+            get
+            {
+                return this._SettingContent;
+            }
+            set
+            {
+                this.OnSettingContentChanging(value);
+                this._SettingContent = value;
+                this.OnSettingContentChanged();
+                this.OnPropertyChanged("SettingContent");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SettingContent;
+        partial void OnSettingContentChanging(string value);
+        partial void OnSettingContentChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

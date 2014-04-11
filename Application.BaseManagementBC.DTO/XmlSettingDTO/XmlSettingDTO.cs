@@ -20,7 +20,7 @@ using System.Xml.Linq;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO
+namespace UniCloud.Application.BaseManagementBC.DTO
 {
     /// <summary>
     /// 配置相关的xml
@@ -36,13 +36,6 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public Guid XmlSettingId { get; set; }
         public string SettingType { get; set; }
         public string SettingContent { get; set; }
-
-        public XElement XmlContent
-        {
-            get { return XElement.Parse(SettingContent); }
-            set { SettingContent = value.ToString(); }
-        }
-
         #endregion
     }
 }

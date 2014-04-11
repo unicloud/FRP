@@ -345,6 +345,11 @@
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.BaseManagement\Service.BaseManagement.csproj">
+      <Project>{edc31656-0f6e-4e1e-a047-a65cff2ee2e6}</Project>
+      <Name>Service.BaseManagement</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service.CommonService\Service.CommonService.csproj">
       <Project>{e182cb39-cb47-4a7a-bf2d-0094d38d24fe}</Project>
       <Name>Service.CommonService</Name>

@@ -99,8 +99,6 @@
     <Compile Include="SupplierServices\SupplierAppService.cs" />
     <Compile Include="XmlConfigServices\IXmlConfigAppService.cs" />
     <Compile Include="XmlConfigServices\XmlConfigAppService.cs" />
-    <Compile Include="XmlSettingServices\IXmlSettingAppService.cs" />
-    <Compile Include="XmlSettingServices\XmlSettingAppService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application.FleetPlanBC.DTO\Application.FleetPlanBC.DTO.csproj">

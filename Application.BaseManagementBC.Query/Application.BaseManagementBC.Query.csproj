@@ -63,6 +63,8 @@
     <Compile Include="RoleQueries\RoleQuery.cs" />
     <Compile Include="UserQueries\IUserQuery.cs" />
     <Compile Include="UserQueries\UserQuery.cs" />
+    <Compile Include="XmlSettingQueries\IXmlSettingQuery.cs" />
+    <Compile Include="XmlSettingQueries\XmlSettingQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

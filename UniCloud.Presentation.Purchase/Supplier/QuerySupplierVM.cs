@@ -33,7 +33,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
     /// <summary>
     ///     查询供应商信息
     /// </summary>
-    [Export(typeof (QuerySupplierVM))]
+    [Export(typeof(QuerySupplierVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class QuerySupplierVM : EditViewModelBase
     {
@@ -46,7 +46,8 @@ namespace UniCloud.Presentation.Purchase.Supplier
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public QuerySupplierVM(IPurchaseService service) : base(service)
+        public QuerySupplierVM(IPurchaseService service)
+            : base(service)
         {
             _service = service;
             _context = _service.Context;
@@ -150,7 +151,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
             };
             LinkmansView.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "CurrentAddItem")
+                if (e.PropertyName.Equals("CurrentAddItem", StringComparison.OrdinalIgnoreCase))
                 {
                     if (LinkmansView.CurrentAddItem is LinkmanDTO)
                     {
@@ -275,8 +276,11 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <summary>
         ///     获取所有供应商公司飞机物料信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterialsView { get;
-            set; }
+        public QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterialsView
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         ///     初始化合作公司飞机物料信息。
@@ -344,8 +348,11 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <summary>
         ///     获取所有供应商公司发动机物料信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<SupplierCompanyEngineMaterialDTO> SupplierCompanyEngineMaterialsView {
-            get; set; }
+        public QueryableDataServiceCollectionView<SupplierCompanyEngineMaterialDTO> SupplierCompanyEngineMaterialsView
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         ///     初始化合作公司发动机物料信息。
@@ -413,8 +420,11 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <summary>
         ///     获取所有供应商公司BFE物料信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<SupplierCompanyBFEMaterialDTO> SupplierCompanyBFEMaterialsView { get;
-            set; }
+        public QueryableDataServiceCollectionView<SupplierCompanyBFEMaterialDTO> SupplierCompanyBFEMaterialsView
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         ///     初始化合作公司BFE物料信息。

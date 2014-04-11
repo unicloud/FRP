@@ -15,14 +15,17 @@ using UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries;
 using UniCloud.Application.BaseManagementBC.Query.OrganizationQueries;
 using UniCloud.Application.BaseManagementBC.Query.RoleQueries;
 using UniCloud.Application.BaseManagementBC.Query.UserQueries;
+using UniCloud.Application.BaseManagementBC.Query.XmlSettingQueries;
 using UniCloud.Application.BaseManagementBC.RoleServices;
 using UniCloud.Application.BaseManagementBC.UserServices;
+using UniCloud.Application.BaseManagementBC.XmlSettingServices;
 using UniCloud.Domain.BaseManagementBC.Aggregates.AircraftCabinTypeAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.BusinessLicenseAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.XmlSettingAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.BaseManagementBC.Repositories;
 using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork;
@@ -76,6 +79,12 @@ namespace UniCloud.DistributedServices.BaseManagement.InstanceProviders
 .RegisterType<IAircraftCabinTypeAppService, AircraftCabinTypeAppService>()
                          .RegisterType<IAircraftCabinTypeQuery, AircraftCabinTypeQuery>()
                          .RegisterType<IAircraftCabinTypeRepository, AircraftCabinTypeRepository>()
+            #endregion
+            #region 配置相关的xml相关配置，包括查询，应用服务，仓储注册
+
+.RegisterType<IXmlSettingQuery, XmlSettingQuery>()
+                .RegisterType<IXmlSettingAppService, XmlSettingAppService>()
+                .RegisterType<IXmlSettingRepository, XmlSettingRepository>()
             #endregion
 ;
         }

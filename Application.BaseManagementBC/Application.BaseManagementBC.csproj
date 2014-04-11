@@ -57,6 +57,8 @@
     <Compile Include="RoleServices\RoleAppService.cs" />
     <Compile Include="UserServices\IUserAppService.cs" />
     <Compile Include="UserServices\UserAppService.cs" />
+    <Compile Include="XmlSettingServices\IXmlSettingAppService.cs" />
+    <Compile Include="XmlSettingServices\XmlSettingAppService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application.BaseManagementBC.DTO\Application.BaseManagementBC.DTO.csproj">

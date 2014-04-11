@@ -106,7 +106,6 @@
     <Compile Include="RequestDTO\RequestDTO.cs" />
     <Compile Include="SupplierDTO\SupplierDTO.cs" />
     <Compile Include="XmlConfigDTO\XmlConfigDTO.cs" />
-    <Compile Include="XmlSettingDTO\XmlSettingDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

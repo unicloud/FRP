@@ -14,7 +14,7 @@
 
 #endregion
 
-namespace UniCloud.Domain.FleetPlanBC.Aggregates.XmlSettingAgg
+namespace UniCloud.Domain.BaseManagementBC.Aggregates.XmlSettingAgg
 {
     /// <summary>
     ///     配置相关的xml仓储接口

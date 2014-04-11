@@ -15,11 +15,11 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.FleetPlanBC.DTO;
+using UniCloud.Application.BaseManagementBC.DTO;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.XmlSettingServices
+namespace UniCloud.Application.BaseManagementBC.XmlSettingServices
 {
     /// <summary>
     ///     表示用于配置相关的xml相关信息服务

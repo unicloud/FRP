@@ -4,6 +4,7 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Telerik.Windows.Data;
@@ -16,7 +17,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Forwarder
 {
-    [Export(typeof (ForwarderManagerVM))]
+    [Export(typeof(ForwarderManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ForwarderManagerVM : EditViewModelBase
     {
@@ -27,7 +28,8 @@ namespace UniCloud.Presentation.Purchase.Forwarder
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public ForwarderManagerVM(IPurchaseService service) : base(service)
+        public ForwarderManagerVM(IPurchaseService service)
+            : base(service)
         {
             _service = service;
             _context = _service.Context;
@@ -92,11 +94,11 @@ namespace UniCloud.Presentation.Purchase.Forwarder
             };
             ForwardersView.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "HasChanges")
+                if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     CanSelectForward = !ForwardersView.HasChanges;
                 }
-                if (e.PropertyName == "CurrentAddItem")
+                if (e.PropertyName.Equals("CurrentAddItem", StringComparison.OrdinalIgnoreCase))
                 {
                     if (ForwardersView.CurrentAddItem is ForwarderDTO)
                     {

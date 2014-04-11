@@ -61,18 +61,18 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             _service.RegisterCollectionView(AircraftTypes);
             AircraftTypes.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
                     var newItem = AircraftTypes.CurrentAddItem as AircraftTypeDTO;
                     if (newItem != null)
                     {
                         newItem.AircraftTypeId = Guid.NewGuid();
-                       var  caacAircraftType = CaacAircraftTypes.FirstOrDefault();
+                        var caacAircraftType = CaacAircraftTypes.FirstOrDefault();
                         if (caacAircraftType != null) 
                             newItem.CaacAircraftTypeId = caacAircraftType.CAACAircraftTypeId;
                     }
                 }
-                else if (e.PropertyName == "HasChanges")
+                else if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     CanSelectAircraftType = !AircraftTypes.HasChanges;
                 }
@@ -93,8 +93,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         /// 制造商
         /// </summary>
         public QueryableDataServiceCollectionView<ManufacturerDTO> Manufacturers { get; set; }
-
-
         #endregion
 
         #region 加载数据
@@ -119,16 +117,12 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         }
 
         #region 机型
-
-        private AircraftTypeDTO _aircraftType;
-
-        private bool _canSelectAircraftType = true;
-
         /// <summary>
         ///     机型集合
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypes { get; set; }
 
+        private AircraftTypeDTO _aircraftType;
         /// <summary>
         ///     选中的机型
         /// </summary>
@@ -150,6 +144,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         }
 
         //用户能否选择
+        private bool _canSelectAircraftType = true;
         public bool CanSelectAircraftType
         {
             get { return _canSelectAircraftType; }
@@ -162,7 +157,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 }
             }
         }
-
         #endregion
 
         #region 民航机型
@@ -206,13 +200,10 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             }
         }
         #endregion
-
         #endregion
-
         #endregion
 
         #region 操作
-
 
         #region 重载操作
 

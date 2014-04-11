@@ -104,7 +104,7 @@ namespace UniCloud.Presentation.Input
             DragDropManager.AddDragInitializeHandler(AssociatedObject, OnDragInitialize);
             DragDropManager.AddGiveFeedbackHandler(AssociatedObject, OnGiveFeedback);
             DragDropManager.AddDropHandler(AssociatedObject, OnDrop);
-            DragDropManager.AddDragDropCompletedHandler(AssociatedObject, OnDragDropCompleted);
+            //DragDropManager.AddDragDropCompletedHandler(AssociatedObject, OnDragDropCompleted); //需在其他模块完成自定义逻辑处理
             DragDropManager.AddDragOverHandler(AssociatedObject, OnDragOver);
         }
 
@@ -114,7 +114,7 @@ namespace UniCloud.Presentation.Input
             DragDropManager.RemoveDragInitializeHandler(AssociatedObject, OnDragInitialize);
             DragDropManager.RemoveGiveFeedbackHandler(AssociatedObject, OnGiveFeedback);
             DragDropManager.RemoveDropHandler(AssociatedObject, OnDrop);
-            DragDropManager.RemoveDragDropCompletedHandler(AssociatedObject, OnDragDropCompleted);
+            //DragDropManager.RemoveDragDropCompletedHandler(AssociatedObject, OnDragDropCompleted); //需在其他模块完成自定义逻辑处理
             DragDropManager.RemoveDragOverHandler(AssociatedObject, OnDragOver);
 
         }

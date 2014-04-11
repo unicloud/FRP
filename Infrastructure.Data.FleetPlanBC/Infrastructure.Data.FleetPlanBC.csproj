@@ -79,7 +79,6 @@
     <Compile Include="Repositories\RequestRepository.cs" />
     <Compile Include="Repositories\SupplierRepository.cs" />
     <Compile Include="Repositories\XmlConfigRepository.cs" />
-    <Compile Include="Repositories\XmlSettingRepository.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcConfigHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ActionCategoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftConfigurationEntityConfiguration.cs" />
@@ -119,7 +118,6 @@
     <Compile Include="UnitOfWork\Mapping\Sql\RequestEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\XmlConfigEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\XmlSettingEntityConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UnitOfWork\Mapping\Oracle\" />

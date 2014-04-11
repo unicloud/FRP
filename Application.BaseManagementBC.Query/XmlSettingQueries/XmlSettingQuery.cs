@@ -15,12 +15,12 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.FleetPlanBC.DTO;
-using UniCloud.Domain.FleetPlanBC.Aggregates.XmlSettingAgg;
+using UniCloud.Application.BaseManagementBC.DTO;
+using UniCloud.Domain.BaseManagementBC.Aggregates.XmlSettingAgg;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.Query.XmlSettingQueries
+namespace UniCloud.Application.BaseManagementBC.Query.XmlSettingQueries
 {
     public class XmlSettingQuery : IXmlSettingQuery
     {

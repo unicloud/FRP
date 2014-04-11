@@ -61,6 +61,7 @@
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\UserRoleRepository.cs" />
+    <Compile Include="Repositories\XmlSettingRepository.cs" />
     <Compile Include="UnitOfWork\BaseManagementBCUnitOfWork.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftCabinTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BusinessLicenseEntityConfiguration.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\RoleFunctionEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UserEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UserRoleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\XmlSettingEntityConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UnitOfWork\Mapping\Oracle\" />

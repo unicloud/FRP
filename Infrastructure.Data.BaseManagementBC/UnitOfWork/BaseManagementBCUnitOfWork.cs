@@ -12,6 +12,7 @@ using UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.XmlSettingAgg;
 using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql;
 
 #endregion
@@ -32,6 +33,7 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork
         private IDbSet<User> _users;
         private IDbSet<BusinessLicense> _businessLicenses;
         private IDbSet<AircraftCabinType> _aircraftCabinTypes;
+        private IDbSet<XmlSetting> _xmlSettings;
 
         public IDbSet<FunctionItem> FunctionItems
         {
@@ -81,6 +83,11 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork
         public IDbSet<AircraftCabinType> AircraftCabinTypes
         {
             get { return _aircraftCabinTypes ?? (_aircraftCabinTypes = Set<AircraftCabinType>()); }
+        }
+
+        public IDbSet<XmlSetting> XmlSettings
+        {
+            get { return _xmlSettings ?? (_xmlSettings = base.Set<XmlSetting>()); }
         }
         #endregion
 
@@ -161,6 +168,11 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork
                 #region BusinessLicenseAgg
                 .Add(new BusinessLicenseEntityConfiguration())
                 #endregion
+            #region XmlSettingAgg
+
+.Add(new XmlSettingEntityConfiguration())
+
+            #endregion
 .Add(new AircraftCabinTypeEntityConfiguration())
                 ;
         }

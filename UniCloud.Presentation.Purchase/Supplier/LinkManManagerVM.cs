@@ -31,7 +31,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Supplier
 {
-    [Export(typeof (LinkManManagerVM))]
+    [Export(typeof(LinkManManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class LinkManManagerVM : EditViewModelBase
     {
@@ -40,7 +40,8 @@ namespace UniCloud.Presentation.Purchase.Supplier
         private FilterDescriptor _linkManFilter; //查找联系人配置。
 
         [ImportingConstructor]
-        public LinkManManagerVM(IPurchaseService service) : base(service)
+        public LinkManManagerVM(IPurchaseService service)
+            : base(service)
         {
             _service = service;
             _context = _service.Context;
@@ -140,16 +141,16 @@ namespace UniCloud.Presentation.Purchase.Supplier
             };
             LinkmansView.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "HasChanges")
+                if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     SaveCommand.RaiseCanExecuteChanged();
                     AbortCommand.RaiseCanExecuteChanged();
                 }
-                if (e.PropertyName == "IsEditingItem")
+                if (e.PropertyName.Equals("IsEditingItem", StringComparison.OrdinalIgnoreCase))
                 {
                     RefreshAddAndDelButtonState();
                 }
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
                     RefreshAddAndDelButtonState();
                 }

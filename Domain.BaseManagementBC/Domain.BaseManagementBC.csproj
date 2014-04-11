@@ -79,6 +79,10 @@
     <Compile Include="Aggregates\UserRoleAgg\IUserRoleRepository.cs" />
     <Compile Include="Aggregates\UserRoleAgg\UserRole.cs" />
     <Compile Include="Aggregates\UserRoleAgg\UserRoleSpecifications.cs" />
+    <Compile Include="Aggregates\XmlSettingAgg\IXmlSettingRepository.cs" />
+    <Compile Include="Aggregates\XmlSettingAgg\XmlSetting.cs" />
+    <Compile Include="Aggregates\XmlSettingAgg\XmlSettingFactory.cs" />
+    <Compile Include="Aggregates\XmlSettingAgg\XmlSettingSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IOrganizationRoleService.cs" />
     <Compile Include="Services\IOrganizationUserService.cs" />
