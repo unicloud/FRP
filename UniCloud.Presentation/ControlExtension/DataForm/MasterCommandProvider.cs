@@ -53,7 +53,7 @@ namespace UniCloud.Presentation.ControlExtension.DataForm
         /// </summary>
         protected override void CancelEdit()
         {
-            DataForm.CancelEdit();
+            base.CancelEdit();
             Cancel();
         }
 
@@ -96,7 +96,7 @@ namespace UniCloud.Presentation.ControlExtension.DataForm
                 {
                     if (e.DialogResult != true)
                         return;
-                    DataForm.DeleteItem();
+                    base.Delete();
                     Commit();
                 });
         }
