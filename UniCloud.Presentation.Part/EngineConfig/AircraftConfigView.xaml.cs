@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,20 +13,20 @@ using DragEventArgs = Telerik.Windows.DragDrop.DragEventArgs;
 namespace UniCloud.Presentation.Part.EngineConfig
 {
     [Export]
-    public partial class BasicConfigGroupView : UserControl
+    public partial class AircraftConfigView : UserControl
     {
-        public BasicConfigGroupView()
+        public AircraftConfigView()
         {
             InitializeComponent();
-            BasicConfigsTreeView.ExpandAll();
-            DragDropManager.AddDragOverHandler(BasicConfigsTreeView, OnDragOver);
-            DragDropManager.AddDropHandler(BasicConfigsTreeView, OnDrop);
+            SpecialConfigsTreeView.ExpandAll();
+            DragDropManager.AddDragOverHandler(SpecialConfigsTreeView, OnDragOver);
+            DragDropManager.AddDropHandler(SpecialConfigsTreeView, OnDrop);
         }
 
-        [Import(typeof (BasicConfigGroupVm))]
-        public BasicConfigGroupVm ViewModel
+        [Import(typeof (AircraftConfigVm))]
+        public AircraftConfigVm ViewModel
         {
-            get { return DataContext as BasicConfigGroupVm; }
+            get { return DataContext as AircraftConfigVm; }
             set { DataContext = value; }
         }
 
@@ -41,38 +42,39 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
             if (e.Effects != DragDropEffects.None)
             {
-                var destinationBasicConfig = (e.OriginalSource as FrameworkElement).ParentOfType<RadTreeViewItem>();
-                var realDestinationBasicConfig = new BasicConfigDTO();
-                if (destinationBasicConfig != null)
-                    realDestinationBasicConfig = destinationBasicConfig.DataContext as BasicConfigDTO;
-                var collection = (sender as RadTreeView).ItemsSource as ObservableCollection<BasicConfigDTO>;
+                var destinationSpecialConfig = (e.OriginalSource as FrameworkElement).ParentOfType<RadTreeViewItem>();
+                var realDestinationSpecialConfig = new SpecialConfigDTO();
+                if (destinationSpecialConfig != null)
+                    realDestinationSpecialConfig = destinationSpecialConfig.DataContext as SpecialConfigDTO;
+                var collection = (sender as RadTreeView).ItemsSource as ObservableCollection<SpecialConfigDTO>;
                 var item = draggedItem as ItemDTO;
-                if (item != null && collection != null && ViewModel.SelBasicConfigGroup != null)
+                if (item != null && collection != null && ViewModel.SelContractAircraft != null)
                 {
-                    var newBasicConfig = new BasicConfigDTO
+                    var newSpecialConfig = new SpecialConfigDTO
                     {
                         Id = RandomHelper.Next(),
                         ItemId = item.Id,
                         ItemNo = item.ItemNo,
                         FiNumber = item.FiNumber,
-                        BasicConfigGroupId = ViewModel.SelBasicConfigGroup.Id,
+                        ContractAircraftId = ViewModel.SelContractAircraft.Id,
+                        StartDate = DateTime.Now,
                     };
-                    if (realDestinationBasicConfig != null && realDestinationBasicConfig.Id != 0)
+                    if (realDestinationSpecialConfig != null && realDestinationSpecialConfig.Id != 0)
                     {
-                        newBasicConfig.ParentId = realDestinationBasicConfig.Id;
-                        newBasicConfig.RootId = realDestinationBasicConfig.RootId;
+                        newSpecialConfig.ParentId = realDestinationSpecialConfig.Id;
+                        newSpecialConfig.RootId = realDestinationSpecialConfig.RootId;
 
-                        ViewModel.BasicConfigs.AddNew(newBasicConfig);
+                        ViewModel.SpecialConfigs.AddNew(newSpecialConfig);
 
-                        //找到ViewBasicConfigs中的对应节点，直接在节点下添加
-                        int index = ViewModel.ViewBasicConfigs.IndexOf(realDestinationBasicConfig);
-                        ViewModel.ViewBasicConfigs.Insert(index + 1, newBasicConfig);
+                        //找到ViewSpecialConfigs中的对应节点，直接在节点下添加
+                        int index = ViewModel.ViewSpecialConfigs.IndexOf(realDestinationSpecialConfig);
+                        ViewModel.ViewSpecialConfigs.Insert(index + 1, newSpecialConfig);
                     }
                     else
                     {
-                        newBasicConfig.RootId = newBasicConfig.Id;
-                        ViewModel.ViewBasicConfigs.Add(newBasicConfig);
-                        ViewModel.BasicConfigs.AddNew(newBasicConfig);
+                        newSpecialConfig.RootId = newSpecialConfig.Id;
+                        ViewModel.ViewSpecialConfigs.Add(newSpecialConfig);
+                        ViewModel.SpecialConfigs.AddNew(newSpecialConfig);
                     }
                 }
             }
@@ -88,7 +90,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
             DropPosition position = GetPosition();
             if (dropDetails != null && item != null)
             {
-                var destinationItem = item.Item as BasicConfigDTO;
+                var destinationItem = item.Item as SpecialConfigDTO;
                 if (destinationItem != null)
                     dropDetails.CurrentDraggedOverItem = destinationItem;
                 else dropDetails.CurrentDraggedItem = item.Item as RadTreeView;

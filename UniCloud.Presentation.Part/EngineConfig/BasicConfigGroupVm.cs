@@ -296,7 +296,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         }
 
         /// <summary>
-        ///     加载的运营情况
+        ///     加载的附件项集合
         /// </summary>
         public void OnLoadItems(Uri path)
         {
@@ -338,7 +338,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         #region 重组成有层次结构的构型
 
-        private void GenerateBasicConfigStructure(BasicConfigDTO basicConfig)
+        public void GenerateBasicConfigStructure(BasicConfigDTO basicConfig)
         {
             var temp = BasicConfigs.Where(p => p.ParentId == basicConfig.Id).ToList().OrderBy(p => p.Position);
             basicConfig.SubBasicConfigs.Load(temp);
@@ -410,31 +410,6 @@ namespace UniCloud.Presentation.Part.EngineConfig
         }
 
         #endregion
-
-        //#region 增加基本构型
-
-        ///// <summary>
-        /////     增加基本构型
-        ///// </summary>
-        //public DelegateCommand<object> AddEntityCommand { get; private set; }
-
-        //private void OnAddEntity(object obj)
-        //{
-        //    var newBasicConfig = new BasicConfigDTO()
-        //    {
-        //        Id = RandomHelper.Next(),
-        //        BasicConfigGroupId = SelBasicConfigGroup.Id,
-        //    };
-        //    ViewBasicConfigs.Add(newBasicConfig);
-        //    BasicConfigs.AddNew(newBasicConfig);
-        //}
-
-        //private bool CanAddEntity(object obj)
-        //{
-        //    return _selbBasicConfigGroup != null;
-        //}
-
-        //#endregion
 
         #region 移除基本构型
 

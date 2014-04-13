@@ -72,6 +72,10 @@ namespace UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg
 
         #region 外键属性
 
+        /// <summary>
+        ///     机型ID
+        /// </summary>
+        public Guid AircraftTypeId { get; protected set; }
         #endregion
 
         #region 导航属性
