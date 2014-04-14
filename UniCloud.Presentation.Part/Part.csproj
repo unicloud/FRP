@@ -196,10 +196,21 @@
       <DependentUpon>BaseConfiguration.xaml</DependentUpon>
     </Compile>
     <Compile Include="BaseConfigurations\BaseConfigurationVm.cs" />
+    <Compile Include="EngineConfig\AircraftConfigView.xaml.cs">
+      <DependentUpon>AircraftConfigView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineConfig\AircraftConfigVm.cs" />
     <Compile Include="EngineConfig\BasicConfigGroupView.xaml.cs">
       <DependentUpon>BasicConfigGroupView.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EngineConfig\BasicConfigGroupVm.cs" />
+    <Compile Include="EngineConfig\BasicConfigGroupVm.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EngineConfig\ConfigCompareView.xaml.cs">
+      <DependentUpon>ConfigCompareView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineConfig\ConfigCompareVm.cs" />
     <Compile Include="MaintainAcDailyUtilization\CorrectAcDailyUtilization.xaml.cs">
       <DependentUpon>CorrectAcDailyUtilization.xaml</DependentUpon>
     </Compile>
@@ -290,7 +301,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EngineConfig\AircraftConfigView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EngineConfig\BasicConfigGroupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EngineConfig\ConfigCompareView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

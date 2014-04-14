@@ -874,7 +874,7 @@ namespace UniCloud.Presentation.Shell
             var menu742 = new MenuItem
             {
                 Text = "维护发动机选型",
-                NavUri = "UniCloud.Presentation.Part.EngineConfig.SpecialConfigView",
+                NavUri = "UniCloud.Presentation.Part.EngineConfig.AircraftConfigView",
             };
             var menu743 = new MenuItem
             {

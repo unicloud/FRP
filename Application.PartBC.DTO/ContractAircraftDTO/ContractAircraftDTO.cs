@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
 
@@ -31,10 +32,6 @@ namespace UniCloud.Application.PartBC.DTO
     public class ContractAircraftDTO
     {
         #region 私有字段
-
-        private List<BasicConfigHistoryDTO> _basicConfigHistories;
-
-        private List<SpecialConfigDTO> _specialConfigs;
 
         #endregion
 
@@ -71,6 +68,11 @@ namespace UniCloud.Application.PartBC.DTO
         public string SerialNumber { get; set; }
 
         /// <summary>
+        ///     飞机机型
+        /// </summary>
+        public string AircraftTypeName { get; set; }
+
+        /// <summary>
         ///     是否有效
         /// </summary>
         public bool IsValid { get; set; }
@@ -80,22 +82,9 @@ namespace UniCloud.Application.PartBC.DTO
         #region 导航属性
 
         /// <summary>
-        ///     基本构型历史集合
+        ///     飞机机型
         /// </summary>
-        public virtual List<BasicConfigHistoryDTO> BasicConfigHistories
-        {
-            get { return _basicConfigHistories ?? (_basicConfigHistories = new List<BasicConfigHistoryDTO>()); }
-            set { _basicConfigHistories = value; }
-        }
-
-        /// <summary>
-        ///     特定选型集合
-        /// </summary>
-        public virtual List<SpecialConfigDTO> SpecialConfigs
-        {
-            get { return _specialConfigs ?? (_specialConfigs = new List<SpecialConfigDTO>()); }
-            set { _specialConfigs = value; }
-        }
+        public Guid AircraftTypeId { get; set; }
 
         #endregion
     }

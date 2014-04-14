@@ -9,8 +9,10 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel.Web;
 using System.Web;
+using UniCloud.Application.PartBC.AcConfigServices;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.ItemServices;
+using UniCloud.Domain.PartBC.Aggregates;
 using UniCloud.Infrastructure.Utilities.Container;
 
 namespace UniCloud.DistributedServices.Part
@@ -35,9 +37,8 @@ namespace UniCloud.DistributedServices.Part
 
             #region 服务操作访问控制
 
-            //config.SetServiceOperationAccessRule("GetConfigGroups", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("GetItemsByAircraftType", ServiceOperationRights.All);
-
+            config.SetServiceOperationAccessRule("QueryAcConfigs", ServiceOperationRights.All);
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
@@ -73,19 +74,6 @@ namespace UniCloud.DistributedServices.Part
 
         #endregion
 
-        #region 构型组查询
-
-        //[WebGet]
-        //public List<ConfigGroupDTO> GetConfigGroups()
-        //{
-        //    var configGroupService = DefaultContainer.Resolve<IConfigGroupAppService>();
-        //    List<ConfigGroupDTO> result = configGroupService.GetConfigGroups();
-        //    return result;
-        //}
-
-        #endregion
-
-
         #region 机型对应的项集合查询
 
         [WebGet]
@@ -94,6 +82,19 @@ namespace UniCloud.DistributedServices.Part
             Guid id = Guid.Parse(aircraftTypeId);
             var itemService = DefaultContainer.Resolve<IItemAppService>();
             List<ItemDTO> result = itemService.GetItemsByAircraftType(id);
+            return result;
+        }
+
+        #endregion
+
+        #region 飞机对应的某时刻的功能构型集合查询
+
+        [WebGet]
+        public List<AcConfigDTO> QueryAcConfigs(int contractAircraftId,string date)
+        {
+            var dateTime = DateTime.Parse(date);
+            var acConfigService = DefaultContainer.Resolve<IAcConfigAppService>();
+            List<AcConfigDTO> result = acConfigService.QueryAcConfigs(contractAircraftId, dateTime);
             return result;
         }
 

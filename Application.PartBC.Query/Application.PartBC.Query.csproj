@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcConfigQueries\AcConfigQuery.cs" />
+    <Compile Include="AcConfigQueries\IAcConfigQuery.cs" />
     <Compile Include="AcDailyUtilizationQueries\AcDailyUtilizationQuery.cs" />
     <Compile Include="AcDailyUtilizationQueries\IAcDailyUtilizationQuery.cs" />
     <Compile Include="AdSbQueries\AdSbQuery.cs" />

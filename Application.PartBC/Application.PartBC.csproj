@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcConfigServices\AcConfigAppService.cs" />
+    <Compile Include="AcConfigServices\IAcConfigAppService.cs" />
     <Compile Include="AcDailyUtilizationServices\AcDailyUtilizationAppService.cs" />
     <Compile Include="AcDailyUtilizationServices\IAcDailyUtilizationAppService.cs" />
     <Compile Include="AdSbServices\AdSbAppService.cs" />

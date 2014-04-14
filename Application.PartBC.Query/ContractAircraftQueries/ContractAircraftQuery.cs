@@ -17,10 +17,8 @@
 
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
-using UniCloud.Domain.PartBC.Aggregates.BasicConfigHistoryAgg;
+using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
-using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
-using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
 using UniCloud.Infrastructure.Data;
 #endregion
 
@@ -44,10 +42,7 @@ namespace UniCloud.Application.PartBC.Query.ContractAircraftQueries
         ///  <returns>ContractAircraftDTO集合</returns>
         public IQueryable<ContractAircraftDTO> ContractAircraftDTOQuery(QueryBuilder<ContractAircraft> query)
         {
-            var basicConfigHistories = _unitOfWork.CreateSet<BasicConfigHistory>();
-            var specialConfigs = _unitOfWork.CreateSet<SpecialConfig>();
-            var items = _unitOfWork.CreateSet<Item>();
-
+            var aircraftTypes = _unitOfWork.CreateSet<AircraftType>();
             return query.ApplyTo(_unitOfWork.CreateSet<ContractAircraft>()).Select(p => new ContractAircraftDTO
             {
                 Id = p.Id,
@@ -57,29 +52,8 @@ namespace UniCloud.Application.PartBC.Query.ContractAircraftQueries
                 IsValid = p.IsValid,
                 RankNumber = p.RankNumber,
                 SerialNumber = p.SerialNumber,
-                BasicConfigHistories = basicConfigHistories.Where(q=>q.ContractAircraftId==p.Id && q.EndDate==null).Select(r=>new BasicConfigHistoryDTO
-                {
-                    Id = r.Id,
-                    StartDate = r.StartDate,
-                    EndDate = r.EndDate,
-                    BasicConfigGroupId = r.Id,
-                    ContractAircraftId = r.ContractAircraftId,
-                }).ToList(),
-                SpecialConfigs = specialConfigs.Where(q=>q.ContractAircraftId==p.Id && q.EndDate==null).Select(r=>new SpecialConfigDTO
-                {
-                    Id = r.Id,
-                    ContractAircraftId = r.ContractAircraftId,
-                    StartDate = r.StartDate,
-                    EndDate = r.EndDate,
-                    IsValid = r.IsValid,
-                    FiNumber = items.FirstOrDefault(l=>l.Id==r.ItemId).FiNumber,
-                    ItemId = r.ItemId,
-                    ItemNo = items.FirstOrDefault(l => l.Id == r.ItemId).ItemNo,
-                    ParentId = r.ParentId,
-                    Position = r.Position,
-                    RootId = r.RootId,
-                    Description = r.Description,
-                }).ToList(),
+                AircraftTypeId = p.AircraftTypeId,
+                AircraftTypeName = aircraftTypes.FirstOrDefault(l=>l.Id==p.AircraftTypeId).Name,
             });
         }
     }
