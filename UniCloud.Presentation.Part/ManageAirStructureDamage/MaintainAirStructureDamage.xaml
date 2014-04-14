@@ -274,6 +274,7 @@
                                          Margin="0,3"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
+                                         OpenDropDownOnFocus="False"
                                          Height="{StaticResource ControlHeight}"
                                          ItemsSource="{Binding DataContext.Aircrafts, Mode=TwoWay, ElementName=AirStructureDamageView}"
                                          SelectedItem="{Binding DataContext.Aircraft, Mode=TwoWay, ElementName=AirStructureDamageView}"
