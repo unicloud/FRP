@@ -18,6 +18,7 @@
 #region 命名空间
 
 using Microsoft.Practices.Unity;
+using UniCloud.Application.PartBC.AcConfigServices;
 using UniCloud.Application.PartBC.AcDailyUtilizationServices;
 using UniCloud.Application.PartBC.AdSbServices;
 using UniCloud.Application.PartBC.AircraftServices;
@@ -35,6 +36,7 @@ using UniCloud.Application.PartBC.MaintainWorkServices;
 using UniCloud.Application.PartBC.ModServices;
 using UniCloud.Application.PartBC.OilMonitorServices;
 using UniCloud.Application.PartBC.PnRegServices;
+using UniCloud.Application.PartBC.Query.AcConfigQueries;
 using UniCloud.Application.PartBC.Query.AcDailyUtilizationQueries;
 using UniCloud.Application.PartBC.Query.AdSbQueries;
 using UniCloud.Application.PartBC.Query.AircraftQueries;
@@ -132,6 +134,12 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
                 .RegisterType<IAircraftTypeAppService, AircraftTypeAppService>()
                 .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
                 .RegisterType<IAircraftSeriesRepository, AircraftSeriesRepository>()
+                #endregion
+
+                #region 功能构型相关配置，包括查询，应用服务，仓储注册
+
+                .RegisterType<IAcConfigQuery, AcConfigQuery>()
+                .RegisterType<IAcConfigAppService, AcConfigAppService>()
                 #endregion
 
                 #region 基本构型组相关配置，包括查询，应用服务，仓储注册

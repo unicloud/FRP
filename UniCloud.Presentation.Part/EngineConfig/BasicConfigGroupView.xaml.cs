@@ -62,18 +62,14 @@ namespace UniCloud.Presentation.Part.EngineConfig
                         newBasicConfig.ParentId = realDestinationBasicConfig.Id;
                         newBasicConfig.RootId = realDestinationBasicConfig.RootId;
 
-                        ViewModel.BasicConfigs.AddNew(newBasicConfig);
-
-                        //找到ViewBasicConfigs中的对应节点，直接在节点下添加
-                        int index = ViewModel.ViewBasicConfigs.IndexOf(realDestinationBasicConfig);
-                        ViewModel.ViewBasicConfigs.Insert(index + 1, newBasicConfig);
+                        realDestinationBasicConfig.SubBasicConfigs.Add(newBasicConfig);
                     }
                     else
                     {
                         newBasicConfig.RootId = newBasicConfig.Id;
                         ViewModel.ViewBasicConfigs.Add(newBasicConfig);
-                        ViewModel.BasicConfigs.AddNew(newBasicConfig);
                     }
+                    ViewModel.BasicConfigs.AddNew(newBasicConfig);
                 }
             }
 

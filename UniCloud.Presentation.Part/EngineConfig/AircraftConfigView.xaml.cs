@@ -64,18 +64,14 @@ namespace UniCloud.Presentation.Part.EngineConfig
                         newSpecialConfig.ParentId = realDestinationSpecialConfig.Id;
                         newSpecialConfig.RootId = realDestinationSpecialConfig.RootId;
 
-                        ViewModel.SpecialConfigs.AddNew(newSpecialConfig);
-
-                        //找到ViewSpecialConfigs中的对应节点，直接在节点下添加
-                        int index = ViewModel.ViewSpecialConfigs.IndexOf(realDestinationSpecialConfig);
-                        ViewModel.ViewSpecialConfigs.Insert(index + 1, newSpecialConfig);
+                        realDestinationSpecialConfig.SubSpecialConfigs.Add(newSpecialConfig);
                     }
                     else
                     {
                         newSpecialConfig.RootId = newSpecialConfig.Id;
                         ViewModel.ViewSpecialConfigs.Add(newSpecialConfig);
-                        ViewModel.SpecialConfigs.AddNew(newSpecialConfig);
                     }
+                    ViewModel.SpecialConfigs.AddNew(newSpecialConfig);
                 }
             }
 

@@ -48,6 +48,8 @@ namespace UniCloud.Presentation.Part.EngineConfig
         private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
         private FilterDescriptor _bcGroupDescriptor;
+
+        [ImportingConstructor]
         public AircraftConfigVm(IRegionManager regionManager, IPartService service)
             : base(service)
         {
@@ -77,9 +79,10 @@ namespace UniCloud.Presentation.Part.EngineConfig
             BasicConfigHistories = _service.CreateCollection(_context.BasicConfigHistories);
             _service.RegisterCollectionView(BasicConfigHistories);
 
-            SpecialConfigs = _service.CreateCollection(_context.SpecialConfigs, o => o.SubSpecialConfigs);
+            SpecialConfigs = _service.CreateCollection(_context.SpecialConfigs);
             SpecialConfigs.LoadedData += (o, e) =>
             {
+                SpecialConfigs.ToList().ForEach(p=>p.SubSpecialConfigs.Clear());
                 SpecialConfigs.ToList().ForEach(GenerateSpecialConfigStructure);
                 if (SelContractAircraft != null)
                 {

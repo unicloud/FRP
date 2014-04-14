@@ -68,9 +68,10 @@ namespace UniCloud.Presentation.Part.EngineConfig
             BasicConfigGroups = _service.CreateCollection(_context.BasicConfigGroups);//TODO按机型分组
             _service.RegisterCollectionView(BasicConfigGroups);//注册查询集合
 
-            BasicConfigs = _service.CreateCollection(_context.BasicConfigs,o=>o.SubBasicConfigs);
+            BasicConfigs = _service.CreateCollection(_context.BasicConfigs);
             BasicConfigs.LoadedData += (o, e) =>
             {
+                BasicConfigs.ToList().ForEach(p=>p.SubBasicConfigs.Clear());
                 BasicConfigs.ToList().ForEach(GenerateBasicConfigStructure);
                 if(SelBasicConfigGroup!=null)
                 {

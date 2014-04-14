@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System.Linq;
+using UniCloud.Application.PartBC.AcConfigServices;
 using UniCloud.Application.PartBC.AcDailyUtilizationServices;
 using UniCloud.Application.PartBC.AdSbServices;
 using UniCloud.Application.PartBC.AircraftServices;
@@ -53,6 +54,7 @@ namespace UniCloud.DistributedServices.Part
     {
         private readonly IAcDailyUtilizationAppService _acDailyUtilizationAppService;
         private readonly IAdSbAppService _adSbAppService;
+        private readonly IAcConfigAppService _acConfigAppService;
         private readonly IAirStructureDamageAppService _airStructureDamageAppService;
         private readonly IAircraftAppService _aircraftAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
@@ -77,6 +79,7 @@ namespace UniCloud.DistributedServices.Part
             : base("UniCloud.Application.PartBC.DTO")
         {
             _acDailyUtilizationAppService = DefaultContainer.Resolve<IAcDailyUtilizationAppService>();
+            _acConfigAppService = DefaultContainer.Resolve<IAcConfigAppService>();
             _aircraftAppService = DefaultContainer.Resolve<IAircraftAppService>();
             _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
             _basicConfigAppService = DefaultContainer.Resolve<IBasicConfigAppService>();
@@ -139,6 +142,19 @@ namespace UniCloud.DistributedServices.Part
         public IQueryable<AircraftSeriesDTO> AircraftSeriess
         {
             get { return _aircraftTypeAppService.GetAircraftSeriess(); }
+        }
+
+        #endregion
+
+
+        #region 功能构型集合
+
+        /// <summary>
+        ///     功能构型集合
+        /// </summary>
+        public IQueryable<AcConfigDTO> AcConfigs
+        {
+            get { return _acConfigAppService.GetAcConfigs(); }
         }
 
         #endregion

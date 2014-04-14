@@ -21,9 +21,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UniCloud.Application.PartBC.AcConfigServices;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.ItemServices;
 using UniCloud.Application.PartBC.PnRegServices;
+using UniCloud.Application.PartBC.Query.AcConfigQueries;
+using UniCloud.Application.PartBC.Query.AcDailyUtilizationQueries;
 using UniCloud.Application.PartBC.Query.ItemQueries;
 using UniCloud.Application.PartBC.Query.PnRegQueries;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
@@ -58,6 +61,8 @@ namespace UniCloud.Application.PartBC.Tests.Services
                 .RegisterType<IPnRegRepository, PnRegRepository >()
             #endregion
 
+.RegisterType<IAcConfigQuery, AcConfigQuery>()
+                .RegisterType<IAcConfigAppService, AcConfigAppService>()
 ;
         }
 
@@ -78,6 +83,20 @@ namespace UniCloud.Application.PartBC.Tests.Services
 
             // Act
             List<ItemDTO> result = service.GetItemsByAircraftType(aircraftTypeId);
+
+            // Assert
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
+        public void GetAcConfigs()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<IAcConfigAppService>();
+            
+            DateTime date = new DateTime(2014, 04, 14);
+            // Act
+            List<AcConfigDTO> result = service.QueryAcConfigs(5,date);
 
             // Assert
             Assert.IsTrue(result.Any());
