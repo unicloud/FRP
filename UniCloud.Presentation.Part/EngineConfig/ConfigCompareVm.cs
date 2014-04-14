@@ -375,12 +375,12 @@ namespace UniCloud.Presentation.Part.EngineConfig
             {
                 _curLeftAcConfigs.ForEach(p =>
                  {
-                     if (!_curRightAcConfigs.Contains(p))
+                     if (!_curRightAcConfigs.Any(l=>l.ItemId==p.ItemId && l.Position==p.Position))
                          p.Color = "Green";
                  });
                 _curRightAcConfigs.ForEach(p =>
                 {
-                    if (!_curLeftAcConfigs.Contains(p))
+                    if (!_curLeftAcConfigs.Any(l=>l.ItemId==p.ItemId && l.Position==p.Position))
                         p.Color = "Red";
                 });
             }

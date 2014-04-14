@@ -41,6 +41,8 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.PnRegId).HasColumnName("PnRegId");
             Property(p => p.InstallDate).HasColumnName("InstallDate").HasColumnType("datetime2");
             Property(p => p.RemoveDate).HasColumnName("RemoveDate").HasColumnType("datetime2");
+            Property(p => p.InstallReason).HasColumnName("InstallReason").HasMaxLength(100);
+            Property(p => p.RemoveReason).HasColumnName("RemoveReason").HasMaxLength(100);
             Property(p => p.CSN).HasColumnName("CSN");
             Property(p => p.CSR).HasColumnName("CSR");
             Property(p => p.TSN).HasColumnName("TSN");

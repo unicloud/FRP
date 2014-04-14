@@ -80,7 +80,7 @@ namespace UniCloud.Application.PartBC.SnInstallHistoryServices
             var aircraft = _aircraftRepository.Get(dto.AircraftId);
 
             var newSnInstallHistory = SnInstallHistoryFactory.CreateSnInstallHistory(snReg, pnReg,
-                dto.CSN, dto.CSR, dto.TSN, dto.TSR, aircraft, dto.InstallDate, dto.RemoveDate);
+                dto.CSN, dto.CSR, dto.TSN, dto.TSR, aircraft, dto.InstallDate, dto.RemoveDate,dto.InstallReason,dto.RemoveReason);
 
             _snInstallHistoryRepository.Add(newSnInstallHistory);
         }
@@ -110,6 +110,8 @@ namespace UniCloud.Application.PartBC.SnInstallHistoryServices
                 updateSnInstallHistory.SetCSR(dto.CSR);
                 updateSnInstallHistory.SetTSN(dto.TSN);
                 updateSnInstallHistory.SetTSR(dto.TSR);
+                updateSnInstallHistory.SetInstallReason(dto.InstallReason);
+                updateSnInstallHistory.SetRemoveReason(dto.RemoveReason);
                 _snInstallHistoryRepository.Modify(updateSnInstallHistory);
             }
         }

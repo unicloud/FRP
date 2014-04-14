@@ -47,7 +47,7 @@ namespace UniCloud.DataService.DataSync
         {
             const string strSql =
                 "SELECT RTRIM(P.NMPN) PN,RTRIM(P.NMATA) ATA,RTRIM(P.NMCODFAB) VENDOR,RTRIM(P.NMDESIGN) DESCRIPTION," +
-                "RTRIM(P.NMCODTYPM) FROM AMSFCSCVAL.FRNMPF P WHERE P.NMCODTYPM != '1'";
+                "RTRIM(P.NMCODTYPM) FROM AMSFCSCVAL.FRNMPF P WHERE P.NMCODTYPM != '1' AND P.NMATA <'81' AND P.NMATA >='70'";
 
             using (var conn = new Db2Conn(GetDb2Connection()))
             {
@@ -70,12 +70,12 @@ namespace UniCloud.DataService.DataSync
             ImportFrpData();
             if (AmasisDatas.Any())
             {
-                DbSet<PnReg> datas = _unitOfWork.CreateSet<PnReg>();
+                var datas = _unitOfWork.CreateSet<PnReg>();
 
                 foreach (PnRegDTO pnReg in AmasisDatas)
                 {
                     PnReg pn = PnRegFactory.CreatePnReg(pnReg.IsLife, pnReg.Pn,pnReg.Description);
-                    datas.AddOrUpdate(p => p.Pn, pn);
+                    datas.Add(pn);
                 }
             }
             _unitOfWork.Commit();

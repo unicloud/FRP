@@ -57,6 +57,16 @@ namespace UniCloud.Application.PartBC.DTO
         public DateTime? RemoveDate { get; set; }
 
         /// <summary>
+        ///     拆下原因
+        /// </summary>
+        public string RemoveReason { get; set; }
+
+        /// <summary>
+        ///     装上原因
+        /// </summary>
+        public string InstallReason { get; set; }
+
+        /// <summary>
         ///     CSN，自装机以来使用循环
         /// </summary>
         public int CSN { get; set; }

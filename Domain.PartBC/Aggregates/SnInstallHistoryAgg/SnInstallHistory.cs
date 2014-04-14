@@ -73,6 +73,16 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg
         public DateTime? RemoveDate { get; private set; }
 
         /// <summary>
+        ///     拆下原因
+        /// </summary>
+        public string RemoveReason { get; private set; }
+
+        /// <summary>
+        ///     装上原因
+        /// </summary>
+        public string InstallReason { get; private set; }
+
+        /// <summary>
         ///     CSN，自装机以来使用循环
         /// </summary>
         public int CSN { get; private set; }
@@ -159,12 +169,30 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg
         }
 
         /// <summary>
+        ///     设置装上原因
+        /// </summary>
+        /// <param name="installReason">装上原因</param>
+        public void SetInstallReason(string installReason)
+        {
+            InstallReason = installReason;
+        }
+
+        /// <summary>
         ///     设置拆下时间
         /// </summary>
         /// <param name="date">拆下时间</param>
         public void SetRemoveDate(DateTime? date)
         {
             RemoveDate = date;
+        }
+        
+        /// <summary>
+        ///     设置拆下原因
+        /// </summary>
+        /// <param name="removeReason">拆下原因</param>
+        public void SetRemoveReason(string removeReason)
+        {
+            RemoveReason = removeReason;
         }
 
         /// <summary>

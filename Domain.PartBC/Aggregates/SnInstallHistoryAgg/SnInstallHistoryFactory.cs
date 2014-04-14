@@ -53,10 +53,12 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg
         /// <param name="aircraft">装机所在飞机</param>
         /// <param name="installDate">装上日期</param>
         /// <param name="removeDate">拆下日期</param>
+        /// <param name="installReason">装上日期</param>
+        /// <param name="removeReason">拆下日期</param>
         /// <returns></returns>
         public static SnInstallHistory CreateSnInstallHistory(SnReg snReg, PnReg pnReg, int csn, int csr, decimal tsn,
             decimal tsr, Aircraft aircraft,
-            DateTime installDate, DateTime? removeDate)
+            DateTime installDate, DateTime? removeDate,string installReason,string removeReason)
         {
             var snInstallHistory = new SnInstallHistory();
             snInstallHistory.CreateDate = DateTime.Now;
@@ -70,6 +72,8 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg
             snInstallHistory.SetCSR(csr);
             snInstallHistory.SetTSN(tsn);
             snInstallHistory.SetTSR(tsr);
+            snInstallHistory.SetInstallReason(installReason);
+            snInstallHistory.SetRemoveReason(installReason);
             return snInstallHistory;
         }
     }
