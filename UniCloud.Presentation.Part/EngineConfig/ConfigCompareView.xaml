@@ -55,7 +55,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <telerik:RadButton Grid.Row="0" Width="60" Content="比较构型" Command="{Binding CompareCommand}"/>
+        <telerik:RadButton Grid.Row="0" Width="70" Content="比较构型" Command="{Binding CompareCommand}" FontSize="15" Background="DarkTurquoise"/>
         <telerik:RadDocking Grid.Row="1"
                             BorderThickness="0"
                             Padding="0"
@@ -104,8 +104,9 @@
                                                 VerticalAlignment="Center">
                                         <telerik:RadComboBox ItemsSource="{Binding ContractAircrafts}"
                                                              Height="{StaticResource ControlHeight}"
+                                                             OpenDropDownOnFocus="False"
                                                              SelectedItem="{Binding LeftContractAircraft,Mode=TwoWay}"
-                                                             DisplayMemberPath="RankNumber">
+                                                             DisplayMemberPath="SerialNumber">
                                         </telerik:RadComboBox>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal"
@@ -120,7 +121,8 @@
                                     <StackPanel Grid.Row="0"
                                                 Grid.Column="3"
                                                 VerticalAlignment="Center">
-                                        <telerik:RadDateTimePicker DataContext="{Binding LeftDate,Mode=TwoWay}" />
+                                        <telerik:RadTimePicker InputMode="DatePicker"
+                                                               SelectedValue="{Binding LeftDate, Mode=TwoWay}"/>
                                     </StackPanel>
                                 </Grid>
                                 <StackPanel Grid.Row="1"
@@ -180,8 +182,9 @@
                                                 VerticalAlignment="Center">
                                         <telerik:RadComboBox ItemsSource="{Binding ContractAircrafts}"
                                                              Height="{StaticResource ControlHeight}"
+                                                             OpenDropDownOnFocus="False"
                                                              SelectedItem="{Binding RightContractAircraft,Mode=TwoWay}"
-                                                             DisplayMemberPath="RankNumber">
+                                                             DisplayMemberPath="SerialNumber">
                                         </telerik:RadComboBox>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal"
@@ -196,7 +199,8 @@
                                     <StackPanel Grid.Row="0"
                                                 Grid.Column="3"
                                                 VerticalAlignment="Center">
-                                        <telerik:RadDateTimePicker DataContext="{Binding RightDate,Mode=TwoWay}" />
+                                        <telerik:RadTimePicker InputMode="DatePicker"
+                                                               SelectedValue="{Binding RightDate, Mode=TwoWay}" />
                                     </StackPanel>
                                 </Grid>
                                 <StackPanel Grid.Row="1"

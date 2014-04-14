@@ -39,9 +39,11 @@
                              BorderThickness="0"
                              MinWidth="60" />
                     <TextBlock Text="  启用日期:  " />
-                    <telerik:RadDateTimePicker DataContext="{Binding StartDate,Mode=TwoWay}"/>
+                    <telerik:RadTimePicker InputMode="DatePicker"
+                                           SelectedValue="{Binding StartDate, Mode=TwoWay}" />
                     <TextBlock Text="  失效日期:  " />
-                    <telerik:RadDateTimePicker DataContext="{Binding EndDate,Mode=TwoWay}" />
+                    <telerik:RadTimePicker InputMode="DatePicker"
+                                           SelectedValue="{Binding EndDate, Mode=TwoWay}" />
                 </StackPanel>
             </telerik:HierarchicalDataTemplate>
             <Style x:Key="ItemContainerStyle"
@@ -209,7 +211,7 @@
                                             <telerik:GridViewComboBoxColumn Header="基本构型组"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             ItemsSource="{Binding DataContext.BasicConfigGroups, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                                                            DisplayMemberPath="Name"
+                                                                            DisplayMemberPath="GroupNo"
                                                                             DataMemberBinding="{Binding BasicConfigGroupId,Mode=TwoWay}"
                                                                             SelectedValueMemberPath="Id"
                                                                             IsComboBoxEditable="True"

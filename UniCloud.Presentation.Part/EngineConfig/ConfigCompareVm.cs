@@ -65,6 +65,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         private void InitializeVM()
         {
             ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_context, _context.ContractAircrafts);
+            ContractAircrafts.FilterDescriptors.Add(new FilterDescriptor("SerialNumber",FilterOperator.IsNotEqualTo,null));
 
             CompareCommand = new DelegateCommand<object>(OnCompare);
         }
@@ -151,8 +152,8 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         #region 界面所选日期
 
-        private DateTime _leftDate;
-        private DateTime _rightDate;
+        private DateTime _leftDate = DateTime.Now;
+        private DateTime _rightDate = DateTime.Now;
 
 
         /// <summary>

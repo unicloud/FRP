@@ -70,10 +70,16 @@ namespace UniCloud.Application.PartBC.Query.AcConfigQueries
             var result = new List<AcConfigDTO>();
 
             //1、依据合同飞机编号查找、日期对应的基本构型历史;再找到基本构型组
+            var basicConfigHistories = _unitOfWork.CreateSet<BasicConfigHistory>().ToList();
+            basicConfigHistories.ForEach(p =>
+            {
+                if (p != null && p.EndDate == null)
+                    p.SetEndDate(new DateTime(3000, 01, 01));
+            });
             var basicConfigHistory =
-                _unitOfWork.CreateSet<BasicConfigHistory>().ToList().OrderBy(l=>l.StartDate)
+                basicConfigHistories.OrderBy(l => l.StartDate)
                     .FirstOrDefault(
-                        p => p.ContractAircraftId == contractAircraftId);
+                        p => p.ContractAircraftId == contractAircraftId && p.StartDate.CompareTo(date) < 0 && date.CompareTo(p.EndDate) < 0);
             if (basicConfigHistory != null)
             {
                 var basicConfigs =
@@ -82,7 +88,7 @@ namespace UniCloud.Application.PartBC.Query.AcConfigQueries
                 basicConfigs.ToList().ForEach(p =>
                 {
                     var item = _unitOfWork.CreateSet<Item>().Find(p.ItemId);
-                    var newAcConfig = new AcConfigDTO 
+                    var newAcConfig = new AcConfigDTO
                     {
                         Id = p.Id,
                         ItemId = p.ItemId,
@@ -97,10 +103,16 @@ namespace UniCloud.Application.PartBC.Query.AcConfigQueries
                 });
             }
 
-            var specialConifgs =
-                _unitOfWork.CreateSet<SpecialConfig>()
-                    .Where(p => p.ContractAircraftId == contractAircraftId);
-            specialConifgs.ToList().ForEach(p =>
+            var allSpecialConifgs =
+                _unitOfWork.CreateSet<SpecialConfig>().ToList();
+            allSpecialConifgs.ForEach(p =>
+            {
+                if (p != null && p.EndDate == null)
+                    p.SetEndDate(new DateTime(3000, 01, 01));
+            });
+            var specialConfigs=
+                    allSpecialConifgs.Where(p => p.ContractAircraftId == contractAircraftId && p.StartDate.CompareTo(date) < 0 && date.CompareTo(p.EndDate) < 0);
+            specialConfigs.ToList().ForEach(p =>
             {
                 var item = _unitOfWork.CreateSet<Item>().Find(p.ItemId);
                 var newAcConfig = new AcConfigDTO
