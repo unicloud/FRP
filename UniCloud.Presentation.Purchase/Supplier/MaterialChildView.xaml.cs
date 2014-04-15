@@ -1,7 +1,6 @@
 ﻿#region 命名空间
 
 using System.ComponentModel.Composition;
-using Telerik.Windows.Controls;
 
 #endregion
 
