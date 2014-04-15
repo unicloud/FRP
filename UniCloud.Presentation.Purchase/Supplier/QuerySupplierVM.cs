@@ -95,6 +95,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         private void InitialSupplierCompany()
         {
             SupplierCompanysView = _service.CreateCollection(_context.SupplierCompanys);
+            SupplierCompanysView.PageSize = 20;
             _service.RegisterCollectionView(SupplierCompanysView); //注册查询集合。
             SupplierCompanysView.LoadedData += (sender, e) =>
             {

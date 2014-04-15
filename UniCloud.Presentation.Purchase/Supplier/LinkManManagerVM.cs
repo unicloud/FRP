@@ -83,6 +83,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         private void InitialSupplierCompany()
         {
             SupplierCompanysView = _service.CreateCollection(_context.SupplierCompanys);
+            SupplierCompanysView.PageSize = 20;
             SupplierCompanysView.LoadedData += (sender, e) =>
             {
                 if (e.HasError)

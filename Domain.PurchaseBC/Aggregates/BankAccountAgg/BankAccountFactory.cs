@@ -39,10 +39,11 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg
             return bankAccount;
         }
 
-        public static void SetBankAccount(BankAccount bankAccount,string custCode, string account, string name, string bank, string branch, string country, string address,int supplierId)
+        public static void SetBankAccount(BankAccount bankAccount, string custCode,bool isCurrent, string account, string name, string bank, string branch, string country, string address, int supplierId)
         {
             bankAccount.CustCode = custCode;
             bankAccount.Account = account;
+            bankAccount.IsCurrent = isCurrent;
             bankAccount.Name = name;
             bankAccount.Bank = bank;
             bankAccount.Branch = branch;

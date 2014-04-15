@@ -15,10 +15,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
         </ResourceDictionary>
-
     </UserControl.Resources>
+
     <Grid>
         <telerik:RadDocking BorderThickness="0"
                             Padding="0"
@@ -77,7 +76,6 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Name}" />
-
                                         <telerik:GridViewDataColumn Header="组织机构代码"
                                                                     IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
@@ -88,7 +86,6 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding SupplierType}" />
-
                                         <telerik:GridViewDataColumn Header="飞机租赁供应商"
                                                                     IsReadOnly="False"
                                                                     EditTriggers="CellClick"
@@ -142,7 +139,6 @@
                     </telerik:RadPaneGroup>
                 </telerik:RadSplitContainer>
             </telerik:RadSplitContainer>
-
         </telerik:RadDocking>
     </Grid>
 </UserControl>

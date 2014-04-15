@@ -495,17 +495,24 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         {
             foreach (var supplierCompany in supplierCompanies)
             {
+                Expression<Func<Linkman, bool>> conditionLinkman = p => p.CustCode == supplierCompany.Code;
+                var tempLinkman = _linkmanRepository.GetLinkman(conditionLinkman);
+
                 Expression<Func<SupplierCompany, bool>> condition = p => p.Code == supplierCompany.Code;
 
                 var tempSupplierCompany = _supplierCompanyRepository.GetSupplierCompany(condition);
                 if (tempSupplierCompany != null)
                 {
                     tempSupplierCompany.Code = supplierCompany.Code;
+                    if (tempLinkman != null)
+                        tempSupplierCompany.LinkmanId = tempLinkman.SourceId;
                     _supplierCompanyRepository.Modify(tempSupplierCompany);
                 }
                 else
                 {
                     tempSupplierCompany = SupplierCompanyFactory.CreateSupplieCompany(supplierCompany.Code);
+                    if (tempLinkman != null)
+                        tempSupplierCompany.LinkmanId = tempLinkman.SourceId;
                     _supplierCompanyRepository.Add(tempSupplierCompany);
                 }
             }
@@ -521,13 +528,13 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 var tempSupplier = _supplierRepository.GetSupplier(condition);
                 if (tempSupplier != null)
                 {
-                    SupplierFactory.SetSupplier(tempSupplier, SupplierType.国内, supplier.Code, supplier.Name, true, null, tempSupplierCompany.Id);
+                    SupplierFactory.SetSupplier(tempSupplier, SupplierType.国内, supplier.Code, supplier.Name, supplier.ShortName, true, null, tempSupplierCompany.Id);
                     _supplierRepository.Modify(tempSupplier);
                 }
                 else
                 {
                     tempSupplier = SupplierFactory.CreateSupplier();
-                    SupplierFactory.SetSupplier(tempSupplier, SupplierType.国内, supplier.Code, supplier.Name, true, null, tempSupplierCompany.Id);
+                    SupplierFactory.SetSupplier(tempSupplier, SupplierType.国内, supplier.Code, supplier.Name, supplier.ShortName, true, null, tempSupplierCompany.Id);
                     _supplierRepository.Add(tempSupplier);
                 }
             }
@@ -549,13 +556,13 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 var tempBankAccount = _bankAccountRepository.GetBankAccount(condition);
                 if (tempBankAccount != null)
                 {
-                    BankAccountFactory.SetBankAccount(tempBankAccount, bankAccount.CustCode, bankAccount.Account, bankAccount.Name, bankAccount.Bank, bankAccount.Branch, bankAccount.Country, bankAccount.Address, tempSupplier.Id);
+                    BankAccountFactory.SetBankAccount(tempBankAccount, bankAccount.CustCode, tempBankAccount.IsCurrent, bankAccount.Account, bankAccount.Name, bankAccount.Bank, bankAccount.Branch, bankAccount.Country, bankAccount.Address, tempSupplier.Id);
                     _bankAccountRepository.Modify(tempBankAccount);
                 }
                 else
                 {
                     tempBankAccount = BankAccountFactory.CreateBankAccount();
-                    BankAccountFactory.SetBankAccount(tempBankAccount, bankAccount.CustCode, bankAccount.Account, bankAccount.Name, bankAccount.Bank, bankAccount.Branch, bankAccount.Country, bankAccount.Address, tempSupplier.Id);
+                    BankAccountFactory.SetBankAccount(tempBankAccount, bankAccount.CustCode, true, bankAccount.Account, bankAccount.Name, bankAccount.Bank, bankAccount.Branch, bankAccount.Country, bankAccount.Address, tempSupplier.Id);
                     _bankAccountRepository.Add(tempBankAccount);
                 }
             }

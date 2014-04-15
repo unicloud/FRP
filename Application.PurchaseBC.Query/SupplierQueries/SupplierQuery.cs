@@ -78,7 +78,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                 Code = p.Code,
                 CreateDate = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CreateDate,
                 SupplierType =
-                    p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).SupplierType == 0 ? "国内" : "国外",
+                    p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).SupplierType == SupplierType.国内 ? "国内" : "国外",
                 Name = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CnName,
                 Note = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).Note,
             });
@@ -136,7 +136,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                     Address = c.Address,
                     Bank = c.Bank,
                     BankAccountId = c.Id,
-                    Branch = c.Bank,
+                    Branch = c.Branch,
                     Country = c.Country,
                     IsCurrent = c.IsCurrent,
                     Name = c.Name,
