@@ -71,6 +71,16 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnInstallHistoryAgg
         ///     拆下时间
         /// </summary>
         public DateTime? RemoveDate { get; private set; }
+        
+        /// <summary>
+        ///     拆下原因
+        /// </summary>
+        public string RemoveReason { get; private set; }
+
+        /// <summary>
+        ///     装上原因
+        /// </summary>
+        public string InstallReason { get; private set; }
 
         /// <summary>
         ///     CSN，自装机以来使用循环
@@ -157,6 +167,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnInstallHistoryAgg
         {
             InstallDate = date;
         }
+        
+        /// <summary>
+        ///     设置装上原因
+        /// </summary>
+        /// <param name="installReason">装上原因</param>
+        public void SetInstallReason(string installReason)
+        {
+            InstallReason = installReason;
+        }
 
         /// <summary>
         ///     设置拆下时间
@@ -165,6 +184,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnInstallHistoryAgg
         public void SetRemoveDate(DateTime? date)
         {
             RemoveDate = date;
+        }
+
+        /// <summary>
+        ///     设置拆下原因
+        /// </summary>
+        /// <param name="removeReason">拆下原因</param>
+        public void SetRemoveReason(string removeReason)
+        {
+            RemoveReason = removeReason;
         }
 
         /// <summary>

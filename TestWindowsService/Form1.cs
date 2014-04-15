@@ -24,11 +24,11 @@ namespace TestWindowsService
             {
                 InitialContext();
                 //1、同步FlightLog数据
-                FlightLogSync();
+                //FlightLogSync();
                 //2、同步AircraftSeries数据
-                AircraftSeriesSync();
+                //AircraftSeriesSync();
                 //3、同步AircraftSeries数据
-                PnRegSync();
+                //PnRegSync();
                 //4、同步SnReg数据
                 SnRegSync();
                 DisposeContext();

@@ -58,6 +58,8 @@ namespace UniCloud.Application.PartBC.Query.SnInstallHistoryQueries
                 AircraftId = p.AircraftId,
                 InstallDate = p.InstallDate,
                 RemoveDate = p.RemoveDate,
+                InstallReason = p.InstallReason,
+                RemoveReason = p.RemoveReason,
                 RegNumber = dbAircrafts.FirstOrDefault(c => c.Id == p.AircraftId).RegNumber,
             });
         }

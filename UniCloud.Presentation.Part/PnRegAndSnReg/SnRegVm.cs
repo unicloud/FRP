@@ -15,22 +15,193 @@
 #region 命名空间
 
 using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
+using System.Linq;
+using Microsoft.Practices.Prism;
+using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
+using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
+using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service.Part;
+using UniCloud.Presentation.Service.Part.Part;
+using UniCloud.Presentation.Service.Part.Part.Enums;
 
 #endregion
 
 namespace UniCloud.Presentation.Part.PnRegAndSnReg
 {
-    public class SnRegVm
+    [Export(typeof(SnRegVm))]
+    [PartCreationPolicy(CreationPolicy.Shared)]
+    public class SnRegVm : EditViewModelBase
     {
+        #region 声明、初始化
 
+        private readonly PartData _context;
+        private readonly IRegionManager _regionManager;
+        private readonly IPartService _service;
+
+        [ImportingConstructor]
+        public SnRegVm(IRegionManager regionManager, IPartService service)
+            : base(service)
+        {
+            _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
+            InitializeVM();
+        }
+
+        /// <summary>
+        ///     初始化ViewModel
+        ///     <remarks>
+        ///         统一在此处创建并注册CollectionView集合。
+        ///     </remarks>
+        /// </summary>
+        private void InitializeVM()
+        {
+            SnRegs = new QueryableDataServiceCollectionView<SnRegDTO>(_context, _context.SnRegs);
+            SnRegs.PageSize = 20;
+
+            SnInstallHistories = _service.CreateCollection(_context.SnInstallHistories);
+            SnInstallHistories.LoadedData += (s, e) =>
+            {
+                if (SelSnReg != null)
+                {
+                    ViewSnInstallHistories=new ObservableCollection<SnInstallHistoryDTO>();
+                    var snInstallHistories =
+                        SnInstallHistories.SourceCollection.Cast<SnInstallHistoryDTO>()
+                            .Where(p => p.SnRegId == SelSnReg.Id)
+                            .ToList();
+                    ViewSnInstallHistories.AddRange(snInstallHistories);
+                }
+            };
+        }
+
+        #endregion
+
+        #region 数据
+
+        #region 公共属性
+
+        #region 序号件集合
+        private SnRegDTO _selSnReg;
+
+        /// <summary>
+        ///     序号件集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<SnRegDTO> SnRegs { get; set; }
+
+        /// <summary>
+        ///     选择的序号件
+        /// </summary>
+        public SnRegDTO SelSnReg
+        {
+            get { return this._selSnReg; }
+            private set
+            {
+                if (this._selSnReg != value)
+                {
+                    this._selSnReg = value;
+                    if (value != null)
+                    {
+                        ViewSnInstallHistories = new ObservableCollection<SnInstallHistoryDTO>();
+                        var snInstallHistories =
+                            SnInstallHistories.SourceCollection.Cast<SnInstallHistoryDTO>()
+                                .Where(p => p.SnRegId == SelSnReg.Id)
+                                .ToList();
+                        ViewSnInstallHistories.AddRange(snInstallHistories);
+                    }
+                    RaisePropertyChanged(() => this.SelSnReg);
+                    RefreshCommandState();
+                }
+            }
+        }
+        #endregion
+
+        #endregion
+
+        #region 加载数据
+
+        /// <summary>
+        ///     加载数据方法
+        ///     <remarks>
+        ///         导航到此页面时调用。
+        ///         可在此处将CollectionView的AutoLoad属性设为True，以实现数据的自动加载。
+        ///     </remarks>
+        /// </summary>
+        public override void LoadData()
+        {
+            SnRegs.Load(true);
+
+            if (!SnInstallHistories.AutoLoad)
+                SnInstallHistories.AutoLoad = true;
+        }
+
+        #region 业务
+
+        #region 序号件拆换记录集合
+
+        private SnInstallHistoryDTO _selSnInstallHistory;
+        private ObservableCollection<SnInstallHistoryDTO> _viewSnInstallHistories=new ObservableCollection<SnInstallHistoryDTO>(); 
+
+        /// <summary>
+        ///     件装机历史集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<SnInstallHistoryDTO> SnInstallHistories { get; set; }
+
+        /// <summary>
+        ///     选择的序号件拆换记录
+        /// </summary>
+        public SnInstallHistoryDTO SelSnInstallHistory
+        {
+            get { return this._selSnInstallHistory; }
+            private set
+            {
+                if (this._selSnInstallHistory != value)
+                {
+                    this._selSnInstallHistory = value;
+                    RaisePropertyChanged(() => this.SelSnInstallHistory);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        /// <summary>
+        ///     序号件装机历史
+        /// </summary>
+        public ObservableCollection<SnInstallHistoryDTO> ViewSnInstallHistories
+        {
+            get { return this._viewSnInstallHistories; }
+            private set
+            {
+                if (this._viewSnInstallHistories != value)
+                {
+                    this._viewSnInstallHistories = value;
+                    RaisePropertyChanged(() => this.ViewSnInstallHistories);
+                }
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
+        #region 操作
+
+        #region 刷新按钮状态
+
+        protected override void RefreshCommandState()
+        {
+        }
+
+        #endregion
+        #endregion
     }
 }

@@ -22,6 +22,7 @@ using System.Data.Entity;
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.DataService.Connection;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
@@ -50,7 +51,7 @@ namespace UniCloud.DataService.DataSync
         public override void ImportAmasisData()
         {
             const string strSql =
-                @"SELECT RTRIM(fr.PSPN) PN,RTRIM(fr.PSSN) SN,Date(RTRIM(fr.PSA4)||'-'||RTRIM(fr.PSMM)||'-'||RTRIM(fr.PSJJ))  INSTALLDATE,0 ISSTOP,RTRIM(ac.avofficiel) RegNumber  FROM amsfcscval.FRPS as fr left join amsfcscval.frav as ac on fr.PSNUMAP=ac.avnumap";
+                @"SELECT RTRIM(fr.PSPN) PN,RTRIM(fr.PSSN) SN,RTRIM(pn.NMATA) ATA,Date(RTRIM(fr.PSA4)||'-'||RTRIM(fr.PSMM)||'-'||RTRIM(fr.PSJJ))  INSTALLDATE,0 ISSTOP,RTRIM(ac.avofficiel) RegNumber  FROM amsfcscval.FRPS as fr left join amsfcscval.frav as ac on fr.PSNUMAP=ac.avnumap left join AMSFCSCVAL.FRNMPF as pn on fr.PSPN=pn.NMPN where pn.NMATA<='80' AND Pn.Nmata>='70'";
 
             using (var conn = new Db2Conn(GetDb2Connection()))
             {
@@ -80,7 +81,7 @@ namespace UniCloud.DataService.DataSync
             ImportFrpData();
             if (AmasisDatas.Any())
             {
-                DbSet<SnReg> datas = _unitOfWork.CreateSet<SnReg>();
+                var datas = _unitOfWork.CreateSet<SnReg>();
                 foreach (SnRegDTO snReg in AmasisDatas)
                 {
                     if (snReg.RegNumber != null)
@@ -92,6 +93,9 @@ namespace UniCloud.DataService.DataSync
                         if (pnReg != null)
                         {
                             SnReg sn = SnRegFactory.CreateSnReg(snReg.InstallDate, pnReg, snReg.Sn,snReg.TSN,snReg.TSR,snReg.CSN,snReg.CSR);
+                            sn.SetAircraft(aircraft);
+                            sn.SetIsStop(snReg.IsStop);
+                            sn.SetIsLife(snReg.IsLife);
                             _unitOfWork.SnRegs.Add(sn);
                         }
                     }
