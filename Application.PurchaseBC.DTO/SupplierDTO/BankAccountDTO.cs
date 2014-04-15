@@ -66,6 +66,8 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// </summary>
         public bool IsCurrent { get; set; }
 
+        public string CustCode { get; set; }
+
         /// <summary>
         ///     供应商外键
         /// </summary>

@@ -15,6 +15,9 @@
 
 #endregion
 
+using System;
+using System.Linq.Expressions;
+
 namespace UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg
 {
     /// <summary>
@@ -23,5 +26,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg
     /// </summary>
     public interface IBankAccountRepository : IRepository<BankAccount>
     {
+        BankAccount GetBankAccount(Expression<Func<BankAccount, bool>> condition);
     }
 }

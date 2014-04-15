@@ -66,6 +66,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.BankAccountAgg
         /// </summary>
         public bool IsCurrent { get; set; }
 
+        public string CustCode { get; set; }
         #endregion
 
         #region 外键属性

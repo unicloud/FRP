@@ -55,7 +55,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         {
             // Arrange
             var linkmanRep = DefaultContainer.Resolve<ILinkmanRepository>();
-            var linkman = LinkmanFactory.CreateLinkman("DDD", "12345", "3333", null, "abc@3g","",
+            var linkman = LinkmanFactory.CreateLinkman("DDD",true, "12345", "3333", null, "abc@3g","",
                 new Address("成都", null, null, null), Guid.NewGuid(),"");
 
             //// Act

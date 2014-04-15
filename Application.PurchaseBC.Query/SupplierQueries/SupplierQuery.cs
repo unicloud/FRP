@@ -140,6 +140,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                     Country = c.Country,
                     IsCurrent = c.IsCurrent,
                     Name = c.Name,
+                    CustCode = c.CustCode,
                     SupplierId = c.SupplierId
                 }).ToList(),
             });

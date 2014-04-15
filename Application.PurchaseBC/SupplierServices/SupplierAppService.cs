@@ -27,6 +27,7 @@ using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.Common.ValueObjects;
+using UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
@@ -50,9 +51,10 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         private readonly ISupplierQuery _supplierQuery;
         private readonly ISupplierRoleRepository _supplierRoleRepository;
         private readonly ISupplierRepository _supplierRepository;
+        private readonly IBankAccountRepository _bankAccountRepository;
 
         public SupplierAppService(ISupplierQuery supplierQuery, ISupplierRepository supplierRepository, ISupplierRoleRepository supplierRoleRepository,
-            ISupplierCompanyRepository supplierCompanyRepository, ILinkmanRepository linkmanRepository,
+            ISupplierCompanyRepository supplierCompanyRepository, ILinkmanRepository linkmanRepository, IBankAccountRepository bankAccountRepository,
             ISupplierCompanyMaterialRepository supplierCompanyMaterialRepository)
         {
             _supplierQuery = supplierQuery;
@@ -60,6 +62,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
             _supplierRoleRepository = supplierRoleRepository;
             _supplierCompanyRepository = supplierCompanyRepository;
             _linkmanRepository = linkmanRepository;
+            _bankAccountRepository = bankAccountRepository;
             _supplierCompanyMaterialRepository = supplierCompanyMaterialRepository;
         }
 
@@ -273,7 +276,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         [Insert(typeof(LinkmanDTO))]
         public void InsertLinkman(LinkmanDTO linkman)
         {
-            var newLinkman = LinkmanFactory.CreateLinkman(linkman.Name,linkman.IsDefault, linkman.TelePhone, linkman.Mobile,
+            var newLinkman = LinkmanFactory.CreateLinkman(linkman.Name, linkman.IsDefault, linkman.TelePhone, linkman.Mobile,
                 linkman.Fax, linkman.Email, linkman.Department, new Address(null, null, linkman.Address, null), linkman.SourceId, linkman.CustCode);
             _linkmanRepository.Add(newLinkman);
         }
@@ -480,7 +483,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 }
                 else
                 {
-                    tempLinkman = LinkmanFactory.CreateLinkman(linkman.Name,true, linkman.TelePhone, linkman.Mobile,
+                    tempLinkman = LinkmanFactory.CreateLinkman(linkman.Name, true, linkman.TelePhone, linkman.Mobile,
                         linkman.Fax, linkman.Email, linkman.Department, new Address(null, null, linkman.Address, null), Guid.NewGuid(), linkman.CustCode);
                     _linkmanRepository.Add(tempLinkman);
                 }
@@ -529,6 +532,34 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 }
             }
             _supplierRepository.UnitOfWork.CommitAndRefreshChanges();
+        }
+
+        public void SyncBankAccountInfo(List<BankAccountDTO> bankAccounts)
+        {
+            foreach (var bankAccount in bankAccounts)
+            {
+                Expression<Func<Supplier, bool>> conditionSupplier = p => p.Code == bankAccount.CustCode;
+                var tempSupplier = _supplierRepository.GetSupplier(conditionSupplier);
+                if (tempSupplier == null)
+                {
+                    continue;
+                }
+                Expression<Func<BankAccount, bool>> condition = p => p.CustCode == bankAccount.CustCode;
+
+                var tempBankAccount = _bankAccountRepository.GetBankAccount(condition);
+                if (tempBankAccount != null)
+                {
+                    BankAccountFactory.SetBankAccount(tempBankAccount, bankAccount.CustCode, bankAccount.Account, bankAccount.Name, bankAccount.Bank, bankAccount.Branch, bankAccount.Country, bankAccount.Address, tempSupplier.Id);
+                    _bankAccountRepository.Modify(tempBankAccount);
+                }
+                else
+                {
+                    tempBankAccount = BankAccountFactory.CreateBankAccount();
+                    BankAccountFactory.SetBankAccount(tempBankAccount, bankAccount.CustCode, bankAccount.Account, bankAccount.Name, bankAccount.Bank, bankAccount.Branch, bankAccount.Country, bankAccount.Address, tempSupplier.Id);
+                    _bankAccountRepository.Add(tempBankAccount);
+                }
+            }
+            _bankAccountRepository.UnitOfWork.CommitAndRefreshChanges();
         }
     }
 }

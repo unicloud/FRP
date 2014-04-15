@@ -18,8 +18,8 @@ namespace UniCloud.MerchantDataService
         {
             IQueryableUnitOfWork unitOfWork = new PurchaseBCUnitOfWork();
             _supplierAppService = new SupplierAppService(new SupplierQuery(unitOfWork), new SupplierRepository(unitOfWork),
-                new SupplierRoleRepository(unitOfWork), new SupplierCompanyRepository(unitOfWork),
-                new LinkmanRepository(unitOfWork), new SupplierCompanyMaterialRepository(unitOfWork));
+                new SupplierRoleRepository(unitOfWork), new SupplierCompanyRepository(unitOfWork), new LinkmanRepository(unitOfWork),
+                new BankAccountRepository(unitOfWork), new SupplierCompanyMaterialRepository(unitOfWork));
         }
 
         public void SyncMerchantInfo()
@@ -43,7 +43,7 @@ namespace UniCloud.MerchantDataService
                                        Name = odr.GetOracleString(1).ToString(),
                                        ShortName = odr.GetOracleString(2).ToString(),
                                    };
-                    if (odr.GetOracleString(9) != null)
+                    if (!odr.GetOracleString(9).IsNull)
                     {
                         supplier.CreateDate = DateTime.Parse(odr.GetOracleString(9).ToString());
                     }
@@ -96,6 +96,46 @@ namespace UniCloud.MerchantDataService
                 conn.Close();//关闭打开的连接     
             }
             _supplierAppService.SyncLinkmanInfo(linkmen);
+        }
+
+        public void SyncBankAccountInfo()
+        {
+            var bankAccounts = new List<BankAccountDTO>();
+            string connectionString = ConfigurationManager.ConnectionStrings["OracleNC"].ToString();
+            var conn = new OracleConnection(connectionString);//进行连接           
+            try
+            {
+                conn.Open();//打开指定的连接           
+                var com = conn.CreateCommand();
+                com.CommandText = "select * from v_jdxt_yhzh";
+                OracleDataReader odr = com.ExecuteReader();
+                while (odr.Read())//读取数据，如果返回为false的话，就说明到记录集的尾部了      
+                {
+                    var bankAccount = new BankAccountDTO
+                    {
+                        CustCode = odr.GetOracleString(0).ToString(),
+                        Address = odr.GetOracleString(1).ToString(),
+
+                    };
+                    if (odr.GetOracleString(2).IsNull || odr.GetOracleString(3).IsNull)
+                    {
+                        continue;
+                    }
+                    bankAccount.Branch = odr.GetOracleString(2).ToString();
+                    bankAccount.Account = odr.GetOracleString(3).ToString();
+                    bankAccounts.Add(bankAccount);
+                }
+                odr.Close();//关闭reader.这是一定要写的       
+            }
+            catch
+            {
+                //如果发生异常，则提示出错       
+            }
+            finally
+            {
+                conn.Close();//关闭打开的连接     
+            }
+            _supplierAppService.SyncBankAccountInfo(bankAccounts);
         }
     }
 }

@@ -53,6 +53,7 @@ using UniCloud.Application.PurchaseBC.TradeServices;
 using UniCloud.Domain.Events;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
@@ -121,6 +122,7 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
                 .RegisterType<ISupplierCompanyRepository, SupplierCompanyRepository>()
                 .RegisterType<ISupplierRepository, SupplierRepository>()
                 .RegisterType<ILinkmanRepository, LinkmanRepository>()
+                .RegisterType<IBankAccountRepository, BankAccountRepository>()
                 .RegisterType<ISupplierRoleRepository, SupplierRoleRepository>()
                 .RegisterType<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
                 #endregion
