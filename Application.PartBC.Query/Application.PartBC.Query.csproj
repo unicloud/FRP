@@ -85,10 +85,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScnQueries\IScnQuery.cs" />
     <Compile Include="ScnQueries\ScnQuery.cs" />
-    <Compile Include="SnInstallHistoryQueries\ISnInstallHistoryQuery.cs" />
-    <Compile Include="SnInstallHistoryQueries\SnInstallHistoryQuery.cs" />
+    <Compile Include="SnHistoryQueries\ISnHistoryQuery.cs" />
+    <Compile Include="SnHistoryQueries\SnHistoryQuery.cs" />
     <Compile Include="SnRegQueries\ISnRegQuery.cs" />
     <Compile Include="SnRegQueries\SnRegQuery.cs" />
+    <Compile Include="SnRemInstRecordQueries\ISnRemInstRecordQuery.cs" />
+    <Compile Include="SnRemInstRecordQueries\SnRemInstRecordQuery.cs" />
     <Compile Include="SpecialConfigQueries\ISpecialConfigQuery.cs" />
     <Compile Include="SpecialConfigQueries\SpecialConfigQuery.cs" />
   </ItemGroup>

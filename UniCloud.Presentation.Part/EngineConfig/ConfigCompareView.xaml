@@ -105,6 +105,10 @@
                                         <telerik:RadComboBox ItemsSource="{Binding ContractAircrafts}"
                                                              Height="{StaticResource ControlHeight}"
                                                              OpenDropDownOnFocus="False"
+                                                             IsEditable="True"
+                                                             IsReadOnly="True"
+                                                             ClearSelectionButtonVisibility="Visible"
+                                                             ClearSelectionButtonContent="清除选择"
                                                              SelectedItem="{Binding LeftContractAircraft,Mode=TwoWay}"
                                                              DisplayMemberPath="SerialNumber">
                                         </telerik:RadComboBox>
@@ -183,6 +187,10 @@
                                         <telerik:RadComboBox ItemsSource="{Binding ContractAircrafts}"
                                                              Height="{StaticResource ControlHeight}"
                                                              OpenDropDownOnFocus="False"
+                                                             IsEditable="True"
+                                                             IsReadOnly="True"
+                                                             ClearSelectionButtonVisibility="Visible"
+                                                             ClearSelectionButtonContent="清除选择"
                                                              SelectedItem="{Binding RightContractAircraft,Mode=TwoWay}"
                                                              DisplayMemberPath="SerialNumber">
                                         </telerik:RadComboBox>

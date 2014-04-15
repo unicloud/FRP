@@ -913,7 +913,7 @@ namespace UniCloud.Presentation.Shell
             var menu77 = new MenuItem
             {
                 Text = "维护拆换记录",
-                NavUri = "UniCloud.Presentation.Part.SnHistories.SnHistory"
+                NavUri = "UniCloud.Presentation.Part.MaintainControl.ManageRemovalAndInstallationView"
             };
             menu7.Items.Add(menu77);
 

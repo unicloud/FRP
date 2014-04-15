@@ -93,6 +93,7 @@ namespace UniCloud.Application.PartBC.Query.AcConfigQueries
                         Id = p.Id,
                         ItemId = p.ItemId,
                         ItemNo = item.ItemNo,
+                        ItemName = item.Name,
                         FiNumber = item.FiNumber,
                         ParentId = p.ParentId,
                         Description = p.Description,

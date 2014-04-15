@@ -74,6 +74,10 @@
                                             Grid.Column="1"
                                             VerticalAlignment="Center">
                                     <telerik:RadComboBox ItemsSource="{Binding AircraftTypes}"
+                                                         IsEditable="True"
+                                                         IsReadOnly="True"
+                                                         ClearSelectionButtonVisibility="Visible"
+                                                         ClearSelectionButtonContent="清除选择"
                                                          Height="{StaticResource ControlHeight}"
                                                          SelectedItem="{Binding SelAircraftType,Mode=TwoWay}"
                                                          DisplayMemberPath="Name">
@@ -94,7 +98,20 @@
                                     <telerik:RadComboBox  ItemsSource="{Binding Items}"
                                                           Height="{StaticResource ControlHeight}"
                                                           SelectedItem="{Binding SelItem,Mode=TwoWay}"
-                                                          DisplayMemberPath="Name" />
+                                                          IsEditable="True"
+                                                          IsReadOnly="True"
+                                                          ClearSelectionButtonVisibility="Visible"
+                                                          ClearSelectionButtonContent="清除选择"
+                                                          DisplayMemberPath="ItemNo" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            Grid.Column="5"
+                                            Grid.Row="0"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch">
+                                    <TextBlock Text="{Binding SelItem.Name}"
+                                               TextAlignment="Left"
+                                               FontSize="{StaticResource TextFontSize}" />
                                 </StackPanel>
                             </Grid>
                             <telerik:RadToolBar Grid.Row="1"

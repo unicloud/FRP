@@ -52,6 +52,7 @@ namespace UniCloud.Application.PartBC.Query.SpecialConfigQueries
                 EndDate = p.EndDate,
                 FiNumber = items.FirstOrDefault(l => l.Id == p.ItemId).FiNumber,
                 ItemNo = items.FirstOrDefault(l => l.Id == p.ItemId).ItemNo,
+                ItemName = items.FirstOrDefault(l => l.Id == p.ItemId).Name,
                 IsValid = p.IsValid,
                 ItemId = p.ItemId,
                 ParentId = p.ParentId,

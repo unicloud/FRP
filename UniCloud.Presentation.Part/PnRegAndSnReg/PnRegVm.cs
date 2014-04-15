@@ -64,6 +64,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         private void InitializeVM()
         {
             PnRegs = _service.CreateCollection(_context.PnRegs);
+            PnRegs.PageSize = 20;
             _service.RegisterCollectionView(PnRegs);
 
             PnMaintainCtrls = _service.CreateCollection(_context.PnMaintainCtrls);

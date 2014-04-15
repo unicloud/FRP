@@ -215,6 +215,10 @@
       <DependentUpon>CorrectAcDailyUtilization.xaml</DependentUpon>
     </Compile>
     <Compile Include="MaintainAcDailyUtilization\CorrectAcDailyUtilizationVm.cs" />
+    <Compile Include="MaintainControl\ManageRemovalAndInstallationView.xaml.cs">
+      <DependentUpon>ManageRemovalAndInstallationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainControl\ManageRemovalAndInstallationVm.cs" />
     <Compile Include="ManageAdSb\QueryAdSb.xaml.cs">
       <DependentUpon>QueryAdSb.xaml</DependentUpon>
     </Compile>
@@ -293,9 +297,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MaintainControl\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="BaseConfigurations\BaseConfiguration.xaml">
       <SubType>Designer</SubType>
@@ -314,6 +316,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MaintainAcDailyUtilization\CorrectAcDailyUtilization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainControl\ManageRemovalAndInstallationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

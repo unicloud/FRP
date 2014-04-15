@@ -53,6 +53,11 @@ namespace UniCloud.Application.PartBC.DTO
         public string ItemNo { get; set; }
 
         /// <summary>
+        ///     项名称
+        /// </summary>
+        public string ItemName { get; set; }
+
+        /// <summary>
         ///     位置信息
         /// </summary>
         public string Position { get; set; }

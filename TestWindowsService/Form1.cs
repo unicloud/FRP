@@ -28,9 +28,10 @@ namespace TestWindowsService
                 //2、同步AircraftSeries数据
                 //AircraftSeriesSync();
                 //3、同步AircraftSeries数据
-                //PnRegSync();
+                PnRegSync();
                 //4、同步SnReg数据
-                SnRegSync();
+                //SnRegSync();
+                //ItemSync();
                 DisposeContext();
             }
             catch (Exception exception)
@@ -55,6 +56,11 @@ namespace TestWindowsService
         }
 
         #region
+        private void ItemSync()
+        {
+            var dataSync = new ItemSync(_partUnitofWork);
+            dataSync.DataSynchronous();
+        }
 
         private void FlightLogSync()
         {

@@ -79,10 +79,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScnServices\IScnAppService.cs" />
     <Compile Include="ScnServices\ScnAppService.cs" />
-    <Compile Include="SnInstallHistoryServices\ISnInstallHistoryAppService.cs" />
-    <Compile Include="SnInstallHistoryServices\SnInstallHistoryAppService.cs" />
+    <Compile Include="SnHistoryServices\ISnHistoryAppService.cs" />
+    <Compile Include="SnHistoryServices\SnHistoryAppService.cs" />
     <Compile Include="SnRegServices\ISnRegAppService.cs" />
     <Compile Include="SnRegServices\SnRegAppService.cs" />
+    <Compile Include="SnRemInstRecordServices\ISnRemInstRecordAppService.cs" />
+    <Compile Include="SnRemInstRecordServices\SnRemInstRecordAppService.cs" />
     <Compile Include="SpecialConfigServices\ISpecialConfigAppService.cs" />
     <Compile Include="SpecialConfigServices\SpecialConfigAppService.cs" />
   </ItemGroup>

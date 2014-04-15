@@ -5,7 +5,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQiBin 时间：2014/4/2 17:25:28
-// 文件名：SnInstallHistory
+// 文件名：SnHistory
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -22,16 +22,17 @@ using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.PnRegAgg;
 using UniCloud.Domain.UberModel.Aggregates.SnRegAgg;
+using UniCloud.Domain.UberModel.Aggregates.SnRemInstRecordAgg;
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.SnInstallHistoryAgg
+namespace UniCloud.Domain.UberModel.Aggregates.SnHistoryAgg
 {
     /// <summary>
-    ///     SnInstallHistory聚合根。
+    ///     SnHistory聚合根。
     ///     序号件装机历史
     /// </summary>
-    public class SnInstallHistory : EntityInt, IValidatableObject
+    public class SnHistory : EntityInt, IValidatableObject
     {
         #region 构造函数
 
@@ -39,7 +40,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnInstallHistoryAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal SnInstallHistory()
+        internal SnHistory()
         {
         }
 
@@ -71,16 +72,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnInstallHistoryAgg
         ///     拆下时间
         /// </summary>
         public DateTime? RemoveDate { get; private set; }
-        
-        /// <summary>
-        ///     拆下原因
-        /// </summary>
-        public string RemoveReason { get; private set; }
-
-        /// <summary>
-        ///     装上原因
-        /// </summary>
-        public string InstallReason { get; private set; }
 
         /// <summary>
         ///     CSN，自装机以来使用循环
@@ -121,6 +112,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnInstallHistoryAgg
         /// </summary>
         public int PnRegId { get; private set; }
 
+        /// <summary>
+        ///     装上记录外键
+        /// </summary>
+        public int InstallRecordId { get; private set; }
+
+        /// <summary>
+        ///     拆下记录外键
+        /// </summary>
+        public int? RemoveRecordId { get; private set; }
         #endregion
 
         #region 导航属性
@@ -167,15 +167,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnInstallHistoryAgg
         {
             InstallDate = date;
         }
-        
-        /// <summary>
-        ///     设置装上原因
-        /// </summary>
-        /// <param name="installReason">装上原因</param>
-        public void SetInstallReason(string installReason)
-        {
-            InstallReason = installReason;
-        }
 
         /// <summary>
         ///     设置拆下时间
@@ -184,15 +175,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnInstallHistoryAgg
         public void SetRemoveDate(DateTime? date)
         {
             RemoveDate = date;
-        }
-
-        /// <summary>
-        ///     设置拆下原因
-        /// </summary>
-        /// <param name="removeReason">拆下原因</param>
-        public void SetRemoveReason(string removeReason)
-        {
-            RemoveReason = removeReason;
         }
 
         /// <summary>
@@ -266,6 +248,29 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnInstallHistoryAgg
             AircraftId = aircraft.Id;
         }
 
+        /// <summary>
+        ///     设置装上记录
+        /// </summary>
+        /// <param name="installRecord">装上记录</param>
+        public void SetInstallRecord(SnRemInstRecord installRecord)
+        {
+            if (installRecord == null || installRecord.IsTransient())
+            {
+                throw new ArgumentException("飞机参数为空！");
+            }
+
+            InstallRecordId = installRecord.Id;
+        }
+
+        /// <summary>
+        ///     设置拆下记录
+        /// </summary>
+        /// <param name="removeRecord">拆下记录</param>
+        public void SetRemoveRecord(SnRemInstRecord removeRecord)
+        {
+            if (removeRecord != null)
+                RemoveRecordId = removeRecord.Id;
+        }
         #endregion
 
         #region IValidatableObject 成员

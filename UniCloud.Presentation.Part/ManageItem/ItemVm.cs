@@ -65,6 +65,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         private void InitializeVM()
         {
             Items = _service.CreateCollection(_context.Items);
+            Items.PageSize = 20;
             _service.RegisterCollectionView(Items);
 
             ItemMaintainCtrls = _service.CreateCollection(_context.ItemMaintainCtrls, o => o.MaintainCtrlLines);

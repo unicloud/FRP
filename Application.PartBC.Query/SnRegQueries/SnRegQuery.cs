@@ -22,7 +22,7 @@ using System.Data.Entity;
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
-using UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Infrastructure.Data;
 
@@ -49,7 +49,7 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
         /// <returns>SnRegDTO集合</returns>
         public IQueryable<SnRegDTO> SnRegDTOQuery(QueryBuilder<SnReg> query)
         {
-            DbSet<SnInstallHistory> snInstallHistories = _unitOfWork.CreateSet<SnInstallHistory>();
+            DbSet<SnHistory> snHistories = _unitOfWork.CreateSet<SnHistory>();
             DbSet<Aircraft> dbAircrafts = _unitOfWork.CreateSet<Aircraft>();
 
             return query.ApplyTo(_unitOfWork.CreateSet<SnReg>()).Select(p => new SnRegDTO
@@ -78,8 +78,8 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
                     SnRegId = q.SnRegId,
                     Sn = p.Sn,
                 }).ToList(),
-                SnInstallHistories =
-                    snInstallHistories.Where(q => q.SnRegId == p.Id).Select(r => new SnInstallHistoryDTO
+                SnHistories =
+                    snHistories.Where(q => q.SnRegId == p.Id).Select(r => new SnHistoryDTO
                     {
                         Id = r.Id,
                         Sn = r.Sn,
@@ -105,7 +105,7 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
         /// <returns>ApuEngineSnRegDTO集合</returns>
         public IQueryable<ApuEngineSnRegDTO> ApuEngineSnRegDTOQuery(QueryBuilder<SnReg> query)
         {
-            DbSet<SnInstallHistory> snInstallHistories = _unitOfWork.CreateSet<SnInstallHistory>();
+            DbSet<SnHistory> snHistories = _unitOfWork.CreateSet<SnHistory>();
             DbSet<Aircraft> dbAircrafts = _unitOfWork.CreateSet<Aircraft>();
 
             List<ApuEngineSnRegDTO> apuSnRegs =
@@ -124,8 +124,8 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
                     PnRegId = p.PnRegId,
                     RegNumber = p.RegNumber,
                     Status = (int) p.Status,
-                    SnInstallHistories =
-                        snInstallHistories.Where(q => q.SnRegId == p.Id).Select(r => new SnInstallHistoryDTO
+                    SnHistories =
+                        snHistories.Where(q => q.SnRegId == p.Id).Select(r => new SnHistoryDTO
                         {
                             Id = r.Id,
                             Sn = r.Sn,
@@ -158,8 +158,8 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
                     PnRegId = p.PnRegId,
                     RegNumber = p.RegNumber,
                     Status = (int) p.Status,
-                    SnInstallHistories =
-                        snInstallHistories.Where(q => q.SnRegId == p.Id).Select(r => new SnInstallHistoryDTO
+                    SnHistories =
+                        snHistories.Where(q => q.SnRegId == p.Id).Select(r => new SnHistoryDTO
                         {
                             Id = r.Id,
                             Sn = r.Sn,

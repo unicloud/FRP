@@ -52,6 +52,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
+                                    <RowDefinition Height="30" />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                     Margin="-1 -2 -1 0"
@@ -139,6 +140,13 @@
                                                                     DataMemberBinding="{Binding Description}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
+                                <Grid Row="2">
+                                    <telerik:RadDataPager Name="SnPage"
+                                                          BorderThickness="1,0,1,1"
+                                                          AutoEllipsisMode="Both"
+                                                          DisplayMode="All"
+                                                          Source="{Binding Items}" />
+                                </Grid>
                             </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>

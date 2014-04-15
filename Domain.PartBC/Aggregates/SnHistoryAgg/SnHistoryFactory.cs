@@ -5,7 +5,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQiBin 时间：2014/4/2 15:51:13
-// 文件名：SnInstallHistoryFactory
+// 文件名：SnHistoryFactory
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -20,25 +20,26 @@ using System;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 
 #endregion
 
-namespace UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg
+namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
 {
     /// <summary>
-    ///     SnInstallHistory工厂。
+    ///     SnHistory工厂。
     /// </summary>
-    public static class SnInstallHistoryFactory
+    public static class SnHistoryFactory
     {
         /// <summary>
         ///     创建序号件装机历史。
         /// </summary>
-        /// <returns>SnInstallHistory</returns>
-        public static SnInstallHistory CreateSnInstallHistory()
+        /// <returns>SnHistory</returns>
+        public static SnHistory CreateSnHistory()
         {
-            var snInstallHistory = new SnInstallHistory();
-            snInstallHistory.GenerateNewIdentity();
-            return snInstallHistory;
+            var snHistory = new SnHistory();
+            snHistory.GenerateNewIdentity();
+            return snHistory;
         }
 
         /// <summary>
@@ -53,28 +54,28 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg
         /// <param name="aircraft">装机所在飞机</param>
         /// <param name="installDate">装上日期</param>
         /// <param name="removeDate">拆下日期</param>
-        /// <param name="installReason">装上日期</param>
-        /// <param name="removeReason">拆下日期</param>
+        /// <param name="installRecord">装上记录</param>
+        /// <param name="removeRecord">拆下记录</param>
         /// <returns></returns>
-        public static SnInstallHistory CreateSnInstallHistory(SnReg snReg, PnReg pnReg, int csn, int csr, decimal tsn,
+        public static SnHistory CreateSnHistory(SnReg snReg, PnReg pnReg, int csn, int csr, decimal tsn,
             decimal tsr, Aircraft aircraft,
-            DateTime installDate, DateTime? removeDate,string installReason,string removeReason)
+            DateTime installDate, DateTime? removeDate, SnRemInstRecord installRecord, SnRemInstRecord removeRecord)
         {
-            var snInstallHistory = new SnInstallHistory();
-            snInstallHistory.CreateDate = DateTime.Now;
-            snInstallHistory.GenerateNewIdentity();
-            snInstallHistory.SetAircraft(aircraft);
-            snInstallHistory.SetInstallDate(installDate);
-            snInstallHistory.SetRemoveDate(removeDate);
-            snInstallHistory.SetSn(snReg);
-            snInstallHistory.SetPn(pnReg);
-            snInstallHistory.SetCSN(csn);
-            snInstallHistory.SetCSR(csr);
-            snInstallHistory.SetTSN(tsn);
-            snInstallHistory.SetTSR(tsr);
-            snInstallHistory.SetInstallReason(installReason);
-            snInstallHistory.SetRemoveReason(installReason);
-            return snInstallHistory;
+            var snHistory = new SnHistory();
+            snHistory.CreateDate = DateTime.Now;
+            snHistory.GenerateNewIdentity();
+            snHistory.SetAircraft(aircraft);
+            snHistory.SetInstallDate(installDate);
+            snHistory.SetRemoveDate(removeDate); 
+            snHistory.SetSn(snReg);
+            snHistory.SetPn(pnReg);
+            snHistory.SetCSN(csn);
+            snHistory.SetCSR(csr);
+            snHistory.SetTSN(tsn);
+            snHistory.SetTSR(tsr);
+            snHistory.SetInstallRecord(installRecord);
+            snHistory.SetRemoveRecord(removeRecord);
+            return snHistory;
         }
     }
 }
