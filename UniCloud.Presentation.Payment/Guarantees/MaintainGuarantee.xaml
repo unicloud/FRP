@@ -25,7 +25,7 @@
                              HasDocumentHost="False">
             <telerik:RadSplitContainer Orientation="Vertical">
                 <telerik:RadPaneGroup>
-                    <telerik:RadPane Header="大修保证金"
+                    <telerik:RadPane Header="大修储备金"
                                      CanFloat="False"
                                      CanUserClose="False"
                                      CanUserPin="False"
@@ -103,8 +103,7 @@
                                                                     TextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     HeaderTextAlignment="Center"
-                                                                    DataMemberBinding="{Binding StartDate,StringFormat={StaticResource DateStringFormat}}"
-                                                                    >
+                                                                    DataMemberBinding="{Binding StartDate,StringFormat={StaticResource DateStringFormat}}" >
                                             <telerik:GridViewDataColumn.CellEditTemplate>
                                                 <DataTemplate>
                                                     <telerik:RadDateTimePicker InputMode="DatePicker" DisplayDateEnd="{Binding EndDate}" SelectedDate="{Binding StartDate,Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}"></telerik:RadDateTimePicker>
@@ -140,8 +139,7 @@
                                                                     >
                                             <telerik:GridViewDataColumn.CellEditTemplate>
                                                 <DataTemplate>
-                                                    <telerik:RadComboBox 
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                    <telerik:RadComboBox  MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         IsEditable="True"
                                                                         ItemsSource="{Binding DataContext.MaintainContractView, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
                                                                         SelectedItem="{Binding DataContext.SelectedMaintainOrder,Mode=TwoWay ,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"

@@ -38,7 +38,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg
             var supplierCompany = new SupplierCompany
             {
                 Code = code,
-                LinkmanId = Guid.NewGuid()
             };
 
             return supplierCompany;

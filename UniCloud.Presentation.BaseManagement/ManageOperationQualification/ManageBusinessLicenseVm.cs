@@ -66,6 +66,7 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
             AddDocumentCommand = new DelegateCommand<object>(AddDocument, CanAddDocument);
             //创建并注册CollectionView
             BusinessLicenses = _service.CreateCollection(_context.BusinessLicenses);
+            BusinessLicenses.PageSize = 18;
             _service.RegisterCollectionView(BusinessLicenses);
         }
 

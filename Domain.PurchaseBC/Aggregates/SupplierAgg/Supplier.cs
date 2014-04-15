@@ -66,6 +66,11 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg
         public string CnName { get; set; }
 
         /// <summary>
+        ///     供应商中文简称
+        /// </summary>
+        public string CnShortName { get; set; }
+
+        /// <summary>
         ///     创建日期
         /// </summary>
         public DateTime CreateDate { get; set; }
@@ -92,7 +97,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg
         /// <summary>
         ///     供应商公司ID
         /// </summary>
-        public int SupplierCompanyId { get; private set; }
+        public int SupplierCompanyId { get; set; }
 
         #endregion
 

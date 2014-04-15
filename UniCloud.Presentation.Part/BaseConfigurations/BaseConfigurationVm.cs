@@ -1,5 +1,6 @@
 ﻿#region NameSpace
 
+using System;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
@@ -15,7 +16,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
     /// <summary>
     /// 基础配置，包括维修工作单元、控制单位的维护
     /// </summary>
-    [Export(typeof (BaseConfigurationVm))]
+    [Export(typeof(BaseConfigurationVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class BaseConfigurationVm : EditViewModelBase
     {
@@ -48,7 +49,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
             _service.RegisterCollectionView(MaintainWorks);
             MaintainWorks.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
                     var newItem = MaintainWorks.CurrentAddItem as MaintainWorkDTO;
                     if (newItem != null)
@@ -56,7 +57,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
                         newItem.Id = RandomHelper.Next();
                     }
                 }
-                else if (e.PropertyName == "HasChanges")
+                else if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     CanSelectMaintainWork = !MaintainWorks.HasChanges;
                 }
@@ -67,7 +68,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
             _service.RegisterCollectionView(CtrlUnits);
             CtrlUnits.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
                     var newItem = CtrlUnits.CurrentAddItem as CtrlUnitDTO;
                     if (newItem != null)
@@ -75,7 +76,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
                         newItem.Id = RandomHelper.Next();
                     }
                 }
-                else if (e.PropertyName == "HasChanges")
+                else if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     CanSelectCtrlUnit = !CtrlUnits.HasChanges;
                 }

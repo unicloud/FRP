@@ -15,6 +15,9 @@
 
 #endregion
 
+using System;
+using System.Linq.Expressions;
+
 namespace UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg
 {
     /// <summary>
@@ -23,5 +26,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg
     /// </summary>
     public interface ILinkmanRepository : IRepository<Linkman>
     {
+        Linkman GetLinkman(Expression<Func<Linkman, bool>> condition);
     }
 }

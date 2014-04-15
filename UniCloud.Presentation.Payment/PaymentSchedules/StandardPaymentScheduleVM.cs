@@ -37,7 +37,7 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
-    [Export(typeof (StandardPaymentScheduleVM))]
+    [Export(typeof(StandardPaymentScheduleVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class StandardPaymentScheduleVM : EditViewModelBase
     {
@@ -48,7 +48,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public StandardPaymentScheduleVM(IPaymentService service) : base(service)
+        public StandardPaymentScheduleVM(IPaymentService service)
+            : base(service)
         {
             _service = service;
             _context = _service.Context;
@@ -654,13 +655,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         public override void LoadData()
         {
             if (!StandardOrdersView.AutoLoad)
-            {
                 StandardOrdersView.AutoLoad = true;
-            }
-            else
-            {
-                StandardOrdersView.AutoLoad = true;
-            }
             CurrencysView.AutoLoad = true;
         }
 

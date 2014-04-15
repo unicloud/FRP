@@ -23,6 +23,7 @@ using UniCloud.Application.PurchaseBC.Query.AircraftTypeQueries;
 using UniCloud.Application.PurchaseBC.Query.CurrencyQueries;
 using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
 using UniCloud.Application.PurchaseBC.SupplierServices;
+using UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
@@ -59,7 +60,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                 .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
                 .RegisterType<ICurrencyRepository,CurrencyRepository>()
                 .RegisterType<ICurrencyQuery,CurrencyQuery>()
-
+                .RegisterType<IBankAccountRepository, BankAccountRepository>()
                 #endregion
 
                 ;

@@ -78,7 +78,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                 Code = p.Code,
                 CreateDate = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CreateDate,
                 SupplierType =
-                    p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).SupplierType == 0 ? "国内" : "国外",
+                    p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).SupplierType == SupplierType.国内 ? "国内" : "国外",
                 Name = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CnName,
                 Note = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).Note,
             });
@@ -96,6 +96,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
             {
                 SupplierId = p.Id,
                 Name = p.CnName,
+                ShortName = p.CnShortName,
                 SupplierType = p.SupplierType == SupplierType.国外 ? "国外" : "国内",
                 CreateDate = p.CreateDate,
                 UpdateDate = p.UpdateDate,
@@ -135,10 +136,11 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                     Address = c.Address,
                     Bank = c.Bank,
                     BankAccountId = c.Id,
-                    Branch = c.Bank,
+                    Branch = c.Branch,
                     Country = c.Country,
                     IsCurrent = c.IsCurrent,
                     Name = c.Name,
+                    CustCode = c.CustCode,
                     SupplierId = c.SupplierId
                 }).ToList(),
             });
@@ -150,6 +152,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
             return query.ApplyTo(_unitOfWork.CreateSet<Linkman>()).Select(p => new LinkmanDTO
             {
                 Address = p.Address.AddressLine1,
+                Department = p.Department,
                 Email = p.Email,
                 IsDefault = p.IsDefault,
                 LinkmanId = p.Id,
@@ -158,6 +161,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                 Name = p.Name,
                 Note = p.Note,
                 SourceId = p.SourceId,
+                CustCode = p.CustCode,
             });
         }
 

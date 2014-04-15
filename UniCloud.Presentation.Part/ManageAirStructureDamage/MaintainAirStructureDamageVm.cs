@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -62,26 +63,24 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
         {
             // 创建并注册CollectionView
             AirStructureDamages = _service.CreateCollection(_context.AirStructureDamages);
+            AirStructureDamages.PageSize = 20;
             _service.RegisterCollectionView(AirStructureDamages);
             AirStructureDamages.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
-                    var newItem = AirStructureDamages.CurrentAddItem as AirStructureDamageDTO;
-                    if (newItem != null)
+                    AirStructureDamage = AirStructureDamages.CurrentAddItem as AirStructureDamageDTO;
+                    if (AirStructureDamage != null)
                     {
-                        newItem.Id = RandomHelper.Next();
+                        AirStructureDamage.Id = RandomHelper.Next();
                         var firstOrDefault = Aircrafts.FirstOrDefault();
-                        if (firstOrDefault != null) newItem.AircraftId = firstOrDefault.Id;
+                        if (firstOrDefault != null) AirStructureDamage.AircraftId = firstOrDefault.Id;
                         DocumentName = "添加附件";
                         _document.DocumentId = new Guid();
                         _document.Name = string.Empty;
-                        AircraftDamageLevel = AircraftDamageLevel.低;
-                        AirStructureReportType = AirStructureReportType.损伤;
-                        AirStructureDamageStatus = AirStructureDamageStatus.草稿;
                     }
                 }
-                else if (e.PropertyName == "HasChanges")
+                else if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     CanSelectAirStructureDamage = !AirStructureDamages.HasChanges;
                 }
@@ -111,56 +110,23 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
         #endregion
 
         #region 报告种类
-        private AirStructureReportType _airStructureReportType;
-        public AirStructureReportType AirStructureReportType
+        public Dictionary<int, AirStructureReportType> AirStructureReportTypes
         {
-            get { return _airStructureReportType; }
-            set
-            {
-                _airStructureReportType = value;
-                AirStructureDamage.ReportType = (int)_airStructureReportType;
-                RaisePropertyChanged(() => AirStructureReportType);
-            }
-        }
-        public Array AirStructureReportTypes
-        {
-            get { return Enum.GetValues(typeof(AirStructureReportType)); }
+            get { return Enum.GetValues(typeof(AirStructureReportType)).Cast<object>().ToDictionary(value => (int)value, value => (AirStructureReportType)value); }
         }
         #endregion
 
         #region 腐蚀级别
-        private AircraftDamageLevel _aircraftDamageLevel;
-        public AircraftDamageLevel AircraftDamageLevel
+        public Dictionary<int, AircraftDamageLevel> AircraftDamageLevels
         {
-            get { return _aircraftDamageLevel; }
-            set
-            {
-                _aircraftDamageLevel = value;
-                AirStructureDamage.Level = (int) _aircraftDamageLevel;
-                RaisePropertyChanged(() => AircraftDamageLevel);
-            }
-        }
-        public Array AircraftDamageLevels
-        {
-            get { return Enum.GetValues(typeof(AircraftDamageLevel)); }
+            get { return Enum.GetValues(typeof(AircraftDamageLevel)).Cast<object>().ToDictionary(value => (int)value, value => (AircraftDamageLevel)value); }
         }
         #endregion
 
         #region 状态
-        private AirStructureDamageStatus _airStructureDamageStatus;
-        public AirStructureDamageStatus AirStructureDamageStatus
+        public Dictionary<int, AirStructureDamageStatus> AirStructureDamageStatuses
         {
-            get { return _airStructureDamageStatus; }
-            set
-            {
-                _airStructureDamageStatus = value;
-                AirStructureDamage.Status = (int)_airStructureDamageStatus;
-                RaisePropertyChanged(() => AirStructureDamageStatus);
-            }
-        }
-        public Array AirStructureDamageStatuses
-        {
-            get { return Enum.GetValues(typeof(AirStructureDamageStatus)); }
+            get { return Enum.GetValues(typeof(AirStructureDamageStatus)).Cast<object>().ToDictionary(value => (int)value, value => (AirStructureDamageStatus)value); }
         }
         #endregion
         #endregion

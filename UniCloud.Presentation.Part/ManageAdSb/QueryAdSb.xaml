@@ -31,69 +31,82 @@
                                      CanUserClose="False"
                                      CanUserPin="False"
                                      ContextMenuTemplate="{x:Null}">
-                        <telerik:RadGridView x:Name="AdSbList"
-                                             AutoExpandGroups="True"
-                                             AutoGenerateColumns="False"
-                                             CanUserSortColumns="True"
-                                             RowIndicatorVisibility="Visible"
-                                             CanUserFreezeColumns="False"
-                                             FontSize="{StaticResource TextFontSize}"
-                                             ValidatesOnDataErrors="InEditMode"
-                                             IsReadOnly="True"
-                                             ItemsSource="{Binding AdSbs,Mode=TwoWay}"
-                                             IsBusy="{Binding AdSbs.IsBusy}">
-                            <telerik:RadGridView.Columns>
-                                <uc:DataPageSerialColumn Header="序号" />
-                                <telerik:GridViewDataColumn Header="系列"
-                                                            HeaderTextAlignment="Center"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding AircraftSeries}" />
-                                <telerik:GridViewDataColumn Header="文件类型"
-                                                            HeaderTextAlignment="Center"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding FileType}" />
-                                <telerik:GridViewDataColumn Header="文件号"
-                                                            HeaderTextAlignment="Center"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding FileNo}" />
-                                <telerik:GridViewDataColumn Header="文件版本"
-                                                            HeaderTextAlignment="Center"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding FileVersion}" />
-                                <telerik:GridViewDataColumn Header="执行飞机"
-                                                            HeaderTextAlignment="Center"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding ComplyAircraft}" />
-                                <telerik:GridViewDataColumn Header="执行状态"
-                                                            HeaderTextAlignment="Center"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding ComplyStatus}" />
-                                <telerik:GridViewDataColumn  Header="执行日期"
-                                                             DataMemberBinding="{Binding ComplyDate, StringFormat={StaticResource DateStringFormat}}"
-                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                             HeaderTextAlignment="Center" />
-                                <telerik:GridViewDataColumn Header="执行反馈"
-                                                            HeaderTextAlignment="Center"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding ComplyNotes}" />
-                                <telerik:GridViewDataColumn Header="执行监控关闭情况"
-                                                            HeaderTextAlignment="Center"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding ComplyClose}" />
-                                <telerik:GridViewDataColumn Header="执行费用"
-                                                            HeaderTextAlignment="Center"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding ComplyFee}" />
-                                <telerik:GridViewDataColumn Header="执行费用备注"
-                                                            HeaderTextAlignment="Center"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding ComplyFeeNotes}" />
-                                <telerik:GridViewDataColumn Header="执行费用币种"
-                                                            HeaderTextAlignment="Center"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding ComplyFeeCurrency}" />
-                            </telerik:RadGridView.Columns>
-                        </telerik:RadGridView>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <telerik:RadGridView x:Name="AdSbList"
+                                                 AutoExpandGroups="True"
+                                                 AutoGenerateColumns="False"
+                                                 CanUserSortColumns="True"
+                                                 RowIndicatorVisibility="Visible"
+                                                 CanUserFreezeColumns="False"
+                                                 FontSize="{StaticResource TextFontSize}"
+                                                 ValidatesOnDataErrors="InEditMode"
+                                                 IsReadOnly="True"
+                                                 ItemsSource="{Binding AdSbs,Mode=TwoWay}"
+                                                 IsBusy="{Binding AdSbs.IsBusy}">
+                                <telerik:RadGridView.Columns>
+                                    <uc:DataPageSerialColumn Header="序号" />
+                                    <telerik:GridViewDataColumn Header="系列"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding AircraftSeries}" />
+                                    <telerik:GridViewDataColumn Header="文件类型"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding FileType}" />
+                                    <telerik:GridViewDataColumn Header="文件号"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding FileNo}" />
+                                    <telerik:GridViewDataColumn Header="文件版本"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding FileVersion}" />
+                                    <telerik:GridViewDataColumn Header="执行飞机"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding ComplyAircraft}" />
+                                    <telerik:GridViewDataColumn Header="执行状态"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding ComplyStatus}" />
+                                    <telerik:GridViewDataColumn  Header="执行日期"
+                                                                 DataMemberBinding="{Binding ComplyDate, StringFormat={StaticResource DateStringFormat}}"
+                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                 HeaderTextAlignment="Center" />
+                                    <telerik:GridViewDataColumn Header="执行反馈"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding ComplyNotes}" />
+                                    <telerik:GridViewDataColumn Header="执行监控关闭情况"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding ComplyClose}" />
+                                    <telerik:GridViewDataColumn Header="执行费用"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding ComplyFee}" />
+                                    <telerik:GridViewDataColumn Header="执行费用备注"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding ComplyFeeNotes}" />
+                                    <telerik:GridViewDataColumn Header="执行费用币种"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding ComplyFeeCurrency}" />
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
+                            <Grid Row="1">
+                                <telerik:RadDataPager Name="SCNRadPage"
+                                                      BorderThickness="1,0,1,1"
+                                                      AutoEllipsisMode="Both"
+                                                      DisplayMode="All"
+                                                      Source="{Binding AdSbs}" />
+                            </Grid>
+                        </Grid>
                     </telerik:RadPane>
                 </telerik:RadPaneGroup>
             </telerik:RadSplitContainer>

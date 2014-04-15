@@ -61,6 +61,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             // 创建并注册CollectionView
             AirframeMaintainInvoices = _service.CreateCollection(_context.AirframeMaintainInvoices, o => o.MaintainInvoiceLines);
+            AirframeMaintainInvoices.PageSize = 6;
             _service.RegisterCollectionView(AirframeMaintainInvoices);
         }
 

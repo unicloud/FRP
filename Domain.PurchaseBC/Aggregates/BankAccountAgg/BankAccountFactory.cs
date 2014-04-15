@@ -31,21 +31,25 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg
         /// <summary>
         ///     创建银行账户
         /// </summary>
-        /// <param name="account">账号</param>
         /// <returns>创建的银行账户</returns>
-        public static BankAccount CreateBankAccount(string account)
+        public static BankAccount CreateBankAccount()
         {
-            if (string.IsNullOrWhiteSpace(account))
-            {
-                throw new ArgumentNullException("account");
-            }
-
-            var bankAccount = new BankAccount
-            {
-                Account = account,
-            };
-
+            var bankAccount = new BankAccount();
+            bankAccount.GenerateNewIdentity();
             return bankAccount;
+        }
+
+        public static void SetBankAccount(BankAccount bankAccount, string custCode,bool isCurrent, string account, string name, string bank, string branch, string country, string address, int supplierId)
+        {
+            bankAccount.CustCode = custCode;
+            bankAccount.Account = account;
+            bankAccount.IsCurrent = isCurrent;
+            bankAccount.Name = name;
+            bankAccount.Bank = bank;
+            bankAccount.Branch = branch;
+            bankAccount.Country = country;
+            bankAccount.Address = address;
+            bankAccount.SupplierId = supplierId;
         }
     }
 }

@@ -19,6 +19,7 @@
         </Key>
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
+        <Property Name="ShortName" Type="Edm.String" />
         <Property Name="SupplierType" Type="Edm.String" />
         <Property Name="CreateDate" Type="Edm.DateTime" />
         <Property Name="UpdateDate" Type="Edm.DateTime" />
@@ -42,6 +43,7 @@
         <Property Name="Country" Type="Edm.String" />
         <Property Name="Address" Type="Edm.String" />
         <Property Name="IsCurrent" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="CustCode" Type="Edm.String" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="SupplierCompanyDTO">
@@ -73,8 +75,10 @@
         <Property Name="Mobile" Type="Edm.String" />
         <Property Name="Fax" Type="Edm.String" />
         <Property Name="Email" Type="Edm.String" />
+        <Property Name="Department" Type="Edm.String" />
         <Property Name="Address" Type="Edm.String" />
         <Property Name="SourceId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CustCode" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
       </EntityType>
       <EntityType Name="SupplierCompanyAcMaterialDTO">

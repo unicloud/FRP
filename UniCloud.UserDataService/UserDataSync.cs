@@ -7,7 +7,6 @@ using UniCloud.Application.BaseManagementBC.OrganizationServices;
 using UniCloud.Application.BaseManagementBC.Query.OrganizationQueries;
 using UniCloud.Application.BaseManagementBC.Query.UserQueries;
 using UniCloud.Application.BaseManagementBC.UserServices;
-using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 using UniCloud.Infrastructure.Data.BaseManagementBC.Repositories;
 using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork;
 using UniCloud.UserDataService.FoundLdapGroupInfo;

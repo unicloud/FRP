@@ -53,7 +53,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <summary>
         ///     选择合作公司。
         /// </summary>
-        public SupplierCompanyDTO SelSupplierCompany
+        public SupplierCompanyDTO SelectedSupplierCompany
         {
             get { return _selectedSupplierCompany; }
             set
@@ -61,7 +61,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
                 if (_selectedSupplierCompany != value)
                 {
                     _selectedSupplierCompany = value;
-                    RaisePropertyChanged(() => SelSupplierCompany);
+                    RaisePropertyChanged(() => SelectedSupplierCompany);
                 }
             }
         }
@@ -70,25 +70,26 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <summary>
         ///     获取所有供应商公司信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<SupplierCompanyDTO> SupplierCompanysView { get; set; }
+        public QueryableDataServiceCollectionView<SupplierCompanyDTO> SupplierCompanies { get; set; }
 
         /// <summary>
         ///     初始化合作公司信息。
         /// </summary>
         private void InitialSupplierCompany()
         {
-            SupplierCompanysView = _service.CreateCollection(_context.SupplierCompanys);
-            _service.RegisterCollectionView(SupplierCompanysView); //注册查询集合。
-            SupplierCompanysView.LoadedData += (sender, e) =>
+            SupplierCompanies = _service.CreateCollection(_context.SupplierCompanys);
+            SupplierCompanies.PageSize = 19;
+            _service.RegisterCollectionView(SupplierCompanies); //注册查询集合。
+            SupplierCompanies.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
                     return;
                 }
-                if (SelSupplierCompany == null)
+                if (SelectedSupplierCompany == null)
                 {
-                    SelSupplierCompany = e.Entities.Cast<SupplierCompanyDTO>().FirstOrDefault();
+                    SelectedSupplierCompany = e.Entities.Cast<SupplierCompanyDTO>().FirstOrDefault();
                 }
             };
         }
@@ -102,7 +103,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         public override void LoadData()
         {
-            SupplierCompanysView.AutoLoad = true; //加载数据。
+            SupplierCompanies.AutoLoad = true; //加载数据。
         }
 
         #endregion

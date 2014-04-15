@@ -15,6 +15,9 @@
 
 #endregion
 
+using System;
+using System.Linq.Expressions;
+
 namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg
 {
     /// <summary>
@@ -23,5 +26,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg
     /// </summary>
     public interface ISupplierRepository : IRepository<Supplier>
     {
+        Supplier GetSupplier(Expression<Func<Supplier, bool>> condition);
     }
 }
