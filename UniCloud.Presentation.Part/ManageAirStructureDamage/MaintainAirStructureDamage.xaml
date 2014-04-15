@@ -396,6 +396,7 @@
                                 VerticalAlignment="Center">
                         <telerik:RadTimePicker  Height="{StaticResource ControlHeight}"
                                                 SelectedValue="{Binding ReportDate, Mode=TwoWay}"
+                                                DateTimeWatermarkContent=""
                                                 InputMode="DatePicker" />
                     </StackPanel>
                     <TextBlock Grid.Row="11"
@@ -409,6 +410,7 @@
                                 VerticalAlignment="Center">
                         <telerik:RadTimePicker  Height="{StaticResource ControlHeight}"
                                                 SelectedValue="{Binding CloseDate, Mode=TwoWay}"
+                                                DateTimeWatermarkContent=""
                                                 InputMode="DatePicker" />
                     </StackPanel>
                     <TextBlock Grid.Row="12"

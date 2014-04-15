@@ -28,7 +28,7 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
-    [Export(typeof (QueryPaymentScheduleVM))]
+    [Export(typeof(QueryPaymentScheduleVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class QueryPaymentScheduleVM : EditViewModelBase
     {
@@ -39,7 +39,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public QueryPaymentScheduleVM(IPaymentService service) : base(service)
+        public QueryPaymentScheduleVM(IPaymentService service)
+            : base(service)
         {
             _service = service;
             _context = _service.Context;
@@ -397,31 +398,13 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         {
             //标准订单加载
             if (!StandardOrdersView.AutoLoad)
-            {
                 StandardOrdersView.AutoLoad = true;
-            }
-            else
-            {
-                StandardOrdersView.AutoLoad = true;
-            }
             //合同飞机加载
             if (!ContractAircraftsView.AutoLoad)
-            {
                 ContractAircraftsView.AutoLoad = true;
-            }
-            else
-            {
-                ContractAircraftsView.AutoLoad = true;
-            }
             //合同发动机加载
             if (!ContractEnginesView.AutoLoad)
-            {
                 ContractEnginesView.AutoLoad = true;
-            }
-            else
-            {
-                ContractEnginesView.AutoLoad = true;
-            }
         }
 
         #endregion

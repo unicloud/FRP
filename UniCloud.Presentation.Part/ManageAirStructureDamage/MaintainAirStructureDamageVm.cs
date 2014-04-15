@@ -68,12 +68,12 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
             {
                 if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
-                    var newItem = AirStructureDamages.CurrentAddItem as AirStructureDamageDTO;
-                    if (newItem != null)
+                    AirStructureDamage = AirStructureDamages.CurrentAddItem as AirStructureDamageDTO;
+                    if (AirStructureDamage != null)
                     {
-                        newItem.Id = RandomHelper.Next();
+                        AirStructureDamage.Id = RandomHelper.Next();
                         var firstOrDefault = Aircrafts.FirstOrDefault();
-                        if (firstOrDefault != null) newItem.AircraftId = firstOrDefault.Id;
+                        if (firstOrDefault != null) AirStructureDamage.AircraftId = firstOrDefault.Id;
                         DocumentName = "添加附件";
                         _document.DocumentId = new Guid();
                         _document.Name = string.Empty;

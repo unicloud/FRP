@@ -37,7 +37,7 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
-    [Export(typeof (AcPaymentScheduleVM))]
+    [Export(typeof(AcPaymentScheduleVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AcPaymentScheduleVM : EditViewModelBase
     {
@@ -48,7 +48,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public AcPaymentScheduleVM(IPaymentService service) : base(service)
+        public AcPaymentScheduleVM(IPaymentService service)
+            : base(service)
         {
             _service = service;
             _context = _service.Context;
@@ -61,7 +62,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         #region 加载合同飞机
 
         private ContractAircraftDTO _selectedContractAircraft;
-
         /// <summary>
         ///     选择合同飞机。
         /// </summary>
@@ -653,13 +653,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         public override void LoadData()
         {
             if (!ContractAircraftsView.AutoLoad)
-            {
                 ContractAircraftsView.AutoLoad = true;
-            }
-            else
-            {
-                ContractAircraftsView.AutoLoad = true;
-            }
             CurrencysView.AutoLoad = true;
         }
 
