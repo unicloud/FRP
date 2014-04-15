@@ -41,7 +41,8 @@
                                  CanUserSortColumns="True"
                                  RowIndicatorVisibility="Visible"
                                  CanUserFreezeColumns="False"
-                                 SelectionMode="Extended">
+                                 SelectionMode="Extended"
+                                 IsSynchronizedWithCurrentItem="False">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SelectMaterialCommand}"
@@ -88,7 +89,8 @@
                                  CanUserSortColumns="True"
                                  RowIndicatorVisibility="Visible"
                                  CanUserFreezeColumns="False"
-                                 SelectionMode="Extended">
+                                 SelectionMode="Extended"
+                                 IsSynchronizedWithCurrentItem="False">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SelectMaterialCommand}"
@@ -132,7 +134,8 @@
                                  CanUserSortColumns="True"
                                  RowIndicatorVisibility="Visible"
                                  CanUserFreezeColumns="False"
-                                 SelectionMode="Extended">
+                                 SelectionMode="Extended"
+                                 IsSynchronizedWithCurrentItem="False">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding SelectMaterialCommand}"

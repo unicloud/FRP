@@ -745,11 +745,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
-                    return;
-                }
-                if (e.Entities.Cast<AircraftMaterialDTO>().FirstOrDefault() != null)
-                {
-                    _addingAcMaterial.Add(e.Entities.Cast<AircraftMaterialDTO>().FirstOrDefault());
                 }
             };
         }
@@ -780,11 +775,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
-                    return;
-                }
-                if (e.Entities.Cast<EngineMaterialDTO>().FirstOrDefault() != null)
-                {
-                    _addingEngineMaterial.Add(e.Entities.Cast<EngineMaterialDTO>().FirstOrDefault());
                 }
             };
         }
@@ -815,11 +805,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
-                    return;
-                }
-                if (e.Entities.Cast<BFEMaterialDTO>().FirstOrDefault() != null)
-                {
-                    _addingBfeMaterial.Add(e.Entities.Cast<BFEMaterialDTO>().FirstOrDefault());
                 }
             };
         }
