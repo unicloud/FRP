@@ -326,7 +326,9 @@
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"
                                          ItemsSource="{Binding DataContext.AirStructureReportTypes, Mode=TwoWay, ElementName=AirStructureDamageView}"
-                                         SelectedItem="{Binding  DataContext.AirStructureReportType,Mode=TwoWay, ElementName=AirStructureDamageView}" />
+                                         SelectedValue="{Binding ReportType,Mode=TwoWay}"
+                                         SelectedValuePath="Key"
+                                         DisplayMemberPath="Value" />
                     <TextBlock Grid.Row="5"
                                Grid.Column="1"
                                Text="来源"
@@ -350,7 +352,9 @@
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"
                                          ItemsSource="{Binding DataContext.AircraftDamageLevels, Mode=TwoWay, ElementName=AirStructureDamageView}"
-                                         SelectedItem="{Binding  DataContext.AircraftDamageLevel,Mode=TwoWay, ElementName=AirStructureDamageView}" />
+                                         SelectedValue="{Binding Level,Mode=TwoWay}"
+                                         SelectedValuePath="Key"
+                                         DisplayMemberPath="Value" />
                     <TextBlock Grid.Row="7"
                                Grid.Column="1"
                                Text="是否保留"
@@ -374,7 +378,9 @@
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"
                                          ItemsSource="{Binding DataContext.AirStructureDamageStatuses, Mode=TwoWay, ElementName=AirStructureDamageView}"
-                                         SelectedItem="{Binding  DataContext.AirStructureDamageStatus,Mode=TwoWay, ElementName=AirStructureDamageView}" />
+                                         SelectedValue="{Binding Status,Mode=TwoWay}"
+                                         SelectedValuePath="Key"
+                                         DisplayMemberPath="Value" />
                     <TextBlock Grid.Row="9"
                                Grid.Column="1"
                                Text="修理期限"
