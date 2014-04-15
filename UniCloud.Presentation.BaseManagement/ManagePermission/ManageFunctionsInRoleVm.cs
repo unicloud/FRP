@@ -72,6 +72,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                                             Applications = FunctionItems.Where(p => p.ParentItemId == null).ToList();
                                         };
             Roles = _service.CreateCollection(_context.Roles, o => o.RoleFunctions);
+            Roles.PageSize = 6;
             _service.RegisterCollectionView(Roles);
         }
 

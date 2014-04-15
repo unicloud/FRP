@@ -65,6 +65,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             // 创建并注册CollectionView
             UndercartMaintainInvoices = _service.CreateCollection(_context.UndercartMaintainInvoices, o => o.MaintainInvoiceLines);
+            UndercartMaintainInvoices.PageSize = 6;
             _service.RegisterCollectionView(UndercartMaintainInvoices);
         }
 

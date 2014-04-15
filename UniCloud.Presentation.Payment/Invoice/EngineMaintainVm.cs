@@ -62,6 +62,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             // 创建并注册CollectionView
             EngineMaintainInvoices = _service.CreateCollection(_context.EngineMaintainInvoices, o => o.MaintainInvoiceLines);
+            EngineMaintainInvoices.PageSize = 6;
             _service.RegisterCollectionView(EngineMaintainInvoices);
         }
 

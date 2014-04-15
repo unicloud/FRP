@@ -56,7 +56,8 @@ namespace UniCloud.Presentation.Part.ManageAdSb
         {
             // 创建并注册CollectionView
             AdSbs = _service.CreateCollection(_context.AdSbs);
-         }
+            AdSbs.PageSize = 20;
+        }
 
         #endregion
 

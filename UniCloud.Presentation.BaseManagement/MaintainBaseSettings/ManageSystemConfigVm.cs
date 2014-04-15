@@ -59,6 +59,7 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
         {
             // 创建并注册CollectionView
             AircraftCabinTypes = _service.CreateCollection(_context.AircraftCabinTypes);
+            AircraftCabinTypes.PageSize = 18;
             _service.RegisterCollectionView(AircraftCabinTypes);
             AircraftCabinTypes.PropertyChanged += (sender, e) =>
             {

@@ -62,6 +62,7 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
         {
             // 创建并注册CollectionView
             AirStructureDamages = _service.CreateCollection(_context.AirStructureDamages);
+            AirStructureDamages.PageSize = 20;
             _service.RegisterCollectionView(AirStructureDamages);
             AirStructureDamages.PropertyChanged += (sender, e) =>
             {

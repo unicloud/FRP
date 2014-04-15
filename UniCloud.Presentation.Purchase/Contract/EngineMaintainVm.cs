@@ -62,6 +62,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 创建并注册CollectionView
             EngineMaintainContracts = _service.CreateCollection(_context.EngineMaintainContracts);
+            EngineMaintainContracts.PageSize = 20;
             _service.RegisterCollectionView(EngineMaintainContracts);
             EngineMaintainContracts.PropertyChanged += (sender, e) =>
             {

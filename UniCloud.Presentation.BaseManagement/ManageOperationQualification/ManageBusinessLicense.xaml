@@ -124,6 +124,13 @@
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>
+                                    <Grid Row="2">
+                                        <telerik:RadDataPager Name="RadPage"
+                                                              BorderThickness="1,0,1,1"
+                                                              AutoEllipsisMode="Both"
+                                                              DisplayMode="All"
+                                                              Source="{Binding BusinessLicenses}" />
+                                    </Grid>
                                 </Grid>
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>

@@ -66,6 +66,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         {
             // 创建并注册CollectionView
             PaymentNotices = _service.CreateCollection(_context.PaymentNotices, o => o.PaymentNoticeLines);
+            PaymentNotices.PageSize = 6;
             _service.RegisterCollectionView(PaymentNotices);
             ViewReportCommand = new DelegateCommand<object>(OnViewReport);
         }

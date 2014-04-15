@@ -63,6 +63,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             // 创建并注册CollectionView
             ApuMaintainInvoices = _service.CreateCollection(_context.APUMaintainInvoices, o => o.MaintainInvoiceLines);
+            ApuMaintainInvoices.PageSize = 6;
             _service.RegisterCollectionView(ApuMaintainInvoices);
         }
 

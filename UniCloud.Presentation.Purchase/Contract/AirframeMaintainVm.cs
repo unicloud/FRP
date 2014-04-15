@@ -60,6 +60,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 创建并注册CollectionView
             AirframeMaintainContracts = _service.CreateCollection(_context.AirframeMaintainContracts);
+            AirframeMaintainContracts.PageSize = 20;
             _service.RegisterCollectionView(AirframeMaintainContracts);
             AirframeMaintainContracts.PropertyChanged += (sender, e) =>
             {

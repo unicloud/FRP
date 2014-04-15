@@ -57,6 +57,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         {
             //创建并注册CollectionView
             LicenseTypes = _service.CreateCollection(_context.LicenseTypes);
+            LicenseTypes.PageSize = 20;
             _service.RegisterCollectionView(LicenseTypes);
             LicenseTypes.PropertyChanged += (sender, e) =>
             {

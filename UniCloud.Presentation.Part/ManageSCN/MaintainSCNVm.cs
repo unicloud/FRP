@@ -70,6 +70,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             ReviewScnCommand = new DelegateCommand<object>(OnReviewScn, CanReviewScn);
             // 创建并注册CollectionView
             Scns = _service.CreateCollection(_context.Scns, o => o.ApplicableAircrafts);
+            Scns.PageSize = 6;
             _service.RegisterCollectionView(Scns);
             ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_context, _context.ContractAircrafts);
         }
