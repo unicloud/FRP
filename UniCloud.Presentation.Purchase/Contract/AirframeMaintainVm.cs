@@ -64,7 +64,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             _service.RegisterCollectionView(AirframeMaintainContracts);
             AirframeMaintainContracts.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
                     var newItem = AirframeMaintainContracts.CurrentAddItem as AirframeMaintainContractDTO;
                     if (newItem != null)
@@ -83,7 +83,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                         _document.Name = string.Empty;
                     }
                 }
-                else if (e.PropertyName == "HasChanges")
+                else if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     CanSelectAirframeMaintain = !AirframeMaintainContracts.HasChanges;
                 }

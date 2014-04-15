@@ -66,7 +66,7 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
             _service.RegisterCollectionView(AirStructureDamages);
             AirStructureDamages.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
                     var newItem = AirStructureDamages.CurrentAddItem as AirStructureDamageDTO;
                     if (newItem != null)
@@ -82,7 +82,7 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
                         AirStructureDamageStatus = AirStructureDamageStatus.草稿;
                     }
                 }
-                else if (e.PropertyName == "HasChanges")
+                else if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     CanSelectAirStructureDamage = !AirStructureDamages.HasChanges;
                 }
@@ -137,7 +137,7 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
             set
             {
                 _aircraftDamageLevel = value;
-                AirStructureDamage.Level = (int) _aircraftDamageLevel;
+                AirStructureDamage.Level = (int)_aircraftDamageLevel;
                 RaisePropertyChanged(() => AircraftDamageLevel);
             }
         }

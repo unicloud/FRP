@@ -66,7 +66,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             _service.RegisterCollectionView(ApuMaintainContracts);
             ApuMaintainContracts.PropertyChanged += (sender, e) =>
             {
-                if (e.PropertyName == "IsAddingNew")
+                if (e.PropertyName.Equals("IsAddingNew", StringComparison.OrdinalIgnoreCase))
                 {
                     var newItem = ApuMaintainContracts.CurrentAddItem as APUMaintainContractDTO;
                     if (newItem != null)
@@ -85,7 +85,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                         _document.Name = string.Empty;
                     }
                 }
-                else if (e.PropertyName == "HasChanges")
+                else if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
                 {
                     CanSelectApuMaintain = !ApuMaintainContracts.HasChanges;
                 }
