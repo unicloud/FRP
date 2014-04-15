@@ -33,25 +33,26 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg
         ///     创建供应商
         ///     供应商公司与供应商具有一致的编码
         /// </summary>
-        /// <param name="supplierType">供应商类型</param>
-        /// <param name="code">供应商编码</param>
-        /// <param name="name">名称</param>
-        /// <param name="note">备注</param>
         /// <returns>创建的供应商</returns>
-        public static Supplier CreateSupplier(SupplierType supplierType, string code, string name, string note)
+        public static Supplier CreateSupplier()
         {
             var supplier = new Supplier
             {
-                SupplierType = supplierType,
-                Code = code,
-                CnName = name,
                 CreateDate = DateTime.Now,
-                UpdateDate = DateTime.Now,
-                IsValid = true,
-                Note = note
             };
-
+            supplier.GenerateNewIdentity();
             return supplier;
+        }
+
+        public static void SetSupplier(Supplier supplier, SupplierType supplierType, string code, string name,bool isValid, string note,int supplierCompanyId)
+        {
+            supplier.SupplierType = supplierType;
+            supplier.Code = code;
+            supplier.CnName = name;
+            supplier.UpdateDate = DateTime.Now;
+            supplier.IsValid = isValid;
+            supplier.Note = note;
+            supplier.SupplierCompanyId = supplierCompanyId;
         }
     }
 }

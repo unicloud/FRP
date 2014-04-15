@@ -18,11 +18,14 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.Common.ValueObjects;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
@@ -46,12 +49,14 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         private readonly ISupplierCompanyRepository _supplierCompanyRepository;
         private readonly ISupplierQuery _supplierQuery;
         private readonly ISupplierRoleRepository _supplierRoleRepository;
+        private readonly ISupplierRepository _supplierRepository;
 
-        public SupplierAppService(ISupplierQuery supplierQuery, ISupplierRoleRepository supplierRoleRepository,
+        public SupplierAppService(ISupplierQuery supplierQuery, ISupplierRepository supplierRepository, ISupplierRoleRepository supplierRoleRepository,
             ISupplierCompanyRepository supplierCompanyRepository, ILinkmanRepository linkmanRepository,
             ISupplierCompanyMaterialRepository supplierCompanyMaterialRepository)
         {
             _supplierQuery = supplierQuery;
+            _supplierRepository = supplierRepository;
             _supplierRoleRepository = supplierRoleRepository;
             _supplierCompanyRepository = supplierCompanyRepository;
             _linkmanRepository = linkmanRepository;
@@ -75,7 +80,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     更新合作公司。
         /// </summary>
         /// <param name="supplierCompany">合作公司DTO。</param>
-        [Update(typeof (SupplierCompanyDTO))]
+        [Update(typeof(SupplierCompanyDTO))]
         public void ModifySupplierCompany(SupplierCompanyDTO supplierCompany)
         {
             if (supplierCompany.IsNull()) throw new ArgumentNullException("supplierCompany");
@@ -96,7 +101,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 .If(p => p.AircraftLeaseSupplier, p =>
                 {
                     var aircraftLeaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (AircraftLeaseSupplier),
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(AircraftLeaseSupplier),
                             p.SupplierCompanyId);
                     if (aircraftLeaseSupplier != null) return;
                     var newAircraftLeaseSupplier = SupplierRoleFactory.CreateAircraftLeaseSupplier(supplierCmy);
@@ -106,7 +111,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 .If(p => p.AircraftPurchaseSupplier, p =>
                 {
                     var aircraftPurchaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (AircraftPurchaseSupplier),
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(AircraftPurchaseSupplier),
                             p.SupplierCompanyId);
                     if (aircraftPurchaseSupplier != null) return;
                     var newAircraftPurchaseSupplier = SupplierRoleFactory.CreateAircraftPurchaseSupplier(supplierCmy);
@@ -116,7 +121,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 .If(p => p.EngineLeaseSupplier, p =>
                 {
                     var engineLeaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (EngineLeaseSupplier),
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(EngineLeaseSupplier),
                             p.SupplierCompanyId);
                     if (engineLeaseSupplier != null) return;
                     var newEngineLeaseSupplier = SupplierRoleFactory.CreateEngineLeaseSupplier(supplierCmy);
@@ -126,7 +131,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 .If(p => p.EnginePurchaseSupplier, p =>
                 {
                     var enginePurchaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (EnginePurchaseSupplier),
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(EnginePurchaseSupplier),
                             p.SupplierCompanyId);
                     if (enginePurchaseSupplier != null) return;
                     var newEnginePurchaseSupplier = SupplierRoleFactory.CreateEnginePurchaseSupplier(supplierCmy);
@@ -136,7 +141,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 .If(p => p.BFEPurchaseSupplier, p =>
                 {
                     var bfePurchaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (BFEPurchaseSupplier),
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(BFEPurchaseSupplier),
                             p.SupplierCompanyId);
                     if (bfePurchaseSupplier != null) return;
                     var newBFEPurchaseSupplier = SupplierRoleFactory.CreateBFEPurchaseSupplier(supplierCmy);
@@ -146,7 +151,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 .If(p => p.MaintainSupplier, p =>
                 {
                     var maintainPurchaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (MaintainSupplier),
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(MaintainSupplier),
                             p.SupplierCompanyId);
                     if (maintainPurchaseSupplier != null) return;
                     var newMaintainPurchaseSupplier = SupplierRoleFactory.CreateMaintainSupplier(supplierCmy);
@@ -167,7 +172,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 .If(p => !p.AircraftLeaseSupplier, p =>
                 {
                     var aircraftLeaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (AircraftLeaseSupplier),
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(AircraftLeaseSupplier),
                             p.SupplierCompanyId);
                     if (aircraftLeaseSupplier != null)
                     {
@@ -178,7 +183,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 .If(p => !p.AircraftPurchaseSupplier, p =>
                 {
                     var aircraftPurchaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (AircraftPurchaseSupplier),
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(AircraftPurchaseSupplier),
                             p.SupplierCompanyId);
                     if (aircraftPurchaseSupplier != null)
                     {
@@ -189,7 +194,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 .If(p => !p.EngineLeaseSupplier, p =>
                 {
                     var engineLeaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (EngineLeaseSupplier),
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(EngineLeaseSupplier),
                             p.SupplierCompanyId);
                     if (engineLeaseSupplier != null)
                     {
@@ -200,7 +205,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 .If(p => !p.EnginePurchaseSupplier, p =>
                 {
                     var enginePurchaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (EnginePurchaseSupplier),
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(EnginePurchaseSupplier),
                             p.SupplierCompanyId);
                     if (enginePurchaseSupplier != null)
                     {
@@ -211,7 +216,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 .If(p => !p.BFEPurchaseSupplier, p =>
                 {
                     var bfePurchaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (BFEPurchaseSupplier),
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(BFEPurchaseSupplier),
                             p.SupplierCompanyId);
                     if (bfePurchaseSupplier != null)
                     {
@@ -222,7 +227,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 .If(p => !p.MaintainSupplier, p =>
                 {
                     var maintainSupplierPurchaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (MaintainSupplier),
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(MaintainSupplier),
                             p.SupplierCompanyId);
                     if (maintainSupplierPurchaseSupplier != null)
                     {
@@ -265,7 +270,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     新增联系人。
         /// </summary>
         /// <param name="linkman">联系人DTO。</param>
-        [Insert(typeof (LinkmanDTO))]
+        [Insert(typeof(LinkmanDTO))]
         public void InsertLinkman(LinkmanDTO linkman)
         {
             var newLinkman = LinkmanFactory.CreateLinkman(linkman.Name, linkman.TelePhone, linkman.Mobile,
@@ -277,7 +282,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     更新联系人。
         /// </summary>
         /// <param name="linkman">联系人DTO。</param>
-        [Update(typeof (LinkmanDTO))]
+        [Update(typeof(LinkmanDTO))]
         public void ModifyLinkman(LinkmanDTO linkman)
         {
             var updateLinkman = _linkmanRepository.Get(linkman.LinkmanId); //获取需要更新的对象。
@@ -298,7 +303,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     删除联系人。
         /// </summary>
         /// <param name="linkman">联系人DTO。</param>
-        [Delete(typeof (LinkmanDTO))]
+        [Delete(typeof(LinkmanDTO))]
         public void DeleteLinkman(LinkmanDTO linkman)
         {
             var deletedLinkman = _linkmanRepository.Get(linkman.LinkmanId); //获取需要更新的对象。
@@ -346,7 +351,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     新增合作公司飞机物料。
         /// </summary>
         /// <param name="supplierCompanyAcMaterial">合作公司飞机物料DTO。</param>
-        [Insert(typeof (SupplierCompanyAcMaterialDTO))]
+        [Insert(typeof(SupplierCompanyAcMaterialDTO))]
         public void InsertSupplierCompanyAcMaterial(SupplierCompanyAcMaterialDTO supplierCompanyAcMaterial)
         {
             //判断增加的物料是否存在
@@ -369,7 +374,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     删除合作公司飞机物料。
         /// </summary>
         /// <param name="supplierCompanyAcMaterial">合作公司飞机物料DTO。</param>
-        [Delete(typeof (SupplierCompanyAcMaterialDTO))]
+        [Delete(typeof(SupplierCompanyAcMaterialDTO))]
         public void DeleteSupplierCompanyAcMaterial(SupplierCompanyAcMaterialDTO supplierCompanyAcMaterial)
         {
             var supplierMaterial =
@@ -381,7 +386,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     新增合作公司发动机物料。
         /// </summary>
         /// <param name="supplierCompanyEngineMaterial">合作公司发动机物料DTO。</param>
-        [Insert(typeof (SupplierCompanyEngineMaterialDTO))]
+        [Insert(typeof(SupplierCompanyEngineMaterialDTO))]
         public void InsertSupplierCompanyEngineMaterial(SupplierCompanyEngineMaterialDTO supplierCompanyEngineMaterial)
         {
             //判断增加的物料是否存在
@@ -405,7 +410,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     删除合作公司发动机物料。
         /// </summary>
         /// <param name="supplierCompanyEngineMaterial">合作公司发动机物料DTO。</param>
-        [Delete(typeof (SupplierCompanyEngineMaterialDTO))]
+        [Delete(typeof(SupplierCompanyEngineMaterialDTO))]
         public void DeleteSupplierCompanyEngineMaterial(SupplierCompanyEngineMaterialDTO supplierCompanyEngineMaterial)
         {
             var supplierMaterial =
@@ -417,7 +422,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     新增合作公司BFE物料。
         /// </summary>
         /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
-        [Insert(typeof (SupplierCompanyBFEMaterialDTO))]
+        [Insert(typeof(SupplierCompanyBFEMaterialDTO))]
         public void InsertSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial)
         {
             //判断增加的物料是否存在
@@ -441,7 +446,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     删除合作公司BFE物料。
         /// </summary>
         /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
-        [Delete(typeof (SupplierCompanyBFEMaterialDTO))]
+        [Delete(typeof(SupplierCompanyBFEMaterialDTO))]
         public void DeleteSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial)
         {
             var supplierMaterial =
@@ -459,5 +464,48 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         }
 
         #endregion
+
+        public void SyncSupplierInfo(List<SupplierCompanyDTO> supplierCompanies, List<SupplierDTO> suppliers)
+        {
+            foreach (var supplierCompany in supplierCompanies)
+            {
+                Expression<Func<SupplierCompany, bool>> condition = p => p.Code == supplierCompany.Code;
+
+                var tempSupplierCompany = _supplierCompanyRepository.GetSupplierCompany(condition);
+                if (tempSupplierCompany != null)
+                {
+                    tempSupplierCompany.Code = supplierCompany.Code;
+                    _supplierCompanyRepository.Modify(tempSupplierCompany);
+                }
+                else
+                {
+                    tempSupplierCompany = SupplierCompanyFactory.CreateSupplieCompany(supplierCompany.Code);
+                    _supplierCompanyRepository.Add(tempSupplierCompany);
+                }
+            }
+            _supplierCompanyRepository.UnitOfWork.CommitAndRefreshChanges();
+
+            foreach (var supplier in suppliers)
+            {
+                Expression<Func<SupplierCompany, bool>> conditionSupplierCompany = p => p.Code == supplier.Code;
+                var tempSupplierCompany = _supplierCompanyRepository.GetSupplierCompany(conditionSupplierCompany);
+
+                Expression<Func<Supplier, bool>> condition = p => p.Code == supplier.Code;
+
+                var tempSupplier = _supplierRepository.GetSupplier(condition);
+                if (tempSupplier != null)
+                {
+                    SupplierFactory.SetSupplier(tempSupplier, SupplierType.国内, supplier.Code, supplier.Name, true, null, tempSupplierCompany.Id);
+                    _supplierRepository.Modify(tempSupplier);
+                }
+                else
+                {
+                    tempSupplier = SupplierFactory.CreateSupplier();
+                    SupplierFactory.SetSupplier(tempSupplier, SupplierType.国内, supplier.Code, supplier.Name, true, null, tempSupplierCompany.Id);
+                    _supplierRepository.Add(tempSupplier);
+                }
+            }
+            _supplierRepository.UnitOfWork.CommitAndRefreshChanges();
+        }
     }
 }

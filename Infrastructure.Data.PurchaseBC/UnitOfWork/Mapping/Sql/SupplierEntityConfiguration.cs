@@ -40,6 +40,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             Property(p => p.SupplierType).HasColumnName("SupplierType");
             Property(p => p.Code).HasColumnName("Code");
             Property(p => p.CnName).HasColumnName("CnName");
+            Property(p => p.CnShortName).HasColumnName("CnShortName");
             Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
             Property(p => p.UpdateDate).HasColumnName("UpdateDate").HasColumnType("datetime2");
             Property(p => p.IsValid).HasColumnName("IsValid");

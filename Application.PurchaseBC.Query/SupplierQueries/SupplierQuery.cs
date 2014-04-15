@@ -96,6 +96,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
             {
                 SupplierId = p.Id,
                 Name = p.CnName,
+                ShortName = p.CnShortName,
                 SupplierType = p.SupplierType == SupplierType.国外 ? "国外" : "国内",
                 CreateDate = p.CreateDate,
                 UpdateDate = p.UpdateDate,

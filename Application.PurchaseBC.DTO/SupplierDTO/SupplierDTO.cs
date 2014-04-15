@@ -43,6 +43,8 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// </summary>
         public string Name { get; set; }
 
+        public string ShortName { get; set; }
+
         /// <summary>
         ///     类型，分国外，国内；0、国外，1、国内。
         /// </summary>
