@@ -66,6 +66,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public string Email { get; set; }
 
         /// <summary>
+        ///     公司部门
+        /// </summary>
+        public string Department { get; set; }
+
+        /// <summary>
         ///     地址
         /// </summary>
         public string Address { get; set; }
@@ -74,6 +79,8 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     源ID
         /// </summary>
         public Guid SourceId { get; set; }
+
+        public string CustCode { get; set; }
 
         /// <summary>
         ///     备注

@@ -45,6 +45,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             Property(p => p.Email).HasColumnName("Email");
             Property(p => p.Department).HasColumnName("Department");
             Property(p => p.SourceId).HasColumnName("SourceId");
+            Property(p => p.CustCode).HasColumnName("CustCode");
             Property(p => p.Note).HasColumnName("Note");
         }
     }

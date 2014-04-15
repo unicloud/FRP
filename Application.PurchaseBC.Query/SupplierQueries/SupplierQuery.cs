@@ -151,6 +151,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
             return query.ApplyTo(_unitOfWork.CreateSet<Linkman>()).Select(p => new LinkmanDTO
             {
                 Address = p.Address.AddressLine1,
+                Department = p.Department,
                 Email = p.Email,
                 IsDefault = p.IsDefault,
                 LinkmanId = p.Id,
@@ -159,6 +160,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                 Name = p.Name,
                 Note = p.Note,
                 SourceId = p.SourceId,
+                CustCode = p.CustCode,
             });
         }
 

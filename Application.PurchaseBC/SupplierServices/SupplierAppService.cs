@@ -144,8 +144,8 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                         _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(BFEPurchaseSupplier),
                             p.SupplierCompanyId);
                     if (bfePurchaseSupplier != null) return;
-                    var newBFEPurchaseSupplier = SupplierRoleFactory.CreateBFEPurchaseSupplier(supplierCmy);
-                    _supplierRoleRepository.Add(newBFEPurchaseSupplier);
+                    var newBfePurchaseSupplier = SupplierRoleFactory.CreateBFEPurchaseSupplier(supplierCmy);
+                    _supplierRoleRepository.Add(newBfePurchaseSupplier);
                 })
                 //新增维修物料角色
                 .If(p => p.MaintainSupplier, p =>
@@ -273,8 +273,8 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         [Insert(typeof(LinkmanDTO))]
         public void InsertLinkman(LinkmanDTO linkman)
         {
-            var newLinkman = LinkmanFactory.CreateLinkman(linkman.Name, linkman.TelePhone, linkman.Mobile,
-                linkman.Fax, linkman.Email, new Address(null, null, linkman.Address, null), linkman.SourceId);
+            var newLinkman = LinkmanFactory.CreateLinkman(linkman.Name,linkman.IsDefault, linkman.TelePhone, linkman.Mobile,
+                linkman.Fax, linkman.Email, linkman.Department, new Address(null, null, linkman.Address, null), linkman.SourceId, linkman.CustCode);
             _linkmanRepository.Add(newLinkman);
         }
 
@@ -289,6 +289,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
 
             //更新。
             updateLinkman.Name = linkman.Name;
+            updateLinkman.IsDefault = linkman.IsDefault;
             updateLinkman.TelePhone = linkman.TelePhone;
             updateLinkman.Mobile = linkman.Mobile;
             updateLinkman.Fax = linkman.Fax;
@@ -421,49 +422,71 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         /// <summary>
         ///     新增合作公司BFE物料。
         /// </summary>
-        /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
+        /// <param name="supplierCompanyBfeMaterial">合作公司BFE物料DTO。</param>
         [Insert(typeof(SupplierCompanyBFEMaterialDTO))]
-        public void InsertSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial)
+        public void InsertSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBfeMaterial)
         {
             //判断增加的物料是否存在
             var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
                 .FirstOrDefault(
-                    p => p.MaterialId == supplierCompanyBFEMaterial.MaterialId
+                    p => p.MaterialId == supplierCompanyBfeMaterial.MaterialId
                          &&
                          p.SupplierCompanyId ==
-                         supplierCompanyBFEMaterial.SupplierCompanyId);
+                         supplierCompanyBfeMaterial.SupplierCompanyId);
             if (supplierCompanyMaterial != null)
                 throw new Exception("BFE物料已存在");
 
-            var supplier = _supplierCompanyRepository.Get(supplierCompanyBFEMaterial.SupplierCompanyId);
+            var supplier = _supplierCompanyRepository.Get(supplierCompanyBfeMaterial.SupplierCompanyId);
             if (supplier != null)
             {
-                supplier.AddMaterial(supplierCompanyBFEMaterial.MaterialId); //添加物料
+                supplier.AddMaterial(supplierCompanyBfeMaterial.MaterialId); //添加物料
             }
         }
 
         /// <summary>
         ///     删除合作公司BFE物料。
         /// </summary>
-        /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
+        /// <param name="supplierCompanyBfeMaterial">合作公司BFE物料DTO。</param>
         [Delete(typeof(SupplierCompanyBFEMaterialDTO))]
-        public void DeleteSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial)
+        public void DeleteSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBfeMaterial)
         {
             var supplierMaterial =
-                _supplierCompanyMaterialRepository.Get(supplierCompanyBFEMaterial.SupplierCompanyMaterialId);
+                _supplierCompanyMaterialRepository.Get(supplierCompanyBfeMaterial.SupplierCompanyMaterialId);
             DelSupplierCompanyMaterial(supplierMaterial);
         }
 
         /// <summary>
         ///     删除合作公司物料
         /// </summary>
-        /// <param name="supplierCompanyBFEMaterial"></param>
-        private void DelSupplierCompanyMaterial(SupplierCompanyMaterial supplierCompanyBFEMaterial)
+        /// <param name="supplierCompanyBfeMaterial"></param>
+        private void DelSupplierCompanyMaterial(SupplierCompanyMaterial supplierCompanyBfeMaterial)
         {
-            _supplierCompanyMaterialRepository.Remove(supplierCompanyBFEMaterial);
+            _supplierCompanyMaterialRepository.Remove(supplierCompanyBfeMaterial);
         }
 
         #endregion
+
+        public void SyncLinkmanInfo(List<LinkmanDTO> linkmen)
+        {
+            foreach (var linkman in linkmen)
+            {
+                Expression<Func<Linkman, bool>> condition = p => p.CustCode == linkman.CustCode;
+
+                var tempLinkman = _linkmanRepository.GetLinkman(condition);
+                if (tempLinkman != null)
+                {
+                    LinkmanFactory.SetLinkman(tempLinkman, linkman.Name, linkman.Department);
+                    _linkmanRepository.Modify(tempLinkman);
+                }
+                else
+                {
+                    tempLinkman = LinkmanFactory.CreateLinkman(linkman.Name,true, linkman.TelePhone, linkman.Mobile,
+                        linkman.Fax, linkman.Email, linkman.Department, new Address(null, null, linkman.Address, null), Guid.NewGuid(), linkman.CustCode);
+                    _linkmanRepository.Add(tempLinkman);
+                }
+            }
+            _linkmanRepository.UnitOfWork.CommitAndRefreshChanges();
+        }
 
         public void SyncSupplierInfo(List<SupplierCompanyDTO> supplierCompanies, List<SupplierDTO> suppliers)
         {

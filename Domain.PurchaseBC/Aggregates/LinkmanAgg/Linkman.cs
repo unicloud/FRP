@@ -90,6 +90,8 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg
         /// </summary>
         public Guid SourceId { get; private set; }
 
+        public string CustCode { get; set; }
+
         /// <summary>
         ///     备注
         /// </summary>

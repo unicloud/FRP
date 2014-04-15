@@ -123,14 +123,14 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         /// <summary>
         ///     新增合作公司BFE物料。
         /// </summary>
-        /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
-        void InsertSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial);
+        /// <param name="supplierCompanyBfeMaterial">合作公司BFE物料DTO。</param>
+        void InsertSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBfeMaterial);
 
         /// <summary>
         ///     删除合作公司BFE物料。
         /// </summary>
-        /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
-        void DeleteSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial);
+        /// <param name="supplierCompanyBfeMaterial">合作公司BFE物料DTO。</param>
+        void DeleteSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBfeMaterial);
 
 
 #endregion
