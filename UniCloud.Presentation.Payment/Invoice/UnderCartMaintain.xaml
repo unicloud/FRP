@@ -270,6 +270,7 @@
                                 <telerik:RadGridView Grid.Row="1"
                                                      x:Name="MaintainInvoiceLine"
                                                      AutoGenerateColumns="False"
+                                                     CanUserFreezeColumns="False"
                                                      ItemsSource="{Binding UndercartMaintainInvoice.MaintainInvoiceLines,Mode=TwoWay}"
                                                      SelectedItem="{Binding UndercartMaintainInvoiceLine,Mode=TwoWay}"
                                                      ShowGroupPanel="False"

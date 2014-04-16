@@ -219,6 +219,7 @@
                                 <telerik:RadGridView Grid.Row="1"
                                                      x:Name="PaymentNoticeLine"
                                                      AutoGenerateColumns="False"
+                                                     CanUserFreezeColumns="False"
                                                      ItemsSource="{Binding PaymentNotice.PaymentNoticeLines,Mode=TwoWay}"
                                                      SelectedItem="{Binding PaymentNoticeLine,Mode=TwoWay}"
                                                      ShowGroupPanel="False"
