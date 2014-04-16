@@ -55,12 +55,14 @@ using UniCloud.Application.PartBC.Query.ModQueries;
 using UniCloud.Application.PartBC.Query.OilMonitorQueries;
 using UniCloud.Application.PartBC.Query.PnRegQueries;
 using UniCloud.Application.PartBC.Query.ScnQueries;
-using UniCloud.Application.PartBC.Query.SnInstallHistoryQueries;
+using UniCloud.Application.PartBC.Query.SnHistoryQueries;
 using UniCloud.Application.PartBC.Query.SnRegQueries;
+using UniCloud.Application.PartBC.Query.SnRemInstRecordQueries;
 using UniCloud.Application.PartBC.Query.SpecialConfigQueries;
 using UniCloud.Application.PartBC.ScnServices;
-using UniCloud.Application.PartBC.SnInstallHistoryServices;
+using UniCloud.Application.PartBC.SnHistoryServices;
 using UniCloud.Application.PartBC.SnRegServices;
+using UniCloud.Application.PartBC.SnRemInstRecordServices;
 using UniCloud.Application.PartBC.SpecialConfigServices;
 using UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg;
 using UniCloud.Domain.PartBC.Aggregates.AdSbAgg;
@@ -82,8 +84,9 @@ using UniCloud.Domain.PartBC.Aggregates.ModAgg;
 using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
-using UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
@@ -236,9 +239,16 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
 
                 #region 序号件装机历史相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<ISnInstallHistoryQuery, SnInstallHistoryQuery>()
-                .RegisterType<ISnInstallHistoryAppService, SnInstallHistoryAppService>()
-                .RegisterType<ISnInstallHistoryRepository, SnInstallHistoryRepository>()
+                .RegisterType<ISnHistoryQuery, SnHistoryQuery>()
+                .RegisterType<ISnHistoryAppService, SnHistoryAppService>()
+                .RegisterType<ISnHistoryRepository, SnHistoryRepository>()
+                #endregion
+
+                #region 序号件拆换记录相关配置，包括查询，应用服务，仓储注册
+
+                .RegisterType<ISnRemInstRecordQuery, SnRemInstRecordQuery>()
+                .RegisterType<ISnRemInstRecordAppService, SnRemInstRecordAppService>()
+                .RegisterType<ISnRemInstRecordRepository, SnRemInstRecordRepository>()
                 #endregion
 
                 #region 特殊选型相关配置，包括查询，应用服务，仓储注册

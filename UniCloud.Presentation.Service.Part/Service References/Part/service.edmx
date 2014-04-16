@@ -50,6 +50,7 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="FiNumber" Type="Edm.String" />
         <Property Name="ItemNo" Type="Edm.String" />
+        <Property Name="ItemName" Type="Edm.String" />
         <Property Name="Position" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="ItemId" Type="Edm.Int32" Nullable="false" />
@@ -76,6 +77,7 @@
         <Property Name="BasicConfigGroupId" Type="Edm.Int32" Nullable="false" />
         <Property Name="FiNumber" Type="Edm.String" />
         <Property Name="ItemNo" Type="Edm.String" />
+        <Property Name="ItemName" Type="Edm.String" />
         <Property Name="Position" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="ItemId" Type="Edm.Int32" Nullable="false" />
@@ -320,7 +322,7 @@
         <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
         <Property Name="AircraftId" Type="Edm.Guid" />
         <Property Name="LiftMonitors" Type="Collection(UniCloud.Application.PartBC.DTO.LifeMonitorDTO)" Nullable="false" />
-        <NavigationProperty Name="SnInstallHistories" Relationship="UniCloud.Application.PartBC.DTO.SnRegDTO_SnInstallHistories" ToRole="SnInstallHistories" FromRole="SnRegDTO" />
+        <NavigationProperty Name="SnHistories" Relationship="UniCloud.Application.PartBC.DTO.SnRegDTO_SnHistories" ToRole="SnHistories" FromRole="SnRegDTO" />
       </EntityType>
       <ComplexType Name="LifeMonitorDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
@@ -348,9 +350,9 @@
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
         <Property Name="AircraftId" Type="Edm.Guid" />
-        <NavigationProperty Name="SnInstallHistories" Relationship="UniCloud.Application.PartBC.DTO.ApuEngineSnRegDTO_SnInstallHistories" ToRole="SnInstallHistories" FromRole="ApuEngineSnRegDTO" />
+        <NavigationProperty Name="SnHistories" Relationship="UniCloud.Application.PartBC.DTO.ApuEngineSnRegDTO_SnHistories" ToRole="SnHistories" FromRole="ApuEngineSnRegDTO" />
       </EntityType>
-      <EntityType Name="SnInstallHistoryDTO">
+      <EntityType Name="SnHistoryDTO">
         <Key>
           <PropertyRef Name="Id" />
         </Key>
@@ -369,6 +371,21 @@
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="SnRegId" Type="Edm.Int32" Nullable="false" />
         <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="InstallRecordId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RemoveRecordId" Type="Edm.Int32" />
+      </EntityType>
+      <EntityType Name="SnRemInstRecordDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ActionNo" Type="Edm.String" />
+        <Property Name="ActionDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ActionType" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Position" Type="Edm.String" />
+        <Property Name="Reason" Type="Edm.String" />
+        <Property Name="RegNumber" Type="Edm.String" />
+        <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
       <EntityType Name="SpecialConfigDTO">
         <Key>
@@ -380,6 +397,7 @@
         <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
         <Property Name="FiNumber" Type="Edm.String" />
         <Property Name="ItemNo" Type="Edm.String" />
+        <Property Name="ItemName" Type="Edm.String" />
         <Property Name="Position" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="ItemId" Type="Edm.Int32" Nullable="false" />
@@ -463,12 +481,12 @@
         <End Type="UniCloud.Application.PartBC.DTO.BasicConfigDTO" Role="SubBasicConfigs" Multiplicity="*" />
         <End Type="UniCloud.Application.PartBC.DTO.BasicConfigDTO" Role="BasicConfigDTO" Multiplicity="*" />
       </Association>
-      <Association Name="SnRegDTO_SnInstallHistories">
+      <Association Name="SnRegDTO_SnHistories">
         <End Type="UniCloud.Application.PartBC.DTO.SnRegDTO" Role="SnRegDTO" Multiplicity="*" />
-        <End Type="UniCloud.Application.PartBC.DTO.SnInstallHistoryDTO" Role="SnInstallHistories" Multiplicity="*" />
+        <End Type="UniCloud.Application.PartBC.DTO.SnHistoryDTO" Role="SnHistories" Multiplicity="*" />
       </Association>
-      <Association Name="ApuEngineSnRegDTO_SnInstallHistories">
-        <End Type="UniCloud.Application.PartBC.DTO.SnInstallHistoryDTO" Role="SnInstallHistories" Multiplicity="*" />
+      <Association Name="ApuEngineSnRegDTO_SnHistories">
+        <End Type="UniCloud.Application.PartBC.DTO.SnHistoryDTO" Role="SnHistories" Multiplicity="*" />
         <End Type="UniCloud.Application.PartBC.DTO.ApuEngineSnRegDTO" Role="ApuEngineSnRegDTO" Multiplicity="*" />
       </Association>
       <Association Name="SpecialConfigDTO_SubSpecialConfigs">
@@ -503,7 +521,8 @@
         <EntitySet Name="AirBusScns" EntityType="UniCloud.Application.PartBC.DTO.AirBusScnDTO" />
         <EntitySet Name="SnRegs" EntityType="UniCloud.Application.PartBC.DTO.SnRegDTO" />
         <EntitySet Name="ApuEngineSnRegs" EntityType="UniCloud.Application.PartBC.DTO.ApuEngineSnRegDTO" />
-        <EntitySet Name="SnInstallHistories" EntityType="UniCloud.Application.PartBC.DTO.SnInstallHistoryDTO" />
+        <EntitySet Name="SnHistories" EntityType="UniCloud.Application.PartBC.DTO.SnHistoryDTO" />
+        <EntitySet Name="SnRemInstRecords" EntityType="UniCloud.Application.PartBC.DTO.SnRemInstRecordDTO" />
         <EntitySet Name="SpecialConfigs" EntityType="UniCloud.Application.PartBC.DTO.SpecialConfigDTO" />
         <EntitySet Name="AirStructureDamages" EntityType="UniCloud.Application.PartBC.DTO.AirStructureDamageDTO" />
         <EntitySet Name="AdSbs" EntityType="UniCloud.Application.PartBC.DTO.AdSbDTO" />
@@ -523,13 +542,13 @@
           <End Role="BasicConfigDTO" EntitySet="BasicConfigs" />
           <End Role="SubBasicConfigs" EntitySet="BasicConfigs" />
         </AssociationSet>
-        <AssociationSet Name="SnRegDTO_SnInstallHistories" Association="UniCloud.Application.PartBC.DTO.SnRegDTO_SnInstallHistories">
+        <AssociationSet Name="SnRegDTO_SnHistories" Association="UniCloud.Application.PartBC.DTO.SnRegDTO_SnHistories">
           <End Role="SnRegDTO" EntitySet="SnRegs" />
-          <End Role="SnInstallHistories" EntitySet="SnInstallHistories" />
+          <End Role="SnHistories" EntitySet="SnHistories" />
         </AssociationSet>
-        <AssociationSet Name="ApuEngineSnRegDTO_SnInstallHistories" Association="UniCloud.Application.PartBC.DTO.ApuEngineSnRegDTO_SnInstallHistories">
+        <AssociationSet Name="ApuEngineSnRegDTO_SnHistories" Association="UniCloud.Application.PartBC.DTO.ApuEngineSnRegDTO_SnHistories">
           <End Role="ApuEngineSnRegDTO" EntitySet="ApuEngineSnRegs" />
-          <End Role="SnInstallHistories" EntitySet="SnInstallHistories" />
+          <End Role="SnHistories" EntitySet="SnHistories" />
         </AssociationSet>
         <AssociationSet Name="SpecialConfigDTO_SubSpecialConfigs" Association="UniCloud.Application.PartBC.DTO.SpecialConfigDTO_SubSpecialConfigs">
           <End Role="SpecialConfigDTO" EntitySet="SpecialConfigs" />

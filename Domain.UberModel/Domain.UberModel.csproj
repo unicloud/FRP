@@ -241,12 +241,13 @@
     <Compile Include="Aggregates\ScnAgg\AirBusScn.cs" />
     <Compile Include="Aggregates\ScnAgg\ApplicableAircraft.cs" />
     <Compile Include="Aggregates\ScnAgg\Scn.cs" />
-    <Compile Include="Aggregates\SnInstallHistoryAgg\SnInstallHistory.cs" />
+    <Compile Include="Aggregates\SnHistoryAgg\SnHistory.cs" />
     <Compile Include="Aggregates\SnRegAgg\APUReg.cs" />
     <Compile Include="Aggregates\SnRegAgg\EngineReg.cs" />
     <Compile Include="Aggregates\SnRegAgg\LifeMonitor.cs" />
     <Compile Include="Aggregates\SnRegAgg\SnReg.cs" />
     <Compile Include="Aggregates\AcConfig.cs" />
+    <Compile Include="Aggregates\SnRemInstRecordAgg\SnRemInstRecord.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfig.cs" />
     <Compile Include="Aggregates\SupplierAgg\Supplier.cs" />
     <Compile Include="Aggregates\SupplierAgg\SupplierFactory.cs" />

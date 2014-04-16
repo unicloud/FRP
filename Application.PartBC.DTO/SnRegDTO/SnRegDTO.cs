@@ -29,7 +29,7 @@ namespace UniCloud.Application.PartBC.DTO
     {
         #region 私有字段
 
-        private List<SnInstallHistoryDTO> _snInstallHistories;
+        private List<SnHistoryDTO> _snHistories;
 
         private List<LifeMonitorDTO> _lifeMonitors;
         #endregion
@@ -168,10 +168,10 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         ///     装机历史
         /// </summary>
-        public virtual List<SnInstallHistoryDTO> SnInstallHistories
+        public virtual List<SnHistoryDTO> SnHistories
         {
-            get { return _snInstallHistories ?? (_snInstallHistories = new List<SnInstallHistoryDTO>()); }
-            set { _snInstallHistories = value; }
+            get { return _snHistories ?? (_snHistories = new List<SnHistoryDTO>()); }
+            set { _snHistories = value; }
         }
 
         /// <summary>

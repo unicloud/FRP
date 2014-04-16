@@ -4,7 +4,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQiBin 时间：2014/4/2 15:51:29
-// 文件名：SnInstallHistorySpecifications
+// 文件名：SnHistorySpecifications
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -23,12 +23,12 @@ using System.Threading.Tasks;
 
 #endregion
 
-namespace UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg
+namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
 {
     /// <summary>
-    ///     SnInstallHistory规约集合
+    ///     SnHistory规约集合
     /// </summary>
-    public static class SnInstallHistorySpecifications
+    public static class SnHistorySpecifications
     {
     }
 }

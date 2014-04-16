@@ -5,7 +5,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQibin 时间：2014/04/03，09:04
-// 文件名：SnInstallHistoryQuery.cs
+// 文件名：SnHistoryQuery.cs
 // 程序集：UniCloud.Application.PartBC.Query
 //
 // 修改者： 时间： 
@@ -19,18 +19,19 @@
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
-using UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
 
-namespace UniCloud.Application.PartBC.Query.SnInstallHistoryQueries
+namespace UniCloud.Application.PartBC.Query.SnHistoryQueries
 {
-    public class SnInstallHistoryQuery : ISnInstallHistoryQuery
+    public class SnHistoryQuery : ISnHistoryQuery
     {
         private readonly IQueryableUnitOfWork _unitOfWork;
 
-        public SnInstallHistoryQuery(IQueryableUnitOfWork unitOfWork)
+        public SnHistoryQuery(IQueryableUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -40,11 +41,13 @@ namespace UniCloud.Application.PartBC.Query.SnInstallHistoryQueries
         /// </summary>
         /// <param name="query">查询表达式。</param>
         /// <returns>序号件装机历史DTO集合。</returns>
-        public IQueryable<SnInstallHistoryDTO> SnInstallHistoryDTOQuery(
-            QueryBuilder<SnInstallHistory> query)
+        public IQueryable<SnHistoryDTO> SnHistoryDTOQuery(
+            QueryBuilder<SnHistory> query)
         {
             var dbAircrafts = _unitOfWork.CreateSet<Aircraft>();
-            return query.ApplyTo(_unitOfWork.CreateSet<SnInstallHistory>()).Select(p => new SnInstallHistoryDTO
+            var dbSnRemInstRecords = _unitOfWork.CreateSet<SnRemInstRecord>();
+
+            return query.ApplyTo(_unitOfWork.CreateSet<SnHistory>()).Select(p => new SnHistoryDTO
             {
                 Id = p.Id,
                 Sn = p.Sn,
@@ -58,8 +61,8 @@ namespace UniCloud.Application.PartBC.Query.SnInstallHistoryQueries
                 AircraftId = p.AircraftId,
                 InstallDate = p.InstallDate,
                 RemoveDate = p.RemoveDate,
-                InstallReason = p.InstallReason,
-                RemoveReason = p.RemoveReason,
+                InstallReason = dbSnRemInstRecords.FirstOrDefault(l=>l.Id==p.InstallRecordId).Reason,
+                RemoveReason = dbSnRemInstRecords.FirstOrDefault(l => l.Id == p.RemoveRecordId).Reason,
                 RegNumber = dbAircrafts.FirstOrDefault(c => c.Id == p.AircraftId).RegNumber,
             });
         }

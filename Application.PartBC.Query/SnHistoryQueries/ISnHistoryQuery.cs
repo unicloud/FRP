@@ -5,7 +5,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQibin 时间：2014/04/03，09:04
-// 文件名：ISnInstallHistoryQuery.cs
+// 文件名：ISnHistoryQuery.cs
 // 程序集：UniCloud.Application.PartBC.Query
 //
 // 修改者： 时间： 
@@ -18,20 +18,20 @@
 
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
-using UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
 
 #endregion
 
-namespace UniCloud.Application.PartBC.Query.SnInstallHistoryQueries
+namespace UniCloud.Application.PartBC.Query.SnHistoryQueries
 {
-    public interface ISnInstallHistoryQuery
+    public interface ISnHistoryQuery
     {
         /// <summary>
         ///     序号件装机历史查询
         /// </summary>
         /// <param name="query">查询表达式</param>
         /// <returns>序号件装机历史DTO集合</returns>
-        IQueryable<SnInstallHistoryDTO> SnInstallHistoryDTOQuery(
-            QueryBuilder<SnInstallHistory> query);
+        IQueryable<SnHistoryDTO> SnHistoryDTOQuery(
+            QueryBuilder<SnHistory> query);
     }
 }

@@ -38,8 +38,9 @@ using UniCloud.Application.PartBC.ModServices;
 using UniCloud.Application.PartBC.OilMonitorServices;
 using UniCloud.Application.PartBC.PnRegServices;
 using UniCloud.Application.PartBC.ScnServices;
-using UniCloud.Application.PartBC.SnInstallHistoryServices;
+using UniCloud.Application.PartBC.SnHistoryServices;
 using UniCloud.Application.PartBC.SnRegServices;
+using UniCloud.Application.PartBC.SnRemInstRecordServices;
 using UniCloud.Application.PartBC.SpecialConfigServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
@@ -71,7 +72,8 @@ namespace UniCloud.DistributedServices.Part
         private readonly IOilMonitorAppService _oilMonitorAppService;
         private readonly IPnRegAppService _pnRegAppService;
         private readonly IScnAppService _scnAppService;
-        private readonly ISnInstallHistoryAppService _snInstallHistoryAppService;
+        private readonly ISnHistoryAppService _snHistoryAppService;
+        private readonly ISnRemInstRecordAppService _snRemInstRecordAppService;
         private readonly ISnRegAppService _snRegAppService;
         private readonly ISpecialConfigAppService _specialConfigAppService;
 
@@ -96,7 +98,8 @@ namespace UniCloud.DistributedServices.Part
             _pnRegAppService = DefaultContainer.Resolve<IPnRegAppService>();
             _scnAppService = DefaultContainer.Resolve<IScnAppService>();
             _snRegAppService = DefaultContainer.Resolve<ISnRegAppService>();
-            _snInstallHistoryAppService = DefaultContainer.Resolve<ISnInstallHistoryAppService>();
+            _snHistoryAppService = DefaultContainer.Resolve<ISnHistoryAppService>();
+            _snRemInstRecordAppService = DefaultContainer.Resolve<ISnRemInstRecordAppService>();
             _specialConfigAppService = DefaultContainer.Resolve<ISpecialConfigAppService>();
             _airStructureDamageAppService = DefaultContainer.Resolve<IAirStructureDamageAppService>();
             _adSbAppService = DefaultContainer.Resolve<IAdSbAppService>();
@@ -380,9 +383,21 @@ namespace UniCloud.DistributedServices.Part
         /// <summary>
         ///     序号件装机历史集合
         /// </summary>
-        public IQueryable<SnInstallHistoryDTO> SnInstallHistories
+        public IQueryable<SnHistoryDTO> SnHistories
         {
-            get { return _snInstallHistoryAppService.GetSnInstallHistories(); }
+            get { return _snHistoryAppService.GetSnHistories(); }
+        }
+
+        #endregion
+
+        #region 序号件拆换记录集合
+
+        /// <summary>
+        ///     序号件拆换记录集合
+        /// </summary>
+        public IQueryable<SnRemInstRecordDTO> SnRemInstRecords
+        {
+            get { return _snRemInstRecordAppService.GetSnRemInstRecords(); }
         }
 
         #endregion

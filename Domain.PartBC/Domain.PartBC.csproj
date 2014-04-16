@@ -70,10 +70,10 @@
     <Compile Include="Aggregates\ItemAgg\Item.cs" />
     <Compile Include="Aggregates\ItemAgg\ItemFactory.cs" />
     <Compile Include="Aggregates\ItemAgg\ItemSpecifications.cs" />
-    <Compile Include="Aggregates\SnInstallHistoryAgg\ISnInstallHistoryRepository.cs" />
-    <Compile Include="Aggregates\SnInstallHistoryAgg\SnInstallHistory.cs" />
-    <Compile Include="Aggregates\SnInstallHistoryAgg\SnInstallHistoryFactory.cs" />
-    <Compile Include="Aggregates\SnInstallHistoryAgg\SnInstallHistorySpecifications.cs" />
+    <Compile Include="Aggregates\SnHistoryAgg\ISnHistoryRepository.cs" />
+    <Compile Include="Aggregates\SnHistoryAgg\SnHistory.cs" />
+    <Compile Include="Aggregates\SnHistoryAgg\SnHistoryFactory.cs" />
+    <Compile Include="Aggregates\SnHistoryAgg\SnHistorySpecifications.cs" />
     <Compile Include="Aggregates\SnRegAgg\APUReg.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -137,6 +137,10 @@
     <Compile Include="Aggregates\MaintainCtrlAgg\SnMaintainCtrl.cs" />
     <Compile Include="Aggregates\SnRegAgg\ISnRegRepository.cs" />
     <Compile Include="Aggregates\SnRegAgg\SnReg.cs" />
+    <Compile Include="Aggregates\SnRemInstRecordAgg\ISnRemInstRecordRepository.cs" />
+    <Compile Include="Aggregates\SnRemInstRecordAgg\SnRemInstRecord.cs" />
+    <Compile Include="Aggregates\SnRemInstRecordAgg\SnRemInstRecordFactory.cs" />
+    <Compile Include="Aggregates\SnRemInstRecordAgg\SnRemInstRecordSpecifications.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\ISpecialConfigRepository.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfig.cs" />
     <Compile Include="Aggregates\SnRegAgg\SnRegFactory.cs" />
@@ -162,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="SnRemoval\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

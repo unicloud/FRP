@@ -5,7 +5,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQibin 时间：2014/04/03，10:04
-// 文件名：ISnInstallHistoryAppService.cs
+// 文件名：ISnHistoryAppService.cs
 // 程序集：UniCloud.Application.PartBC
 // 版本：V1.0.0
 //
@@ -22,17 +22,17 @@ using UniCloud.Application.PartBC.DTO;
 
 #endregion
 
-namespace UniCloud.Application.PartBC.SnInstallHistoryServices
+namespace UniCloud.Application.PartBC.SnHistoryServices
 {
     /// <summary>
     ///     序号件装机历史服务接口。
     /// </summary>
-    public interface ISnInstallHistoryAppService
+    public interface ISnHistoryAppService
     {
         /// <summary>
         ///     获取所有序号件装机历史
         /// </summary>
         /// <returns></returns>
-        IQueryable<SnInstallHistoryDTO> GetSnInstallHistories();
+        IQueryable<SnHistoryDTO> GetSnHistories();
     }
 }

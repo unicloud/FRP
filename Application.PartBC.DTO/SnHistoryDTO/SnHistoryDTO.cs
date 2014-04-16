@@ -5,7 +5,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQiBin 时间：2014/4/2 22:28:13
-// 文件名：SnInstallHistoryDTO
+// 文件名：SnHistoryDTO
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -24,10 +24,10 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.PartBC.DTO
 {
     /// <summary>
-    ///     SnInstallHistory
+    ///     SnHistory
     /// </summary>
     [DataServiceKey("Id")]
-    public class SnInstallHistoryDTO
+    public class SnHistoryDTO
     {
         #region 属性
 
@@ -109,6 +109,15 @@ namespace UniCloud.Application.PartBC.DTO
         /// </summary>
         public int PnRegId { get; set; }
 
+        /// <summary>
+        ///     装上记录外键
+        /// </summary>
+        public int InstallRecordId { get; set; }
+
+        /// <summary>
+        ///     拆下记录外键
+        /// </summary>
+        public int? RemoveRecordId { get; set; }
         #endregion
     }
 }

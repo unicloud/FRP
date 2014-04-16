@@ -93,8 +93,9 @@ using UniCloud.Domain.UberModel.Aggregates.RequestAgg;
 using UniCloud.Domain.UberModel.Aggregates.RoleAgg;
 using UniCloud.Domain.UberModel.Aggregates.RoleFunctionAgg;
 using UniCloud.Domain.UberModel.Aggregates.ScnAgg;
-using UniCloud.Domain.UberModel.Aggregates.SnInstallHistoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.SnHistoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.SnRegAgg;
+using UniCloud.Domain.UberModel.Aggregates.SnRemInstRecordAgg;
 using UniCloud.Domain.UberModel.Aggregates.SpecialConfigAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
@@ -188,7 +189,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Request> _requests;
         private IDbSet<Scn> _scns;
         private IDbSet<SnReg> _snRegs;
-        private IDbSet<SnInstallHistory> _snInstallHistories;
+        private IDbSet<SnHistory> _snHistories;
+        private IDbSet<SnRemInstRecord> _snRemInstRecords;
         private IDbSet<SpecialConfig> _specialConfigs;
         private IDbSet<SupplierCompany> _supplierCompanies;
         private IDbSet<SupplierCompanyMaterial> _supplierCompanyMaterials;
@@ -545,10 +547,16 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             get { return _snRegs ?? (_snRegs = Set<SnReg>()); }
         }
         
-        public IDbSet<SnInstallHistory> SnInstallHistories
+        public IDbSet<SnHistory> SnHistories
         {
-            get { return _snInstallHistories ?? (_snInstallHistories = Set<SnInstallHistory>()); }
+            get { return _snHistories ?? (_snHistories = Set<SnHistory>()); }
         }
+
+        public IDbSet<SnRemInstRecord> SnRemInstRecords
+        {
+            get { return _snRemInstRecords ?? (_snRemInstRecords = Set<SnRemInstRecord>()); }
+        }
+
 
         public IDbSet<SpecialConfig> SpecialConfigs
         {
@@ -1102,12 +1110,18 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #endregion
 
-                #region SnInstallHistoryAgg
+                #region SnHistoryAgg
 
-                .Add(new SnInstallHistoryEntityConfiguration())
+                .Add(new SnHistoryEntityConfiguration())
 
                 #endregion
 
+                #region SnRemInstRecordAgg
+
+                .Add(new SnRemInstRecordEntityConfiguration())
+
+                #endregion
+                
                 #region SpecialConfigAgg
 
                 .Add(new AcConfigEntityConfiguration())

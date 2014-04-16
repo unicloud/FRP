@@ -38,8 +38,9 @@ using UniCloud.Domain.PartBC.Aggregates.ModAgg;
 using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
-using UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql;
@@ -73,7 +74,8 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<PnReg> _pneRegs;
         private IDbSet<Scn> _scns;
         private IDbSet<SnReg> _snRegs;
-        private IDbSet<SnInstallHistory> _snInstallHistories;
+        private IDbSet<SnHistory> _snHistories;
+        private IDbSet<SnRemInstRecord> _snRemInstRecords;
         private IDbSet<SpecialConfig> _specialConfigs;
         private IDbSet<Thrust> _thrusts;
 
@@ -183,9 +185,14 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
             get { return _snRegs ?? (_snRegs = base.Set<SnReg>()); }
         }
 
-        public IDbSet<SnInstallHistory> SnInstallHistories
+        public IDbSet<SnHistory> SnHistories
         {
-            get { return _snInstallHistories ?? (_snInstallHistories = base.Set<SnInstallHistory>()); }
+            get { return _snHistories ?? (_snHistories = base.Set<SnHistory>()); }
+        }
+
+        public IDbSet<SnRemInstRecord> SnRemInstRecords
+        {
+            get { return _snRemInstRecords ?? (_snRemInstRecords = base.Set<SnRemInstRecord>()); }
         }
 
         public IDbSet<SpecialConfig> SpecialConfigs
@@ -335,9 +342,15 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
 
                 #endregion
 
-                #region SnInstallHistoryAgg
+                #region SnHistoryAgg
 
-                .Add(new SnInstallHistoryEntityConfiguration())
+                .Add(new SnHistoryEntityConfiguration())
+
+                #endregion
+
+                #region SnRemInstRecordAgg
+
+                .Add(new SnRemInstRecordEntityConfiguration())
 
                 #endregion
 

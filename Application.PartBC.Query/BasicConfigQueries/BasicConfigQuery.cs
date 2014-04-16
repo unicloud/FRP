@@ -48,6 +48,7 @@ namespace UniCloud.Application.PartBC.Query.BasicConfigQueries
              BasicConfigGroupId = p.BasicConfigGroupId,
              FiNumber = items.FirstOrDefault(l=>l.Id==p.ItemId).FiNumber,
              ItemNo = items.FirstOrDefault(l=>l.Id==p.ItemId).ItemNo,
+             ItemName = items.FirstOrDefault(l => l.Id == p.ItemId).Name,
              ItemId = p.ItemId,
              ParentId = p.ParentId,
              RootId = p.RootId,

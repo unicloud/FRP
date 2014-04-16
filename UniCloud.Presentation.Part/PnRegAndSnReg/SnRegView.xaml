@@ -151,7 +151,7 @@
                                          FontSize="{StaticResource TextFontSize}"
                                          ContextMenuTemplate="{x:Null}">
                             <Grid>
-                                <telerik:RadGridView x:Name="ViewSnInstallHistories"
+                                <telerik:RadGridView x:Name="ViewSnHistories"
                                                      ShowGroupPanel="False"
                                                      AutoExpandGroups="True"
                                                      IsReadOnly="True"
@@ -159,19 +159,19 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="False"
-                                                     ItemsSource="{Binding ViewSnInstallHistories,Mode=TwoWay}"
-                                                     SelectedItem="{Binding SelSnInstallHistory,Mode=TwoWay}"
-                                                     IsBusy="{Binding SnInstallHistories.IsBusy}"
+                                                     ItemsSource="{Binding ViewSnHistories,Mode=TwoWay}"
+                                                     SelectedItem="{Binding SelSnHistory,Mode=TwoWay}"
+                                                     IsBusy="{Binding SnHistories.IsBusy}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=ViewSnInstallHistories, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=ViewSnHistories, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=ViewSnInstallHistories, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=ViewSnHistories, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>

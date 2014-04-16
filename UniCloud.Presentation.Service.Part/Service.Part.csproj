@@ -100,6 +100,7 @@
     <Compile Include="PartService.cs" />
     <Compile Include="Part\AcDailyUtilizationDTO.cs" />
     <Compile Include="Part\ApplicableAircraftDTO.cs" />
+    <Compile Include="Part\Enums\ActionType.cs" />
     <Compile Include="Part\Enums\AircraftDamageLevel.cs" />
     <Compile Include="Part\Enums\AirStructureDamageStatus.cs" />
     <Compile Include="Part\Enums\AirStructureReportType.cs" />

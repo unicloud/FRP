@@ -65,17 +65,17 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             SnRegs = new QueryableDataServiceCollectionView<SnRegDTO>(_context, _context.SnRegs);
             SnRegs.PageSize = 20;
 
-            SnInstallHistories = _service.CreateCollection(_context.SnInstallHistories);
-            SnInstallHistories.LoadedData += (s, e) =>
+            SnHistories = _service.CreateCollection(_context.SnHistories);
+            SnHistories.LoadedData += (s, e) =>
             {
                 if (SelSnReg != null)
                 {
-                    ViewSnInstallHistories=new ObservableCollection<SnInstallHistoryDTO>();
-                    var snInstallHistories =
-                        SnInstallHistories.SourceCollection.Cast<SnInstallHistoryDTO>()
+                    ViewSnHistories=new ObservableCollection<SnHistoryDTO>();
+                    var snHistories =
+                        SnHistories.SourceCollection.Cast<SnHistoryDTO>()
                             .Where(p => p.SnRegId == SelSnReg.Id)
                             .ToList();
-                    ViewSnInstallHistories.AddRange(snInstallHistories);
+                    ViewSnHistories.AddRange(snHistories);
                 }
             };
         }
@@ -107,12 +107,12 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                     this._selSnReg = value;
                     if (value != null)
                     {
-                        ViewSnInstallHistories = new ObservableCollection<SnInstallHistoryDTO>();
-                        var snInstallHistories =
-                            SnInstallHistories.SourceCollection.Cast<SnInstallHistoryDTO>()
+                        ViewSnHistories = new ObservableCollection<SnHistoryDTO>();
+                        var snHistories =
+                            SnHistories.SourceCollection.Cast<SnHistoryDTO>()
                                 .Where(p => p.SnRegId == SelSnReg.Id)
                                 .ToList();
-                        ViewSnInstallHistories.AddRange(snInstallHistories);
+                        ViewSnHistories.AddRange(snHistories);
                     }
                     RaisePropertyChanged(() => this.SelSnReg);
                     RefreshCommandState();
@@ -136,34 +136,34 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         {
             SnRegs.Load(true);
 
-            if (!SnInstallHistories.AutoLoad)
-                SnInstallHistories.AutoLoad = true;
+            if (!SnHistories.AutoLoad)
+                SnHistories.AutoLoad = true;
         }
 
         #region 业务
 
         #region 序号件拆换记录集合
 
-        private SnInstallHistoryDTO _selSnInstallHistory;
-        private ObservableCollection<SnInstallHistoryDTO> _viewSnInstallHistories=new ObservableCollection<SnInstallHistoryDTO>(); 
+        private SnHistoryDTO _selSnHistory;
+        private ObservableCollection<SnHistoryDTO> _viewSnHistories=new ObservableCollection<SnHistoryDTO>(); 
 
         /// <summary>
         ///     件装机历史集合
         /// </summary>
-        public QueryableDataServiceCollectionView<SnInstallHistoryDTO> SnInstallHistories { get; set; }
+        public QueryableDataServiceCollectionView<SnHistoryDTO> SnHistories { get; set; }
 
         /// <summary>
         ///     选择的序号件拆换记录
         /// </summary>
-        public SnInstallHistoryDTO SelSnInstallHistory
+        public SnHistoryDTO SelSnHistory
         {
-            get { return this._selSnInstallHistory; }
+            get { return this._selSnHistory; }
             private set
             {
-                if (this._selSnInstallHistory != value)
+                if (this._selSnHistory != value)
                 {
-                    this._selSnInstallHistory = value;
-                    RaisePropertyChanged(() => this.SelSnInstallHistory);
+                    this._selSnHistory = value;
+                    RaisePropertyChanged(() => this.SelSnHistory);
                     RefreshCommandState();
                 }
             }
@@ -172,15 +172,15 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// <summary>
         ///     序号件装机历史
         /// </summary>
-        public ObservableCollection<SnInstallHistoryDTO> ViewSnInstallHistories
+        public ObservableCollection<SnHistoryDTO> ViewSnHistories
         {
-            get { return this._viewSnInstallHistories; }
+            get { return this._viewSnHistories; }
             private set
             {
-                if (this._viewSnInstallHistories != value)
+                if (this._viewSnHistories != value)
                 {
-                    this._viewSnInstallHistories = value;
-                    RaisePropertyChanged(() => this.ViewSnInstallHistories);
+                    this._viewSnHistories = value;
+                    RaisePropertyChanged(() => this.ViewSnHistories);
                 }
             }
         }

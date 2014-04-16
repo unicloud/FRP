@@ -4,7 +4,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQiBin 时间：2014/4/2 15:51:50
-// 文件名：ISnInstallHistoryRepository
+// 文件名：ISnHistoryRepository
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -23,13 +23,13 @@ using System.Threading.Tasks;
 
 #endregion
 
-namespace UniCloud.Domain.PartBC.Aggregates.SnInstallHistoryAgg
+namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
 {
     /// <summary>
     ///     序号件装机历史仓储接口
-    ///     <see cref="UniCloud.Domain.IRepository{SnInstallHistory}" />
+    ///     <see cref="UniCloud.Domain.IRepository{SnHistory}" />
     /// </summary>
-    public interface ISnInstallHistoryRepository : IRepository<SnInstallHistory>
+    public interface ISnHistoryRepository : IRepository<SnHistory>
     {
     }
 }

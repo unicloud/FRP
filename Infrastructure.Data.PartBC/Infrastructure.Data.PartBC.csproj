@@ -67,8 +67,9 @@
     <Compile Include="Repositories\OilMonitorRepository.cs" />
     <Compile Include="Repositories\PnRegRepository.cs" />
     <Compile Include="Repositories\ScnRepository.cs" />
-    <Compile Include="Repositories\SnInstallHistoryRepository.cs" />
+    <Compile Include="Repositories\SnHistoryRepository.cs" />
     <Compile Include="Repositories\SnRegRepository.cs" />
+    <Compile Include="Repositories\SnRemInstRecordRepository.cs" />
     <Compile Include="Repositories\SpecialConfigRepository.cs" />
     <Compile Include="Repositories\ThrustRepository.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcConfigEntityConfiguration.cs" />
@@ -102,9 +103,10 @@
     <Compile Include="UnitOfWork\Mapping\Sql\PnMaintainCtrlEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PnRegEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ScnEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\SnInstallHistoryEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\SnHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SnMaintainCtrlEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SnRegEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\SnRemInstRecordEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SpecialConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ThrustEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\PartBCUnitOfWork.cs" />

@@ -240,9 +240,10 @@
     <Compile Include="UnitOfWork\Mapping\Sql\RoleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\RoleFunctionEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ScnEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\SnInstallHistoryEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\SnHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SnMaintainCtrlEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SnRegEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\SnRemInstRecordEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SpecialConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\StandardDocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\StandardPaymentScheduleEntityConfiguration.cs" />

@@ -66,6 +66,7 @@
     <Compile Include="DataSync\AtaSync.cs" />
     <Compile Include="DataSync\DataSync.cs" />
     <Compile Include="DataSync\FlightLogSync.cs" />
+    <Compile Include="DataSync\ItemSync.cs" />
     <Compile Include="DataSync\PnRegSync.cs" />
     <Compile Include="DataSync\SnRegSync.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
