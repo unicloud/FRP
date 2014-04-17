@@ -115,7 +115,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             maintainInvoice.InvoideCode = invoideCode;
             maintainInvoice.InvoiceDate = invoiceDate;
             maintainInvoice.SetInvoiceValue(invoiceValue);
-            maintainInvoice.SetPaidAmount(paidAmount);
+            //maintainInvoice.SetPaidAmount(paidAmount);
             maintainInvoice.SetOperator(operatorName);
             maintainInvoice.SetInvoiceStatus((InvoiceStatus) status);
             maintainInvoice.SetSupplier(supplierId, supplierName);

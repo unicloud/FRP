@@ -138,6 +138,7 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding InvoiceValue,Mode=TwoWay}" />
                                         <telerik:GridViewDataColumn Header="已付金额"
+                                                                    IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding PaidAmount}" />

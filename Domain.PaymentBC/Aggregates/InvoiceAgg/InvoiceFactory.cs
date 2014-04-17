@@ -147,7 +147,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
             invoice.SetInvoiceNumber(invoiceNumber);
             invoice.SetSupplier(supplier);
             invoice.SetOrder(order);
-            invoice.SetPaidAmount(paidAmount);
+            //invoice.SetPaidAmount(paidAmount);
             invoice.SetCurrency(currency);
             invoice.SetPaymentScheduleLine(paymentScheduleLineId);
             invoice.SetInvoiceStatus((InvoiceStatus) status);

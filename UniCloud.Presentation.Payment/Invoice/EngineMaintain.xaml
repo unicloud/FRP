@@ -150,6 +150,7 @@
                                                                                MaskType="Numeric"
                                                                                Mask="###,###,###.##" />
                                             <telerik:GridViewMaskedInputColumn Header="已付金额"
+                                                                               IsReadOnly="True"
                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                TextAlignment="Right"
                                                                                HeaderTextAlignment="Center"
