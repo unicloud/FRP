@@ -25,6 +25,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.GridView;
+using UniCloud.Presentation.Service;
 
 #endregion
 
@@ -61,11 +62,5 @@ namespace UniCloud.Presentation.Input
                 }
             }
         }
-    }
-
-    public static class DataPage
-    {
-        public static int PageIndex = 0;
-        public static int PageSize = 0;
     }
 }

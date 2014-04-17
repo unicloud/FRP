@@ -68,6 +68,7 @@
                 </telerik:RadGridView.Columns>
             </telerik:RadGridView>
             <telerik:RadDataPager BorderThickness="1,0,1,1"
+                                  PageIndex="{Binding Index,Mode=TwoWay}"
                                   AutoEllipsisMode="Both"
                                   DisplayMode="All"
                                   Source="{Binding AircraftMaterials}"
@@ -112,7 +113,8 @@
                                                 DataMemberBinding="{Binding  Description}" />
                 </telerik:RadGridView.Columns>
             </telerik:RadGridView>
-            <telerik:RadDataPager BorderThickness="1,0,1,1"
+            <telerik:RadDataPager PageIndex="{Binding SecondIndex,Mode=TwoWay}"
+                                  BorderThickness="1,0,1,1"
                                   AutoEllipsisMode="Both"
                                   DisplayMode="All"
                                   Source="{Binding EngineMaterials}"
@@ -157,7 +159,8 @@
                                                 DataMemberBinding="{Binding  Description}" />
                 </telerik:RadGridView.Columns>
             </telerik:RadGridView>
-            <telerik:RadDataPager BorderThickness="1,0,1,1"
+            <telerik:RadDataPager PageIndex="{Binding ThirdIndex,Mode=TwoWay}"
+                                  BorderThickness="1,0,1,1"
                                   AutoEllipsisMode="Both"
                                   DisplayMode="All"
                                   Source="{Binding BfeMaterials}"

@@ -130,6 +130,51 @@ namespace UniCloud.Presentation.MVVM
                 RaisePropertyChanged(() => BusyContent);
             }
         }
+
+        private int _index = -1;
+        /// <summary>
+        /// 页面分页下标
+        /// </summary>
+        public int Index
+        {
+            get { return _index; }
+            set
+            {
+                _index = value;
+                DataPage.PageIndex = _index;
+                RaisePropertyChanged("Index");
+            }
+        }
+
+        private int _secondIndex = -1;
+        /// <summary>
+        /// 页面分页下标
+        /// </summary>
+        public int SecondIndex
+        {
+            get { return _secondIndex; }
+            set
+            {
+                _secondIndex = value;
+                DataPage.PageIndex = _secondIndex;
+                RaisePropertyChanged("SecondIndex");
+            }
+        }
+
+        private int _thirdIndex = -1;
+        /// <summary>
+        /// 页面分页下标
+        /// </summary>
+        public int ThirdIndex
+        {
+            get { return _thirdIndex; }
+            set
+            {
+                _thirdIndex = value;
+                DataPage.PageIndex = _thirdIndex;
+                RaisePropertyChanged("ThirdIndex");
+            }
+        }
         #endregion
 
         #region ViewModel

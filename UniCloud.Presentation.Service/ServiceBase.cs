@@ -298,6 +298,7 @@ namespace UniCloud.Presentation.Service
                 IsBusy = _dataServiceCollectionViews.Any(d => d.IsBusy);
                 var collectionView = o as QueryableDataServiceCollectionView<TService>;
                 if (collectionView == null) return;
+                DataPage.PageSize = collectionView.PageSize;
                 if (changed.Any())
                 {
                     collectionView.ToList().ForEach(item =>
@@ -327,5 +328,11 @@ namespace UniCloud.Presentation.Service
         #endregion
 
         #endregion
+    }
+
+    public static class DataPage
+    {
+        public static int PageIndex = 0;
+        public static int PageSize = 0;
     }
 }

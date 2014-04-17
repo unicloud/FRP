@@ -290,6 +290,7 @@
                                     </Grid>
                                     <Grid Grid.Row="1">
                                         <telerik:RadDataPager Name="RadPage"
+                                                              PageIndex="{Binding Index,Mode=TwoWay}"
                                                               BorderThickness="1,0,1,1"
                                                               AutoEllipsisMode="Both"
                                                               DisplayMode="All"
