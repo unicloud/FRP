@@ -219,6 +219,10 @@
       <DependentUpon>ManageRemovalAndInstallationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MaintainControl\ManageRemovalAndInstallationVm.cs" />
+    <Compile Include="MaintainControl\QueryRemovalAndInstallationView.xaml.cs">
+      <DependentUpon>QueryRemovalAndInstallationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainControl\QueryRemovalAndInstallationVm.cs" />
     <Compile Include="ManageAdSb\QueryAdSb.xaml.cs">
       <DependentUpon>QueryAdSb.xaml</DependentUpon>
     </Compile>
@@ -320,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MaintainControl\ManageRemovalAndInstallationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainControl\QueryRemovalAndInstallationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

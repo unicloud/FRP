@@ -24,14 +24,15 @@ namespace TestWindowsService
             {
                 InitialContext();
                 //1、同步FlightLog数据
-                //FlightLogSync();
-                //2、同步AircraftSeries数据
-                //AircraftSeriesSync();
-                //3、同步AircraftSeries数据
+                FlightLogSync();
+                //2、同步PnReg数据
                 PnRegSync();
-                //4、同步SnReg数据
-                //SnRegSync();
-                //ItemSync();
+                //3、同步SnRegs数据
+                SnRegSync();
+                //4、同步SnRemInstRecord数据(拆换记录)
+                SnRemInstRecordSync();
+                //5.同步装机历史
+                SnHistorySync();
                 DisposeContext();
             }
             catch (Exception exception)
@@ -83,6 +84,18 @@ namespace TestWindowsService
         private void SnRegSync()
         {
             var dataSync = new SnRegSync(_partUnitofWork);
+            dataSync.DataSynchronous();
+        }
+
+        private void SnRemInstRecordSync()
+        {
+            var dataSync = new SnRemInstRecordSync(_partUnitofWork);
+            dataSync.DataSynchronous();
+        }
+
+        private void SnHistorySync()
+        {
+            var dataSync = new SnHistorySync(_partUnitofWork);
             dataSync.DataSynchronous();
         }
         #endregion

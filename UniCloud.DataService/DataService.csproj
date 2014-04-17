@@ -68,7 +68,9 @@
     <Compile Include="DataSync\FlightLogSync.cs" />
     <Compile Include="DataSync\ItemSync.cs" />
     <Compile Include="DataSync\PnRegSync.cs" />
+    <Compile Include="DataSync\SnHistorySync.cs" />
     <Compile Include="DataSync\SnRegSync.cs" />
+    <Compile Include="DataSync\SnRemInstRecordSync.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

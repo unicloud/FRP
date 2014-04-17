@@ -43,7 +43,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
-        private PartData _context;
+        private readonly PartData _context;
 
         [ImportingConstructor]
         public ManageRemovalAndInstallationVm(IRegionManager regionManager, IPartService service)
@@ -174,7 +174,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         #region 拆换记录
 
-        private SnRemInstRecordDTO _selRemInstRecord;
+        private SnRemInstRecordDTO _selSnRemInstRecord;
 
         /// <summary>
         ///     拆换记录集合
@@ -184,15 +184,15 @@ namespace UniCloud.Presentation.Part.MaintainControl
         /// <summary>
         ///     选择的附件项
         /// </summary>
-        public SnRemInstRecordDTO SelRemInstRecord
+        public SnRemInstRecordDTO SelSnRemInstRecord
         {
-            get { return this._selRemInstRecord; }
+            get { return this._selSnRemInstRecord; }
             private set
             {
-                if (this._selRemInstRecord != value)
+                if (this._selSnRemInstRecord != value)
                 {
-                    this._selRemInstRecord = value;
-                    RaisePropertyChanged(() => this.SelRemInstRecord);
+                    this._selSnRemInstRecord = value;
+                    RaisePropertyChanged(() => this.SelSnRemInstRecord);
                     RefreshCommandState();
                 }
             }
