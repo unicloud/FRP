@@ -151,6 +151,7 @@
                                                                                MaskType="Numeric"
                                                                                Mask="###,###,###.##" />
                                             <telerik:GridViewMaskedInputColumn Header="已付金额"
+                                                                               IsReadOnly="True"
                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                TextAlignment="Right"
                                                                                HeaderTextAlignment="Center"
@@ -231,6 +232,7 @@
                                 </Grid>
                                 <Grid Grid.Row="2">
                                     <telerik:RadDataPager Name="RadPage"
+                                                          PageIndex="{Binding Index,Mode=TwoWay}"
                                                           BorderThickness="1,0,1,1"
                                                           AutoEllipsisMode="Both"
                                                           DisplayMode="All"
@@ -270,6 +272,7 @@
                                 <telerik:RadGridView Grid.Row="1"
                                                      x:Name="MaintainInvoiceLine"
                                                      AutoGenerateColumns="False"
+                                                     CanUserFreezeColumns="False"
                                                      ItemsSource="{Binding UndercartMaintainInvoice.MaintainInvoiceLines,Mode=TwoWay}"
                                                      SelectedItem="{Binding UndercartMaintainInvoiceLine,Mode=TwoWay}"
                                                      ShowGroupPanel="False"

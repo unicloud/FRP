@@ -21,6 +21,9 @@ using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.PaymentNoticeQueries;
+using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg;
 
 #endregion
@@ -31,16 +34,21 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
     ///     实现付款通知接口。
     ///     用于处于付款通知相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class PaymentNoticeAppService : ContextBoundObject, IPaymentNoticeAppService
     {
         private readonly IPaymentNoticeQuery _paymentNoticeQuery;
         private readonly IPaymentNoticeRepository _paymentNoticeRepository;
         private static int _maxInvoiceNumber;
-        public PaymentNoticeAppService(IPaymentNoticeQuery paymentNoticeQuery, IPaymentNoticeRepository paymentNoticeRepository)
+        private readonly IMaintainInvoiceRepository _maintainInvoiceRepository;
+        private readonly IInvoiceRepository _invoiceRepository;
+        public PaymentNoticeAppService(IPaymentNoticeQuery paymentNoticeQuery, IPaymentNoticeRepository paymentNoticeRepository,
+            IMaintainInvoiceRepository maintainInvoiceRepository, IInvoiceRepository invoiceRepository)
         {
             _paymentNoticeQuery = paymentNoticeQuery;
             _paymentNoticeRepository = paymentNoticeRepository;
+            _maintainInvoiceRepository = maintainInvoiceRepository;
+            _invoiceRepository = invoiceRepository;
         }
 
         #region PaymentNoticeDTO
@@ -92,6 +100,7 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
                 }
             }
             _paymentNoticeRepository.Add(newPaymentNotice);
+            UpdateInvoicePaidAmount(newPaymentNotice);
         }
 
 
@@ -107,6 +116,7 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
                 paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId);
             UpdatePaymentNoticeLines(paymentNotice.PaymentNoticeLines, updatePaymentNotice);
             _paymentNoticeRepository.Modify(updatePaymentNotice);
+            UpdateInvoicePaidAmount(updatePaymentNotice);
         }
 
         /// <summary>
@@ -151,6 +161,41 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
                 }
             });
             dstPaymentNotice.PaymentNoticeLines = paymentNoticeLines;
+        }
+        #endregion
+
+        #region 更新发票已付金额
+        private void UpdateInvoicePaidAmount(PaymentNotice paymentNotice)
+        {
+            if (paymentNotice.Status == PaymentNoticeStatus.已审核)
+            {
+                paymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
+                                                                  {
+                                                                      switch (p.InvoiceType)
+                                                                      {
+                                                                          case InvoiceType.维修发票:
+                                                                              var maintainInvoice = _maintainInvoiceRepository.Get(p.InvoiceId);
+                                                                              if (maintainInvoice != null)
+                                                                              {
+                                                                                  maintainInvoice.SetPaidAmount(p.Amount);
+                                                                                  _maintainInvoiceRepository.Modify(maintainInvoice);
+                                                                              }
+                                                                              break;
+                                                                          case InvoiceType.租赁发票:
+                                                                          case InvoiceType.贷项单:
+                                                                          case InvoiceType.采购发票:
+                                                                          case InvoiceType.预付款发票:
+                                                                              var invoice = _invoiceRepository.Get(p.InvoiceId);
+                                                                              if (invoice != null)
+                                                                              {
+                                                                                  invoice.SetPaidAmount(Math.Abs(p.Amount));
+                                                                                  _invoiceRepository.Modify(invoice);
+                                                                              }
+                                                                              break;
+
+                                                                      }
+                                                                  });
+            }
         }
         #endregion
     }

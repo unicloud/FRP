@@ -76,6 +76,7 @@
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                         <telerik:RadDataPager BorderThickness="1,0,1,1"
+                                                              PageIndex="{Binding Index,Mode=TwoWay}"
                                                               AutoEllipsisMode="Both"
                                                               DisplayMode="All"
                                                               Source="{Binding SupplierCompanies}"
