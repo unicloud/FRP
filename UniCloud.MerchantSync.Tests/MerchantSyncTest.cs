@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.MerchantDataService;
 
 namespace UniCloud.MerchantSync.Tests
@@ -10,11 +9,11 @@ namespace UniCloud.MerchantSync.Tests
         [TestMethod]
         public void TestSync()
         {
-            MerchantDataSync sync=new MerchantDataSync();
+            var sync=new MerchantDataSync();
 
             //sync.SyncLinkmanInfo();
-            sync.SyncMerchantInfo();
-            //sync.SyncBankAccountInfo();
+            //sync.SyncMerchantInfo();
+            sync.SyncBankAccountInfo();
         }
 
     }

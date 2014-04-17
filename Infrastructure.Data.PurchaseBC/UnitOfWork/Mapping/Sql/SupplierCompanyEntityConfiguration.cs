@@ -39,6 +39,8 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
 
             Property(p => p.Code).HasColumnName("Code");
             Property(p => p.LinkmanId).HasColumnName("LinkmanId");
+            Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
+            Property(p => p.UpdateDate).HasColumnName("UpdateDate").HasColumnType("datetime2");
         }
     }
 }

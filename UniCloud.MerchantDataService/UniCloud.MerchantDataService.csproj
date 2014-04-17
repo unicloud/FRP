@@ -140,6 +140,10 @@
       <Project>{c22ee02e-8694-4ebe-86be-78b5c7476d5e}</Project>
       <Name>DistributedServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain.PurchaseBC\Domain.PurchaseBC.csproj">
       <Project>{e9aca390-1996-406b-98bf-b331acf024d0}</Project>
       <Name>Domain.PurchaseBC</Name>

@@ -22,7 +22,7 @@
         <Property Name="ShortName" Type="Edm.String" />
         <Property Name="SupplierType" Type="Edm.String" />
         <Property Name="CreateDate" Type="Edm.DateTime" />
-        <Property Name="UpdateDate" Type="Edm.DateTime" />
+        <Property Name="UpdateDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Code" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="SuppierCompanyId" Type="Edm.Int32" Nullable="false" />
@@ -44,6 +44,8 @@
         <Property Name="Address" Type="Edm.String" />
         <Property Name="IsCurrent" Type="Edm.Boolean" Nullable="false" />
         <Property Name="CustCode" Type="Edm.String" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="UpdateDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="SupplierCompanyDTO">
@@ -53,10 +55,11 @@
         <Property Name="SupplierCompanyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="SupplierType" Type="Edm.String" />
-        <Property Name="CreateDate" Type="Edm.DateTime" />
         <Property Name="Code" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="LinkManId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="UpdateDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="AircraftLeaseSupplier" Type="Edm.Boolean" Nullable="false" />
         <Property Name="AircraftPurchaseSupplier" Type="Edm.Boolean" Nullable="false" />
         <Property Name="BFEPurchaseSupplier" Type="Edm.Boolean" Nullable="false" />
@@ -80,6 +83,8 @@
         <Property Name="SourceId" Type="Edm.Guid" Nullable="false" />
         <Property Name="CustCode" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="UpdateDate" Type="Edm.DateTime" Nullable="false" />
       </EntityType>
       <EntityType Name="SupplierCompanyAcMaterialDTO">
         <Key>

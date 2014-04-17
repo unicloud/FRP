@@ -277,7 +277,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         public void InsertLinkman(LinkmanDTO linkman)
         {
             var newLinkman = LinkmanFactory.CreateLinkman(linkman.Name, linkman.IsDefault, linkman.TelePhone, linkman.Mobile,
-                linkman.Fax, linkman.Email, linkman.Department, new Address(null, null, linkman.Address, null), linkman.SourceId, linkman.CustCode);
+                linkman.Fax, linkman.Email, linkman.Department, new Address(null, null, linkman.Address, null), linkman.SourceId, linkman.CustCode, DateTime.Now);
             _linkmanRepository.Add(newLinkman);
         }
 
@@ -473,96 +473,124 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         {
             foreach (var linkman in linkmen)
             {
-                Expression<Func<Linkman, bool>> condition = p => p.CustCode == linkman.CustCode;
+                LinkmanDTO linkman1 = linkman;
+                Expression<Func<Linkman, bool>> condition = p => p.CustCode == linkman1.CustCode;
 
                 var tempLinkman = _linkmanRepository.GetLinkman(condition);
                 if (tempLinkman != null)
                 {
-                    LinkmanFactory.SetLinkman(tempLinkman, linkman.Name, linkman.Department);
-                    _linkmanRepository.Modify(tempLinkman);
+                    if (linkman.UpdateDate.CompareTo(tempLinkman.UpdateDate) > 0)
+                    {
+                        LinkmanFactory.SetLinkman(tempLinkman, linkman.Name, linkman.Department, linkman.UpdateDate);
+                        _linkmanRepository.Modify(tempLinkman);
+                    }
                 }
                 else
                 {
                     tempLinkman = LinkmanFactory.CreateLinkman(linkman.Name, true, linkman.TelePhone, linkman.Mobile,
-                        linkman.Fax, linkman.Email, linkman.Department, new Address(null, null, linkman.Address, null), Guid.NewGuid(), linkman.CustCode);
+                        linkman.Fax, linkman.Email, linkman.Department, new Address(null, null, linkman.Address, null),
+                        Guid.NewGuid(), linkman.CustCode, linkman.UpdateDate);
                     _linkmanRepository.Add(tempLinkman);
                 }
             }
             _linkmanRepository.UnitOfWork.CommitAndRefreshChanges();
         }
 
-        public void SyncSupplierInfo(List<SupplierCompanyDTO> supplierCompanies, List<SupplierDTO> suppliers)
+        public void SyncSupplierInfo(List<SupplierDTO> suppliers)
         {
-            foreach (var supplierCompany in supplierCompanies)
+            foreach (var supplierCompany in suppliers)
             {
-                Expression<Func<Linkman, bool>> conditionLinkman = p => p.CustCode == supplierCompany.Code;
+                SupplierDTO company = supplierCompany;
+                Expression<Func<Linkman, bool>> conditionLinkman = p => p.CustCode == company.Code;
                 var tempLinkman = _linkmanRepository.GetLinkman(conditionLinkman);
 
-                Expression<Func<SupplierCompany, bool>> condition = p => p.Code == supplierCompany.Code;
+                SupplierDTO company1 = supplierCompany;
+                Expression<Func<SupplierCompany, bool>> conditionSupplierCompany = p => p.Code == company1.Code;
 
-                var tempSupplierCompany = _supplierCompanyRepository.GetSupplierCompany(condition);
+                var tempSupplierCompany = _supplierCompanyRepository.GetSupplierCompany(conditionSupplierCompany);
                 if (tempSupplierCompany != null)
                 {
-                    tempSupplierCompany.Code = supplierCompany.Code;
-                    if (tempLinkman != null)
-                        tempSupplierCompany.LinkmanId = tempLinkman.SourceId;
-                    _supplierCompanyRepository.Modify(tempSupplierCompany);
+                    if (supplierCompany.UpdateDate.CompareTo(tempSupplierCompany.UpdateDate) > 0)
+                    {
+                        tempSupplierCompany.Code = supplierCompany.Code;
+                        tempSupplierCompany.UpdateDate = supplierCompany.UpdateDate;
+                        if (tempLinkman != null)
+                            tempSupplierCompany.LinkmanId = tempLinkman.SourceId;
+                        _supplierCompanyRepository.Modify(tempSupplierCompany);
+                    }
                 }
                 else
                 {
                     tempSupplierCompany = SupplierCompanyFactory.CreateSupplieCompany(supplierCompany.Code);
+                    tempSupplierCompany.UpdateDate = supplierCompany.UpdateDate;
                     if (tempLinkman != null)
+                    {
                         tempSupplierCompany.LinkmanId = tempLinkman.SourceId;
+                    }
                     _supplierCompanyRepository.Add(tempSupplierCompany);
                 }
-            }
-            _supplierCompanyRepository.UnitOfWork.CommitAndRefreshChanges();
 
-            foreach (var supplier in suppliers)
-            {
-                Expression<Func<SupplierCompany, bool>> conditionSupplierCompany = p => p.Code == supplier.Code;
-                var tempSupplierCompany = _supplierCompanyRepository.GetSupplierCompany(conditionSupplierCompany);
+                SupplierDTO supplier2 = supplierCompany;
+                Expression<Func<Supplier, bool>> conditionSupplier = p => p.Code == supplier2.Code;
 
-                Expression<Func<Supplier, bool>> condition = p => p.Code == supplier.Code;
-
-                var tempSupplier = _supplierRepository.GetSupplier(condition);
+                var tempSupplier = _supplierRepository.GetSupplier(conditionSupplier);
                 if (tempSupplier != null)
                 {
-                    SupplierFactory.SetSupplier(tempSupplier, SupplierType.国内, supplier.Code, supplier.Name, supplier.ShortName, true, null, tempSupplierCompany.Id);
-                    _supplierRepository.Modify(tempSupplier);
+                    if (supplierCompany.UpdateDate.CompareTo(tempSupplier.UpdateDate) > 0)
+                    {
+                        SupplierFactory.SetSupplier(tempSupplier, SupplierType.国内, supplierCompany.Code, supplierCompany.Name, supplierCompany.ShortName, true, null, supplierCompany.UpdateDate, tempSupplierCompany.Id);
+                        _supplierRepository.Modify(tempSupplier);
+                    }
                 }
                 else
                 {
                     tempSupplier = SupplierFactory.CreateSupplier();
-                    SupplierFactory.SetSupplier(tempSupplier, SupplierType.国内, supplier.Code, supplier.Name, supplier.ShortName, true, null, tempSupplierCompany.Id);
+                    SupplierFactory.SetSupplier(tempSupplier, SupplierType.国内, supplierCompany.Code, supplierCompany.Name, supplierCompany.ShortName, true, null, supplierCompany.UpdateDate, tempSupplierCompany.Id);
                     _supplierRepository.Add(tempSupplier);
                 }
             }
-            _supplierRepository.UnitOfWork.CommitAndRefreshChanges();
+            _supplierCompanyRepository.UnitOfWork.CommitAndRefreshChanges();
+
+            //foreach (var supplier in suppliers)
+            //{
+               
+            //}
+            //_supplierRepository.UnitOfWork.CommitAndRefreshChanges();
         }
 
         public void SyncBankAccountInfo(List<BankAccountDTO> bankAccounts)
         {
             foreach (var bankAccount in bankAccounts)
             {
-                Expression<Func<Supplier, bool>> conditionSupplier = p => p.Code == bankAccount.CustCode;
+                BankAccountDTO account = bankAccount;
+                Expression<Func<Supplier, bool>> conditionSupplier = p => p.Code == account.CustCode;
                 var tempSupplier = _supplierRepository.GetSupplier(conditionSupplier);
                 if (tempSupplier == null)
                 {
                     continue;
                 }
-                Expression<Func<BankAccount, bool>> condition = p => p.CustCode == bankAccount.CustCode;
+                BankAccountDTO account1 = bankAccount;
+                Expression<Func<BankAccount, bool>> condition = p => p.CustCode == account1.CustCode;
 
                 var tempBankAccount = _bankAccountRepository.GetBankAccount(condition);
                 if (tempBankAccount != null)
                 {
-                    BankAccountFactory.SetBankAccount(tempBankAccount, bankAccount.CustCode, tempBankAccount.IsCurrent, bankAccount.Account, bankAccount.Name, bankAccount.Bank, bankAccount.Branch, bankAccount.Country, bankAccount.Address, tempSupplier.Id);
-                    _bankAccountRepository.Modify(tempBankAccount);
+                    if (bankAccount.UpdateDate.CompareTo(tempBankAccount.UpdateDate) > 0)
+                    {
+                        BankAccountFactory.SetBankAccount(tempBankAccount, bankAccount.CustCode,
+                            tempBankAccount.IsCurrent,
+                            bankAccount.Account, bankAccount.Name, bankAccount.Bank, bankAccount.Branch,
+                            bankAccount.Country,
+                            bankAccount.Address, bankAccount.UpdateDate, tempSupplier.Id);
+                        _bankAccountRepository.Modify(tempBankAccount);
+                    }
                 }
                 else
                 {
                     tempBankAccount = BankAccountFactory.CreateBankAccount();
-                    BankAccountFactory.SetBankAccount(tempBankAccount, bankAccount.CustCode, true, bankAccount.Account, bankAccount.Name, bankAccount.Bank, bankAccount.Branch, bankAccount.Country, bankAccount.Address, tempSupplier.Id);
+                    BankAccountFactory.SetBankAccount(tempBankAccount, bankAccount.CustCode, true, bankAccount.Account,
+                        bankAccount.Name, bankAccount.Bank, bankAccount.Branch, bankAccount.Country,
+                        bankAccount.Address, bankAccount.UpdateDate, tempSupplier.Id);
                     _bankAccountRepository.Add(tempBankAccount);
                 }
             }

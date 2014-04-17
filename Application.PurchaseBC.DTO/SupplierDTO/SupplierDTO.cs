@@ -58,7 +58,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     更改日期。
         /// </summary>
-        public DateTime? UpdateDate { get; set; }
+        public DateTime UpdateDate { get; set; }
 
         /// <summary>
         ///     组织机构代码。

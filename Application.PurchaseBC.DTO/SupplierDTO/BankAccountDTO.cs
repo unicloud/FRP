@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Data.Services.Common;
 
 #endregion
@@ -67,6 +68,16 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public bool IsCurrent { get; set; }
 
         public string CustCode { get; set; }
+
+        /// <summary>
+        ///     创建日期
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+
+        /// <summary>
+        ///     更改日期
+        /// </summary>
+        public DateTime UpdateDate { get; set; }
 
         /// <summary>
         ///     供应商外键

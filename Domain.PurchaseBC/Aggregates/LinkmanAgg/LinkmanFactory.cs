@@ -42,9 +42,10 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg
         /// <param name="address">地址</param>
         /// <param name="sourceId">源Id</param>
         /// <param name="custCode"></param>
+        /// <param name="updateTime"></param>
         /// <returns></returns>
-        public static Linkman CreateLinkman(string name,bool isDefault, string telephone, string mobile, string fax, string email,
-            string department,Address address, Guid sourceId, string custCode)
+        public static Linkman CreateLinkman(string name, bool isDefault, string telephone, string mobile, string fax, string email,
+            string department, Address address, Guid sourceId, string custCode, DateTime updateTime)
         {
             var linkman = new Linkman
             {
@@ -56,17 +57,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg
                 Email = email,
                 Department = department,
                 Address = address,
-                CustCode = custCode
+                CustCode = custCode,
+                CreateDate = DateTime.Now,
+                UpdateDate = updateTime
             };
 
             linkman.SetSourceId(sourceId);
             return linkman;
         }
 
-        public static void SetLinkman(Linkman linkman, string name, string department)
+        public static void SetLinkman(Linkman linkman, string name, string department, DateTime updateTime)
         {
             linkman.Name = name;
             linkman.Department = department;
+            linkman.UpdateDate = updateTime;
         }
     }
 }

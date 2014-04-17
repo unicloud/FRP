@@ -44,13 +44,13 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg
             return supplier;
         }
 
-        public static void SetSupplier(Supplier supplier, SupplierType supplierType, string code, string name, string shortName, bool isValid, string note, int supplierCompanyId)
+        public static void SetSupplier(Supplier supplier, SupplierType supplierType, string code, string name, string shortName, bool isValid, string note, DateTime updateTime, int supplierCompanyId)
         {
             supplier.SupplierType = supplierType;
             supplier.Code = code;
             supplier.CnName = name;
             supplier.CnShortName = shortName;
-            supplier.UpdateDate = DateTime.Now;
+            supplier.UpdateDate = updateTime;
             supplier.IsValid = isValid;
             supplier.Note = note;
             supplier.SupplierCompanyId = supplierCompanyId;

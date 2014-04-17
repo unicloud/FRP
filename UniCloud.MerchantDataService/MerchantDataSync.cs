@@ -5,6 +5,7 @@ using System.Data.OracleClient;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
 using UniCloud.Application.PurchaseBC.SupplierServices;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
@@ -24,31 +25,48 @@ namespace UniCloud.MerchantDataService
 
         public void SyncMerchantInfo()
         {
+            Configuration config =  ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            DateTime supplierUpdateTime = DateTime.MinValue;
+            if (!string.IsNullOrEmpty(config.AppSettings.Settings["SupplierUpdateTime"].Value))
+            {
+                supplierUpdateTime = DateTime.Parse(config.AppSettings.Settings["SupplierUpdateTime"].Value);
+            }
             var suppliers = new List<SupplierDTO>();
-            var supplierCompanies = new List<SupplierCompanyDTO>();
             string connectionString = ConfigurationManager.ConnectionStrings["OracleNC"].ToString();
             var conn = new OracleConnection(connectionString);//进行连接           
             try
             {
                 conn.Open();//打开指定的连接           
                 var com = conn.CreateCommand();
-                com.CommandText = "select * from v_jdxt_ksxx";
+                com.CommandText = "select * from v_jdxt_ksxx t where t.TS > '" + supplierUpdateTime.ToString("yyyy-MM-dd HH:mm:ss")+"'";
                 OracleDataReader odr = com.ExecuteReader();
                 while (odr.Read())//读取数据，如果返回为false的话，就说明到记录集的尾部了      
                 {
-                    var supplierCompany = new SupplierCompanyDTO { Code = odr.GetOracleString(0).ToString() };
                     var supplier = new SupplierDTO
                                    {
-                                       Code = odr.GetOracleString(0).ToString(),
-                                       Name = odr.GetOracleString(1).ToString(),
-                                       ShortName = odr.GetOracleString(2).ToString(),
+                                       Code = odr["CUSTCODE"].ToString(), //odr.GetOracleString(0).ToString(),
+                                       Name = odr["CUSTNAME"].ToString(), //odr.GetOracleString(1).ToString(),
+                                       ShortName = odr["CUSTSHORTNAME"].ToString(), //odr.GetOracleString(2).ToString(),
+                                       UpdateDate = DateTime.Parse(odr["TS"].ToString()),
                                    };
-                    if (!odr.GetOracleString(9).IsNull)
+                    if (supplier.UpdateDate.CompareTo(supplierUpdateTime)>0)
                     {
-                        supplier.CreateDate = DateTime.Parse(odr.GetOracleString(9).ToString());
+                        supplierUpdateTime = supplier.UpdateDate;
+                    }
+                    if (odr["AREACLNAME"].ToString().Contains("国内"))
+                    {
+                        supplier.SupplierType = SupplierType.国内.ToString();
+                    }
+                    else if (odr["AREACLNAME"].ToString().Contains("国外"))
+                    {
+                        supplier.SupplierType = SupplierType.国外.ToString();
+                    }
+                    else
+                    {
+                        continue;
                     }
                     suppliers.Add(supplier);
-                    supplierCompanies.Add(supplierCompany);
                 }
                 odr.Close();//关闭reader.这是一定要写的       
             }
@@ -60,11 +78,22 @@ namespace UniCloud.MerchantDataService
             {
                 conn.Close();//关闭打开的连接     
             }
-            _supplierAppService.SyncSupplierInfo(supplierCompanies, suppliers);
+            _supplierAppService.SyncSupplierInfo(suppliers);
+            config.AppSettings.Settings["SupplierUpdateTime"].Value = supplierUpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
         }
 
         public void SyncLinkmanInfo()
         {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            DateTime linkmanUpdateTime = DateTime.MinValue;
+            if (!string.IsNullOrEmpty(config.AppSettings.Settings["LinkmanUpdateTime"].Value))
+            {
+                linkmanUpdateTime = DateTime.Parse(config.AppSettings.Settings["LinkmanUpdateTime"].Value);
+            }
+
             var linkmen = new List<LinkmanDTO>();
             string connectionString = ConfigurationManager.ConnectionStrings["OracleNC"].ToString();
             var conn = new OracleConnection(connectionString);//进行连接           
@@ -72,17 +101,21 @@ namespace UniCloud.MerchantDataService
             {
                 conn.Open();//打开指定的连接           
                 var com = conn.CreateCommand();
-                com.CommandText = "select * from v_jdxt_lxr";
+                com.CommandText = "select * from v_jdxt_lxr t where t.TS > '" + linkmanUpdateTime.ToString("yyyy-MM-dd HH:mm:ss") + "'"; ;
                 OracleDataReader odr = com.ExecuteReader();
                 while (odr.Read())//读取数据，如果返回为false的话，就说明到记录集的尾部了      
                 {
                     var linkman = new LinkmanDTO
                     {
-                        CustCode = odr.GetOracleString(0).ToString(),
-                        Department = odr.GetOracleString(1).ToString(),
-                        Name = odr.GetOracleString(2).ToString(),
+                        CustCode = odr["CUSTCODE"].ToString(), //odr.GetOracleString(0).ToString(),
+                        Department = odr["CUSTNAME"].ToString(), //odr.GetOracleString(1).ToString(),
+                        Name = odr["LINKMAN1"].ToString(), //odr.GetOracleString(2).ToString(),
+                        UpdateDate = DateTime.Parse(odr["TS"].ToString()),
                     };
-
+                    if (linkman.UpdateDate.CompareTo(linkmanUpdateTime) > 0)
+                    {
+                        linkmanUpdateTime = linkman.UpdateDate;
+                    }
                     linkmen.Add(linkman);
                 }
                 odr.Close();//关闭reader.这是一定要写的       
@@ -96,10 +129,20 @@ namespace UniCloud.MerchantDataService
                 conn.Close();//关闭打开的连接     
             }
             _supplierAppService.SyncLinkmanInfo(linkmen);
+            config.AppSettings.Settings["LinkmanUpdateTime"].Value = linkmanUpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
         }
 
         public void SyncBankAccountInfo()
         {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            DateTime bankAccountUpdateTime = DateTime.MinValue;
+            if (!string.IsNullOrEmpty(config.AppSettings.Settings["BankAccountUpdateTime"].Value))
+            {
+                bankAccountUpdateTime = DateTime.Parse(config.AppSettings.Settings["BankAccountUpdateTime"].Value);
+            }
             var bankAccounts = new List<BankAccountDTO>();
             string connectionString = ConfigurationManager.ConnectionStrings["OracleNC"].ToString();
             var conn = new OracleConnection(connectionString);//进行连接           
@@ -107,22 +150,26 @@ namespace UniCloud.MerchantDataService
             {
                 conn.Open();//打开指定的连接           
                 var com = conn.CreateCommand();
-                com.CommandText = "select * from v_jdxt_yhzh";
+                com.CommandText = "select * from v_jdxt_yhzh t where t.TS > '" + bankAccountUpdateTime.ToString("yyyy-MM-dd HH:mm:ss") + "'"; ;
                 OracleDataReader odr = com.ExecuteReader();
                 while (odr.Read())//读取数据，如果返回为false的话，就说明到记录集的尾部了      
                 {
                     var bankAccount = new BankAccountDTO
                     {
-                        CustCode = odr.GetOracleString(0).ToString(),
-                        Address = odr.GetOracleString(1).ToString(),
-
+                        CustCode = odr["CUSTCODE"].ToString(), //odr.GetOracleString(0).ToString(),
+                        Address = odr["CUSTNAME"].ToString(), //odr.GetOracleString(1).ToString(),
+                        UpdateDate = DateTime.Parse(odr["TS"].ToString()),
                     };
+                    if (bankAccount.UpdateDate.CompareTo(bankAccountUpdateTime) > 0)
+                    {
+                        bankAccountUpdateTime = bankAccount.UpdateDate;
+                    }
                     if (odr.GetOracleString(2).IsNull || odr.GetOracleString(3).IsNull)
                     {
                         continue;
                     }
-                    bankAccount.Branch = odr.GetOracleString(2).ToString();
-                    bankAccount.Account = odr.GetOracleString(3).ToString();
+                    bankAccount.Branch = odr["BANKDOCNAME"].ToString(); // odr.GetOracleString(2).ToString();
+                    bankAccount.Account = odr["ACCOUNTCODE"].ToString(); // odr.GetOracleString(3).ToString();
                     bankAccounts.Add(bankAccount);
                 }
                 odr.Close();//关闭reader.这是一定要写的       
@@ -136,6 +183,9 @@ namespace UniCloud.MerchantDataService
                 conn.Close();//关闭打开的连接     
             }
             _supplierAppService.SyncBankAccountInfo(bankAccounts);
+            config.AppSettings.Settings["BankAccountUpdateTime"].Value = bankAccountUpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
         }
     }
 }
