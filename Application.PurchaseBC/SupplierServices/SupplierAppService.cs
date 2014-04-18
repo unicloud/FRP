@@ -538,14 +538,14 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                 {
                     if (supplierCompany.UpdateDate.CompareTo(tempSupplier.UpdateDate) > 0)
                     {
-                        SupplierFactory.SetSupplier(tempSupplier, SupplierType.国内, supplierCompany.Code, supplierCompany.Name, supplierCompany.ShortName, true, null, supplierCompany.UpdateDate, tempSupplierCompany.Id);
+                        SupplierFactory.SetSupplier(tempSupplier, supplierCompany.SupplierType.Contains("国内") ? SupplierType.国内 : SupplierType.国外, supplierCompany.Code, supplierCompany.Name, supplierCompany.ShortName, true, null, supplierCompany.UpdateDate, tempSupplierCompany.Id);
                         _supplierRepository.Modify(tempSupplier);
                     }
                 }
                 else
                 {
                     tempSupplier = SupplierFactory.CreateSupplier();
-                    SupplierFactory.SetSupplier(tempSupplier, SupplierType.国内, supplierCompany.Code, supplierCompany.Name, supplierCompany.ShortName, true, null, supplierCompany.UpdateDate, tempSupplierCompany.Id);
+                    SupplierFactory.SetSupplier(tempSupplier, supplierCompany.SupplierType.Contains("国内") ? SupplierType.国内 : SupplierType.国外, supplierCompany.Code, supplierCompany.Name, supplierCompany.ShortName, true, null, supplierCompany.UpdateDate, tempSupplierCompany.Id);
                     _supplierRepository.Add(tempSupplier);
                 }
             }
