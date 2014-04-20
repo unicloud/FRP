@@ -168,14 +168,62 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
         {
             switch (status)
             {
-                case SnStatus.在库:
-                    Status = SnStatus.在库;
+                case SnStatus.NotAgree:
+                    Status = SnStatus.NotAgree;
                     break;
-                case SnStatus.在位:
-                    Status = SnStatus.在位;
+                case SnStatus.Stored:
+                    Status = SnStatus.Stored;
                     break;
-                case SnStatus.维修中:
-                    Status = SnStatus.维修中;
+                case SnStatus.InTransfer:
+                    Status = SnStatus.InTransfer;
+                    break;
+                case SnStatus.FlightKit:
+                    Status = SnStatus.FlightKit;
+                    break;
+                case SnStatus.Lent:
+                    Status = SnStatus.Lent;
+                    break;
+                case SnStatus.InLocalRepair:
+                    Status = SnStatus.InLocalRepair;
+                    break;
+                case SnStatus.InOutsideRepair:
+                    Status = SnStatus.InOutsideRepair;
+                    break;
+                case SnStatus.InRepairOnOtherSite:
+                    Status = SnStatus.InRepairOnOtherSite;
+                    break;
+                case SnStatus.ToolsWithPersonalInventoryDocument:
+                    Status = SnStatus.ToolsWithPersonalInventoryDocument;
+                    break;
+                case SnStatus.WorkshopOk:
+                    Status = SnStatus.WorkshopOk;
+                    break;
+                case SnStatus.InStoreUorS:
+                    Status = SnStatus.InStoreUorS;
+                    break;
+                case SnStatus.WorkshopUorS:
+                    Status = SnStatus.WorkshopUorS;
+                    break;
+                case SnStatus.Unknown:
+                    Status = SnStatus.Unknown;
+                    break;
+                case SnStatus.TemporaryScrap:
+                    Status = SnStatus.TemporaryScrap;
+                    break;
+                case SnStatus.Scrapped:
+                    Status = SnStatus.Scrapped;
+                    break;
+                case SnStatus.NewReference:
+                    Status = SnStatus.NewReference;
+                    break;
+                case SnStatus.OnAircraft:
+                    Status = SnStatus.OnAircraft;
+                    break;
+                case SnStatus.NotFollowed:
+                    Status = SnStatus.NotFollowed;
+                    break;
+                case SnStatus.ToBeRepaired:
+                    Status = SnStatus.ToBeRepaired;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("status");
@@ -221,13 +269,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
         /// <param name="aircraft">当前飞机</param>
         public void SetAircraft(Aircraft aircraft)
         {
-            if (aircraft == null || aircraft.IsTransient())
+            if (aircraft != null)
             {
-                throw new ArgumentException("飞机参数为空！");
+                AircraftId = aircraft.Id;
+                RegNumber = aircraft.RegNumber;
             }
-
-            AircraftId = aircraft.Id;
-            RegNumber = aircraft.RegNumber;
         }
 
         /// <summary>

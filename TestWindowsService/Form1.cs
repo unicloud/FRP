@@ -23,8 +23,9 @@ namespace TestWindowsService
             try
             {
                 InitialContext();
+                //AircraftSeriesSync();
                 //1、同步FlightLog数据
-                FlightLogSync();
+                //FlightLogSync();
                 //2、同步PnReg数据
                 PnRegSync();
                 //3、同步SnRegs数据
@@ -32,7 +33,7 @@ namespace TestWindowsService
                 //4、同步SnRemInstRecord数据(拆换记录)
                 SnRemInstRecordSync();
                 //5.同步装机历史
-                SnHistorySync();
+                //SnHistorySync();
                 DisposeContext();
             }
             catch (Exception exception)

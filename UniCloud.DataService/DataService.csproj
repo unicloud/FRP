@@ -67,6 +67,9 @@
     <Compile Include="DataSync\DataSync.cs" />
     <Compile Include="DataSync\FlightLogSync.cs" />
     <Compile Include="DataSync\ItemSync.cs" />
+    <Compile Include="DataSync\Model\Movement.cs" />
+    <Compile Include="DataSync\Model\PartPn.cs" />
+    <Compile Include="DataSync\Model\PartSn.cs" />
     <Compile Include="DataSync\PnRegSync.cs" />
     <Compile Include="DataSync\SnHistorySync.cs" />
     <Compile Include="DataSync\SnRegSync.cs" />
@@ -85,6 +88,10 @@
     <ProjectReference Include="..\Domain.AircraftConfigBC\Domain.AircraftConfigBC.csproj">
       <Project>{4D4558F2-9855-4962-8CDC-52BDB85182D4}</Project>
       <Name>Domain.AircraftConfigBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{E48E84DE-5A91-4D16-84E5-CFFC4C7E7657}</Project>
+      <Name>Domain.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain.FleetPlanBC\Domain.FleetPlanBC.csproj">
       <Project>{EAE70E2D-1C23-45C9-A9A9-695DFF09B7AB}</Project>

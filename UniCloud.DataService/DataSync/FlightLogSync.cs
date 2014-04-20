@@ -37,45 +37,35 @@ namespace UniCloud.DataService.DataSync
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<FlightLog> AmasisDatas { get; protected set; }
-        public IEnumerable<FlightLog> FrpDatas { get; protected set; }
+        public List<FlightLog> AmasisDatas { get; protected set; }
+        public List<FlightLog> FrpDatas { get; protected set; }
 
         public string QueryStr { get;protected set; }
         public override void ImportAmasisData()
         {
-            const int step = 7;
+            const int step = 1;
             const string strSql =
                 "SELECT RTRIM(A.AVSN) MSN,RTRIM(A.AVNUMAP) SN,RTRIM(A.AVOFFICIEL) ACREG,LOG.AVHVAB TotalFH,LOG.AVHVBB TotalBH," +
-                "LOG.AVCY TotalCycles,LOG.RMCPT1F ApuMM,LOG.RMCPT2F ApuCycle,LEG.RMA4 FD_YEAR,LEG.RMMM FD_MONTH,LEG.RMJJ FD_DAY," +
-                "Date(RTRIM(LEG.RMA4)||'-'||RTRIM(LEG.RMMM)||'-'||RTRIM(LEG.RMJJ))  FlightDate," +
-                "RTRIM(LEG.RMDOC) LOGNO,RTRIM(LEG.VOORD) LEGNO,RTRIM(LEG.VOVOLNUM) FlightNum,RTRIM(LEG.VOAERODEP) DepartureAirport,RTRIM(LEG.VOBBDEP) BlockOn," +
-                "RTRIM(LEG.VOABDEP) TakeOff,RTRIM(LEG.VOAEROARR) ArrivalAirport,RTRIM(LEG.VOABARR) Landing,RTRIM(LEG.VOBBARR) BlockStop,1 AS Cycle," +
-                "LEG.VOTOGO ToGoNumber,RTRIM(LEG.VOABTPS) FH_HHMM,RTRIM(LEG.VOABTPSC) FlightHours,RTRIM(LEG.VOBBTPS) BLOCK_HHMM,RTRIM(LEG.VOBBTPSC) BlockHours," +
-                "LEG.VOOILMO1D ENG1OilDep,LEG.VOOILMO1A ENG1OilArr,LEG.VOOILMO2D ENG2OilDep,LEG.VOOILMO2A ENG2OilArr,LEG.VOOILAPUD ApuOilDep," +
-                "LEG.VOOILAPUA ApuOilArr FROM AMSFCSCVAL.FRVO AS LEG LEFT JOIN AMSFCSCVAL.FRRM AS LOG ON  LEG.AVNUMAP = LOG.AVNUMAP AND LEG.RMDOC = LOG.RMDOC," +
-                "AMSFCSCVAL.FRAV A ";
-            string queryConditionForSeveralDays = "WHERE A.AVNUMAP = LEG.AVNUMAP AND (Char(Date(RTRIM(LEG.RMA4)||'-'||RTRIM(LEG.RMMM)||'-'||RTRIM(LEG.RMJJ)))> Char(current date -"+step+" Day))" +
+                " LOG.AVCY TotalCycles,LOG.RMCPT1F ApuMM,LOG.RMCPT2F ApuCycle,LEG.RMA4 FD_YEAR,LEG.RMMM FD_MONTH,LEG.RMJJ FD_DAY," +
+                " Date(RTRIM(LEG.RMA4)||'-'||RTRIM(LEG.RMMM)||'-'||RTRIM(LEG.RMJJ))  FlightDate," +
+                " RTRIM(LEG.RMDOC) LOGNO,RTRIM(LEG.VOORD) LEGNO,RTRIM(LEG.VOVOLNUM) FlightNum,RTRIM(LEG.VOAERODEP) DepartureAirport,RTRIM(LEG.VOBBDEP) BlockOn," +
+                " RTRIM(LEG.VOABDEP) TakeOff,RTRIM(LEG.VOAEROARR) ArrivalAirport,RTRIM(LEG.VOABARR) Landing,RTRIM(LEG.VOBBARR) BlockStop,1 AS Cycle," +
+                " LEG.VOTOGO ToGoNumber,RTRIM(LEG.VOABTPS) FH_HHMM,RTRIM(LEG.VOABTPSC) FlightHours,RTRIM(LEG.VOBBTPS) BLOCK_HHMM,RTRIM(LEG.VOBBTPSC) BlockHours," +
+                " LEG.VOOILMO1D ENG1OilDep,LEG.VOOILMO1A ENG1OilArr,LEG.VOOILMO2D ENG2OilDep,LEG.VOOILMO2A ENG2OilArr,LEG.VOOILAPUD ApuOilDep," +
+                " LEG.VOOILAPUA ApuOilArr FROM AMSFCSCVAL.FRVO AS LEG LEFT JOIN AMSFCSCVAL.FRRM AS LOG ON  LEG.AVNUMAP = LOG.AVNUMAP AND LEG.RMDOC = LOG.RMDOC Left join" +
+                " AMSFCSCVAL.FRAV A ON LEG.AVNUMAP=A.AVNUMAP";
+            string queryConditionForSeveralDays = "WHERE A.AVNUMAP = LEG.AVNUMAP AND (Char(Date(RTRIM(LEG.RMA4)||'-'||RTRIM(LEG.RMMM)||'-'||RTRIM(LEG.RMJJ)))> Char(current date -"+step+" MONTH))" +
                                                   "  ORDER by AcReg,FlightDate desc,TotalFH desc ";
             QueryStr = strSql + queryConditionForSeveralDays;
             using (var conn = new Db2Conn(GetDb2Connection()))
             {
-                AmasisDatas = conn.GetSqlDatas<FlightLog>(QueryStr);
+                AmasisDatas = conn.GetSqlDatas<FlightLog>(QueryStr).ToList();
             }
         }
 
         public override void ImportFrpData()
         {
-            const string strSql = @"SELECT ID,[FlightNum],[LogNo],[LegNo],[AcReg],[MSN],[FlightType],[FlightDate]
-                                    ,[BlockOn],[TakeOff],[Landing],[BlockStop],[TotalFH],[TotalBH],[FlightHours],[ApuCycle],[BlockHours]
-                                    ,[TotalCycles],[Cycle],[DepartureAirport],[ArrivalAirport],[ToGoNumber],[ApuMM],[ENG1OilDep]
-                                    ,[ENG1OilArr],[ENG2OilDep],[ENG2OilArr],[ApuOilDep],[ApuOilArr] FROM [FRP].[FRP].[FlightLog]                                    
-                                    where FlightDate>Dateadd(Day, -7, GETDATE()) order by AcReg,FlightDate desc,TotalFH desc";
-            string queryConditionForSeveralDays = "";
-            //从FRP中取FlightLog数据
-            using (var conn = new SqlServerConn(GetSqlServerConnection()))
-            {
-                FrpDatas = conn.GetSqlDatas<FlightLog>(strSql);
-            }
+            FrpDatas = _unitOfWork.CreateSet<FlightLog>().ToList();
         }
 
         public override void DataSynchronous()
