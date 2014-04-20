@@ -34,12 +34,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg
         /// <returns>创建的银行账户</returns>
         public static BankAccount CreateBankAccount()
         {
-            var bankAccount = new BankAccount();
+            var bankAccount = new BankAccount { CreateDate = DateTime.Now };
             bankAccount.GenerateNewIdentity();
             return bankAccount;
         }
 
-        public static void SetBankAccount(BankAccount bankAccount, string custCode,bool isCurrent, string account, string name, string bank, string branch, string country, string address, int supplierId)
+        public static void SetBankAccount(BankAccount bankAccount, string custCode, bool isCurrent, string account, string name, string bank, string branch, string country, string address, DateTime updateTime, int supplierId)
         {
             bankAccount.CustCode = custCode;
             bankAccount.Account = account;
@@ -49,6 +49,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg
             bankAccount.Branch = branch;
             bankAccount.Country = country;
             bankAccount.Address = address;
+            bankAccount.UpdateDate = updateTime;
             bankAccount.SupplierId = supplierId;
         }
     }

@@ -76,7 +76,8 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                         c =>
                             c.SupplierCompanyId == p.Id),
                 Code = p.Code,
-                CreateDate = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CreateDate,
+                CreateDate = p.CreateDate,
+                UpdateDate = p.UpdateDate,
                 SupplierType =
                     p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).SupplierType == SupplierType.国内 ? "国内" : "国外",
                 Name = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CnName,
@@ -141,6 +142,8 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                     IsCurrent = c.IsCurrent,
                     Name = c.Name,
                     CustCode = c.CustCode,
+                    CreateDate = p.CreateDate,
+                    UpdateDate = p.UpdateDate,
                     SupplierId = c.SupplierId
                 }).ToList(),
             });
@@ -162,6 +165,8 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                 Note = p.Note,
                 SourceId = p.SourceId,
                 CustCode = p.CustCode,
+                CreateDate = p.CreateDate,
+                UpdateDate = p.UpdateDate
             });
         }
 

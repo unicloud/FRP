@@ -46,11 +46,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public string SupplierType { get; set; }
 
         /// <summary>
-        ///     创建日期。
-        /// </summary>
-        public DateTime? CreateDate { get; set; }
-
-        /// <summary>
         ///     组织机构代码。
         /// </summary>
         public string Code { get; set; }
@@ -64,6 +59,16 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// 联系人外键
         /// </summary>
         public Guid LinkManId { get; set; }
+
+        /// <summary>
+        ///     创建日期
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+
+        /// <summary>
+        ///     更改日期
+        /// </summary>
+        public DateTime UpdateDate { get; set; }
 
         /// <summary>
         ///     飞机租赁角色。

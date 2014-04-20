@@ -38,8 +38,9 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg
             var supplierCompany = new SupplierCompany
             {
                 Code = code,
+                CreateDate = DateTime.Now
             };
-
+            supplierCompany.GenerateNewIdentity();
             return supplierCompany;
         }
     }

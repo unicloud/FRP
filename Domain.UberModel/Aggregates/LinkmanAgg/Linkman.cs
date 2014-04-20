@@ -85,6 +85,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.LinkmanAgg
         /// </summary>
         public string Note { get; set; }
 
+        /// <summary>
+        ///     创建日期
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+
+        /// <summary>
+        ///     更改日期
+        /// </summary>
+        public DateTime UpdateDate { get; set; }
         #endregion
 
         #region 外键属性
