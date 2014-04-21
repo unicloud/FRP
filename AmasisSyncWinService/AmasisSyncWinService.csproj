@@ -32,10 +32,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProjectInstaller.resx">
@@ -69,6 +78,32 @@
     <EmbeddedResource Include="AmasisWinService.resx">
       <DependentUpon>AmasisWinService.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.AircraftConfigBC\Infrastructure.Data.AircraftConfigBC.csproj">
+      <Project>{7c23a380-593e-4155-b138-b094e1a02711}</Project>
+      <Name>Infrastructure.Data.AircraftConfigBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.FlightLogBC\Infrastructure.Data.FlightLogBC.csproj">
+      <Project>{728b5133-a465-47af-99e6-e3a9f4b908ff}</Project>
+      <Name>Infrastructure.Data.FlightLogBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.PartBC\Infrastructure.Data.PartBC.csproj">
+      <Project>{86b54e11-e21e-4800-ac61-100ef0ab1efa}</Project>
+      <Name>Infrastructure.Data.PartBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.DataService\DataService.csproj">
+      <Project>{947fe4a9-3058-46c5-9859-47eeec400d72}</Project>
+      <Name>DataService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

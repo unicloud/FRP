@@ -39,8 +39,8 @@ namespace UniCloud.DataService.DataSync
         }
 
 
-        public IEnumerable<ItemDTO> AmasisDatas { get; protected set; }
-        public IEnumerable<ItemDTO> FrpDatas { get; protected set; }
+        public List<Item> AmasisDatas { get; protected set; }
+        public List<Item> FrpDatas { get; protected set; }
 
         public override void ImportAmasisData()
         {
@@ -49,7 +49,7 @@ namespace UniCloud.DataService.DataSync
 
             using (var conn = new Db2Conn(GetDb2Connection()))
             {
-                AmasisDatas = conn.GetSqlDatas<ItemDTO>(strSql);
+                AmasisDatas = conn.GetSqlDatas<Item>(strSql).ToList();
             }
         }
 
@@ -60,7 +60,7 @@ namespace UniCloud.DataService.DataSync
             //从FRP中取数据
             using (var conn = new SqlServerConn(GetSqlServerConnection()))
             {
-                FrpDatas = conn.GetSqlDatas<ItemDTO>(strSql);
+                FrpDatas = _unitOfWork.CreateSet<Item>().ToList();
             }
         }
 
@@ -72,9 +72,9 @@ namespace UniCloud.DataService.DataSync
             {
                 var datas = _unitOfWork.CreateSet<Item>();
 
-                foreach (ItemDTO itemDto in AmasisDatas)
+                foreach (Item amasisItem in AmasisDatas)
                 {
-                    Item item = ItemFactory.CreateItem(itemDto.Name, itemDto.ItemNo, itemDto.FiNumber, itemDto.Description, itemDto.IsLife);
+                    Item item = ItemFactory.CreateItem(amasisItem.Name, amasisItem.ItemNo, amasisItem.FiNumber, amasisItem.Description, amasisItem.IsLife);
                     datas.Add(item);
                 }
             }

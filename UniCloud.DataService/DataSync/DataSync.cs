@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,34 +11,29 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 #endregion
 
 namespace UniCloud.DataService.DataSync
 {
     /// <summary>
-    /// 数据同步基类
+    ///     数据同步基类
     /// </summary>
     public abstract class DataSync
     {
         /// <summary>
-        /// 从Amasis中获取需要同步的数据
+        ///     从Amasis中获取需要同步的数据
         /// </summary>
         public abstract void ImportAmasisData();
 
         /// <summary>
-        /// 从FRP中获取需要同步的数据
+        ///     从FRP中获取需要同步的数据
         /// </summary>
         public abstract void ImportFrpData();
 
@@ -52,7 +48,7 @@ namespace UniCloud.DataService.DataSync
         }
 
         /// <summary>
-        /// 处理数据同步
+        ///     处理数据同步
         /// </summary>
         public abstract void DataSynchronous();
     }

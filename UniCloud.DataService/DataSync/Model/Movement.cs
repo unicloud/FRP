@@ -3,8 +3,8 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2014/4/17 14:38:28
-// 文件名：PartSn
+// 作者：HuangQiBin 时间：2014/4/18 15:26:42
+// 文件名：Movement
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -26,30 +26,30 @@ using System.Threading.Tasks;
 namespace UniCloud.DataService.DataSync.Model
 {
     /// <summary>
-    /// 序号件
+    /// Amasis中序号件移动记录
     /// </summary>
-    public class PartSn
+    public class Movement
     {
         public string Pn { get; set; }
 
         public string Sn { get; set; }
+        
+        public DateTime MovementDate { get; set; }
 
-        public string SerialNumber { get; set; }
+        public string ActionNo { get; set; }
+
+        public string MoveType { get; set; }
 
         public string RegNumber { get; set; }
 
-        public string Status { get; set; }
+        public string Description { get; set; }
 
-        //public DateTime LatestRemoveDate { get; set; }
+        public DateTime CreateDate { get; set; }
 
-        public string CSN { get; set; }
+        public DateTime CreateTime { get; set; }
 
-        public string CSO { get; set; }
+        public DateTime UpdateDate { get; set; }
 
-        public string TSN { get; set; }
-
-        public string TSO { get; set; }
-
-        public string ATA { get; set; }
+        public DateTime UpdateTime { get; set; }
     }
 }

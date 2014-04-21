@@ -30,8 +30,24 @@ namespace UniCloud.Domain.Common.Enums
     /// </summary>
     public enum SnStatus
     {
-        在库 = 0,
-        在位 = 1,
-        维修中 = 2,
+        NotAgree = 0,
+        Stored = 1,
+        InTransfer = 3,
+        FlightKit = 4,
+        Lent = 5,
+        InLocalRepair = 11,
+        InOutsideRepair = 12,
+        InRepairOnOtherSite = 13,
+        ToolsWithPersonalInventoryDocument = 20,
+        WorkshopOk = 21,
+        InStoreUorS = 22,
+        WorkshopUorS = 23,
+        Unknown = 25,
+        TemporaryScrap = 31,
+        Scrapped = 32,
+        NewReference = 36,
+        OnAircraft = 41,
+        NotFollowed = 42,
+        ToBeRepaired = 46,
     }
 }

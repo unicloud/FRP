@@ -3,8 +3,8 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2014/4/17 13:35:12
-// 文件名：Installation
+// 作者：HuangQiBin 时间：2014/4/17 16:18:53
+// 文件名：PartPn
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -26,10 +26,12 @@ using System.Threading.Tasks;
 namespace UniCloud.DataService.DataSync.Model
 {
     /// <summary>
-    /// AMASIS中序号件装上记录
+    /// 序号件
     /// </summary>
-    public class Installation
+    public class PartPn
     {
+        public string Pn { get; set; }
 
+        public string Description { get; set; }
     }
 }

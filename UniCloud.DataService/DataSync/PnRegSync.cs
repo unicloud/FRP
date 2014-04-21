@@ -23,6 +23,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.DataService.Connection;
+using UniCloud.DataService.DataSync.Model;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 
@@ -41,7 +42,7 @@ namespace UniCloud.DataService.DataSync
         }
 
 
-        public List<PnReg> AmasisDatas { get; protected set; }
+        public IEnumerable<PartPn> AmasisDatas { get; protected set; }
         public List<PnReg> FrpDatas { get; protected set; }
 
         public override void ImportAmasisData()
@@ -57,10 +58,10 @@ namespace UniCloud.DataService.DataSync
         public void GetPnRegFromAmasis()
         {
             const string strSql =
-                "SELECT RTRIM(NMPN) PN,RTRIM(NMDESIGN) DESCRIPTION FROM AMSFCSCVAL.FRNMPF WHERE NMATA <'81' AND NMATA >='70';";
+                "SELECT RTRIM(NMPN) PN,RTRIM(NMDESIGN) DESCRIPTION FROM AMSFCSCVAL.FRNMPF WHERE NMATA <'81' AND NMATA >='70'";
             using (var conn = new Db2Conn(GetDb2Connection()))
             {
-                AmasisDatas = conn.GetSqlDatas<PnReg>(strSql).ToList();
+                AmasisDatas = conn.GetSqlDatas<PartPn>(strSql);
             }
         }
 
@@ -70,10 +71,10 @@ namespace UniCloud.DataService.DataSync
             ImportFrpData();
             if (AmasisDatas.Any())
             {
-                var times = AmasisDatas.Count / Size;
+                var times = AmasisDatas.Count() / Size;
                 for (var i = 0; i < times + 1; i++)
                 {
-                    var count = i == times ? AmasisDatas.Count - i * Size : Size;
+                    var count = i == times ? AmasisDatas.Count() - i * Size : Size;
                     foreach (var pn in AmasisDatas.Skip(i * Size).Take(count))
                     {
                         var dbPn = FrpDatas.FirstOrDefault(p => p.Pn == pn.Pn);
