@@ -219,7 +219,6 @@
                                         </Grid>
                                         <Grid Grid.Row="1">
                                             <telerik:RadDataPager Name="MaintainWorkRadPage"
-                                                                  PageIndex="{Binding Index,Mode=TwoWay}"
                                                                   BorderThickness="1,0,1,1"
                                                                   AutoEllipsisMode="Both"
                                                                   DisplayMode="All"
@@ -313,7 +312,6 @@
                                         </Grid>
                                         <Grid Grid.Row="1">
                                             <telerik:RadDataPager Name="CtrlUnitRadPage"
-                                                                  PageIndex="{Binding SecondIndex,Mode=TwoWay}"
                                                                   BorderThickness="1,0,1,1"
                                                                   AutoEllipsisMode="Both"
                                                                   DisplayMode="All"

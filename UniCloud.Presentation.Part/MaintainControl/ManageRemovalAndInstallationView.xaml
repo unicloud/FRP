@@ -151,7 +151,6 @@
                                 </telerik:RadGridView>
                                 <Grid Row="2">
                                     <telerik:RadDataPager Name="Removal"
-                                                          PageIndex="{Binding Index,Mode=TwoWay}"
                                                           BorderThickness="1,0,1,1"
                                                           AutoEllipsisMode="Both"
                                                           DisplayMode="All"

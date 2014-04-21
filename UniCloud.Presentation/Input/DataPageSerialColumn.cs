@@ -38,7 +38,7 @@ namespace UniCloud.Presentation.Input
             var textBlock = cell.Content as TextBlock ?? new TextBlock();
 
             textBlock.Text = string.Format("{0}",
-                DataControl.Items.IndexOf(dataItem) + 1 + DataPage.PageSize * DataPage.PageIndex);
+                DataControl.Items.IndexOf(dataItem) + 1 + DataControl.Items.PageSize * DataControl.Items.PageIndex);
             textBlock.Foreground = new SolidColorBrush(Colors.Black);
             textBlock.TextAlignment = TextAlignment.Center;
             return textBlock;
