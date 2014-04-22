@@ -211,6 +211,10 @@
       <DependentUpon>ConfigCompareView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EngineConfig\ConfigCompareVm.cs" />
+    <Compile Include="EngineConfig\InSeatAssemblyQueryView.xaml.cs">
+      <DependentUpon>InSeatAssemblyQueryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineConfig\InSeatAssemblyQueryVm.cs" />
     <Compile Include="MaintainAcDailyUtilization\CorrectAcDailyUtilization.xaml.cs">
       <DependentUpon>CorrectAcDailyUtilization.xaml</DependentUpon>
     </Compile>
@@ -301,7 +305,9 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="obj\" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="BaseConfigurations\BaseConfiguration.xaml">
       <SubType>Designer</SubType>
@@ -318,6 +324,10 @@
     <Page Include="EngineConfig\ConfigCompareView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EngineConfig\InSeatAssemblyQueryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MaintainAcDailyUtilization\CorrectAcDailyUtilization.xaml">
       <SubType>Designer</SubType>
