@@ -32,6 +32,7 @@
         <Property Name="EnginePurchaseSupplier" Type="Edm.Boolean" Nullable="false" />
         <Property Name="BFEPurchaseSupplier" Type="Edm.Boolean" Nullable="false" />
         <Property Name="MaintainSupplier" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="OtherSupplier" Type="Edm.Boolean" Nullable="false" />
         <Property Name="BankAccounts" Type="Collection(UniCloud.Application.PurchaseBC.DTO.BankAccountDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="BankAccountDTO">
@@ -66,6 +67,7 @@
         <Property Name="EngineLeaseSupplier" Type="Edm.Boolean" Nullable="false" />
         <Property Name="EnginePurchaseSupplier" Type="Edm.Boolean" Nullable="false" />
         <Property Name="MaintainSupplier" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="OtherSupplier" Type="Edm.Boolean" Nullable="false" />
       </EntityType>
       <EntityType Name="LinkmanDTO">
         <Key>

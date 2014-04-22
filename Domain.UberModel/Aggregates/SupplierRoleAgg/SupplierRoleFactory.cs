@@ -110,5 +110,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg
 
             return maintainSupplier;
         }
+
+        /// <summary>
+        ///     创建其他供应商
+        /// </summary>
+        /// <param name="supplierCompany">供应商公司</param>
+        /// <returns>创建的其他供应商</returns>
+        public static OtherSupplier CreateOtherSupplier(SupplierCompany supplierCompany)
+        {
+            var otherSupplier = new OtherSupplier();
+
+            otherSupplier.SetSupplierCompany(supplierCompany);
+
+            return otherSupplier;
+        }
     }
 }

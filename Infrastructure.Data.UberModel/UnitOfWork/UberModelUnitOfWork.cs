@@ -1156,7 +1156,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new EngineLeaseSupplierEntityConfiguration())
                 .Add(new EnginePurchaseSupplierEntityConfiguration())
                 .Add(new MaintainSupplierEntityConfiguration())
-
+                .Add(new OtherSupplierEntityConfiguration())
                 #endregion
                 
                 #region TradeAgg

@@ -41,6 +41,7 @@
                                     </Grid.RowDefinitions>
                                     <telerik:RadGridView ItemsSource="{Binding SupplierCompanies}"
                                                          AutoGenerateColumns="False"
+                                                         IsReadOnly="True"
                                                          SelectedItem="{Binding SelectedSupplierCompany, Mode=TwoWay}"
                                                          AutoExpandGroups="True"
                                                          ShowGroupPanel="True"
@@ -52,17 +53,14 @@
                                                                      CellStyle="{StaticResource CellStyle}"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="名称"
-                                                                        IsReadOnly="True"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding Name}" />
                                             <telerik:GridViewDataColumn Header="组织机构代码"
-                                                                        IsReadOnly="True"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding Code}" />
                                             <telerik:GridViewDataColumn Header="供应商类型"
-                                                                        IsReadOnly="True"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding SupplierType}" />

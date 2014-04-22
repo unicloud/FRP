@@ -106,6 +106,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public bool MaintainSupplier { get; set; }
 
         /// <summary>
+        /// 其他供应商角色
+        /// </summary>
+        public bool OtherSupplier { get; set; }
+
+        /// <summary>
         /// 供应商账户信息。
         /// </summary>
         public List<BankAccountDTO> BankAccounts { get; set; }

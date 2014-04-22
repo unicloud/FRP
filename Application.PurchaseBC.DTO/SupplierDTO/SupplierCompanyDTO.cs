@@ -99,5 +99,10 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// 维修供应商角色
         /// </summary>
         public bool MaintainSupplier { get; set; }
+
+        /// <summary>
+        /// 其他供应商角色
+        /// </summary>
+        public bool OtherSupplier { get; set; }
     }
 }
