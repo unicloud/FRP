@@ -66,6 +66,8 @@ namespace UniCloud.Presentation.Payment.Invoice
             // 创建并注册CollectionView
             UndercartMaintainInvoices = _service.CreateCollection(_context.UndercartMaintainInvoices, o => o.MaintainInvoiceLines);
             UndercartMaintainInvoices.PageSize = 6;
+            var supplierFilter = new FilterDescriptor("MaintainSupplier", FilterOperator.IsEqualTo, true);
+            Suppliers.FilterDescriptors.Add(supplierFilter);
             _service.RegisterCollectionView(UndercartMaintainInvoices);
         }
 

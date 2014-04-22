@@ -129,8 +129,17 @@
     <Compile Include="Aggregates\PaymentScheduleAgg\PaymentScheduleLine.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\PaymentScheduleSpecifications.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\StandardPaymentSchedule.cs" />
+    <Compile Include="Aggregates\SupplierAgg\AircraftLeaseSupplier.cs" />
+    <Compile Include="Aggregates\SupplierAgg\AircraftPurchaseSupplier.cs" />
+    <Compile Include="Aggregates\SupplierAgg\BFEPurchaseSupplier.cs" />
+    <Compile Include="Aggregates\SupplierAgg\EngineLeaseSupplier.cs" />
+    <Compile Include="Aggregates\SupplierAgg\EnginePurchaseSupplier.cs" />
     <Compile Include="Aggregates\SupplierAgg\ISupplierRepository.cs" />
+    <Compile Include="Aggregates\SupplierAgg\MaintainSupplier.cs" />
+    <Compile Include="Aggregates\SupplierAgg\OtherSupplier.cs" />
     <Compile Include="Aggregates\SupplierAgg\Supplier.cs" />
+    <Compile Include="Aggregates\SupplierAgg\SupplierCompany.cs" />
+    <Compile Include="Aggregates\SupplierAgg\SupplierRole.cs" />
     <Compile Include="Aggregates\SupplierAgg\SupplierSpecifications.cs" />
     <Compile Include="Aggregates\TradeAgg\ITradeRepository.cs" />
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />

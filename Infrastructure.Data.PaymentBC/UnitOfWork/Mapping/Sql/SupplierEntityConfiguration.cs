@@ -41,7 +41,9 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             Property(p => p.CnName).HasColumnName("CnName");
             Property(p => p.IsValid).HasColumnName("IsValid");
             Property(p => p.Note).HasColumnName("Note");
+            Property(p => p.SupplierCompanyId).HasColumnName("SupplierCompanyId");
 
+            HasRequired(s => s.SupplierCompany).WithMany(s => s.Suppliers).HasForeignKey(s => s.SupplierCompanyId);
             HasMany(s => s.BankAccounts).WithRequired().HasForeignKey(b => b.SupplierId);
         }
     }

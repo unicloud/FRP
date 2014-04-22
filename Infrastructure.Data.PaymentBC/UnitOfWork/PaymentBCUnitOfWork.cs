@@ -63,92 +63,97 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
         private IDbSet<PaymentSchedule> _paymentSchedules;
         private IDbSet<Supplier> _suppliers;
         private IDbSet<Trade> _trades;
+        private IDbSet<SupplierRole> _supplierRoles;
 
         public IDbSet<ActionCategory> ActionCategories
         {
-            get { return _actionCategories ?? (_actionCategories = base.Set<ActionCategory>()); }
+            get { return _actionCategories ?? (_actionCategories = Set<ActionCategory>()); }
         }
 
         public IDbSet<AircraftType> AircraftTypes
         {
-            get { return _aircraftTypes ?? (_aircraftTypes = base.Set<AircraftType>()); }
+            get { return _aircraftTypes ?? (_aircraftTypes = Set<AircraftType>()); }
         }
 
         public IDbSet<BankAccount> BankAccounts
         {
-            get { return _bankAccounts ?? (_bankAccounts = base.Set<BankAccount>()); }
+            get { return _bankAccounts ?? (_bankAccounts = Set<BankAccount>()); }
         }
 
         public IDbSet<ContractAircraft> ContractAircrafts
         {
-            get { return _contractAircrafts ?? (_contractAircrafts = base.Set<ContractAircraft>()); }
+            get { return _contractAircrafts ?? (_contractAircrafts = Set<ContractAircraft>()); }
         }
 
         public IDbSet<ContractEngine> ContractEngines
         {
-            get { return _contractEngines ?? (_contractEngines = base.Set<ContractEngine>()); }
+            get { return _contractEngines ?? (_contractEngines = Set<ContractEngine>()); }
         }
 
         public IDbSet<Currency> Currencies
         {
-            get { return _currencies ?? (_currencies = base.Set<Currency>()); }
+            get { return _currencies ?? (_currencies = Set<Currency>()); }
         }
 
         public IDbSet<Guarantee> Guarantees
         {
-            get { return _guarantees ?? (_guarantees = base.Set<Guarantee>()); }
+            get { return _guarantees ?? (_guarantees = Set<Guarantee>()); }
         }
 
         public IDbSet<Invoice> Invoices
         {
-            get { return _invoices ?? (_invoices = base.Set<Invoice>()); }
+            get { return _invoices ?? (_invoices = Set<Invoice>()); }
         }
 
         public IDbSet<Linkman> Linkmen
         {
-            get { return _linkmen ?? (_linkmen = base.Set<Linkman>()); }
+            get { return _linkmen ?? (_linkmen = Set<Linkman>()); }
         }
 
         public IDbSet<MaintainContract> MaintainContracts
         {
-            get { return _maintainContracts ?? (_maintainContracts = base.Set<MaintainContract>()); }
+            get { return _maintainContracts ?? (_maintainContracts = Set<MaintainContract>()); }
         }
 
         public IDbSet<MaintainInvoice> MaintainInvoices
         {
-            get { return _maintainInvoices ?? (_maintainInvoices = base.Set<MaintainInvoice>()); }
+            get { return _maintainInvoices ?? (_maintainInvoices = Set<MaintainInvoice>()); }
         }
 
         public IDbSet<Order> Orders
         {
-            get { return _orders ?? (_orders = base.Set<Order>()); }
+            get { return _orders ?? (_orders = Set<Order>()); }
         }
 
         public IDbSet<Part> Parts
         {
-            get { return _parts ?? (_parts = base.Set<Part>()); }
+            get { return _parts ?? (_parts = Set<Part>()); }
         }
 
         public IDbSet<PaymentNotice> PaymentNotices
         {
-            get { return _paymentNotices ?? (_paymentNotices = base.Set<PaymentNotice>()); }
+            get { return _paymentNotices ?? (_paymentNotices = Set<PaymentNotice>()); }
         }
 
         public IDbSet<PaymentSchedule> PaymentSchedules
         {
-            get { return _paymentSchedules ?? (_paymentSchedules = base.Set<PaymentSchedule>()); }
+            get { return _paymentSchedules ?? (_paymentSchedules = Set<PaymentSchedule>()); }
         }
 
         public IDbSet<Supplier> Suppliers
         {
-            get { return _suppliers ?? (_suppliers = base.Set<Supplier>()); }
+            get { return _suppliers ?? (_suppliers = Set<Supplier>()); }
         }
 
         public IDbSet<Trade> Trades
         {
-            get { return _trades ?? (_trades = base.Set<Trade>()); }
+            get { return _trades ?? (_trades = Set<Trade>()); }
         }
 
+        public IDbSet<SupplierRole> SupplierRoles
+        {
+            get { return _supplierRoles ?? (_supplierRoles = Set<SupplierRole>()); }
+        }
         #endregion
 
         #region DbContext 重载
@@ -185,94 +190,94 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
         {
             modelBuilder.Configurations
 
-                #region ActionCategoryAgg
+            #region ActionCategoryAgg
 
-                .Add(new ActionCategoryEntityConfiguration())
+.Add(new ActionCategoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AircraftTypeAgg
+            #region AircraftTypeAgg
 
-                .Add(new AircraftTypeEntityConfiguration())
+.Add(new AircraftTypeEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region BankAccountAgg
+            #region BankAccountAgg
 
-                .Add(new BankAccountEntityConfiguration())
+.Add(new BankAccountEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ContractAircraftAgg
+            #region ContractAircraftAgg
 
-                .Add(new ContractAircraftEntityConfiguration())
+.Add(new ContractAircraftEntityConfiguration())
                 .Add(new LeaseContractAircraftEntityConfiguration())
                 .Add(new PurchaseContractAircraftEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ContractEngineAgg
+            #region ContractEngineAgg
 
-                .Add(new ContractEngineEntityConfiguration())
+.Add(new ContractEngineEntityConfiguration())
                 .Add(new LeaseContractEngineEntityConfiguration())
                 .Add(new PurchaseContractEngineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region CurrencyAgg
+            #region CurrencyAgg
 
-                .Add(new CurrencyEntityConfiguration())
+.Add(new CurrencyEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region GuaranteeAgg
+            #region GuaranteeAgg
 
-                .Add(new GuaranteeEntityConfiguration())
+.Add(new GuaranteeEntityConfiguration())
                 .Add(new LeaseGuaranteeEntityConfiguration())
                 .Add(new MaintainGuaranteeEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region InvoiceAgg
+            #region InvoiceAgg
 
-                .Add(new InvoiceEntityConfiguration())
+.Add(new InvoiceEntityConfiguration())
                 .Add(new InvoiceLineEntityConfiguration())
                 .Add(new CreditNoteInvoiceEntityConfiguration())
                 .Add(new LeaseInvoiceEntityConfiguration())
                 .Add(new PurchaseInvoiceEntityConfiguration())
                 .Add(new PrepaymentInvoiceEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region LinkmanAgg
+            #region LinkmanAgg
 
-                .Add(new LinkmanEntityConfiguration())
+.Add(new LinkmanEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region MaintainContractAgg
+            #region MaintainContractAgg
 
-                .Add(new MaintainContractEntityConfiguration())
+.Add(new MaintainContractEntityConfiguration())
                 .Add(new APUMaintainContractEntityConfiguration())
                 .Add(new EngineMaintainContractEntityConfiguration())
                 .Add(new UndercartMaintainContractEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region MaintainInvoiceAgg
+            #region MaintainInvoiceAgg
 
-                .Add(new MaintainInvoiceEntityConfiguration())
+.Add(new MaintainInvoiceEntityConfiguration())
                 .Add(new MaintainInvoiceLineEntityConfiguration())
                 .Add(new AirframeMaintainInvoiceEntityConfiguration())
                 .Add(new APUMaintainInvoiceEntityConfiguration())
                 .Add(new EngineMaintainInvoiceEntityConfiguration())
                 .Add(new UndercartMaintainInvoiceEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region OrderAgg
+            #region OrderAgg
 
-                .Add(new OrderEntityConfiguration())
+.Add(new OrderEntityConfiguration())
                 .Add(new OrderLineEntityConfiguration())
                 .Add(new AircraftLeaseOrderEntityConfiguration())
                 .Add(new AircraftLeaseOrderLineEntityConfiguration())
@@ -285,38 +290,50 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
                 .Add(new EnginePurchaseOrderEntityConfiguration())
                 .Add(new EnginePurchaseOrderLineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PartAgg
+            #region PartAgg
 
-                .Add(new PartEntityConfiguration())
+.Add(new PartEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PaymentNoticeAgg
+            #region PaymentNoticeAgg
 
-                .Add(new PaymentNoticeEntityConfiguration())
+.Add(new PaymentNoticeEntityConfiguration())
                 .Add(new PaymentNoticeLineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PaymentScheduleAgg
+            #region PaymentScheduleAgg
 
-                .Add(new PaymentScheduleEntityConfiguration())
+.Add(new PaymentScheduleEntityConfiguration())
                 .Add(new PaymentScheduleLineEntityConfiguration())
                 .Add(new AircraftPaymentScheduleEntityConfiguration())
                 .Add(new EnginePaymentScheduleEntityConfiguration())
                 .Add(new StandardPaymentScheduleEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region TradeAgg
+            #region TradeAgg
 
-                .Add(new TradeEntityConfiguration())
+.Add(new TradeEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                .Add(new SupplierEntityConfiguration());
+            #region
+.Add(new SupplierEntityConfiguration())
+                 .Add(new SupplierRoleEntityConfiguration())
+                .Add(new AircraftLeaseSupplierEntityConfiguration())
+                .Add(new AircraftPurchaseSupplierEntityConfiguration())
+                .Add(new BFEPurchaseSupplierEntityConfiguration())
+                .Add(new EngineLeaseSupplierEntityConfiguration())
+                .Add(new EnginePurchaseSupplierEntityConfiguration())
+                .Add(new MaintainSupplierEntityConfiguration())
+                .Add(new OtherSupplierEntityConfiguration())
+                .Add(new SupplierCompanyEntityConfiguration())
+            #endregion
+;
         }
 
         #endregion
