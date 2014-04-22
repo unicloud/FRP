@@ -388,6 +388,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0-ProjectManagement", "0-ProjectManagement", "{B7800F51-EA0D-410C-8020-C635D31275FF}"
 	ProjectSection(SolutionItems) = preProject
 		项目管理\川航机队管理项目.mpp = 项目管理\川航机队管理项目.mpp
+		机队管理系统剩余工作.xlsx = 机队管理系统剩余工作.xlsx
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3-Reports", "1.3-Reports", "{DA1DE894-566B-4E8C-ACB6-DFD7A3FABA23}"
