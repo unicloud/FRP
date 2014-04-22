@@ -88,8 +88,7 @@
                                                                                 DataMemberBinding="{Binding CSCNumber}" />
                                                 </telerik:RadGridView.Columns>
                                             </telerik:RadGridView>
-                                            <telerik:RadDataPager PageIndex="{Binding Index,Mode=TwoWay}"
-                                                                  BorderThickness="1,0,1,1"
+                                            <telerik:RadDataPager BorderThickness="1,0,1,1"
                                                                   AutoEllipsisMode="Both"
                                                                   DisplayMode="All"
                                                                   Source="{Binding ContractAircraftsView}"
@@ -304,8 +303,7 @@
                                                                                 DataMemberBinding="{Binding RankNumber}" />
                                                 </telerik:RadGridView.Columns>
                                             </telerik:RadGridView>
-                                            <telerik:RadDataPager PageIndex="{Binding SecondIndex,Mode=TwoWay}"
-                                                                  BorderThickness="1,0,1,1"
+                                            <telerik:RadDataPager BorderThickness="1,0,1,1"
                                                                   AutoEllipsisMode="Both"
                                                                   DisplayMode="All"
                                                                   Source="{Binding ContractEnginesView}"
@@ -515,8 +513,7 @@
                                                                                 DataMemberBinding="{Binding Note}" />
                                                 </telerik:RadGridView.Columns>
                                             </telerik:RadGridView>
-                                            <telerik:RadDataPager PageIndex="{Binding ThirdIndex,Mode=TwoWay}"
-                                                                  BorderThickness="1,0,1,1"
+                                            <telerik:RadDataPager BorderThickness="1,0,1,1"
                                                                   AutoEllipsisMode="Both"
                                                                   DisplayMode="All"
                                                                   Source="{Binding StandardOrdersView}"
