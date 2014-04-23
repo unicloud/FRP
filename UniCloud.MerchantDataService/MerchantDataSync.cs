@@ -158,6 +158,7 @@ namespace UniCloud.MerchantDataService
                     {
                         CustCode = odr["CUSTCODE"].ToString(), //odr.GetOracleString(0).ToString(),
                         Address = odr["CUSTNAME"].ToString(), //odr.GetOracleString(1).ToString(),
+                        Name = odr["CUSTNAME"].ToString(),
                         UpdateDate = DateTime.Parse(odr["TS"].ToString()),
                     };
                     if (bankAccount.UpdateDate.CompareTo(bankAccountUpdateTime) > 0)
