@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.UberModel.Aggregates.IssuedUnitAgg;
 using UniCloud.Domain.UberModel.Aggregates.ManagerAgg;
 using UniCloud.Domain.UberModel.Aggregates.ProgrammingAgg;
 
@@ -90,7 +91,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg
         /// <summary>
         ///   发文单位
         /// </summary>
-        public Guid IssuedUnitId { get; private set; }
+        public int IssuedUnitId { get; private set; }
 
         #endregion
 
@@ -103,7 +104,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg
         /// <summary>
         /// 发文单位
         /// </summary>
-        public virtual Manager IssuedUnit { get; private set; }
+        public virtual IssuedUnit IssuedUnit { get; private set; }
 
         /// <summary>
         ///     航空公司五年规划明细
@@ -185,7 +186,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg
         ///     设置发文单位
         /// </summary>
         /// <param name="issuedUnit">发文单位</param>
-        public void SetIssuedUnit(Manager issuedUnit)
+        public void SetIssuedUnit(IssuedUnit issuedUnit)
         {
             if (issuedUnit == null || issuedUnit.IsTransient())
             {

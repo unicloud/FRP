@@ -87,7 +87,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         ///     发文单位
         /// </summary>
-        public Guid IssuedUnitId { get; set; }
+        public int IssuedUnitId { get; set; }
 
         /// <summary>
         ///     文档Id
@@ -95,6 +95,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public Guid DocumentId { get; set; }
 
         #endregion
+
         #region 导航属性
 
         /// <summary>

@@ -70,6 +70,7 @@
     <Compile Include="InitialData\InitialBase\IInitialData.cs" />
     <Compile Include="InitialData\InitialBase\InitialContainer.cs" />
     <Compile Include="InitialData\InitialBase\InitialDataBase.cs" />
+    <Compile Include="InitialData\IssuedUnitData.cs" />
     <Compile Include="InitialData\LicenseTypeData.cs" />
     <Compile Include="InitialData\ManagerData.cs" />
     <Compile Include="InitialData\ManufacturerData.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\InstallControllerEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\InvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\InvoiceLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\IssuedUnitEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ItemEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ItemMaintainCtrlEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\LeaseGuaranteeEntityConfiguration.cs" />

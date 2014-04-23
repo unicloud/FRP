@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.IssuedUnitAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
 
@@ -43,7 +44,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg
         /// <param name="programming">规划期间</param>
         /// <param name="type">规划文档类型</param>
         /// <returns>规划文档</returns>
-        public static ProgrammingFile CreateProgrammingFile(Manager issuedUnit,DateTime? issuedDate,string docNumber,Guid documentId,string docName,Programming programming,int type)
+        public static ProgrammingFile CreateProgrammingFile(IssuedUnit issuedUnit,DateTime? issuedDate,string docNumber,Guid documentId,string docName,Programming programming,int type)
         {
             var programmingFile = new ProgrammingFile
             {

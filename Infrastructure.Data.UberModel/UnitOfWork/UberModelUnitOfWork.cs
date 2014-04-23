@@ -60,6 +60,7 @@ using UniCloud.Domain.UberModel.Aggregates.FunctionItemAgg;
 using UniCloud.Domain.UberModel.Aggregates.GuaranteeAgg;
 using UniCloud.Domain.UberModel.Aggregates.InstallControllerAgg;
 using UniCloud.Domain.UberModel.Aggregates.InvoiceAgg;
+using UniCloud.Domain.UberModel.Aggregates.IssuedUnitAgg;
 using UniCloud.Domain.UberModel.Aggregates.ItemAgg;
 using UniCloud.Domain.UberModel.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
@@ -159,7 +160,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Guarantee> _guarantees;
         private IDbSet<Invoice> _invoices;
         private IDbSet<Item> _items;
-        private IDbSet<InstallController> _installControllers; 
+        private IDbSet<InstallController> _installControllers;
+        private IDbSet<IssuedUnit> _issuedUnits;
         private IDbSet<LicenseType> _licenseTypes;
         private IDbSet<Linkman> _linkmen;
         private IDbSet<MailAddress> _mailAddresses;
@@ -405,6 +407,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<InstallController> InstallControllers
         {
             get { return _installControllers ?? (_installControllers = Set<InstallController>()); }
+        }
+        
+        public IDbSet<IssuedUnit> IssuedUnits
+        {
+            get { return _issuedUnits ?? (_issuedUnits = Set<IssuedUnit>()); }
         }
 
         public IDbSet<Linkman> Linkmen
@@ -906,15 +913,20 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #endregion
 
-                 #region ItemAgg
+                #region ItemAgg
 
                 .Add(new ItemEntityConfiguration())
                 #endregion
 
-                 #region ItemAgg
+                #region InstallControllerAgg
 
                 .Add(new InstallControllerEntityConfiguration())
                 .Add(new DependencyEntityConfiguration())
+                #endregion
+
+                #region IssuedUnitAgg
+
+                .Add(new IssuedUnitEntityConfiguration())
                 #endregion
 
                 #region LinkmanAgg

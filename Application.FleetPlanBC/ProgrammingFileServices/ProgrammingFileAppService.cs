@@ -23,6 +23,7 @@ using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.ProgrammingFileQueries;
+using UniCloud.Domain.FleetPlanBC.Aggregates.IssuedUnitAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg;
@@ -39,15 +40,15 @@ namespace UniCloud.Application.FleetPlanBC.ProgrammingFileServices
     public class ProgrammingFileAppService : ContextBoundObject, IProgrammingFileAppService
     {
         private readonly IProgrammingFileQuery _programmingFileQuery;
-        private readonly IManagerRepository _managerRepository;
+        private readonly IIssuedUnitRepository _issuedUnitRepository;
         private readonly IProgrammingRepository _programmingRepository;
         private readonly IProgrammingFileRepository _programmingFileRepository;
         public ProgrammingFileAppService(IProgrammingFileQuery programmingFileQuery,
-            IManagerRepository managerRepository,IProgrammingRepository programmingRepository,
+            IIssuedUnitRepository issuedUnitRepository, IProgrammingRepository programmingRepository,
             IProgrammingFileRepository programmingFileRepository)
         {
             _programmingFileQuery = programmingFileQuery;
-            _managerRepository = managerRepository;
+            _issuedUnitRepository = issuedUnitRepository;
             _programmingRepository = programmingRepository;
             _programmingFileRepository = programmingFileRepository;
         }
@@ -73,7 +74,7 @@ namespace UniCloud.Application.FleetPlanBC.ProgrammingFileServices
         public void InsertProgrammingFile(ProgrammingFileDTO dto)
         {
             //获取发文单位
-            var issuedUnit = _managerRepository.Get(dto.IssuedUnitId);
+            var issuedUnit = _issuedUnitRepository.Get(dto.IssuedUnitId);
             var programming = _programmingRepository.Get(dto.ProgrammingId);
 
             //创建规划文档
@@ -91,7 +92,7 @@ namespace UniCloud.Application.FleetPlanBC.ProgrammingFileServices
         public void ModifyProgrammingFile(ProgrammingFileDTO dto)
         {
             //获取供应商
-            var issuedUnit = _managerRepository.Get(dto.IssuedUnitId);
+            var issuedUnit = _issuedUnitRepository.Get(dto.IssuedUnitId);
             var programming = _programmingRepository.Get(dto.ProgrammingId);
 
             //获取需要更新的对象

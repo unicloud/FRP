@@ -18,15 +18,15 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.AirProgrammingQueries;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.IssuedUnitAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
 
 #endregion
@@ -41,18 +41,19 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
     public class AirProgrammingAppService : ContextBoundObject, IAirProgrammingAppService
     {
         private readonly IAirProgrammingQuery _airProgrammingQuery;
-        private readonly IAircraftSeriesRepository _aircraftSeriesRepository;
         private readonly IAirProgrammingRepository _airProgrammingRepository;
-        private readonly IManagerRepository _managerRepository;
+        private readonly IAircraftSeriesRepository _aircraftSeriesRepository;
+        private readonly IIssuedUnitRepository _issuedUnitRepository;
         private readonly IProgrammingRepository _programmingRepository;
+
         public AirProgrammingAppService(IAirProgrammingQuery airProgrammingQuery,
-            IAircraftSeriesRepository aircraftSeriesRepository,IAirProgrammingRepository airProgrammingRepository,
-            IManagerRepository managerRepository,IProgrammingRepository programmingRepository)
+            IAircraftSeriesRepository aircraftSeriesRepository, IAirProgrammingRepository airProgrammingRepository,
+            IIssuedUnitRepository issuedUnitRepository, IProgrammingRepository programmingRepository)
         {
             _airProgrammingQuery = airProgrammingQuery;
             _aircraftSeriesRepository = aircraftSeriesRepository;
             _airProgrammingRepository = airProgrammingRepository;
-            _managerRepository = managerRepository;
+            _issuedUnitRepository = issuedUnitRepository;
             _programmingRepository = programmingRepository;
         }
 
@@ -76,12 +77,12 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
         [Insert(typeof (AirProgrammingDTO))]
         public void InsertAirProgramming(AirProgrammingDTO dto)
         {
-            var issuedUnit = _managerRepository.Get(dto.IssuedUnitId);//获取发文单位
-            var programming = _programmingRepository.Get(dto.ProgrammingId);//获取规划期间
+            IssuedUnit issuedUnit = _issuedUnitRepository.Get(dto.IssuedUnitId); //获取发文单位
+            Programming programming = _programmingRepository.Get(dto.ProgrammingId); //获取规划期间
 
             //创建航空公司五年规划
-            var newAirProgramming = AirProgrammingFactory.CreateAirProgramming();
-            newAirProgramming.SetDocument(dto.DocumentId,dto.DocName);
+            AirProgramming newAirProgramming = AirProgrammingFactory.CreateAirProgramming();
+            newAirProgramming.SetDocument(dto.DocumentId, dto.DocName);
             newAirProgramming.SetIssuedDate(dto.IssuedDate);
             newAirProgramming.SetIssuedUnit(issuedUnit);
             newAirProgramming.SetName(dto.Name);
@@ -101,11 +102,11 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
         [Update(typeof (AirProgrammingDTO))]
         public void ModifyAirProgramming(AirProgrammingDTO dto)
         {
-            var issuedUnit = _managerRepository.Get(dto.IssuedUnitId);//获取发文单位
-            var programming = _programmingRepository.Get(dto.ProgrammingId);//获取规划期间
+            IssuedUnit issuedUnit = _issuedUnitRepository.Get(dto.IssuedUnitId); //获取发文单位
+            Programming programming = _programmingRepository.Get(dto.ProgrammingId); //获取规划期间
 
             //获取需要更新的对象
-            var updateAirProgramming = _airProgrammingRepository.Get(dto.Id);
+            AirProgramming updateAirProgramming = _airProgrammingRepository.Get(dto.Id);
 
             if (updateAirProgramming != null)
             {
@@ -118,8 +119,8 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
                 updateAirProgramming.SetProgramming(programming);
 
                 //更新规划行：
-                var dtoAirProgrammingLines = dto.AirProgrammingLines;
-                var airProgrammingLines = updateAirProgramming.AirProgrammingLines;
+                List<AirProgrammingLineDTO> dtoAirProgrammingLines = dto.AirProgrammingLines;
+                ICollection<AirProgrammingLine> airProgrammingLines = updateAirProgramming.AirProgrammingLines;
                 DataHelper.DetailHandle(dtoAirProgrammingLines.ToArray(),
                     airProgrammingLines.ToArray(),
                     c => c.Id, p => p.Id,
@@ -141,14 +142,13 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delAirProgramming = _airProgrammingRepository.Get(dto.Id);
+            AirProgramming delAirProgramming = _airProgrammingRepository.Get(dto.Id);
             //获取需要删除的对象。
             if (delAirProgramming != null)
             {
                 _airProgrammingRepository.DeleteAirProgramming(delAirProgramming); //删除航空公司五年规划。
             }
         }
-
 
         #region 处理公司五年规划行
 
@@ -160,14 +160,13 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
         private void InsertAirProgrammingLine(AirProgramming airProgramming, AirProgrammingLineDTO line)
         {
             //获取
-            var aircraftSeries = _aircraftSeriesRepository.Get(line.AircraftSeriesId);
+            AircraftSeries aircraftSeries = _aircraftSeriesRepository.Get(line.AircraftSeriesId);
 
             // 添加接机行
-            var newAirProgrammingLine =
+            AirProgrammingLine newAirProgrammingLine =
                 airProgramming.AddNewAirProgrammingLine();
             newAirProgrammingLine.SetAircraftSeries(aircraftSeries);
-            newAirProgrammingLine.SetAirProgramming(line.Year,line.BuyNum,line.LeaseNum,line.ExportNum);
-
+            newAirProgrammingLine.SetAirProgramming(line.Year, line.BuyNum, line.LeaseNum, line.ExportNum);
         }
 
         /// <summary>
@@ -178,15 +177,15 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
         private void UpdateAirProgrammingLine(AirProgrammingLineDTO line, AirProgrammingLine airProgrammingLine)
         {
             //获取
-            var aircraftSeries = _aircraftSeriesRepository.Get(line.AircraftSeriesId);
+            AircraftSeries aircraftSeries = _aircraftSeriesRepository.Get(line.AircraftSeriesId);
 
             // 更新订单行
             airProgrammingLine.SetAircraftSeries(aircraftSeries);
             airProgrammingLine.SetAirProgramming(line.Year, line.BuyNum, line.LeaseNum, line.ExportNum);
-            
         }
 
         #endregion
+
         #endregion
     }
 }

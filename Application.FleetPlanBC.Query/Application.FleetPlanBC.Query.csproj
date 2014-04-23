@@ -84,6 +84,8 @@
     <Compile Include="EngineQueries\IEngineQuery.cs" />
     <Compile Include="EngineTypeQueries\EngineTypeQuery.cs" />
     <Compile Include="EngineTypeQueries\IEngineTypeQuery.cs" />
+    <Compile Include="IssuedUnitQueries\IIssuedUnitQuery.cs" />
+    <Compile Include="IssuedUnitQueries\IssuedUnitQuery.cs" />
     <Compile Include="MailAddressQueries\IMailAddressQuery.cs" />
     <Compile Include="MailAddressQueries\MailAddressQuery.cs" />
     <Compile Include="ManagerQueries\IManagerQuery.cs" />

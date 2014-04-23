@@ -146,6 +146,8 @@
     <Compile Include="Aggregates\InvoiceAgg\LeaseInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PrepaymentInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoice.cs" />
+    <Compile Include="Aggregates\IssuedUnitAgg\IssuedUnit.cs" />
+    <Compile Include="Aggregates\IssuedUnitAgg\IssuedUnitFactory.cs" />
     <Compile Include="Aggregates\ItemAgg\Item.cs" />
     <Compile Include="Aggregates\LicenseTypeAgg\LicenseType.cs" />
     <Compile Include="Aggregates\LicenseTypeAgg\LicenseTypeFactory.cs" />

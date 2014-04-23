@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.FleetPlanBC.Aggregates.IssuedUnitAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
 
@@ -90,7 +91,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
         /// <summary>
         ///   发文单位
         /// </summary>
-        public Guid IssuedUnitId { get; private set; }
+        public int IssuedUnitId { get; private set; }
 
         #endregion
 
@@ -103,7 +104,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
         /// <summary>
         /// 发文单位
         /// </summary>
-        public virtual Manager IssuedUnit { get; private set; }
+        public virtual IssuedUnit IssuedUnit { get; private set; }
 
         /// <summary>
         ///     航空公司五年规划明细
@@ -185,9 +186,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
         ///     设置发文单位
         /// </summary>
         /// <param name="issuedUnit">发文单位</param>
-        public void SetIssuedUnit(Manager issuedUnit)
+        public void SetIssuedUnit(IssuedUnit issuedUnit)
         {
-            IssuedUnitId = Guid.Parse("31A9DE51-C207-4A73-919C-21521F17FEF9");
+            if (issuedUnit == null || issuedUnit.IsTransient())
+            {
+                throw new ArgumentException("发文单位Id参数为空！");
+            }
+
+            IssuedUnit = issuedUnit;
+            IssuedUnitId = issuedUnit.Id;
         }
 
         /// <summary>

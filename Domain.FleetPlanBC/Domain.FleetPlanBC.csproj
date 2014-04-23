@@ -114,6 +114,9 @@
     <Compile Include="Aggregates\EngineTypeAgg\EngineType.cs" />
     <Compile Include="Aggregates\EngineTypeAgg\EngineTypeSpecifications.cs" />
     <Compile Include="Aggregates\EngineTypeAgg\IEngineTypeRepository.cs" />
+    <Compile Include="Aggregates\IssuedUnitAgg\IIssuedUnitRepository.cs" />
+    <Compile Include="Aggregates\IssuedUnitAgg\IssuedUnit.cs" />
+    <Compile Include="Aggregates\IssuedUnitAgg\IssuedUnitSpecifications.cs" />
     <Compile Include="Aggregates\MailAddressAgg\IMailAddressRepository.cs" />
     <Compile Include="Aggregates\MailAddressAgg\MailAddress.cs" />
     <Compile Include="Aggregates\MailAddressAgg\MailAddressFactory.cs" />

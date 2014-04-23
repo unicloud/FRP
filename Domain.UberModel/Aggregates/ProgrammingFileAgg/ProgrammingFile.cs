@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UniCloud.Domain.UberModel.Aggregates.IssuedUnitAgg;
 using UniCloud.Domain.UberModel.Aggregates.ManagerAgg;
 using UniCloud.Domain.UberModel.Aggregates.ProgrammingAgg;
 
@@ -56,11 +57,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.ProgrammingFileAgg
         public DateTime? IssuedDate { get; private set; }
 
         /// <summary>
-        ///     发文单位
-        /// </summary>
-        public Guid IssuedUnitId { get; private set; }
-
-        /// <summary>
         ///     规划文号
         /// </summary>
         public string DocNumber { get; private set; }
@@ -77,6 +73,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.ProgrammingFileAgg
         #endregion
 
         #region 外键属性
+
+        /// <summary>
+        ///     发文单位
+        /// </summary>
+        public int IssuedUnitId { get; private set; }
 
         /// <summary>
         ///     规划期间外键
@@ -99,7 +100,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ProgrammingFileAgg
         /// <summary>
         /// 发文单位
         /// </summary>
-        public virtual Manager IssuedUnit { get; private set; }
+        public virtual IssuedUnit IssuedUnit { get; private set; }
 
         #endregion
 
@@ -158,7 +159,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ProgrammingFileAgg
         ///     设置发文单位
         /// </summary>
         /// <param name="issuedUnit">发文单位</param>
-        public void SetIssuedUnit(Manager issuedUnit)
+        public void SetIssuedUnit(IssuedUnit issuedUnit)
         {
             if (issuedUnit == null || issuedUnit.IsTransient())
             {
