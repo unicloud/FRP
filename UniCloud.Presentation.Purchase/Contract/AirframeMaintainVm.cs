@@ -90,6 +90,8 @@ namespace UniCloud.Presentation.Purchase.Contract
             };
 
             Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
+            var supplierFilter = new FilterDescriptor("MaintainSupplier", FilterOperator.IsEqualTo, true);
+            Suppliers.FilterDescriptors.Add(supplierFilter);
         }
 
         #endregion
