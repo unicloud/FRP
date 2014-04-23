@@ -100,6 +100,7 @@
     <Compile Include="SupplierDTO\EnginePurchaseSupplierDTO.cs" />
     <Compile Include="SupplierDTO\LinkmanDTO.cs" />
     <Compile Include="SupplierDTO\MaintainSupplierDTO.cs" />
+    <Compile Include="SupplierDTO\OtherSupplierDTO.cs" />
     <Compile Include="SupplierDTO\SupplierCompanyDTO.cs" />
     <Compile Include="SupplierDTO\SupplierCompanyBFEMaterialDTO.cs" />
     <Compile Include="SupplierDTO\SupplierCompanyAcMaterialDTO.cs" />

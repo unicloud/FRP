@@ -431,7 +431,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
                 .Add(new EngineLeaseSupplierEntityConfiguration())
                 .Add(new EnginePurchaseSupplierEntityConfiguration())
                 .Add(new MaintainSupplierEntityConfiguration())
-
+                .Add(new OtherSupplierEntityConfiguration())
                 #endregion
 
                 #region TradeAgg

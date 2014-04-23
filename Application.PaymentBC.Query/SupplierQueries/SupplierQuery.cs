@@ -38,6 +38,8 @@ namespace UniCloud.Application.PaymentBC.Query.SupplierQueries
         public IQueryable<SupplierDTO> SuppliersQuery(
             QueryBuilder<Supplier> query)
         {
+            var dbSupplierRole = _unitOfWork.CreateSet<SupplierRole>();
+
             return query.ApplyTo(_unitOfWork.CreateSet<Supplier>()).Select(p => new SupplierDTO
                 {
                     SupplierId = p.Id,
@@ -45,6 +47,36 @@ namespace UniCloud.Application.PaymentBC.Query.SupplierQueries
                     IsValid = p.IsValid,
                     Code = p.Code,
                     Note = p.Note,
+                    SuppierCompanyId = p.SupplierCompanyId,
+                    AircraftLeaseSupplier =
+                        dbSupplierRole.OfType<AircraftLeaseSupplier>()
+                            .Any(c => c.SupplierCompanyId == p.Id),
+                    AircraftPurchaseSupplier =
+                        dbSupplierRole.OfType<AircraftPurchaseSupplier>()
+                            .Any(
+                                c =>
+                                    c.SupplierCompanyId == p.Id),
+                    EngineLeaseSupplier =
+                        dbSupplierRole.OfType<EngineLeaseSupplier>()
+                            .Any(
+                                c =>
+                                    c.SupplierCompanyId == p.Id),
+                    EnginePurchaseSupplier =
+                        dbSupplierRole.OfType<EnginePurchaseSupplier>()
+                            .Any(
+                                c =>
+                                    c.SupplierCompanyId == p.Id),
+                    BFEPurchaseSupplier =
+                        dbSupplierRole.OfType<BFEPurchaseSupplier>()
+                            .Any(
+                                c =>
+                                    c.SupplierCompanyId == p.Id),
+                    MaintainSupplier = dbSupplierRole.OfType<MaintainSupplier>()
+                        .Any(
+                            c =>
+                                c.SupplierCompanyId == p.Id),
+                    OtherSupplier = dbSupplierRole.OfType<OtherSupplier>()
+                        .Any(c => c.SupplierCompanyId == p.Id),
                     BankAccounts = p.BankAccounts.Select(c => new BankAccountDTO
                         {
                             Account = c.Account,

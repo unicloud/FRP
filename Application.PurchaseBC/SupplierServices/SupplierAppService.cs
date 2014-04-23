@@ -159,6 +159,16 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                     if (maintainPurchaseSupplier != null) return;
                     var newMaintainPurchaseSupplier = SupplierRoleFactory.CreateMaintainSupplier(supplierCmy);
                     _supplierRoleRepository.Add(newMaintainPurchaseSupplier);
+                })
+                //新增其他角色
+                .If(p => p.OtherSupplier, p =>
+                {
+                    var otherSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(OtherSupplier),
+                            p.SupplierCompanyId);
+                    if (otherSupplier != null) return;
+                    var newOtherSupplier = SupplierRoleFactory.CreateOtherSupplier(supplierCmy);
+                    _supplierRoleRepository.Add(newOtherSupplier);
                 });
         }
 
@@ -235,6 +245,17 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                     if (maintainSupplierPurchaseSupplier != null)
                     {
                         _supplierRoleRepository.Remove(maintainSupplierPurchaseSupplier);
+                    }
+                })
+                //删除其他供应商角色
+                .If(p => !p.OtherSupplier, p =>
+                {
+                    var otherSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(OtherSupplier),
+                            p.SupplierCompanyId);
+                    if (otherSupplier != null)
+                    {
+                        _supplierRoleRepository.Remove(otherSupplier);
                     }
                 });
         }

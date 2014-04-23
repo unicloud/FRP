@@ -147,6 +147,7 @@
     <Compile Include="Aggregates\SupplierRoleAgg\EnginePurchaseSupplier.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\ISupplierRoleRepository.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\MaintainSupplier.cs" />
+    <Compile Include="Aggregates\SupplierRoleAgg\OtherSupplier.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\SupplierRole.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\SupplierRoleFactory.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\SupplierRoleSpecifications.cs" />

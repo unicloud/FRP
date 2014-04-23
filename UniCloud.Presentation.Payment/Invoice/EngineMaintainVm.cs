@@ -63,6 +63,8 @@ namespace UniCloud.Presentation.Payment.Invoice
             // 创建并注册CollectionView
             EngineMaintainInvoices = _service.CreateCollection(_context.EngineMaintainInvoices, o => o.MaintainInvoiceLines);
             EngineMaintainInvoices.PageSize = 6;
+            var supplierFilter = new FilterDescriptor("MaintainSupplier", FilterOperator.IsEqualTo, true);
+            Suppliers.FilterDescriptors.Add(supplierFilter);
             _service.RegisterCollectionView(EngineMaintainInvoices);
         }
 

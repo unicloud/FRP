@@ -72,9 +72,13 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Repositories
                 role =
                     GetAll().OfType<BFEPurchaseSupplier>().FirstOrDefault(p => p.SupplierCompanyId == supplierCmpyId);
             }
-            else
+            else if (type == typeof(MaintainSupplier))
             {
                 role = GetAll().OfType<MaintainSupplier>().FirstOrDefault(p => p.SupplierCompanyId == supplierCmpyId);
+            }
+            else
+            {
+                role = GetAll().OfType<OtherSupplier>().FirstOrDefault(p => p.SupplierCompanyId == supplierCmpyId);
             }
             return role;
         }

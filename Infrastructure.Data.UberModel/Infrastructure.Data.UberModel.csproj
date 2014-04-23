@@ -214,6 +214,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\OrganizationEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrganizationRoleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrganizationUserEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\OtherSupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OwnershipHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PartEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PaymentNoticeEntityConfiguration.cs" />
