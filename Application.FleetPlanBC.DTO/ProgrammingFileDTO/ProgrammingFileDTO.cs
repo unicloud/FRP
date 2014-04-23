@@ -52,7 +52,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         ///     发文单位
         /// </summary>
-        public Guid IssuedUnitId { get; set; }
+        public int IssuedUnitId { get; set; }
 
         /// <summary>
         ///     规划文号

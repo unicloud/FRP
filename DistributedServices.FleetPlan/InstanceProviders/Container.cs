@@ -22,6 +22,7 @@ using UniCloud.Application.FleetPlanBC.CaacProgrammingServices;
 using UniCloud.Application.FleetPlanBC.EnginePlanServices;
 using UniCloud.Application.FleetPlanBC.EngineServices;
 using UniCloud.Application.FleetPlanBC.EngineTypeServices;
+using UniCloud.Application.FleetPlanBC.IssuedUnitServices;
 using UniCloud.Application.FleetPlanBC.MailAddressServices;
 using UniCloud.Application.FleetPlanBC.ManagerServices;
 using UniCloud.Application.FleetPlanBC.ManufacturerServices;
@@ -45,6 +46,7 @@ using UniCloud.Application.FleetPlanBC.Query.CaacProgrammingQueries;
 using UniCloud.Application.FleetPlanBC.Query.EnginePlanQueries;
 using UniCloud.Application.FleetPlanBC.Query.EngineQueries;
 using UniCloud.Application.FleetPlanBC.Query.EngineTypeQueries;
+using UniCloud.Application.FleetPlanBC.Query.IssuedUnitQueries;
 using UniCloud.Application.FleetPlanBC.Query.MailAddressQueries;
 using UniCloud.Application.FleetPlanBC.Query.ManagerQueries;
 using UniCloud.Application.FleetPlanBC.Query.ManufacturerQueries;
@@ -76,6 +78,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.IssuedUnitAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg;
@@ -223,6 +226,13 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IMailAddressQuery, MailAddressQuery>()
                 .RegisterType<IMailAddressAppService, MailAddressAppService>()
                 .RegisterType<IMailAddressRepository, MailAddressRepository>()
+                #endregion
+
+                #region 发文单位相关配置，包括查询，应用服务，仓储注册
+
+                .RegisterType<IIssuedUnitQuery, IssuedUnitQuery>()
+                .RegisterType<IIssuedUnitAppService, IssuedUnitAppService>()
+                .RegisterType<IIssuedUnitRepository, IssuedUnitRepository>()
                 #endregion
 
                 #region 管理者相关配置，包括查询，应用服务，仓储注册

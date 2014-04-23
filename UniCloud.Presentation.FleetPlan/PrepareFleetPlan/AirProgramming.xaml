@@ -135,6 +135,13 @@
                                                                         SelectedValueMemberPath="Id"
                                                                         EditorStyle="{StaticResource EditComboBox}"
                                                                         UniqueName="ProgrammingNameForAir" />
+                                        <telerik:GridViewComboBoxColumn Header="发文单位"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.IssuedUnits, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        DisplayMemberPath="CnName"
+                                                                        DataMemberBinding="{Binding IssuedUnitId,Mode=TwoWay}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewDataColumn Header="发文日期"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding IssuedDate, StringFormat={StaticResource DateStringFormat}}" />
@@ -187,7 +194,7 @@
                                                ToolTipService.ToolTip="移除规划明细" />
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
-                                <telerik:RadGridView x:Name="Lines"
+                                <telerik:RadGridView x:Name="AirProgrammingLines"
                                                      ShowGroupPanel="False"
                                                      AutoExpandGroups="True"
                                                      Grid.Row="1"
@@ -210,18 +217,20 @@
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=SelAirProgramming.AirProgrammingLines, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=AirProgrammingLines, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=SelAirProgramming.AirProgrammingLines, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=AirProgrammingLines, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
-                                        <telerik:GridViewDataColumn Header="年份"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding Year}" />
+                                        <telerik:GridViewComboBoxColumn Header="年份"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSourceBinding="{Binding DataContext.Years,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        DataMemberBinding="{Binding Year,Mode=TwoWay}"
+                                                                        EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewComboBoxColumn Header="系列"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         ItemsSource="{Binding DataContext.AircraftSeries, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
@@ -351,7 +360,7 @@
                                                                         UniqueName="ProgrammingNameForFile" />
                                         <telerik:GridViewComboBoxColumn Header="发文单位"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.Managers, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.IssuedUnits, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                         DisplayMemberPath="CnName"
                                                                         DataMemberBinding="{Binding IssuedUnitId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"

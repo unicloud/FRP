@@ -94,6 +94,7 @@
     <Compile Include="EnginePlanDTO\EnginePlanDTO.cs" />
     <Compile Include="EnginePlanDTO\EnginePlanHistoryDTO.cs" />
     <Compile Include="EngineTypeDTO\EngineTypeDTO.cs" />
+    <Compile Include="IssuedUnitDTO\IssuedUnitDTO.cs" />
     <Compile Include="MailAddressDTO\MailAddressDTO.cs" />
     <Compile Include="ManagerDTO\ManagerDTO.cs" />
     <Compile Include="ManufacturerDTO\ManufacturerDTO.cs" />

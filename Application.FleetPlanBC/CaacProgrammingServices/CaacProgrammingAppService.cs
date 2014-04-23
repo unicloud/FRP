@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
@@ -25,7 +26,7 @@ using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.CaacProgrammingQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.IssuedUnitAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
 
 #endregion
@@ -36,24 +37,24 @@ namespace UniCloud.Application.FleetPlanBC.CaacProgrammingServices
     ///     实现民航局五年规划服务接口。
     ///     用于处理民航局五年规划相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class CaacProgrammingAppService : ContextBoundObject, ICaacProgrammingAppService
     {
-        private readonly ICaacProgrammingQuery _caacProgrammingQuery;
         private readonly IAircraftCategoryRepository _aircraftCategoryRepository;
+        private readonly ICaacProgrammingQuery _caacProgrammingQuery;
         private readonly ICaacProgrammingRepository _caacProgrammingRepository;
-        private readonly IManagerRepository _managerRepository;
+        private readonly IIssuedUnitRepository _issuedUnitRepository;
         private readonly IProgrammingRepository _programmingRepository;
 
         public CaacProgrammingAppService(ICaacProgrammingQuery caacProgrammingQuery,
             IAircraftCategoryRepository aircraftCategoryRepository,
             ICaacProgrammingRepository caacProgrammingRepository,
-            IManagerRepository managerRepository, IProgrammingRepository programmingRepository)
+            IIssuedUnitRepository issuedUnitRepository, IProgrammingRepository programmingRepository)
         {
             _caacProgrammingQuery = caacProgrammingQuery;
             _aircraftCategoryRepository = aircraftCategoryRepository;
             _caacProgrammingRepository = caacProgrammingRepository;
-            _managerRepository = managerRepository;
+            _issuedUnitRepository = issuedUnitRepository;
             _programmingRepository = programmingRepository;
         }
 
@@ -75,14 +76,14 @@ namespace UniCloud.Application.FleetPlanBC.CaacProgrammingServices
         ///     新增民航局五年规划。
         /// </summary>
         /// <param name="dto">民航局五年规划DTO。</param>
-        [Insert(typeof(CaacProgrammingDTO))]
+        [Insert(typeof (CaacProgrammingDTO))]
         public void InsertCaacProgramming(CaacProgrammingDTO dto)
         {
-            var issuedUnit = _managerRepository.Get(dto.IssuedUnitId);//获取发文单位
-            var programming = _programmingRepository.Get(dto.ProgrammingId);//获取规划期间
+            IssuedUnit issuedUnit = _issuedUnitRepository.Get(dto.IssuedUnitId); //获取发文单位
+            Programming programming = _programmingRepository.Get(dto.ProgrammingId); //获取规划期间
 
             //创建民航局五年规划
-            var newCaacProgramming = CaacProgrammingFactory.CreateCaacProgramming();
+            CaacProgramming newCaacProgramming = CaacProgrammingFactory.CreateCaacProgramming();
             newCaacProgramming.SetDocument(dto.DocumentId, dto.DocName);
             newCaacProgramming.SetIssuedDate(dto.IssuedDate);
             newCaacProgramming.SetIssuedUnit(issuedUnit);
@@ -101,14 +102,14 @@ namespace UniCloud.Application.FleetPlanBC.CaacProgrammingServices
         ///     更新民航局五年规划。
         /// </summary>
         /// <param name="dto">民航局五年规划DTO。</param>
-        [Update(typeof(CaacProgrammingDTO))]
+        [Update(typeof (CaacProgrammingDTO))]
         public void ModifyCaacProgramming(CaacProgrammingDTO dto)
         {
-            var issuedUnit = _managerRepository.Get(dto.IssuedUnitId);//获取发文单位
-            var programming = _programmingRepository.Get(dto.ProgrammingId);//获取规划期间
+            IssuedUnit issuedUnit = _issuedUnitRepository.Get(dto.IssuedUnitId); //获取发文单位
+            Programming programming = _programmingRepository.Get(dto.ProgrammingId); //获取规划期间
 
             //获取需要更新的对象
-            var updateCaacProgramming = _caacProgrammingRepository.Get(dto.Id);
+            CaacProgramming updateCaacProgramming = _caacProgrammingRepository.Get(dto.Id);
 
             if (updateCaacProgramming != null)
             {
@@ -122,8 +123,8 @@ namespace UniCloud.Application.FleetPlanBC.CaacProgrammingServices
                 updateCaacProgramming.SetDocNumber(dto.DocNumber);
 
                 //更新规划行：
-                var dtoCaacProgrammingLines = dto.CaacProgrammingLines;
-                var caacProgrammingLines = updateCaacProgramming.CaacProgrammingLines;
+                List<CaacProgrammingLineDTO> dtoCaacProgrammingLines = dto.CaacProgrammingLines;
+                ICollection<CaacProgrammingLine> caacProgrammingLines = updateCaacProgramming.CaacProgrammingLines;
                 DataHelper.DetailHandle(dtoCaacProgrammingLines.ToArray(),
                     caacProgrammingLines.ToArray(),
                     c => c.Id, p => p.Id,
@@ -138,21 +139,20 @@ namespace UniCloud.Application.FleetPlanBC.CaacProgrammingServices
         ///     删除民航局五年规划。
         /// </summary>
         /// <param name="dto">民航局五年规划DTO。</param>
-        [Delete(typeof(CaacProgrammingDTO))]
+        [Delete(typeof (CaacProgrammingDTO))]
         public void DeleteCaacProgramming(CaacProgrammingDTO dto)
         {
             if (dto == null)
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delCaacProgramming = _caacProgrammingRepository.Get(dto.Id);
+            CaacProgramming delCaacProgramming = _caacProgrammingRepository.Get(dto.Id);
             //获取需要删除的对象。
             if (delCaacProgramming != null)
             {
                 _caacProgrammingRepository.DeleteCaacProgramming(delCaacProgramming); //删除民航局五年规划。
             }
         }
-
 
         #region 处理公司五年规划行
 
@@ -164,14 +164,13 @@ namespace UniCloud.Application.FleetPlanBC.CaacProgrammingServices
         private void InsertCaacProgrammingLine(CaacProgramming caacProgramming, CaacProgrammingLineDTO line)
         {
             //获取
-            var aircraftCategory = _aircraftCategoryRepository.Get(line.AircraftCategoryId);
+            AircraftCategory aircraftCategory = _aircraftCategoryRepository.Get(line.AircraftCategoryId);
 
             // 添加接机行
-            var newCaacProgrammingLine =
+            CaacProgrammingLine newCaacProgrammingLine =
                 caacProgramming.AddNewCaacProgrammingLine();
             newCaacProgrammingLine.SetAircraftCategory(aircraftCategory);
             newCaacProgrammingLine.SetCaacProgramming(line.Year, line.Number);
-
         }
 
         /// <summary>
@@ -182,12 +181,11 @@ namespace UniCloud.Application.FleetPlanBC.CaacProgrammingServices
         private void UpdateCaacProgrammingLine(CaacProgrammingLineDTO line, CaacProgrammingLine caacProgrammingLine)
         {
             //获取
-            var aircraftCategory = _aircraftCategoryRepository.Get(line.AircraftCategoryId);
+            AircraftCategory aircraftCategory = _aircraftCategoryRepository.Get(line.AircraftCategoryId);
 
             // 更新订单行
             caacProgrammingLine.SetAircraftCategory(aircraftCategory);
             caacProgrammingLine.SetCaacProgramming(line.Year, line.Number);
-
         }
 
         #endregion

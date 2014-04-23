@@ -60,6 +60,8 @@
     <Compile Include="AircraftPlanHistoryServices\PlanHistoryAppService.cs" />
     <Compile Include="CAACAircraftTypeServices\CAACAircraftTypeAppService.cs" />
     <Compile Include="CAACAircraftTypeServices\ICAACAircraftTypeAppService.cs" />
+    <Compile Include="IssuedUnitServices\IIssuedUnitAppService.cs" />
+    <Compile Include="IssuedUnitServices\IssuedUnitAppService.cs" />
     <Compile Include="ProgrammingFileServices\IProgrammingFileAppService.cs" />
     <Compile Include="ProgrammingFileServices\ProgrammingFileAppService.cs" />
     <Compile Include="RequestServices\RequestAppService.cs" />

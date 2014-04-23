@@ -23,6 +23,7 @@ using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.EnginePlanServices;
 using UniCloud.Application.FleetPlanBC.EngineServices;
 using UniCloud.Application.FleetPlanBC.EngineTypeServices;
+using UniCloud.Application.FleetPlanBC.IssuedUnitServices;
 using UniCloud.Application.FleetPlanBC.MailAddressServices;
 using UniCloud.Application.FleetPlanBC.ManagerServices;
 using UniCloud.Application.FleetPlanBC.ManufacturerServices;
@@ -59,6 +60,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         private readonly IEngineAppService _engineAppService;
         private readonly IEnginePlanAppService _enginePlanAppService;
         private readonly IEngineTypeAppService _engineTypeAppService;
+        private readonly IIssuedUnitAppService _issuedUnitAppService;
         private readonly IMailAddressAppService _mailAddressAppService;
         private readonly IManagerAppService _managerAppService;
         private readonly IManufacturerAppService _manufacturerAppService;
@@ -90,6 +92,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             _engineAppService = DefaultContainer.Resolve<IEngineAppService>();
             _enginePlanAppService = DefaultContainer.Resolve<IEnginePlanAppService>();
             _engineTypeAppService = DefaultContainer.Resolve<IEngineTypeAppService>();
+            _issuedUnitAppService = DefaultContainer.Resolve<IIssuedUnitAppService>();
             _mailAddressAppService = DefaultContainer.Resolve<IMailAddressAppService>();
             _managerAppService = DefaultContainer.Resolve<IManagerAppService>();
             _manufacturerAppService = DefaultContainer.Resolve<IManufacturerAppService>();
@@ -119,7 +122,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             }
         }
 
-        #endregion
+        #endregion   
 
         #region 飞机配置
 
@@ -308,6 +311,18 @@ namespace UniCloud.DistributedServices.FleetPlan
         public IQueryable<MailAddressDTO> MailAddresses
         {
             get { return _mailAddressAppService.GetMailAddresses(); }
+        }
+
+        #endregion
+        
+        #region 发文单位
+
+        /// <summary>
+        ///     发文单位集合
+        /// </summary>
+        public IQueryable<IssuedUnitDTO> IssuedUnits
+        {
+            get { return GetStaticData("issuedUnitFleetPlan", () => _issuedUnitAppService.GetIssuedUnits()); }
         }
 
         #endregion

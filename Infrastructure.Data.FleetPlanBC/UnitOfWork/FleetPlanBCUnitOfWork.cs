@@ -35,6 +35,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.IssuedUnitAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg;
@@ -70,6 +71,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         private IDbSet<EnginePlan> _enginePlans;
         private IDbSet<EngineType> _engineTypes;
         private IDbSet<Engine> _engines;
+        private IDbSet<IssuedUnit> _issuedUnits; 
         private IDbSet<MailAddress> _mailAddresses;
         private IDbSet<Manager> _managers;
         private IDbSet<Manufacturer> _manufacturers;
@@ -156,6 +158,11 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         public IDbSet<EngineType> EngineTypes
         {
             get { return _engineTypes ?? (_engineTypes = base.Set<EngineType>()); }
+        }
+
+        public IDbSet<IssuedUnit> IssuedUnits
+        {
+            get { return _issuedUnits ?? (_issuedUnits = base.Set<IssuedUnit>()); }
         }
 
         public IDbSet<MailAddress> MailAddresses
@@ -358,6 +365,11 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
 
                 .Add(new EngineTypeEntityConfiguration())
 
+                #endregion
+                 
+                #region IssuedUnitAgg
+
+                .Add(new IssuedUnitEntityConfiguration())
                 #endregion
 
                 #region MailAddressAgg

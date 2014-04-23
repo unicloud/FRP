@@ -17,15 +17,15 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.GridView;
 using Telerik.Windows.Data;
-using Telerik.Windows.Controls.DataServices;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -35,7 +35,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof(AirProgrammingVM))]
+    [Export(typeof (AirProgrammingVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AirProgrammingVM : EditViewModelBase
     {
@@ -64,24 +64,24 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            var sort = new SortDescriptor { Member = "CreateDate", SortDirection = ListSortDirection.Ascending };
-            var group = new GroupDescriptor { Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending };
+            var sort = new SortDescriptor {Member = "CreateDate", SortDirection = ListSortDirection.Ascending};
+            var group = new GroupDescriptor {Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending};
             AirProgrammings = _service.CreateCollection(_context.AirProgrammings, o => o.AirProgrammingLines);
             AirProgrammings.SortDescriptors.Add(sort);
             AirProgrammings.GroupDescriptors.Add(group);
-            _service.RegisterCollectionView(AirProgrammings);//注册查询集合
+            _service.RegisterCollectionView(AirProgrammings); //注册查询集合
 
             ProgrammingFiles = _service.CreateCollection(_context.ProgrammingFiles);
             ProgrammingFiles.FilterDescriptors.Add(new FilterDescriptor("Type", FilterOperator.IsEqualTo, 2));
             ProgrammingFiles.SortDescriptors.Add(sort);
             ProgrammingFiles.GroupDescriptors.Add(group);
-            _service.RegisterCollectionView(ProgrammingFiles);//注册查询集合
+            _service.RegisterCollectionView(ProgrammingFiles); //注册查询集合
 
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
 
             AircraftSeries = new QueryableDataServiceCollectionView<AircraftSeriesDTO>(_context, _context.AircraftSeries);
 
-            Managers = new QueryableDataServiceCollectionView<ManagerDTO>(_context, _context.Managers);
+            IssuedUnits = new QueryableDataServiceCollectionView<IssuedUnitDTO>(_context, _context.IssuedUnits);
         }
 
         /// <summary>
@@ -103,6 +103,38 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #region 数据
 
         #region 公共属性
+
+        #region 年度集合
+
+        /// <summary>
+        ///     年度集合
+        /// </summary>
+        public List<int> Years
+        {
+            get
+            {
+                return new List<int>
+                {
+                    2011,
+                    2012,
+                    2013,
+                    2014,
+                    2015,
+                    2016,
+                    2017,
+                    2018,
+                    2019,
+                    2020,
+                    2021,
+                    2022,
+                    2023,
+                    2024,
+                    2025
+                };
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -129,7 +161,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
             Programmings.AutoLoad = true;
             AircraftSeries.AutoLoad = true;
-            Managers.AutoLoad = true;
+            IssuedUnits.AutoLoad = true;
         }
 
         #region 业务
@@ -175,7 +207,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// <summary>
         ///     发文单位集合
         /// </summary>
-        public QueryableDataServiceCollectionView<ManagerDTO> Managers { get; set; }
+        public QueryableDataServiceCollectionView<IssuedUnitDTO> IssuedUnits { get; set; }
 
         #endregion
 
@@ -398,15 +430,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     DocumentId = doc.DocumentId,
                     CreateDate = DateTime.Now,
                     IssuedDate = DateTime.Now,
-                    Type = 2,//1-表示民航规划文档，2--表示川航规划文档
+                    Type = 2, //1-表示民航规划文档，2--表示川航规划文档
                 };
                 if (SelAirProgramming != null)
                     programmingFile.ProgrammingId = SelAirProgramming.ProgrammingId;
 
                 ProgrammingFiles.AddNew(programmingFile);
             }
-
         }
+
         #endregion
 
         #region 添加规划关联文档
@@ -453,18 +485,18 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var gridView = sender as RadGridView;
             if (gridView != null)
             {
-                var cell = gridView.CurrentCell;
+                GridViewCell cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "ProgrammingNameForAir"))
                 {
-                    var value = SelAirProgramming.ProgrammingId;
-                    var programming = Programmings.FirstOrDefault(p => p.Id == value);
+                    Guid value = SelAirProgramming.ProgrammingId;
+                    ProgrammingDTO programming = Programmings.FirstOrDefault(p => p.Id == value);
                     if (programming != null)
                         SelAirProgramming.ProgrammingName = programming.Name;
                 }
                 else if (string.Equals(cell.Column.UniqueName, "ProgrammingNameForFile"))
                 {
-                    var value = SelProgrammingFile.ProgrammingId;
-                    var programming = Programmings.FirstOrDefault(p => p.Id == value);
+                    Guid value = SelProgrammingFile.ProgrammingId;
+                    ProgrammingDTO programming = Programmings.FirstOrDefault(p => p.Id == value);
                     if (programming != null)
                         SelProgrammingFile.ProgrammingName = programming.Name;
                 }

@@ -53,6 +53,7 @@
     <Compile Include="Repositories\AircraftConfigurationRepository.cs" />
     <Compile Include="Repositories\AircraftSeriesRepository.cs" />
     <Compile Include="Repositories\CAACAircraftTypeRepository.cs" />
+    <Compile Include="Repositories\IssuedUnitRepository.cs" />
     <Compile Include="Repositories\PlanHistoryRepository.cs" />
     <Compile Include="Repositories\ProgrammingFileRepository.cs" />
     <Compile Include="UnitOfWork\FleetPlanBCUnitOfWork.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\EnginePlanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EnginePlanHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineTypeEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\IssuedUnitEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MailAddressEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ManagerEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ManufacturerEntityConfiguration.cs" />

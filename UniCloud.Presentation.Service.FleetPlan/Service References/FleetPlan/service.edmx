@@ -159,7 +159,7 @@
         <Property Name="ProgrammingName" Type="Edm.String" />
         <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="IssuedUnitId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="IssuedUnitId" Type="Edm.Int32" Nullable="false" />
         <Property Name="AirProgrammingLines" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.AirProgrammingLineDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="AirProgrammingLineDTO">
@@ -220,7 +220,7 @@
         <Property Name="DocName" Type="Edm.String" />
         <Property Name="ProgrammingName" Type="Edm.String" />
         <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="IssuedUnitId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="IssuedUnitId" Type="Edm.Int32" Nullable="false" />
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
         <Property Name="CaacProgrammingLines" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingLineDTO)" Nullable="false" />
       </EntityType>
@@ -322,6 +322,15 @@
         <Property Name="StartTLS" Type="Edm.Boolean" Nullable="false" />
         <Property Name="ReceiveSSL" Type="Edm.Boolean" Nullable="false" />
         <Property Name="ServerType" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="IssuedUnitDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CnName" Type="Edm.String" />
+        <Property Name="CnShortName" Type="Edm.String" />
+        <Property Name="IsInner" Type="Edm.Boolean" Nullable="false" />
       </EntityType>
       <EntityType Name="ManagerDTO">
         <Key>
@@ -489,7 +498,7 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="IssuedDate" Type="Edm.DateTime" />
-        <Property Name="IssuedUnitId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="IssuedUnitId" Type="Edm.Int32" Nullable="false" />
         <Property Name="DocNumber" Type="Edm.String" />
         <Property Name="DocName" Type="Edm.String" />
         <Property Name="Type" Type="Edm.Int32" Nullable="false" />
@@ -606,6 +615,7 @@
         <EntitySet Name="EnginePlans" EntityType="UniCloud.Application.FleetPlanBC.DTO.EnginePlanDTO" />
         <EntitySet Name="EngineTypes" EntityType="UniCloud.Application.FleetPlanBC.DTO.EngineTypeDTO" />
         <EntitySet Name="MailAddresses" EntityType="UniCloud.Application.FleetPlanBC.DTO.MailAddressDTO" />
+        <EntitySet Name="IssuedUnits" EntityType="UniCloud.Application.FleetPlanBC.DTO.IssuedUnitDTO" />
         <EntitySet Name="Managers" EntityType="UniCloud.Application.FleetPlanBC.DTO.ManagerDTO" />
         <EntitySet Name="Manufacturers" EntityType="UniCloud.Application.FleetPlanBC.DTO.ManufacturerDTO" />
         <EntitySet Name="Plans" EntityType="UniCloud.Application.FleetPlanBC.DTO.PlanDTO" />

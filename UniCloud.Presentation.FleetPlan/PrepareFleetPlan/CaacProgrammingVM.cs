@@ -17,12 +17,14 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.GridView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
@@ -33,7 +35,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof(CaacProgrammingVM))]
+    [Export(typeof (CaacProgrammingVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class CaacProgrammingVM : EditViewModelBase
     {
@@ -62,26 +64,26 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            var sort = new SortDescriptor { Member = "CreateDate", SortDirection = ListSortDirection.Ascending };
-            var group = new GroupDescriptor { Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending };
+            var sort = new SortDescriptor {Member = "CreateDate", SortDirection = ListSortDirection.Ascending};
+            var group = new GroupDescriptor {Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending};
 
-            CaacProgrammings = _service.CreateCollection(_context.CaacProgrammings,o=>o.CaacProgrammingLines);
+            CaacProgrammings = _service.CreateCollection(_context.CaacProgrammings, o => o.CaacProgrammingLines);
             CaacProgrammings.SortDescriptors.Add(sort);
             CaacProgrammings.GroupDescriptors.Add(group);
-            _service.RegisterCollectionView(CaacProgrammings);//注册查询集合
+            _service.RegisterCollectionView(CaacProgrammings); //注册查询集合
 
             ProgrammingFiles = _service.CreateCollection(_context.ProgrammingFiles);
             ProgrammingFiles.SortDescriptors.Add(sort);
             ProgrammingFiles.GroupDescriptors.Add(group);
             ProgrammingFiles.FilterDescriptors.Add(new FilterDescriptor("Type", FilterOperator.IsEqualTo, 1));
-            _service.RegisterCollectionView(ProgrammingFiles);//注册查询集合
+            _service.RegisterCollectionView(ProgrammingFiles); //注册查询集合
 
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
 
             AircraftCategories = new QueryableDataServiceCollectionView<AircraftCategoryDTO>(_context,
                 _context.AircraftCategories);
 
-            Managers = new QueryableDataServiceCollectionView<ManagerDTO>(_context, _context.Managers);
+            IssuedUnits = new QueryableDataServiceCollectionView<IssuedUnitDTO>(_context, _context.IssuedUnits);
         }
 
         /// <summary>
@@ -95,7 +97,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
             AddDocCommand = new DelegateCommand<object>(OnAddAttach);
             RemoveDocCommand = new DelegateCommand<object>(OnRemoveDoc, CanRemoveDoc);
-            CellEditEndCommand=new DelegateCommand<object>(OnCellEditEnd);
+            CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
         }
 
         #endregion
@@ -103,6 +105,38 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #region 数据
 
         #region 公共属性
+
+        #region 年度集合
+
+        /// <summary>
+        ///     年度集合
+        /// </summary>
+        public List<int> Years
+        {
+            get
+            {
+                return new List<int>
+                {
+                    2011,
+                    2012,
+                    2013,
+                    2014,
+                    2015,
+                    2016,
+                    2017,
+                    2018,
+                    2019,
+                    2020,
+                    2021,
+                    2022,
+                    2023,
+                    2024,
+                    2025
+                };
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -129,7 +163,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
             Programmings.AutoLoad = true;
             AircraftCategories.AutoLoad = true;
-            Managers.AutoLoad = true;
+            IssuedUnits.AutoLoad = true;
         }
 
         #region 业务
@@ -175,7 +209,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// <summary>
         ///     发文单位集合
         /// </summary>
-        public QueryableDataServiceCollectionView<ManagerDTO> Managers { get; set; }
+        public QueryableDataServiceCollectionView<IssuedUnitDTO> IssuedUnits { get; set; }
 
         #endregion
 
@@ -397,7 +431,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     DocumentId = doc.DocumentId,
                     CreateDate = DateTime.Now,
                     IssuedDate = DateTime.Now,
-                    Type = 1,//1-表示民航规划文档，2--表示川航规划文档
+                    Type = 1, //1-表示民航规划文档，2--表示川航规划文档
                 };
                 if (SelCaacProgramming != null)
                     programmingFile.ProgrammingId = SelCaacProgramming.ProgrammingId;
@@ -405,6 +439,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 ProgrammingFiles.AddNew(programmingFile);
             }
         }
+
         #endregion
 
         #region 添加规划关联文档
@@ -451,18 +486,18 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var gridView = sender as RadGridView;
             if (gridView != null)
             {
-                var cell = gridView.CurrentCell;
+                GridViewCell cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "ProgrammingNameForCaac"))
                 {
-                    var value = SelCaacProgramming.ProgrammingId;
-                    var programming = Programmings.FirstOrDefault(p => p.Id == value);
+                    Guid value = SelCaacProgramming.ProgrammingId;
+                    ProgrammingDTO programming = Programmings.FirstOrDefault(p => p.Id == value);
                     if (programming != null)
                         SelCaacProgramming.ProgrammingName = programming.Name;
                 }
                 else if (string.Equals(cell.Column.UniqueName, "ProgrammingNameForFile"))
                 {
-                    var value = SelProgrammingFile.ProgrammingId;
-                    var programming = Programmings.FirstOrDefault(p => p.Id == value);
+                    Guid value = SelProgrammingFile.ProgrammingId;
+                    ProgrammingDTO programming = Programmings.FirstOrDefault(p => p.Id == value);
                     if (programming != null)
                         SelProgrammingFile.ProgrammingName = programming.Name;
                 }
