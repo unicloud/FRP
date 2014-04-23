@@ -270,7 +270,7 @@
                                          ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="6*"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
                                     <RowDefinition Height="6*"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <telerik:RadGridView Name="RelatedPaymentSchedule"
@@ -312,8 +312,13 @@
                                                                     DataMemberBinding="{Binding IsCompleted}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
-                                <telerik:RadTabControl  Grid.Row="1">
-                                    <telerik:RadTabItem Header="付款计划行">
+                                <telerik:RadPaneGroup Grid.Row="1">
+                                    <telerik:RadPane Header="付款计划行"
+                                                     IsPinned="True"
+                                                     CanFloat="False"
+                                                     CanUserClose="False"
+                                                     CanUserPin="False"
+                                                     ContextMenuTemplate="{x:Null}">
                                         <Grid>
                                             <telerik:RadGridView Name="PaymentScheduleLines"
                                                                  ItemsSource="{Binding SelPaymentSchedule.PaymentScheduleLines}"
@@ -345,8 +350,8 @@
                                                 </telerik:RadGridView.Columns>
                                             </telerik:RadGridView>
                                         </Grid>
-                                    </telerik:RadTabItem>
-                                </telerik:RadTabControl>
+                                    </telerik:RadPane>
+                                </telerik:RadPaneGroup>
                             </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
