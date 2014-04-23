@@ -167,8 +167,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg
         /// <param name="aircraft">实际飞机</param>
         public void SetAircraft(Aircraft aircraft)
         {
-            Aircraft = aircraft;
-            AircraftId = aircraft.Id;
+            if (aircraft != null)
+            {
+                Aircraft = aircraft;
+                AircraftId = aircraft.Id;
+            }
         }
 
         /// <summary>

@@ -90,8 +90,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg
         /// <param name="engine">实际发动机</param>
         public void SetEngine(Engine engine)
         {
-            Engine = engine;
-            EngineId = engine.Id;
+            if (engine != null)
+            {
+                Engine = engine;
+                EngineId = engine.Id;
+            }
         }
 
         /// <summary>

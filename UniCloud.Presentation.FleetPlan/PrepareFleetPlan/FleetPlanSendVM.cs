@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
@@ -91,6 +92,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
             Plans = _service.CreateCollection(_context.Plans);
             _planDescriptor = new FilterDescriptor("Year", FilterOperator.IsEqualTo, -1);
+            var sort = new SortDescriptor { Member = "VersionNumber", SortDirection = ListSortDirection.Ascending };
+            Plans.SortDescriptors.Add(sort);
             Plans.FilterDescriptors.Add(_planDescriptor);
             Plans.LoadedData += (sender, e) =>
             {

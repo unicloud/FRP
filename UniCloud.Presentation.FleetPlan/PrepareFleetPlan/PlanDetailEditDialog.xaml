@@ -91,9 +91,9 @@
                                  Grid.Column="3"
                                  ItemsSource="{Binding EditPlanHistory.ActionCategories}"
                                  DisplayMemberPath="ActionCategoryOperation"
-                                 SelectedItem="{Binding DataContext.SelActionCategory,Mode=TwoWay,ElementName=PlanDetalEdit}"
+                                 SelectedItem="{Binding SelActionCategory,Mode=TwoWay}"
                                  SelectedValuePath="Id"
-                                 SelectedValue="{Binding EditPlanHistory.ActionCategoryId,Mode=TwoWay}" />
+                                 SelectedValue="{Binding EditPlanHistory.ActionCategoryId, Mode=TwoWay}"/>
             <TextBlock Text="座级"
                      Grid.Row="2"
                      Grid.Column="0" />
@@ -102,7 +102,7 @@
                                  ItemsSource="{Binding EditPlanHistory.AircraftCategories}"
                                  DisplayMemberPath="Regional"
                                  SelectedValuePath="Regional"
-                                 SelectedItem="{Binding DataContext.SelAircraftCategory,Mode=TwoWay,ElementName=PlanDetalEdit}"
+                                 SelectedItem="{Binding SelAircraftCategory,Mode=TwoWay}"
                                  IsEnabled="{Binding IsAicraftTypeAndRegionalChangeable}"
                                  SelectedValue="{Binding EditPlanHistory.Regional, Mode=TwoWay}" />
             <TextBlock Text="机型"
@@ -111,7 +111,7 @@
             <telerik:RadComboBox Grid.Row="2"
                                  Grid.Column="3"
                                  ItemsSource="{Binding EditPlanHistory.AircraftTypes}"
-                                 SelectedItem="{Binding DataContext.SelAircraftType,Mode=TwoWay,ElementName=PlanDetalEdit}"
+                                 SelectedItem="{Binding SelAircraftType,Mode=TwoWay}"
                                  DisplayMemberPath="Name"
                                  SelectedValuePath="Id"
                                  SelectedValue="{Binding EditPlanHistory.AircraftTypeId,Mode=TwoWay}" />

@@ -96,8 +96,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanEngineServices
         [Update(typeof(PlanEngineDTO))]
         public void ModifyPlanEngine(PlanEngineDTO dto)
         {
-            var engine = _engineRepository.Get(dto.EngineId);
-            var engineType = _engineTypeRepository.Get(dto.EngineTypeId);
+           var engineType = _engineTypeRepository.Get(dto.EngineTypeId);
             var airlines = _airlinesRepository.Get(dto.AirlinesId);
 
             //获取需要更新的对象
@@ -106,7 +105,11 @@ namespace UniCloud.Application.FleetPlanBC.PlanEngineServices
             if (updatePlanEngine != null)
             {
                 //更新主表：
-                updatePlanEngine.SetEngine(engine);
+                if (dto.EngineId != null)
+                {
+                    var engine = _engineRepository.Get(dto.EngineId);
+                    updatePlanEngine.SetEngine(engine);
+                }
                 updatePlanEngine.SetEngineType(engineType);
                 updatePlanEngine.SetAirlines(airlines);
             }

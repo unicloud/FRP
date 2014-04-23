@@ -31,6 +31,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Telerik.Windows.Data;
+using Telerik.Windows.Controls;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
@@ -237,6 +238,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 PlanType = q.PlanType,
                 TargetCategoryId = q.TargetCategoryId,
                 AirlinesName = q.AirlinesName,
+                CaacAircraftTypeName = q.CaacAircraftTypeName,
                 Regional = q.Regional,
                 AircraftTypeName = q.AircraftTypeName,
                 ActionType = q.ActionType,
@@ -247,7 +249,6 @@ namespace UniCloud.Presentation.Service.FleetPlan
             }).ToList();
 
             resultphs.ForEach(allPlanHistories.AddNew);
-
             return newPlan;
         }
 
@@ -335,6 +336,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                             {
                                 planDetail.Regional = planAircraft.Regional;
                                 planDetail.AircraftTypeName = planAircraft.AircraftTypeName;
+                                planDetail.CaacAircraftTypeName = planAircraft.AircraftTypeName;
                                 planDetail.AircraftTypeId = planAircraft.AircraftTypeId;
                                 planDetail.SeatingCapacity = -planHistory.SeatingCapacity;
                                 planDetail.CarryingCapacity = -planHistory.CarryingCapacity;
@@ -350,6 +352,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         planDetail.Regional = aircraft.Regional;
                         planDetail.RegNumber = aircraft.RegNumber;
                         planDetail.AircraftTypeId = planAircraft.AircraftTypeId;
+                        planDetail.AircraftTypeName = planAircraft.AircraftTypeName;
+                        planDetail.CaacAircraftTypeName = planAircraft.AircraftTypeName;
                         planDetail.SeatingCapacity = -aircraft.SeatingCapacity;
                         planDetail.CarryingCapacity = -aircraft.CarryingCapacity;
                         planDetail.AircraftId = aircraft.AircraftId;
