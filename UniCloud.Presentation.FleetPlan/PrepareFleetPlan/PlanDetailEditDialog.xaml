@@ -12,7 +12,8 @@
                    Height="350"
                    Width="500"
                    Header="添加计划明细项"
-                   d:DataContext="{d:DesignInstance uc:FleetPlanLayVM}">
+                   d:DataContext="{d:DesignInstance uc:FleetPlanLayVM}"
+                   Name="PlanDetalEdit">
 
     <telerik:RadWindow.Resources>
         <ResourceDictionary>
@@ -90,7 +91,7 @@
                                  Grid.Column="3"
                                  ItemsSource="{Binding EditPlanHistory.ActionCategories}"
                                  DisplayMemberPath="ActionCategoryOperation"
-                                 SelectedItem="{Binding SelActionCategory,Mode=TwoWay}"
+                                 SelectedItem="{Binding DataContext.SelActionCategory,Mode=TwoWay,ElementName=PlanDetalEdit}"
                                  SelectedValuePath="Id"
                                  SelectedValue="{Binding EditPlanHistory.ActionCategoryId,Mode=TwoWay}" />
             <TextBlock Text="座级"
@@ -101,16 +102,16 @@
                                  ItemsSource="{Binding EditPlanHistory.AircraftCategories}"
                                  DisplayMemberPath="Regional"
                                  SelectedValuePath="Regional"
-                                 SelectedItem="{Binding SelAircraftCategory,Mode=TwoWay}"
+                                 SelectedItem="{Binding DataContext.SelAircraftCategory,Mode=TwoWay,ElementName=PlanDetalEdit}"
                                  IsEnabled="{Binding IsAicraftTypeAndRegionalChangeable}"
-                                 SelectedValue="{Binding EditPlanHistory.Regional, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
+                                 SelectedValue="{Binding EditPlanHistory.Regional, Mode=TwoWay}" />
             <TextBlock Text="机型"
                        Grid.Column="2"
                        Grid.Row="2" />
             <telerik:RadComboBox Grid.Row="2"
                                  Grid.Column="3"
                                  ItemsSource="{Binding EditPlanHistory.AircraftTypes}"
-                                 SelectedItem="{Binding SelAircraftType,Mode=TwoWay}"
+                                 SelectedItem="{Binding DataContext.SelAircraftType,Mode=TwoWay,ElementName=PlanDetalEdit}"
                                  DisplayMemberPath="Name"
                                  SelectedValuePath="Id"
                                  SelectedValue="{Binding EditPlanHistory.AircraftTypeId,Mode=TwoWay}" />

@@ -568,7 +568,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (planAircraft != null)
                 {
                     var planHistories =
-                        AllPlanHistories.Where(ph => ph.PlanAircraftId == planAircraft.Id && ph.PlanId == CurPlan.Id).ToList();
+                        AllPlanHistories.Where(ph => ph.PlanAircraftId == planAircraft.Id).ToList();
+
                     // 获取计划飞机在当前计划中的明细项集合
                     var planDetails = ViewPlanHistories.Where(ph => ph.PlanAircraftId == planAircraft.Id).ToList();
 
@@ -712,14 +713,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (string.Equals(cell.Column.UniqueName, "Regional"))
                 {
                     var planhistory = gridView.CurrentCellInfo.Item as PlanHistoryDTO;
-                    var planAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);
-                    if (planAircraft != null&& planhistory!=null)
+                    if (planhistory != null)
                     {
-                        planhistory.AircraftTypes=new ObservableCollection<AircraftTyDTO>();
-                        planhistory.AircraftTypes.AddRange(_service.GetAircraftTypesForPlanHistory(planhistory));
-                        planAircraft.Regional = planhistory.Regional;
+                        var planAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);
+                        if (planAircraft != null)
+                        {
+                            planhistory.AircraftTypes = new ObservableCollection<AircraftTyDTO>();
+                            planhistory.AircraftTypes.AddRange(_service.GetAircraftTypesForPlanHistory(planhistory));
+                            planAircraft.Regional = planhistory.Regional;
+                        }
                     }
-
                 }
                 else if (string.Equals(cell.Column.UniqueName, "AircraftType"))
                 {
@@ -729,10 +732,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                         var planAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);
                         if (planAircraft != null && planhistory.AircraftTypeId != Guid.Empty)
                         {
-                            var aircraftType = planhistory.AircraftTypes.First(p => p.Id == planhistory.AircraftTypeId);
-                            planhistory.CaacAircraftTypeName = aircraftType.CaacAircraftTypeName;
-                            planAircraft.AircraftTypeId = planhistory.AircraftTypeId;
-                            planAircraft.AircraftTypeName = aircraftType.Name;
+                            var aircraftType = planhistory.AircraftTypes.FirstOrDefault(p => p.Id == planhistory.AircraftTypeId);
+                            if (aircraftType != null)
+                            {
+                                planhistory.CaacAircraftTypeName = aircraftType.CaacAircraftTypeName;
+                                planAircraft.AircraftTypeId = planhistory.AircraftTypeId;
+                                planAircraft.AircraftTypeName = aircraftType.Name;
+                            }
                         }
                     }
                 }
@@ -850,6 +856,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             switch (source)
             {
                 case PlanDetailCreateSource.New:
+                    this.IsPlanTypeVisible = Visibility.Collapsed;
                     this._operationPlan = _service.CreatePlanHistory(CurPlan, AllPlanHistories, ref EditPlanAircraft, null, "引进", 1); //此时EditPlanAircraft=null
                     this.EditPlanHistory = this._operationPlan;
                     this.IsChangeable = true;

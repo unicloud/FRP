@@ -12,6 +12,7 @@ using Telerik.Windows.Documents.FormatProviders.Html;
 using Telerik.Windows.Documents.FormatProviders.OpenXml.Docx;
 using Telerik.Windows.Documents.FormatProviders.Pdf;
 using Telerik.Windows.Documents.Model;
+using Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx;
 using Telerik.Windows.Documents.Spreadsheet.FormatProviders.TextBased.Csv;
 using Telerik.Windows.Documents.Spreadsheet.Model;
 using Telerik.Windows.Documents.UI;
@@ -75,11 +76,11 @@ namespace UniCloud.Presentation.Export
 
                             if (workbook != null)
                             {
-                                //var provider = new XlsxFormatProvider();
-                                //using (var output = dialog.OpenFile())
-                                //{
-                                //    provider.Export(workbook, output);
-                                //}
+                                var provider = new XlsxFormatProvider();
+                                using (var output = dialog.OpenFile())
+                                {
+                                    provider.Export(workbook, output);
+                                }
                             }
                         }
                         break;
