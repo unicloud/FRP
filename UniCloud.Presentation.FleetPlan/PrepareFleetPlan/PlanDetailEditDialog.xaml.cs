@@ -3,7 +3,8 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export]
+    [Export(typeof(PlanDetailEditDialog))]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public partial class PlanDetailEditDialog
     {
         public PlanDetailEditDialog()
@@ -11,7 +12,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             InitializeComponent();
         }
 
-        [Import(typeof(FleetPlanLayVM))]
+        [Import]
         public FleetPlanLayVM ViewModel
         {
             get { return DataContext as FleetPlanLayVM; }

@@ -112,7 +112,7 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
-                                                     IsReadOnly="False"
+                                                     IsReadOnly="{Binding IsPlanReadOnly,Mode=TwoWay}"
                                                      RowStyle="{StaticResource DraggedRowStyle}"
                                                      ItemsSource="{Binding ViewPlanHistories,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelPlanHistory,Mode=TwoWay}"

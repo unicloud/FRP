@@ -101,7 +101,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
         [Update(typeof (PlanAircraftDTO))]
         public void ModifyPlanAircraft(PlanAircraftDTO dto)
         {
-            var aircraft = _aircraftRepository.Get(dto.AircraftId);
+            
             var aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
             var airlines = _airlinesRepository.Get(dto.AirlinesId);
 
@@ -111,7 +111,11 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
             if (updatePlanAircraft != null)
             {
                 //更新主表：
-                updatePlanAircraft.SetAircraft(aircraft);
+                if (dto.AircraftId != null)
+                {
+                    var aircraft = _aircraftRepository.Get(dto.AircraftId);
+                    updatePlanAircraft.SetAircraft(aircraft);
+                }
                 updatePlanAircraft.SetAircraftType(aircraftType);
                 updatePlanAircraft.SetAirlines(airlines);
                 updatePlanAircraft.SetLock();
