@@ -134,33 +134,33 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                 SuppierCompanyId = p.SupplierCompanyId,
                 AircraftLeaseSupplier =
                     dbSupplierRole.OfType<AircraftLeaseSupplier>()
-                        .Any(c => c.SupplierCompanyId == p.Id),
+                        .Any(c => c.SupplierCompanyId == p.SupplierCompanyId),
                 AircraftPurchaseSupplier =
                     dbSupplierRole.OfType<AircraftPurchaseSupplier>()
                         .Any(
                             c =>
-                                c.SupplierCompanyId == p.Id),
+                                c.SupplierCompanyId == p.SupplierCompanyId),
                 EngineLeaseSupplier =
                     dbSupplierRole.OfType<EngineLeaseSupplier>()
                         .Any(
                             c =>
-                                c.SupplierCompanyId == p.Id),
+                                c.SupplierCompanyId == p.SupplierCompanyId),
                 EnginePurchaseSupplier =
                     dbSupplierRole.OfType<EnginePurchaseSupplier>()
                         .Any(
                             c =>
-                                c.SupplierCompanyId == p.Id),
+                                c.SupplierCompanyId == p.SupplierCompanyId),
                 BFEPurchaseSupplier =
                     dbSupplierRole.OfType<BFEPurchaseSupplier>()
                         .Any(
                             c =>
-                                c.SupplierCompanyId == p.Id),
+                                c.SupplierCompanyId == p.SupplierCompanyId),
                 MaintainSupplier = dbSupplierRole.OfType<MaintainSupplier>()
                     .Any(
                         c =>
-                            c.SupplierCompanyId == p.Id),
+                            c.SupplierCompanyId == p.SupplierCompanyId),
                 OtherSupplier = dbSupplierRole.OfType<OtherSupplier>()
-                    .Any(c => c.SupplierCompanyId == p.Id),
+                    .Any(c => c.SupplierCompanyId == p.SupplierCompanyId),
                 BankAccounts = p.BankAccounts.Select(c => new BankAccountDTO
                 {
                     Account = c.Account,
