@@ -37,6 +37,8 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
         /// <returns>文档DTO集合</returns>
         IQueryable<DocumentDTO> GetDocuments();
 
+        IQueryable<DocumentDTO> GetDocumentsWithContent();
+
         DocumentDTO GetSingleDocument(Guid documentId);
 
         /// <summary>

@@ -56,6 +56,7 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg
                 Uploader = uploader,
                 IsValid = isValid,
                 CreateTime = DateTime.Now,
+                UpdateTime = DateTime.Now,
                 FileStorage = stream,
                 FileContent = content,
                 DocumentTypeId = documentTypeId
@@ -91,7 +92,8 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg
             document.IsValid = isValid;
             document.FileStorage = stream;
             document.FileContent = content;
-            document.DocumentTypeId = 1;
+            document.DocumentTypeId = documentTypeId;
+            document.UpdateTime = DateTime.Now;
         }
     }
 }

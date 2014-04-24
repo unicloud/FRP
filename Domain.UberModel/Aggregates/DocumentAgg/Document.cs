@@ -93,6 +93,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.DocumentAgg
         public DateTime CreateTime { get; internal set; }
 
         /// <summary>
+        ///     更新时间
+        /// </summary>
+        public DateTime UpdateTime { get; internal set; }
+
+        /// <summary>
         ///     索引状态
         /// </summary>
         public IndexStatus Status { get; private set; }

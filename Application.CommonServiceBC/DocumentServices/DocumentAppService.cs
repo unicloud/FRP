@@ -25,7 +25,6 @@ using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.CommonServiceBC.DTO;
 using UniCloud.Application.CommonServiceBC.Query.DocumentQueries;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
-using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentTypeAgg;
 
 #endregion
@@ -36,18 +35,16 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
     ///     实现部件接口。
     ///     用于处理部件相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class DocumentAppService : ContextBoundObject, IDocumentAppService
     {
-        private readonly IDocumentPathRepository _documentPathRepository; //文档路径仓储
         private readonly IDocumentQuery _documentQuery;
         private readonly IDocumentRepository _documentRepository; //文档仓储
         private readonly IDocumentTypeRepository _documentTypeRepository;//文档类型仓储
-        public DocumentAppService(IDocumentQuery documentQuery, IDocumentPathRepository documentPathRepository,
-                                  IDocumentRepository documentRepository, IDocumentTypeRepository documentTypeRepository)
+        public DocumentAppService(IDocumentQuery documentQuery, IDocumentRepository documentRepository,
+            IDocumentTypeRepository documentTypeRepository)
         {
             _documentQuery = documentQuery;
-            _documentPathRepository = documentPathRepository;
             _documentRepository = documentRepository;
             _documentTypeRepository = documentTypeRepository;
         }
@@ -58,6 +55,13 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
             var queryBuilder =
                 new QueryBuilder<Document>();
             return _documentQuery.DocumentsQuery(queryBuilder);
+        }
+
+        public IQueryable<DocumentDTO> GetDocumentsWithContent()
+        {
+            var queryBuilder =
+                new QueryBuilder<Document>();
+            return _documentQuery.DocumentsQueryWithContent(queryBuilder);
         }
 
         public DocumentDTO GetSingleDocument(Guid documentId)
