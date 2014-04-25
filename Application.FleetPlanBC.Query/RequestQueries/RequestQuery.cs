@@ -24,6 +24,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Infrastructure.Data;
 
@@ -42,6 +43,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
 
         public IQueryable<RequestDTO> RequestsQuery(QueryBuilder<Request> query)
         {
+            var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
             var dbAirline = _unitOfWork.CreateSet<Airlines>();
             var dbImportCategory = _unitOfWork.CreateSet<ActionCategory>();
             var dbAnnaul = _unitOfWork.CreateSet<Annual>();
@@ -53,23 +55,15 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
                 IsFinished = p.IsFinished,
                 Title = p.Title,
                 CreateDate = p.CreateDate,
-                RaDocNumber = p.RaDocNumber,
-                SawsDocNumber = p.SawsDocNumber,
                 CaacDocNumber = p.CaacDocNumber,
-                Status = (int) p.Status,
-                CaacNote = p.CaacNote,
-                RaNote = p.RaNote,
-                SawsNote = p.SawsNote,
+                Status = (int)p.Status,
+                Note = p.Note,
                 ApprovalDocId = p.ApprovalDocId,
-                RaDocumentId = p.RaDocumentId,
-                RaDocumentName = p.RaDocumentName,
-                SawsDocumentId = p.SawsDocumentId,
-                SawsDocumentName = p.SawsDocumentName,
                 CaacDocumentId = p.CaacDocumentId,
                 CaacDocumentName = p.CaacDocumentName,
                 AirlinesId = p.AirlinesId,
                 AirlinesName = dbAirline.FirstOrDefault(c => c.Id == p.AirlinesId).CnShortName,
-                ApprovalHistories = p.ApprovalHistories.Select(c=>new ApprovalHistoryDTO
+                ApprovalHistories = p.ApprovalHistories.Select(c => new ApprovalHistoryDTO
                 {
                     Id = c.Id,
                     IsApproved = c.IsApproved,
@@ -89,8 +83,15 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
                     RequestDeliverAnnualName = dbAnnaul.FirstOrDefault(a => a.Id == c.RequestDeliverAnnualId).Year,
                     AirlinesId = c.AirlinesId,
                     AirlineName = dbAirline.FirstOrDefault(a => a.Id == c.AirlinesId).CnShortName,
-                    PlanAircraftStatus = (int)dbPlanAircraft.FirstOrDefault(a=>a.Id==c.PlanAircraftId).Status,
-                }).ToList()
+                    PlanAircraftStatus = (int)dbPlanAircraft.FirstOrDefault(a => a.Id == c.PlanAircraftId).Status,
+                }).ToList(),
+                RelatedDocs = relatedDocs.Where(r => r.SourceId == p.Id).Select(r => new RelatedDocDTO
+                {
+                    Id = r.Id,
+                    SourceId = r.SourceId,
+                    DocumentId = r.DocumentId,
+                    DocumentName = r.DocumentName
+                }).ToList(),
             });
         }
 
@@ -105,21 +106,12 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
             {
                 Id = p.Id,
                 Title = p.Title,
-                RaDocNumber = p.RaDocNumber,
-                SawsDocNumber = p.SawsDocNumber,
                 CaacDocNumber = p.CaacDocNumber,
                 Status = (int)p.Status,
-                CaacNote = p.CaacNote,
-                RaNote = p.RaNote,
-                SawsNote = p.SawsNote,
                 ApprovalDocId = p.ApprovalDocId,
-                RaDocumentId = p.RaDocumentId,
-                RaDocumentName = p.RaDocumentName,
-                SawsDocumentId = p.SawsDocumentId,
-                SawsDocumentName = p.SawsDocumentName,
                 CaacRequestDocumentId = p.CaacDocumentId,
                 CaacRequestDocumentName = p.CaacDocumentName,
-                CaacExamineDate = dbApproval.FirstOrDefault(c=>c.Id==p.ApprovalDocId).CaacExamineDate,
+                CaacExamineDate = dbApproval.FirstOrDefault(c => c.Id == p.ApprovalDocId).CaacExamineDate,
                 NdrcExamineDate = dbApproval.FirstOrDefault(c => c.Id == p.ApprovalDocId).NdrcExamineDate,
                 CaacApprovalNumber = dbApproval.FirstOrDefault(c => c.Id == p.ApprovalDocId).CaacApprovalNumber,
                 NdrcApprovalNumber = dbApproval.FirstOrDefault(c => c.Id == p.ApprovalDocId).NdrcApprovalNumber,

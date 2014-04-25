@@ -43,6 +43,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.XmlConfigAgg;
@@ -81,6 +82,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         private IDbSet<PlanHistory> _planHistories;
         private IDbSet<ProgrammingFile> _programmingFiles;
         private IDbSet<Programming> _programmings;
+        private IDbSet<RelatedDoc> _relatedDocs;
         private IDbSet<Request> _requests;
         private IDbSet<Supplier> _suppliers;
         private IDbSet<XmlConfig> _xmlConfigs;
@@ -208,6 +210,11 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         public IDbSet<ProgrammingFile> ProgrammingFiles
         {
             get { return _programmingFiles ?? (_programmingFiles = base.Set<ProgrammingFile>()); }
+        }
+
+        public IDbSet<RelatedDoc> RelatedDocs
+        {
+            get { return _relatedDocs ?? (_relatedDocs = base.Set<RelatedDoc>()); }
         }
 
         public IDbSet<Request> Requests
@@ -411,6 +418,12 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
                 #region ProgrammingAgg
 
                 .Add(new ProgrammingFileEntityConfiguration())
+
+                #endregion
+
+                #region RelatedDocAgg
+
+                .Add(new RelatedDocEntityConfiguration())
 
                 #endregion
 

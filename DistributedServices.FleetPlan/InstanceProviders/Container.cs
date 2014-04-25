@@ -55,9 +55,11 @@ using UniCloud.Application.FleetPlanBC.Query.PlanEngineQueries;
 using UniCloud.Application.FleetPlanBC.Query.PlanHistoryQueries;
 using UniCloud.Application.FleetPlanBC.Query.ProgrammingFileQueries;
 using UniCloud.Application.FleetPlanBC.Query.ProgrammingQueries;
+using UniCloud.Application.FleetPlanBC.Query.RelatedDocQueries;
 using UniCloud.Application.FleetPlanBC.Query.RequestQueries;
 using UniCloud.Application.FleetPlanBC.Query.SupplierQueries;
 using UniCloud.Application.FleetPlanBC.Query.XmlConfigQueries;
+using UniCloud.Application.FleetPlanBC.RelatedDocServices;
 using UniCloud.Application.FleetPlanBC.RequestServices;
 using UniCloud.Application.FleetPlanBC.SupplierServices;
 using UniCloud.Application.FleetPlanBC.XmlConfigServices;
@@ -86,6 +88,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.XmlConfigAgg;
@@ -312,6 +315,12 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IApprovalDocRepository, ApprovalDocRepository>()
                 #endregion
 
+                #region 关联文档相关配置，包括查询，应用服务，仓储注册
+
+                .RegisterType<IRelatedDocQuery, RelatedDocQuery>()
+                .RegisterType<IRelatedDocAppService, RelatedDocAppService>()
+                .RegisterType<IRelatedDocRepository, RelatedDocRepository>()
+                #endregion
                 ;
         }
 

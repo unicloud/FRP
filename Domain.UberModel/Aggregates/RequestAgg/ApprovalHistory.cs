@@ -164,6 +164,29 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         }
 
         /// <summary>
+        /// 设置申请交付时间
+        /// </summary>
+        /// <param name="year"></param>
+        public void SetDeliverDate(Guid year)
+        {
+            if (year == null)
+            {
+                throw new ArgumentException("交付年度Id参数为空！");
+            }
+            RequestDeliverAnnualId = year;
+        }
+
+        /// <summary>
+        /// 设置申请交付时间
+        /// </summary>
+        /// <param name="month"></param>
+        public void SetDeliverDate(int month)
+        {
+            RequestDeliverMonth = month;
+
+        }
+
+        /// <summary>
         ///     设置备注
         /// </summary>
         /// <param name="note">备注</param>
@@ -226,6 +249,24 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
             }
 
             AirlinesId = airlinesId;
+        }
+
+        /// <summary>
+        /// 设置主见
+        /// </summary>
+        /// <param name="key"></param>
+        public void SetId(Guid key)
+        {
+            Id = key;
+        }
+
+        /// <summary>
+        /// 设置是否批准
+        /// </summary>
+        /// <param name="isApproved"></param>
+        public void SetIsApproved(bool isApproved)
+        {
+            IsApproved = isApproved;
         }
         #endregion
     }

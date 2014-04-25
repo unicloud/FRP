@@ -103,6 +103,7 @@
     <Compile Include="ProgrammingDTO\ProgrammingDTO.cs" />
     <Compile Include="ProgrammingFileDTO\ProgrammingFileDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelatedDocDTO\RelatedDocDTO.cs" />
     <Compile Include="RequestDTO\ApprovalHistoryDTO.cs" />
     <Compile Include="RequestDTO\RequestDTO.cs" />
     <Compile Include="SupplierDTO\SupplierDTO.cs" />

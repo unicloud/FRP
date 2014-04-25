@@ -31,6 +31,7 @@ using UniCloud.Application.FleetPlanBC.PlanAircraftServices;
 using UniCloud.Application.FleetPlanBC.PlanEngineServices;
 using UniCloud.Application.FleetPlanBC.ProgrammingFileServices;
 using UniCloud.Application.FleetPlanBC.ProgrammingServices;
+using UniCloud.Application.FleetPlanBC.RelatedDocServices;
 using UniCloud.Application.FleetPlanBC.RequestServices;
 using UniCloud.Application.FleetPlanBC.SupplierServices;
 using UniCloud.Application.FleetPlanBC.XmlConfigServices;
@@ -70,6 +71,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         private readonly IPlanEngineAppService _planEngineAppService;
         private readonly IProgrammingAppService _programmingAppService;
         private readonly IProgrammingFileAppService _programmingFileAppService;
+        private readonly IRelatedDocAppService _relatedDocAppService;
         private readonly IRequestAppService _requestAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly IXmlConfigAppService _xmlConfigAppService;
@@ -102,6 +104,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             _planEngineAppService = DefaultContainer.Resolve<IPlanEngineAppService>();
             _programmingAppService = DefaultContainer.Resolve<IProgrammingAppService>();
             _programmingFileAppService = DefaultContainer.Resolve<IProgrammingFileAppService>();
+            _relatedDocAppService = DefaultContainer.Resolve<IRelatedDocAppService>();
             _requestAppService = DefaultContainer.Resolve<IRequestAppService>();
             _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
             _xmlConfigAppService = DefaultContainer.Resolve<IXmlConfigAppService>();
@@ -437,6 +440,18 @@ namespace UniCloud.DistributedServices.FleetPlan
             {
                 return _requestAppService.GetApprovalRequests();
             }
+        }
+
+        #endregion
+
+        #region 关联文档
+
+        /// <summary>
+        ///     关联文档集合
+        /// </summary>
+        public IQueryable<RelatedDocDTO> RelatedDocs
+        {
+            get { return _relatedDocAppService.GetRelatedDocs(); }
         }
 
         #endregion

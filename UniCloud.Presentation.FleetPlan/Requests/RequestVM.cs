@@ -292,7 +292,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void InitialPlanHistory()
         {
             PlanHistories = _service.CreateCollection(_context.PlanHistories);
-            _planHistoryDescriptor=new FilterDescriptor("PlanId",FilterOperator.IsEqualTo,Guid.Empty);
+            _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
             PlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
             _service.RegisterCollectionView(PlanHistories);
         }
@@ -534,21 +534,10 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
             if (doc != null)
             {
-                if (SelDocType.Equals("地方局申请文档"))
-                {
-                    SelectedRequest.RaDocumentId = doc.DocumentId;
-                    SelectedRequest.RaDocumentName = doc.Name;
-                }
-                else if (SelDocType.Equals("监管局申请文档"))
-                {
-                    SelectedRequest.SawsDocumentId = doc.DocumentId;
-                    SelectedRequest.SawsDocumentName = doc.Name;
-                }
-                else
-                {
-                    SelectedRequest.CaacDocumentId = doc.DocumentId;
-                    SelectedRequest.CaacDocumentName = doc.Name;
-                }
+
+                SelectedRequest.CaacDocumentId = doc.DocumentId;
+                SelectedRequest.CaacDocumentName = doc.Name;
+
                 SelDocType = null;
             }
 

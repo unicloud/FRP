@@ -56,6 +56,7 @@
     <Compile Include="Repositories\IssuedUnitRepository.cs" />
     <Compile Include="Repositories\PlanHistoryRepository.cs" />
     <Compile Include="Repositories\ProgrammingFileRepository.cs" />
+    <Compile Include="Repositories\RelatedDocRepository.cs" />
     <Compile Include="UnitOfWork\FleetPlanBCUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ActionCategoryRepository.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\PlanHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ProgrammingEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ProgrammingFileEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\RelatedDocEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\RequestEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\XmlConfigEntityConfiguration.cs" />

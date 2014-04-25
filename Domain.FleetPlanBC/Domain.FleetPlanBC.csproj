@@ -142,6 +142,10 @@
     <Compile Include="Aggregates\ProgrammingFileAgg\ProgrammingFile.cs" />
     <Compile Include="Aggregates\ProgrammingFileAgg\ProgrammingFileFactory.cs" />
     <Compile Include="Aggregates\ProgrammingFileAgg\ProgrammingFileSpecifications.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\IRelatedDocRepository.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\RelatedDoc.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\RelatedDocFactory.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\RelatedDocSpecifications.cs" />
     <Compile Include="Aggregates\RequestAgg\ApprovalHistory.cs" />
     <Compile Include="Aggregates\RequestAgg\IRequestRepository.cs" />
     <Compile Include="Aggregates\RequestAgg\Request.cs" />

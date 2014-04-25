@@ -38,17 +38,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
             Property(p => p.SubmitDate).HasColumnName("SubmitDate").HasColumnType("datetime2");
             Property(p => p.IsFinished).HasColumnName("IsFinished");
-            Property(p => p.RaDocNumber).HasColumnName("RaDocNumber");
-            Property(p => p.SawsDocNumber).HasColumnName("SawsDocNumber");
             Property(p => p.CaacDocNumber).HasColumnName("CaacDocNumber");
             Property(p => p.Status).HasColumnName("Status");
-            Property(p => p.CaacNote).HasColumnName("CaacNote");
-            Property(p => p.RaNote).HasColumnName("RaNote");
-            Property(p => p.SawsNote).HasColumnName("SawsNote");
+            Property(p => p.Note).HasColumnName("Note");
 
             Property(p => p.ApprovalDocId).HasColumnName("ApprovalDocId");
-            Property(p => p.RaDocumentId).HasColumnName("RaDocumentId");
-            Property(p => p.SawsDocumentId).HasColumnName("SawsDocumentId");
             Property(p => p.CaacDocumentId).HasColumnName("CaacDocumentId");
             Property(p => p.AirlinesId).HasColumnName("AirlinesId");
 

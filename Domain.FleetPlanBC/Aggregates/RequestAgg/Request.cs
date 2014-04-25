@@ -72,16 +72,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         public DateTime CreateDate { get; internal set; }
 
         /// <summary>
-        ///     地方局申请文号
-        /// </summary>
-        public string RaDocNumber { get; private set; }
-
-        /// <summary>
-        ///     监管局申请文号
-        /// </summary>
-        public string SawsDocNumber { get; private set; }
-
-        /// <summary>
         ///     民航局申请文号
         /// </summary>
         public string CaacDocNumber { get; private set; }
@@ -92,29 +82,9 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         public RequestStatus Status { get; private set; }
 
         /// <summary>
-        ///     民航局审批意见
+        ///     申请跟踪说明备忘
         /// </summary>
-        public string CaacNote { get; private set; }
-
-        /// <summary>
-        ///     地方局审批意见
-        /// </summary>
-        public string RaNote { get; private set; }
-
-        /// <summary>
-        ///     监管局审批意见
-        /// </summary>
-        public string SawsNote { get; private set; }
-
-              /// <summary>
-        ///     地方局批文文档名称
-        /// </summary>
-        public string RaDocumentName { get; private set; }
-
-        /// <summary>
-        ///     监管局申请文档名称
-        /// </summary>
-        public string SawsDocumentName { get; private set; }
+        public string Note { get; private set; }
 
         /// <summary>
         ///     民航局申请文档名称
@@ -129,16 +99,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         ///     民航局批文文档外键
         /// </summary>
         public Guid? ApprovalDocId { get; private set; }
-
-        /// <summary>
-        ///     地方局申请文档Id
-        /// </summary>
-        public Guid? RaDocumentId { get; private set; }
-
-        /// <summary>
-        ///     监管局申请文档Id
-        /// </summary>
-        public Guid? SawsDocumentId { get; private set; }
 
         /// <summary>
         ///     民航局申请文档Id
@@ -188,25 +148,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         }
 
         /// <summary>
-        ///     设置地方局申请文号
-        /// </summary>
-        /// <param name="raDocNumber">地方局申请文号</param>
-        public void SetRaDocNumber(string raDocNumber)
-        {
-            RaDocNumber = raDocNumber;
-        }
-
-        /// <summary>
-        ///     设置监管局申请文号
-        /// </summary>
-        /// <param name="sawsDocNumber">监管局申请文号</param>
-        public void SetSawsDocNumber(string sawsDocNumber)
-        {
-           
-            SawsDocNumber = sawsDocNumber;
-        }
-
-        /// <summary>
         ///     设置民航局申请文号
         /// </summary>
         /// <param name="caacDocNumber">民航局申请文号</param>
@@ -245,30 +186,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         }
 
         /// <summary>
-        ///     设置民航局审批意见
+        ///     设置民航局申请跟踪备忘录
         /// </summary>
-        /// <param name="caacNote"></param>
-        public void SetCaacNote(string caacNote)
+        /// <param name="note"></param>
+        public void SetNote(string note)
         {
-            CaacNote = caacNote;
-        }
-
-        /// <summary>
-        ///     设置地方局审批意见
-        /// </summary>
-        /// <param name="raNote"></param>
-        public void SetRaNote(string raNote)
-        {
-            RaNote = raNote;
-        }
-
-        /// <summary>
-        ///     设置监管局审批意见
-        /// </summary>
-        /// <param name="sawsNote"></param>
-        public void SetSawsNote(string sawsNote)
-        {
-            SawsNote = sawsNote;
+            Note = note;
         }
 
         /// <summary>
@@ -278,28 +201,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         public void SetApprovalDoc(Guid? approvalDocId)
         {
             ApprovalDocId = approvalDocId;
-        }
-
-        /// <summary>
-        ///     设置地方局申请文档
-        /// </summary>
-        /// <param name="raDocumentId">地方局申请文档</param>
-        /// <param name="raDocumentName">地方局申请文档名称</param>
-        public void SetRaDocument(Guid? raDocumentId, string raDocumentName)
-        {
-            RaDocumentId = raDocumentId;
-            RaDocumentName = raDocumentName;
-        }
-
-        /// <summary>
-        ///     设置监管局申请文档
-        /// </summary>
-        /// <param name="sawsDocumentId">监管局申请文档</param>
-        /// <param name="sawsDocumentName">监管局申请文档名称</param>
-        public void SetSawsDocument(Guid? sawsDocumentId, string sawsDocumentName)
-        {
-            SawsDocumentId = sawsDocumentId;
-            SawsDocumentName = sawsDocumentName;
         }
 
         /// <summary>
