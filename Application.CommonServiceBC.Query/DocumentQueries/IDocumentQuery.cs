@@ -43,6 +43,8 @@ namespace UniCloud.Application.CommonServiceBC.Query.DocumentQueries
         IQueryable<DocumentDTO> DocumentsQuery(
             QueryBuilder<Document> query);
 
+        IQueryable<DocumentDTO> DocumentsQueryWithContent(QueryBuilder<Document> query);
+
         DocumentDTO GetSingleDocumentQuery(Expression<Func<Document, bool>> source);
         /// <summary>
         ///     查询文档类型。

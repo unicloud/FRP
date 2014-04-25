@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{83EBD091-A068-4438-ABF8-76087D8D53B1}</ProjectGuid>
+    <ProjectGuid>{3E12CBC0-C1AC-4D17-A6A4-16EC841978D1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MerchantSyncWinService</RootNamespace>
-    <AssemblyName>MerchantSyncWinService</AssemblyName>
+    <RootNamespace>DocumentIndexWinService</RootNamespace>
+    <AssemblyName>DocumentIndexWinService</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -50,11 +50,11 @@
     <Compile Include="ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
-    <Compile Include="MerchantWinService.cs">
+    <Compile Include="DocumentIndexWinService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MerchantWinService.Designer.cs">
-      <DependentUpon>MerchantWinService.cs</DependentUpon>
+    <Compile Include="DocumentIndexWinService.Designer.cs">
+      <DependentUpon>DocumentIndexWinService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,9 +68,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UniCloud.MerchantDataService\UniCloud.MerchantDataService.csproj">
-      <Project>{184c4828-8549-4c83-8ae0-afbfc33fd1b6}</Project>
-      <Name>UniCloud.MerchantDataService</Name>
+    <ProjectReference Include="..\Unicloud.DocumentIndexService\Unicloud.DocumentIndexService.csproj">
+      <Project>{de1322ce-5910-4179-824e-48de9fc6aad6}</Project>
+      <Name>Unicloud.DocumentIndexService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

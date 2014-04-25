@@ -51,8 +51,27 @@ namespace UniCloud.Application.CommonServiceBC.Query.DocumentQueries
                     Note = p.Note,
                     DocumentTypeId = p.DocumentTypeId,
                     Uploader = p.Uploader,
+                    UpdateTime = p.UpdateTime
                     //FileStorage = p.FileStorage
                 });
+        }
+
+        public IQueryable<DocumentDTO> DocumentsQueryWithContent(QueryBuilder<Document> query)
+        {
+            return query.ApplyTo(_unitOfWork.CreateSet<Document>()).Select(p => new DocumentDTO
+            {
+                DocumentId = p.Id,
+                Abstract = p.Abstract,
+                CreateTime = p.CreateTime,
+                Extension = p.Extension,
+                IsValid = p.IsValid,
+                Name = p.FileName,
+                Note = p.Note,
+                DocumentTypeId = p.DocumentTypeId,
+                Uploader = p.Uploader,
+                UpdateTime = p.UpdateTime,
+                FileStorage = p.FileStorage
+            });
         }
 
         public DocumentDTO GetSingleDocumentQuery(Expression<Func<Document, bool>> source)
@@ -71,6 +90,7 @@ namespace UniCloud.Application.CommonServiceBC.Query.DocumentQueries
                     Note = document.Note,
                     DocumentTypeId = document.DocumentTypeId,
                     Uploader = document.Uploader,
+                    UpdateTime = document.UpdateTime,
                     FileStorage = document.FileStorage
                 };
         }
