@@ -44,6 +44,8 @@
     <Compile Include="Enums\AirStructureDamageStatus.cs" />
     <Compile Include="Enums\AirStructureReportType.cs" />
     <Compile Include="Enums\BFEStatus.cs" />
+    <Compile Include="Enums\CanDeliver.cs" />
+    <Compile Include="Enums\CanRequest.cs" />
     <Compile Include="Enums\ContractAircraftStatus.cs" />
     <Compile Include="Enums\ContractEngineStatus.cs" />
     <Compile Include="Enums\ControlStatus.cs" />

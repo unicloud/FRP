@@ -30,6 +30,7 @@ using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 #endregion
 
@@ -103,6 +104,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             };
             _service.RegisterCollectionView(AllPlanHistories);
 
+            PlanAircrafts = _service.CreateCollection(_context.PlanAircrafts);
+            PlanAircrafts.FilterDescriptors.Add(new FilterDescriptor("AircraftId", FilterOperator.IsEqualTo, null));
+            _service.RegisterCollectionView(PlanAircrafts);
+
         }
 
 
@@ -146,6 +151,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             else
                 AllPlanHistories.Load(true);
 
+            if (!PlanAircrafts.AutoLoad)
+                PlanAircrafts.AutoLoad = true;
+            else
+                PlanAircrafts.Load(true);
+
             if (!Annuals.AutoLoad)
                 Annuals.AutoLoad = true;
             else
@@ -177,6 +187,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         ///     所有运力增减计划集合
         /// </summary>
         public QueryableDataServiceCollectionView<PlanDTO> AllPlans { get; set; }
+
+        #endregion
+
+
+        #region 计划飞机集合
+
+        /// <summary>
+        ///     计划飞机集合（只需要取AircraftId=null的飞机，用于创建新年度计划时，选择与可再次申请的计划相关的计划飞机设置为预备状态）
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanAircraftDTO> PlanAircrafts { get; set; }
 
         #endregion
 
@@ -348,8 +368,22 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             //刷新_service中的静态属性CurrentAnnual
             _curAnnual = Annuals.SourceCollection.Cast<AnnualDTO>().SingleOrDefault(p => p.IsOpen);
 
-            //创建新年度的第一版本计划
-            AllPlans.AddNew(_service.CreateNewYearPlan(lastPlan, AllPlanHistories, newAnnual));
+            //将上年度的最后一个版本中可再次申请的计划明细对应的计划飞机置为预备状态
+            if (lastPlan != null)
+            {
+                var lastPlanHistories = AllPlanHistories.Where(p => p.PlanId == lastPlan.Id);
+                foreach (var lastPlanHistory in lastPlanHistories)
+                {
+                    if (lastPlanHistory!=null && lastPlanHistory.CanRequest == (int) CanRequest.可再次申请)
+                    {
+                        lastPlanHistory.ManageStatus=(int)ManageStatus.预备;
+                       var planAircraft= PlanAircrafts.FirstOrDefault(p => p.Id == lastPlanHistory.PlanAircraftId);
+                        if(planAircraft!=null) planAircraft.Status=(int)ManageStatus.预备;
+                    }
+                }
+                //创建新年度的第一版本计划
+                AllPlans.AddNew(_service.CreateNewYearPlan(lastPlan, AllPlanHistories, newAnnual));
+            }
 
             SelAnnual = _curAnnual;
 

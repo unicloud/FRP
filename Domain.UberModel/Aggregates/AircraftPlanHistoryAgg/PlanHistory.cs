@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
@@ -75,6 +76,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanHistoryAgg
         /// </summary>
         public string Note { get; private set; }
 
+        /// <summary>
+        /// 能否执行申请操作
+        /// </summary>
+        public CanRequest CanRequest { get; private set; }
+
+        /// <summary>
+        /// 能否执行交付操作
+        /// </summary>
+        public CanDeliver CanDeliver { get; private set; }
         #endregion
 
         #region 外键属性
@@ -164,6 +174,70 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanHistoryAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置能否执行申请操作
+        /// </summary>
+        /// <param name="canRequest">能否执行申请操作</param>
+        public void SetCanRequest(CanRequest canRequest)
+        {
+            switch (canRequest)
+            {
+                case CanRequest.可申请:
+                    CanRequest = CanRequest.可申请;
+                    break;
+                case CanRequest.未报计划:
+                    CanRequest = CanRequest.未报计划;
+                    break;
+                case CanRequest.已申请:
+                    CanRequest = CanRequest.已申请;
+                    IsValid = true;
+                    break;
+                case CanRequest.可再次申请:
+                    CanRequest = CanRequest.可再次申请;
+                    break;
+                case CanRequest.无需申请:
+                    CanRequest = CanRequest.无需申请;
+                    break;
+                case CanRequest.已有发改委指标:
+                    CanRequest = CanRequest.已有发改委指标;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("canRequest");
+            }
+        }
+
+
+        /// <summary>
+        ///     设置能否执行交付操作
+        /// </summary>
+        /// <param name="canDeliver">能否执行交付操作</param>
+        public void SetCanDeliver(CanDeliver canDeliver)
+        {
+            switch (canDeliver)
+            {
+                case CanDeliver.可交付:
+                    CanDeliver = CanDeliver.可交付;
+                    break;
+                case CanDeliver.交付中:
+                    CanDeliver = CanDeliver.交付中;
+                    break;
+                case CanDeliver.已交付:
+                    CanDeliver = CanDeliver.已交付;
+                    break;
+                case CanDeliver.未批准:
+                    CanDeliver = CanDeliver.未批准;
+                    break;
+                case CanDeliver.未批复:
+                    CanDeliver = CanDeliver.未批复;
+                    break;
+                case CanDeliver.未申请:
+                    CanDeliver = CanDeliver.未申请;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("canDeliver");
+            }
+        }
 
         /// <summary>
         /// 设置座位数

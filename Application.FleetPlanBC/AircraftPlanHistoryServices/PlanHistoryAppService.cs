@@ -107,6 +107,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
                 newPlanHistory.SetPerformDate(annual, dto.PerformMonth);
                 newPlanHistory.SetPlanAircraft(dto.PlanAircraftId);
                 newPlanHistory.SetSeatingCapacity(dto.SeatingCapacity);
+                newPlanHistory.SetCanRequest((CanRequest)dto.CanRequest);
+                newPlanHistory.SetCanDeliver((CanDeliver)dto.CanDeliver);
                 _planHistoryRepository.Add(newPlanHistory);
             }
             else if (dto.PlanType == 2)
@@ -121,6 +123,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
                 newPlanHistory.SetPerformDate(annual, dto.PerformMonth);
                 newPlanHistory.SetPlanAircraft(dto.PlanAircraftId);
                 newPlanHistory.SetSeatingCapacity(dto.SeatingCapacity);
+                newPlanHistory.SetCanRequest((CanRequest)dto.CanRequest);
+                newPlanHistory.SetCanDeliver((CanDeliver)dto.CanDeliver);
                 _planHistoryRepository.Add(newPlanHistory);
             }
         }
@@ -157,6 +161,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
                 updatePlanHistory.SetPlanAircraft(dto.PlanAircraftId);
                 updatePlanHistory.SetSeatingCapacity(dto.SeatingCapacity);
                 updatePlanHistory.SetApprovalHistory(dto.ApprovalHistoryId);
+                updatePlanHistory.SetCanRequest((CanRequest)dto.CanRequest);
+                updatePlanHistory.SetCanDeliver((CanDeliver)dto.CanDeliver);
                 var operationPlan = updatePlanHistory as OperationPlan;
                 if (operationPlan != null)
                     operationPlan.SetOperationHistory(operationHistory);
@@ -173,18 +179,12 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
                 updatePlanHistory.SetPlanAircraft(dto.PlanAircraftId);
                 updatePlanHistory.SetSeatingCapacity(dto.SeatingCapacity);
                 updatePlanHistory.SetApprovalHistory(dto.ApprovalHistoryId);
+                updatePlanHistory.SetCanRequest((CanRequest)dto.CanRequest);
+                updatePlanHistory.SetCanDeliver((CanDeliver)dto.CanDeliver);
                 var changePlan = updatePlanHistory as ChangePlan;
                 if (changePlan != null)
                     changePlan.SetAircraftBusiness(aircraftBusiness);
             }
-            //if (updatePlanHistory.PlanAircraftId != null)
-            //{
-            //    var persitPlanAircraft = _planAircraftRepository.Get(updatePlanHistory.PlanAircraftId);
-            //    if (persitPlanAircraft.Status != (ManageStatus)planHistoryDto.ManageStatus)
-            //    {
-            //        persitPlanAircraft.SetManageStatus((ManageStatus)planHistoryDto.ManageStatus);
-            //    }
-            //}
             _planHistoryRepository.Modify(updatePlanHistory);
         }
 

@@ -304,6 +304,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                          SelPlan.Status = (int)PlanStatus.已提交;
                          SelPlan.IsFinished = true;
                          SelPlan.SubmitDate = DateTime.Now;
+                         CurPlanHistories.Where(p=>p.IsSubmit &&  p.NeedRequest).ToList().ForEach(l=>l.CanRequest=(int)CanRequest.可申请);
                      }
                      //this.service.SubmitChanges(sc =>
                      //{

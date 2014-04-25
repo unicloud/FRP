@@ -129,7 +129,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="allPlanHistories"></param>
         /// <param name="newAnnual"></param>
         /// <returns></returns>
-        internal PlanDTO CreateNewYearPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories,AnnualDTO newAnnual)
+        internal PlanDTO CreateNewYearPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, AnnualDTO newAnnual)
         {
             var title = newAnnual.Year + "年度机队资源规划";
             // 从当前计划复制生成新年度计划
@@ -148,7 +148,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 IsFinished = false,
                 PublishStatus = (int)PlanPublishStatus.待发布,
             };
-            // 获取需要滚动到下一年度的计划明细项
+            // 获取需要滚动到下一年度的计划明细项(可再次申请的计划明细不滚动到下一年度，并将对应的计划飞机置为预备状态)
             var lastPhs = allPlanHistories.Where(p => p.PlanId == lastPlan.Id).ToList();
             var planHistories = (lastPhs == null) ? null : lastPhs.Where(o => o.PlanAircraftId == null ||
                                            (o.PlanAircraftId != null && (o.ManageStatus != (int)ManageStatus.预备
@@ -187,7 +187,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                           Year = q.Year,
                           ManageStatus = q.ManageStatus,
                       }).ToList();
-           resultphs.ForEach(allPlanHistories.AddNew);
+            resultphs.ForEach(allPlanHistories.AddNew);
             return newPlan;
         }
 
@@ -246,6 +246,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 TargetType = q.TargetType,
                 Year = q.Year,
                 ManageStatus = q.ManageStatus,
+                CanRequest = q.CanRequest,
+                CanDeliver = q.CanDeliver,
             }).ToList();
 
             resultphs.ForEach(allPlanHistories.AddNew);
@@ -263,7 +265,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="planType"></param>
         /// <param name="service"></param>
         /// <returns></returns>
-        internal PlanHistoryDTO CreatePlanHistory(PlanDTO plan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories,ref PlanAircraftDTO planAircraft, AircraftDTO aircraft, string actionType, int planType, IFleetPlanService service)
+        internal PlanHistoryDTO CreatePlanHistory(PlanDTO plan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, ref PlanAircraftDTO planAircraft, AircraftDTO aircraft, string actionType, int planType, IFleetPlanService service)
         {
             if (plan == null) return null;
             // 创建新的计划历史
@@ -278,6 +280,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 PlanType = planType,
                 ActionType = actionType,
                 ManageStatus = (int)ManageStatus.计划,
+                CanRequest = (int)CanRequest.未报计划,
+                CanDeliver = (int)CanDeliver.未申请,
             };
 
             planDetail.ActionCategories = service.GetActionCategoriesForPlanHistory(planDetail);
@@ -329,6 +333,16 @@ namespace UniCloud.Presentation.Service.FleetPlan
                                 planDetail.TargetType = planHistory.TargetType;
                                 planDetail.SeatingCapacity = planHistory.SeatingCapacity;
                                 planDetail.CarryingCapacity = planHistory.CarryingCapacity;
+                                if (planHistory.NeedRequest)
+                                {
+                                    planDetail.CanRequest = (int)CanRequest.未报计划;
+                                    planDetail.CanDeliver = (int)CanDeliver.未申请;
+                                }
+                                else
+                                {
+                                    planDetail.CanRequest = (int)CanRequest.无需申请;
+                                    planDetail.CanDeliver = (int)CanDeliver.可交付;
+                                }
                                 planAircraft.Status = (int)ManageStatus.计划;
                             }
                             // 2、计划飞机在当前计划中已有明细项
@@ -340,6 +354,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
                                 planDetail.AircraftTypeId = planAircraft.AircraftTypeId;
                                 planDetail.SeatingCapacity = -planHistory.SeatingCapacity;
                                 planDetail.CarryingCapacity = -planHistory.CarryingCapacity;
+                                planDetail.CanRequest = (int)CanRequest.无需申请;
+                                planDetail.CanDeliver = (int)CanDeliver.可交付;
                             }
                         }
                     }
@@ -357,6 +373,9 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         planDetail.SeatingCapacity = -aircraft.SeatingCapacity;
                         planDetail.CarryingCapacity = -aircraft.CarryingCapacity;
                         planDetail.AircraftId = aircraft.AircraftId;
+                        planDetail.CanRequest = (int)CanRequest.无需申请;
+                        planDetail.CanDeliver = (int)CanDeliver.可交付;
+                        planDetail.ManageStatus = (int) ManageStatus.运营;
                     }
                     else if (planType == 2) //为变更计划
                     {
@@ -369,11 +388,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
                             {
                                 planDetail.Regional = aircraft.Regional;
                                 planDetail.RegNumber = aircraft.RegNumber;
-                                planDetail.ActionCategoryId = aircraftBusiness.ImportCategoryId;
                                 planDetail.TargetCategoryId = aircraftBusiness.ImportCategoryId;
                                 planDetail.SeatingCapacity = aircraftBusiness.SeatingCapacity;
                                 planDetail.CarryingCapacity = aircraftBusiness.CarryingCapacity;
                                 planDetail.AircraftId = aircraft.AircraftId;
+                                planDetail.ManageStatus = (int)ManageStatus.运营;
                             }
                         }
                     }
