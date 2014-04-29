@@ -64,6 +64,8 @@
     <Compile Include="IssuedUnitServices\IssuedUnitAppService.cs" />
     <Compile Include="ProgrammingFileServices\IProgrammingFileAppService.cs" />
     <Compile Include="ProgrammingFileServices\ProgrammingFileAppService.cs" />
+    <Compile Include="RelatedDocServices\IRelatedDocAppService.cs" />
+    <Compile Include="RelatedDocServices\RelatedDocAppService.cs" />
     <Compile Include="RequestServices\RequestAppService.cs" />
     <Compile Include="RequestServices\IRequestAppService.cs" />
     <Compile Include="AircraftServices\AircraftAppService.cs" />

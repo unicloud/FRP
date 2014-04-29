@@ -137,6 +137,15 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public int DeltaPnr { get; set; }
 
+        /// <summary>
+        /// 能否执行申请操作
+        /// </summary>
+        public int CanRequest { get; set; }
+
+        /// <summary>
+        /// 能否执行交付操作
+        /// </summary>
+        public int CanDeliver { get; set; }
         #endregion
 
         #region 外键属性

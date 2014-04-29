@@ -101,6 +101,8 @@
     <Compile Include="ProgrammingQueries\IProgrammingQuery.cs" />
     <Compile Include="ProgrammingQueries\ProgrammingQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelatedDocQueries\IRelatedDocQuery.cs" />
+    <Compile Include="RelatedDocQueries\RelatedDocQuery.cs" />
     <Compile Include="RequestQueries\IRequestQuery.cs" />
     <Compile Include="RequestQueries\RequestQuery.cs" />
     <Compile Include="SupplierQueries\ISupplierQuery.cs" />

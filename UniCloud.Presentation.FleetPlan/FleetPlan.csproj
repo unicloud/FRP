@@ -228,36 +228,7 @@
       <DependentUpon>AircraftOwnership.xaml</DependentUpon>
     </Compile>
     <Compile Include="AircraftOwnerShips\AircraftOwnershipVM.cs" />
-    <Compile Include="Approvals\Approval.xaml.cs">
-      <DependentUpon>Approval.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Approvals\ApprovalDoubleClickHelper.cs" />
-    <Compile Include="Approvals\ApprovalDragDrop.cs" />
-    <Compile Include="Approvals\ApprovalDragVisual.cs" />
-    <Compile Include="Approvals\ApprovalVM.cs" />
-    <Compile Include="Approvals\QueryApproval.xaml.cs">
-      <DependentUpon>QueryApproval.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Approvals\QueryApprovalVM.cs" />
-    <Compile Include="Approvals\RequestApprovalDoubleClickHelper.cs" />
-    <Compile Include="Approvals\RequestApprovalDragDrop.cs" />
-    <Compile Include="Approvals\RequestApprovalDragVisual.cs" />
     <Compile Include="Converts\OperationStatusConvert.cs" />
-    <Compile Include="PerformFleetPlan\FleetPlanDeliver.xaml.cs">
-      <DependentUpon>FleetPlanDeliver.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PerformFleetPlan\FleetPlanDeliverVM.cs" />
-    <Compile Include="PerformFleetPlan\OperationChild.xaml.cs">
-      <DependentUpon>OperationChild.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PerformFleetPlan\OperationChildVM.cs" />
-    <Compile Include="PerformFleetPlan\PlanDeliverEditDialog.xaml.cs">
-      <DependentUpon>PlanDeliverEditDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PerformFleetPlan\QueryPerformPlan.xaml.cs">
-      <DependentUpon>QueryPerformPlan.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PerformFleetPlan\QueryPerformPlanVM.cs" />
     <Compile Include="PrepareFleetPlan\AirProgramming.xaml.cs">
       <DependentUpon>AirProgramming.xaml</DependentUpon>
     </Compile>
@@ -331,13 +302,6 @@
     <Compile Include="Requests\Request.xaml.cs">
       <DependentUpon>Request.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Requests\RequestDoubleClickHelper.cs" />
-    <Compile Include="Requests\RequestDragDrop.cs" />
-    <Compile Include="Requests\RequestDragVisual.cs" />
-    <Compile Include="Requests\RequestPlanDoubleClickHelper.cs" />
-    <Compile Include="Requests\RequestPlanDragDrop.cs" />
-    <Compile Include="Requests\RequestPlanDragVisual.cs" />
-    <Compile Include="Requests\RequestStatusConvert.cs" />
     <Compile Include="Requests\RequestVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -373,30 +337,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="AircraftOwnerShips\AircraftOwnership.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Approvals\Approval.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Approvals\QueryApproval.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PerformFleetPlan\FleetPlanDeliver.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PerformFleetPlan\OperationChild.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PerformFleetPlan\PlanDeliverEditDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="PerformFleetPlan\QueryPerformPlan.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -473,9 +413,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UpdateAircraftData\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

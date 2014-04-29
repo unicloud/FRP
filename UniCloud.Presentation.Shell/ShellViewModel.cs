@@ -1083,15 +1083,15 @@ namespace UniCloud.Presentation.Shell
                 IsEnabled = true,
             };
             var menu101 = new MenuItem
-                          {
-                              Text = "维护文档类型",
-                              NavUri = "UniCloud.Presentation.CommonService.DocumentTypeManager.ManagerDocumentType"
-                          };
+            {
+                Text = "维护文档类型",
+                NavUri = "UniCloud.Presentation.CommonService.DocumentTypeManager.ManagerDocumentType"
+            };
             var menu102 = new MenuItem
-                          {
-                              Text = "搜索文档",
-                              NavUri = "UniCloud.Presentation.CommonService.SearchDocument.SearchDocumentMain"
-                          };
+            {
+                Text = "搜索文档",
+                NavUri = "UniCloud.Presentation.CommonService.SearchDocument.SearchDocumentMain"
+            };
             menu10.Items.Add(menu101);
             menu10.Items.Add(menu102);
             _items.Add(menu10);
@@ -1174,3 +1174,4 @@ namespace UniCloud.Presentation.Shell
         #endregion
     }
 }
+

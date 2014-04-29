@@ -66,11 +66,8 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
                 throw new Exception("申请不能为空");
             }
             //新申请
-            var newRequest = RequestFactory.CreateRequest(request.SubmitDate, request.Title, request.RaDocNumber,
-                request.SawsDocNumber,
-                request.CaacDocNumber, request.Status, request.CaacNote, request.RaNote, request.SawsNote,
-                request.RaDocumentName, request.SawsDocumentName, request.CaacDocumentName, request.RaDocumentId,
-                request.SawsDocumentId,
+            var newRequest = RequestFactory.CreateRequest(request.SubmitDate, request.Title, 
+                request.CaacDocNumber, request.Status, request.Note,request.CaacDocumentName,
                 request.CaacDocumentId, Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"));
             request.ApprovalHistories.ToList().ForEach(p => newRequest.AddNewApprovalHistory(p.Id,p.SeatingCapacity,
                 p.CarryingCapacity,
@@ -105,14 +102,6 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             {
                 pesistRequest.SetTitle(request.Title);
             }
-            if (pesistRequest.RaDocNumber != request.RaDocNumber)
-            {
-                pesistRequest.SetRaDocNumber(request.RaDocNumber);
-            }
-            if (pesistRequest.SawsDocNumber != request.SawsDocNumber)
-            {
-                pesistRequest.SetSawsDocNumber(request.SawsDocNumber);
-            }
             if (pesistRequest.CaacDocNumber != request.CaacDocNumber)
             {
                 pesistRequest.SetCaacDocNumber(request.CaacDocNumber);
@@ -121,25 +110,9 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             {
                 pesistRequest.SetRequestStatus((RequestStatus) request.Status);
             }
-            if (pesistRequest.CaacNote != request.CaacNote)
+            if (pesistRequest.Note != request.Note)
             {
-                pesistRequest.SetCaacNote(request.CaacNote);
-            }
-            if (pesistRequest.RaNote != request.RaNote)
-            {
-                pesistRequest.SetRaNote(request.RaNote);
-            }
-            if (pesistRequest.SawsNote != request.SawsNote)
-            {
-                pesistRequest.SetSawsNote(request.SawsNote);
-            }
-            if (pesistRequest.RaDocumentId != request.RaDocumentId)
-            {
-                pesistRequest.SetRaDocument(request.RaDocumentId, request.RaDocumentName);
-            }
-            if (pesistRequest.SawsDocumentId != request.SawsDocumentId)
-            {
-                pesistRequest.SetSawsDocument(request.SawsDocumentId, request.SawsDocumentName);
+                pesistRequest.SetNote(request.Note);
             }
             if (pesistRequest.CaacDocumentId != request.CaacDocumentId)
             {

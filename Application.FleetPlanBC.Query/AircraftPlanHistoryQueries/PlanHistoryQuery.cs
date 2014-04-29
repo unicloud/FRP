@@ -66,6 +66,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.PlanHistoryQueries
                                     AirlinesName = q.Airlines.CnShortName,
                                     NeedRequest = q.ActionCategory.NeedRequest,
                                     Year = q.PerformAnnual.Year,
+                                    CanRequest = (int)q.CanRequest,
+                                    CanDeliver = (int)q.CanDeliver,
 
                                     ApprovalHistoryId = q.ApprovalHistoryId,
                                     //IsApproved = q.ApprovalHistory.IsApproved,TODO
@@ -107,6 +109,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.PlanHistoryQueries
                                     AirlinesName = p.Airlines.CnShortName,
                                     NeedRequest = p.ActionCategory.NeedRequest,
                                     Year = p.PerformAnnual.Year,
+                                    CanRequest = (int)p.CanRequest,
+                                    CanDeliver = (int)p.CanDeliver,
 
                                     ApprovalHistoryId = p.ApprovalHistoryId,
                                     //IsApproved = p.ApprovalHistory.IsApproved,TODO

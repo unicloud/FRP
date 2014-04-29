@@ -48,6 +48,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         #endregion
 
         #region 属性
+
         /// <summary>
         ///     提交日期
         /// </summary>
@@ -69,16 +70,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         public DateTime CreateDate { get; internal set; }
 
         /// <summary>
-        ///     地方局申请文号
-        /// </summary>
-        public string RaDocNumber { get; private set; }
-
-        /// <summary>
-        ///     监管局申请文号
-        /// </summary>
-        public string SawsDocNumber { get; private set; }
-
-        /// <summary>
         ///     民航局申请文号
         /// </summary>
         public string CaacDocNumber { get; private set; }
@@ -89,52 +80,23 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         public RequestStatus Status { get; private set; }
 
         /// <summary>
-        /// 民航局审批意见
+        ///     申请跟踪说明备忘
         /// </summary>
-        public string CaacNote { get; private set; }
-
-        /// <summary>
-        /// 地方局审批意见
-        /// </summary>
-        public string RaNote { get; private set; }
-
-        /// <summary>
-        /// 监管局审批意见
-        /// </summary>
-        public string SawsNote { get; private set; }
-
-        /// <summary>
-        ///     地方局批文文档名称
-        /// </summary>
-        public string RaDocumentName { get; private set; }
-
-        /// <summary>
-        ///     监管局申请文档名称
-        /// </summary>
-        public string SawsDocumentName { get; private set; }
+        public string Note { get; private set; }
 
         /// <summary>
         ///     民航局申请文档名称
         /// </summary>
         public string CaacDocumentName { get; private set; }
+
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        ///    民航局批文文档外键
+        ///     民航局批文文档外键
         /// </summary>
         public Guid? ApprovalDocId { get; private set; }
-
-        /// <summary>
-        ///     地方局申请文档Id
-        /// </summary>
-        public Guid? RaDocumentId { get; private set; }
-
-        /// <summary>
-        ///     监管局申请文档Id
-        /// </summary>
-        public Guid? SawsDocumentId { get; private set; }
 
         /// <summary>
         ///     民航局申请文档Id
@@ -146,18 +108,18 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         /// </summary>
         public Guid AirlinesId { get; private set; }
 
-
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        /// 批文
+        ///     批文
         /// </summary>
         public virtual ApprovalDoc ApprovalDoc { get; set; }
 
+
         /// <summary>
-        /// 航空公司
+        ///     航空公司
         /// </summary>
         public virtual Airlines Airlines { get; set; }
 
@@ -180,40 +142,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         /// <param name="title">申请标题</param>
         public void SetTitle(string title)
         {
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                throw new ArgumentException("申请标题参数为空！");
-            }
-
             Title = title;
-        }
-
-        /// <summary>
-        ///     设置地方局申请文号
-        /// </summary>
-        /// <param name="raDocNumber">地方局申请文号</param>
-        public void SetRaDocNumber(string raDocNumber)
-        {
-            if (string.IsNullOrWhiteSpace(raDocNumber))
-            {
-                throw new ArgumentException("地方局申请文号参数为空！");
-            }
-
-            RaDocNumber = raDocNumber;
-        }
-
-        /// <summary>
-        ///     设置监管局申请文号
-        /// </summary>
-        /// <param name="sawsDocNumber">监管局申请文号</param>
-        public void SetSawsDocNumber(string sawsDocNumber)
-        {
-            if (string.IsNullOrWhiteSpace(sawsDocNumber))
-            {
-                throw new ArgumentException("监管局申请文号参数为空！");
-            }
-
-            SawsDocNumber = sawsDocNumber;
         }
 
         /// <summary>
@@ -222,11 +151,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         /// <param name="caacDocNumber">民航局申请文号</param>
         public void SetCaacDocNumber(string caacDocNumber)
         {
-            if (string.IsNullOrWhiteSpace(caacDocNumber))
-            {
-                throw new ArgumentException("民航局申请文号参数为空！");
-            }
-
             CaacDocNumber = caacDocNumber;
         }
 
@@ -260,45 +184,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         }
 
         /// <summary>
-        /// 设置民航局审批意见
+        ///     设置民航局申请跟踪备忘录
         /// </summary>
-        /// <param name="caacNote"></param>
-        public void SetCaacNote(string caacNote)
+        /// <param name="note"></param>
+        public void SetNote(string note)
         {
-            if (string.IsNullOrWhiteSpace(caacNote))
-            {
-                throw new ArgumentException("民航局审批意见参数为空！");
-            }
-
-            CaacNote = caacNote;
-        }
-
-        /// <summary>
-        /// 设置地方局审批意见
-        /// </summary>
-        /// <param name="raNote"></param>
-        public void SetRaNote(string raNote)
-        {
-            if (string.IsNullOrWhiteSpace(raNote))
-            {
-                throw new ArgumentException("地方局审批意见参数为空！");
-            }
-
-            RaNote = raNote;
-        }
-
-        /// <summary>
-        /// 设置监管局审批意见
-        /// </summary>
-        /// <param name="sawsNote"></param>
-        public void SetSawsNote(string sawsNote)
-        {
-            if (string.IsNullOrWhiteSpace(sawsNote))
-            {
-                throw new ArgumentException("监管局审批意见参数为空！");
-            }
-
-            SawsNote = sawsNote;
+            Note = note;
         }
 
         /// <summary>
@@ -311,30 +202,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         }
 
         /// <summary>
-        ///     设置地方局申请文档
-        /// </summary>
-        /// <param name="raDocumentId">地方局申请文档</param>
-        public void SetRaDocument(Guid? raDocumentId)
-        {
-            RaDocumentId = raDocumentId;
-        }
-
-        /// <summary>
-        ///     设置监管局申请文档
-        /// </summary>
-        /// <param name="sawsDocumentId">监管局申请文档</param>
-        public void SetSawsDocument(Guid? sawsDocumentId)
-        {
-            SawsDocumentId = sawsDocumentId;
-        }
-
-        /// <summary>
         ///     设置民航局申请文档
         /// </summary>
         /// <param name="caacDocumentId">民航局申请文档</param>
-        public void SetCaacDocument(Guid? caacDocumentId)
+        /// <param name="caacDocumentName">民航局申请文档名称</param>
+        public void SetCaacDocument(Guid? caacDocumentId, string caacDocumentName)
         {
             CaacDocumentId = caacDocumentId;
+            CaacDocumentName = caacDocumentName;
         }
 
         /// <summary>
@@ -352,21 +227,43 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         }
 
         /// <summary>
-        /// 新增审批历史（申请明细）
+        ///     新增审批历史（申请明细）
         /// </summary>
         /// <returns></returns>
-        public ApprovalHistory AddNewApprovalHistory()
+        public ApprovalHistory AddNewApprovalHistory(Guid id, int seatingCapacity, decimal carryingCapacity,
+            int requestDeliverMonth, string note,
+            Guid requestId, Guid planAircraftId, Guid importCategoryId, Guid requestDeliverAnnualId, Guid airlinesId)
         {
-            var approvalHistory = new ApprovalHistory
-            {
-                RequestId = Id,
-                IsApproved = (Status == RequestStatus.已审批),
-            };
-
-            approvalHistory.GenerateNewIdentity();
+            var approvalHistory = new ApprovalHistory();
+            approvalHistory.SetSeatingCapacity(seatingCapacity);
+            approvalHistory.SetCarryingCapacity(carryingCapacity);
+            approvalHistory.SetRequest(requestId);
+            approvalHistory.SetNote(note);
+            approvalHistory.SetDeliverDate(requestDeliverAnnualId, requestDeliverMonth);
+            approvalHistory.SetRequest(requestId);
+            approvalHistory.SetPlanAircraft(planAircraftId);
+            approvalHistory.SetImportCategory(importCategoryId);
+            approvalHistory.SetAirlines(airlinesId);
+            approvalHistory.SetId(id);
             ApprovalHistories.Add(approvalHistory);
-
             return approvalHistory;
+        }
+
+        /// <summary>
+        ///     设置申请是否已完成申请
+        /// </summary>
+        public void SetIsFinished(bool isFinished)
+        {
+            IsFinished = isFinished;
+        }
+
+        /// <summary>
+        ///     设置提交日期
+        /// </summary>
+        /// <param name="submitDate">申请提交日期</param>
+        public void SetSubmitDate(DateTime? submitDate)
+        {
+            SubmitDate = submitDate;
         }
 
         #endregion

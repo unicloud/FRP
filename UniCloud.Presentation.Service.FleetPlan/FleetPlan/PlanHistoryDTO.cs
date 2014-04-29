@@ -165,60 +165,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             get { return (ManageStatus)ManageStatus; }
         }
 
-        private CanRequest _canRequest;
-
-        /// <summary>
-        /// 能否提出申请
-        /// 1、可申请
-        /// 2、未报计划
-        /// 3、已申请
-        /// 4、无需申请
-        /// </summary>
-        public CanRequest CanRequest
-        {
-            get
-            {
-                return _canRequest;
-            }
-        }
-
-
-        /// <summary>
-        /// 能否执行交付操作
-        /// 可交付存在两种情形，一种是无需申请的，一种是申请已批复且批准的
-        /// 1、可交付
-        /// 2、交付中
-        /// 3、已交付
-        /// 4、未申请
-        /// 5、未批复
-        /// 6、未批准
-        /// </summary>
-        public CanDeliver CanDeliver
-        {
-            get
-            {
-                // 1、活动是需要申报的类型
-                if (ActionCategoryId != Guid.Empty && NeedRequest)
-                {
-                    //if (this.ApprovalHistory == null) return CanDeliver.未申请; TODO
-                    if (ManageStatus == (int)Enums.ManageStatus.申请) return CanDeliver.未批复;
-                    //if (!this.ApprovalHistory.IsApproved) return CanDeliver.未批准; TODO
-                    var planDetail = this;
-                    if (planDetail.Id == Guid.Empty) return CanDeliver.可交付;
-                    if (planDetail.RelatedGuid == null) return CanDeliver.可交付;
-                }
-                // 2、活动是无需申报的类型
-                else
-                {
-                    var planDetail = this;
-                    if (planDetail.Id == Guid.Empty) return CanDeliver.可交付;
-                    if (planDetail.RelatedGuid == null) return CanDeliver.可交付;
-
-                }
-                return CanDeliver.可交付;
-            }
-        }
-
         /// <summary>
         /// 计划完成状态
         /// 0：草稿
@@ -328,41 +274,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         #endregion
 
         #region 方法
-        ///// <summary>
-        ///// 计划类型发生变化触发相关变化
-        ///// </summary>
-        //partial void OnPlanTypeChanged()
-        //{
-        //    ActionCategories = Service.GetActionCategoriesForPlanHistory(this);
-        //    OnPropertyChanged("ActionCategories");
-        //}
-
-        ///// <summary>
-        ///// 活动类型发生变化触发相关变化
-        ///// </summary>
-        //partial void OnActionTypeChanged()
-        //{
-        //    ActionCategories = Service.GetActionCategoriesForPlanHistory(this);
-        //    OnPropertyChanged("ActionCategories");
-        //}
-
-        ///// <summary>
-        ///// 活动类型发生变化触发相关变化
-        ///// </summary>
-        //partial void OnActionNameChanged()
-        //{
-        //    AircraftCategories = Service.GetAircraftCategoriesForPlanHistory(this);
-        //    OnPropertyChanged("AircraftCategories");
-        //}
-
-        ///// <summary>
-        ///// 座级发生变化触发相关变化
-        ///// </summary>
-        //partial void OnRegionalChanged()
-        //{
-        //    AircraftTypes = Service.GetAircraftTypesForPlanHistory(this);
-        //    OnPropertyChanged("AircraftTypes");
-        //}
 
         /// <summary>
         /// 机型发生变化时触发相关变化
@@ -398,28 +309,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         public PlanHistoryDTO Clone()
         {
             return MemberwiseClone() as PlanHistoryDTO;
-        }
-
-        /// <summary>
-        /// 刷新是否申请状态
-        /// </summary>
-        /// <param name="plan"></param>
-        public void RefrashCanRequest(PlanDTO plan)
-        {
-            if (ActionCategoryId != Guid.Empty && NeedRequest)
-            {
-                if (ManageStatus > (int)Enums.ManageStatus.计划) _canRequest = CanRequest.已申请;
-                else
-                    _canRequest = (this.IsSubmit && plan.Status == (int)OperationStatus.已提交)
-                    ? CanRequest.可申请
-                    : CanRequest.未报计划;
-            }
-            else
-            {
-                _canRequest = CanRequest.无需申请;
-            }
-            OnPropertyChanged("CanRequest");
-
         }
         #endregion
     }

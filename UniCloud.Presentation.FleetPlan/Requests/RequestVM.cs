@@ -292,7 +292,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void InitialPlanHistory()
         {
             PlanHistories = _service.CreateCollection(_context.PlanHistories);
-            _planHistoryDescriptor=new FilterDescriptor("PlanId",FilterOperator.IsEqualTo,Guid.Empty);
+            _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
             PlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
             _service.RegisterCollectionView(PlanHistories);
         }
@@ -534,21 +534,10 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
             if (doc != null)
             {
-                if (SelDocType.Equals("地方局申请文档"))
-                {
-                    SelectedRequest.RaDocumentId = doc.DocumentId;
-                    SelectedRequest.RaDocumentName = doc.Name;
-                }
-                else if (SelDocType.Equals("监管局申请文档"))
-                {
-                    SelectedRequest.SawsDocumentId = doc.DocumentId;
-                    SelectedRequest.SawsDocumentName = doc.Name;
-                }
-                else
-                {
-                    SelectedRequest.CaacDocumentId = doc.DocumentId;
-                    SelectedRequest.CaacDocumentName = doc.Name;
-                }
+
+                SelectedRequest.CaacDocumentId = doc.DocumentId;
+                SelectedRequest.CaacDocumentName = doc.Name;
+
                 SelDocType = null;
             }
 
@@ -576,7 +565,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// <returns></returns>
         public bool DragPlanHistory(object planHistory)
         {
-            return planHistory is PlanHistoryDTO && (planHistory as PlanHistoryDTO).CanRequest == CanRequest.可申请 && SelectedRequest != null &&
+            return planHistory is PlanHistoryDTO && (planHistory as PlanHistoryDTO).CanRequest == (int)CanRequest.可申请 && SelectedRequest != null &&
                    SelectedRequest.Status < (int)RequestStatus.已审核 && SubmitedPlan(planHistory as PlanHistoryDTO);
         }
 
@@ -632,7 +621,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 };
                 planHistory.ApprovalHistoryId = approveHistory.Id;
                 planHistory.ManageStatus = (int)ManageStatus.申请;
-                planHistory.RefrashCanRequest(SelectedPlan);
 
                 SelectedRequest.ApprovalHistories.Add(approveHistory);
 
@@ -656,7 +644,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 if (planHistory.ManageStatus == (int)ManageStatus.申请)
                 {
                     planHistory.ManageStatus = (int)ManageStatus.计划;
-                    planHistory.RefrashCanRequest(SelectedPlan);
                 }
             }
             SelectedRequest.ApprovalHistories.Remove(approvalHistory);
@@ -683,7 +670,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             if (SelectedPlan == null) return;
 
-            PlanHistories.ToList().ForEach(p => p.RefrashCanRequest(SelectedPlan));
         }
         #endregion
 
@@ -824,30 +810,30 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         public override void LoadData()
         {
-            //加载申请
-            if (!RequestsView.AutoLoad)
-            {
-                RequestsView.AutoLoad = true;
-            }
-            else
-            {
-                RequestsView.Load(true);
-            }
+            ////加载申请
+            //if (!RequestsView.AutoLoad)
+            //{
+            //    RequestsView.AutoLoad = true;
+            //}
+            //else
+            //{
+            //    RequestsView.Load(true);
+            //}
 
-            //加载计划
-            if (!PlansView.AutoLoad)
-            {
-                PlansView.AutoLoad = true;
-            }
-            else
-            {
-                PlansView.Load(true);
-            }
+            ////加载计划
+            //if (!PlansView.AutoLoad)
+            //{
+            //    PlansView.AutoLoad = true;
+            //}
+            //else
+            //{
+            //    PlansView.Load(true);
+            //}
 
-            AircraftTypesView.AutoLoad = true; //加载机型
-            AircraftCategoriesView.AutoLoad = true; //加载座级
-            AnnualsView.AutoLoad = true; //加载执行年度
-            ActionCategoriesView.AutoLoad = true; //加载操作类型
+            //AircraftTypesView.AutoLoad = true; //加载机型
+            //AircraftCategoriesView.AutoLoad = true; //加载座级
+            //AnnualsView.AutoLoad = true; //加载执行年度
+            //ActionCategoriesView.AutoLoad = true; //加载操作类型
         }
 
         protected override void RefreshCommandState()
