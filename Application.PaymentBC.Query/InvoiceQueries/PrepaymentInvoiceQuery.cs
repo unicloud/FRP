@@ -62,13 +62,12 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
                          IsValid = p.IsValid,
                          IsCompleted = p.IsCompleted,
                          Status = (int)p.Status,
-                         OrderId = p.OrderId,
+                         OrderId = (int)p.OrderId,
                          CurrencyId = p.CurrencyId,
                          PaymentScheduleLineId = p.PaymentScheduleLineId,
                          InvoiceLines = p.InvoiceLines.Select(q => new InvoiceLineDTO
                          {
                              InvoiceLineId = q.Id,
-                             ItemName = q.ItemName,
                              Amount = q.Amount,
                              InvoiceId = q.InvoiceId,
                              OrderLineId = q.OrderLineId,

@@ -15,9 +15,7 @@
 
 #endregion
 
-using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
-
-namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
+namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
 {
     /// <summary>
     ///     发票仓储接口
@@ -25,8 +23,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
     /// </summary>
     public interface IInvoiceRepository : IRepository<Invoice>
     {
-        BasePurchaseInvoice GetBasePurchaseInvoice(int id);
-        MaintainInvoice GetMaintainInvoice(int id);
         void DeleteInvoice(Invoice invoice);
 
         void RemoveInvoiceLine(InvoiceLine invoice);

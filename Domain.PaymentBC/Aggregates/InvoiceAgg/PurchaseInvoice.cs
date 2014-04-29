@@ -21,8 +21,12 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
     ///     发票聚合根
     ///     采购发票
     /// </summary>
-    public class PurchaseInvoice : Invoice
+    public class PurchaseInvoice : BasePurchaseInvoice
     {
+        #region 私有字段
+
+        #endregion
+
         #region 构造函数
 
         /// <summary>
@@ -44,11 +48,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         #endregion
 
         #region 导航属性
-
+       
         #endregion
 
         #region 操作
-
+       
         #endregion
     }
 }

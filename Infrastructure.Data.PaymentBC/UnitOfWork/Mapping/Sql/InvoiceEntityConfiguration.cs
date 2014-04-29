@@ -56,10 +56,8 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             Property(p => p.CurrencyId).HasColumnName("CurrencyId");
             Property(p => p.PaymentScheduleLineId).HasColumnName("PaymentScheduleLineId");
 
-            HasRequired(i => i.Order).WithMany().HasForeignKey(i => i.OrderId);
             HasRequired(i => i.Supplier).WithMany().HasForeignKey(i => i.SupplierId);
             HasRequired(i => i.Currency).WithMany().HasForeignKey(i => i.CurrencyId);
-            HasMany(i => i.InvoiceLines).WithRequired().HasForeignKey(i => i.InvoiceId);
         }
     }
 }

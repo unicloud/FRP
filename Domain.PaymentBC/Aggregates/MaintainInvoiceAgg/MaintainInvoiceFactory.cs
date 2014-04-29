@@ -18,7 +18,9 @@
 #region 命名空间
 
 using System;
+using System.Linq;
 using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 
 #endregion
 
@@ -108,16 +110,15 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         /// <param name="documentId">文档ID</param>
         public static void SetMaintainInvoice(MaintainInvoice maintainInvoice, string serialNumber, string invoideCode,
             DateTime invoiceDate, string supplierName, int supplierId, decimal invoiceValue, decimal paidAmount,
-            string operatorName,
-            string reviewer, int status, int currencyId, string documentName, Guid documentId)
+            string operatorName, string reviewer, int status, int currencyId, string documentName, Guid documentId)
         {
             maintainInvoice.SetSerialNumber(serialNumber);
             maintainInvoice.InvoideCode = invoideCode;
             maintainInvoice.InvoiceDate = invoiceDate;
-            maintainInvoice.SetInvoiceValue(invoiceValue);
+            maintainInvoice.SetInvoiceValue();
             //maintainInvoice.SetPaidAmount(paidAmount);
             maintainInvoice.SetOperator(operatorName);
-            maintainInvoice.SetInvoiceStatus((InvoiceStatus) status);
+            maintainInvoice.SetInvoiceStatus((InvoiceStatus)status);
             maintainInvoice.SetSupplier(supplierId, supplierName);
             maintainInvoice.SetCurrency(currencyId);
             maintainInvoice.DocumentName = documentName;
@@ -141,33 +142,32 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         }
 
         /// <summary>
-        ///     创建维修发票行
+        ///     设置发票行属性
         /// </summary>
-        /// <returns></returns>
-        public static MaintainInvoiceLine CreateMaintainInvoiceLine()
+        /// <param name="invoiceLine">发票行</param>
+        /// <param name="price">单价</param>
+        /// <param name="amount">金额</param>
+        /// <param name="note">备注</param>
+        /// <param name="maintainItem">维修项</param>
+        /// <param name="itemName">项名称</param>
+        public static void SetInvoiceLine(MaintainInvoiceLine invoiceLine, int maintainItem, string itemName, decimal price, decimal amount, string note)
         {
-            var maintainInvoiceLine = new MaintainInvoiceLine();
-            maintainInvoiceLine.GenerateNewIdentity();
-            return maintainInvoiceLine;
+            invoiceLine.SetMaintainItem((MaintainItem)maintainItem);
+            invoiceLine.SetItemName(itemName);
+            invoiceLine.SetUnitPrice(price);
+            invoiceLine.SetAmount(amount);
+            invoiceLine.SetNote(note);
         }
 
         /// <summary>
-        ///     设置维修发票行属性
+        ///     创建发票行
         /// </summary>
-        /// <param name="maintainInvoiceLine">维修发票行</param>
-        /// <param name="maintainItem">维修项</param>
-        /// <param name="itemName">项名称</param>
-        /// <param name="unitPrice">单价</param>
-        /// <param name="amount">数量</param>
-        /// <param name="note">备注</param>
-        public static void SetMaintainInvoiceLine(MaintainInvoiceLine maintainInvoiceLine, int maintainItem,
-            string itemName, decimal unitPrice, decimal amount, string note)
+        /// <returns></returns>
+        public static MaintainInvoiceLine CreateInvoiceLine()
         {
-            maintainInvoiceLine.SetMaintainItem((MaintainItem) maintainItem);
-            maintainInvoiceLine.ItemName = itemName;
-            maintainInvoiceLine.UnitPrice = unitPrice;
-            maintainInvoiceLine.Amount = amount;
-            maintainInvoiceLine.SetNote(note);
+            var invoiceLine = new MaintainInvoiceLine();
+            invoiceLine.GenerateNewIdentity();
+            return invoiceLine;
         }
     }
 }

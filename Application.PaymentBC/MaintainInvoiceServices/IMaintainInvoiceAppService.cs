@@ -44,6 +44,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         /// <returns>所有APU维修发票</returns>
         IQueryable<APUMaintainInvoiceDTO> GetApuMaintainInvoices();
 
+        void ModifyApuMaintainInvoice(APUMaintainInvoiceDTO apuMaintainInvoice);
+
         /// <summary>
         ///     获取所有机身维修发票
         /// </summary>

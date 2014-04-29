@@ -16,6 +16,7 @@
 
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 
 #endregion
@@ -24,9 +25,9 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
 {
     public class MaintainInvoiceQuery : IMaintainInvoiceQuery
     {
-        private readonly IMaintainInvoiceRepository _invoiceRepository;
+        private readonly IInvoiceRepository _invoiceRepository;
 
-        public MaintainInvoiceQuery(IMaintainInvoiceRepository invoiceRepository)
+        public MaintainInvoiceQuery(IInvoiceRepository invoiceRepository)
         {
             _invoiceRepository = invoiceRepository;
         }
@@ -40,7 +41,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
             QueryBuilder<MaintainInvoice> query)
         {
             return
-                query.ApplyTo(_invoiceRepository.GetAll())
+                query.ApplyTo(_invoiceRepository.GetAll().OfType<MaintainInvoice>())
                     .Select(p => new BaseMaintainInvoiceDTO
                     {
                         MaintainInvoiceId = p.Id,
@@ -97,7 +98,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      DocumentName = p.DocumentName,
                                      DocumentId = p.DocumentId,
                                      MaintainInvoiceLines =
-                                         p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
+                                         p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
                                                                                 MaintainInvoiceLineId = q.Id,
                                                                                 MaintainItem = (int)q.MaintainItem,
@@ -136,21 +137,21 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      ReviewDate = p.ReviewDate,
                                      IsValid = p.IsValid,
                                      IsCompleted = p.IsCompleted,
-                                     Status = (int)p.Status,
+                                     Status = (int) p.Status,
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
                                      DocumentName = p.DocumentName,
                                      DocumentId = p.DocumentId,
                                      MaintainInvoiceLines =
-                                         p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
-                                                                            {
-                                                                                MaintainInvoiceLineId = q.Id,
-                                                                                MaintainItem = (int)q.MaintainItem,
-                                                                                ItemName = q.ItemName,
-                                                                                UnitPrice = q.UnitPrice,
-                                                                                Amount = q.Amount,
-                                                                                Note = q.Note
-                                                                            }).ToList(),
+                                         p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
+                                                                    {
+                                                                        MaintainInvoiceLineId = q.Id,
+                                                                        MaintainItem = (int) q.MaintainItem,
+                                                                        ItemName = q.ItemName,
+                                                                        UnitPrice = q.UnitPrice,
+                                                                        Amount = q.Amount,
+                                                                        Note = q.Note
+                                                                    }).ToList(),
                                  });
         }
 
@@ -180,21 +181,21 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      ReviewDate = p.ReviewDate,
                                      IsValid = p.IsValid,
                                      IsCompleted = p.IsCompleted,
-                                     Status = (int)p.Status,
+                                     Status = (int) p.Status,
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
                                      DocumentName = p.DocumentName,
                                      DocumentId = p.DocumentId,
                                      MaintainInvoiceLines =
-                                         p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
-                                                                            {
-                                                                                MaintainInvoiceLineId = q.Id,
-                                                                                MaintainItem = (int)q.MaintainItem,
-                                                                                ItemName = q.ItemName,
-                                                                                UnitPrice = q.UnitPrice,
-                                                                                Amount = q.Amount,
-                                                                                Note = q.Note
-                                                                            }).ToList(),
+                                         p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
+                                                                    {
+                                                                        MaintainInvoiceLineId = q.Id,
+                                                                        MaintainItem = (int) q.MaintainItem,
+                                                                        ItemName = q.ItemName,
+                                                                        UnitPrice = q.UnitPrice,
+                                                                        Amount = q.Amount,
+                                                                        Note = q.Note
+                                                                    }).ToList(),
                                  });
         }
 
@@ -225,21 +226,21 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      ReviewDate = p.ReviewDate,
                                      IsValid = p.IsValid,
                                      IsCompleted = p.IsCompleted,
-                                     Status = (int)p.Status,
+                                     Status = (int) p.Status,
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
                                      DocumentName = p.DocumentName,
                                      DocumentId = p.DocumentId,
                                      MaintainInvoiceLines =
-                                         p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
-                                                                            {
-                                                                                MaintainInvoiceLineId = q.Id,
-                                                                                MaintainItem = (int)q.MaintainItem,
-                                                                                ItemName = q.ItemName,
-                                                                                UnitPrice = q.UnitPrice,
-                                                                                Amount = q.Amount,
-                                                                                Note = q.Note
-                                                                            }).ToList(),
+                                         p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
+                                                                    {
+                                                                        MaintainInvoiceLineId = q.Id,
+                                                                        MaintainItem = (int) q.MaintainItem,
+                                                                        ItemName = q.ItemName,
+                                                                        UnitPrice = q.UnitPrice,
+                                                                        Amount = q.Amount,
+                                                                        Note = q.Note
+                                                                    }).ToList(),
                                  });
         }
     }

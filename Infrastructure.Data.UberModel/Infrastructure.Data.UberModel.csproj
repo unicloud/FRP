@@ -129,6 +129,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\APURegEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AtaEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BankAccountEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\BasePurchaseInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BasicConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BasicConfigGroupEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BasicConfigHistoryEntityConfiguration.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractEngineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PurchaseInvoiceLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionScheduleEntityConfiguration.cs" />

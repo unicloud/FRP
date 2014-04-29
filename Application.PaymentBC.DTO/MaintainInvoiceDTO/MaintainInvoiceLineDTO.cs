@@ -1,17 +1,15 @@
 ﻿#region Version Info
-
 /* ========================================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2013/12/16 9:55:20
+// 作者：linxw 时间：2014/4/29 9:25:58
 // 文件名：MaintainInvoiceLineDTO
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2013/12/16 9:55:20
+// 修改者：linxw 时间：2014/4/29 9:25:58
 // 修改说明：
 // ========================================================================*/
-
 #endregion
 
 #region 命名空间
@@ -23,7 +21,7 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    ///     维修发票行基类
+    ///     维修发票行DTO
     /// </summary>
     [DataServiceKey("MaintainInvoiceLineId")]
     public class MaintainInvoiceLineDTO
@@ -31,7 +29,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         #region 属性
 
         /// <summary>
-        ///     维修发票行主键
+        ///     主键
         /// </summary>
         public int MaintainInvoiceLineId { get; set; }
 
@@ -51,7 +49,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         public decimal UnitPrice { get; set; }
 
         /// <summary>
-        ///     数量
+        ///    数量
         /// </summary>
         public decimal Amount { get; set; }
 
@@ -65,9 +63,13 @@ namespace UniCloud.Application.PaymentBC.DTO
         #region 外键属性
 
         /// <summary>
-        ///     附件ID
+        ///     发票ID
         /// </summary>
-        public int? PartId { get; set; }
+        public int InvoiceId { get; set; }
+
+        #endregion
+
+        #region 导航属性
 
         #endregion
     }

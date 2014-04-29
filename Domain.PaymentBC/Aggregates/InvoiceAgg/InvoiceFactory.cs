@@ -147,7 +147,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
             invoice.SetInvoiceNumber(invoiceNumber);
             invoice.SetSupplier(supplier);
             invoice.SetOrder(order);
-            //invoice.SetPaidAmount(paidAmount);
             invoice.SetCurrency(currency);
             invoice.SetPaymentScheduleLine(paymentScheduleLineId);
             invoice.SetInvoiceStatus((InvoiceStatus) status);
@@ -157,12 +156,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         ///     设置发票行属性
         /// </summary>
         /// <param name="invoiceLine">发票行</param>
-        /// <param name="itemName">项名称</param>
         /// <param name="amount">金额</param>
         /// <param name="order">订单</param>
         /// <param name="orderLineId">订单行Id</param>
         /// <param name="note">备注</param>
-        public static void SetInvoiceLine(InvoiceLine invoiceLine, string itemName, decimal amount, Order order,
+        public static void SetInvoiceLine(PurchaseInvoiceLine invoiceLine,  decimal amount, Order order,
             int orderLineId, string note)
         {
             if (order != null)
@@ -170,8 +168,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
                 var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == orderLineId);
                 invoiceLine.SetOrderLine(orderLine);
             }
-            invoiceLine.ItemName = itemName;
-            invoiceLine.Amount = amount;
+            invoiceLine.SetAmount(amount);
             invoiceLine.SetNote(note);
         }
 
@@ -179,9 +176,9 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         ///     创建发票行
         /// </summary>
         /// <returns></returns>
-        public static InvoiceLine CreateInvoiceLine()
+        public static PurchaseInvoiceLine CreateInvoiceLine()
         {
-            var invoiceLine = new InvoiceLine();
+            var invoiceLine = new PurchaseInvoiceLine();
             invoiceLine.GenerateNewIdentity();
             return invoiceLine;
         }

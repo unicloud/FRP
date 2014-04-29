@@ -21,8 +21,12 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
     ///     发票聚合根
     ///     租赁发票
     /// </summary>
-    public class LeaseInvoice : Invoice
+    public class LeaseInvoice : BasePurchaseInvoice
     {
+        #region 私有字段
+
+        #endregion
+
         #region 构造函数
 
         /// <summary>
@@ -44,11 +48,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         #endregion
 
         #region 导航属性
-
+     
         #endregion
 
         #region 操作
-
+       
         #endregion
     }
 }

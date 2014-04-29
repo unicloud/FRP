@@ -54,6 +54,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
         private IDbSet<Currency> _currencies;
         private IDbSet<Guarantee> _guarantees;
         private IDbSet<Invoice> _invoices;
+        private IDbSet<BasePurchaseInvoice> _basePurchaseInvoices; 
         private IDbSet<Linkman> _linkmen;
         private IDbSet<MaintainContract> _maintainContracts;
         private IDbSet<MaintainInvoice> _maintainInvoices;
@@ -103,6 +104,11 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
         public IDbSet<Invoice> Invoices
         {
             get { return _invoices ?? (_invoices = Set<Invoice>()); }
+        }
+
+        public IDbSet<BasePurchaseInvoice> BasePurchaseInvoices
+        {
+            get { return _basePurchaseInvoices ?? (_basePurchaseInvoices = Set<BasePurchaseInvoice>()); }
         }
 
         public IDbSet<Linkman> Linkmen
@@ -246,7 +252,8 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
                 .Add(new LeaseInvoiceEntityConfiguration())
                 .Add(new PurchaseInvoiceEntityConfiguration())
                 .Add(new PrepaymentInvoiceEntityConfiguration())
-
+                .Add(new PurchaseInvoiceLineEntityConfiguration())
+                 .Add(new BasePurchaseInvoiceEntityConfiguration())
             #endregion
 
             #region LinkmanAgg
@@ -267,12 +274,11 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
             #region MaintainInvoiceAgg
 
 .Add(new MaintainInvoiceEntityConfiguration())
-                .Add(new MaintainInvoiceLineEntityConfiguration())
                 .Add(new AirframeMaintainInvoiceEntityConfiguration())
                 .Add(new APUMaintainInvoiceEntityConfiguration())
                 .Add(new EngineMaintainInvoiceEntityConfiguration())
                 .Add(new UndercartMaintainInvoiceEntityConfiguration())
-
+                .Add(new MaintainInvoiceLineEntityConfiguration())
             #endregion
 
             #region OrderAgg

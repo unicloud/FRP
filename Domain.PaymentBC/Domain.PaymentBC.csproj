@@ -72,6 +72,7 @@
     <Compile Include="Aggregates\GuaranteeAgg\IGuaranteeRepository.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\LeaseGuarantee.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\MaintainGuarantee.cs" />
+    <Compile Include="Aggregates\InvoiceAgg\BasePurchaseInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\CreditNoteInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\IInvoiceRepository.cs" />
     <Compile Include="Aggregates\InvoiceAgg\Invoice.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Aggregates\InvoiceAgg\PrepaymentInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\LeaseInvoice.cs" />
+    <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoiceLine.cs" />
     <Compile Include="Aggregates\LinkmanAgg\ILinkmanRepository.cs" />
     <Compile Include="Aggregates\LinkmanAgg\Linkman.cs" />
     <Compile Include="Aggregates\LinkmanAgg\LinkmanSpecifications.cs" />
@@ -93,7 +95,6 @@
     <Compile Include="Aggregates\MaintainInvoiceAgg\AirframeMaintainInvoice.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\APUMaintainInvoice.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\EngineMaintainInvoice.cs" />
-    <Compile Include="Aggregates\MaintainInvoiceAgg\IMaintainInvoiceRepository.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoice.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceFactory.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceLine.cs" />

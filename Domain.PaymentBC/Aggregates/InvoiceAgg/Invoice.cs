@@ -37,8 +37,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
     {
         #region 私有字段
 
-        private HashSet<InvoiceLine> _lines;
-
         #endregion
 
         #region 构造函数
@@ -127,7 +125,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// <summary>
         ///     订单ID
         /// </summary>
-        public int OrderId { get; private set; }
+        public int? OrderId { get; private set; }
 
         /// <summary>
         ///     供应商ID
@@ -149,11 +147,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         #region 导航属性
 
         /// <summary>
-        ///     订单
-        /// </summary>
-        public virtual Order Order { get; private set; }
-
-        /// <summary>
         ///     供应商
         /// </summary>
         public virtual Supplier Supplier { get; private set; }
@@ -162,15 +155,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         ///     币种
         /// </summary>
         public virtual Currency Currency { get; private set; }
-
-        /// <summary>
-        ///     发票行
-        /// </summary>
-        public virtual ICollection<InvoiceLine> InvoiceLines
-        {
-            get { return _lines ?? (_lines = new HashSet<InvoiceLine>()); }
-            set { _lines = new HashSet<InvoiceLine>(value); }
-        }
 
         #endregion
 
@@ -208,9 +192,9 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// <summary>
         ///     设置发票金额
         /// </summary>
-        public void SetInvoiceValue()
+        public void SetInvoiceValue(decimal invoiceValue)
         {
-            InvoiceValue = InvoiceLines.Sum(i => i.Amount);
+            InvoiceValue = invoiceValue;
         }
 
         /// <summary>
@@ -224,7 +208,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
                 throw new ArgumentException("订单参数为空！");
             }
 
-            Order = order;
             OrderId = order.Id;
         }
 
@@ -320,6 +303,15 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         }
 
         /// <summary>
+        ///     设置币种
+        /// </summary>
+        /// <param name="currencyId">币种Id</param>
+        public void SetCurrency(int currencyId)
+        {
+            CurrencyId = currencyId;
+        }
+
+        /// <summary>
         ///     设置供应商
         /// </summary>
         /// <param name="supplier">供应商</param>
@@ -336,6 +328,17 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         }
 
         /// <summary>
+        ///     设置供应商
+        /// </summary>
+        /// <param name="supplierId">供应商Id</param>
+        /// <param name="supplierName">供应商名字</param>
+        public void SetSupplier(int supplierId, string supplierName)
+        {
+            SupplierId = supplierId;
+            SupplierName = supplierName;
+        }
+
+        /// <summary>
         ///     设置付款计划行ID
         /// </summary>
         /// <param name="id">付款计划行ID</param>
@@ -348,31 +351,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
 
             PaymentScheduleLineId = id;
         }
-
-        /// <summary>
-        ///     添加发票行
-        /// </summary>
-        /// <param name="itemName">项名称</param>
-        /// <param name="amount">金额</param>
-        /// <param name="orderLine">订单行</param>
-        /// <param name="note">备注</param>
-        /// <returns>发票行</returns>
-        public InvoiceLine AddInvoiceLine(string itemName, decimal amount, OrderLine orderLine, string note)
-        {
-            var invoiceLine = new InvoiceLine
-            {
-                ItemName = itemName,
-                Amount = amount,
-            };
-            invoiceLine.SetNote(note);
-            invoiceLine.GenerateNewIdentity();
-            invoiceLine.SetOrderLine(orderLine);
-
-            InvoiceLines.Add(invoiceLine);
-
-            return invoiceLine;
-        }
-
         #endregion
 
         #region IValidatableObject 成员

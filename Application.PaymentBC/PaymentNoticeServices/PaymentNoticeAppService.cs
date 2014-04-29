@@ -40,14 +40,12 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
         private readonly IPaymentNoticeQuery _paymentNoticeQuery;
         private readonly IPaymentNoticeRepository _paymentNoticeRepository;
         private static int _maxInvoiceNumber;
-        private readonly IMaintainInvoiceRepository _maintainInvoiceRepository;
         private readonly IInvoiceRepository _invoiceRepository;
         public PaymentNoticeAppService(IPaymentNoticeQuery paymentNoticeQuery, IPaymentNoticeRepository paymentNoticeRepository,
-            IMaintainInvoiceRepository maintainInvoiceRepository, IInvoiceRepository invoiceRepository)
+            IInvoiceRepository invoiceRepository)
         {
             _paymentNoticeQuery = paymentNoticeQuery;
             _paymentNoticeRepository = paymentNoticeRepository;
-            _maintainInvoiceRepository = maintainInvoiceRepository;
             _invoiceRepository = invoiceRepository;
         }
 
@@ -174,13 +172,6 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
                                                                       switch (p.InvoiceType)
                                                                       {
                                                                           case InvoiceType.维修发票:
-                                                                              var maintainInvoice = _maintainInvoiceRepository.Get(p.InvoiceId);
-                                                                              if (maintainInvoice != null)
-                                                                              {
-                                                                                  maintainInvoice.SetPaidAmount(p.Amount);
-                                                                                  _maintainInvoiceRepository.Modify(maintainInvoice);
-                                                                              }
-                                                                              break;
                                                                           case InvoiceType.租赁发票:
                                                                           case InvoiceType.贷项单:
                                                                           case InvoiceType.采购发票:

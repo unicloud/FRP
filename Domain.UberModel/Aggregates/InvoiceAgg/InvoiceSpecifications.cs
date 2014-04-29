@@ -4,7 +4,7 @@
 // 版权所有 (C) 2013 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/15，14:38
+// 作者：丁志浩 时间：2013/12/08，11:52
 // 方案：FRP
 // 项目：Domain.PaymentBC
 // 版本：V1.0.0
@@ -15,14 +15,12 @@
 
 #endregion
 
-namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
+namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
 {
     /// <summary>
-    ///     维修发票仓储接口
-    ///     <see cref="UniCloud.Domain.IRepository{MaintainInvoice}" />
+    ///     发票规约集合
     /// </summary>
-    public interface IMaintainInvoiceRepository : IRepository<MaintainInvoice>
+    public static class InvoiceSpecifications
     {
-        void RemoveMaintainInvoiceLine(MaintainInvoiceLine maintainInvoiceLine);
     }
 }

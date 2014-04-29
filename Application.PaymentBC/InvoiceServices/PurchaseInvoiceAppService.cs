@@ -98,12 +98,11 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                 if (order != null)
                 {
                     var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
-                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine,
-                        invoiceLine.Note);
+                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.Amount, orderLine, invoiceLine.Note);
                 }
                 else
                 {
-                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null, invoiceLine.Note);
+                    newPurchaseInvoice.AddInvoiceLine( invoiceLine.Amount, null, invoiceLine.Note);
                 }
             }
             newPurchaseInvoice.SetInvoiceValue();
@@ -121,7 +120,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             var order = _orderRepository.Get(purchaseInvoice.OrderId);
             var currency = _currencyRepository.GetFiltered(p => p.Id == purchaseInvoice.CurrencyId).FirstOrDefault();
 
-            var updatePurchaseInvoice = _invoiceRepository.Get(purchaseInvoice.PurchaseInvoiceId);
+            var updatePurchaseInvoice = _invoiceRepository.GetBasePurchaseInvoice(purchaseInvoice.PurchaseInvoiceId);
             //获取需要更新的对象。
             if (updatePurchaseInvoice != null)
             {
@@ -148,7 +147,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delPurchaseInvoice = _invoiceRepository.Get(purchaseInvoice.PurchaseInvoiceId);
+            var delPurchaseInvoice = _invoiceRepository.GetBasePurchaseInvoice(purchaseInvoice.PurchaseInvoiceId);
             //获取需要删除的对象。
             if (delPurchaseInvoice != null)
             {
@@ -166,9 +165,9 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         /// <param name="sourceInvoiceLines">客户端集合</param>
         /// <param name="dstInvoice">数据库集合</param>
         /// <param name="order"></param>
-        private void UpdateInvoiceLines(IEnumerable<InvoiceLineDTO> sourceInvoiceLines, Invoice dstInvoice, Order order)
+        private void UpdateInvoiceLines(IEnumerable<InvoiceLineDTO> sourceInvoiceLines, BasePurchaseInvoice dstInvoice, Order order)
         {
-            var invoiceLines = new List<InvoiceLine>();
+            var invoiceLines = new List<PurchaseInvoiceLine>();
             foreach (var sourceInvoiceLine in sourceInvoiceLines)
             {
                 var result = dstInvoice.InvoiceLines.FirstOrDefault(p => p.Id == sourceInvoiceLine.InvoiceLineId);
@@ -177,7 +176,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                     result = InvoiceFactory.CreateInvoiceLine();
                     result.ChangeCurrentIdentity(sourceInvoiceLine.InvoiceLineId);
                 }
-                InvoiceFactory.SetInvoiceLine(result, sourceInvoiceLine.ItemName, sourceInvoiceLine.Amount, order,
+                InvoiceFactory.SetInvoiceLine(result, sourceInvoiceLine.Amount, order,
                     sourceInvoiceLine.InvoiceLineId, sourceInvoiceLine.Note);
                 invoiceLines.Add(result);
             }

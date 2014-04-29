@@ -20,6 +20,7 @@
 using System.Data.Entity;
 using System.Linq;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 
 #endregion
@@ -42,9 +43,31 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.Repositories
         {
             var currentUnitOfWork = UnitOfWork as PaymentBCUnitOfWork;
             if (currentUnitOfWork == null) return null;
-            var set = currentUnitOfWork.CreateSet<Invoice>();
+            var set = currentUnitOfWork.CreateSet<Invoice>().OfType<BasePurchaseInvoice>();
+            var result = set.Include(p => p.InvoiceLines).FirstOrDefault(l => l.Id == (int)id);
 
-            return set.Include(p => p.InvoiceLines).SingleOrDefault(l => l.Id == (int)id);
+            if (result == null)
+            {
+                var maintainInvoiceSet = currentUnitOfWork.CreateSet<Invoice>().OfType<MaintainInvoice>();
+                return maintainInvoiceSet.Include(p => p.InvoiceLines).FirstOrDefault(l => l.Id == (int)id);
+            }
+            return result;
+        }
+
+        public BasePurchaseInvoice GetBasePurchaseInvoice(int id)
+        {
+            var currentUnitOfWork = UnitOfWork as PaymentBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<BasePurchaseInvoice>();
+            return set.Include(p => p.InvoiceLines).FirstOrDefault(l => l.Id == id);
+        }
+
+        public MaintainInvoice GetMaintainInvoice(int id)
+        {
+            var currentUnitOfWork = UnitOfWork as PaymentBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<MaintainInvoice>();
+            return set.Include(p => p.InvoiceLines).FirstOrDefault(l => l.Id == id);
         }
 
         public override IQueryable<Invoice> GetAll()
@@ -53,17 +76,29 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.Repositories
             if (currentUnitOfWork == null) return null;
             var set = currentUnitOfWork.CreateSet<Invoice>();
 
-            return set.Include(p => p.InvoiceLines);
+            return set;
         }
 
         public void DeleteInvoice(Invoice invoice)
         {
             var currentUnitOfWork = UnitOfWork as PaymentBCUnitOfWork;
             if (currentUnitOfWork == null) return;
-            var dbInvoiceLines = currentUnitOfWork.CreateSet<InvoiceLine>();
-            var dbInvoices = currentUnitOfWork.CreateSet<Invoice>();
-            dbInvoiceLines.RemoveRange(invoice.InvoiceLines);
-            dbInvoices.Remove(invoice);
+            if (invoice is BasePurchaseInvoice)
+            {
+                var dbInvoiceLines = currentUnitOfWork.CreateSet<InvoiceLine>();
+                var dbInvoices = currentUnitOfWork.CreateSet<BasePurchaseInvoice>();
+                var basePurchaseInvoice = invoice as BasePurchaseInvoice;
+                dbInvoiceLines.RemoveRange(basePurchaseInvoice.InvoiceLines);
+                dbInvoices.Remove(basePurchaseInvoice);
+            }
+            else
+            {
+                var dbInvoiceLines = currentUnitOfWork.CreateSet<InvoiceLine>();
+                var dbInvoices = currentUnitOfWork.CreateSet<MaintainInvoice>();
+                var maintainInvoice = invoice as MaintainInvoice;
+                dbInvoiceLines.RemoveRange(maintainInvoice.InvoiceLines);
+                dbInvoices.Remove(maintainInvoice);
+            }
         }
 
         public void RemoveInvoiceLine(InvoiceLine invoiceLine)

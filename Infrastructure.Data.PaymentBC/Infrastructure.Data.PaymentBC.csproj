@@ -61,7 +61,6 @@
     <Compile Include="Repositories\InvoiceRepository.cs" />
     <Compile Include="Repositories\LinkmanRepository.cs" />
     <Compile Include="Repositories\MaintainContractRepository.cs" />
-    <Compile Include="Repositories\MaintainInvoiceRepository.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\PaymentNoticeRepository.cs" />
     <Compile Include="Repositories\PaymentScheduleRepository.cs" />
@@ -80,6 +79,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainContractEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BankAccountEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\BasePurchaseInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseSupplierEntityConfiguration.cs" />
@@ -121,6 +121,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractEngineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PurchaseInvoiceLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\StandardPaymentScheduleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />

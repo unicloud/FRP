@@ -36,7 +36,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
     /// <summary>
     ///     贷项单服务实现
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class CreditNoteAppService : ContextBoundObject, ICreditNoteAppService
     {
         private readonly ICreditNoteQuery _creditNoteQuery;
@@ -75,7 +75,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     新增贷项单。
         /// </summary>
         /// <param name="creditNoteInvoice">贷项单DTO。</param>
-        [Insert(typeof (CreditNoteDTO))]
+        [Insert(typeof(CreditNoteDTO))]
         public void InsertCreditNoteInvoice(CreditNoteDTO creditNoteInvoice)
         {
             var supplier = _supplierRepository.GetFiltered(p => p.Id == creditNoteInvoice.SupplierId).FirstOrDefault();
@@ -98,12 +98,11 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                 if (order != null)
                 {
                     var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
-                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine,
-                        invoiceLine.Note);
+                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.Amount, orderLine, invoiceLine.Note);
                 }
                 else
                 {
-                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null, invoiceLine.Note);
+                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.Amount, null, invoiceLine.Note);
                 }
             }
             newCreditNoteInvoice.SetInvoiceValue();
@@ -114,14 +113,14 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     更新贷项单。
         /// </summary>
         /// <param name="creditNoteInvoice">贷项单DTO。</param>
-        [Update(typeof (CreditNoteDTO))]
+        [Update(typeof(CreditNoteDTO))]
         public void ModifyCreditNoteInvoice(CreditNoteDTO creditNoteInvoice)
         {
             var supplier = _supplierRepository.GetFiltered(p => p.Id == creditNoteInvoice.SupplierId).FirstOrDefault();
             var order = _orderRepository.Get(creditNoteInvoice.OrderId);
             var currency = _currencyRepository.GetFiltered(p => p.Id == creditNoteInvoice.CurrencyId).FirstOrDefault();
 
-            var updateCreditNoteInvoice = _invoiceRepository.Get(creditNoteInvoice.CreditNoteId);
+            var updateCreditNoteInvoice = _invoiceRepository.GetBasePurchaseInvoice(creditNoteInvoice.CreditNoteId);
             //获取需要更新的对象。
             if (updateCreditNoteInvoice != null)
             {
@@ -142,14 +141,14 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     删除贷项单。
         /// </summary>
         /// <param name="creditNoteInvoice">贷项单DTO。</param>
-        [Delete(typeof (CreditNoteDTO))]
+        [Delete(typeof(CreditNoteDTO))]
         public void DeleteCreditNoteInvoice(CreditNoteDTO creditNoteInvoice)
         {
             if (creditNoteInvoice == null)
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delCreditNoteInvoice = _invoiceRepository.Get(creditNoteInvoice.CreditNoteId);
+            var delCreditNoteInvoice = _invoiceRepository.GetBasePurchaseInvoice(creditNoteInvoice.CreditNoteId);
             //获取需要删除的对象。
             if (delCreditNoteInvoice != null)
             {
@@ -167,9 +166,9 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         /// <param name="sourceInvoiceLines">客户端集合</param>
         /// <param name="dstInvoice">数据库集合</param>
         /// <param name="order"></param>
-        private void UpdateInvoiceLines(IEnumerable<InvoiceLineDTO> sourceInvoiceLines, Invoice dstInvoice, Order order)
+        private void UpdateInvoiceLines(IEnumerable<InvoiceLineDTO> sourceInvoiceLines, BasePurchaseInvoice dstInvoice, Order order)
         {
-            var invoiceLines = new List<InvoiceLine>();
+            var invoiceLines = new List<PurchaseInvoiceLine>();
             foreach (var sourceInvoiceLine in sourceInvoiceLines)
             {
                 var result = dstInvoice.InvoiceLines.FirstOrDefault(p => p.Id == sourceInvoiceLine.InvoiceLineId);
@@ -178,7 +177,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                     result = InvoiceFactory.CreateInvoiceLine();
                     result.ChangeCurrentIdentity(sourceInvoiceLine.InvoiceLineId);
                 }
-                InvoiceFactory.SetInvoiceLine(result, sourceInvoiceLine.ItemName, sourceInvoiceLine.Amount, order,
+                InvoiceFactory.SetInvoiceLine(result, sourceInvoiceLine.Amount, order,
                     sourceInvoiceLine.InvoiceLineId, sourceInvoiceLine.Note);
                 invoiceLines.Add(result);
             }

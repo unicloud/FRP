@@ -73,7 +73,6 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
 
                 .RegisterType<IMaintainInvoiceQuery, MaintainInvoiceQuery>()
                 .RegisterType<IMaintainInvoiceAppService, MaintainInvoiceAppService>()
-                .RegisterType<IMaintainInvoiceRepository, MaintainInvoiceRepository>()
                 #endregion
 
                 #region 合同飞机相关配置，包括查询，应用服务，仓储注册
