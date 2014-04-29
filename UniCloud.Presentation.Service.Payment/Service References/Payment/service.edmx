@@ -358,6 +358,7 @@
         <Property Name="Reviewer" Type="Edm.String" />
         <Property Name="ReviewDate" Type="Edm.DateTime" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="IsComplete" Type="Edm.Boolean" Nullable="false" />
         <Property Name="StatusString" Type="Edm.String" />
         <Property Name="PaymentNoticeLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.PaymentNoticeLineDTO)" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />

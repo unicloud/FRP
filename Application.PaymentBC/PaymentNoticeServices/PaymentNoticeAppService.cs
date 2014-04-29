@@ -23,7 +23,6 @@ using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.PaymentNoticeQueries;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg;
 
 #endregion
@@ -86,7 +85,7 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
             _maxInvoiceNumber++;
             newPaymentNotice.SetNoticeNumber(seq);
             PaymentNoticeFactory.SetPaymentNotice(newPaymentNotice, paymentNotice.DeadLine, paymentNotice.SupplierName, paymentNotice.SupplierId,
-                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId);
+                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId, paymentNotice.IsComplete);
             if (paymentNotice.PaymentNoticeLines != null)
             {
                 foreach (var paymentNoticeLine in paymentNotice.PaymentNoticeLines)
@@ -111,7 +110,7 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
         {
             var updatePaymentNotice = _paymentNoticeRepository.Get(paymentNotice.PaymentNoticeId); //获取需要更新的对象。
             PaymentNoticeFactory.SetPaymentNotice(updatePaymentNotice, paymentNotice.DeadLine, paymentNotice.SupplierName, paymentNotice.SupplierId,
-                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId);
+                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId, paymentNotice.IsComplete);
             UpdatePaymentNoticeLines(paymentNotice.PaymentNoticeLines, updatePaymentNotice);
             _paymentNoticeRepository.Modify(updatePaymentNotice);
             UpdateInvoicePaidAmount(updatePaymentNotice);
@@ -165,7 +164,7 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
         #region 更新发票已付金额
         private void UpdateInvoicePaidAmount(PaymentNotice paymentNotice)
         {
-            if (paymentNotice.Status == PaymentNoticeStatus.已审核)
+            if (paymentNotice.IsComplete)
             {
                 paymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
                                                                   {

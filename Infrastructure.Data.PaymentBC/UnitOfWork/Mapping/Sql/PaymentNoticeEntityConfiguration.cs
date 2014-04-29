@@ -45,6 +45,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             Property(p => p.Reviewer).HasColumnName("Reviewer");
             Property(p => p.ReviewDate).HasColumnName("ReviewDate").HasColumnType("datetime2");
             Property(p => p.Status).HasColumnName("Status");
+            Property(p => p.IsComplete).HasColumnName("IsComplete");
 
             Property(p => p.CurrencyId).HasColumnName("CurrencyId");
             Property(p => p.SupplierId).HasColumnName("SupplierId");

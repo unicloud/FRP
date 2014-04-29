@@ -95,6 +95,10 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
         /// </summary>
         public PaymentNoticeStatus Status { get; private set; }
 
+        /// <summary>
+        /// 是否完成
+        /// </summary>
+        public bool IsComplete { get; private set; }
         #endregion
 
         #region 外键属性
@@ -323,6 +327,13 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
             }
         }
 
+        /// <summary>
+        /// 设置付款通知完成
+        /// </summary>
+        public void SetComplete(bool isComplete)
+        {
+            IsComplete = isComplete;
+        }
         #endregion
 
         #region IValidatableObject 成员

@@ -94,6 +94,11 @@ namespace UniCloud.Application.PaymentBC.DTO
         public int Status { get; set; }
 
         /// <summary>
+        /// 是否完成
+        /// </summary>
+        public bool IsComplete { get; set; }
+
+        /// <summary>
         ///     付款通知状态
         /// </summary>
         public string StatusString

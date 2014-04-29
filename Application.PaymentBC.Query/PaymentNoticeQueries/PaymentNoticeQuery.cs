@@ -55,6 +55,7 @@ namespace UniCloud.Application.PaymentBC.Query.PaymentNoticeQueries
                                      CurrencyName = p.Currency.CnName,
                                      BankAccountName = p.BankAccount.Account + "/" + p.BankAccount.Bank + p.BankAccount.Branch,
                                      BankAccountId = p.BankAccountId,
+                                     IsComplete = p.IsComplete,
                                      PaymentNoticeLines =
                                          p.PaymentNoticeLines.Select(q => new PaymentNoticeLineDTO
                                                                             {
