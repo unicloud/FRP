@@ -212,6 +212,7 @@
     <Compile Include="Aggregates\PaymentNoticeAgg\PaymentNoticeLine.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\AircraftPaymentSchedule.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\EnginePaymentSchedule.cs" />
+    <Compile Include="Aggregates\PaymentScheduleAgg\MaintainPaymentSchedule.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\PaymentSchedule.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\PaymentScheduleFactory.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\PaymentScheduleLine.cs" />

@@ -97,6 +97,7 @@
     <Compile Include="PaymentNoticeDTO\PaymentNoticeLineDTO.cs" />
     <Compile Include="PaymentScheduleDTO\AcPaymentScheduleDTO.cs" />
     <Compile Include="PaymentScheduleDTO\EnginePaymentScheduleDTO.cs" />
+    <Compile Include="PaymentScheduleDTO\MaintainPaymentScheduleDTO.cs" />
     <Compile Include="PaymentScheduleDTO\PaymentScheduleDTO.cs" />
     <Compile Include="PaymentScheduleDTO\PaymentScheduleLineDTO.cs" />
     <Compile Include="PaymentScheduleDTO\StandardPaymentScheduleDTO.cs" />

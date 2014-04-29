@@ -108,6 +108,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainGuaranteeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainInvoiceLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\MaintainPaymentScheduleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainSupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrderLineEntityConfiguration.cs" />

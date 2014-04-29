@@ -130,5 +130,33 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
 
         #endregion
 
+        #region 维修付款计划
+
+        /// <summary>
+        ///     获取所有维修付款计划
+        /// </summary>
+        /// <returns>所有维修付款计划</returns>
+        IQueryable<MaintainPaymentScheduleDTO> GetMaintainPaymentSchedules();
+
+        /// <summary>
+        ///     新增维修付款计划
+        /// </summary>
+        /// <param name="maintainPaymentSchedule">维修付款计划DTO。</param>
+        void InsertMaintainPaymentSchedule(MaintainPaymentScheduleDTO maintainPaymentSchedule);
+
+        /// <summary>
+        ///     修改维修付款计划
+        /// </summary>
+        /// <param name="maintainPaymentSchedule">维修付款计划DTO。</param>
+        void ModifyMaintainPaymentSchedule(MaintainPaymentScheduleDTO maintainPaymentSchedule);
+
+        /// <summary>
+        ///     删除维修付款计划
+        /// </summary>
+        /// <param name="maintainPaymentSchedule">维修付款计划DTO。</param>
+        void DeleteMaintainPaymentSchedule(MaintainPaymentScheduleDTO maintainPaymentSchedule);
+
+
+        #endregion
     }
 }

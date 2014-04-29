@@ -318,7 +318,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
                 .Add(new AircraftPaymentScheduleEntityConfiguration())
                 .Add(new EnginePaymentScheduleEntityConfiguration())
                 .Add(new StandardPaymentScheduleEntityConfiguration())
-
+                .Add(new MaintainPaymentScheduleEntityConfiguration())
             #endregion
 
             #region TradeAgg

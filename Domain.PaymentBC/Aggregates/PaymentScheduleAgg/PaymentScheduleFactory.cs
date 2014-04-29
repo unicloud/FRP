@@ -85,5 +85,23 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
             standardPaymentSchedule.SetOrderId(orderId);
             return standardPaymentSchedule;
         }
+
+        /// <summary>
+        /// 创建维修付款计划
+        /// </summary>
+        /// <param name="supplierName"></param>
+        /// <param name="supplierId"></param>
+        /// <param name="currencyId"></param>
+        /// <returns></returns>
+        public static PaymentSchedule CreateMaintainPaymentSchedule(string supplierName, int supplierId, int currencyId)
+        {
+            var standardPaymentSchedule = new MaintainPaymentSchedule
+            {
+                CreateDate = DateTime.Now
+            };
+            standardPaymentSchedule.SetSupplier(supplierId, supplierName);
+            standardPaymentSchedule.SetCurrency(currencyId);
+            return standardPaymentSchedule;
+        }
     }
 }

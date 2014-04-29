@@ -1051,7 +1051,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new AircraftPaymentScheduleEntityConfiguration())
                 .Add(new EnginePaymentScheduleEntityConfiguration())
                 .Add(new StandardPaymentScheduleEntityConfiguration())
-
+                .Add(new MaintainPaymentScheduleEntityConfiguration())
                 #endregion
 
                 #region PlanAircraftAgg

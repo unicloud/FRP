@@ -209,6 +209,13 @@ namespace UniCloud.DistributedServices.Payment
             get { return _paymentScheduleAppService.GetStandardPaymentSchedules(); }
         }
 
+        /// <summary>
+        ///     维修付款计划
+        /// </summary>
+        public IQueryable<MaintainPaymentScheduleDTO> MaintainPaymentSchedules
+        {
+            get { return _paymentScheduleAppService.GetMaintainPaymentSchedules(); }
+        }
         #endregion
 
         #region 付款通知
