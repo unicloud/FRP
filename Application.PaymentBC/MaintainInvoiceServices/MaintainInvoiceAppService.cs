@@ -88,6 +88,7 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
                     newEngineMaintainInvoice.InvoiceLines.Add(newMaintainInvoiceLine);
                 }
             }
+            newEngineMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newEngineMaintainInvoice);
         }
 
@@ -157,6 +158,7 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
                     newApuMaintainInvoice.InvoiceLines.Add(newMaintainInvoiceLine);
                 }
             }
+            newApuMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newApuMaintainInvoice);
         }
 
@@ -226,6 +228,7 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
                     newAirframeMaintainInvoice.InvoiceLines.Add(newMaintainInvoiceLine);
                 }
             }
+            newAirframeMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newAirframeMaintainInvoice);
         }
 
@@ -293,6 +296,7 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
                     newUndercartMaintainInvoice.InvoiceLines.Add(newMaintainInvoiceLine);
                 }
             }
+            newUndercartMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newUndercartMaintainInvoice);
         }
 
@@ -357,6 +361,7 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
                                                                          }
                                                                      });
             dstMaintainInvoice.InvoiceLines = maintainInvoiceLines;
+            dstMaintainInvoice.SetInvoiceValue();
         }
         #endregion
 
