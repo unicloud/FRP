@@ -73,13 +73,15 @@
     <Compile Include="Aggregates\GuaranteeAgg\LeaseGuarantee.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\MaintainGuarantee.cs" />
     <Compile Include="Aggregates\InvoiceAgg\BasePurchaseInvoice.cs" />
-    <Compile Include="Aggregates\InvoiceAgg\CreditNoteInvoice.cs" />
+    <Compile Include="Aggregates\InvoiceAgg\MaintainCreditNoteInvoice.cs" />
+    <Compile Include="Aggregates\InvoiceAgg\MaintainPrepaymentInvoice.cs" />
+    <Compile Include="Aggregates\InvoiceAgg\PurchaseCreditNoteInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\IInvoiceRepository.cs" />
     <Compile Include="Aggregates\InvoiceAgg\Invoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\InvoiceFactory.cs" />
     <Compile Include="Aggregates\InvoiceAgg\InvoiceLine.cs" />
     <Compile Include="Aggregates\InvoiceAgg\InvoiceSpecifications.cs" />
-    <Compile Include="Aggregates\InvoiceAgg\PrepaymentInvoice.cs" />
+    <Compile Include="Aggregates\InvoiceAgg\PurchasePrepaymentInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\LeaseInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoiceLine.cs" />

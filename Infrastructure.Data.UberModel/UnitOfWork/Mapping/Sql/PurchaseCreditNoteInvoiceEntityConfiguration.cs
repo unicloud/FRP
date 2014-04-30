@@ -28,11 +28,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
     /// <summary>
     ///     CreditNoteInvoice实体相关配置
     /// </summary>
-    internal class CreditNoteInvoiceEntityConfiguration : EntityTypeConfiguration<CreditNoteInvoice>
+    internal class PurchaseCreditNoteInvoiceEntityConfiguration : EntityTypeConfiguration<PurchaseCreditNoteInvoice>
     {
-        public CreditNoteInvoiceEntityConfiguration()
+        public PurchaseCreditNoteInvoiceEntityConfiguration()
         {
-            ToTable("CreditNoteInvoice", DbConfig.Schema);
+            ToTable("PurchaseCreditNoteInvoice", DbConfig.Schema);
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

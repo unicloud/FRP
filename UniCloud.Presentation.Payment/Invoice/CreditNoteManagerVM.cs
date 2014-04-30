@@ -61,7 +61,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         private void InitializeVM()
         {
-            CreditNotes = _service.CreateCollection(_context.CreditNotes,o=>o.InvoiceLines);
+            CreditNotes = _service.CreateCollection(_context.PurchaseCreditNotes, o => o.InvoiceLines);
             _service.RegisterCollectionView(CreditNotes); //注册查询集合。
 
             PurchaseOrders = new QueryableDataServiceCollectionView<PurchaseOrderDTO>(_context,_context.PurchaseOrders);
@@ -197,18 +197,18 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <summary>
         ///     贷项单集合
         /// </summary>
-        public QueryableDataServiceCollectionView<CreditNoteDTO> CreditNotes { get; set; }
+        public QueryableDataServiceCollectionView<PurchaseCreditNoteDTO> CreditNotes { get; set; }
 
         #endregion
 
         #region 选择的贷项单
 
-        private CreditNoteDTO _selCreditNote;
+        private PurchaseCreditNoteDTO _selCreditNote;
 
         /// <summary>
         ///     选择的贷项单
         /// </summary>
-        public CreditNoteDTO SelCreditNote
+        public PurchaseCreditNoteDTO SelCreditNote
         {
             get { return _selCreditNote; }
             set
@@ -240,7 +240,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         public ObservableCollection<InvoiceLineDTO> InvoiceLines
         {
             get { return _invoiceLines; }
-            private set
+            set
             {
                 if (_invoiceLines != value)
                 {
@@ -515,7 +515,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
             else
             {
-                var creditNote = new CreditNoteDTO
+                var creditNote = new PurchaseCreditNoteDTO
                 {
                     CreditNoteId = RandomHelper.Next(),
                     CreateDate = DateTime.Now,

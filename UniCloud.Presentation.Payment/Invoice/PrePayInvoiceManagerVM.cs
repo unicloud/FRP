@@ -20,7 +20,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -63,7 +62,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         private void InitializeVM()
         {
-            PrepaymentInvoices = _service.CreateCollection(_context.PrepaymentInvoices, o => o.InvoiceLines);
+            PrepaymentInvoices = _service.CreateCollection(_context.PurchasePrepaymentInvoices, o => o.InvoiceLines);
             _service.RegisterCollectionView(PrepaymentInvoices); //注册查询集合。
 
             AcPaymentSchedules = _service.CreateCollection(_context.AcPaymentSchedules, o => o.PaymentScheduleLines);
@@ -207,18 +206,18 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <summary>
         ///     预付款发票集合
         /// </summary>
-        public QueryableDataServiceCollectionView<PrepaymentInvoiceDTO> PrepaymentInvoices { get; set; }
+        public QueryableDataServiceCollectionView<PurchasePrepaymentInvoiceDTO> PrepaymentInvoices { get; set; }
 
         #endregion
 
         #region 选择的预付款发票
 
-        private PrepaymentInvoiceDTO _selPrepaymentInvoice;
+        private PurchasePrepaymentInvoiceDTO _selPrepaymentInvoice;
 
         /// <summary>
         ///     选择的预付款发票
         /// </summary>
-        public PrepaymentInvoiceDTO SelPrepaymentInvoice
+        public PurchasePrepaymentInvoiceDTO SelPrepaymentInvoice
         {
             get { return _selPrepaymentInvoice; }
             set
@@ -776,7 +775,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <param name="sender"></param>
         public void OnCommitExecute(object sender)
         {
-            var invoice = new PrepaymentInvoiceDTO
+            var invoice = new PurchasePrepaymentInvoiceDTO
             {
                 PrepaymentInvoiceId = RandomHelper.Next(),
                 CreateDate = DateTime.Now,

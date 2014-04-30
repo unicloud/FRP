@@ -54,7 +54,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
         private IDbSet<Currency> _currencies;
         private IDbSet<Guarantee> _guarantees;
         private IDbSet<Invoice> _invoices;
-        private IDbSet<BasePurchaseInvoice> _basePurchaseInvoices; 
+        private IDbSet<BasePurchaseInvoice> _basePurchaseInvoices;
         private IDbSet<Linkman> _linkmen;
         private IDbSet<MaintainContract> _maintainContracts;
         private IDbSet<MaintainInvoice> _maintainInvoices;
@@ -248,10 +248,12 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
 
 .Add(new InvoiceEntityConfiguration())
                 .Add(new InvoiceLineEntityConfiguration())
-                .Add(new CreditNoteInvoiceEntityConfiguration())
+                .Add(new PurchaseCreditNoteInvoiceEntityConfiguration())
+                 .Add(new MaintainCreditNoteInvoiceEntityConfiguration())
                 .Add(new LeaseInvoiceEntityConfiguration())
                 .Add(new PurchaseInvoiceEntityConfiguration())
-                .Add(new PrepaymentInvoiceEntityConfiguration())
+                .Add(new PurchasePrepaymentInvoiceEntityConfiguration())
+                .Add(new MaintainPrepaymentInvoiceEntityConfiguration())
                 .Add(new PurchaseInvoiceLineEntityConfiguration())
                  .Add(new BasePurchaseInvoiceEntityConfiguration())
             #endregion

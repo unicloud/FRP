@@ -40,10 +40,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         /// <param name="invoiceDate">发票日期</param>
         /// <param name="operatorName">经办人</param>
         /// <returns>贷项单</returns>
-        public static CreditNoteInvoice CreateCreditNoteInvoice(string invoiceCode, DateTime invoiceDate,
+        public static PurchaseCreditNoteInvoice CreateCreditNoteInvoice(string invoiceCode, DateTime invoiceDate,
             string operatorName)
         {
-            var invoice = new CreditNoteInvoice
+            var invoice = new PurchaseCreditNoteInvoice
             {
                 InvoideCode = invoiceCode,
                 InvoiceDate = invoiceDate,
@@ -84,10 +84,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         /// <param name="invoiceDate">发票日期</param>
         /// <param name="operatorName">经办人</param>
         /// <returns>预付款发票</returns>
-        public static PrepaymentInvoice CreatePrepaymentInvoice(string invoiceCode, DateTime invoiceDate,
+        public static PurchasePrepaymentInvoice CreatePrepaymentInvoice(string invoiceCode, DateTime invoiceDate,
             string operatorName)
         {
-            var invoice = new PrepaymentInvoice
+            var invoice = new PurchasePrepaymentInvoice
             {
                 InvoideCode = invoiceCode,
                 InvoiceDate = invoiceDate,

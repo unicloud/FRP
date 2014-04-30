@@ -63,9 +63,13 @@ namespace UniCloud.DistributedServices.Payment
         /// <summary>
         ///     贷项单集合
         /// </summary>
-        public IQueryable<CreditNoteDTO> CreditNotes
+        public IQueryable<PurchaseCreditNoteDTO> PurchaseCreditNotes
         {
-            get { return _creditNoteAppService.GetCreditNoteInvoices(); }
+            get { return _creditNoteAppService.GetPurchaseCreditNoteInvoices(); }
+        }
+        public IQueryable<MaintainCreditNoteDTO> MaintainCreditNotes
+        {
+            get { return _creditNoteAppService.GetMaintainCreditNoteInvoices(); }
         }
 
         /// <summary>
@@ -79,9 +83,13 @@ namespace UniCloud.DistributedServices.Payment
         /// <summary>
         ///     预付款集合
         /// </summary>
-        public IQueryable<PrepaymentInvoiceDTO> PrepaymentInvoices
+        public IQueryable<PurchasePrepaymentInvoiceDTO> PurchasePrepaymentInvoices
         {
-            get { return _prepaymentInvoiceAppService.GetPrepaymentInvoices(); }
+            get { return _prepaymentInvoiceAppService.GetPurchasePrepaymentInvoices(); }
+        }
+        public IQueryable<MaintainPrepaymentInvoiceDTO> MaintainPrepaymentInvoices
+        {
+            get { return _prepaymentInvoiceAppService.GetMaintainPrepaymentInvoices(); }
         }
 
         /// <summary>

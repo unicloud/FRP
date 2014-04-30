@@ -40,10 +40,32 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// <param name="invoiceDate">发票日期</param>
         /// <param name="operatorName">经办人</param>
         /// <returns>贷项单</returns>
-        public static CreditNoteInvoice CreateCreditNoteInvoice(string invoiceCode, DateTime invoiceDate,
+        public static PurchaseCreditNoteInvoice CreatePurchaseCreditNoteInvoice(string invoiceCode, DateTime invoiceDate,
             string operatorName)
         {
-            var invoice = new CreditNoteInvoice
+            var invoice = new PurchaseCreditNoteInvoice
+            {
+                InvoideCode = invoiceCode,
+                InvoiceDate = invoiceDate,
+                CreateDate = DateTime.Now
+            };
+            invoice.GenerateNewIdentity();
+            invoice.SetOperator(operatorName);
+
+            return invoice;
+        }
+
+        /// <summary>
+        ///     创建贷项单发票
+        /// </summary>
+        /// <param name="invoiceCode">发票代码</param>
+        /// <param name="invoiceDate">发票日期</param>
+        /// <param name="operatorName">经办人</param>
+        /// <returns>贷项单</returns>
+        public static MaintainCreditNoteInvoice CreateMaintainCreditNoteInvoice(string invoiceCode, DateTime invoiceDate,
+            string operatorName)
+        {
+            var invoice = new MaintainCreditNoteInvoice
             {
                 InvoideCode = invoiceCode,
                 InvoiceDate = invoiceDate,
@@ -84,10 +106,32 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// <param name="invoiceDate">发票日期</param>
         /// <param name="operatorName">经办人</param>
         /// <returns>预付款发票</returns>
-        public static PrepaymentInvoice CreatePrepaymentInvoice(string invoiceCode, DateTime invoiceDate,
+        public static PurchasePrepaymentInvoice CreatePurchasePrepaymentInvoice(string invoiceCode, DateTime invoiceDate,
             string operatorName)
         {
-            var invoice = new PrepaymentInvoice
+            var invoice = new PurchasePrepaymentInvoice
+            {
+                InvoideCode = invoiceCode,
+                InvoiceDate = invoiceDate,
+                CreateDate = DateTime.Now
+            };
+            invoice.GenerateNewIdentity();
+            invoice.SetOperator(operatorName);
+
+            return invoice;
+        }
+
+        /// <summary>
+        ///     创建预付款发票
+        /// </summary>
+        /// <param name="invoiceCode">发票代码</param>
+        /// <param name="invoiceDate">发票日期</param>
+        /// <param name="operatorName">经办人</param>
+        /// <returns>预付款发票</returns>
+        public static MaintainPrepaymentInvoice CreateMaintainPrepaymentInvoice(string invoiceCode, DateTime invoiceDate,
+            string operatorName)
+        {
+            var invoice = new MaintainPrepaymentInvoice
             {
                 InvoideCode = invoiceCode,
                 InvoiceDate = invoiceDate,

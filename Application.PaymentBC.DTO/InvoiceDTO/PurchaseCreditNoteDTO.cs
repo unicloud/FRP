@@ -28,7 +28,7 @@ namespace UniCloud.Application.PaymentBC.DTO
     ///     贷项单DTO
     /// </summary>
     [DataServiceKey("CreditNoteId")]
-    public class CreditNoteDTO
+    public class PurchaseCreditNoteDTO
     {
         #region 私有字段
 

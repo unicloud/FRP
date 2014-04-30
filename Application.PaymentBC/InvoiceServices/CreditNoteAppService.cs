@@ -58,31 +58,31 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             _currencyRepository = currencyRepository;
         }
 
-        #region CreditNoteDTO
+        #region PurchaseCreditNoteDTO
 
         /// <summary>
         ///     获取所有贷项单
         /// </summary>
         /// <returns></returns>
-        public IQueryable<CreditNoteDTO> GetCreditNoteInvoices()
+        public IQueryable<PurchaseCreditNoteDTO> GetPurchaseCreditNoteInvoices()
         {
             var queryBuilder =
-                new QueryBuilder<CreditNoteInvoice>();
-            return _creditNoteQuery.CreditNoteDTOQuery(queryBuilder);
+                new QueryBuilder<PurchaseCreditNoteInvoice>();
+            return _creditNoteQuery.PurchaseCreditNoteDTOQuery(queryBuilder);
         }
 
         /// <summary>
         ///     新增贷项单。
         /// </summary>
         /// <param name="creditNoteInvoice">贷项单DTO。</param>
-        [Insert(typeof(CreditNoteDTO))]
-        public void InsertCreditNoteInvoice(CreditNoteDTO creditNoteInvoice)
+        [Insert(typeof(PurchaseCreditNoteDTO))]
+        public void InsertPurchaseCreditNoteInvoice(PurchaseCreditNoteDTO creditNoteInvoice)
         {
             var supplier = _supplierRepository.GetFiltered(p => p.Id == creditNoteInvoice.SupplierId).FirstOrDefault();
             var order = _orderRepository.Get(creditNoteInvoice.OrderId);
             var currency = _currencyRepository.GetFiltered(p => p.Id == creditNoteInvoice.CurrencyId).FirstOrDefault();
 
-            var newCreditNoteInvoice = InvoiceFactory.CreateCreditNoteInvoice(creditNoteInvoice.InvoideCode,
+            var newCreditNoteInvoice = InvoiceFactory.CreatePurchaseCreditNoteInvoice(creditNoteInvoice.InvoideCode,
                 creditNoteInvoice.InvoiceDate, creditNoteInvoice.OperatorName);
             var date = DateTime.Now.Date;
             var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
@@ -113,8 +113,8 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     更新贷项单。
         /// </summary>
         /// <param name="creditNoteInvoice">贷项单DTO。</param>
-        [Update(typeof(CreditNoteDTO))]
-        public void ModifyCreditNoteInvoice(CreditNoteDTO creditNoteInvoice)
+        [Update(typeof(PurchaseCreditNoteDTO))]
+        public void ModifyPurchaseCreditNoteInvoice(PurchaseCreditNoteDTO creditNoteInvoice)
         {
             var supplier = _supplierRepository.GetFiltered(p => p.Id == creditNoteInvoice.SupplierId).FirstOrDefault();
             var order = _orderRepository.Get(creditNoteInvoice.OrderId);
@@ -141,8 +141,108 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     删除贷项单。
         /// </summary>
         /// <param name="creditNoteInvoice">贷项单DTO。</param>
-        [Delete(typeof(CreditNoteDTO))]
-        public void DeleteCreditNoteInvoice(CreditNoteDTO creditNoteInvoice)
+        [Delete(typeof(PurchaseCreditNoteDTO))]
+        public void DeletePurchaseCreditNoteInvoice(PurchaseCreditNoteDTO creditNoteInvoice)
+        {
+            if (creditNoteInvoice == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+            var delCreditNoteInvoice = _invoiceRepository.GetBasePurchaseInvoice(creditNoteInvoice.CreditNoteId);
+            //获取需要删除的对象。
+            if (delCreditNoteInvoice != null)
+            {
+                _invoiceRepository.DeleteInvoice(delCreditNoteInvoice); //删除贷项单。
+            }
+        }
+
+        #endregion
+
+        #region MaintainCreditNoteDTO
+
+        /// <summary>
+        ///     获取所有贷项单
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<MaintainCreditNoteDTO> GetMaintainCreditNoteInvoices()
+        {
+            var queryBuilder =
+                new QueryBuilder<MaintainCreditNoteInvoice>();
+            return _creditNoteQuery.MaintainCreditNoteDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///     新增贷项单。
+        /// </summary>
+        /// <param name="creditNoteInvoice">贷项单DTO。</param>
+        [Insert(typeof(MaintainCreditNoteDTO))]
+        public void InsertMaintainCreditNoteInvoice(MaintainCreditNoteDTO creditNoteInvoice)
+        {
+            var supplier = _supplierRepository.GetFiltered(p => p.Id == creditNoteInvoice.SupplierId).FirstOrDefault();
+            var order = _orderRepository.Get(creditNoteInvoice.OrderId);
+            var currency = _currencyRepository.GetFiltered(p => p.Id == creditNoteInvoice.CurrencyId).FirstOrDefault();
+
+            var newCreditNoteInvoice = InvoiceFactory.CreateMaintainCreditNoteInvoice(creditNoteInvoice.InvoideCode,
+                creditNoteInvoice.InvoiceDate, creditNoteInvoice.OperatorName);
+            var date = DateTime.Now.Date;
+            var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            newCreditNoteInvoice.SetInvoiceNumber(seq);
+            newCreditNoteInvoice.SetSupplier(supplier);
+            newCreditNoteInvoice.SetOrder(order);
+            newCreditNoteInvoice.SetPaidAmount(creditNoteInvoice.PaidAmount);
+            newCreditNoteInvoice.SetCurrency(currency);
+            newCreditNoteInvoice.SetPaymentScheduleLine(creditNoteInvoice.PaymentScheduleLineId);
+            newCreditNoteInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
+            foreach (var invoiceLine in creditNoteInvoice.InvoiceLines)
+            {
+                if (order != null)
+                {
+                    var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
+                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.Amount, orderLine, invoiceLine.Note);
+                }
+                else
+                {
+                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.Amount, null, invoiceLine.Note);
+                }
+            }
+            newCreditNoteInvoice.SetInvoiceValue();
+            _invoiceRepository.Add(newCreditNoteInvoice);
+        }
+
+        /// <summary>
+        ///     更新贷项单。
+        /// </summary>
+        /// <param name="creditNoteInvoice">贷项单DTO。</param>
+        [Update(typeof(MaintainCreditNoteDTO))]
+        public void ModifyMaintainCreditNoteInvoice(MaintainCreditNoteDTO creditNoteInvoice)
+        {
+            var supplier = _supplierRepository.GetFiltered(p => p.Id == creditNoteInvoice.SupplierId).FirstOrDefault();
+            var order = _orderRepository.Get(creditNoteInvoice.OrderId);
+            var currency = _currencyRepository.GetFiltered(p => p.Id == creditNoteInvoice.CurrencyId).FirstOrDefault();
+
+            var updateCreditNoteInvoice = _invoiceRepository.GetBasePurchaseInvoice(creditNoteInvoice.CreditNoteId);
+            //获取需要更新的对象。
+            if (updateCreditNoteInvoice != null)
+            {
+                InvoiceFactory.SetInvoice(updateCreditNoteInvoice, creditNoteInvoice.InvoideCode,
+                    creditNoteInvoice.InvoiceDate, creditNoteInvoice.OperatorName, creditNoteInvoice.InvoiceNumber,
+                    supplier, order,
+                    creditNoteInvoice.PaidAmount, currency, creditNoteInvoice.PaymentScheduleLineId,
+                    creditNoteInvoice.Status);
+                //更新主表。
+
+                UpdateInvoiceLines(creditNoteInvoice.InvoiceLines, updateCreditNoteInvoice, order);
+                //更新从表。
+            }
+            _invoiceRepository.Modify(updateCreditNoteInvoice);
+        }
+
+        /// <summary>
+        ///     删除贷项单。
+        /// </summary>
+        /// <param name="creditNoteInvoice">贷项单DTO。</param>
+        [Delete(typeof(MaintainCreditNoteDTO))]
+        public void DeleteMaintainCreditNoteInvoice(MaintainCreditNoteDTO creditNoteInvoice)
         {
             if (creditNoteInvoice == null)
             {

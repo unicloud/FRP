@@ -1,17 +1,17 @@
 ﻿#region 版本信息
 
-// ========================================================================
+// =====================================================
 // 版权所有 (C) 2013 UniCloud 
-//【本类功能概述】
+// 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/15，18:12
+// 作者：丁志浩 时间：2013/12/10，15:17
 // 方案：FRP
-// 项目：Infrastructure.Data.UberModel
+// 项目：Infrastructure.Data.PaymentBC
 // 版本：V1.0.0
-//
+// 
 // 修改者： 时间： 
 // 修改说明：
-// ========================================================================
+// =====================================================
 
 #endregion
 
@@ -26,13 +26,13 @@ using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
 {
     /// <summary>
-    ///     CreditNoteInvoice实体相关配置
+    ///     PrepaymentInvoice实体相关配置
     /// </summary>
-    internal class CreditNoteInvoiceEntityConfiguration : EntityTypeConfiguration<CreditNoteInvoice>
+    internal class PurchasePrepaymentInvoiceEntityConfiguration : EntityTypeConfiguration<PurchasePrepaymentInvoice>
     {
-        public CreditNoteInvoiceEntityConfiguration()
+        public PurchasePrepaymentInvoiceEntityConfiguration()
         {
-            ToTable("CreditNoteInvoice", DbConfig.Schema);
+            ToTable("PurchasePrepaymentInvoice", DbConfig.Schema);
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);

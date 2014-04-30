@@ -21,7 +21,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
     ///     发票聚合根
     ///     贷项通知单
     /// </summary>
-    public class CreditNoteInvoice : BasePurchaseInvoice
+    public class PurchaseCreditNoteInvoice : BasePurchaseInvoice
     {
         #region 私有字段
 
@@ -33,7 +33,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal CreditNoteInvoice()
+        internal PurchaseCreditNoteInvoice()
         {
         }
 

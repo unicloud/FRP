@@ -63,13 +63,15 @@
     <Compile Include="GuaranteeDTO\LeaseGuaranteeDTO.cs" />
     <Compile Include="GuaranteeDTO\MaintainGuaranteeDTO.cs" />
     <Compile Include="InvoiceDTO\BaseInvoiceDTO.cs" />
-    <Compile Include="InvoiceDTO\CreditNoteDTO.cs" />
+    <Compile Include="InvoiceDTO\MaintainCreditNoteDTO.cs" />
+    <Compile Include="InvoiceDTO\MaintainPrepaymentInvoiceDTO.cs" />
+    <Compile Include="InvoiceDTO\PurchaseCreditNoteDTO.cs" />
     <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
     <Compile Include="ContractEngineDTO\ContractEngineDTO.cs" />
     <Compile Include="CurrencyDTO\CurrencyDTO.cs" />
     <Compile Include="InvoiceDTO\LeaseInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\InvoiceLineDTO.cs" />
-    <Compile Include="InvoiceDTO\PrepaymentInvoiceDTO.cs" />
+    <Compile Include="InvoiceDTO\PurchasePrepaymentInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\PurchaseInvoiceDTO.cs" />
     <Compile Include="MaintainContractDTO\MaintainContractDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\AirframeMaintainInvoiceDTO.cs" />

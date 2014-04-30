@@ -28,7 +28,7 @@ namespace UniCloud.Application.PaymentBC.DTO
     ///     预付款发票
     /// </summary>
     [DataServiceKey("PrepaymentInvoiceId")]
-    public class PrepaymentInvoiceDTO
+    public class PurchasePrepaymentInvoiceDTO
     {
         #region 私有字段
 

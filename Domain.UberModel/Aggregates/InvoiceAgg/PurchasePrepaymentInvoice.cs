@@ -15,13 +15,13 @@
 
 #endregion
 
-namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
+namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
 {
     /// <summary>
     ///     发票聚合根
     ///     预付款发票
     /// </summary>
-    public class PrepaymentInvoice : BasePurchaseInvoice
+    public class PurchasePrepaymentInvoice : BasePurchaseInvoice
     {
         #region 私有字段
 
@@ -33,7 +33,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal PrepaymentInvoice()
+        internal PurchasePrepaymentInvoice()
         {
         }
 
@@ -48,7 +48,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         #endregion
 
         #region 导航属性
-      
+       
         #endregion
 
         #region 操作

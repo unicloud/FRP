@@ -912,10 +912,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 .Add(new InvoiceEntityConfiguration())
                 .Add(new InvoiceLineEntityConfiguration())
-                .Add(new CreditNoteInvoiceEntityConfiguration())
+                .Add(new PurchaseCreditNoteInvoiceEntityConfiguration())
+                .Add(new MaintainCreditNoteInvoiceEntityConfiguration())
                 .Add(new LeaseInvoiceEntityConfiguration())
                 .Add(new PurchaseInvoiceEntityConfiguration())
-                .Add(new PrepaymentInvoiceEntityConfiguration())
+                .Add(new PurchasePrepaymentInvoiceEntityConfiguration())
+                .Add(new MaintainPrepaymentInvoiceEntityConfiguration())
                 .Add(new PurchaseInvoiceLineEntityConfiguration())
                 .Add(new BasePurchaseInvoiceEntityConfiguration())
                 #endregion
