@@ -612,9 +612,15 @@ namespace UniCloud.Presentation.Shell
                 Text = "管理一般付款计划",
                 NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.StandardPaymentSchedule"
             };
+            var menu414 = new MenuItem
+            {
+                Text = "管理维修付款计划",
+                NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.MaintainPaymentSchedule"
+            };
             menu41.Items.Add(menu411);
             menu41.Items.Add(menu412);
             menu41.Items.Add(menu413);
+            menu41.Items.Add(menu414);
             menu4.Items.Add(menu41);
 
             var menu42 = new MenuItem

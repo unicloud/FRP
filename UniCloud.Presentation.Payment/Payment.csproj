@@ -261,6 +261,10 @@
       <DependentUpon>EnginePaymentSchedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="PaymentSchedules\EnginePaymentScheduleVM.cs" />
+    <Compile Include="PaymentSchedules\MaintainPaymentSchedule.xaml.cs">
+      <DependentUpon>MaintainPaymentSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentSchedules\MaintainPaymentScheduleVm.cs" />
     <Compile Include="PaymentSchedules\PaymentScheduleExtension\AppointmentConvertHelper.cs" />
     <Compile Include="PaymentSchedules\PaymentScheduleExtension\PaymentAppointment.cs" />
     <Compile Include="PaymentSchedules\PaymentScheduleExtension\PaymentAppointmentCollection.cs" />
@@ -391,6 +395,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PaymentSchedules\EnginePaymentSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PaymentSchedules\MaintainPaymentSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
