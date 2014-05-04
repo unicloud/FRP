@@ -295,6 +295,10 @@
       <DependentUpon>PassengerAircraftTrend.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\PassengerAircraftTrendVm.cs" />
+    <Compile Include="Requests\ManageIndexAircraftView.xaml.cs">
+      <DependentUpon>ManageIndexAircraftView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Requests\ManageIndexAircraftVM.cs" />
     <Compile Include="Requests\QueryRequest.xaml.cs">
       <DependentUpon>QueryRequest.xaml</DependentUpon>
     </Compile>
@@ -302,6 +306,8 @@
     <Compile Include="Requests\Request.xaml.cs">
       <DependentUpon>Request.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Requests\RequestInput.cs" />
+    <Compile Include="Requests\CanRequestConvert.cs" />
     <Compile Include="Requests\RequestVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -404,13 +410,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Requests\QueryRequest.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Requests\ManageIndexAircraftView.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Requests\QueryRequest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Requests\Request.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup />

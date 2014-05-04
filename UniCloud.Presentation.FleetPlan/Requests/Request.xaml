@@ -5,7 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
-             xmlns:dnd="clr-namespace:Telerik.Windows.DragDrop.Behaviors;assembly=Telerik.Windows.Controls.GridView"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -15,11 +14,13 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <uc:CanRequestConvert x:Key="CanRequestConvert" />
         </ResourceDictionary>
     </UserControl.Resources>
     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
                               BusyContent="">
-        <Grid Background="White">
+        <Grid Background="White"
+              x:Name="LayoutRoot">
             <telerik:RadDocking BorderThickness="0"
                                 Padding="0"
                                 HasDocumentHost="False">
@@ -57,7 +58,7 @@
                                             </telerik:RadButton>
                                             <telerik:RadToolBarSeparator />
                                             <telerik:RadButton Margin="2,2,2,-2"
-                                                               Command="{Binding AddRequestCommand}">
+                                                               Command="{Binding NewCommand}">
                                                 <Image Source="/UniCloud.Presentation;component/Images/New.png"
                                                        Stretch="Fill"
                                                        ToolTipService.ToolTip="创建申请" />
@@ -65,7 +66,7 @@
                                             <telerik:RadToolBarSeparator />
                                             <telerik:RadButton Margin="2,2,2,-2"
                                                                Command="{Binding AddAttachCommand}"
-                                                               CommandParameter="{Binding SelAircraftPurchaseOrderDTO.ContractDocGuid}">
+                                                               CommandParameter="{Binding SelRequest.CaacDocumentId}">
                                                 <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
                                                        Stretch="Fill"
                                                        ToolTipService.ToolTip="添加民航局申请" />
@@ -78,14 +79,14 @@
                                             </telerik:RadButton>
                                             <telerik:RadToolBarSeparator />
                                             <telerik:RadButton Margin="2,2,2,-2"
-                                                               Command="{Binding SubmitRequestCommand}">
+                                                               Command="{Binding CommitCommand}">
                                                 <Image Source="/UniCloud.Presentation;component/Images/Up.png"
                                                        Stretch="Fill"
                                                        ToolTipService.ToolTip="提交审核" />
                                             </telerik:RadButton>
                                             <telerik:RadToolBarSeparator />
                                             <telerik:RadButton Margin="2,2,2,-2"
-                                                               Command="{Binding ReviewRequestCommand}">
+                                                               Command="{Binding CheckCommand}">
                                                 <Image Source="/UniCloud.Presentation;component/Images/Check.png"
                                                        Stretch="Fill"
                                                        ToolTipService.ToolTip="审核" />
@@ -96,11 +97,10 @@
                                                                  CanUserFreezeColumns="False"
                                                                  IsFilteringAllowed="True"
                                                                  EditTriggers="CellClick"
-                                                                 IsReadOnly="{Binding RequestReadOnly}"
                                                                  RowDetailsVisibilityMode="VisibleWhenSelected"
                                                                  FontSize="{StaticResource TextFontSize}"
-                                                                 ItemsSource="{Binding ViewRequests}"
-                                                                 SelectedItem="{Binding SelectedRequest,Mode=TwoWay}"
+                                                                 ItemsSource="{Binding Requests}"
+                                                                 SelectedItem="{Binding SelRequest,Mode=TwoWay}"
                                                                  ShowGroupPanel="False"
                                                                  ValidatesOnDataErrors="InEditMode">
                                                 <telerik:RadGridView.Columns>
@@ -165,7 +165,7 @@
                                                           Grid.Column="0"
                                                           Header="关联文档">
                                             <telerik:RadListBox BorderThickness="0"
-                                                                ItemsSource="{Binding SelAircraftPurchaseOrderDTO.RelatedDocs}">
+                                                                ItemsSource="{Binding SelRequest.RelatedDocs}">
                                                 <telerik:RadListBox.ItemTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
@@ -190,7 +190,7 @@
                                         <telerik:GroupBox Grid.Row="1"
                                                           Grid.Column="0"
                                                           Header="申请历史说明">
-                                            <TextBox Text="{Binding SelAircraftPurchaseOrderDTO.LogWriter, Mode=TwoWay}"
+                                            <TextBox Text="{Binding SelRequest.LogWriter, Mode=TwoWay}"
                                                      TextWrapping="Wrap"
                                                      VerticalScrollBarVisibility="Auto"
                                                      telerik:StyleManager.Theme="Windows8"
@@ -206,7 +206,7 @@
                                                           BorderThickness="0"
                                                           HorizontalScrollBarVisibility="Disabled"
                                                           telerik:StyleManager.Theme="Windows8">
-                                                <TextBlock Text="{Binding SelAircraftPurchaseOrderDTO.Note }"
+                                                <TextBlock Text="{Binding SelReqeust.Note }"
                                                            TextWrapping="Wrap" />
                                             </ScrollViewer>
                                         </telerik:GroupBox>
@@ -227,17 +227,31 @@
                                              CanUserPin="False"
                                              ContextMenuTemplate="{x:Null}">
                                 <telerik:RadGridView x:Name="PlanDetail"
-                                                     ItemsSource="{Binding SelectedPlan.PlanHistories}"
-                                                     SelectedItem="{Binding SelectedPlanHistory,Mode=TwoWay}"
+                                                     ItemsSource="{Binding CurPlanHistories}"
+                                                     SelectedItem="{Binding SelPlanHistory,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
                                                      ShowGroupPanel="False"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="True"
+                                                     AllowDrop="True"
                                                      CanUserSortColumns="False"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Visible"
                                                      AutoExpandGroups="True"
                                                      RowStyle="{StaticResource DraggedRowStyle}">
+                                    <!--<telerik:RadGridView.GroupDescriptors>
+                                        <telerik:GroupDescriptor Member="{Binding AircraftTypeName}"
+                                                                 SortDirection="Descending" />
+                                    </telerik:RadGridView.GroupDescriptors>-->
+                                    <uc:GridViewDoubleClick.Helper>
+                                        <uc:PlanHistoryDoubleClickHelper />
+                                    </uc:GridViewDoubleClick.Helper>
+                                    <telerik:GridViewDragDrop.Behavior>
+                                        <uc:PlanHistoryDragDrop />
+                                    </telerik:GridViewDragDrop.Behavior>
+                                    <telerik:GridViewDragDrop.DragVisualProvider>
+                                        <uc:PlanHistoryDragVisual />
+                                    </telerik:GridViewDragDrop.DragVisualProvider>
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
                                         <telerik:GridViewDataColumn Header="航空公司"
@@ -297,6 +311,9 @@
                                         <telerik:GridViewDataColumn Header="管理状态"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding ManaStatus}" />
+                                        <telerik:GridViewDataColumn Header="申请状态"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding CanRequest,ConverterParameter={StaticResource CanRequestConvert}}" />
                                         <telerik:GridViewDataColumn Header="备注"
                                                                     DataMemberBinding="{Binding Note}" />
                                     </telerik:RadGridView.Columns>
@@ -317,13 +334,22 @@
                                                      CanUserSortColumns="True"
                                                      CanUserFreezeColumns="False"
                                                      ShowGroupPanel="False"
-                                                     IsReadOnly="{Binding RequestReadOnly}"
-                                                     ItemsSource="{Binding SelectedRequest.ApprovalHistories}"
-                                                     SelectedItem="{Binding SelectedApprovalHistory,Mode=TwoWay}"
+                                                     AllowDrop="True"
+                                                     ItemsSource="{Binding SelRequest.ApprovalHistories}"
+                                                     SelectedItem="{Binding SelApprovalHistory,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True"
                                                      EditTriggers="CellClick"
                                                      RowStyle="{StaticResource DraggedRowStyle}">
+                                    <uc:GridViewDoubleClick.Helper>
+                                        <uc:ApprovalHistoryDoubleClickHelper />
+                                    </uc:GridViewDoubleClick.Helper>
+                                    <telerik:GridViewDragDrop.Behavior>
+                                        <uc:ApprovalHistoryDragDrop />
+                                    </telerik:GridViewDragDrop.Behavior>
+                                    <telerik:GridViewDragDrop.DragVisualProvider>
+                                        <uc:ApprovalHistoryDragVisual />
+                                    </telerik:GridViewDragDrop.DragVisualProvider>
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
                                         <telerik:GridViewDataColumn Header="座级"
@@ -390,4 +416,4 @@
             </telerik:RadDocking>
         </Grid>
     </telerik:RadBusyIndicator>
-</UserControl>
+</UserControl> 

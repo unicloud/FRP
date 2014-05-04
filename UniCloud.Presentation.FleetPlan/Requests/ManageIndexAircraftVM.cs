@@ -1,22 +1,38 @@
-﻿#region 命名空间
+﻿#region 版本信息
+/* ========================================================================
+// 版权所有 (C) 2014 UniCloud 
+//【本类功能概述】
+// 
+// 作者：HuangQiBin 时间：2014/5/4 14:18:04
+// 文件名：ManageIndexAircraftVM
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================*/
+#endregion
+
+#region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Data.Services.Client;
 using System.Linq;
-using System.Reflection;
-using System.Text;
+using System.Net;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Ink;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Document;
-using UniCloud.Presentation.FleetPlan.PrepareFleetPlan;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -27,11 +43,10 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.FleetPlan.Requests
 {
-    [Export(typeof(RequestVM))]
+    [Export(typeof(ManageIndexAircraftVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class RequestVM : EditViewModelBase
+    public class ManageIndexAircraftVM : EditViewModelBase
     {
-
         #region 声明、初始化
 
         private readonly FleetPlanData _context;
@@ -40,9 +55,10 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private FilterDescriptor _annualDescriptor;
         private FilterDescriptor _planDescriptor;
         private FilterDescriptor _planHistoryDescriptor;
+        private FilterDescriptor _requestDescriptor;
 
         [ImportingConstructor]
-        public RequestVM(IRegionManager regionManager, IFleetPlanService service)
+        public ManageIndexAircraftVM(IRegionManager regionManager, IFleetPlanService service)
             : base(service)
         {
             _regionManager = regionManager;
@@ -60,7 +76,14 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         private void InitializeVM()
         {
-            Requests = _service.CreateCollection(_context.Requests, o => o.ApprovalHistories, o => o.RelatedDocs);
+            ApprovalDocs = _service.CreateCollection(_context.ApprovalDocs);
+            var approvalDocDescriptor = new FilterDescriptor("Note", FilterOperator.IsEqualTo, "指标飞机批文");
+            ApprovalDocs.FilterDescriptors.Add(approvalDocDescriptor);
+            _service.RegisterCollectionView(ApprovalDocs);
+
+            Requests = _service.CreateCollection(_context.Requests, o => o.ApprovalHistories);
+            _requestDescriptor = new FilterDescriptor("Note", FilterOperator.IsEqualTo, "指标飞机申请（系统添加）");
+            Requests.FilterDescriptors.Add(_requestDescriptor);
             _service.RegisterCollectionView(Requests);
 
             CurAnnuals = new QueryableDataServiceCollectionView<AnnualDTO>(_context, _context.Annuals);
@@ -100,8 +123,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
             CurPlanHistories = new QueryableDataServiceCollectionView<PlanHistoryDTO>(_context, _context.PlanHistories);
             _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
-            //var group = new GroupDescriptor { Member = "CanRequest", SortDirection = ListSortDirection.Descending};
-            //CurPlanHistories.GroupDescriptors.Add(group);
+            var group = new GroupDescriptor { Member = "CanRequest", SortDirection = ListSortDirection.Descending };
+            CurPlanHistories.GroupDescriptors.Add(group);
             CurPlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
         }
 
@@ -111,10 +134,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void InitializerCommand()
         {
             NewCommand = new DelegateCommand<object>(OnNew, CanNew);
-            RemoveDocCommand = new DelegateCommand<object>(OnRemoveDoc, CanRemoveDoc);
             CommitCommand = new DelegateCommand<object>(OnCommit, CanCommit);
             CheckCommand = new DelegateCommand<object>(OnCheck, CanCheck);
-            CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
         }
 
         #endregion
@@ -200,6 +221,11 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         public override void LoadData()
         {
+            if (!ApprovalDocs.AutoLoad)
+                ApprovalDocs.AutoLoad = true;
+            else
+                ApprovalDocs.Load(true);
+
             if (!Requests.AutoLoad)
                 Requests.AutoLoad = true;
             else
@@ -210,28 +236,64 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         #region 业务
 
-        #region 所有申请集合
+        #region 所有发改委指标批文集合
 
         /// <summary>
-        ///     所有申请集合
+        ///     所有发改委指标批文集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ApprovalDocDTO> ApprovalDocs { get; set; }
+
+
+        private ApprovalDocDTO _selApprovalDoc;
+
+        /// <summary>
+        /// 选择的发改委指标批文
+        /// </summary>
+        public ApprovalDocDTO SelApprovalDoc
+        {
+            get { return this._selApprovalDoc; }
+            private set
+            {
+                if (this._selApprovalDoc != value)
+                {
+                    _selApprovalDoc = value;
+                    if (value != null)
+                    {
+                        if (Requests.SourceCollection.Cast<RequestDTO>().Any())
+                        {
+                            _curRequest = Requests.SourceCollection.Cast<RequestDTO>().FirstOrDefault(p => value.Id == p.ApprovalDocId);
+                        }
+                    }
+                    this.RaisePropertyChanged(() => this.SelApprovalDoc);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        #endregion
+
+        #region 所有指标飞机对应的系统申请集合
+
+        /// <summary>
+        ///     所有指标飞机对应的系统申请集合
         /// </summary>
         public QueryableDataServiceCollectionView<RequestDTO> Requests { get; set; }
 
 
-        private RequestDTO _selRequest;
+        private RequestDTO _curRequest;
 
         /// <summary>
-        /// 选择的申请
+        /// 选择的批文对应的系统申请
         /// </summary>
-        public RequestDTO SelRequest
+        public RequestDTO CurRequest
         {
-            get { return this._selRequest; }
+            get { return this._curRequest; }
             private set
             {
-                if (this._selRequest != value)
+                if (this._curRequest != value)
                 {
-                    _selRequest = value;
-                    this.RaisePropertyChanged(() => this.SelRequest);
+                    _curRequest = value;
+                    this.RaisePropertyChanged(() => this.CurRequest);
                 }
             }
         }
@@ -270,7 +332,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             AddAttachCommand.RaiseCanExecuteChanged();
             NewCommand.RaiseCanExecuteChanged();
-            RemoveDocCommand.RaiseCanExecuteChanged();
             CommitCommand.RaiseCanExecuteChanged();
             CheckCommand.RaiseCanExecuteChanged();
         }
@@ -279,7 +340,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         protected override bool CanAddAttach(object obj)
         {
-            return _selRequest != null;
+            return _selApprovalDoc != null;
         }
 
         #region 添加附件成功后执行的操作
@@ -294,33 +355,43 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             base.WindowClosed(doc, sender);
             if (sender is Guid)
             {
-                SelRequest.CaacDocumentId = doc.DocumentId;
-                SelRequest.CaacDocumentName = doc.Name;
-            }
-            else
-            {
-                var relatedDoc = new RelatedDocDTO
-                {
-                    Id = RandomHelper.Next(),
-                    DocumentId = doc.DocumentId,
-                    DocumentName = doc.Name,
-                    SourceId = SelRequest.Id
-                };
-                SelRequest.RelatedDocs.Add(relatedDoc);
+                SelApprovalDoc.NdrcDocumentId = doc.DocumentId;
+                SelApprovalDoc.NdrcDocumentName = doc.Name;
             }
         }
 
         #endregion
-        #region 创建新申请
+
+        #region 创建指标批文和申请
 
         /// <summary>
-        ///     创建新计划
+        ///     创建指标批文和申请
         /// </summary>
         public DelegateCommand<object> NewCommand { get; private set; }
 
         private void OnNew(object obj)
         {
+            var newApprovalDoc = new ApprovalDocDTO
+            {
+                Id = Guid.NewGuid(),
+                Note = "指标飞机批文"
+            };
+            ApprovalDocs.AddNew(newApprovalDoc);
 
+            var newRequest = new RequestDTO
+            {
+                Id = Guid.NewGuid(),
+                CreateDate = DateTime.Now,
+                SubmitDate = DateTime.Now,
+                Title="指标飞机申请（系统添加）",
+                Note = "指标飞机申请（系统添加）",
+                AirlinesId = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"),
+                Status = 3,
+                IsFinished = true,
+                ApprovalDocId = newApprovalDoc.Id,
+            };
+            Requests.AddNew(newRequest);
+            RefreshCommandState();
         }
 
         private bool CanNew(object obj)
@@ -330,34 +401,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         #endregion
 
-        #region 删除关联文档
-
-        /// <summary>
-        ///     删除关联文档
-        /// </summary>
-        public DelegateCommand<object> RemoveDocCommand { get; private set; }
-
-        private void OnRemoveDoc(object obj)
-        {
-            var doc = obj as RelatedDocDTO;
-            if (doc != null)
-            {
-                MessageConfirm("确认移除", "是否移除关联文档：" + doc.DocumentName + "？", (o, e) =>
-                {
-                    if (e.DialogResult == true)
-                    {
-                        _selRequest.RelatedDocs.Remove(doc);
-                    }
-                });
-            }
-        }
-
-        private bool CanRemoveDoc(object obj)
-        {
-            return _selRequest != null;
-        }
-
-        #endregion
         #region 提交审核
 
         /// <summary>
@@ -367,11 +410,18 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         private void OnCommit(object obj)
         {
+            if (SelApprovalDoc == null)
+            {
+                MessageAlert("批文不能为空");
+                return;
+            }
+            SelApprovalDoc.Status = (int)OperationStatus.待审核;
+            RefreshCommandState();
         }
 
         private bool CanCommit(object obj)
         {
-            return true;
+            return SelApprovalDoc != null && SelApprovalDoc.Status < (int)RequestStatus.待审核;
         }
 
         #endregion
@@ -385,55 +435,19 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         private void OnCheck(object obj)
         {
-
+            if (SelApprovalDoc == null)
+            {
+                MessageAlert("批文不能为空");
+                return;
+            }
+            SelApprovalDoc.Status = (int)OperationStatus.已审核;
+            RefreshCommandState();
         }
 
         private bool CanCheck(object obj)
         {
-            return true;
-        }
-
-        #endregion
-
-        #region GridView单元格变更处理
-
-        public DelegateCommand<object> CellEditEndCommand { set; get; }
-
-        /// <summary>
-        ///     GridView单元格变更处理
-        /// </summary>
-        /// <param name="sender"></param>
-        protected virtual void OnCellEditEnd(object sender)
-        {
-            var gridView = sender as RadGridView;
-            if (gridView != null)
-            {
-                var cell = gridView.CurrentCell;
-                if (string.Equals(cell.Column.UniqueName, "ActionType"))
-                {
-                    var planhistory = gridView.CurrentCellInfo.Item as PlanHistoryDTO;
-                    if (planhistory != null)
-                    {
-                        planhistory.AircraftCategories = new ObservableCollection<AircraftCateDTO>();
-                        planhistory.AircraftCategories.AddRange(_service.GetAircraftCategoriesForPlanHistory(planhistory));
-
-                        var actionCategory =
-                            SelPlanHistory.ActionCategories.FirstOrDefault(p => p.Id == planhistory.ActionCategoryId);
-                        if (actionCategory != null && actionCategory.NeedRequest)
-                        {
-                            planhistory.NeedRequest = actionCategory.NeedRequest;
-                            planhistory.CanRequest = (int)CanRequest.未报计划;
-                            planhistory.CanDeliver = (int)CanDeliver.未申请;
-                        }
-                        else if (actionCategory != null && !actionCategory.NeedRequest)
-                        {
-                            planhistory.NeedRequest = actionCategory.NeedRequest;
-                            planhistory.CanRequest = (int)CanRequest.无需申请;
-                            planhistory.CanDeliver = (int)CanDeliver.可交付;
-                        }
-                    }
-                }
-            }
+            return SelApprovalDoc != null && SelApprovalDoc.Status < (int)OperationStatus.已审核
+                   && SelApprovalDoc.Status > (int)OperationStatus.草稿;
         }
 
         #endregion
