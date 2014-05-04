@@ -20,6 +20,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
@@ -96,6 +97,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             UndercartMaintainInvoices.Load(true);
             Suppliers.Load(true);
             Currencies.Load(true);
+            PaymentSchedules.Load(true);
         }
 
         #region 起落架维修发票
@@ -117,11 +119,27 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             get { return _undercartMaintainInvoice; }
             set
             {
-                if (_undercartMaintainInvoice != value)
+                _undercartMaintainInvoice = value;
+                RelatedPaymentSchedule.Clear();
+                SelPaymentSchedule = null;
+                if (value != null )
                 {
-                    _undercartMaintainInvoice = value;
-                    RaisePropertyChanged(() => UndercartMaintainInvoice);
+                    RelatedPaymentSchedule.Add(
+                        PaymentSchedules.FirstOrDefault(p =>
+                        {
+                            var paymentScheduleLine =
+                                p.PaymentScheduleLines.FirstOrDefault(
+                                    l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
+                            return paymentScheduleLine != null &&
+                                   paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
+                        }));
+                    SelPaymentSchedule = RelatedPaymentSchedule.FirstOrDefault();
+                    if (SelPaymentSchedule != null)
+                        RelatedPaymentScheduleLine =
+                            SelPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
+                                l => l.InvoiceId == value.UndercartMaintainInvoiceId);
                 }
+                RaisePropertyChanged(() => UndercartMaintainInvoice);
             }
         }
 
@@ -153,17 +171,8 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         protected override void OnAddInvoice(object obj)
         {
-            var maintainInvoice = new UndercartMaintainInvoiceDTO
-            {
-                UndercartMaintainInvoiceId = RandomHelper.Next(),
-                CreateDate = DateTime.Now,
-                InvoiceDate = DateTime.Now
-            };
-            var firstOrDefault = Suppliers.FirstOrDefault();
-            if (firstOrDefault != null) maintainInvoice.SupplierId = firstOrDefault.SupplierId;
-            var currencyDto = Currencies.FirstOrDefault();
-            if (currencyDto != null) maintainInvoice.CurrencyId = currencyDto.Id;
-            UndercartMaintainInvoices.AddNew(maintainInvoice);
+            PrepayPayscheduleChildView.ViewModel.InitData(typeof(UndercartMaintainInvoiceDTO), PrepayPayscheduleChildViewClosed);
+            PrepayPayscheduleChildView.ShowDialog();
         }
 
         protected override bool CanAddInvoice(object obj)
@@ -171,6 +180,14 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             return true;
         }
 
+        private void PrepayPayscheduleChildViewClosed(object sender, WindowClosedEventArgs e)
+        {
+            if (PrepayPayscheduleChildView.Tag != null)
+            {
+                var maintainInvoice = PrepayPayscheduleChildView.Tag as UndercartMaintainInvoiceDTO;
+                UndercartMaintainInvoices.AddNew(maintainInvoice);
+            }
+        }
         #endregion
 
         #region 删除维修发票
@@ -186,6 +203,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             {
                 if (arg.DialogResult != true) return;
                 UndercartMaintainInvoices.Remove(_undercartMaintainInvoice);
+                UndercartMaintainInvoice = UndercartMaintainInvoices.FirstOrDefault();
             });
         }
 

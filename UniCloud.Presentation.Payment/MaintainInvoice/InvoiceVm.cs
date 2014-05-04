@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -37,6 +38,8 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         private readonly PaymentData _context;
         private readonly IPaymentService _service;
+        [Import]
+        public MaintainPaymentScheduleView PrepayPayscheduleChildView; //初始化子窗体
 
         [ImportingConstructor]
         public InvoiceVm(IPaymentService service) : base(service)
@@ -47,6 +50,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 _context.Suppliers);
             Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context,
                 _context.Currencies);
+            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context, _context.PaymentSchedules);
 
             AddInvoiceCommand = new DelegateCommand<object>(OnAddInvoice, CanAddInvoice);
             RemoveInvoiceCommand = new DelegateCommand<object>(OnRemoveInvoice, CanRemoveInvoice);
@@ -79,6 +83,67 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             get { return Enum.GetValues(typeof(MaintainItem)).Cast<object>().ToDictionary(value => (int)value, value => (MaintainItem)value); }
         }
 
+        #region 关联的付款计划及付款计划行
+        /// <summary>
+        ///     所有付款计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PaymentScheduleDTO> PaymentSchedules { get; set; }
+
+        private ObservableCollection<PaymentScheduleDTO> _relatedPaymentSchedule = new ObservableCollection<PaymentScheduleDTO>();
+
+        private PaymentScheduleLineDTO _relatedPaymentScheduleLine;
+
+        private PaymentScheduleDTO _selPaymentSchedule;
+
+        /// <summary>
+        ///     关联的付款计划
+        /// </summary>
+        public ObservableCollection<PaymentScheduleDTO> RelatedPaymentSchedule
+        {
+            get { return _relatedPaymentSchedule; }
+            set
+            {
+                if (_relatedPaymentSchedule != value)
+                {
+                    _relatedPaymentSchedule = value;
+                    RaisePropertyChanged(() => RelatedPaymentSchedule);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     关联的付款计划
+        /// </summary>
+        public PaymentScheduleDTO SelPaymentSchedule
+        {
+            get { return _selPaymentSchedule; }
+            set
+            {
+                if (_selPaymentSchedule != value)
+                {
+                    _selPaymentSchedule = value;
+                    RaisePropertyChanged(() => SelPaymentSchedule);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     选择的付款计划行
+        /// </summary>
+        public PaymentScheduleLineDTO RelatedPaymentScheduleLine
+        {
+            get { return _relatedPaymentScheduleLine; }
+            set
+            {
+                if (_relatedPaymentScheduleLine != value)
+                {
+                    _relatedPaymentScheduleLine = value;
+                    RaisePropertyChanged(() => RelatedPaymentScheduleLine);
+                }
+            }
+        }
+
+        #endregion
         #endregion
 
         #region 操作

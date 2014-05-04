@@ -63,6 +63,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                         CurrencyId = p.CurrencyId,
                         DocumentName = p.DocumentName,
                         DocumentId = p.DocumentId,
+                        PaymentScheduleLineId = p.PaymentScheduleLineId,
                     });
         }
 
@@ -97,6 +98,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      CurrencyId = p.CurrencyId,
                                      DocumentName = p.DocumentName,
                                      DocumentId = p.DocumentId,
+                                     PaymentScheduleLineId = p.PaymentScheduleLineId,
                                      MaintainInvoiceLines =
                                          p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
@@ -142,6 +144,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      CurrencyId = p.CurrencyId,
                                      DocumentName = p.DocumentName,
                                      DocumentId = p.DocumentId,
+                                     PaymentScheduleLineId = p.PaymentScheduleLineId,
                                      MaintainInvoiceLines =
                                          p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                     {
@@ -186,6 +189,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      CurrencyId = p.CurrencyId,
                                      DocumentName = p.DocumentName,
                                      DocumentId = p.DocumentId,
+                                     PaymentScheduleLineId = p.PaymentScheduleLineId,
                                      MaintainInvoiceLines =
                                          p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                     {
@@ -231,6 +235,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      CurrencyId = p.CurrencyId,
                                      DocumentName = p.DocumentName,
                                      DocumentId = p.DocumentId,
+                                     PaymentScheduleLineId = p.PaymentScheduleLineId,
                                      MaintainInvoiceLines =
                                          p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                     {

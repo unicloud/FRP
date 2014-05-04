@@ -247,6 +247,10 @@
     <Compile Include="Invoice\PurchasePayscheduleChildView.xaml.cs">
       <DependentUpon>PurchasePayscheduleChildView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MaintainInvoice\MaintainPaymentScheduleView.xaml.cs">
+      <DependentUpon>MaintainPaymentScheduleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainInvoice\MaintainPaymentScheduleViewVm.cs" />
     <Compile Include="MaintainInvoice\UndercartMaintain.xaml.cs">
       <DependentUpon>UndercartMaintain.xaml</DependentUpon>
     </Compile>
@@ -398,6 +402,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Invoice\PurchasePayscheduleChildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainInvoice\MaintainPaymentScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

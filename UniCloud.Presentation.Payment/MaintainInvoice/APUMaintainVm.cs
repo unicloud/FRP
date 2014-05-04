@@ -20,9 +20,9 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Payment.Invoice;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
@@ -94,6 +94,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             ApuMaintainInvoices.Load(true);
             Suppliers.Load(true);
             Currencies.Load(true);
+            PaymentSchedules.Load(true);
         }
 
         #region APU维修发票
@@ -115,11 +116,27 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             get { return _apuMaintainInvoice; }
             set
             {
-                if (_apuMaintainInvoice != value)
+                _apuMaintainInvoice = value;
+                RelatedPaymentSchedule.Clear();
+                SelPaymentSchedule = null;
+                if (value != null)
                 {
-                    _apuMaintainInvoice = value;
-                    RaisePropertyChanged(() => ApuMaintainInvoice);
+                    RelatedPaymentSchedule.Add(
+                        PaymentSchedules.FirstOrDefault(p =>
+                        {
+                            var paymentScheduleLine =
+                                p.PaymentScheduleLines.FirstOrDefault(
+                                    l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
+                            return paymentScheduleLine != null &&
+                                   paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
+                        }));
+                    SelPaymentSchedule = RelatedPaymentSchedule.FirstOrDefault();
+                    if (SelPaymentSchedule != null)
+                        RelatedPaymentScheduleLine =
+                            SelPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
+                                l => l.InvoiceId == value.APUMaintainInvoiceId);
                 }
+                RaisePropertyChanged(() => ApuMaintainInvoice);
             }
         }
 
@@ -151,17 +168,8 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         protected override void OnAddInvoice(object obj)
         {
-            var maintainInvoice = new APUMaintainInvoiceDTO
-            {
-                APUMaintainInvoiceId = RandomHelper.Next(),
-                CreateDate = DateTime.Now,
-                InvoiceDate = DateTime.Now
-            };
-            var firstOrDefault = Suppliers.FirstOrDefault();
-            if (firstOrDefault != null) maintainInvoice.SupplierId = firstOrDefault.SupplierId;
-            var currencyDto = Currencies.FirstOrDefault();
-            if (currencyDto != null) maintainInvoice.CurrencyId = currencyDto.Id;
-            ApuMaintainInvoices.AddNew(maintainInvoice);
+            PrepayPayscheduleChildView.ViewModel.InitData(typeof(APUMaintainInvoiceDTO), PrepayPayscheduleChildViewClosed);
+            PrepayPayscheduleChildView.ShowDialog();
         }
 
         protected override bool CanAddInvoice(object obj)
@@ -169,6 +177,14 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             return true;
         }
 
+        private void PrepayPayscheduleChildViewClosed(object sender, WindowClosedEventArgs e)
+        {
+            if (PrepayPayscheduleChildView.Tag != null)
+            {
+                var maintainInvoice = PrepayPayscheduleChildView.Tag as APUMaintainInvoiceDTO;
+                ApuMaintainInvoices.AddNew(maintainInvoice);
+            }
+        }
         #endregion
 
         #region 删除维修发票
@@ -184,6 +200,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             {
                 if (arg.DialogResult != true) return;
                 ApuMaintainInvoices.Remove(_apuMaintainInvoice);
+                ApuMaintainInvoice = ApuMaintainInvoices.FirstOrDefault();
             });
         }
 

@@ -20,6 +20,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Payment.Invoice;
@@ -94,6 +95,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             EngineMaintainInvoices.Load(true);
             Suppliers.Load(true);
             Currencies.Load(true);
+            PaymentSchedules.Load(true);
         }
 
         #region 发动机维修发票
@@ -115,11 +117,27 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             get { return _engineMaintainInvoice; }
             set
             {
-                if (_engineMaintainInvoice != value)
+                _engineMaintainInvoice = value;
+                RelatedPaymentSchedule.Clear();
+                SelPaymentSchedule = null;
+                if (value != null )
                 {
-                    _engineMaintainInvoice = value;
-                    RaisePropertyChanged(() => EngineMaintainInvoice);
+                    RelatedPaymentSchedule.Add(
+                        PaymentSchedules.FirstOrDefault(p =>
+                        {
+                            var paymentScheduleLine =
+                                p.PaymentScheduleLines.FirstOrDefault(
+                                    l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
+                            return paymentScheduleLine != null &&
+                                   paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
+                        }));
+                    SelPaymentSchedule = RelatedPaymentSchedule.FirstOrDefault();
+                    if (SelPaymentSchedule != null)
+                        RelatedPaymentScheduleLine =
+                            SelPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
+                                l => l.InvoiceId == value.EngineMaintainInvoiceId);
                 }
+                RaisePropertyChanged(() => EngineMaintainInvoice);
             }
         }
 
@@ -151,17 +169,8 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         protected override void OnAddInvoice(object obj)
         {
-            var maintainInvoice = new EngineMaintainInvoiceDTO
-            {
-                EngineMaintainInvoiceId = RandomHelper.Next(),
-                CreateDate = DateTime.Now,
-                InvoiceDate = DateTime.Now
-            };
-            var firstOrDefault = Suppliers.FirstOrDefault();
-            if (firstOrDefault != null) maintainInvoice.SupplierId = firstOrDefault.SupplierId;
-            var currencyDto = Currencies.FirstOrDefault();
-            if (currencyDto != null) maintainInvoice.CurrencyId = currencyDto.Id;
-            EngineMaintainInvoices.AddNew(maintainInvoice);
+            PrepayPayscheduleChildView.ViewModel.InitData(typeof(EngineMaintainInvoiceDTO), PrepayPayscheduleChildViewClosed);
+            PrepayPayscheduleChildView.ShowDialog();
         }
 
         protected override bool CanAddInvoice(object obj)
@@ -169,6 +178,14 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             return true;
         }
 
+        private void PrepayPayscheduleChildViewClosed(object sender, WindowClosedEventArgs e)
+        {
+            if (PrepayPayscheduleChildView.Tag != null)
+            {
+                var maintainInvoice = PrepayPayscheduleChildView.Tag as EngineMaintainInvoiceDTO;
+                EngineMaintainInvoices.AddNew(maintainInvoice);
+            }
+        }
         #endregion
 
         #region 删除维修发票
@@ -184,6 +201,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             {
                 if (arg.DialogResult != true) return;
                 EngineMaintainInvoices.Remove(_engineMaintainInvoice);
+                EngineMaintainInvoice = EngineMaintainInvoices.FirstOrDefault();
             });
         }
 

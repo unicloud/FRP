@@ -77,7 +77,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             MaintainInvoiceFactory.SetMaintainInvoice(newEngineMaintainInvoice, engineMaintainInvoice.SerialNumber,
                 engineMaintainInvoice.InvoideCode, engineMaintainInvoice.InvoiceDate, engineMaintainInvoice.SupplierName, engineMaintainInvoice.SupplierId,
                 engineMaintainInvoice.InvoiceValue, engineMaintainInvoice.PaidAmount, engineMaintainInvoice.OperatorName,
-                engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId, engineMaintainInvoice.DocumentName, engineMaintainInvoice.DocumentId);
+                engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId,
+                engineMaintainInvoice.DocumentName, engineMaintainInvoice.DocumentId, engineMaintainInvoice.PaymentScheduleLineId);
             if (engineMaintainInvoice.MaintainInvoiceLines != null)
             {
                 foreach (var maintainInvoiceLine in engineMaintainInvoice.MaintainInvoiceLines)
@@ -105,7 +106,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             MaintainInvoiceFactory.SetMaintainInvoice(updateEngineMaintainInvoice, engineMaintainInvoice.SerialNumber,
                 engineMaintainInvoice.InvoideCode, engineMaintainInvoice.InvoiceDate, engineMaintainInvoice.SupplierName, engineMaintainInvoice.SupplierId,
                 engineMaintainInvoice.InvoiceValue, engineMaintainInvoice.PaidAmount, engineMaintainInvoice.OperatorName,
-               engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId, engineMaintainInvoice.DocumentName, engineMaintainInvoice.DocumentId);
+               engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId,
+               engineMaintainInvoice.DocumentName, engineMaintainInvoice.DocumentId, engineMaintainInvoice.PaymentScheduleLineId);
             UpdateMaintainInvoiceLines(engineMaintainInvoice.MaintainInvoiceLines, updateEngineMaintainInvoice);
             _invoiceRepository.Modify(updateEngineMaintainInvoice);
         }
@@ -147,7 +149,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             MaintainInvoiceFactory.SetMaintainInvoice(newApuMaintainInvoice, apuMaintainInvoice.SerialNumber,
                 apuMaintainInvoice.InvoideCode, apuMaintainInvoice.InvoiceDate, apuMaintainInvoice.SupplierName, apuMaintainInvoice.SupplierId,
                 apuMaintainInvoice.InvoiceValue, apuMaintainInvoice.PaidAmount, apuMaintainInvoice.OperatorName,
-               apuMaintainInvoice.Reviewer, apuMaintainInvoice.Status, apuMaintainInvoice.CurrencyId, apuMaintainInvoice.DocumentName, apuMaintainInvoice.DocumentId);
+               apuMaintainInvoice.Reviewer, apuMaintainInvoice.Status, apuMaintainInvoice.CurrencyId,
+               apuMaintainInvoice.DocumentName, apuMaintainInvoice.DocumentId, apuMaintainInvoice.PaymentScheduleLineId);
             if (apuMaintainInvoice.MaintainInvoiceLines != null)
             {
                 foreach (var maintainInvoiceLine in apuMaintainInvoice.MaintainInvoiceLines)
@@ -173,7 +176,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             MaintainInvoiceFactory.SetMaintainInvoice(updateApuMaintainInvoice, apuMaintainInvoice.SerialNumber,
                 apuMaintainInvoice.InvoideCode, apuMaintainInvoice.InvoiceDate, apuMaintainInvoice.SupplierName, apuMaintainInvoice.SupplierId,
                 apuMaintainInvoice.InvoiceValue, apuMaintainInvoice.PaidAmount, apuMaintainInvoice.OperatorName,
-               apuMaintainInvoice.Reviewer, apuMaintainInvoice.Status, apuMaintainInvoice.CurrencyId, apuMaintainInvoice.DocumentName, apuMaintainInvoice.DocumentId);
+               apuMaintainInvoice.Reviewer, apuMaintainInvoice.Status, apuMaintainInvoice.CurrencyId,
+               apuMaintainInvoice.DocumentName, apuMaintainInvoice.DocumentId, apuMaintainInvoice.PaymentScheduleLineId);
             UpdateMaintainInvoiceLines(apuMaintainInvoice.MaintainInvoiceLines, updateApuMaintainInvoice);
 
             _invoiceRepository.Modify(updateApuMaintainInvoice);
@@ -217,7 +221,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             MaintainInvoiceFactory.SetMaintainInvoice(newAirframeMaintainInvoice, airframeMaintainInvoice.SerialNumber,
                 airframeMaintainInvoice.InvoideCode, airframeMaintainInvoice.InvoiceDate, airframeMaintainInvoice.SupplierName, airframeMaintainInvoice.SupplierId,
                 airframeMaintainInvoice.InvoiceValue, airframeMaintainInvoice.PaidAmount, airframeMaintainInvoice.OperatorName,
-                airframeMaintainInvoice.Reviewer, airframeMaintainInvoice.Status, airframeMaintainInvoice.CurrencyId, airframeMaintainInvoice.DocumentName, airframeMaintainInvoice.DocumentId);
+                airframeMaintainInvoice.Reviewer, airframeMaintainInvoice.Status, airframeMaintainInvoice.CurrencyId,
+                airframeMaintainInvoice.DocumentName, airframeMaintainInvoice.DocumentId, airframeMaintainInvoice.PaymentScheduleLineId);
             if (airframeMaintainInvoice.MaintainInvoiceLines != null)
             {
                 foreach (var maintainInvoiceLine in airframeMaintainInvoice.MaintainInvoiceLines)
@@ -243,7 +248,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             MaintainInvoiceFactory.SetMaintainInvoice(updateAirframeMaintainInvoice, airframeMaintainInvoice.SerialNumber,
                  airframeMaintainInvoice.InvoideCode, airframeMaintainInvoice.InvoiceDate, airframeMaintainInvoice.SupplierName, airframeMaintainInvoice.SupplierId,
                  airframeMaintainInvoice.InvoiceValue, airframeMaintainInvoice.PaidAmount, airframeMaintainInvoice.OperatorName,
-                 airframeMaintainInvoice.Reviewer, airframeMaintainInvoice.Status, airframeMaintainInvoice.CurrencyId, airframeMaintainInvoice.DocumentName, airframeMaintainInvoice.DocumentId);
+                 airframeMaintainInvoice.Reviewer, airframeMaintainInvoice.Status, airframeMaintainInvoice.CurrencyId,
+                 airframeMaintainInvoice.DocumentName, airframeMaintainInvoice.DocumentId, airframeMaintainInvoice.PaymentScheduleLineId);
             UpdateMaintainInvoiceLines(airframeMaintainInvoice.MaintainInvoiceLines, updateAirframeMaintainInvoice);
             _invoiceRepository.Modify(updateAirframeMaintainInvoice);
         }
@@ -285,7 +291,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             MaintainInvoiceFactory.SetMaintainInvoice(newUndercartMaintainInvoice, undercartMaintainInvoice.SerialNumber,
                 undercartMaintainInvoice.InvoideCode, undercartMaintainInvoice.InvoiceDate, undercartMaintainInvoice.SupplierName, undercartMaintainInvoice.SupplierId,
                 undercartMaintainInvoice.InvoiceValue, undercartMaintainInvoice.PaidAmount, undercartMaintainInvoice.OperatorName,
-               undercartMaintainInvoice.Reviewer, undercartMaintainInvoice.Status, undercartMaintainInvoice.CurrencyId, undercartMaintainInvoice.DocumentName, undercartMaintainInvoice.DocumentId);
+               undercartMaintainInvoice.Reviewer, undercartMaintainInvoice.Status, undercartMaintainInvoice.CurrencyId,
+               undercartMaintainInvoice.DocumentName, undercartMaintainInvoice.DocumentId, undercartMaintainInvoice.PaymentScheduleLineId);
             if (undercartMaintainInvoice.MaintainInvoiceLines != null)
             {
                 foreach (var maintainInvoiceLine in undercartMaintainInvoice.MaintainInvoiceLines)
@@ -312,7 +319,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             MaintainInvoiceFactory.SetMaintainInvoice(updateUndercartMaintainInvoice, undercartMaintainInvoice.SerialNumber,
                   undercartMaintainInvoice.InvoideCode, undercartMaintainInvoice.InvoiceDate, undercartMaintainInvoice.SupplierName, undercartMaintainInvoice.SupplierId,
                   undercartMaintainInvoice.InvoiceValue, undercartMaintainInvoice.PaidAmount, undercartMaintainInvoice.OperatorName,
-                 undercartMaintainInvoice.Reviewer, undercartMaintainInvoice.Status, undercartMaintainInvoice.CurrencyId, undercartMaintainInvoice.DocumentName, undercartMaintainInvoice.DocumentId);
+                 undercartMaintainInvoice.Reviewer, undercartMaintainInvoice.Status, undercartMaintainInvoice.CurrencyId,
+                 undercartMaintainInvoice.DocumentName, undercartMaintainInvoice.DocumentId, undercartMaintainInvoice.PaymentScheduleLineId);
             UpdateMaintainInvoiceLines(undercartMaintainInvoice.MaintainInvoiceLines, updateUndercartMaintainInvoice);
             _invoiceRepository.Modify(updateUndercartMaintainInvoice);
         }
