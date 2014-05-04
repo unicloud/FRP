@@ -133,8 +133,7 @@
                                                                             ItemsSource="{Binding DataContext.Suppliers,Mode=TwoWay,ElementName=AirframeMaintainView}"
                                                                             DataMemberBinding="{Binding SupplierId}"
                                                                             SelectedValueMemberPath="SupplierId"
-                                                                            DisplayMemberPath="Name">
-                                            </telerik:GridViewComboBoxColumn>
+                                                                            DisplayMemberPath="Name" />
                                             <telerik:GridViewComboBoxColumn Header="币种"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             TextAlignment="Right"
@@ -240,7 +239,7 @@
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
                     <telerik:RadPaneGroup VerticalAlignment="Stretch">
-                        <telerik:RadPane Header="发票明细"
+                        <telerik:RadPane Header="发票行"
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"

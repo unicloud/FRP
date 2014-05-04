@@ -14,7 +14,7 @@
                    Height="500"
                    Width="700"
                    Header="选取采购订单"
-                   d:DataContext="{d:DesignInstance uc:CreditNoteManagerVM}">
+                   d:DataContext="{d:DesignInstance uc:PurchaseCreditNoteManagerVm}">
     <telerik:RadWindow.Resources>
         <ResourceDictionary>
             <Style x:Key="EditComboBox"
@@ -35,8 +35,8 @@
     </telerik:RadWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid>
             <telerik:RadDocking BorderThickness="0"
@@ -112,12 +112,12 @@
                                Height="30"
                                Width="100"
                                Margin="5,2"
-                               Command="{Binding CommitCommand}"></telerik:RadButton>
+                               Command="{Binding CommitCommand}" />
             <telerik:RadButton Content="取消"
                                Height="30"
                                Width="100"
                                Margin="5,2"
-                               Command="{Binding CancelCommand}"></telerik:RadButton>
+                               Command="{Binding CancelCommand}" />
         </StackPanel>
     </Grid>
 </telerik:RadWindow>

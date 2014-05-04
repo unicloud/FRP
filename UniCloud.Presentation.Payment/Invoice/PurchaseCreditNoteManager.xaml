@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UniCloud.Presentation.Payment.Invoice.CreditNoteManager"
+﻿<UserControl x:Class="UniCloud.Presentation.Payment.Invoice.PurchaseCreditNoteManager"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:CreditNoteManagerVM}">
+             d:DataContext="{d:DesignInstance uc:PurchaseCreditNoteManagerVm}">
 
 
     <UserControl.Resources>
@@ -40,7 +40,7 @@
                 <telerik:RadSplitContainer  Orientation="Vertical"
                                             telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="贷项单发票"
+                        <telerik:RadPane Header="采购贷项单发票"
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
@@ -270,8 +270,8 @@
                                          ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="5*"></RowDefinition>
-                                    <RowDefinition Height="6*"></RowDefinition>
+                                    <RowDefinition Height="5*" />
+                                    <RowDefinition Height="6*" />
                                 </Grid.RowDefinitions>
                                 <telerik:RadGridView Grid.Row="0"
                                                      Name="AircraftOrder"

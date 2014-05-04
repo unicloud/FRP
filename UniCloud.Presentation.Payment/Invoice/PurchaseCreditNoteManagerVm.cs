@@ -33,9 +33,9 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof (CreditNoteManagerVM))]
+    [Export(typeof (PurchaseCreditNoteManagerVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class CreditNoteManagerVM : EditViewModelBase
+    public class PurchaseCreditNoteManagerVm : EditViewModelBase
     {
         #region 声明、初始化
 
@@ -44,7 +44,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public CreditNoteManagerVM(IRegionManager regionManager, IPaymentService service) : base(service)
+        public PurchaseCreditNoteManagerVm(IRegionManager regionManager, IPaymentService service) : base(service)
         {
             _regionManager = regionManager;
             _service = service;

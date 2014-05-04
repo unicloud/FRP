@@ -33,9 +33,9 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(PrePayInvoiceManagerVM))]
+    [Export(typeof(PurchasePrepayInvoiceManagerVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class PrePayInvoiceManagerVM : EditViewModelBase
+    public class PurchasePrepayInvoiceManagerVm : EditViewModelBase
     {
         #region 声明、初始化
 
@@ -44,7 +44,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public PrePayInvoiceManagerVM(IRegionManager regionManager, IPaymentService service)
+        public PurchasePrepayInvoiceManagerVm(IRegionManager regionManager, IPaymentService service)
             : base(service)
         {
             _regionManager = regionManager;
@@ -528,7 +528,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 子窗体相关操作
 
         [Import]
-        public PrepayPayscheduleChildView PrepayPayscheduleChildView; //初始化子窗体
+        public PurchasePrepayPayscheduleChildView PrepayPayscheduleChildView; //初始化子窗体
 
         #region 付款计划集合
 

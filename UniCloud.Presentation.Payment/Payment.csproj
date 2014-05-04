@@ -193,10 +193,10 @@
       <DependentUpon>APUMaintain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\APUMaintainVm.cs" />
-    <Compile Include="Invoice\CreditNoteManager.xaml.cs">
-      <DependentUpon>CreditNoteManager.xaml</DependentUpon>
+    <Compile Include="Invoice\PurchaseCreditNoteManager.xaml.cs">
+      <DependentUpon>PurchaseCreditNoteManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Invoice\CreditNoteManagerVM.cs" />
+    <Compile Include="Invoice\PurchaseCreditNoteManagerVm.cs" />
     <Compile Include="Invoice\EngineMaintain.xaml.cs">
       <DependentUpon>EngineMaintain.xaml</DependentUpon>
     </Compile>
@@ -214,12 +214,12 @@
       <DependentUpon>LeasePayscheduleChildView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Invoice\PrePayInvoiceManager.xaml.cs">
-      <DependentUpon>PrePayInvoiceManager.xaml</DependentUpon>
+    <Compile Include="Invoice\PurchasePrepayInvoiceManager.xaml.cs">
+      <DependentUpon>PurchasePrepayInvoiceManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Invoice\PrePayInvoiceManagerVM.cs" />
-    <Compile Include="Invoice\PrepayPayscheduleChildView.xaml.cs">
-      <DependentUpon>PrepayPayscheduleChildView.xaml</DependentUpon>
+    <Compile Include="Invoice\PurchasePrepayInvoiceManagerVm.cs" />
+    <Compile Include="Invoice\PurchasePrepayPayscheduleChildView.xaml.cs">
+      <DependentUpon>PurchasePrepayPayscheduleChildView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Invoice\PurchaseInvoiceManager.xaml.cs">
@@ -330,7 +330,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Invoice\CreditNoteManager.xaml">
+    <Page Include="Invoice\PurchaseCreditNoteManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -350,11 +350,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Invoice\PrePayInvoiceManager.xaml">
+    <Page Include="Invoice\PurchasePrepayInvoiceManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Invoice\PrepayPayscheduleChildView.xaml">
+    <Page Include="Invoice\PurchasePrepayPayscheduleChildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

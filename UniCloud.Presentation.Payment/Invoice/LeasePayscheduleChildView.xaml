@@ -35,8 +35,8 @@
     </telerik:RadWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid>
             <telerik:RadPaneGroup x:Name="PaneGroups">
@@ -329,12 +329,12 @@
                                Height="30"
                                Width="100"
                                Margin="5,2"
-                               Command="{Binding CommitCommand}"></telerik:RadButton>
+                               Command="{Binding CommitCommand}" />
             <telerik:RadButton Content="取消"
                                Height="30"
                                Width="100"
                                Margin="5,2"
-                               Command="{Binding CancelCommand}"></telerik:RadButton>
+                               Command="{Binding CancelCommand}" />
         </StackPanel>
     </Grid>
 </telerik:RadWindow>

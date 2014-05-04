@@ -1,4 +1,4 @@
-﻿<telerik:RadWindow x:Class="UniCloud.Presentation.Payment.Invoice.PrepayPayscheduleChildView"
+﻿<telerik:RadWindow x:Class="UniCloud.Presentation.Payment.Invoice.PurchasePrepayPayscheduleChildView"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
@@ -14,7 +14,7 @@
                    Height="500"
                    Width="700"
                    Header="选取预付款计划"
-                   d:DataContext="{d:DesignInstance uc:PrePayInvoiceManagerVM}">
+                   d:DataContext="{d:DesignInstance uc:PurchasePrepayInvoiceManagerVm}">
     <telerik:RadWindow.Resources>
         <ResourceDictionary>
             <Style x:Key="EditComboBox"
@@ -35,8 +35,8 @@
     </telerik:RadWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid>
             <telerik:RadPaneGroup x:Name="PaneGroups">
@@ -427,12 +427,12 @@
                                Height="30"
                                Width="100"
                                Margin="5,2"
-                               Command="{Binding CommitCommand}"></telerik:RadButton>
+                               Command="{Binding CommitCommand}" />
             <telerik:RadButton Content="取消"
                                Height="30"
                                Width="100"
                                Margin="5,2"
-                               Command="{Binding CancelCommand}"></telerik:RadButton>
+                               Command="{Binding CancelCommand}" />
         </StackPanel>
     </Grid>
 </telerik:RadWindow>

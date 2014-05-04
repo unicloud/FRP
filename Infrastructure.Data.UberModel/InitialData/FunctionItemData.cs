@@ -206,9 +206,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
 
             var menu42 = FunctionItemFactory.CreateFunctionItem("管理采购发票", menu4.Id, 402, false, false, string.Empty);
             var menu421 = FunctionItemFactory.CreateFunctionItem("维护采购发票", menu42.Id, 40201, false, false, "UniCloud.Presentation.Payment.Invoice.PurchaseInvoiceManager");
-            var menu422 = FunctionItemFactory.CreateFunctionItem("维护预付款发票", menu42.Id, 40202, false, false, "UniCloud.Presentation.Payment.Invoice.PrePayInvoiceManager");
+            var menu422 = FunctionItemFactory.CreateFunctionItem("维护采购预付款发票", menu42.Id, 40202, false, false, "UniCloud.Presentation.Payment.Invoice.PurchasePrepayInvoiceManager");
             var menu423 = FunctionItemFactory.CreateFunctionItem("维护租赁发票", menu42.Id, 40203, false, false, "UniCloud.Presentation.Payment.Invoice.LeaseInvoiceManager");
-            var menu424 = FunctionItemFactory.CreateFunctionItem("维护贷项单", menu42.Id, 40204, false, false, "UniCloud.Presentation.Payment.Invoice.CreditNoteManager");
+            var menu424 = FunctionItemFactory.CreateFunctionItem("维护采购贷项单", menu42.Id, 40204, false, false, "UniCloud.Presentation.Payment.Invoice.PurchaseCreditNoteManager");
             menu42.SubFunctionItems.Add(menu421);
             menu42.SubFunctionItems.Add(menu422);
             menu42.SubFunctionItems.Add(menu423);
