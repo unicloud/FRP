@@ -156,7 +156,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialStandardPaymentSchedule()
         {
-            StandardPaymentSchedulesView = _service.CreateCollection(_context.StandardPaymentSchedules);
+            StandardPaymentSchedulesView = _service.CreateCollection(_context.StandardPaymentSchedules, o => o.PaymentScheduleLines);
             _paymnetFilterOperator = new FilterDescriptor("OrderId", FilterOperator.IsEqualTo, 0);
             StandardPaymentSchedulesView.FilterDescriptors.Add(_paymnetFilterOperator);
             StandardPaymentSchedulesView.LoadedData += (sender, e) =>

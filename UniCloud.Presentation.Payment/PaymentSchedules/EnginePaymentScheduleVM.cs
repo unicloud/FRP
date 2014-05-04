@@ -156,7 +156,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialEnginePaymentSchedule()
         {
-            EnginePaymentSchedulesView = _service.CreateCollection(_context.EnginePaymentSchedules);
+            EnginePaymentSchedulesView = _service.CreateCollection(_context.EnginePaymentSchedules, o => o.PaymentScheduleLines);
             _paymnetFilterOperator = new FilterDescriptor("ContractEngineId", FilterOperator.IsEqualTo, 0);
             EnginePaymentSchedulesView.FilterDescriptors.Add(_paymnetFilterOperator);
             EnginePaymentSchedulesView.LoadedData += (sender, e) =>

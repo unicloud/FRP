@@ -155,7 +155,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         private void InitialAcPaymentSchedule()
         {
             AcPaymentSchedulesView =
-                _service.CreateCollection(_context.AcPaymentSchedules.Expand(p => p.PaymentScheduleLines));
+                _service.CreateCollection(_context.AcPaymentSchedules.Expand(p => p.PaymentScheduleLines), o => o.PaymentScheduleLines);
             _paymnetFilterOperator = new FilterDescriptor("ContractAcId", FilterOperator.IsEqualTo, 0);
             AcPaymentSchedulesView.FilterDescriptors.Add(_paymnetFilterOperator);
             AcPaymentSchedulesView.LoadedData += (sender, e) =>

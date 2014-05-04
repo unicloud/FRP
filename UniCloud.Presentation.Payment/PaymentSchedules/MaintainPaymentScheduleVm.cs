@@ -99,7 +99,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialPaymentSchedule()
         {
-            PaymentSchedulesView = _service.CreateCollection(_context.MaintainPaymentSchedules.Expand(p => p.PaymentScheduleLines));
+            PaymentSchedulesView = _service.CreateCollection(_context.MaintainPaymentSchedules, o => o.PaymentScheduleLines);
             PaymentSchedulesView.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
