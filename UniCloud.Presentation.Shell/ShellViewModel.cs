@@ -288,15 +288,20 @@ namespace UniCloud.Presentation.Shell
             };
             var menu221 = new MenuItem
             {
+                Text = "维护发改委指标",
+                NavUri = "UniCloud.Presentation.FleetPlan.Requests.ManageIndexAircraftView"
+            };
+            var menu222 = new MenuItem
+            {
                 Text = "维护申请",
                 NavUri = "UniCloud.Presentation.FleetPlan.Requests.Request"
             };
-            var menu222 = new MenuItem
+            var menu223 = new MenuItem
             {
                 Text = "维护批文",
                 NavUri = "UniCloud.Presentation.FleetPlan.Approvals.Approval"
             };
-            var menu223 = new MenuItem
+            var menu224 = new MenuItem
             {
                 Text = "完成计划",
                 NavUri = "UniCloud.Presentation.FleetPlan.PerformFleetPlan.FleetPlanDeliver"
@@ -304,6 +309,7 @@ namespace UniCloud.Presentation.Shell
             menu22.Items.Add(menu221);
             menu22.Items.Add(menu222);
             menu22.Items.Add(menu223);
+            menu22.Items.Add(menu224);
             menu2.Items.Add(menu22);
 
             var menu23 = new MenuItem
@@ -947,12 +953,12 @@ namespace UniCloud.Presentation.Shell
             };
             menu7.Items.Add(menu78);
 
-            var menu79 = new MenuItem
-            {
-                Text = "查询拆装历史",
-                NavUri = "UniCloud.Presentation.Part.SnHistories.QuerySnHistory"
-            };
-            menu7.Items.Add(menu79);
+            //var menu79 = new MenuItem
+            //{
+            //    Text = "查询拆装历史",
+            //    NavUri = "UniCloud.Presentation.Part.SnHistories.QuerySnHistory"
+            //};
+            //menu7.Items.Add(menu79);
 
             var menu710 = new MenuItem
             {
@@ -969,9 +975,16 @@ namespace UniCloud.Presentation.Shell
             menu710.Items.Add(menu7101);
             menu710.Items.Add(menu7102);
             menu7.Items.Add(menu710);
+
+            var menu711 = new MenuItem
+            {
+                Text = "租赁月度报表",
+            };
+            menu7.Items.Add(menu711);
             _items.Add(menu7);
 
             #endregion
+
 
             #region 附件管理
 
