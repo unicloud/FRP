@@ -5,9 +5,9 @@
 //【本类功能概述】
 // 
 // 作者：linxw 时间：2013/12/13，09:12
-// 文件名：APUMaintain.xaml.cs
+// 文件名：FuselageMaintain.xaml.cs
 // 程序集：UniCloud.Presentation.Payment
-// 版本：V1.0.0
+// 版本：V1.0.0.0
 //
 // 修改者： 时间： 
 // 修改说明：
@@ -20,16 +20,17 @@
 using System.ComponentModel.Composition;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
+using UniCloud.Presentation.Payment.Invoice;
 
 #endregion
 
-namespace UniCloud.Presentation.Payment.Invoice
+namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
-    [Export(typeof(APUMaintain))]
+    [Export(typeof(AirframeMaintain))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class APUMaintain
+    public partial class AirframeMaintain 
     {
-        public APUMaintain()
+        public AirframeMaintain()
         {
             InitializeComponent();
             this.AddHandler(Selector.SelectionChangedEvent, new SelectionChangedEventHandler(OnSelectionChanged), true);
@@ -44,9 +45,9 @@ namespace UniCloud.Presentation.Payment.Invoice
         }
 
         [Import]
-        public APUMaintainVm ViewModel
+        public AirframeMaintainVm ViewModel
         {
-            get { return DataContext as APUMaintainVm; }
+            get { return DataContext as AirframeMaintainVm; }
             set { DataContext = value; }
         }
     }

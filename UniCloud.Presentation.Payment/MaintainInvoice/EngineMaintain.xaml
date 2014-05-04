@@ -1,15 +1,16 @@
-﻿<UserControl x:Class="UniCloud.Presentation.Payment.Invoice.AirframeMaintain"
+﻿<UserControl x:Class="UniCloud.Presentation.Payment.MaintainInvoice.EngineMaintain"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:maintainInvoice="clr-namespace:UniCloud.Presentation.Payment.MaintainInvoice"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:AirframeMaintainVm}"
-             Name="AirframeMaintainView">
+             d:DataContext="{d:DesignInstance maintainInvoice:EngineMaintainVm}"
+             Name="EngineMaintainView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -18,17 +19,16 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-
     <telerik:RadBusyIndicator BusyContent="{Binding BusyContent,Mode=TwoWay}"
-                              IsBusy="{Binding AirframeMaintainInvoices.IsBusy,Mode=TwoWay}">
-        <Grid x:Name="AirframeMaintainLayoutRoot"
+                              IsBusy="{Binding EngineMaintainInvoices.IsBusy,Mode=TwoWay}">
+        <Grid x:Name="EngineMaintainLayoutRoot"
               Background="White">
             <telerik:RadDocking  BorderThickness="0"
                                  Padding="0"
                                  HasDocumentHost="False">
                 <telerik:RadSplitContainer Orientation="Vertical">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="机身维修发票"
+                        <telerik:RadPane Header="发动机维修发票"
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
@@ -45,14 +45,14 @@
                                                     OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding AirframeMaintainInvoices}">
+                                                       CommandParameter="{Binding EngineMaintainInvoices}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding AirframeMaintainInvoices}">
+                                                       CommandParameter="{Binding EngineMaintainInvoices}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
@@ -66,7 +66,7 @@
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AddAttachCommand}"
-                                                       CommandParameter="{Binding AirframeMaintainInvoice.DocumentId,Mode=TwoWay}">
+                                                       CommandParameter="{Binding EngineMaintainInvoice.DocumentId,Mode=TwoWay}">
                                         <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="添加附件" />
@@ -92,15 +92,15 @@
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
                                 <Grid Row="1">
-                                    <telerik:RadGridView Name="AirframeMaintainInvoiceList"
+                                    <telerik:RadGridView Name="EngineMaintainInvoiceList"
                                                          AutoExpandGroups="True"
                                                          AutoGenerateColumns="False"
                                                          CanUserSortColumns="True"
                                                          CanUserFreezeColumns="False"
                                                          IsFilteringAllowed="True"
                                                          FontSize="{StaticResource TextFontSize}"
-                                                         ItemsSource="{Binding AirframeMaintainInvoices,Mode=TwoWay}"
-                                                         SelectedItem="{Binding AirframeMaintainInvoice,Mode=TwoWay}"
+                                                         ItemsSource="{Binding EngineMaintainInvoices,Mode=TwoWay}"
+                                                         SelectedItem="{Binding EngineMaintainInvoice,Mode=TwoWay}"
                                                          ValidatesOnDataErrors="InEditMode"
                                                          RowIndicatorVisibility="Visible">
                                         <telerik:RadGridView.Columns>
@@ -130,7 +130,7 @@
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             TextAlignment="Right"
                                                                             HeaderTextAlignment="Center"
-                                                                            ItemsSource="{Binding DataContext.Suppliers,Mode=TwoWay,ElementName=AirframeMaintainView}"
+                                                                            ItemsSource="{Binding DataContext.Suppliers,Mode=TwoWay,ElementName=EngineMaintainView}"
                                                                             DataMemberBinding="{Binding SupplierId}"
                                                                             SelectedValueMemberPath="SupplierId"
                                                                             DisplayMemberPath="Name" />
@@ -138,7 +138,7 @@
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             TextAlignment="Right"
                                                                             HeaderTextAlignment="Center"
-                                                                            ItemsSource="{Binding DataContext.Currencies,ElementName=AirframeMaintainView,Mode=TwoWay}"
+                                                                            ItemsSource="{Binding DataContext.Currencies, Mode=TwoWay,ElementName=EngineMaintainView}"
                                                                             DataMemberBinding="{Binding CurrencyId}"
                                                                             SelectedValueMemberPath="Id"
                                                                             DisplayMemberPath="Name" />
@@ -214,7 +214,7 @@
                                                 <telerik:GridViewDataColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <HyperlinkButton Content="{Binding DocumentName}"
-                                                                         Command="{Binding DataContext.ViewAttachCommand,ElementName=AirframeMaintainView}"
+                                                                         Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
                                                                          CommandParameter="{Binding DocumentId,Mode=TwoWay}" />
                                                     </DataTemplate>
                                                 </telerik:GridViewDataColumn.CellTemplate>
@@ -233,7 +233,7 @@
                                                           BorderThickness="1,0,1,1"
                                                           AutoEllipsisMode="Both"
                                                           DisplayMode="All"
-                                                          Source="{Binding AirframeMaintainInvoices}" />
+                                                          Source="{Binding EngineMaintainInvoices}" />
                                 </Grid>
                             </Grid>
                         </telerik:RadPane>
@@ -270,8 +270,8 @@
                                                      x:Name="MaintainInvoiceLine"
                                                      AutoGenerateColumns="False"
                                                      CanUserFreezeColumns="False"
-                                                     ItemsSource="{Binding AirframeMaintainInvoice.MaintainInvoiceLines,Mode=TwoWay}"
-                                                     SelectedItem="{Binding AirframeMaintainInvoiceLine,Mode=TwoWay}"
+                                                     ItemsSource="{Binding EngineMaintainInvoice.MaintainInvoiceLines,Mode=TwoWay}"
+                                                     SelectedItem="{Binding EngineMaintainInvoiceLine,Mode=TwoWay}"
                                                      ShowGroupPanel="False"
                                                      IsFilteringAllowed="False"
                                                      EditTriggers="CellClick">
@@ -291,7 +291,7 @@
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         TextAlignment="Right"
                                                                         HeaderTextAlignment="Center"
-                                                                        ItemsSource="{Binding DataContext.MaintainItems,ElementName=AirframeMaintainView}"
+                                                                        ItemsSource="{Binding DataContext.MaintainItems,ElementName=EngineMaintainView}"
                                                                         DataMemberBinding="{Binding MaintainItem}"
                                                                         SelectedValueMemberPath="Key"
                                                                         DisplayMemberPath="Value" />

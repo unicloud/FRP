@@ -29,7 +29,7 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 #endregion
 
-namespace UniCloud.Presentation.Payment.Invoice
+namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
     public class InvoiceVm : EditViewModelBase
     {

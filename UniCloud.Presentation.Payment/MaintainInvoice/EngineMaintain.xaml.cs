@@ -5,7 +5,7 @@
 //【本类功能概述】
 // 
 // 作者：linxw 时间：2013/12/13，09:12
-// 文件名：UnderCartMaintain.xaml.cs
+// 文件名：EngineMaintain.xaml.cs
 // 程序集：UniCloud.Presentation.Payment
 // 版本：V1.0.0
 //
@@ -20,16 +20,17 @@
 using System.ComponentModel.Composition;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
+using UniCloud.Presentation.Payment.Invoice;
 
 #endregion
 
-namespace UniCloud.Presentation.Payment.Invoice
+namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
-    [Export(typeof(UndercartMaintain))]
+    [Export(typeof(EngineMaintain))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class UndercartMaintain 
+    public partial class EngineMaintain 
     {
-        public UndercartMaintain()
+        public EngineMaintain()
         {
             InitializeComponent();
             this.AddHandler(Selector.SelectionChangedEvent, new SelectionChangedEventHandler(OnSelectionChanged), true);
@@ -44,9 +45,9 @@ namespace UniCloud.Presentation.Payment.Invoice
         }
 
         [Import]
-        public UndercartMaintainVm ViewModel
+        public EngineMaintainVm ViewModel
         {
-            get { return DataContext as UndercartMaintainVm; }
+            get { return DataContext as EngineMaintainVm; }
             set { DataContext = value; }
         }
     }

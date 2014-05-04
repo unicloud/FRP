@@ -36,7 +36,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
     /// <summary>
     ///     预付款发票服务实现
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class PrepaymentInvoiceAppService : ContextBoundObject, IPrepaymentInvoiceAppService
     {
         private readonly ICurrencyRepository _currencyRepository;
@@ -102,7 +102,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                 }
                 else
                 {
-                    newPrepaymentInvoice.AddInvoiceLine( invoiceLine.Amount, null, invoiceLine.Note);
+                    newPrepaymentInvoice.AddInvoiceLine(invoiceLine.Amount, null, invoiceLine.Note);
                 }
             }
             newPrepaymentInvoice.SetInvoiceValue();
@@ -179,7 +179,6 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         public void InsertMaintainPrepaymentInvoice(MaintainPrepaymentInvoiceDTO prepaymentInvoice)
         {
             var supplier = _supplierRepository.GetFiltered(p => p.Id == prepaymentInvoice.SupplierId).FirstOrDefault();
-            var order = _orderRepository.Get(prepaymentInvoice.OrderId);
             var currency = _currencyRepository.GetFiltered(p => p.Id == prepaymentInvoice.CurrencyId).FirstOrDefault();
 
             var newPrepaymentInvoice = InvoiceFactory.CreateMaintainPrepaymentInvoice(prepaymentInvoice.InvoideCode,
@@ -188,22 +187,13 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
             newPrepaymentInvoice.SetInvoiceNumber(seq);
             newPrepaymentInvoice.SetSupplier(supplier);
-            newPrepaymentInvoice.SetOrder(order);
             newPrepaymentInvoice.SetPaidAmount(prepaymentInvoice.PaidAmount);
             newPrepaymentInvoice.SetCurrency(currency);
             newPrepaymentInvoice.SetPaymentScheduleLine(prepaymentInvoice.PaymentScheduleLineId);
             newPrepaymentInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
             foreach (var invoiceLine in prepaymentInvoice.InvoiceLines)
             {
-                if (order != null)
-                {
-                    var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
-                    newPrepaymentInvoice.AddInvoiceLine(invoiceLine.Amount, orderLine, invoiceLine.Note);
-                }
-                else
-                {
-                    newPrepaymentInvoice.AddInvoiceLine(invoiceLine.Amount, null, invoiceLine.Note);
-                }
+                newPrepaymentInvoice.AddInvoiceLine(invoiceLine.Amount, null, invoiceLine.Note);
             }
             newPrepaymentInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newPrepaymentInvoice);
@@ -217,7 +207,6 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         public void ModifyMaintainPrepaymentInvoice(MaintainPrepaymentInvoiceDTO prepaymentInvoice)
         {
             var supplier = _supplierRepository.GetFiltered(p => p.Id == prepaymentInvoice.SupplierId).FirstOrDefault();
-            var order = _orderRepository.Get(prepaymentInvoice.OrderId);
             var currency = _currencyRepository.GetFiltered(p => p.Id == prepaymentInvoice.CurrencyId).FirstOrDefault();
 
             var updatePrepaymentInvoice = _invoiceRepository.GetBasePurchaseInvoice(prepaymentInvoice.PrepaymentInvoiceId);
@@ -226,12 +215,12 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             {
                 InvoiceFactory.SetInvoice(updatePrepaymentInvoice, prepaymentInvoice.InvoideCode,
                     prepaymentInvoice.InvoiceDate, prepaymentInvoice.OperatorName, prepaymentInvoice.InvoiceNumber,
-                    supplier, order,
+                    supplier, null,
                     prepaymentInvoice.PaidAmount, currency, prepaymentInvoice.PaymentScheduleLineId,
                     prepaymentInvoice.Status);
                 //更新主表。
 
-                UpdateInvoiceLines(prepaymentInvoice.InvoiceLines, updatePrepaymentInvoice, order);
+                UpdateInvoiceLines(prepaymentInvoice.InvoiceLines, updatePrepaymentInvoice, null);
                 //更新从表。
             }
             _invoiceRepository.Modify(updatePrepaymentInvoice);

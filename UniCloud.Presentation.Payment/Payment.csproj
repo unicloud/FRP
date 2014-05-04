@@ -189,27 +189,34 @@
       <DependentUpon>MaintainGuarantee.xaml</DependentUpon>
     </Compile>
     <Compile Include="Guarantees\MaintainGuaranteeVM.cs" />
-    <Compile Include="Invoice\APUMaintain.xaml.cs">
+    <Compile Include="Invoice\MaintainPrepayPayscheduleChildView.xaml.cs">
+      <DependentUpon>MaintainPrepayPayscheduleChildView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainInvoice\APUMaintain.xaml.cs">
       <DependentUpon>APUMaintain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Invoice\APUMaintainVm.cs" />
+    <Compile Include="MaintainInvoice\APUMaintainVm.cs" />
     <Compile Include="Invoice\MaintainCreditNoteManager.xaml.cs">
       <DependentUpon>MaintainCreditNoteManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\MaintainCreditNoteManagerVm.cs" />
+    <Compile Include="Invoice\MaintainPrepayInvoiceManager.xaml.cs">
+      <DependentUpon>MaintainPrepayInvoiceManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\MaintainPrepayInvoiceManagerVm.cs" />
     <Compile Include="Invoice\PurchaseCreditNoteManager.xaml.cs">
       <DependentUpon>PurchaseCreditNoteManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\PurchaseCreditNoteManagerVm.cs" />
-    <Compile Include="Invoice\EngineMaintain.xaml.cs">
+    <Compile Include="MaintainInvoice\EngineMaintain.xaml.cs">
       <DependentUpon>EngineMaintain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Invoice\EngineMaintainVm.cs" />
-    <Compile Include="Invoice\AirframeMaintain.xaml.cs">
+    <Compile Include="MaintainInvoice\EngineMaintainVm.cs" />
+    <Compile Include="MaintainInvoice\AirframeMaintain.xaml.cs">
       <DependentUpon>AirframeMaintain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Invoice\AirframeMaintainVm.cs" />
-    <Compile Include="Invoice\InvoiceVm.cs" />
+    <Compile Include="MaintainInvoice\AirframeMaintainVm.cs" />
+    <Compile Include="MaintainInvoice\InvoiceVm.cs" />
     <Compile Include="Invoice\LeaseInvoiceManager.xaml.cs">
       <DependentUpon>LeaseInvoiceManager.xaml</DependentUpon>
     </Compile>
@@ -236,10 +243,10 @@
     <Compile Include="Invoice\PurchasePayscheduleChildView.xaml.cs">
       <DependentUpon>PurchasePayscheduleChildView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Invoice\UndercartMaintain.xaml.cs">
+    <Compile Include="MaintainInvoice\UndercartMaintain.xaml.cs">
       <DependentUpon>UndercartMaintain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Invoice\UndercartMaintainVm.cs" />
+    <Compile Include="MaintainInvoice\UndercartMaintainVm.cs" />
     <Compile Include="PaymentModule.cs" />
     <Compile Include="PaymentNotice\BankAccountDoubleClickHelper.cs" />
     <Compile Include="PaymentNotice\BankAccountWindow.xaml.cs">
@@ -330,7 +337,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Invoice\APUMaintain.xaml">
+    <Page Include="Invoice\MaintainPrepayPayscheduleChildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainInvoice\APUMaintain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -338,15 +349,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Invoice\MaintainPrepayInvoiceManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Invoice\PurchaseCreditNoteManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Invoice\EngineMaintain.xaml">
+    <Page Include="MaintainInvoice\EngineMaintain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Invoice\AirframeMaintain.xaml">
+    <Page Include="MaintainInvoice\AirframeMaintain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -378,7 +393,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Invoice\UndercartMaintain.xaml">
+    <Page Include="MaintainInvoice\UndercartMaintain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

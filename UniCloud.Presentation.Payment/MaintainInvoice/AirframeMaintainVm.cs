@@ -4,11 +4,11 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2013/12/13 9:47:38
-// 文件名：UnderCartMaintainVm
+// 作者：linxw 时间：2013/12/13 9:50:09
+// 文件名：FuselageMaintainVm
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2013/12/13 9:47:38
+// 修改者：linxw 时间：2013/12/13 9:50:09
 // 修改说明：
 // ========================================================================*/
 
@@ -22,7 +22,7 @@ using System.Linq;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Document;
+using UniCloud.Presentation.Payment.Invoice;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
@@ -30,28 +30,25 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 #endregion
 
-namespace UniCloud.Presentation.Payment.Invoice
+namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
-    [Export(typeof(UndercartMaintainVm))]
+    [Export(typeof(AirframeMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class UndercartMaintainVm : InvoiceVm
+    public class AirframeMaintainVm : InvoiceVm
     {
         #region 声明、初始化
 
         private readonly PaymentData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
-        [Import]
-        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public UndercartMaintainVm(IRegionManager regionManager, IPaymentService service)
+        public AirframeMaintainVm(IRegionManager regionManager, IPaymentService service)
             : base(service)
         {
             _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
-
             InitializeVm();
         }
 
@@ -64,11 +61,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            UndercartMaintainInvoices = _service.CreateCollection(_context.UndercartMaintainInvoices, o => o.MaintainInvoiceLines);
-            UndercartMaintainInvoices.PageSize = 6;
+            AirframeMaintainInvoices = _service.CreateCollection(_context.AirframeMaintainInvoices, o => o.MaintainInvoiceLines);
+            AirframeMaintainInvoices.PageSize = 6;
             var supplierFilter = new FilterDescriptor("MaintainSupplier", FilterOperator.IsEqualTo, true);
             Suppliers.FilterDescriptors.Add(supplierFilter);
-            _service.RegisterCollectionView(UndercartMaintainInvoices);
+            _service.RegisterCollectionView(AirframeMaintainInvoices);
         }
 
         #endregion
@@ -91,36 +88,36 @@ namespace UniCloud.Presentation.Payment.Invoice
         public override void LoadData()
         {
             // 将CollectionView的AutoLoad属性设为True
-            if (!UndercartMaintainInvoices.AutoLoad)
-                UndercartMaintainInvoices.AutoLoad = true;
-            UndercartMaintainInvoices.Load(true);
+            if (!AirframeMaintainInvoices.AutoLoad)
+                AirframeMaintainInvoices.AutoLoad = true;
+            AirframeMaintainInvoices.Load(true);
             Suppliers.Load(true);
             Currencies.Load(true);
         }
 
-        #region 起落架维修发票
+        #region 机身维修发票
 
-        private UndercartMaintainInvoiceDTO _undercartMaintainInvoice;
+        private AirframeMaintainInvoiceDTO _airframeMaintainInvoice;
 
-        private MaintainInvoiceLineDTO _undercartMaintainInvoiceLine;
-
-        /// <summary>
-        ///     起落架维修发票集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<UndercartMaintainInvoiceDTO> UndercartMaintainInvoices { get; set; }
+        private MaintainInvoiceLineDTO _airframeMaintainInvoiceLine;
 
         /// <summary>
-        ///     选中的起落架维修发票
+        ///     机身维修发票集合
         /// </summary>
-        public UndercartMaintainInvoiceDTO UndercartMaintainInvoice
+        public QueryableDataServiceCollectionView<AirframeMaintainInvoiceDTO> AirframeMaintainInvoices { get; set; }
+
+        /// <summary>
+        ///     选中的机身维修发票
+        /// </summary>
+        public AirframeMaintainInvoiceDTO AirframeMaintainInvoice
         {
-            get { return _undercartMaintainInvoice; }
+            get { return _airframeMaintainInvoice; }
             set
             {
-                if (_undercartMaintainInvoice != value)
+                if (_airframeMaintainInvoice != value)
                 {
-                    _undercartMaintainInvoice = value;
-                    RaisePropertyChanged(() => UndercartMaintainInvoice);
+                    _airframeMaintainInvoice = value;
+                    RaisePropertyChanged(() => AirframeMaintainInvoice);
                 }
             }
         }
@@ -128,15 +125,15 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <summary>
         ///     选中的APU维修发票
         /// </summary>
-        public MaintainInvoiceLineDTO UndercartMaintainInvoiceLine
+        public MaintainInvoiceLineDTO AirframeMaintainInvoiceLine
         {
-            get { return _undercartMaintainInvoiceLine; }
+            get { return _airframeMaintainInvoiceLine; }
             set
             {
-                if (_undercartMaintainInvoiceLine != value)
+                if (_airframeMaintainInvoiceLine != value)
                 {
-                    _undercartMaintainInvoiceLine = value;
-                    RaisePropertyChanged(() => UndercartMaintainInvoiceLine);
+                    _airframeMaintainInvoiceLine = value;
+                    RaisePropertyChanged(() => AirframeMaintainInvoiceLine);
                 }
             }
         }
@@ -153,9 +150,9 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         protected override void OnAddInvoice(object obj)
         {
-            var maintainInvoice = new UndercartMaintainInvoiceDTO
+            var maintainInvoice = new AirframeMaintainInvoiceDTO
             {
-                UndercartMaintainInvoiceId = RandomHelper.Next(),
+                AirframeMaintainInvoiceId = RandomHelper.Next(),
                 CreateDate = DateTime.Now,
                 InvoiceDate = DateTime.Now
             };
@@ -163,7 +160,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             if (firstOrDefault != null) maintainInvoice.SupplierId = firstOrDefault.SupplierId;
             var currencyDto = Currencies.FirstOrDefault();
             if (currencyDto != null) maintainInvoice.CurrencyId = currencyDto.Id;
-            UndercartMaintainInvoices.AddNew(maintainInvoice);
+            AirframeMaintainInvoices.AddNew(maintainInvoice);
         }
 
         protected override bool CanAddInvoice(object obj)
@@ -177,7 +174,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         protected override void OnRemoveInvoice(object obj)
         {
-            if (UndercartMaintainInvoice == null)
+            if (AirframeMaintainInvoice == null)
             {
                 MessageAlert("请选择一条记录！");
                 return;
@@ -185,7 +182,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
             {
                 if (arg.DialogResult != true) return;
-                UndercartMaintainInvoices.Remove(_undercartMaintainInvoice);
+                AirframeMaintainInvoices.Remove(_airframeMaintainInvoice);
             });
         }
 
@@ -200,7 +197,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         protected override void OnAddInvoiceLine(object obj)
         {
-            if (UndercartMaintainInvoice == null)
+            if (AirframeMaintainInvoice == null)
             {
                 MessageAlert("请选择一条维修发票记录！");
                 return;
@@ -210,7 +207,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MaintainInvoiceLineId = RandomHelper.Next(),
             };
 
-            UndercartMaintainInvoice.MaintainInvoiceLines.Add(maintainInvoiceLine);
+            AirframeMaintainInvoice.MaintainInvoiceLines.Add(maintainInvoiceLine);
         }
 
         protected override bool CanAddInvoiceLine(object obj)
@@ -224,7 +221,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         protected override void OnRemoveInvoiceLine(object obj)
         {
-            if (UndercartMaintainInvoiceLine == null)
+            if (AirframeMaintainInvoiceLine == null)
             {
                 MessageAlert("请选择一条维修发票明细！");
                 return;
@@ -232,7 +229,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
             {
                 if (arg.DialogResult != true) return;
-                UndercartMaintainInvoice.MaintainInvoiceLines.Remove(UndercartMaintainInvoiceLine);
+                AirframeMaintainInvoice.MaintainInvoiceLines.Remove(AirframeMaintainInvoiceLine);
             });
         }
 
@@ -247,12 +244,12 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         protected override void OnSubmitInvoice(object obj)
         {
-            if (UndercartMaintainInvoice == null)
+            if (AirframeMaintainInvoice == null)
             {
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            UndercartMaintainInvoice.Status = (int)InvoiceStatus.待审核;
+            AirframeMaintainInvoice.Status = (int)InvoiceStatus.待审核;
         }
 
         protected override bool CanSubmitInvoice(object obj)
@@ -266,15 +263,15 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         protected override void OnReviewInvoice(object obj)
         {
-            if (UndercartMaintainInvoice == null)
+            if (AirframeMaintainInvoice == null)
             {
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            UndercartMaintainInvoice.Status = (int)InvoiceStatus.已审核;
-            UndercartMaintainInvoice.Reviewer = "admin";
-            UndercartMaintainInvoice.ReviewDate = DateTime.Now;
-            UndercartMaintainInvoice.IsValid = true;
+            AirframeMaintainInvoice.Status = (int)InvoiceStatus.已审核;
+            AirframeMaintainInvoice.Reviewer = "admin";
+            AirframeMaintainInvoice.ReviewDate = DateTime.Now;
+            AirframeMaintainInvoice.IsValid = true;
         }
 
         protected override bool CanReviewInvoice(object obj)
@@ -296,8 +293,8 @@ namespace UniCloud.Presentation.Payment.Invoice
             base.WindowClosed(doc, sender);
             if (sender is Guid)
             {
-                UndercartMaintainInvoice.DocumentId = doc.DocumentId;
-                UndercartMaintainInvoice.DocumentName = doc.Name;
+                AirframeMaintainInvoice.DocumentId = doc.DocumentId;
+                AirframeMaintainInvoice.DocumentName = doc.Name;
             }
         }
 
@@ -309,7 +306,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             if (comboboxSelectedItem is SupplierDTO)
             {
-                UndercartMaintainInvoice.SupplierName = (comboboxSelectedItem as SupplierDTO).Name;
+                AirframeMaintainInvoice.SupplierName = (comboboxSelectedItem as SupplierDTO).Name;
             }
         }
 
