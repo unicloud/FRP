@@ -23,7 +23,6 @@ using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.PaymentNoticeQueries;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg;
 
 #endregion
@@ -40,14 +39,12 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
         private readonly IPaymentNoticeQuery _paymentNoticeQuery;
         private readonly IPaymentNoticeRepository _paymentNoticeRepository;
         private static int _maxInvoiceNumber;
-        private readonly IMaintainInvoiceRepository _maintainInvoiceRepository;
         private readonly IInvoiceRepository _invoiceRepository;
         public PaymentNoticeAppService(IPaymentNoticeQuery paymentNoticeQuery, IPaymentNoticeRepository paymentNoticeRepository,
-            IMaintainInvoiceRepository maintainInvoiceRepository, IInvoiceRepository invoiceRepository)
+            IInvoiceRepository invoiceRepository)
         {
             _paymentNoticeQuery = paymentNoticeQuery;
             _paymentNoticeRepository = paymentNoticeRepository;
-            _maintainInvoiceRepository = maintainInvoiceRepository;
             _invoiceRepository = invoiceRepository;
         }
 
@@ -88,7 +85,7 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
             _maxInvoiceNumber++;
             newPaymentNotice.SetNoticeNumber(seq);
             PaymentNoticeFactory.SetPaymentNotice(newPaymentNotice, paymentNotice.DeadLine, paymentNotice.SupplierName, paymentNotice.SupplierId,
-                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId);
+                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId, paymentNotice.IsComplete);
             if (paymentNotice.PaymentNoticeLines != null)
             {
                 foreach (var paymentNoticeLine in paymentNotice.PaymentNoticeLines)
@@ -113,7 +110,7 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
         {
             var updatePaymentNotice = _paymentNoticeRepository.Get(paymentNotice.PaymentNoticeId); //获取需要更新的对象。
             PaymentNoticeFactory.SetPaymentNotice(updatePaymentNotice, paymentNotice.DeadLine, paymentNotice.SupplierName, paymentNotice.SupplierId,
-                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId);
+                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId, paymentNotice.IsComplete);
             UpdatePaymentNoticeLines(paymentNotice.PaymentNoticeLines, updatePaymentNotice);
             _paymentNoticeRepository.Modify(updatePaymentNotice);
             UpdateInvoicePaidAmount(updatePaymentNotice);
@@ -167,20 +164,13 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
         #region 更新发票已付金额
         private void UpdateInvoicePaidAmount(PaymentNotice paymentNotice)
         {
-            if (paymentNotice.Status == PaymentNoticeStatus.已审核)
+            if (paymentNotice.IsComplete)
             {
                 paymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
                                                                   {
                                                                       switch (p.InvoiceType)
                                                                       {
                                                                           case InvoiceType.维修发票:
-                                                                              var maintainInvoice = _maintainInvoiceRepository.Get(p.InvoiceId);
-                                                                              if (maintainInvoice != null)
-                                                                              {
-                                                                                  maintainInvoice.SetPaidAmount(p.Amount);
-                                                                                  _maintainInvoiceRepository.Modify(maintainInvoice);
-                                                                              }
-                                                                              break;
                                                                           case InvoiceType.租赁发票:
                                                                           case InvoiceType.贷项单:
                                                                           case InvoiceType.采购发票:

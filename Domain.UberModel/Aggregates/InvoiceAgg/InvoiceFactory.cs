@@ -1,23 +1,28 @@
 ﻿#region 版本信息
 
-// ========================================================================
+// =====================================================
 // 版权所有 (C) 2013 UniCloud 
-//【本类功能概述】
+// 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/09，22:12
+// 作者：丁志浩 时间：2013/12/08，11:52
 // 方案：FRP
-// 项目：Domain.UberModel
+// 项目：Domain.PaymentBC
 // 版本：V1.0.0
-//
+// 
 // 修改者： 时间： 
 // 修改说明：
-// ========================================================================
+// =====================================================
 
 #endregion
 
 #region 命名空间
 
 using System;
+using System.Linq;
+using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
+using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
+using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 
 #endregion
 
@@ -35,10 +40,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         /// <param name="invoiceDate">发票日期</param>
         /// <param name="operatorName">经办人</param>
         /// <returns>贷项单</returns>
-        public static CreditNoteInvoice CreateCreditNoteInvoice(string invoiceCode, DateTime invoiceDate,
+        public static PurchaseCreditNoteInvoice CreateCreditNoteInvoice(string invoiceCode, DateTime invoiceDate,
             string operatorName)
         {
-            var invoice = new CreditNoteInvoice
+            var invoice = new PurchaseCreditNoteInvoice
             {
                 InvoideCode = invoiceCode,
                 InvoiceDate = invoiceDate,
@@ -79,10 +84,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         /// <param name="invoiceDate">发票日期</param>
         /// <param name="operatorName">经办人</param>
         /// <returns>预付款发票</returns>
-        public static PrepaymentInvoice CreatePrepaymentInvoice(string invoiceCode, DateTime invoiceDate,
+        public static PurchasePrepaymentInvoice CreatePrepaymentInvoice(string invoiceCode, DateTime invoiceDate,
             string operatorName)
         {
-            var invoice = new PrepaymentInvoice
+            var invoice = new PurchasePrepaymentInvoice
             {
                 InvoideCode = invoiceCode,
                 InvoiceDate = invoiceDate,
@@ -114,6 +119,71 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
             invoice.SetOperator(operatorName);
 
             return invoice;
+        }
+
+
+        /// <summary>
+        ///     设置发票属性
+        /// </summary>
+        /// <param name="invoice">发票</param>
+        /// <param name="invoideCode">发票代码</param>
+        /// <param name="invoiceDate">发票日期</param>
+        /// <param name="operatorName">经办人</param>
+        /// <param name="invoiceNumber">发票号</param>
+        /// <param name="supplier">供应商</param>
+        /// <param name="order">订单</param>
+        /// <param name="paidAmount">已付金额</param>
+        /// <param name="currency">币种</param>
+        /// <param name="paymentScheduleLineId">付款计划行ID</param>
+        /// <param name="status">发票状态</param>
+        /// <returns>发票</returns>
+        public static void SetInvoice(Invoice invoice, string invoideCode, DateTime invoiceDate, string operatorName,
+            string invoiceNumber, Supplier supplier, Order order,
+            decimal paidAmount, Currency currency, int? paymentScheduleLineId, int status)
+        {
+            invoice.InvoideCode = invoideCode;
+            invoice.InvoiceDate = invoiceDate;
+            invoice.SetOperator(operatorName);
+            invoice.SetInvoiceNumber(invoiceNumber);
+            invoice.SetSupplier(supplier);
+            invoice.SetOrder(order);
+            invoice.SetCurrency(currency);
+            invoice.SetPaymentScheduleLine(paymentScheduleLineId);
+            invoice.SetInvoiceStatus((InvoiceStatus) status);
+        }
+
+        /// <summary>
+        ///     设置发票行属性
+        /// </summary>
+        /// <param name="invoiceLine">发票行</param>
+        /// <param name="itemName">项名称</param>
+        /// <param name="amount">金额</param>
+        /// <param name="order">订单</param>
+        /// <param name="orderLineId">订单行Id</param>
+        /// <param name="note">备注</param>
+        /// <param name="maintainItem">维修项</param>
+        /// <param name="unitPrice">单价</param>
+        public static void SetInvoiceLine(PurchaseInvoiceLine invoiceLine, string itemName, decimal amount, Order order,
+            int orderLineId, string note, int? maintainItem, decimal unitPrice)
+        {
+            if (order != null)
+            {
+                var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == orderLineId);
+                invoiceLine.SetOrderLine(orderLine);
+            }
+            invoiceLine.SetAmount(amount);
+            invoiceLine.SetNote(note);
+        }
+
+        /// <summary>
+        ///     创建发票行
+        /// </summary>
+        /// <returns></returns>
+        public static PurchaseInvoiceLine CreateInvoiceLine()
+        {
+            var invoiceLine = new PurchaseInvoiceLine();
+            invoiceLine.GenerateNewIdentity();
+            return invoiceLine;
         }
     }
 }

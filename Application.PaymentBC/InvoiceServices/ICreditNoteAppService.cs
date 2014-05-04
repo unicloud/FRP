@@ -32,6 +32,12 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     获取所有贷项单
         /// </summary>
         /// <returns></returns>
-        IQueryable<CreditNoteDTO> GetCreditNoteInvoices();
+        IQueryable<PurchaseCreditNoteDTO> GetPurchaseCreditNoteInvoices();
+
+        /// <summary>
+        ///     获取所有贷项单
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<MaintainCreditNoteDTO> GetMaintainCreditNoteInvoices();
     }
 }

@@ -5,8 +5,6 @@
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
-                   xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    mc:Ignorable="d"
                    d:DesignHeight="600"
                    d:DesignWidth="800"
@@ -14,7 +12,7 @@
                    Height="500"
                    Width="700"
                    Header="选取采购订单"
-                   d:DataContext="{d:DesignInstance uc:CreditNoteManagerVM}">
+                   d:DataContext="{d:DesignInstance uc:PurchaseCreditNoteManagerVm}">
     <telerik:RadWindow.Resources>
         <ResourceDictionary>
             <Style x:Key="EditComboBox"
@@ -35,8 +33,8 @@
     </telerik:RadWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid>
             <telerik:RadDocking BorderThickness="0"
@@ -112,12 +110,12 @@
                                Height="30"
                                Width="100"
                                Margin="5,2"
-                               Command="{Binding CommitCommand}"></telerik:RadButton>
+                               Command="{Binding CommitCommand}" />
             <telerik:RadButton Content="取消"
                                Height="30"
                                Width="100"
                                Margin="5,2"
-                               Command="{Binding CancelCommand}"></telerik:RadButton>
+                               Command="{Binding CancelCommand}" />
         </StackPanel>
     </Grid>
 </telerik:RadWindow>

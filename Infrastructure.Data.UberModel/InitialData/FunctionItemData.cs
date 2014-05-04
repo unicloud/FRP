@@ -197,28 +197,36 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var menu411 = FunctionItemFactory.CreateFunctionItem("管理飞机付款计划", menu41.Id, 40101, false, false, "UniCloud.Presentation.Payment.PaymentSchedules.AcPaymentSchedule");
             var menu412 = FunctionItemFactory.CreateFunctionItem("管理发动机付款计划", menu41.Id, 40102, false, false, "UniCloud.Presentation.Payment.PaymentSchedules.EnginePaymentSchedule");
             var menu413 = FunctionItemFactory.CreateFunctionItem("管理一般付款计划", menu41.Id, 40103, false, false, "UniCloud.Presentation.Payment.PaymentSchedules.StandardPaymentSchedule");
+            var menu414 = FunctionItemFactory.CreateFunctionItem("管理维修付款计划", menu41.Id, 40104, false, false, "UniCloud.Presentation.Payment.PaymentSchedules.MaintainPaymentSchedule");
             menu41.SubFunctionItems.Add(menu411);
             menu41.SubFunctionItems.Add(menu412);
             menu41.SubFunctionItems.Add(menu413);
+            menu41.SubFunctionItems.Add(menu414);
             menu4.SubFunctionItems.Add(menu41);
 
             var menu42 = FunctionItemFactory.CreateFunctionItem("管理采购发票", menu4.Id, 402, false, false, string.Empty);
             var menu421 = FunctionItemFactory.CreateFunctionItem("维护采购发票", menu42.Id, 40201, false, false, "UniCloud.Presentation.Payment.Invoice.PurchaseInvoiceManager");
-            var menu422 = FunctionItemFactory.CreateFunctionItem("维护预付款发票", menu42.Id, 40202, false, false, "UniCloud.Presentation.Payment.Invoice.PrePayInvoiceManager");
-            var menu423 = FunctionItemFactory.CreateFunctionItem("维护租赁发票", menu42.Id, 40203, false, false, "UniCloud.Presentation.Payment.Invoice.LeaseInvoiceManager");
-            var menu424 = FunctionItemFactory.CreateFunctionItem("维护贷项单", menu42.Id, 40204, false, false, "UniCloud.Presentation.Payment.Invoice.CreditNoteManager");
+            var menu422 = FunctionItemFactory.CreateFunctionItem("维护采购预付款发票", menu42.Id, 40202, false, false, "UniCloud.Presentation.Payment.Invoice.PurchasePrepayInvoiceManager");
+            var menu423 = FunctionItemFactory.CreateFunctionItem("维护维修预付款发票", menu42.Id, 40203, false, false, "UniCloud.Presentation.Payment.Invoice.MaintainPrepayInvoiceManager");
+            var menu424 = FunctionItemFactory.CreateFunctionItem("维护租赁发票", menu42.Id, 40204, false, false, "UniCloud.Presentation.Payment.Invoice.LeaseInvoiceManager");
+            var menu425 = FunctionItemFactory.CreateFunctionItem("维护采购贷项单", menu42.Id, 40205, false, false, "UniCloud.Presentation.Payment.Invoice.PurchaseCreditNoteManager");
+            var menu426 = FunctionItemFactory.CreateFunctionItem("维护维修贷项单", menu42.Id, 40206, false, false, "UniCloud.Presentation.Payment.Invoice.MaintainCreditNoteManager");
+            var menu427 = FunctionItemFactory.CreateFunctionItem("维护杂项发票", menu42.Id, 40207, false, false, "UniCloud.Presentation.Payment.Invoice.SundryInvoiceManager");
             menu42.SubFunctionItems.Add(menu421);
             menu42.SubFunctionItems.Add(menu422);
             menu42.SubFunctionItems.Add(menu423);
             menu42.SubFunctionItems.Add(menu424);
+            menu42.SubFunctionItems.Add(menu425);
+            menu42.SubFunctionItems.Add(menu426);
+            menu42.SubFunctionItems.Add(menu427);
             menu4.SubFunctionItems.Add(menu42);
 
 
             var menu43 = FunctionItemFactory.CreateFunctionItem("管理维修发票", menu4.Id, 403, false, false, string.Empty);
-            var menu431 = FunctionItemFactory.CreateFunctionItem("维护发动机维修发票", menu43.Id, 40301, false, false, "UniCloud.Presentation.Payment.Invoice.EngineMaintain");
-            var menu432 = FunctionItemFactory.CreateFunctionItem("维护APU维修发票", menu43.Id, 40302, false, false, "UniCloud.Presentation.Payment.Invoice.APUMaintain");
-            var menu433 = FunctionItemFactory.CreateFunctionItem("维护起落架维修发票", menu43.Id, 40303, false, false, "UniCloud.Presentation.Payment.Invoice.UndercartMaintain");
-            var menu434 = FunctionItemFactory.CreateFunctionItem("维护机身维修发票", menu43.Id, 40304, false, false, "UniCloud.Presentation.Payment.Invoice.AirframeMaintain");
+            var menu431 = FunctionItemFactory.CreateFunctionItem("维护发动机维修发票", menu43.Id, 40301, false, false, "UniCloud.Presentation.Payment.MaintainInvoice.EngineMaintain");
+            var menu432 = FunctionItemFactory.CreateFunctionItem("维护APU维修发票", menu43.Id, 40302, false, false, "UniCloud.Presentation.Payment.MaintainInvoice.APUMaintain");
+            var menu433 = FunctionItemFactory.CreateFunctionItem("维护起落架维修发票", menu43.Id, 40303, false, false, "UniCloud.Presentation.Payment.MaintainInvoice.UndercartMaintain");
+            var menu434 = FunctionItemFactory.CreateFunctionItem("维护机身维修发票", menu43.Id, 40304, false, false, "UniCloud.Presentation.Payment.MaintainInvoice.AirframeMaintain");
             menu43.SubFunctionItems.Add(menu431);
             menu43.SubFunctionItems.Add(menu432);
             menu43.SubFunctionItems.Add(menu433);

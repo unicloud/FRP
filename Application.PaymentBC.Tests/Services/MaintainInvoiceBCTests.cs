@@ -20,6 +20,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
 using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
@@ -40,7 +41,7 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         {
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IMaintainInvoiceRepository, MaintainInvoiceRepository>()
+                .RegisterType<IInvoiceRepository, InvoiceRepository>()
                 .RegisterType<IMaintainInvoiceAppService, MaintainInvoiceAppService>()
                 .RegisterType<IMaintainInvoiceQuery, MaintainInvoiceQuery>();
         }
@@ -61,12 +62,8 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
             // Act
             var result = service.GetApuMaintainInvoices().FirstOrDefault();
             //var line = result.MaintainInvoiceLines.FirstOrDefault();
-            MaintainInvoiceLineDTO lineDto = new MaintainInvoiceLineDTO();
-            lineDto.ItemName = "22";
-            lineDto.UnitPrice = 111;
-            lineDto.Amount = 11;
-            lineDto.Note = "21312";
-            result.MaintainInvoiceLines.Add(lineDto);
+            result.InvoiceNumber = "12345";
+            service.ModifyApuMaintainInvoice(result);
             //result.MaintainInvoiceLines.Remove(line);
             //service.ModifyApuMaintainInvoice(result);
             //var add = new APUMaintainInvoiceDTO();

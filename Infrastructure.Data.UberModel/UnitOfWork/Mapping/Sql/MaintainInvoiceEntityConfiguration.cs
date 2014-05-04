@@ -38,27 +38,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.SerialNumber).HasColumnName("SerialNumber");
-            Property(p => p.InvoiceNumber).HasColumnName("InvoiceNumber");
-            Property(p => p.InvoideCode).HasColumnName("InvoideCode");
-            Property(p => p.InvoiceDate).HasColumnName("InvoiceDate").HasColumnType("datetime2");
-            Property(p => p.SupplierName).HasColumnName("SupplierName");
-            Property(p => p.InvoiceValue).HasColumnName("InvoiceValue");
-            Property(p => p.PaidAmount).HasColumnName("PaidAmount");
-            Property(p => p.OperatorName).HasColumnName("OperatorName");
-            Property(p => p.Reviewer).HasColumnName("Reviewer");
-            Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
-            Property(p => p.ReviewDate).HasColumnName("ReviewDate").HasColumnType("datetime2");
-            Property(p => p.IsValid).HasColumnName("IsValid");
-            Property(p => p.IsCompleted).HasColumnName("IsCompleted");
-            Property(p => p.Status).HasColumnName("Status");
             Property(p => p.DocumentName).HasColumnName("DocumentName");
             Property(p => p.DocumentId).HasColumnName("DocumentId");
-            Property(p => p.SupplierId).HasColumnName("SupplierId");
-            Property(p => p.CurrencyId).HasColumnName("CurrencyId");
 
-            HasRequired(i => i.Supplier).WithMany().HasForeignKey(i => i.SupplierId);
-            HasRequired(i => i.Currency).WithMany().HasForeignKey(i => i.CurrencyId);
-            HasMany(i => i.MaintainInvoiceLines).WithRequired().HasForeignKey(i => i.MaintainInvoiceId);
+            HasMany(i => i.InvoiceLines).WithRequired().HasForeignKey(i => i.InvoiceId);
         }
     }
 }

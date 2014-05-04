@@ -32,6 +32,12 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     获取所有预付款发票
         /// </summary>
         /// <returns></returns>
-        IQueryable<PrepaymentInvoiceDTO> GetPrepaymentInvoices();
+        IQueryable<PurchasePrepaymentInvoiceDTO> GetPurchasePrepaymentInvoices();
+
+        /// <summary>
+        ///     获取所有预付款发票
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<MaintainPrepaymentInvoiceDTO> GetMaintainPrepaymentInvoices();
     }
 }

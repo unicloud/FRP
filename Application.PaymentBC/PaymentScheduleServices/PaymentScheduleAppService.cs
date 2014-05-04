@@ -307,6 +307,85 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
 
         #endregion
 
+        #region 维修付款计划
+
+        /// <summary>
+        ///     获取所有维修付款计划
+        /// </summary>
+        /// <returns>所有维修付款计划</returns>
+        public IQueryable<MaintainPaymentScheduleDTO> GetMaintainPaymentSchedules()
+        {
+            var query = new QueryBuilder<PaymentSchedule>();
+            return _paymentScheduleQuery.MaintainPaymentSchedulesQuery(query);
+        }
+
+        /// <summary>
+        ///     新增维修付款计划
+        /// </summary>
+        /// <param name="maintainPaymentSchedule">维修付款计划DTO。</param>
+        [Insert(typeof(MaintainPaymentScheduleDTO))]
+        public void InsertMaintainPaymentSchedule(MaintainPaymentScheduleDTO maintainPaymentSchedule)
+        {
+            if (maintainPaymentSchedule == null)
+            {
+                throw new Exception("付款计划不能为空");
+            }
+
+            var newMaintainPaymentSchedule =
+                PaymentScheduleFactory.CreateMaintainPaymentSchedule(maintainPaymentSchedule.SupplierName,
+                                                                                      maintainPaymentSchedule.SupplierId,
+                                                                                      maintainPaymentSchedule.CurrencyId);
+            InsertPaymentSchedule(newMaintainPaymentSchedule, maintainPaymentSchedule.PaymentScheduleLines); //新增飞机付款计划
+        }
+
+        /// <summary>
+        ///     修改维修付款计划
+        /// </summary>
+        /// <param name="maintainPaymentSchedule">维修付款计划DTO。</param>
+        [Update(typeof(MaintainPaymentScheduleDTO))]
+        public void ModifyMaintainPaymentSchedule(MaintainPaymentScheduleDTO maintainPaymentSchedule)
+        {
+            if (maintainPaymentSchedule == null)
+            {
+                throw new Exception("付款计划不能为空");
+            }
+            var persistMaintainPayment =
+                _paymentScheduleRepository.Get(maintainPaymentSchedule.MaintainPaymentScheduleId) as
+                    MaintainPaymentSchedule;
+            if (persistMaintainPayment == null)
+            {
+                throw new Exception("找不到需要更新的付款计划");
+            }
+            //更新维修付款计划
+            if (!persistMaintainPayment.SupplierId.Equals(maintainPaymentSchedule.SupplierId))
+            {
+                persistMaintainPayment.SetSupplier(maintainPaymentSchedule.SupplierId,
+                    maintainPaymentSchedule.SupplierName);
+            }
+            if (!persistMaintainPayment.CurrencyId.Equals(maintainPaymentSchedule.CurrencyId))
+            {
+                persistMaintainPayment.SetCurrency(maintainPaymentSchedule.CurrencyId);
+            }
+
+            UpdatePaymentSchedule(persistMaintainPayment, maintainPaymentSchedule.PaymentScheduleLines); //更新维修付款计划
+        }
+
+        /// <summary>
+        ///     删除维修付款计划
+        /// </summary>
+        /// <param name="maintainPaymentSchedule">维修付款计划DTO。</param>
+        [Delete(typeof(MaintainPaymentScheduleDTO))]
+        public void DeleteMaintainPaymentSchedule(MaintainPaymentScheduleDTO maintainPaymentSchedule)
+        {
+            if (maintainPaymentSchedule == null)
+            {
+                throw new Exception("飞机付款计划不能为空");
+            }
+            DeletePaymentSchedule(maintainPaymentSchedule.MaintainPaymentScheduleId); //删除维修付款计划
+        }
+
+        #endregion
+
         /// <summary>
         ///     新增付款计划
         /// </summary>

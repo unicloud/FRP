@@ -612,9 +612,15 @@ namespace UniCloud.Presentation.Shell
                 Text = "管理一般付款计划",
                 NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.StandardPaymentSchedule"
             };
+            var menu414 = new MenuItem
+            {
+                Text = "管理维修付款计划",
+                NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.MaintainPaymentSchedule"
+            };
             menu41.Items.Add(menu411);
             menu41.Items.Add(menu412);
             menu41.Items.Add(menu413);
+            menu41.Items.Add(menu414);
             menu4.Items.Add(menu41);
 
             var menu42 = new MenuItem
@@ -628,23 +634,41 @@ namespace UniCloud.Presentation.Shell
             };
             var menu422 = new MenuItem
             {
-                Text = "维护预付款发票",
-                NavUri = "UniCloud.Presentation.Payment.Invoice.PrePayInvoiceManager"
+                Text = "维护采购预付款发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.PurchasePrepayInvoiceManager"
             };
             var menu423 = new MenuItem
+            {
+                Text = "维护维修预付款发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.MaintainPrepayInvoiceManager"
+            };
+            var menu424 = new MenuItem
             {
                 Text = "维护租赁发票",
                 NavUri = "UniCloud.Presentation.Payment.Invoice.LeaseInvoiceManager"
             };
-            var menu424 = new MenuItem
+            var menu425 = new MenuItem
             {
-                Text = "维护贷项单",
-                NavUri = "UniCloud.Presentation.Payment.Invoice.CreditNoteManager"
+                Text = "维护采购贷项单",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.PurchaseCreditNoteManager"
+            };
+            var menu426 = new MenuItem
+            {
+                Text = "维护维修贷项单",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.MaintainCreditNoteManager"
+            };
+            var menu427 = new MenuItem
+            {
+                Text = "维护杂项发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.SundryInvoiceManager"
             };
             menu42.Items.Add(menu421);
             menu42.Items.Add(menu422);
             menu42.Items.Add(menu423);
             menu42.Items.Add(menu424);
+            menu42.Items.Add(menu425);
+            menu42.Items.Add(menu426);
+            menu42.Items.Add(menu427);
             menu4.Items.Add(menu42);
 
 
@@ -655,22 +679,22 @@ namespace UniCloud.Presentation.Shell
             var menu431 = new MenuItem
             {
                 Text = "维护发动机维修发票",
-                NavUri = "UniCloud.Presentation.Payment.Invoice.EngineMaintain"
+                NavUri = "UniCloud.Presentation.Payment.MaintainInvoice.EngineMaintain"
             };
             var menu432 = new MenuItem
             {
                 Text = "维护APU维修发票",
-                NavUri = "UniCloud.Presentation.Payment.Invoice.APUMaintain"
+                NavUri = "UniCloud.Presentation.Payment.MaintainInvoice.APUMaintain"
             };
             var menu433 = new MenuItem
             {
                 Text = "维护起落架维修发票",
-                NavUri = "UniCloud.Presentation.Payment.Invoice.UndercartMaintain"
+                NavUri = "UniCloud.Presentation.Payment.MaintainInvoice.UndercartMaintain"
             };
             var menu434 = new MenuItem
             {
                 Text = "维护机身维修发票",
-                NavUri = "UniCloud.Presentation.Payment.Invoice.AirframeMaintain"
+                NavUri = "UniCloud.Presentation.Payment.MaintainInvoice.AirframeMaintain"
             };
             menu43.Items.Add(menu431);
             menu43.Items.Add(menu432);

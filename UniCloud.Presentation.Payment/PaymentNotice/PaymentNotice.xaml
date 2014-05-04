@@ -84,6 +84,12 @@
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="审核付款通知" />
                                     </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding CompleteNoticeCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Power.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="完成付款通知" />
+                                    </telerik:RadButton>
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding ViewReportCommand}">
@@ -169,6 +175,12 @@
                                                                         HeaderTextAlignment="Center"
                                                                         IsReadOnly="True"
                                                                         DataMemberBinding="{Binding Status, ConverterParameter=PaymentNoticeStatus, Converter={StaticResource EnumToStringConverter}}" />
+                                            <telerik:GridViewDataColumn Header="是否完成"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        TextAlignment="Center"
+                                                                        HeaderTextAlignment="Center"
+                                                                        IsReadOnly="True"
+                                                                        DataMemberBinding="{Binding IsComplete}" />
                                             <telerik:GridViewDataColumn Header="创建日期"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         TextAlignment="Right"

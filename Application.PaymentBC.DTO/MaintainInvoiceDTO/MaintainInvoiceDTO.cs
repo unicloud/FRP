@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Services.Common;
 
 #endregion
 
@@ -131,6 +130,10 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// </summary>
         public int CurrencyId { get; set; }
 
+        /// <summary>
+        ///     付款计划行ID
+        /// </summary>
+        public int? PaymentScheduleLineId { get; set; }
         #endregion
     }
 }

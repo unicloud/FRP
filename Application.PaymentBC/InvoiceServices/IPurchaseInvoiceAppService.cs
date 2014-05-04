@@ -33,5 +33,11 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         /// </summary>
         /// <returns></returns>
         IQueryable<PurchaseInvoiceDTO> GetPurchaseInvoices();
+
+        /// <summary>
+        ///     获取所有杂项发票
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<SundryInvoiceDTO> GetSundryInvoices();
     }
 }

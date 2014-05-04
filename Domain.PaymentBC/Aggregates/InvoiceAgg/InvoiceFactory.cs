@@ -40,10 +40,32 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// <param name="invoiceDate">发票日期</param>
         /// <param name="operatorName">经办人</param>
         /// <returns>贷项单</returns>
-        public static CreditNoteInvoice CreateCreditNoteInvoice(string invoiceCode, DateTime invoiceDate,
+        public static PurchaseCreditNoteInvoice CreatePurchaseCreditNoteInvoice(string invoiceCode, DateTime invoiceDate,
             string operatorName)
         {
-            var invoice = new CreditNoteInvoice
+            var invoice = new PurchaseCreditNoteInvoice
+            {
+                InvoideCode = invoiceCode,
+                InvoiceDate = invoiceDate,
+                CreateDate = DateTime.Now
+            };
+            invoice.GenerateNewIdentity();
+            invoice.SetOperator(operatorName);
+
+            return invoice;
+        }
+
+        /// <summary>
+        ///     创建贷项单发票
+        /// </summary>
+        /// <param name="invoiceCode">发票代码</param>
+        /// <param name="invoiceDate">发票日期</param>
+        /// <param name="operatorName">经办人</param>
+        /// <returns>贷项单</returns>
+        public static MaintainCreditNoteInvoice CreateMaintainCreditNoteInvoice(string invoiceCode, DateTime invoiceDate,
+            string operatorName)
+        {
+            var invoice = new MaintainCreditNoteInvoice
             {
                 InvoideCode = invoiceCode,
                 InvoiceDate = invoiceDate,
@@ -84,10 +106,32 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// <param name="invoiceDate">发票日期</param>
         /// <param name="operatorName">经办人</param>
         /// <returns>预付款发票</returns>
-        public static PrepaymentInvoice CreatePrepaymentInvoice(string invoiceCode, DateTime invoiceDate,
+        public static PurchasePrepaymentInvoice CreatePurchasePrepaymentInvoice(string invoiceCode, DateTime invoiceDate,
             string operatorName)
         {
-            var invoice = new PrepaymentInvoice
+            var invoice = new PurchasePrepaymentInvoice
+            {
+                InvoideCode = invoiceCode,
+                InvoiceDate = invoiceDate,
+                CreateDate = DateTime.Now
+            };
+            invoice.GenerateNewIdentity();
+            invoice.SetOperator(operatorName);
+
+            return invoice;
+        }
+
+        /// <summary>
+        ///     创建预付款发票
+        /// </summary>
+        /// <param name="invoiceCode">发票代码</param>
+        /// <param name="invoiceDate">发票日期</param>
+        /// <param name="operatorName">经办人</param>
+        /// <returns>预付款发票</returns>
+        public static MaintainPrepaymentInvoice CreateMaintainPrepaymentInvoice(string invoiceCode, DateTime invoiceDate,
+            string operatorName)
+        {
+            var invoice = new MaintainPrepaymentInvoice
             {
                 InvoideCode = invoiceCode,
                 InvoiceDate = invoiceDate,
@@ -121,6 +165,27 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
             return invoice;
         }
 
+        /// <summary>
+        ///     创建杂项发票
+        /// </summary>
+        /// <param name="invoiceCode">发票代码</param>
+        /// <param name="invoiceDate">发票日期</param>
+        /// <param name="operatorName">经办人</param>
+        /// <returns>杂项发票</returns>
+        public static SundryInvoice CreateSundryInvoice(string invoiceCode, DateTime invoiceDate,
+            string operatorName)
+        {
+            var invoice = new SundryInvoice
+            {
+                InvoideCode = invoiceCode,
+                InvoiceDate = invoiceDate,
+                CreateDate = DateTime.Now
+            };
+            invoice.GenerateNewIdentity();
+            invoice.SetOperator(operatorName);
+
+            return invoice;
+        }
 
         /// <summary>
         ///     设置发票属性
@@ -147,7 +212,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
             invoice.SetInvoiceNumber(invoiceNumber);
             invoice.SetSupplier(supplier);
             invoice.SetOrder(order);
-            //invoice.SetPaidAmount(paidAmount);
             invoice.SetCurrency(currency);
             invoice.SetPaymentScheduleLine(paymentScheduleLineId);
             invoice.SetInvoiceStatus((InvoiceStatus) status);
@@ -157,12 +221,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         ///     设置发票行属性
         /// </summary>
         /// <param name="invoiceLine">发票行</param>
-        /// <param name="itemName">项名称</param>
         /// <param name="amount">金额</param>
         /// <param name="order">订单</param>
         /// <param name="orderLineId">订单行Id</param>
         /// <param name="note">备注</param>
-        public static void SetInvoiceLine(InvoiceLine invoiceLine, string itemName, decimal amount, Order order,
+        public static void SetInvoiceLine(PurchaseInvoiceLine invoiceLine,  decimal amount, Order order,
             int orderLineId, string note)
         {
             if (order != null)
@@ -170,8 +233,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
                 var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == orderLineId);
                 invoiceLine.SetOrderLine(orderLine);
             }
-            invoiceLine.ItemName = itemName;
-            invoiceLine.Amount = amount;
+            invoiceLine.SetAmount(amount);
             invoiceLine.SetNote(note);
         }
 
@@ -179,9 +241,9 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         ///     创建发票行
         /// </summary>
         /// <returns></returns>
-        public static InvoiceLine CreateInvoiceLine()
+        public static PurchaseInvoiceLine CreateInvoiceLine()
         {
-            var invoiceLine = new InvoiceLine();
+            var invoiceLine = new PurchaseInvoiceLine();
             invoiceLine.GenerateNewIdentity();
             return invoiceLine;
         }

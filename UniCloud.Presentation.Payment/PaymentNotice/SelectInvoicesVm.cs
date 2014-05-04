@@ -65,13 +65,13 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             };
             #endregion
             #region 预付款发票
-            PrepaymentInvoices = new QueryableDataServiceCollectionView<PrepaymentInvoiceDTO>(service.Context, service.Context.PrepaymentInvoices);
+            PrepaymentInvoices = new QueryableDataServiceCollectionView<PurchasePrepaymentInvoiceDTO>(service.Context, service.Context.PurchasePrepaymentInvoices);
             PrepaymentInvoices.FilterDescriptors.Add(_supplierFilter);
             PrepaymentInvoices.LoadedData += (e, o) =>
             {
-                PrepaymentInvoiceList = new ObservableCollection<PrepaymentInvoiceDTO>();
+                PrepaymentInvoiceList = new ObservableCollection<PurchasePrepaymentInvoiceDTO>();
                 PrepaymentInvoices.ToList().ForEach(PrepaymentInvoiceList.Add);
-                SelectPrepaymentInvoices = new ObservableCollection<PrepaymentInvoiceDTO>();
+                SelectPrepaymentInvoices = new ObservableCollection<PurchasePrepaymentInvoiceDTO>();
                 if (!PrepaymentInvoiceList.Any()) return;
                 _paymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
                 {
@@ -122,13 +122,13 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             };
             #endregion
             #region 贷项单
-            CreditNotes = new QueryableDataServiceCollectionView<CreditNoteDTO>(service.Context, service.Context.CreditNotes);
+            CreditNotes = new QueryableDataServiceCollectionView<PurchaseCreditNoteDTO>(service.Context, service.Context.PurchaseCreditNotes);
             CreditNotes.FilterDescriptors.Add(_supplierFilter);
             CreditNotes.LoadedData += (e, o) =>
             {
-                CreditNoteList = new ObservableCollection<CreditNoteDTO>();
+                CreditNoteList = new ObservableCollection<PurchaseCreditNoteDTO>();
                 CreditNotes.ToList().ForEach(CreditNoteList.Add);
-                SelectCreditNotes = new ObservableCollection<CreditNoteDTO>();
+                SelectCreditNotes = new ObservableCollection<PurchaseCreditNoteDTO>();
                 if (!CreditNoteList.Any()) return;
                 _paymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
                 {
@@ -166,9 +166,9 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         #endregion
 
         #region 预付款发票
-        public QueryableDataServiceCollectionView<PrepaymentInvoiceDTO> PrepaymentInvoices { get; set; }
-        public ObservableCollection<PrepaymentInvoiceDTO> PrepaymentInvoiceList { get; set; }
-        public ObservableCollection<PrepaymentInvoiceDTO> SelectPrepaymentInvoices { get; set; }
+        public QueryableDataServiceCollectionView<PurchasePrepaymentInvoiceDTO> PrepaymentInvoices { get; set; }
+        public ObservableCollection<PurchasePrepaymentInvoiceDTO> PrepaymentInvoiceList { get; set; }
+        public ObservableCollection<PurchasePrepaymentInvoiceDTO> SelectPrepaymentInvoices { get; set; }
         #endregion
 
         #region 预付款发票
@@ -184,9 +184,9 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         #endregion
 
         #region 贷项单
-        public QueryableDataServiceCollectionView<CreditNoteDTO> CreditNotes { get; set; }
-        public ObservableCollection<CreditNoteDTO> CreditNoteList { get; set; }
-        public ObservableCollection<CreditNoteDTO> SelectCreditNotes { get; set; }
+        public QueryableDataServiceCollectionView<PurchaseCreditNoteDTO> CreditNotes { get; set; }
+        public ObservableCollection<PurchaseCreditNoteDTO> CreditNoteList { get; set; }
+        public ObservableCollection<PurchaseCreditNoteDTO> SelectCreditNotes { get; set; }
         #endregion
 
         #endregion

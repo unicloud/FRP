@@ -37,14 +37,8 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            Property(p => p.ItemName).HasColumnName("ItemName");
             Property(p => p.Amount).HasColumnName("Amount");
             Property(p => p.Note).HasColumnName("Note");
-
-            Property(p => p.InvoiceId).HasColumnName("InvoiceId");
-            Property(p => p.OrderLineId).HasColumnName("OrderLineId");
-
-            HasRequired(i => i.OrderLine).WithMany().HasForeignKey(i => i.OrderLineId);
         }
     }
 }

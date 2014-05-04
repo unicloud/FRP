@@ -25,6 +25,7 @@ using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Payment.Invoice;
+using UniCloud.Presentation.Payment.MaintainInvoice;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
@@ -64,6 +65,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         /// </summary>
         private void InitializeVm()
         {
+            CompleteNoticeCommand = new DelegateCommand<object>(OnCompleteNotice, CanCompleteNotice);
             // 创建并注册CollectionView
             PaymentNotices = _service.CreateCollection(_context.PaymentNotices, o => o.PaymentNoticeLines);
             PaymentNotices.PageSize = 6;
@@ -298,6 +300,28 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 
         #endregion
 
+        #region 完成付款通知
+        /// <summary>
+        ///     完成付款通知
+        /// </summary>
+        public DelegateCommand<object> CompleteNoticeCommand { get; set; }
+        protected void OnCompleteNotice(object obj)
+        {
+            if (PaymentNotice == null)
+            {
+                MessageAlert("请选择一条付款通知记录！");
+                return;
+            }
+            PaymentNotice.IsComplete = true;
+        }
+
+        protected bool CanCompleteNotice(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
         #region 预览报表
 
         /// <summary>
@@ -307,7 +331,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 
         protected virtual void OnViewReport(object obj)
         {
-            var noticeReport = new PaymentNoticeReport {WindowStartupLocation = WindowStartupLocation.CenterScreen};
+            var noticeReport = new PaymentNoticeReport { WindowStartupLocation = WindowStartupLocation.CenterScreen };
             noticeReport.ShowDialog();
         }
 

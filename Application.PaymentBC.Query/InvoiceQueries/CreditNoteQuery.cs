@@ -39,12 +39,12 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
         /// </summary>
         /// <param name="query">查询表达式。</param>
         /// <returns>贷项单DTO集合。</returns>
-        public IQueryable<CreditNoteDTO> CreditNoteDTOQuery(
-            QueryBuilder<CreditNoteInvoice> query)
+        public IQueryable<PurchaseCreditNoteDTO> PurchaseCreditNoteDTOQuery(
+            QueryBuilder<PurchaseCreditNoteInvoice> query)
         {
             return
-                query.ApplyTo(_unitOfWork.CreateSet<CreditNoteInvoice>())
-                     .Select(p => new CreditNoteDTO
+                query.ApplyTo(_unitOfWork.CreateSet<PurchaseCreditNoteInvoice>())
+                     .Select(p => new PurchaseCreditNoteDTO
                      {
                          CreditNoteId = p.Id,
                          InvoiceNumber = p.InvoiceNumber,
@@ -61,13 +61,52 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
                          IsValid = p.IsValid,
                          IsCompleted = p.IsCompleted,
                          Status = (int)p.Status,
-                         OrderId = p.OrderId,
+                         OrderId = (int)p.OrderId,
                          CurrencyId = p.CurrencyId,
                          PaymentScheduleLineId = p.PaymentScheduleLineId,
                          InvoiceLines = p.InvoiceLines.Select(q => new InvoiceLineDTO
                          {
                              InvoiceLineId = q.Id,
-                             ItemName = q.ItemName,
+                             Amount = q.Amount,
+                             InvoiceId = q.InvoiceId,
+                             OrderLineId = q.OrderLineId,
+                             Note = q.Note,
+                         }).ToList(),
+                     });
+        }
+
+        /// <summary>
+        ///    贷项单查询
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>贷项单DTO集合。</returns>
+        public IQueryable<MaintainCreditNoteDTO> MaintainCreditNoteDTOQuery(
+            QueryBuilder<MaintainCreditNoteInvoice> query)
+        {
+            return
+                query.ApplyTo(_unitOfWork.CreateSet<MaintainCreditNoteInvoice>())
+                     .Select(p => new MaintainCreditNoteDTO
+                     {
+                         CreditNoteId = p.Id,
+                         InvoiceNumber = p.InvoiceNumber,
+                         InvoideCode = p.InvoideCode,
+                         InvoiceDate = p.InvoiceDate,
+                         SupplierName = p.SupplierName,
+                         SupplierId = p.SupplierId,
+                         InvoiceValue = p.InvoiceValue,
+                         PaidAmount = p.PaidAmount,
+                         OperatorName = p.OperatorName,
+                         Reviewer = p.Reviewer,
+                         CreateDate = p.CreateDate,
+                         ReviewDate = p.ReviewDate,
+                         IsValid = p.IsValid,
+                         IsCompleted = p.IsCompleted,
+                         Status = (int)p.Status,
+                         CurrencyId = p.CurrencyId,
+                         PaymentScheduleLineId = p.PaymentScheduleLineId,
+                         InvoiceLines = p.InvoiceLines.Select(q => new InvoiceLineDTO
+                         {
+                             InvoiceLineId = q.Id,
                              Amount = q.Amount,
                              InvoiceId = q.InvoiceId,
                              OrderLineId = q.OrderLineId,

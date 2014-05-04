@@ -34,7 +34,15 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
         /// </summary>
         /// <param name="query">查询表达式。</param>
         /// <returns>贷项单DTO集合。</returns>
-        IQueryable<CreditNoteDTO> CreditNoteDTOQuery(
-            QueryBuilder<CreditNoteInvoice> query);
+        IQueryable<PurchaseCreditNoteDTO> PurchaseCreditNoteDTOQuery(
+            QueryBuilder<PurchaseCreditNoteInvoice> query);
+
+        /// <summary>
+        ///     贷项单查询
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>贷项单DTO集合。</returns>
+        IQueryable<MaintainCreditNoteDTO> MaintainCreditNoteDTOQuery(
+            QueryBuilder<MaintainCreditNoteInvoice> query);
     }
 }

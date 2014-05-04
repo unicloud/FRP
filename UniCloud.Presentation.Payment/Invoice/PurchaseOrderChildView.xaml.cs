@@ -1,4 +1,8 @@
-﻿using System.ComponentModel.Composition;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
@@ -12,9 +16,9 @@ namespace UniCloud.Presentation.Payment.Invoice
         }
 
         [Import]
-        public CreditNoteManagerVM ViewModel
+        public PurchaseCreditNoteManagerVm ViewModel
         {
-            get { return DataContext as CreditNoteManagerVM; }
+            get { return DataContext as PurchaseCreditNoteManagerVm; }
             set { DataContext = value; }
         }
     }

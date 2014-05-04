@@ -32,7 +32,15 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
         /// </summary>
         /// <param name="query">查询表达式。</param>
         /// <returns>预付款发票DTO集合。</returns>
-        IQueryable<PrepaymentInvoiceDTO> PrepaymentInvoiceDTOQuery(
-            QueryBuilder<PrepaymentInvoice> query);
+        IQueryable<PurchasePrepaymentInvoiceDTO> PurchasePrepaymentInvoiceDTOQuery(
+            QueryBuilder<PurchasePrepaymentInvoice> query);
+
+        /// <summary>
+        ///    预付款发票查询
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>预付款发票DTO集合。</returns>
+        IQueryable<MaintainPrepaymentInvoiceDTO> MaintainPrepaymentInvoiceDTOQuery(
+            QueryBuilder<MaintainPrepaymentInvoice> query);
     }
 }

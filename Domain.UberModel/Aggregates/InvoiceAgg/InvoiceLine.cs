@@ -1,26 +1,24 @@
 ﻿#region 版本信息
 
-// ========================================================================
+// =====================================================
 // 版权所有 (C) 2013 UniCloud 
-//【本类功能概述】
+// 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/09，22:12
+// 作者：丁志浩 时间：2013/12/07，10:58
 // 方案：FRP
-// 项目：Domain.UberModel
+// 项目：Domain.PaymentBC
 // 版本：V1.0.0
-//
+// 
 // 修改者： 时间： 
 // 修改说明：
-// ========================================================================
+// =====================================================
 
 #endregion
 
 #region 命名空间
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
 
 #endregion
 
@@ -45,16 +43,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         #endregion
 
         #region 属性
-
         /// <summary>
-        ///     项名称
+        ///     金额/数量
         /// </summary>
-        public string ItemName { get; internal set; }
-
-        /// <summary>
-        ///     金额
-        /// </summary>
-        public decimal Amount { get; internal set; }
+        public decimal Amount { get; private set; }
 
         /// <summary>
         ///     备注
@@ -65,40 +57,20 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
 
         #region 外键属性
 
-        /// <summary>
-        ///     发票ID
-        /// </summary>
-        public int InvoiceId { get; internal set; }
-
-        /// <summary>
-        ///     订单行ID
-        /// </summary>
-        public int? OrderLineId { get; private set; }
-
         #endregion
 
         #region 导航属性
 
-        /// <summary>
-        ///     订单行
-        /// </summary>
-        public virtual OrderLine OrderLine { get; private set; }
-
         #endregion
 
         #region 操作
-
         /// <summary>
-        ///     设置订单行
+        /// 设置数量/金额
         /// </summary>
-        /// <param name="orderLine">订单行</param>
-        public void SetOrderLine(OrderLine orderLine)
+        /// <param name="amount">数量/金额</param>
+        public void SetAmount(decimal amount)
         {
-            if (orderLine != null)
-            {
-                OrderLine = orderLine;
-                OrderLineId = orderLine.Id;
-            }
+            Amount = amount;
         }
 
         /// <summary>
