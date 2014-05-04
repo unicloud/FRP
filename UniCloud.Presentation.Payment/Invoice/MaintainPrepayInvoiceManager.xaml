@@ -137,7 +137,7 @@
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding InvoiceValue,Mode=TwoWay}" />
-                                            <telerik:GridViewDataColumn Header="已付金额"
+                                            <telerik:GridViewDataColumn Header="已核销金额"
                                                                         IsReadOnly="True"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -177,7 +177,7 @@
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding IsValid}" />
-                                            <telerik:GridViewDataColumn Header="是否完成"
+                                            <telerik:GridViewDataColumn Header="是否已完成核销"
                                                                         IsReadOnly="True"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -186,7 +186,7 @@
                                                                         IsReadOnly="True"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Status}" />
+                                                                        DataMemberBinding="{Binding Status, ConverterParameter=InvoiceStatus, Converter={StaticResource EnumToStringConverter}}" />
                                         </telerik:RadGridView.Columns>
                                     </telerik:RadGridView>
                                 </Grid>
@@ -343,7 +343,7 @@
                                                         <telerik:GridViewDataColumn Header="备注"
                                                                                     HeaderTextAlignment="Center"
                                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                    DataMemberBinding="{Binding Note}" />
+                                                                                    DataMemberBinding="{Binding Subject}" />
                                                     </telerik:RadGridView.Columns>
                                                 </telerik:RadGridView>
                                             </Grid>

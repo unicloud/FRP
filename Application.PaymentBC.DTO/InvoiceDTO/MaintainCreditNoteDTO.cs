@@ -111,11 +111,6 @@ namespace UniCloud.Application.PaymentBC.DTO
         #region 外键属性
 
         /// <summary>
-        ///     订单ID
-        /// </summary>
-        public int OrderId { get; set; }
-
-        /// <summary>
         ///     供应商ID
         /// </summary>
         public int SupplierId { get; set; }

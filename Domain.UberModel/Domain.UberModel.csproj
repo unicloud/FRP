@@ -152,6 +152,7 @@
     <Compile Include="Aggregates\InvoiceAgg\PurchasePrepaymentInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoiceLine.cs" />
+    <Compile Include="Aggregates\InvoiceAgg\SundryInvoice.cs" />
     <Compile Include="Aggregates\IssuedUnitAgg\IssuedUnit.cs" />
     <Compile Include="Aggregates\IssuedUnitAgg\IssuedUnitFactory.cs" />
     <Compile Include="Aggregates\ItemAgg\Item.cs" />

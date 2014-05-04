@@ -165,6 +165,27 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
             return invoice;
         }
 
+        /// <summary>
+        ///     创建杂项发票
+        /// </summary>
+        /// <param name="invoiceCode">发票代码</param>
+        /// <param name="invoiceDate">发票日期</param>
+        /// <param name="operatorName">经办人</param>
+        /// <returns>杂项发票</returns>
+        public static SundryInvoice CreateSundryInvoice(string invoiceCode, DateTime invoiceDate,
+            string operatorName)
+        {
+            var invoice = new SundryInvoice
+            {
+                InvoideCode = invoiceCode,
+                InvoiceDate = invoiceDate,
+                CreateDate = DateTime.Now
+            };
+            invoice.GenerateNewIdentity();
+            invoice.SetOperator(operatorName);
+
+            return invoice;
+        }
 
         /// <summary>
         ///     设置发票属性

@@ -5,8 +5,6 @@
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
-                   xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    mc:Ignorable="d"
                    d:DesignHeight="600"
                    d:DesignWidth="800"
@@ -171,7 +169,7 @@
                                                 <telerik:GridViewDataColumn Header="备注"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding Note}" />
+                                                                            DataMemberBinding="{Binding Subject}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </telerik:RadPane>
@@ -311,7 +309,7 @@
                                                 <telerik:GridViewDataColumn Header="备注"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding Note}" />
+                                                                            DataMemberBinding="{Binding Subject}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </telerik:RadPane>

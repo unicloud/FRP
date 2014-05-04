@@ -192,6 +192,10 @@
     <Compile Include="Invoice\MaintainPrepayPayscheduleChildView.xaml.cs">
       <DependentUpon>MaintainPrepayPayscheduleChildView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Invoice\SundryInvoiceManager.xaml.cs">
+      <DependentUpon>SundryInvoiceManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\SundryInvoiceManagerVm.cs" />
     <Compile Include="MaintainInvoice\APUMaintain.xaml.cs">
       <DependentUpon>APUMaintain.xaml</DependentUpon>
     </Compile>
@@ -338,6 +342,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Invoice\MaintainPrepayPayscheduleChildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Invoice\SundryInvoiceManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -174,7 +174,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             get { return _selPrepaymentInvoice; }
             set
             {
-                if (_selPrepaymentInvoice != value)
+                if (value != null && _selPrepaymentInvoice != value)
                 {
                     _selPrepaymentInvoice = value;
                     _invoiceLines.Clear();

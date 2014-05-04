@@ -120,7 +120,7 @@
                                 <telerik:GridViewDataColumn Header="备注"
                                                             HeaderTextAlignment="Center"
                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding Note}" />
+                                                            DataMemberBinding="{Binding Subject}" />
                             </telerik:RadGridView.Columns>
                         </telerik:RadGridView>
                     </telerik:RadPane>

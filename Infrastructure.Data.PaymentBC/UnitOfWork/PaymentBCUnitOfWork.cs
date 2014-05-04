@@ -256,6 +256,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
                 .Add(new MaintainPrepaymentInvoiceEntityConfiguration())
                 .Add(new PurchaseInvoiceLineEntityConfiguration())
                  .Add(new BasePurchaseInvoiceEntityConfiguration())
+                 .Add(new SundryInvoiceEntityConfiguration())
             #endregion
 
             #region LinkmanAgg

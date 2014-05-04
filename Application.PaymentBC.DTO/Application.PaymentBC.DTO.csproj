@@ -73,6 +73,7 @@
     <Compile Include="InvoiceDTO\InvoiceLineDTO.cs" />
     <Compile Include="InvoiceDTO\PurchasePrepaymentInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\PurchaseInvoiceDTO.cs" />
+    <Compile Include="InvoiceDTO\SundryInvoiceDTO.cs" />
     <Compile Include="MaintainContractDTO\MaintainContractDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\AirframeMaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\APUMaintainInvoiceDTO.cs" />

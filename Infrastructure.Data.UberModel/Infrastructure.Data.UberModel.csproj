@@ -255,6 +255,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\SpecialConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\StandardDocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\StandardPaymentScheduleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\SundryInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyMaterialEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />
