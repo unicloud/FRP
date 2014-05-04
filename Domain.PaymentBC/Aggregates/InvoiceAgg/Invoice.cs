@@ -205,7 +205,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         {
             if (order == null || order.IsTransient())
             {
-                throw new ArgumentException("订单参数为空！");
+                return;
             }
 
             OrderId = order.Id;
@@ -217,7 +217,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// <param name="amount">付款金额</param>
         public void SetPaidAmount(decimal amount)
         {
-            if (amount <= 0)
+            if (amount < 0)
             {
                 throw new ArgumentException("付款金额非正数！");
             }

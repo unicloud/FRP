@@ -193,6 +193,10 @@
       <DependentUpon>APUMaintain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\APUMaintainVm.cs" />
+    <Compile Include="Invoice\MaintainCreditNoteManager.xaml.cs">
+      <DependentUpon>MaintainCreditNoteManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\MaintainCreditNoteManagerVm.cs" />
     <Compile Include="Invoice\PurchaseCreditNoteManager.xaml.cs">
       <DependentUpon>PurchaseCreditNoteManager.xaml</DependentUpon>
     </Compile>
@@ -327,6 +331,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Invoice\APUMaintain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Invoice\MaintainCreditNoteManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

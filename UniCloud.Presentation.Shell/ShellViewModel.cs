@@ -639,18 +639,30 @@ namespace UniCloud.Presentation.Shell
             };
             var menu423 = new MenuItem
             {
-                Text = "维护租赁发票",
-                NavUri = "UniCloud.Presentation.Payment.Invoice.LeaseInvoiceManager"
+                Text = "维护维修预付款发票",
+                NavUri = ""
             };
             var menu424 = new MenuItem
             {
+                Text = "维护租赁发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.LeaseInvoiceManager"
+            };
+            var menu425 = new MenuItem
+            {
                 Text = "维护采购贷项单",
                 NavUri = "UniCloud.Presentation.Payment.Invoice.PurchaseCreditNoteManager"
+            };
+            var menu426 = new MenuItem
+            {
+                Text = "维护维修贷项单",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.MaintainCreditNoteManager"
             };
             menu42.Items.Add(menu421);
             menu42.Items.Add(menu422);
             menu42.Items.Add(menu423);
             menu42.Items.Add(menu424);
+            menu42.Items.Add(menu425);
+            menu42.Items.Add(menu426);
             menu4.Items.Add(menu42);
 
 
