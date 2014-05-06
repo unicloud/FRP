@@ -16,6 +16,7 @@
 
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 
 #endregion
@@ -25,12 +26,12 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
     public interface IMaintainInvoiceQuery
     {
         /// <summary>
-        ///     维修发票查询
+        ///     发票查询
         /// </summary>
         /// <param name="query">查询表达式</param>
-        /// <returns>维修发票DTO集合</returns>
-        IQueryable<BaseMaintainInvoiceDTO> MaintainInvoiceDTOQuery(
-            QueryBuilder<MaintainInvoice> query);
+        /// <returns>维发票DTO集合</returns>
+        IQueryable<BaseInvoiceDTO> InvoiceDTOQuery(
+            QueryBuilder<Invoice> query);
 
         /// <summary>
         ///     发动机维修发票查询

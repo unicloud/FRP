@@ -45,98 +45,19 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(service.Context, service.Context.Suppliers);
             Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(service.Context, service.Context.Currencies);
             _supplierFilter = new FilterDescriptor("SupplierId", FilterOperator.IsEqualTo, 0);
-            #region 采购发票
-            PurchaseInvoices = new QueryableDataServiceCollectionView<PurchaseInvoiceDTO>(service.Context, service.Context.PurchaseInvoices);
-            PurchaseInvoices.FilterDescriptors.Add(_supplierFilter);
-            PurchaseInvoices.LoadedData += (e, o) =>
+            #region 发票
+            Invoices = new QueryableDataServiceCollectionView<BaseInvoiceDTO>(service.Context, service.Context.Invoices);
+            Invoices.FilterDescriptors.Add(_supplierFilter);
+            Invoices.LoadedData += (e, o) =>
             {
-                PurchaseInvoiceList = new ObservableCollection<PurchaseInvoiceDTO>();
-                PurchaseInvoices.ToList().ForEach(PurchaseInvoiceList.Add);
-                SelectPurchaseInvoices = new ObservableCollection<PurchaseInvoiceDTO>();
-                if (!PurchaseInvoiceList.Any()) return;
+                InvoiceList = new ObservableCollection<BaseInvoiceDTO>();
+                Invoices.ToList().ForEach(InvoiceList.Add);
+                SelectInvoices = new ObservableCollection<BaseInvoiceDTO>();
+                if (!InvoiceList.Any()) return;
                 _paymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
                 {
-                    if (p.InvoiceType == 0)
-                    {
-                        if (PurchaseInvoiceList.Any(t => t.PurchaseInvoiceId == p.InvoiceId))
-                            SelectPurchaseInvoices.Add(PurchaseInvoiceList.FirstOrDefault(t => t.PurchaseInvoiceId == p.InvoiceId));
-                    }
-                });
-            };
-            #endregion
-            #region 预付款发票
-            PrepaymentInvoices = new QueryableDataServiceCollectionView<PurchasePrepaymentInvoiceDTO>(service.Context, service.Context.PurchasePrepaymentInvoices);
-            PrepaymentInvoices.FilterDescriptors.Add(_supplierFilter);
-            PrepaymentInvoices.LoadedData += (e, o) =>
-            {
-                PrepaymentInvoiceList = new ObservableCollection<PurchasePrepaymentInvoiceDTO>();
-                PrepaymentInvoices.ToList().ForEach(PrepaymentInvoiceList.Add);
-                SelectPrepaymentInvoices = new ObservableCollection<PurchasePrepaymentInvoiceDTO>();
-                if (!PrepaymentInvoiceList.Any()) return;
-                _paymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
-                {
-                    if (p.InvoiceType == 1)
-                    {
-                        if (PrepaymentInvoiceList.Any(t => t.PrepaymentInvoiceId == p.InvoiceId))
-                            SelectPrepaymentInvoices.Add(PrepaymentInvoiceList.FirstOrDefault(t => t.PrepaymentInvoiceId == p.InvoiceId));
-                    }
-                });
-            };
-            #endregion
-            #region 租赁发票
-            LeaseInvoices = new QueryableDataServiceCollectionView<LeaseInvoiceDTO>(service.Context, service.Context.LeaseInvoices);
-            LeaseInvoices.FilterDescriptors.Add(_supplierFilter);
-            LeaseInvoices.LoadedData += (e, o) =>
-            {
-                LeaseInvoiceList = new ObservableCollection<LeaseInvoiceDTO>();
-                LeaseInvoices.ToList().ForEach(LeaseInvoiceList.Add);
-                SelectLeaseInvoices = new ObservableCollection<LeaseInvoiceDTO>();
-                if (!LeaseInvoiceList.Any()) return;
-                _paymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
-                {
-                    if (p.InvoiceType == 2)
-                    {
-                        if (LeaseInvoiceList.Any(t => t.LeaseInvoiceId == p.InvoiceId))
-                            SelectLeaseInvoices.Add(LeaseInvoiceList.FirstOrDefault(t => t.LeaseInvoiceId == p.InvoiceId));
-                    }
-                });
-            };
-            #endregion
-            #region 维修发票
-            MaintainInvoices = new QueryableDataServiceCollectionView<BaseMaintainInvoiceDTO>(service.Context, service.Context.MaintainInvoices);
-            MaintainInvoices.FilterDescriptors.Add(_supplierFilter);
-            MaintainInvoices.LoadedData += (e, o) =>
-            {
-                MaintainInvoiceList = new ObservableCollection<BaseMaintainInvoiceDTO>();
-                MaintainInvoices.ToList().ForEach(MaintainInvoiceList.Add);
-                SelectMaintainInvoices = new ObservableCollection<BaseMaintainInvoiceDTO>();
-                if (!MaintainInvoiceList.Any()) return;
-                _paymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
-                {
-                    if (p.InvoiceType == 3)
-                    {
-                        if (MaintainInvoiceList.Any(t => t.MaintainInvoiceId == p.InvoiceId))
-                            SelectMaintainInvoices.Add(MaintainInvoiceList.FirstOrDefault(t => t.MaintainInvoiceId == p.InvoiceId));
-                    }
-                });
-            };
-            #endregion
-            #region 贷项单
-            CreditNotes = new QueryableDataServiceCollectionView<PurchaseCreditNoteDTO>(service.Context, service.Context.PurchaseCreditNotes);
-            CreditNotes.FilterDescriptors.Add(_supplierFilter);
-            CreditNotes.LoadedData += (e, o) =>
-            {
-                CreditNoteList = new ObservableCollection<PurchaseCreditNoteDTO>();
-                CreditNotes.ToList().ForEach(CreditNoteList.Add);
-                SelectCreditNotes = new ObservableCollection<PurchaseCreditNoteDTO>();
-                if (!CreditNoteList.Any()) return;
-                _paymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
-                {
-                    if (p.InvoiceType == 4)
-                    {
-                        if (CreditNoteList.Any(t => t.CreditNoteId == p.InvoiceId))
-                            SelectCreditNotes.Add(CreditNoteList.FirstOrDefault(t => t.CreditNoteId == p.InvoiceId));
-                    }
+                    if (InvoiceList.Any(t => t.InvoiceId == p.InvoiceId))
+                        SelectInvoices.Add(InvoiceList.FirstOrDefault(t => t.InvoiceId == p.InvoiceId));
                 });
             };
             #endregion
@@ -148,47 +69,19 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             Currencies.Load(true);
             Suppliers.Load(true);
             _supplierFilter.Value = paymentNotice.SupplierId;
-            PurchaseInvoices.Load(true);
-            PrepaymentInvoices.Load(true);
-            LeaseInvoices.Load(true);
-            MaintainInvoices.Load(true);
-            CreditNotes.Load(true);
+            Invoices.Load(true);
         }
         #endregion
 
         #region 公共属性
         public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
         public QueryableDataServiceCollectionView<CurrencyDTO> Currencies { get; set; }
-        #region 采购发票
-        public QueryableDataServiceCollectionView<PurchaseInvoiceDTO> PurchaseInvoices { get; set; }
-        public ObservableCollection<PurchaseInvoiceDTO> PurchaseInvoiceList { get; set; }
-        public ObservableCollection<PurchaseInvoiceDTO> SelectPurchaseInvoices { get; set; }
-        #endregion
 
-        #region 预付款发票
-        public QueryableDataServiceCollectionView<PurchasePrepaymentInvoiceDTO> PrepaymentInvoices { get; set; }
-        public ObservableCollection<PurchasePrepaymentInvoiceDTO> PrepaymentInvoiceList { get; set; }
-        public ObservableCollection<PurchasePrepaymentInvoiceDTO> SelectPrepaymentInvoices { get; set; }
+        #region 发票
+        public QueryableDataServiceCollectionView<BaseInvoiceDTO> Invoices { get; set; }
+        public ObservableCollection<BaseInvoiceDTO> InvoiceList { get; set; }
+        public ObservableCollection<BaseInvoiceDTO> SelectInvoices { get; set; }
         #endregion
-
-        #region 预付款发票
-        public QueryableDataServiceCollectionView<LeaseInvoiceDTO> LeaseInvoices { get; set; }
-        public ObservableCollection<LeaseInvoiceDTO> LeaseInvoiceList { get; set; }
-        public ObservableCollection<LeaseInvoiceDTO> SelectLeaseInvoices { get; set; }
-        #endregion
-
-        #region 维修发票
-        public QueryableDataServiceCollectionView<BaseMaintainInvoiceDTO> MaintainInvoices { get; set; }
-        public ObservableCollection<BaseMaintainInvoiceDTO> MaintainInvoiceList { get; set; }
-        public ObservableCollection<BaseMaintainInvoiceDTO> SelectMaintainInvoices { get; set; }
-        #endregion
-
-        #region 贷项单
-        public QueryableDataServiceCollectionView<PurchaseCreditNoteDTO> CreditNotes { get; set; }
-        public ObservableCollection<PurchaseCreditNoteDTO> CreditNoteList { get; set; }
-        public ObservableCollection<PurchaseCreditNoteDTO> SelectCreditNotes { get; set; }
-        #endregion
-
         #endregion
 
         #region 操作
@@ -227,84 +120,16 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         /// <param name="sender"></param>
         public void OnCommitExecute(object sender)
         {
-            #region 采购发票
-            SelectPurchaseInvoices.ToList().ForEach(p =>
+            #region 发票
+            SelectInvoices.ToList().ForEach(p =>
             {
-                if (_paymentNotice.PaymentNoticeLines.All(t => t.InvoiceId != p.PurchaseInvoiceId))
-                {
-                    var puchaseInvoiceLine = new PaymentNoticeLineDTO
-                    {
-                        PaymentNoticeLineId = RandomHelper.Next(),
-                        InvoiceType = 0,
-                        InvoiceId = p.PurchaseInvoiceId,
-                        InvoiceNumber = p.InvoiceNumber,
-                    };
-
-                    _paymentNotice.PaymentNoticeLines.Add(puchaseInvoiceLine);
-                }
-            });
-            #endregion
-            #region 预付款发票
-            SelectPrepaymentInvoices.ToList().ForEach(p =>
-            {
-                if (_paymentNotice.PaymentNoticeLines.All(t => t.InvoiceId != p.PrepaymentInvoiceId))
-                {
-                    var prepayInvoiceLine = new PaymentNoticeLineDTO
-                    {
-                        PaymentNoticeLineId = RandomHelper.Next(),
-                        InvoiceType = 1,
-                        InvoiceId = p.PrepaymentInvoiceId,
-                        InvoiceNumber = p.InvoiceNumber,
-                    };
-
-                    _paymentNotice.PaymentNoticeLines.Add(prepayInvoiceLine);
-                }
-            });
-            #endregion
-            #region 租赁发票
-            SelectLeaseInvoices.ToList().ForEach(p =>
-            {
-                if (_paymentNotice.PaymentNoticeLines.All(t => t.InvoiceId != p.LeaseInvoiceId))
+                if (_paymentNotice.PaymentNoticeLines.All(t => t.InvoiceId != p.InvoiceId))
                 {
                     var maintainInvoiceLine = new PaymentNoticeLineDTO
                     {
                         PaymentNoticeLineId = RandomHelper.Next(),
-                        InvoiceType = 2,
-                        InvoiceId = p.LeaseInvoiceId,
-                        InvoiceNumber = p.InvoiceNumber,
-                    };
-
-                    _paymentNotice.PaymentNoticeLines.Add(maintainInvoiceLine);
-                }
-            });
-            #endregion
-            #region 维修发票
-            SelectMaintainInvoices.ToList().ForEach(p =>
-            {
-                if (_paymentNotice.PaymentNoticeLines.All(t => t.InvoiceId != p.MaintainInvoiceId))
-                {
-                    var maintainInvoiceLine = new PaymentNoticeLineDTO
-                    {
-                        PaymentNoticeLineId = RandomHelper.Next(),
-                        InvoiceType = 3,
-                        InvoiceId = p.MaintainInvoiceId,
-                        InvoiceNumber = p.InvoiceNumber,
-                    };
-
-                    _paymentNotice.PaymentNoticeLines.Add(maintainInvoiceLine);
-                }
-            });
-            #endregion
-            #region 贷项单
-            SelectCreditNotes.ToList().ForEach(p =>
-            {
-                if (_paymentNotice.PaymentNoticeLines.All(t => t.InvoiceId != p.CreditNoteId))
-                {
-                    var maintainInvoiceLine = new PaymentNoticeLineDTO
-                    {
-                        PaymentNoticeLineId = RandomHelper.Next(),
-                        InvoiceType = 4,
-                        InvoiceId = p.CreditNoteId,
+                        InvoiceType = p.InvoiceType,
+                        InvoiceId = p.InvoiceId,
                         InvoiceNumber = p.InvoiceNumber,
                     };
 
@@ -315,23 +140,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             for (int i = _paymentNotice.PaymentNoticeLines.Count - 1; i >= 0; i--)
             {
                 var temp = _paymentNotice.PaymentNoticeLines[i];
-                if (SelectPurchaseInvoices.Count > 0 && SelectPurchaseInvoices.All(p => p.PurchaseInvoiceId != temp.InvoiceId))
-                {
-                    _paymentNotice.PaymentNoticeLines.Remove(temp);
-                }
-                else if (SelectPrepaymentInvoices.Count > 0 && SelectPrepaymentInvoices.All(p => p.PrepaymentInvoiceId != temp.InvoiceId))
-                {
-                    _paymentNotice.PaymentNoticeLines.Remove(temp);
-                }
-                else if (SelectLeaseInvoices.Count > 0 && SelectLeaseInvoices.All(p => p.LeaseInvoiceId != temp.InvoiceId))
-                {
-                    _paymentNotice.PaymentNoticeLines.Remove(temp);
-                }
-                else if (SelectMaintainInvoices.Count > 0 && SelectMaintainInvoices.All(p => p.MaintainInvoiceId != temp.InvoiceId))
-                {
-                    _paymentNotice.PaymentNoticeLines.Remove(temp);
-                }
-                else if (SelectCreditNotes.Count > 0 && SelectCreditNotes.All(p => p.CreditNoteId != temp.InvoiceId))
+                if (SelectInvoices.Count > 0 && SelectInvoices.All(p => p.InvoiceId != temp.InvoiceId))
                 {
                     _paymentNotice.PaymentNoticeLines.Remove(temp);
                 }

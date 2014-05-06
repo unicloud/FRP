@@ -37,6 +37,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            Property(p => p.InvoiceType).HasColumnName("InvoiceType");
             Property(p => p.InvoiceNumber).HasColumnName("InvoiceNumber");
             Property(p => p.InvoideCode).HasColumnName("InvoideCode");
             Property(p => p.InvoiceDate).HasColumnName("InvoiceDate").HasColumnType("datetime2");

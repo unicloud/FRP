@@ -174,11 +174,12 @@
         <Property Name="PaymentScheduleLineId" Type="Edm.Int32" />
         <Property Name="InvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.InvoiceLineDTO)" Nullable="false" />
       </EntityType>
-      <EntityType Name="BaseMaintainInvoiceDTO">
+      <EntityType Name="BaseInvoiceDTO">
         <Key>
-          <PropertyRef Name="MaintainInvoiceId" />
+          <PropertyRef Name="InvoiceId" />
         </Key>
-        <Property Name="MaintainInvoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="InvoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="InvoiceType" Type="Edm.Int32" Nullable="false" />
         <Property Name="SerialNumber" Type="Edm.String" />
         <Property Name="InvoiceNumber" Type="Edm.String" />
         <Property Name="InvoideCode" Type="Edm.String" />
@@ -197,7 +198,6 @@
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="PaymentScheduleLineId" Type="Edm.Int32" />
       </EntityType>
       <EntityType Name="EngineMaintainInvoiceDTO">
         <Key>
@@ -764,7 +764,7 @@
         <EntitySet Name="MaintainPrepaymentInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.MaintainPrepaymentInvoiceDTO" />
         <EntitySet Name="PurchaseInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.PurchaseInvoiceDTO" />
         <EntitySet Name="SundryInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.SundryInvoiceDTO" />
-        <EntitySet Name="MaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.BaseMaintainInvoiceDTO" />
+        <EntitySet Name="Invoices" EntityType="UniCloud.Application.PaymentBC.DTO.BaseInvoiceDTO" />
         <EntitySet Name="EngineMaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.EngineMaintainInvoiceDTO" />
         <EntitySet Name="APUMaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.APUMaintainInvoiceDTO" />
         <EntitySet Name="AirframeMaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceDTO" />

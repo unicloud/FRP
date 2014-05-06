@@ -112,11 +112,11 @@ namespace UniCloud.DistributedServices.Payment
         #region 维修发票
 
         /// <summary>
-        ///     发动机维修发票集合
+        ///     发票集合
         /// </summary>
-        public IQueryable<BaseMaintainInvoiceDTO> MaintainInvoices
+        public IQueryable<BaseInvoiceDTO> Invoices
         {
-            get { return _maintainInvoiceAppService.GetMaintainInvoices(); }
+            get { return _maintainInvoiceAppService.GetInvoices(); }
         }
 
         /// <summary>

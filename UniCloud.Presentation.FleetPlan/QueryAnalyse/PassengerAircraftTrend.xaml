@@ -254,8 +254,8 @@
                                                                         CategoryBinding="DateTime">
                                                         <telerik:LineSeries.PointTemplate>
                                                             <DataTemplate>
-                                                                <Ellipse Height='8'
-                                                                         Width='8'
+                                                                <Ellipse Height='5'
+                                                                         Width='5'
                                                                          Fill="Blue" />
                                                             </DataTemplate>
                                                         </telerik:LineSeries.PointTemplate>
@@ -282,8 +282,8 @@
                                                                         CategoryBinding="DateTime">
                                                         <telerik:LineSeries.PointTemplate>
                                                             <DataTemplate>
-                                                                <Ellipse Height='8'
-                                                                         Width='8'
+                                                                <Ellipse Height='5'
+                                                                         Width='5'
                                                                          Fill="Blue" />
                                                             </DataTemplate>
                                                         </telerik:LineSeries.PointTemplate>
@@ -306,8 +306,8 @@
                                                                         CategoryBinding="DateTime">
                                                         <telerik:LineSeries.PointTemplate>
                                                             <DataTemplate>
-                                                                <Ellipse Height='8'
-                                                                         Width='8'
+                                                                <Ellipse Height='5'
+                                                                         Width='5'
                                                                          Fill="Blue" />
                                                             </DataTemplate>
                                                         </telerik:LineSeries.PointTemplate>

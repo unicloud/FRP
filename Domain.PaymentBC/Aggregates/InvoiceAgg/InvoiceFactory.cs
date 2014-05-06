@@ -49,6 +49,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
                 InvoiceDate = invoiceDate,
                 CreateDate = DateTime.Now
             };
+            invoice.SetInvoiceType(InvoiceType.贷项单);
             invoice.GenerateNewIdentity();
             invoice.SetOperator(operatorName);
 
@@ -71,6 +72,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
                 InvoiceDate = invoiceDate,
                 CreateDate = DateTime.Now
             };
+            invoice.SetInvoiceType(InvoiceType.贷项单);
             invoice.GenerateNewIdentity();
             invoice.SetOperator(operatorName);
 
@@ -93,6 +95,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
                 InvoiceDate = invoiceDate,
                 CreateDate = DateTime.Now
             };
+            invoice.SetInvoiceType(InvoiceType.租赁发票);
             invoice.GenerateNewIdentity();
             invoice.SetOperator(operatorName);
 
@@ -115,6 +118,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
                 InvoiceDate = invoiceDate,
                 CreateDate = DateTime.Now
             };
+            invoice.SetInvoiceType(InvoiceType.预付款发票);
             invoice.GenerateNewIdentity();
             invoice.SetOperator(operatorName);
 
@@ -137,6 +141,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
                 InvoiceDate = invoiceDate,
                 CreateDate = DateTime.Now
             };
+            invoice.SetInvoiceType(InvoiceType.预付款发票);
             invoice.GenerateNewIdentity();
             invoice.SetOperator(operatorName);
 
@@ -159,6 +164,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
                 InvoiceDate = invoiceDate,
                 CreateDate = DateTime.Now
             };
+            invoice.SetInvoiceType(InvoiceType.采购发票);
             invoice.GenerateNewIdentity();
             invoice.SetOperator(operatorName);
 
@@ -181,6 +187,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
                 InvoiceDate = invoiceDate,
                 CreateDate = DateTime.Now
             };
+            invoice.SetInvoiceType(InvoiceType.杂项发票);
             invoice.GenerateNewIdentity();
             invoice.SetOperator(operatorName);
 
