@@ -615,7 +615,7 @@ namespace UniCloud.Presentation.Shell
             };
             var menu413 = new MenuItem
             {
-                Text = "管理一般付款计划",
+                Text = "管理BFE付款计划",
                 NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.StandardPaymentSchedule"
             };
             var menu414 = new MenuItem

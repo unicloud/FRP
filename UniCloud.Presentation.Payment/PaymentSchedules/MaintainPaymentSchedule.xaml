@@ -39,7 +39,8 @@
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition />
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition  Height="30"/>
                                     </Grid.RowDefinitions>
                                     <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                         Margin="0 0 0 -1"
@@ -119,6 +120,11 @@
                                                                         DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}" />
                                         </telerik:RadGridView.Columns>
                                     </telerik:RadGridView>
+                                    <telerik:RadDataPager BorderThickness="1,0,1,1"
+                                                          AutoEllipsisMode="Both"
+                                                          DisplayMode="All"
+                                                          Source="{Binding PaymentSchedulesView}"
+                                                          Grid.Row="2" />
                                 </Grid>
                             </telerik:RadBusyIndicator>
                         </telerik:RadPane>

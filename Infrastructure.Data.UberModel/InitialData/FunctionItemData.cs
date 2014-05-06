@@ -196,7 +196,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var menu41 = FunctionItemFactory.CreateFunctionItem("管理付款计划", menu4.Id, 401, false, false, string.Empty);
             var menu411 = FunctionItemFactory.CreateFunctionItem("管理飞机付款计划", menu41.Id, 40101, false, false, "UniCloud.Presentation.Payment.PaymentSchedules.AcPaymentSchedule");
             var menu412 = FunctionItemFactory.CreateFunctionItem("管理发动机付款计划", menu41.Id, 40102, false, false, "UniCloud.Presentation.Payment.PaymentSchedules.EnginePaymentSchedule");
-            var menu413 = FunctionItemFactory.CreateFunctionItem("管理一般付款计划", menu41.Id, 40103, false, false, "UniCloud.Presentation.Payment.PaymentSchedules.StandardPaymentSchedule");
+            var menu413 = FunctionItemFactory.CreateFunctionItem("管理BFE付款计划", menu41.Id, 40103, false, false, "UniCloud.Presentation.Payment.PaymentSchedules.StandardPaymentSchedule");
             var menu414 = FunctionItemFactory.CreateFunctionItem("管理维修付款计划", menu41.Id, 40104, false, false, "UniCloud.Presentation.Payment.PaymentSchedules.MaintainPaymentSchedule");
             menu41.SubFunctionItems.Add(menu411);
             menu41.SubFunctionItems.Add(menu412);

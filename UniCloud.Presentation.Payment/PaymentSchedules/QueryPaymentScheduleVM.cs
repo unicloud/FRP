@@ -50,7 +50,13 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             InitialStandardPaymentSchedule(); //初始化标准付款计划
             InitialContractEngine(); //初始化合同发动机
             InitialEnginePaymentSchedule(); //初始化发动机付款计划
+            InitialMaintainPaymentSchedule();
+            CurrencysView = _service.CreateCollection(_context.Currencies);
+            Suppliers = _service.CreateCollection(_context.Suppliers);
         }
+
+        public QueryableDataServiceCollectionView<CurrencyDTO> CurrencysView { get; set; }
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
 
         #region 加载合同飞机
 
@@ -392,10 +398,53 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         #endregion
 
+        #region 加载维修付款计划
+
+        private MaintainPaymentScheduleDTO _selectMaintainPaymentSchedule;
+
+        /// <summary>
+        ///     选择维修付款计划
+        /// </summary>
+        public MaintainPaymentScheduleDTO SelectMaintainPaymentSchedule
+        {
+            get { return _selectMaintainPaymentSchedule; }
+            set
+            {
+                _selectMaintainPaymentSchedule = value;
+                RaisePropertyChanged(() => SelectMaintainPaymentSchedule);
+            }
+        }
+
+        /// <summary>
+        ///     获取所有付款计划信息。
+        /// </summary>
+        public QueryableDataServiceCollectionView<MaintainPaymentScheduleDTO> MaintainPaymentSchedules { get; set; }
+
+        /// <summary>
+        ///     初始化付款计划信息。
+        /// </summary>
+        private void InitialMaintainPaymentSchedule()
+        {
+            MaintainPaymentSchedules = _service.CreateCollection(_context.MaintainPaymentSchedules);
+            MaintainPaymentSchedules.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
+                {
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                SelectMaintainPaymentSchedule = e.Entities.Cast<MaintainPaymentScheduleDTO>().FirstOrDefault();
+            };
+        }
+
+        #endregion
+
         #region 重载基类服务
 
         public override void LoadData()
         {
+            CurrencysView.AutoLoad = true;
+            Suppliers.Load(true);
             //标准订单加载
             if (!StandardOrdersView.AutoLoad)
                 StandardOrdersView.AutoLoad = true;
@@ -405,6 +454,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             //合同发动机加载
             if (!ContractEnginesView.AutoLoad)
                 ContractEnginesView.AutoLoad = true;
+            if (!MaintainPaymentSchedules.AutoLoad)
+                MaintainPaymentSchedules.AutoLoad = true;
         }
 
         #endregion
