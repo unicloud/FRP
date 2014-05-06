@@ -175,8 +175,8 @@
                                                                     EmptyContent="机龄趋势变化趋势">
                                             <telerik:RadCartesianChart.Resources>
                                                 <DataTemplate x:Key="LinePointTemplate">
-                                                    <Ellipse Height='10'
-                                                             Width='10'
+                                                    <Ellipse Height='5'
+                                                             Width='5'
                                                              Fill="Blue" />
                                                 </DataTemplate>
                                             </telerik:RadCartesianChart.Resources>

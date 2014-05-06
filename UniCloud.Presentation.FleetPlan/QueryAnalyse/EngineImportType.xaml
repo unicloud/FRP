@@ -177,8 +177,8 @@
                                                                    EmptyContent="引进方式趋势变化趋势">
                                             <telerik:RadCartesianChart.Resources>
                                                 <DataTemplate x:Key="LinePointTemplate">
-                                                    <Ellipse Height='8'
-                                                             Width='8'
+                                                    <Ellipse Height='5'
+                                                             Width='5'
                                                              Fill="{Binding Path=DataItem.Color}" />
                                                 </DataTemplate>
                                                 <DataTemplate x:Key="LineTrackBallInfoTemplate">
