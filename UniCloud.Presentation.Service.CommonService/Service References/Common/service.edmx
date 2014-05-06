@@ -16,6 +16,7 @@
         <Property Name="Uploader" Type="Edm.String" />
         <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
         <Property Name="CreateTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="UpdateTime" Type="Edm.DateTime" Nullable="false" />
       </EntityType>
       <EntityType Name="DocumentTypeDTO">
         <Key>
