@@ -100,8 +100,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
             CurPlanHistories = new QueryableDataServiceCollectionView<PlanHistoryDTO>(_context, _context.PlanHistories);
             _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
-            //var group = new GroupDescriptor { Member = "CanRequest", SortDirection = ListSortDirection.Descending};
-            //CurPlanHistories.GroupDescriptors.Add(group);
+            var group = new GroupDescriptor { Member = "CanRequest", SortDirection = ListSortDirection.Descending };
+            CurPlanHistories.GroupDescriptors.Add(group);
             CurPlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
         }
 
@@ -122,6 +122,14 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         #region 数据
 
         #region 公共属性
+
+        public Dictionary<int, CanRequest> CanRequests
+        {
+            get
+            {
+                return Enum.GetValues(typeof(CanRequest)).Cast<object>().ToDictionary(value => (int)value, value => (CanRequest)value);
+            }
+        }
 
         #region 当前计划年度
 

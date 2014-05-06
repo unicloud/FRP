@@ -8,13 +8,13 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:RequestVM}">
+             d:DataContext="{d:DesignInstance uc:RequestVM}"
+             Name="RequestUserControl">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <uc:CanRequestConvert x:Key="CanRequestConvert" />
         </ResourceDictionary>
     </UserControl.Resources>
     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
@@ -172,14 +172,14 @@
                                                             <telerik:RadButton VerticalAlignment="Center"
                                                                                BorderThickness="0"
                                                                                Background="Transparent"
-                                                                               Command="{Binding DataContext.RemoveDocCommand, ElementName=LayoutRoot}"
+                                                                               Command="{Binding DataContext.RemoveDocCommand, ElementName=RequestUserControl}"
                                                                                CommandParameter="{Binding}">
                                                                 <Image Source="/UniCloud.Presentation;component/Images/DeleteRed.png"
                                                                        ToolTipService.ToolTip="移除关联文档" />
                                                             </telerik:RadButton>
                                                             <HyperlinkButton Content="{Binding DocumentName}"
                                                                              VerticalAlignment="Center"
-                                                                             Command="{Binding DataContext.ViewAttachCommand, ElementName=LayoutRoot}"
+                                                                             Command="{Binding DataContext.ViewAttachCommand, ElementName=RequestUserControl}"
                                                                              CommandParameter="{Binding DocumentId}"
                                                                              Margin="10,0,0,0" />
                                                         </StackPanel>
@@ -305,15 +305,20 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding DeltaCargo}">
                                             <telerik:GridViewDataColumn.AggregateFunctions>
-                                                <telerik:SumFunction ResultFormatString="总计：{0}架" />
+                                                <telerik:SumFunction ResultFormatString="净增货机：{0}架" />
                                             </telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="管理状态"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding ManaStatus}" />
-                                        <telerik:GridViewDataColumn Header="申请状态"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding CanRequest,ConverterParameter={StaticResource CanRequestConvert}}" />
+                                        <telerik:GridViewComboBoxColumn Header="申请状态"
+                                                                        IsReadOnly="True"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.CanRequests,ElementName=RequestUserControl,Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding CanRequest}"
+                                                                        SelectedValueMemberPath="Key"
+                                                                        DisplayMemberPath="Value" />
                                         <telerik:GridViewDataColumn Header="备注"
                                                                     DataMemberBinding="{Binding Note}" />
                                     </telerik:RadGridView.Columns>
