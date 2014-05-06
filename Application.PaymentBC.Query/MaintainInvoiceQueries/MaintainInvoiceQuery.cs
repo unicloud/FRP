@@ -33,19 +33,19 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
         }
 
         /// <summary>
-        ///     维修发票查询。
+        ///     发票查询。
         /// </summary>
         /// <param name="query">查询表达式。</param>
-        /// <returns>维修发票DTO集合。</returns>
-        public IQueryable<BaseMaintainInvoiceDTO> MaintainInvoiceDTOQuery(
-            QueryBuilder<MaintainInvoice> query)
+        /// <returns>发票DTO集合。</returns>
+        public IQueryable<BaseInvoiceDTO> InvoiceDTOQuery(
+            QueryBuilder<Invoice> query)
         {
             return
-                query.ApplyTo(_invoiceRepository.GetAll().OfType<MaintainInvoice>())
-                    .Select(p => new BaseMaintainInvoiceDTO
+                query.ApplyTo(_invoiceRepository.GetAll().OfType<Invoice>())
+                    .Select(p => new BaseInvoiceDTO
                     {
-                        MaintainInvoiceId = p.Id,
-                        SerialNumber = p.SerialNumber,
+                        InvoiceId = p.Id,
+                        InvoiceType = (int)p.InvoiceType,
                         InvoiceNumber = p.InvoiceNumber,
                         InvoideCode = p.InvoideCode,
                         InvoiceDate = p.InvoiceDate,
@@ -61,9 +61,6 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                         Status = (int)p.Status,
                         SupplierId = p.SupplierId,
                         CurrencyId = p.CurrencyId,
-                        DocumentName = p.DocumentName,
-                        DocumentId = p.DocumentId,
-                        PaymentScheduleLineId = p.PaymentScheduleLineId,
                     });
         }
 
@@ -139,7 +136,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      ReviewDate = p.ReviewDate,
                                      IsValid = p.IsValid,
                                      IsCompleted = p.IsCompleted,
-                                     Status = (int) p.Status,
+                                     Status = (int)p.Status,
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
                                      DocumentName = p.DocumentName,
@@ -149,7 +146,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                          p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                     {
                                                                         MaintainInvoiceLineId = q.Id,
-                                                                        MaintainItem = (int) q.MaintainItem,
+                                                                        MaintainItem = (int)q.MaintainItem,
                                                                         ItemName = q.ItemName,
                                                                         UnitPrice = q.UnitPrice,
                                                                         Amount = q.Amount,
@@ -184,7 +181,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      ReviewDate = p.ReviewDate,
                                      IsValid = p.IsValid,
                                      IsCompleted = p.IsCompleted,
-                                     Status = (int) p.Status,
+                                     Status = (int)p.Status,
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
                                      DocumentName = p.DocumentName,
@@ -194,7 +191,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                          p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                     {
                                                                         MaintainInvoiceLineId = q.Id,
-                                                                        MaintainItem = (int) q.MaintainItem,
+                                                                        MaintainItem = (int)q.MaintainItem,
                                                                         ItemName = q.ItemName,
                                                                         UnitPrice = q.UnitPrice,
                                                                         Amount = q.Amount,
@@ -230,7 +227,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      ReviewDate = p.ReviewDate,
                                      IsValid = p.IsValid,
                                      IsCompleted = p.IsCompleted,
-                                     Status = (int) p.Status,
+                                     Status = (int)p.Status,
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
                                      DocumentName = p.DocumentName,
@@ -240,7 +237,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                          p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                     {
                                                                         MaintainInvoiceLineId = q.Id,
-                                                                        MaintainItem = (int) q.MaintainItem,
+                                                                        MaintainItem = (int)q.MaintainItem,
                                                                         ItemName = q.ItemName,
                                                                         UnitPrice = q.UnitPrice,
                                                                         Amount = q.Amount,

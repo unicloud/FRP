@@ -35,6 +35,11 @@ namespace UniCloud.Application.PaymentBC.DTO
         public int InvoiceId { get; set; }
 
         /// <summary>
+        /// 发票类型
+        /// </summary>
+        public int InvoiceType { get; set; }
+
+        /// <summary>
         ///     序列号
         /// </summary>
         public string SerialNumber { get; set; }

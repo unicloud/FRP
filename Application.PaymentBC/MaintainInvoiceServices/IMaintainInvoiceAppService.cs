@@ -27,10 +27,10 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
     public interface IMaintainInvoiceAppService
     {
         /// <summary>
-        ///     获取所有维修发票
+        ///     获取所有发票
         /// </summary>
-        /// <returns>所有维修发票</returns>
-        IQueryable<BaseMaintainInvoiceDTO> GetMaintainInvoices();
+        /// <returns>所有发票</returns>
+        IQueryable<BaseInvoiceDTO> GetInvoices();
 
         /// <summary>
         ///     获取所有发动机维修发票

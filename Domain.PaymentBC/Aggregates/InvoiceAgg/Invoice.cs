@@ -20,7 +20,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
@@ -52,6 +51,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         #endregion
 
         #region 属性
+
+        /// <summary>
+        ///     发票类型
+        /// </summary>
+        public InvoiceType InvoiceType { get; private set; }
 
         /// <summary>
         ///     发票编号
@@ -159,6 +163,14 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        /// 设置发票类型
+        /// </summary>
+        /// <param name="invoiceType">发票类型</param>
+        public void SetInvoiceType(InvoiceType invoiceType)
+        {
+            InvoiceType = invoiceType;
+        }
 
         /// <summary>
         ///     设置发票编号

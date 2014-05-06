@@ -41,6 +41,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             {
                 CreateDate = DateTime.Now
             };
+            invoice.SetInvoiceType(InvoiceType.维修发票);
             invoice.GenerateNewIdentity();
 
             return invoice;
@@ -56,6 +57,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             {
                 CreateDate = DateTime.Now
             };
+            invoice.SetInvoiceType(InvoiceType.维修发票);
             invoice.GenerateNewIdentity();
 
             return invoice;
@@ -71,6 +73,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             {
                 CreateDate = DateTime.Now
             };
+            invoice.SetInvoiceType(InvoiceType.维修发票);
             invoice.GenerateNewIdentity();
 
             return invoice;
@@ -86,6 +89,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             {
                 CreateDate = DateTime.Now
             };
+            invoice.SetInvoiceType(InvoiceType.维修发票);
             invoice.GenerateNewIdentity();
 
             return invoice;
