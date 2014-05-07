@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -143,6 +144,14 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         #region 数据
 
         #region 公共属性
+        
+        public Dictionary<int, CanRequest> CanRequests
+        {
+            get
+            {
+                return Enum.GetValues(typeof(CanRequest)).Cast<object>().ToDictionary(value => (int)value, value => (CanRequest)value);
+            }
+        }
 
         #region 当前计划年度
 

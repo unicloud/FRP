@@ -4,7 +4,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQiBin 时间：2014/5/3 15:14:24
-// 文件名：RequestInput
+// 文件名：IndexAircraftInput
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -39,16 +39,16 @@ namespace UniCloud.Presentation.FleetPlan.Requests
     /// <summary>
     /// 计划明细双击处理
     /// </summary>
-    public class PlanHistoryDoubleClickHelper : GridViewDoubleClickHelper
+    public class PlanDetailDoubleClickHelper : GridViewDoubleClickHelper
     {
         protected override void GridViewDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {
-            var viewModel = ServiceLocator.Current.GetInstance<RequestVM>();
+            var viewModel = ServiceLocator.Current.GetInstance<ManageIndexAircraftVM>();
         }
 
         protected override bool CanDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {
-            var viewModel = ServiceLocator.Current.GetInstance<RequestVM>();
+            var viewModel = ServiceLocator.Current.GetInstance<ManageIndexAircraftVM>();
             return true;
         }
     }
@@ -59,16 +59,16 @@ namespace UniCloud.Presentation.FleetPlan.Requests
     /// <summary>
     /// 申请明细双击处理
     /// </summary>
-    public class ApprovalHistoryDoubleClickHelper : GridViewDoubleClickHelper
+    public class ApprovalDetailDoubleClickHelper : GridViewDoubleClickHelper
     {
         protected override void GridViewDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {
-            var viewModel = ServiceLocator.Current.GetInstance<RequestVM>();
+            var viewModel = ServiceLocator.Current.GetInstance<ManageIndexAircraftVM>();
         }
 
         protected override bool CanDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {
-            var viewModel = ServiceLocator.Current.GetInstance<RequestVM>();
+            var viewModel = ServiceLocator.Current.GetInstance<ManageIndexAircraftVM>();
             return true;
         }
     }

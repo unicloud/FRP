@@ -235,24 +235,27 @@
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="True"
                                                      AllowDrop="True"
+                                                     uc:GridViewDragAndDropBehavior.IsEnabled="True"
                                                      CanUserSortColumns="False"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Visible"
                                                      AutoExpandGroups="True"
                                                      RowStyle="{StaticResource DraggedRowStyle}">
-                                    <!--<telerik:RadGridView.GroupDescriptors>
-                                        <telerik:GroupDescriptor Member="{Binding AircraftTypeName}"
-                                                                 SortDirection="Descending" />
-                                    </telerik:RadGridView.GroupDescriptors>-->
                                     <uc:GridViewDoubleClick.Helper>
                                         <uc:PlanHistoryDoubleClickHelper />
                                     </uc:GridViewDoubleClick.Helper>
-                                    <telerik:GridViewDragDrop.Behavior>
-                                        <uc:PlanHistoryDragDrop />
-                                    </telerik:GridViewDragDrop.Behavior>
-                                    <telerik:GridViewDragDrop.DragVisualProvider>
-                                        <uc:PlanHistoryDragVisual />
-                                    </telerik:GridViewDragDrop.DragVisualProvider>
+                                    <telerik:RadGridView.Resources>
+                                        <DataTemplate x:Name="PlanDraggedItemTemplate">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Regional}"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="3,0" />
+                                                <TextBlock Text="{Binding AircraftTypeName}"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="3,0" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </telerik:RadGridView.Resources>
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
                                         <telerik:GridViewDataColumn Header="航空公司"
@@ -341,6 +344,7 @@
                                                      CanUserFreezeColumns="False"
                                                      ShowGroupPanel="False"
                                                      AllowDrop="True"
+                                                     uc:GridViewDragAndDropBehavior.IsEnabled="True"
                                                      ItemsSource="{Binding SelRequest.ApprovalHistories}"
                                                      SelectedItem="{Binding SelApprovalHistory,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
@@ -350,12 +354,18 @@
                                     <uc:GridViewDoubleClick.Helper>
                                         <uc:ApprovalHistoryDoubleClickHelper />
                                     </uc:GridViewDoubleClick.Helper>
-                                    <telerik:GridViewDragDrop.Behavior>
-                                        <uc:ApprovalHistoryDragDrop />
-                                    </telerik:GridViewDragDrop.Behavior>
-                                    <telerik:GridViewDragDrop.DragVisualProvider>
-                                        <uc:ApprovalHistoryDragVisual />
-                                    </telerik:GridViewDragDrop.DragVisualProvider>
+                                    <telerik:RadGridView.Resources>
+                                        <DataTemplate x:Name="RequestDraggedItemTemplate">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding AircraftRegional}"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="3,0" />
+                                                <TextBlock Text="{Binding AircraftType}"
+                                                           HorizontalAlignment="Center"
+                                                           Margin="3,0" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </telerik:RadGridView.Resources>
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
                                         <telerik:GridViewDataColumn Header="座级"

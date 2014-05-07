@@ -271,6 +271,7 @@
                                     <telerik:RadTreeView  x:Name="SpecialConfigsTreeView"
                                                           Grid.Row="1"
                                                           IsEditable="True"
+                                                          IsLineEnabled="True"
                                                           AllowDrop="True"
                                                           IsDragDropEnabled="False"
                                                           ItemTemplate="{StaticResource SpecialConfigTemplate}"

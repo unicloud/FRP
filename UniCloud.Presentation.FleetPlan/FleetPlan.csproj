@@ -296,6 +296,7 @@
       <DependentUpon>PassengerAircraftTrend.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\PassengerAircraftTrendVm.cs" />
+    <Compile Include="Requests\IndexAircraftInput.cs" />
     <Compile Include="Requests\ManageIndexAircraftView.xaml.cs">
       <DependentUpon>ManageIndexAircraftView.xaml</DependentUpon>
     </Compile>
