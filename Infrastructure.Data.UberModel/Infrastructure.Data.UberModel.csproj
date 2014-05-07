@@ -82,6 +82,7 @@
     <Compile Include="InitialData\TradeData.cs" />
     <Compile Include="InitialData\UserData.cs" />
     <Compile Include="InitialData\XmlConfigData.cs" />
+    <Compile Include="InitialData\XmlSettingData.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcConfigEntityConfiguration.cs" />

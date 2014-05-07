@@ -22,6 +22,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             //            .Register(new FunctionItemData(context))
             //            .Register(new UserData(context))
             //            .Register(new XmlConfigData(context))
+            //.Register(new XmlSettingData(context))
             //            .Register(new LicenseTypeData(context))
             //            .Register(new SupplierData(context))
             //            .Register(new ManagerData(context))
@@ -42,7 +43,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             //            .Register(new DocumentTypeData(context))
             //            .Register(new DocumentData(context))
             //            .Register(new IssuedUnitData(context))
-            //    .InitialData();
+                //.InitialData();
         }
     }
 }
