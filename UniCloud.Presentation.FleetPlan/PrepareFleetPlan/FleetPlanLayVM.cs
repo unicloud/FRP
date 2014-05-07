@@ -379,15 +379,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 {
                     _selPlanHistory = value;
                     RaisePropertyChanged(() => SelPlanHistory);
+                    if (_selPlanHistory != null)
+                    {
+                        if (ViewPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().Any(pa => pa.Id == _selPlanHistory.PlanAircraftId))
+                            SelPlanAircraft = ViewPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().FirstOrDefault(p => p.Id == _selPlanHistory.PlanAircraftId);
+                        else SelPlanAircraft = null;//根据选择的计划明细找到关联的计划飞机
 
-                    if (ViewPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().Any(pa => pa.Id == _selPlanHistory.PlanAircraftId))
-                        SelPlanAircraft = ViewPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().FirstOrDefault(p => p.Id == _selPlanHistory.PlanAircraftId);
-                    else SelPlanAircraft = null;//根据选择的计划明细找到关联的计划飞机
-
-                    if (Aircrafts.SourceCollection.Cast<AircraftDTO>().Any(pa => pa.AircraftId == value.AircraftId))
-                        SelAircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == value.AircraftId);
-                    else SelAircraft = null;//根据选择的计划明细找到关联的运营飞机
-
+                        if (Aircrafts.SourceCollection.Cast<AircraftDTO>().Any(pa => pa.AircraftId == value.AircraftId))
+                            SelAircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == value.AircraftId);
+                        else SelAircraft = null;//根据选择的计划明细找到关联的运营飞机
+                    }
                     RefreshCommandState();
                 }
             }

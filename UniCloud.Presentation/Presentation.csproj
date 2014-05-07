@@ -297,6 +297,7 @@
     <Compile Include="Input\DropIndicationDetails.cs" />
     <Compile Include="Input\GridViewDoubleClick.cs" />
     <Compile Include="Input\GridViewDoubleClickHelper.cs" />
+    <Compile Include="Input\GridViewDragDropBehavior.cs" />
     <Compile Include="Input\GridViewSelectedItemsBehavior.cs" />
     <Compile Include="Input\ListBoxDoubleClick.cs" />
     <Compile Include="Input\ListBoxDoubleClickHelper.cs" />

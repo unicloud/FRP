@@ -104,6 +104,7 @@
                                 </telerik:RadToolBar>
                                 <telerik:RadGridView x:Name="PlanLay"
                                                      Grid.Row="1"
+                                                     AllowDrop="True"
                                                      AutoExpandGroups="True"
                                                      ShowGroupPanel="False"
                                                      AutoGenerateColumns="False"
@@ -127,9 +128,6 @@
                                                                    CommandParameter="{Binding ElementName=PlanLay}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                    <telerik:GridViewDragDrop.Behavior>
-                                        <uc:FleetPlanLayCurrentPlanDetail />
-                                    </telerik:GridViewDragDrop.Behavior>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -235,6 +233,8 @@
                                                      ShowGroupPanel="False"
                                                      AutoGenerateColumns="False"
                                                      CanUserSortColumns="True"
+                                                     AllowDrop="True"
+                                                     uc:GridViewDragAndDropBehavior.IsEnabled="True"
                                                      RowStyle="{StaticResource DraggedRowStyle}"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Collapsed"
@@ -253,12 +253,6 @@
                                     <uc:GridViewDoubleClick.Helper>
                                         <uc:FleetPlanLayPlanDoubleClickHelper />
                                     </uc:GridViewDoubleClick.Helper>
-                                    <telerik:GridViewDragDrop.Behavior>
-                                        <uc:FleetPlanLayPlanDragDrop />
-                                    </telerik:GridViewDragDrop.Behavior>
-                                    <telerik:GridViewDragDrop.DragVisualProvider>
-                                        <uc:FleetPlanLayPlanDragVisual />
-                                    </telerik:GridViewDragDrop.DragVisualProvider>
                                     <telerik:RadGridView.Resources>
                                         <DataTemplate x:Name="PlanDraggedItemTemplate">
                                             <StackPanel Orientation="Horizontal">
@@ -313,6 +307,8 @@
                                                      ShowGroupPanel="False"
                                                      AutoExpandGroups="True"
                                                      IsReadOnly="True"
+                                                     AllowDrop="True"
+                                                     uc:GridViewDragAndDropBehavior.IsEnabled="True"
                                                      CanUserSortColumns="True"
                                                      RowStyle="{StaticResource DraggedRowStyle}"
                                                      CanUserFreezeColumns="False"
@@ -336,12 +332,6 @@
                                     <uc:GridViewDoubleClick.Helper>
                                         <uc:FleetPlanLayOperationDoubleClickHelper />
                                     </uc:GridViewDoubleClick.Helper>
-                                    <telerik:GridViewDragDrop.Behavior>
-                                        <uc:FleetPlanLayOperationDragDrop />
-                                    </telerik:GridViewDragDrop.Behavior>
-                                    <telerik:GridViewDragDrop.DragVisualProvider>
-                                        <uc:FleetPlanLayOperationDragVisual />
-                                    </telerik:GridViewDragDrop.DragVisualProvider>
                                     <telerik:RadGridView.Resources>
                                         <DataTemplate x:Name="OperationDraggedItemTemplate">
                                             <StackPanel Orientation="Horizontal">

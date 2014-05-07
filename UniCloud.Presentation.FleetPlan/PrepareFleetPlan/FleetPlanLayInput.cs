@@ -41,46 +41,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
     /// <summary>
     /// 拖放行为
     /// </summary>
-    public class FleetPlanLayPlanDragDrop : GridViewDragDropBehavior
+    public class FleetPlanLayPlanDragDrop : GridViewDragAndDropBehavior
     {
-        public override bool CanStartDrag(GridViewDragDropState state)
-        {
-            var viewModel = ServiceLocator.Current.GetInstance<FleetPlanLayVM>();
-            // 当前计划不为空且还未审核通过的，才允许开始拖放。
-            return viewModel.CurPlan != null && viewModel.CurPlan.Status < (int)PlanStatus.已审核;
-        }
-
-        public override bool CanDrop(GridViewDragDropState state)
-        {
-            return false;
-        }
-
-        public override void DragDropCompleted(GridViewDragDropState state)
-        {
-        }
-    }
-
-    /// <summary>
-    /// 拖放展示
-    /// </summary>
-    public class FleetPlanLayPlanDragVisual : IDragVisualProvider
-    {
-        public FrameworkElement CreateDragVisual(DragVisualProviderState state)
-        {
-            var visual = new Telerik.Windows.DragDrop.DragVisual
-            {
-                Content = state.DraggedItems.OfType<object>().FirstOrDefault(),
-                ContentTemplate = state.Host.Resources["PlanDraggedItemTemplate"] as DataTemplate
-            };
-            return visual;
-        }
-
-        public Point GetDragVisualOffset(DragVisualProviderState state)
-        {
-            return state.RelativeStartPoint;
-        }
-
-        public bool UseDefaultCursors { get; set; }
+        //public override bool CanStartDrag(GridViewDragDropState state)
+        //{
+        //    var viewModel = ServiceLocator.Current.GetInstance<FleetPlanLayVM>();
+        //    // 当前计划不为空且还未审核通过的，才允许开始拖放。
+        //    return viewModel.CurPlan != null && viewModel.CurPlan.Status < (int)PlanStatus.已审核;
+        //}
     }
 
     /// <summary>
@@ -107,48 +75,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
     #region 运营中的飞机
 
-    public class FleetPlanLayOperationDragDrop : GridViewDragDropBehavior
+    public class FleetPlanLayOperationDragDrop : GridViewDragAndDropBehavior
     {
-        public override bool CanStartDrag(GridViewDragDropState state)
-        {
-            var viewModel = ServiceLocator.Current.GetInstance<FleetPlanLayVM>();
-            // 当前计划不为空且还未审核通过的，才允许开始拖放。
-            return viewModel.CurPlan != null && viewModel.CurPlan.Status < (int)PlanStatus.已审核;
-        }
-
-        public override bool CanDrop(GridViewDragDropState state)
-        {
-            return false;
-        }
-
-        public override void DragDropCompleted(GridViewDragDropState state)
-        {
-        }
+        //public override bool CanStartDrag(GridViewDragDropState state)
+        //{
+        //    var viewModel = ServiceLocator.Current.GetInstance<FleetPlanLayVM>();
+        //    // 当前计划不为空且还未审核通过的，才允许开始拖放。
+        //    return viewModel.CurPlan != null && viewModel.CurPlan.Status < (int)PlanStatus.已审核;
+        //}
     }
-
-    /// <summary>
-    /// 拖放展示
-    /// </summary>
-    public class FleetPlanLayOperationDragVisual : IDragVisualProvider
-    {
-        public FrameworkElement CreateDragVisual(DragVisualProviderState state)
-        {
-            var visual = new Telerik.Windows.DragDrop.DragVisual
-            {
-                Content = state.DraggedItems.OfType<object>().FirstOrDefault(),
-                ContentTemplate = state.Host.Resources["OperationDraggedItemTemplate"] as DataTemplate
-            };
-            return visual;
-        }
-
-        public Point GetDragVisualOffset(DragVisualProviderState state)
-        {
-            return state.RelativeStartPoint;
-        }
-
-        public bool UseDefaultCursors { get; set; }
-    }
-
+    
     /// <summary>
     /// 鼠标双击逻辑
     /// </summary>
@@ -170,46 +106,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var viewModel = ServiceLocator.Current.GetInstance<FleetPlanLayVM>();
             // 当前计划不为空且还未审核通过的，才允许双击。
             return viewModel.CurPlan != null && viewModel.CurPlan.Status < (int)PlanStatus.已审核;
-        }
-    }
-
-    #endregion
-
-    #region 当前计划明细
-
-    public class FleetPlanLayCurrentPlanDetail : GridViewDragDropBehavior
-    {
-        public override bool CanStartDrag(GridViewDragDropState state)
-        {
-            return false;
-        }
-
-        public override bool CanDrop(GridViewDragDropState state)
-        {
-            return true;
-        }
-
-        public override void Drop(GridViewDragDropState state)
-        {
-            var viewModel = ServiceLocator.Current.GetInstance<FleetPlanLayVM>();
-            var items = (from object item in state.DraggedItems select item).ToList();
-            if (items.Any())
-            {
-                if (items[0] is PlanAircraftDTO)
-                {
-                    var planAircraft = items.Select(pa => pa as PlanAircraftDTO).FirstOrDefault();
-                    viewModel.OpenEditDialog(planAircraft, PlanDetailCreateSource.PlanAircraft);
-                }
-                else if (items[0] is AircraftDTO)
-                {
-                    var planAircraft = items.SelectMany(a =>
-                    {
-                        var aircraft = a as AircraftDTO;
-                        return aircraft != null ? viewModel.ViewPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().Where(p => p.Id == aircraft.AircraftId) : null;
-                    }).FirstOrDefault(pa => pa.IsOwn);
-                    viewModel.OpenEditDialog(planAircraft, PlanDetailCreateSource.Aircraft);
-                }
-            }
         }
     }
 
