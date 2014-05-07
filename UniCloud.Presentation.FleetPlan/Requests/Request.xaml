@@ -231,6 +231,7 @@
                                                      SelectedItem="{Binding SelPlanHistory,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
                                                      ShowGroupPanel="False"
+                                                     ShowGroupFooters="True"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="True"
                                                      AllowDrop="True"
@@ -284,21 +285,21 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding DeltaPnr}">
                                             <telerik:GridViewDataColumn.AggregateFunctions>
-                                                <telerik:SumFunction ResultFormatString="总计：{0}架" />
+                                                <telerik:SumFunction ResultFormatString="净增客机：{0}架" />
                                             </telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="净增座位"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding SeatingCapacity}">
                                             <telerik:GridViewDataColumn.AggregateFunctions>
-                                                <telerik:SumFunction ResultFormatString="总计：{0}座" />
+                                                <telerik:SumFunction ResultFormatString="净增座位：{0}座" />
                                             </telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="净增商载（吨）"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding CarryingCapacity}">
                                             <telerik:GridViewDataColumn.AggregateFunctions>
-                                                <telerik:SumFunction ResultFormatString="总计：{0}吨" />
+                                                <telerik:SumFunction ResultFormatString="净增商载：{0}吨" />
                                             </telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="净增货机"
