@@ -139,6 +139,7 @@
                             </StackPanel>
                             <telerik:RadTreeView  x:Name="LeftAcConfigsTreeView"
                                                   Grid.Row="2"
+                                                  IsLineEnabled="True"
                                                   ItemTemplate="{StaticResource AcConfigTemplate}"
                                                   ItemsSource="{Binding LeftViewAcConfigs,Mode=TwoWay}"
                                                   ItemContainerStyle="{StaticResource ItemContainerStyle}">
@@ -221,6 +222,7 @@
                             </StackPanel>
                             <telerik:RadTreeView  x:Name="RightAcConfigsTreeView"
                                                   Grid.Row="2"
+                                                  IsLineEnabled="True"
                                                   ItemTemplate="{StaticResource AcConfigTemplate}"
                                                   ItemsSource="{Binding RightViewAcConfigs,Mode=TwoWay}"
                                                   ItemContainerStyle="{StaticResource ItemContainerStyle}">
