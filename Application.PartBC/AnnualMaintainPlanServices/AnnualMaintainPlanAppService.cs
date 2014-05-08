@@ -58,7 +58,7 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
         {
             var newEngineMaintainPlan = AnnualMaintainPlanFactory.CreatEngineMaintainPlan();
             AnnualMaintainPlanFactory.SetEngineMaintainPlan(newEngineMaintainPlan, engineMaintainPlan.MaintainPlanType, engineMaintainPlan.DollarRate, engineMaintainPlan.CompanyLeader, engineMaintainPlan.DepartmentLeader, engineMaintainPlan.BudgetManager,
-                engineMaintainPlan.PhoneNumber);
+                engineMaintainPlan.PhoneNumber, engineMaintainPlan.AnnualId);
             if (engineMaintainPlan.EngineMaintainPlanDetails != null)
             {
                 foreach (var engineMaintainPlanLine in engineMaintainPlan.EngineMaintainPlanDetails)
@@ -66,7 +66,7 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
                     var newEngineMaintainPlanLine = AnnualMaintainPlanFactory.CreatEngineMaintainPlanDetail();
                     AnnualMaintainPlanFactory.SetEngineMaintainPlanDetail(newEngineMaintainPlanLine, engineMaintainPlanLine.ChangeLlpFee, engineMaintainPlanLine.ChangeLlpNumber, engineMaintainPlanLine.CustomsTax, engineMaintainPlanLine.EngineNumber,
                         engineMaintainPlanLine.FreightFee, engineMaintainPlanLine.InMaintainDate, engineMaintainPlanLine.MaintainLevel, engineMaintainPlanLine.NonFhaFee, engineMaintainPlanLine.Note, engineMaintainPlanLine.OutMaintainDate, engineMaintainPlanLine.PartFee,
-                        engineMaintainPlanLine.TsnCsn, engineMaintainPlanLine.TsrCsr);
+                        engineMaintainPlanLine.TsnCsn, engineMaintainPlanLine.TsrCsr, engineMaintainPlanLine.FeeLittleSum, engineMaintainPlanLine.FeeTotalSum, engineMaintainPlanLine.BudgetToalSum);
                     newEngineMaintainPlan.EngineMaintainPlanDetails.Add(newEngineMaintainPlanLine);
                 }
             }
@@ -83,7 +83,7 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
         {
             var updateEngineMaintainPlan = _aunualMaintainPlanRepository.GetEngineMaintainPlan(engineMaintainPlan.Id); //获取需要更新的对象。
             AnnualMaintainPlanFactory.SetEngineMaintainPlan(updateEngineMaintainPlan, engineMaintainPlan.MaintainPlanType, engineMaintainPlan.DollarRate, engineMaintainPlan.CompanyLeader, engineMaintainPlan.DepartmentLeader, engineMaintainPlan.BudgetManager,
-                 engineMaintainPlan.PhoneNumber);
+                 engineMaintainPlan.PhoneNumber, engineMaintainPlan.AnnualId);
             UpdateEngineMaintainPlanDetails(engineMaintainPlan.EngineMaintainPlanDetails, updateEngineMaintainPlan);
             _aunualMaintainPlanRepository.Modify(updateEngineMaintainPlan);
         }
@@ -120,7 +120,7 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
                 }
                 AnnualMaintainPlanFactory.SetEngineMaintainPlanDetail(result, sourceEngineMaintainPlanLine.ChangeLlpFee, sourceEngineMaintainPlanLine.ChangeLlpNumber, sourceEngineMaintainPlanLine.CustomsTax, sourceEngineMaintainPlanLine.EngineNumber,
                         sourceEngineMaintainPlanLine.FreightFee, sourceEngineMaintainPlanLine.InMaintainDate, sourceEngineMaintainPlanLine.MaintainLevel, sourceEngineMaintainPlanLine.NonFhaFee, sourceEngineMaintainPlanLine.Note, sourceEngineMaintainPlanLine.OutMaintainDate, sourceEngineMaintainPlanLine.PartFee,
-                        sourceEngineMaintainPlanLine.TsnCsn, sourceEngineMaintainPlanLine.TsrCsr);
+                        sourceEngineMaintainPlanLine.TsnCsn, sourceEngineMaintainPlanLine.TsrCsr, sourceEngineMaintainPlanLine.FeeLittleSum, sourceEngineMaintainPlanLine.FeeTotalSum, sourceEngineMaintainPlanLine.BudgetToalSum);
                 engineMaintainPlanLines.Add(result);
             }
             dstEngineMaintainPlan.EngineMaintainPlanDetails.ToList().ForEach(p =>

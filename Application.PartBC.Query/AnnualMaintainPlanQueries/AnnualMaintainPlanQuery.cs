@@ -64,6 +64,9 @@ namespace UniCloud.Application.PartBC.Query.AnnualMaintainPlanQueries
                     PartFee = q.PartFee,
                     TsnCsn = q.TsnCsn,
                     TsrCsr = q.TsrCsr,
+                    FeeLittleSum = q.FeeLittleSum,
+                    FeeTotalSum = q.FeeTotalSum,
+                    BudgetToalSum = q.BudgetToalSum
                 }).ToList(),
             });
         }

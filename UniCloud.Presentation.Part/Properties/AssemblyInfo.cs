@@ -46,3 +46,4 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Part.SnHistories")]
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Part.MaintainAcDailyUtilization")]
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Part.MaintainControl")]
+[assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Part.ManageAnnualMaintainPlan")]

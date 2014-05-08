@@ -12,6 +12,8 @@
 // ========================================================================*/
 #endregion
 
+using System;
+
 namespace UniCloud.Domain.PartBC.Aggregates.AnnualMaintainPlanAgg
 {
     /// <summary>
@@ -41,7 +43,8 @@ namespace UniCloud.Domain.PartBC.Aggregates.AnnualMaintainPlanAgg
             return detail;
         }
 
-        public static void SetEngineMaintainPlan(EngineMaintainPlan engineMaintainPlan, int maintainPlanType, decimal dollarRate, string companyLeader, string departmentLeader, string budgetManager, string phoneNumber)
+        public static void SetEngineMaintainPlan(EngineMaintainPlan engineMaintainPlan, int maintainPlanType, decimal dollarRate, string companyLeader, string departmentLeader,
+            string budgetManager, string phoneNumber, Guid annual)
         {
             engineMaintainPlan.MaintainPlanType = maintainPlanType;
             engineMaintainPlan.DollarRate = dollarRate;
@@ -49,11 +52,12 @@ namespace UniCloud.Domain.PartBC.Aggregates.AnnualMaintainPlanAgg
             engineMaintainPlan.DepartmentLeader = departmentLeader;
             engineMaintainPlan.BudgetManager = budgetManager;
             engineMaintainPlan.PhoneNumber = phoneNumber;
+            engineMaintainPlan.AnnualId = annual;
         }
 
         public static void SetEngineMaintainPlanDetail(EngineMaintainPlanDetail engineMaintainPlanDetail, decimal changeLlpFee, int changeLlpNumber, decimal customsTax,
             string engineNumber, decimal freightFee, string inMaintainDate, string maintainLevel, decimal nonFhaFee, string note, string outMaintainDate, decimal partFee,
-            string tsnCsn, string tsrCsr)
+            string tsnCsn, string tsrCsr, decimal feeLittleSum, decimal feeTotalSum, decimal budgetToalSum)
         {
             engineMaintainPlanDetail.ChangeLlpFee = changeLlpFee;
             engineMaintainPlanDetail.ChangeLlpNumber = changeLlpNumber;
@@ -68,6 +72,9 @@ namespace UniCloud.Domain.PartBC.Aggregates.AnnualMaintainPlanAgg
             engineMaintainPlanDetail.PartFee = partFee;
             engineMaintainPlanDetail.TsnCsn = tsnCsn;
             engineMaintainPlanDetail.TsrCsr = tsrCsr;
+            engineMaintainPlanDetail.FeeLittleSum = feeLittleSum;
+            engineMaintainPlanDetail.FeeTotalSum = feeTotalSum;
+            engineMaintainPlanDetail.BudgetToalSum = budgetToalSum;
         }
     }
 }

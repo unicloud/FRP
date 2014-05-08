@@ -47,6 +47,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.CustomsTax).HasColumnName("CustomsTax");
             Property(p => p.FreightFee).HasColumnName("FreightFee");
             Property(p => p.Note).HasColumnName("Note");
+            Property(p => p.FeeLittleSum).HasColumnName("FeeLittleSum");
+            Property(p => p.FeeTotalSum).HasColumnName("FeeTotalSum");
+            Property(p => p.BudgetToalSum).HasColumnName("BudgetToalSum");
             Property(p => p.EngineMaintainPlanId).HasColumnName("EngineMaintainPlanId");
         }
     }

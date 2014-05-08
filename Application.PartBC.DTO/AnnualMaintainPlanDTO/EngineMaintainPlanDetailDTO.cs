@@ -85,6 +85,18 @@ namespace UniCloud.Application.PartBC.DTO
         /// 申报说明
         /// </summary>
         public string Note { get; set; }
+        /// <summary>
+        /// 修理费小计
+        /// </summary>
+        public decimal FeeLittleSum { get; set; }
+        /// <summary>
+        /// 修理费合计
+        /// </summary>
+        public decimal FeeTotalSum { get; set; }
+        /// <summary>
+        /// 费用预算合计
+        /// </summary>
+        public decimal BudgetToalSum { get; set; }
         #endregion
     }
 }
