@@ -235,6 +235,10 @@
       <DependentUpon>MaintainAirStructureDamage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageAirStructureDamage\MaintainAirStructureDamageVm.cs" />
+    <Compile Include="ManageAnnualMaintainPlan\ManageEngineMaintainPlan.xaml.cs">
+      <DependentUpon>ManageEngineMaintainPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageAnnualMaintainPlan\ManageEngineMaintainPlanVm.cs" />
     <Compile Include="ManageItem\ItemControlView.xaml.cs">
       <DependentUpon>ItemControlView.xaml</DependentUpon>
     </Compile>
@@ -287,6 +291,11 @@
     <ProjectReference Include="..\UniCloud.Presentation.Service.CommonService\Service.CommonService.csproj">
       <Project>{e182cb39-cb47-4a7a-bf2d-0094d38d24fe}</Project>
       <Name>Service.CommonService</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.FleetPlan\Service.FleetPlan.csproj">
+      <Project>{b2d2a463-a571-4467-b552-338d89d322f8}</Project>
+      <Name>Service.FleetPlan</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service.Part\Service.Part.csproj">
@@ -346,6 +355,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManageAirStructureDamage\MaintainAirStructureDamage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageAnnualMaintainPlan\ManageEngineMaintainPlan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

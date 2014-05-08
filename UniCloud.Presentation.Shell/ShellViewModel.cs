@@ -1015,15 +1015,35 @@ namespace UniCloud.Presentation.Shell
             menu81.Items.Add(menu812);
 
 
-            var menu83 = new MenuItem
+            var menu82 = new MenuItem
             {
                 Text = "维护结构损伤",
                 NavUri = "UniCloud.Presentation.Part.ManageAirStructureDamage.MaintainAirStructureDamage"
             };
 
-            menu8.Items.Add(menu81);
-            menu8.Items.Add(menu83);
+            var menu83 = new MenuItem
+            {
+                Text = "管理年度送修计划",
+            };
 
+            var menu831 = new MenuItem
+            {
+                Text = "管理发动机年度送修计划",
+                NavUri = "UniCloud.Presentation.Part.ManageAnnualMaintainPlan.ManageEngineMaintainPlan"
+            };
+
+            var menu832 = new MenuItem
+            {
+                Text = "管理机身、起落架年度送修计划",
+                NavUri = ""
+            };
+
+            menu83.Items.Add(menu831);
+            menu83.Items.Add(menu832);
+
+            menu8.Items.Add(menu81);
+            menu8.Items.Add(menu82);
+            menu8.Items.Add(menu83);
             _items.Add(menu8);
 
             #endregion

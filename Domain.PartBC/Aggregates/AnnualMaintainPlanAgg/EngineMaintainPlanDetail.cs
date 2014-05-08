@@ -92,6 +92,18 @@ namespace UniCloud.Domain.PartBC.Aggregates.AnnualMaintainPlanAgg
         /// 申报说明
         /// </summary>
         public string Note { get; internal set; }
+        /// <summary>
+        /// 修理费小计
+        /// </summary>
+        public decimal FeeLittleSum { get; internal set; }
+        /// <summary>
+        /// 修理费合计
+        /// </summary>
+        public decimal FeeTotalSum { get; internal set; }
+        /// <summary>
+        /// 费用预算合计
+        /// </summary>
+        public decimal BudgetToalSum { get; internal set; }
         #endregion
 
         #region 外键属性

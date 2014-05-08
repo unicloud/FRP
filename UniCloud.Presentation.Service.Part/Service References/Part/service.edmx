@@ -478,6 +478,9 @@
         <Property Name="CustomsTax" Type="Edm.Decimal" Nullable="false" />
         <Property Name="FreightFee" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
+        <Property Name="FeeLittleSum" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="FeeTotalSum" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="BudgetToalSum" Type="Edm.Decimal" Nullable="false" />
       </ComplexType>
       <EntityType Name="UtilizationReportDTO">
         <Key>
