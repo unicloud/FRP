@@ -42,7 +42,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
         {
             var aircraftTypes = new List<AircraftType>
             {
-
                 // 250座以上客机
                 AircraftTypeFactory.CreateAircraftType(Guid.Parse("AB65EE49-D110-40F1-B3CE-52CADB0C6B81"), "A380",Guid.Parse("9F14444A-228D-4681-9B33-835AB10B608C"),Guid.Parse("B962079E-C968-46E4-99A8-24771F5C79CD"),Guid.Parse("AB65EE49-D110-40F1-B3CE-52CADB0C6B81"),Guid.Parse("AB65EE49-D110-40F1-B3CE-52CADB0C6B81")),
                 AircraftTypeFactory.CreateAircraftType(Guid.Parse("53871626-C2FE-4B15-9E78-752AA4620ED6"), "A350",Guid.Parse("9F14444A-228D-4681-9B33-835AB10B608C"),Guid.Parse("B962079E-C968-46E4-99A8-24771F5C79CD"),Guid.Parse("AB65EE49-D110-40F1-B3CE-52CADB0C6B81"),Guid.Parse("53871626-C2FE-4B15-9E78-752AA4620ED6")),

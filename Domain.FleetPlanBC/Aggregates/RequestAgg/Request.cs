@@ -96,14 +96,14 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         #region 外键属性
 
         /// <summary>
-        ///     民航局批文文档外键
+        ///     民航局批文外键
         /// </summary>
         public Guid? ApprovalDocId { get; private set; }
 
         /// <summary>
         ///     民航局申请文档Id
         /// </summary>
-        public Guid? CaacDocumentId { get; private set; }
+        public Guid CaacDocumentId { get; private set; }
 
         /// <summary>
         ///     航空公司外键
@@ -195,9 +195,9 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         }
 
         /// <summary>
-        ///     设置民航局批文文档
+        ///     设置民航局批文
         /// </summary>
-        /// <param name="approvalDocId">民航局批文文档</param>
+        /// <param name="approvalDocId">民航局批文</param>
         public void SetApprovalDoc(Guid? approvalDocId)
         {
             ApprovalDocId = approvalDocId;
@@ -208,7 +208,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// </summary>
         /// <param name="caacDocumentId">民航局申请文档</param>
         /// <param name="caacDocumentName">民航局申请文档名称</param>
-        public void SetCaacDocument(Guid? caacDocumentId, string caacDocumentName)
+        public void SetCaacDocument(Guid caacDocumentId, string caacDocumentName)
         {
             CaacDocumentId = caacDocumentId;
             CaacDocumentName = caacDocumentName;

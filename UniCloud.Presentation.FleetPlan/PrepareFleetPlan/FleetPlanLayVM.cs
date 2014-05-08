@@ -947,7 +947,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnOperation()
         {
-            if (this._operationPlan == null)
+            if (this._operationPlan == null && EditPlanAircraft!=null)
             {
                 var aircraft =
                     Aircrafts.SourceCollection.Cast<AircraftDTO>()
@@ -961,7 +961,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnChange()
         {
-            if (this._changePlan == null)
+            if (this._changePlan == null && EditPlanAircraft != null)
             {
                 var aircraft =
                     Aircrafts.SourceCollection.Cast<AircraftDTO>()

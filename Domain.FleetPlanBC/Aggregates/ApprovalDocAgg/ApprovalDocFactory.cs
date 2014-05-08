@@ -34,8 +34,8 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
         /// <returns>批文</returns>
         public static ApprovalDoc CreateApprovalDoc(Guid key,DateTime? caacExamineDate, DateTime? ndrcExamineDate,
             string caacApprovalNumber, string ndrcApprovalNumber,
-            int status, string note, string caacDocumentName, string ndrcDocumentName, Guid? caacDocumentId,
-            Guid? ndrcDocumentId)
+            int status, string note, string caacDocumentName, string ndrcDocumentName, Guid caacDocumentId,
+            Guid ndrcDocumentId)
         {
             var approvalDoc = new ApprovalDoc();
             approvalDoc.SetCaacExamineDate(caacExamineDate);
