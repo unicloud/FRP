@@ -144,7 +144,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         #region 数据
 
         #region 公共属性
-        
+
         public Dictionary<int, CanRequest> CanRequests
         {
             get
@@ -230,15 +230,15 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         public override void LoadData()
         {
-            if (!ApprovalDocs.AutoLoad)
-                ApprovalDocs.AutoLoad = true;
-            else
-                ApprovalDocs.Load(true);
-
             if (!Requests.AutoLoad)
                 Requests.AutoLoad = true;
             else
                 Requests.Load(true);
+
+            if (!ApprovalDocs.AutoLoad)
+                ApprovalDocs.AutoLoad = true;
+            else
+                ApprovalDocs.Load(true);
 
             CurAnnuals.Load(true);
         }
@@ -362,11 +362,9 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         protected override void WindowClosed(DocumentDTO doc, object sender)
         {
             base.WindowClosed(doc, sender);
-            if (sender is Guid)
-            {
-                SelApprovalDoc.NdrcDocumentId = doc.DocumentId;
-                SelApprovalDoc.NdrcDocumentName = doc.Name;
-            }
+
+            SelApprovalDoc.NdrcDocumentId = doc.DocumentId;
+            SelApprovalDoc.NdrcDocumentName = doc.Name;
         }
 
         #endregion
@@ -383,7 +381,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             var newApprovalDoc = new ApprovalDocDTO
             {
                 Id = Guid.NewGuid(),
-                Note = "指标飞机批文"
+                Note = "指标飞机批文",
+                Status = (int)OperationStatus.草稿,
             };
             ApprovalDocs.AddNew(newApprovalDoc);
 
@@ -392,10 +391,10 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 Id = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
                 SubmitDate = DateTime.Now,
-                Title="指标飞机申请（系统添加）",
+                Title = "指标飞机申请（系统添加）",
                 Note = "指标飞机申请（系统添加）",
                 AirlinesId = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"),
-                Status = 3,
+                Status = (int)RequestStatus.草稿,
                 IsFinished = true,
                 ApprovalDocId = newApprovalDoc.Id,
             };
@@ -406,6 +405,29 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private bool CanNew(object obj)
         {
             return true;
+        }
+
+        #endregion
+
+        #region 创建指标飞机申请明细
+        internal void AddNewRequestDetail(PlanHistoryDTO planHistory)
+        {
+            //this.service.CreateNewRequestDetail(this.SelRequest, planHistory);
+            //this._needReFreshViewApprovalHistory = true;
+            //RaiseViewApprovalHistory();
+            //this._needReFreshViewPlanHistory = true;
+            //RaiseViewPlanHistory();
+        }
+        #endregion
+
+        #region 移除指标飞机申请明细
+        internal void RemoveRequestDetail(ApprovalHistoryDTO requestDetail)
+        {
+            //this.service.RemoveRequestDetail(requestDetail);
+            //this._needReFreshViewApprovalHistory = true;
+            //RaiseViewApprovalHistory();
+            //this._needReFreshViewPlanHistory = true;
+            //RaiseViewPlanHistory();
         }
 
         #endregion
@@ -425,12 +447,13 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 return;
             }
             SelApprovalDoc.Status = (int)OperationStatus.待审核;
+            CurRequest.Status = (int)RequestStatus.待审核;
             RefreshCommandState();
         }
 
         private bool CanCommit(object obj)
         {
-            return SelApprovalDoc != null && SelApprovalDoc.Status < (int)RequestStatus.待审核;
+            return SelApprovalDoc != null && CurRequest != null && SelApprovalDoc.Status < (int)RequestStatus.待审核;
         }
 
         #endregion
@@ -450,12 +473,13 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 return;
             }
             SelApprovalDoc.Status = (int)OperationStatus.已审核;
+            CurRequest.Status = (int)RequestStatus.已审核;
             RefreshCommandState();
         }
 
         private bool CanCheck(object obj)
         {
-            return SelApprovalDoc != null && SelApprovalDoc.Status < (int)OperationStatus.已审核
+            return SelApprovalDoc != null && CurRequest != null && SelApprovalDoc.Status < (int)OperationStatus.已审核
                    && SelApprovalDoc.Status > (int)OperationStatus.草稿;
         }
 

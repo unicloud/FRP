@@ -39,19 +39,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
     #region 计划飞机
 
     /// <summary>
-    /// 拖放行为
-    /// </summary>
-    public class FleetPlanLayPlanDragDrop : GridViewDragAndDropBehavior
-    {
-        //public override bool CanStartDrag(GridViewDragDropState state)
-        //{
-        //    var viewModel = ServiceLocator.Current.GetInstance<FleetPlanLayVM>();
-        //    // 当前计划不为空且还未审核通过的，才允许开始拖放。
-        //    return viewModel.CurPlan != null && viewModel.CurPlan.Status < (int)PlanStatus.已审核;
-        //}
-    }
-
-    /// <summary>
     /// 鼠标双击逻辑
     /// </summary>
     public class FleetPlanLayPlanDoubleClickHelper : GridViewDoubleClickHelper
@@ -75,16 +62,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
     #region 运营中的飞机
 
-    public class FleetPlanLayOperationDragDrop : GridViewDragAndDropBehavior
-    {
-        //public override bool CanStartDrag(GridViewDragDropState state)
-        //{
-        //    var viewModel = ServiceLocator.Current.GetInstance<FleetPlanLayVM>();
-        //    // 当前计划不为空且还未审核通过的，才允许开始拖放。
-        //    return viewModel.CurPlan != null && viewModel.CurPlan.Status < (int)PlanStatus.已审核;
-        //}
-    }
-    
     /// <summary>
     /// 鼠标双击逻辑
     /// </summary>
