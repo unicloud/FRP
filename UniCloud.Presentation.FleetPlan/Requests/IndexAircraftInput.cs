@@ -29,6 +29,8 @@ using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Controls;
 using Telerik.Windows.DragDrop.Behaviors;
 using UniCloud.Presentation.Input;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 #endregion
 
@@ -44,12 +46,18 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         protected override void GridViewDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {
             var viewModel = ServiceLocator.Current.GetInstance<ManageIndexAircraftVM>();
+            var planDetail = cell.DataContext as PlanHistoryDTO;
+            viewModel.AddNewRequestDetail(planDetail);
         }
 
         protected override bool CanDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {
             var viewModel = ServiceLocator.Current.GetInstance<ManageIndexAircraftVM>();
-            return true;
+            var planDetail = cell.DataContext as PlanHistoryDTO;
+            // 选中申请还未审核通过，且双击的是可申请的计划明细，才允许双击。
+            return planDetail != null && viewModel.CurRequest != null &&
+                   viewModel.CurRequest.Status < (int)RequestStatus.已审核 &&
+                   (planDetail.CanRequest == (int)CanRequest.可申请 || planDetail.CanRequest == (int)CanRequest.可再次申请);
         }
     }
     #endregion
@@ -64,12 +72,15 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         protected override void GridViewDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {
             var viewModel = ServiceLocator.Current.GetInstance<ManageIndexAircraftVM>();
+            var requestDetail = cell.DataContext as ApprovalHistoryDTO;
+            viewModel.RemoveRequestDetail(requestDetail);
         }
 
         protected override bool CanDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {
             var viewModel = ServiceLocator.Current.GetInstance<ManageIndexAircraftVM>();
-            return true;
+            // 选中申请还未审核通过，才允许双击。
+            return viewModel.CurRequest != null && viewModel.CurRequest.Status < (int)RequestStatus.已审核;
         }
     }
     #endregion

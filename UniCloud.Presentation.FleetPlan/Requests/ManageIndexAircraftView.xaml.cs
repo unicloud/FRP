@@ -6,6 +6,7 @@ using Telerik.Windows.DragDrop;
 using Telerik.Windows.DragDrop.Behaviors;
 using UniCloud.Presentation.Input;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 using DragEventArgs = Telerik.Windows.DragDrop.DragEventArgs;
 using DragVisual = Telerik.Windows.DragDrop.DragVisual;
 
@@ -53,13 +54,25 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
             e.Data = dragPayload;
 
+            //判断是否能拖拽
+            var planDetail = item as PlanHistoryDTO;
+            if (planDetail != null && ViewModel.CurRequest != null &&
+                ViewModel.CurRequest.Status < (int) RequestStatus.已审核 &&
+                (planDetail.CanRequest == (int) CanRequest.可申请 || planDetail.CanRequest == (int) CanRequest.可再次申请))
+            {
+                e.AllowedEffects = DragDropEffects.All;
+            }
+            else
+            {
+                e.AllowedEffects = DragDropEffects.None;
+            }
+
             e.DragVisual = new DragVisual
             {
                 Content = item,
                 ContentTemplate = gridView.Resources["PlanDetailDraggedItemTemplate"] as DataTemplate
             };
             e.DragVisualOffset = e.RelativeStartPoint;
-            e.AllowedEffects = DragDropEffects.All;
         }
 
         private void OnPlanDetailDrop(object sender, DragEventArgs e)
@@ -76,7 +89,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             {
                 if (draggedItem is ApprovalHistoryDTO)
                 {
-                    var planAircraft = draggedItem as ApprovalHistoryDTO;
+                    var approvalHistory = draggedItem as ApprovalHistoryDTO;
+                    ViewModel.RemoveRequestDetail(approvalHistory);
                 }
             }
 
@@ -115,13 +129,22 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
             e.Data = dragPayload;
 
+            //判断是否能拖拽
+            if (ViewModel.CurRequest != null && ViewModel.CurRequest.Status < (int) RequestStatus.已审核)
+            {
+                e.AllowedEffects = DragDropEffects.All;
+            }
+            else
+            {
+                e.AllowedEffects = DragDropEffects.None;
+            }
+
             e.DragVisual = new DragVisual
             {
                 Content = item,
                 ContentTemplate = gridView.Resources["ApprovalDetailDraggedItemTemplate"] as DataTemplate
             };
             e.DragVisualOffset = e.RelativeStartPoint;
-            e.AllowedEffects = DragDropEffects.All;
         }
 
         private void OnApprovalDetailDrop(object sender, DragEventArgs e)
@@ -138,7 +161,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             {
                 if (draggedItem is PlanHistoryDTO)
                 {
-                    var planAircraft = draggedItem as PlanHistoryDTO;
+                    var planHistory = draggedItem as PlanHistoryDTO;
+                    ViewModel.AddNewRequestDetail(planHistory);
                 }
             }
 

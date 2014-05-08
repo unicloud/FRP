@@ -26,7 +26,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             DragDropManager.AddDropHandler(PlanLay, OnPlanLayDrop);
         }
 
-        [Import(typeof (FleetPlanLayVM))]
+        [Import(typeof(FleetPlanLayVM))]
         public FleetPlanLayVM ViewModel
         {
             get { return DataContext as FleetPlanLayVM; }
@@ -96,13 +96,22 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
             e.Data = dragPayload;
 
-            e.DragVisual = new DragVisual 
+            //判断是否能拖拽
+            if (ViewModel.CurPlan != null && ViewModel.CurPlan.Status < (int)PlanStatus.已审核)
+            {
+                e.AllowedEffects = DragDropEffects.All;
+            }
+            else
+            {
+                e.AllowedEffects = DragDropEffects.None;
+            }
+
+            e.DragVisual = new DragVisual
             {
                 Content = item,
                 ContentTemplate = gridView.Resources["PlanDraggedItemTemplate"] as DataTemplate
             };
             e.DragVisualOffset = e.RelativeStartPoint;
-            e.AllowedEffects = DragDropEffects.All;
         }
 
         private void OnAircraftDragInitialize(object sender, DragInitializeEventArgs e)
@@ -124,13 +133,22 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
             e.Data = dragPayload;
 
+            //判断是否能拖拽
+            if (ViewModel.CurPlan != null && ViewModel.CurPlan.Status < (int)PlanStatus.已审核)
+            {
+                e.AllowedEffects = DragDropEffects.All;
+            }
+            else
+            {
+                e.AllowedEffects = DragDropEffects.None;
+            }
+
             e.DragVisual = new DragVisual
             {
                 Content = item,
                 ContentTemplate = gridView.Resources["OperationDraggedItemTemplate"] as DataTemplate
             };
             e.DragVisualOffset = e.RelativeStartPoint;
-            e.AllowedEffects = DragDropEffects.All;
         }
     }
 }

@@ -69,6 +69,7 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             var newRequest = RequestFactory.CreateRequest(request.SubmitDate, request.Title, 
                 request.CaacDocNumber, request.Status, request.Note,request.CaacDocumentName,
                 request.CaacDocumentId, Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"));
+            if(request.ApprovalDocId!=null) newRequest.SetApprovalDoc(request.ApprovalDocId);
             request.ApprovalHistories.ToList().ForEach(p => newRequest.AddNewApprovalHistory(p.Id,p.SeatingCapacity,
                 p.CarryingCapacity,
                 p.RequestDeliverMonth, p.Note, p.RequestId,

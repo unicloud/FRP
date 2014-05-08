@@ -61,6 +61,12 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void InitializeVM()
         {
             Requests = _service.CreateCollection(_context.Requests, o => o.ApprovalHistories, o => o.RelatedDocs);
+            var cfd = new CompositeFilterDescriptor { LogicalOperator = FilterCompositionLogicalOperator.And };
+            var requestDescriptor = new FilterDescriptor("Note", FilterOperator.IsNotEqualTo, "指标飞机申请（系统添加）");
+            cfd.FilterDescriptors.Add(requestDescriptor);
+            var statusDateDescriptor = new FilterDescriptor("Status", FilterOperator.IsLessThan, (int)RequestStatus.已审批);
+            cfd.FilterDescriptors.Add(statusDateDescriptor);
+            Requests.FilterDescriptors.Add(cfd);
             _service.RegisterCollectionView(Requests);
 
             CurAnnuals = new QueryableDataServiceCollectionView<AnnualDTO>(_context, _context.Annuals);
@@ -221,7 +227,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         #region 所有申请集合
 
         /// <summary>
-        ///     所有申请集合
+        ///     所有未审批完成申请集合
         /// </summary>
         public QueryableDataServiceCollectionView<RequestDTO> Requests { get; set; }
 
@@ -319,21 +325,54 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         }
 
         #endregion
+
         #region 创建新申请
 
         /// <summary>
-        ///     创建新计划
+        ///     创建新申请
         /// </summary>
         public DelegateCommand<object> NewCommand { get; private set; }
 
         private void OnNew(object obj)
         {
-
+            var newRequest = new RequestDTO
+            {
+                Id = Guid.NewGuid(),
+                CreateDate = DateTime.Now,
+                SubmitDate = DateTime.Now,
+                AirlinesId = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"),
+                Status = (int)RequestStatus.草稿,
+            };
+            Requests.AddNew(newRequest);
+            RefreshCommandState();
         }
 
         private bool CanNew(object obj)
         {
             return true;
+        }
+
+        #endregion
+
+        #region 创建指标飞机申请明细
+        internal void AddNewRequestDetail(PlanHistoryDTO planHistory)
+        {
+            //this.service.CreateNewRequestDetail(this.SelRequest, planHistory);
+            //this._needReFreshViewApprovalHistory = true;
+            //RaiseViewApprovalHistory();
+            //this._needReFreshViewPlanHistory = true;
+            //RaiseViewPlanHistory();
+        }
+        #endregion
+
+        #region 移除指标飞机申请明细
+        internal void RemoveRequestDetail(ApprovalHistoryDTO requestDetail)
+        {
+            //this.service.RemoveRequestDetail(requestDetail);
+            //this._needReFreshViewApprovalHistory = true;
+            //RaiseViewApprovalHistory();
+            //this._needReFreshViewPlanHistory = true;
+            //RaiseViewPlanHistory();
         }
 
         #endregion
@@ -366,6 +405,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         }
 
         #endregion
+
         #region 提交审核
 
         /// <summary>
