@@ -54,6 +54,8 @@
     <Compile Include="Repositories\AircraftSeriesRepository.cs" />
     <Compile Include="Repositories\AircraftTypeRepository.cs" />
     <Compile Include="Repositories\AirStructureDamageRepository.cs" />
+    <Compile Include="Repositories\AnnualMaintainPlanRepository.cs" />
+    <Compile Include="Repositories\AnnualRepository.cs" />
     <Compile Include="Repositories\BasicConfigGroupRepository.cs" />
     <Compile Include="Repositories\BasicConfigHistoryRepository.cs" />
     <Compile Include="Repositories\BasicConfigRepository.cs" />
@@ -80,6 +82,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftSeriesEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirStructureDamageEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AnnualEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AnnualMaintainPlanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApplicableAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\APURegEntityConfiguration.cs">
       <SubType>Code</SubType>
@@ -90,6 +94,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ContractAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CtrlUnitEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\DependencyEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainPlanEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainPlanDetailEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineRegEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\InstallControllerEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ItemEntityConfiguration.cs" />

@@ -55,6 +55,15 @@
     <Compile Include="Aggregates\AirStructureDamageAgg\IAirStructureDamageRepository.cs" />
     <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamageFactory.cs" />
     <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamageSpecifications.cs" />
+    <Compile Include="Aggregates\AnnualAgg\Annual.cs" />
+    <Compile Include="Aggregates\AnnualAgg\AnnualFactory.cs" />
+    <Compile Include="Aggregates\AnnualAgg\IAnnualRepository.cs" />
+    <Compile Include="Aggregates\AnnualMaintainPlanAgg\AnnualMaintainPlan.cs" />
+    <Compile Include="Aggregates\AnnualMaintainPlanAgg\AnnualMaintainPlanFactory.cs" />
+    <Compile Include="Aggregates\AnnualMaintainPlanAgg\AnnualMaintainPlanSpecification.cs" />
+    <Compile Include="Aggregates\AnnualMaintainPlanAgg\EngineMaintainPlan.cs" />
+    <Compile Include="Aggregates\AnnualMaintainPlanAgg\EngineMaintainPlanDetail.cs" />
+    <Compile Include="Aggregates\AnnualMaintainPlanAgg\IAnnualMaintainPlanRepository.cs" />
     <Compile Include="Aggregates\BasicConfigAgg\BasicConfigFactory.cs" />
     <Compile Include="Aggregates\BasicConfigAgg\BasicConfigSpecifications.cs" />
     <Compile Include="Aggregates\BasicConfigAgg\IBasicConfigRepository.cs" />

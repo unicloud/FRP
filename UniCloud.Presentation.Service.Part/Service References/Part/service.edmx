@@ -449,6 +449,36 @@
         <Property Name="ComplyFeeNotes" Type="Edm.String" />
         <Property Name="ComplyFeeCurrency" Type="Edm.String" />
       </EntityType>
+      <EntityType Name="EngineMaintainPlanDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainPlanType" Type="Edm.Int32" Nullable="false" />
+        <Property Name="DollarRate" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CompanyLeader" Type="Edm.String" />
+        <Property Name="DepartmentLeader" Type="Edm.String" />
+        <Property Name="BudgetManager" Type="Edm.String" />
+        <Property Name="PhoneNumber" Type="Edm.String" />
+        <Property Name="AnnualId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="EngineMaintainPlanDetails" Type="Collection(UniCloud.Application.PartBC.DTO.EngineMaintainPlanDetailDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="EngineMaintainPlanDetailDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="EngineNumber" Type="Edm.String" />
+        <Property Name="InMaintainDate" Type="Edm.String" />
+        <Property Name="OutMaintainDate" Type="Edm.String" />
+        <Property Name="MaintainLevel" Type="Edm.String" />
+        <Property Name="ChangeLlpNumber" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TsnCsn" Type="Edm.String" />
+        <Property Name="TsrCsr" Type="Edm.String" />
+        <Property Name="NonFhaFee" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="PartFee" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="ChangeLlpFee" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CustomsTax" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="FreightFee" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+      </ComplexType>
       <EntityType Name="UtilizationReportDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -526,6 +556,7 @@
         <EntitySet Name="SpecialConfigs" EntityType="UniCloud.Application.PartBC.DTO.SpecialConfigDTO" />
         <EntitySet Name="AirStructureDamages" EntityType="UniCloud.Application.PartBC.DTO.AirStructureDamageDTO" />
         <EntitySet Name="AdSbs" EntityType="UniCloud.Application.PartBC.DTO.AdSbDTO" />
+        <EntitySet Name="EngineMaintainPlans" EntityType="UniCloud.Application.PartBC.DTO.EngineMaintainPlanDTO" />
         <EntitySet Name="UtilizationReports" EntityType="UniCloud.Application.PartBC.DTO.UtilizationReportDTO" />
         <FunctionImport Name="GetItemsByAircraftType" ReturnType="Collection(UniCloud.Application.PartBC.DTO.ItemDTO)" EntitySet="Items" m:HttpMethod="GET">
           <Parameter Name="aircraftTypeId" Type="Edm.String" />

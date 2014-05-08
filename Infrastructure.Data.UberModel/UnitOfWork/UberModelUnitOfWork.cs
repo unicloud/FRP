@@ -34,6 +34,7 @@ using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirStructureDamageAgg;
 using UniCloud.Domain.UberModel.Aggregates.AnnualAgg;
+using UniCloud.Domain.UberModel.Aggregates.AnnualMaintainPlanAgg;
 using UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg;
 using UniCloud.Domain.UberModel.Aggregates.AtaAgg;
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
@@ -216,7 +217,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Role> _roles;
         private IDbSet<UserRole> _userRoles;
         private IDbSet<BusinessLicense> _businessLicenses;
+        private IDbSet<EngineMaintainPlan> _engineExceedMaintainPlans;
 
+        public IDbSet<EngineMaintainPlan> EngineExceedMaintainPlans
+        {
+            get { return _engineExceedMaintainPlans ?? (_engineExceedMaintainPlans = Set<EngineMaintainPlan>()); }
+        }
         public IDbSet<AcDailyUtilization> AcDailyUtilizations
         {
             get { return _acDailyUtilizations ?? (_acDailyUtilizations = Set<AcDailyUtilization>()); }
@@ -785,7 +791,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             #region AnnualAgg
 
 .Add(new AnnualEntityConfiguration())
-
+.Add(new AnnualMaintainPlanEntityConfiguration())
+.Add(new EngineMaintainPlanEntityConfiguration())
+.Add(new EngineMaintainPlanDetailEntityConfiguration())
             #endregion
 
             #region ApprovalDocAgg

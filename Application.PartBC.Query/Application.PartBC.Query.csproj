@@ -58,6 +58,8 @@
     <Compile Include="AircraftTypeQueries\IAircraftTypeQuery.cs" />
     <Compile Include="AirStructureDamageQueries\AirStructureDamageQuery.cs" />
     <Compile Include="AirStructureDamageQueries\IAirStructureDamageQuery.cs" />
+    <Compile Include="AnnualMaintainPlanQueries\AnnualMaintainPlanQuery.cs" />
+    <Compile Include="AnnualMaintainPlanQueries\IAnnualMaintainPlanQuery.cs" />
     <Compile Include="BasicConfigGroupQueries\BasicConfigGroupQuery.cs" />
     <Compile Include="BasicConfigGroupQueries\IBasicConfigGroupQuery.cs" />
     <Compile Include="BasicConfigHistoryQueries\BasicConfigHistoryQuery.cs" />

@@ -122,6 +122,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AirProgrammingLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirStructureDamageEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AnnualEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AnnualMaintainPlanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApplicableAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApprovalDocEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApprovalHistoryEntityConfiguration.cs" />
@@ -148,6 +149,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ContractAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ContractContentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ContractEngineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainPlanEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainPlanDetailEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainCreditNoteInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainPrepaymentInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseCreditNoteInvoiceEntityConfiguration.cs" />

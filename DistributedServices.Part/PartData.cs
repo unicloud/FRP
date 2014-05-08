@@ -24,6 +24,7 @@ using UniCloud.Application.PartBC.AdSbServices;
 using UniCloud.Application.PartBC.AircraftServices;
 using UniCloud.Application.PartBC.AircraftTypeServices;
 using UniCloud.Application.PartBC.AirStructureDamageServices;
+using UniCloud.Application.PartBC.AnnualMaintainPlanServices;
 using UniCloud.Application.PartBC.BasicConfigGroupServices;
 using UniCloud.Application.PartBC.BasicConfigHistoryServices;
 using UniCloud.Application.PartBC.BasicConfigServices;
@@ -76,6 +77,7 @@ namespace UniCloud.DistributedServices.Part
         private readonly ISnRemInstRecordAppService _snRemInstRecordAppService;
         private readonly ISnRegAppService _snRegAppService;
         private readonly ISpecialConfigAppService _specialConfigAppService;
+        private readonly IAnnualMaintainPlanAppService _annualMaintainPlanAppService;
 
         public PartData()
             : base("UniCloud.Application.PartBC.DTO")
@@ -103,6 +105,7 @@ namespace UniCloud.DistributedServices.Part
             _specialConfigAppService = DefaultContainer.Resolve<ISpecialConfigAppService>();
             _airStructureDamageAppService = DefaultContainer.Resolve<IAirStructureDamageAppService>();
             _adSbAppService = DefaultContainer.Resolve<IAdSbAppService>();
+            _annualMaintainPlanAppService = DefaultContainer.Resolve<IAnnualMaintainPlanAppService>();
         }
 
         #region 飞机日利用率集合
@@ -148,7 +151,6 @@ namespace UniCloud.DistributedServices.Part
         }
 
         #endregion
-
 
         #region 功能构型集合
 
@@ -436,6 +438,16 @@ namespace UniCloud.DistributedServices.Part
             get { return _adSbAppService.GetAdSbs(); }
         }
 
+        #endregion
+
+        #region 年度送修计划集合
+        public IQueryable<EngineMaintainPlanDTO> EngineMaintainPlans
+        {
+            get
+            {
+                return _annualMaintainPlanAppService.GetEngineMaintainPlans();
+            }
+        }
         #endregion
 
         public IQueryable<UtilizationReportDTO> UtilizationReports
