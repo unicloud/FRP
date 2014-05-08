@@ -42,6 +42,9 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
         private readonly IPartService _service;
         private readonly IFleetPlanService _fleetPlanService;
         private FilterDescriptor _annualFilterDescriptor;
+        private FilterDescriptor _maintainPlanTypeFilterDescriptor;
+        private int _maintainPlanType;
+
         [ImportingConstructor]
         public ManageEngineMaintainPlanVm(IRegionManager regionManager, IPartService service,
             IFleetPlanService fleetPlanService)
@@ -73,7 +76,9 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
             EngineMaintainPlans = _service.CreateCollection(_context.EngineMaintainPlans,
                 o => o.EngineMaintainPlanDetails);
             _annualFilterDescriptor = new FilterDescriptor("AnnualId", FilterOperator.IsEqualTo, Guid.Empty);
+            _maintainPlanTypeFilterDescriptor = new FilterDescriptor("MaintainPlanType", FilterOperator.IsEqualTo, 0);
             EngineMaintainPlans.FilterDescriptors.Add(_annualFilterDescriptor);
+            EngineMaintainPlans.FilterDescriptors.Add(_maintainPlanTypeFilterDescriptor);
             EngineMaintainPlans.LoadedData += (o, e) =>
                                               {
                                                   EngineMaintainPlan = EngineMaintainPlans.FirstOrDefault();
@@ -88,14 +93,14 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
         #region 公共属性
         #region 标题
 
-        private string _nonFhaTitle;
-        public string NonFhaTitle
+        private string _title;
+        public string Title
         {
-            get { return _nonFhaTitle; }
+            get { return _title; }
             set
             {
-                _nonFhaTitle = value;
-                RaisePropertyChanged(() => NonFhaTitle);
+                _title = value;
+                RaisePropertyChanged(() => Title);
             }
         }
 
@@ -145,6 +150,7 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 _annual = value;
                 if (_annual != null)
                 {
+                    Title = _maintainPlanType == 0 ? Annual.Year + "年发动机非FHA送修预算表" : Annual.Year + "年发动机超包修预算表";
                     _annualFilterDescriptor.Value = _annual.Id;
                     EngineMaintainPlans.Load(true);
                 }
@@ -257,7 +263,8 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
             EngineMaintainPlan = new EngineMaintainPlanDTO
                                  {
                                      Id = RandomHelper.Next(),
-                                     AnnualId = Annual.Id
+                                     AnnualId = Annual.Id,
+                                     MaintainPlanType = _maintainPlanType
                                  };
             EngineMaintainPlans.AddNew(EngineMaintainPlan);
         }
@@ -364,6 +371,16 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
             EngineMaintainPlanDetail.BudgetToalSum = EngineMaintainPlanDetail.FeeTotalSum +
                                                      EngineMaintainPlanDetail.CustomsTax +
                                                      EngineMaintainPlanDetail.FreightFee;
+        }
+        #endregion
+
+        #region RadPaneGroup页面切换
+
+        public void PaneSelectedChange(int maintainPlanType)
+        {
+            _maintainPlanType = maintainPlanType;
+            _maintainPlanTypeFilterDescriptor.Value = _maintainPlanType;
+            EngineMaintainPlans.Load(true);
         }
         #endregion
         #endregion
