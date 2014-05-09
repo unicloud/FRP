@@ -99,7 +99,6 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
             UpdateEngineMaintainPlanDetails(new List<EngineMaintainPlanDetailDTO>(), deleteEngineMaintainPlan);
             _aunualMaintainPlanRepository.Remove(deleteEngineMaintainPlan); //删除发动机维修计划。
         }
-        #endregion
 
         #region 更新发动机维修计划行集合
         /// <summary>
@@ -132,6 +131,99 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
             });
             dstEngineMaintainPlan.EngineMaintainPlanDetails = engineMaintainPlanLines;
         }
+        #endregion
+        #endregion
+
+        #region AircraftMaintainPlanDTO
+        /// <summary>
+        ///     获取所有飞机维修计划。
+        /// </summary>
+        /// <returns>所有飞机维修计划。</returns>
+        public IQueryable<AircraftMaintainPlanDTO> GetAircraftMaintainPlans()
+        {
+            var queryBuilder = new QueryBuilder<AircraftMaintainPlan>();
+            return _annualMaintainPlanQuery.AircraftMaintainPlanDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///     新增飞机维修计划。
+        /// </summary>
+        /// <param name="aircraftMaintainPlan">飞机维修计划DTO。</param>
+        [Insert(typeof(AircraftMaintainPlanDTO))]
+        public void InsertAircraftMaintainPlan(AircraftMaintainPlanDTO aircraftMaintainPlan)
+        {
+            var newAircraftMaintainPlan = AnnualMaintainPlanFactory.CreatAircraftMaintainPlan();
+            AnnualMaintainPlanFactory.SetAircraftMaintainPlan(newAircraftMaintainPlan,aircraftMaintainPlan.FirstHalfYear,aircraftMaintainPlan.SecondHalfYear,aircraftMaintainPlan.Note, aircraftMaintainPlan.AnnualId);
+            if (aircraftMaintainPlan.AircraftMaintainPlanDetails != null)
+            {
+                foreach (var aircraftMaintainPlanLine in aircraftMaintainPlan.AircraftMaintainPlanDetails)
+                {
+                    var newAircraftMaintainPlanLine = AnnualMaintainPlanFactory.CreatAircraftMaintainPlanDetail();
+                    AnnualMaintainPlanFactory.SetAircraftMaintainPlanDetail(newAircraftMaintainPlanLine, aircraftMaintainPlanLine.AircraftNumber, aircraftMaintainPlanLine.AircraftType, 
+                        aircraftMaintainPlanLine.Level, aircraftMaintainPlanLine.InDate, aircraftMaintainPlanLine.OutDate);
+                    newAircraftMaintainPlan.AircraftMaintainPlanDetails.Add(newAircraftMaintainPlanLine);
+                }
+            }
+            _aunualMaintainPlanRepository.Add(newAircraftMaintainPlan);
+        }
+
+
+        /// <summary>
+        ///     更新飞机维修计划。
+        /// </summary>
+        /// <param name="aircraftMaintainPlan">飞机维修计划DTO。</param>
+        [Update(typeof(AircraftMaintainPlanDTO))]
+        public void ModifyAircraftMaintainPlan(AircraftMaintainPlanDTO aircraftMaintainPlan)
+        {
+            var updateAircraftMaintainPlan = _aunualMaintainPlanRepository.GetAircraftMaintainPlan(aircraftMaintainPlan.Id); //获取需要更新的对象。
+            AnnualMaintainPlanFactory.SetAircraftMaintainPlan(updateAircraftMaintainPlan, aircraftMaintainPlan.FirstHalfYear, aircraftMaintainPlan.SecondHalfYear, aircraftMaintainPlan.Note, aircraftMaintainPlan.AnnualId);
+            UpdateAircraftMaintainPlanDetails(aircraftMaintainPlan.AircraftMaintainPlanDetails, updateAircraftMaintainPlan);
+            _aunualMaintainPlanRepository.Modify(updateAircraftMaintainPlan);
+        }
+
+        /// <summary>
+        ///     删除飞机维修计划。
+        /// </summary>
+        /// <param name="aircraftMaintainPlan">飞机维修计划DTO。</param>
+        [Delete(typeof(AircraftMaintainPlanDTO))]
+        public void DeleteAircraftMaintainPlan(AircraftMaintainPlanDTO aircraftMaintainPlan)
+        {
+            var deleteAircraftMaintainPlan = _aunualMaintainPlanRepository.GetAircraftMaintainPlan(aircraftMaintainPlan.Id); //获取需要删除的对象。
+            UpdateAircraftMaintainPlanDetails(new List<AircraftMaintainPlanDetailDTO>(), deleteAircraftMaintainPlan);
+            _aunualMaintainPlanRepository.Remove(deleteAircraftMaintainPlan); //删除飞机维修计划。
+        }
+
+        #region 更新飞机维修计划行集合
+        /// <summary>
+        /// 更新飞机维修计划行集合
+        /// </summary>
+        /// <param name="sourceAircraftMaintainPlanDetails">客户端集合</param>
+        /// <param name="dstAircraftMaintainPlan">数据库集合</param>
+        private void UpdateAircraftMaintainPlanDetails(IEnumerable<AircraftMaintainPlanDetailDTO> sourceAircraftMaintainPlanDetails, AircraftMaintainPlan dstAircraftMaintainPlan)
+        {
+            var aircraftMaintainPlanLines = new List<AircraftMaintainPlanDetail>();
+            foreach (var sourceAircraftMaintainPlanLine in sourceAircraftMaintainPlanDetails)
+            {
+                var result = dstAircraftMaintainPlan.AircraftMaintainPlanDetails.FirstOrDefault(p => p.Id == sourceAircraftMaintainPlanLine.Id);
+                if (result == null)
+                {
+                    result = AnnualMaintainPlanFactory.CreatAircraftMaintainPlanDetail();
+                    result.ChangeCurrentIdentity(sourceAircraftMaintainPlanLine.Id);
+                }
+                AnnualMaintainPlanFactory.SetAircraftMaintainPlanDetail(result, sourceAircraftMaintainPlanLine.AircraftNumber, sourceAircraftMaintainPlanLine.AircraftType,
+                        sourceAircraftMaintainPlanLine.Level, sourceAircraftMaintainPlanLine.InDate, sourceAircraftMaintainPlanLine.OutDate);
+                aircraftMaintainPlanLines.Add(result);
+            }
+            dstAircraftMaintainPlan.AircraftMaintainPlanDetails.ToList().ForEach(p =>
+            {
+                if (aircraftMaintainPlanLines.FirstOrDefault(t => t.Id == p.Id) == null)
+                {
+                    _aunualMaintainPlanRepository.RemoveAircraftMaintainPlanDetail(p);
+                }
+            });
+            dstAircraftMaintainPlan.AircraftMaintainPlanDetails = aircraftMaintainPlanLines;
+        }
+        #endregion
         #endregion
     }
 }

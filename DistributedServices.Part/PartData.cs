@@ -448,6 +448,15 @@ namespace UniCloud.DistributedServices.Part
                 return _annualMaintainPlanAppService.GetEngineMaintainPlans();
             }
         }
+
+        public IQueryable<AircraftMaintainPlanDTO> AircraftMaintainPlans
+        {
+            get
+            {
+                return _annualMaintainPlanAppService.GetAircraftMaintainPlans();
+                
+            }
+        }
         #endregion
 
         public IQueryable<UtilizationReportDTO> UtilizationReports

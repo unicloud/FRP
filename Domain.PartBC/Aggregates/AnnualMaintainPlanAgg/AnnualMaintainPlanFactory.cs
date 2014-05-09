@@ -76,5 +76,45 @@ namespace UniCloud.Domain.PartBC.Aggregates.AnnualMaintainPlanAgg
             engineMaintainPlanDetail.FeeTotalSum = feeTotalSum;
             engineMaintainPlanDetail.BudgetToalSum = budgetToalSum;
         }
+
+        /// <summary>
+        /// 创建飞机维修计划
+        /// </summary>
+        /// <returns></returns>
+        public static AircraftMaintainPlan CreatAircraftMaintainPlan()
+        {
+            var aircraftMaintainPlan = new AircraftMaintainPlan();
+            aircraftMaintainPlan.GenerateNewIdentity();
+            return aircraftMaintainPlan;
+        }
+
+        /// <summary>
+        /// 创建飞机维修计划明细
+        /// </summary>
+        /// <returns></returns>
+        public static AircraftMaintainPlanDetail CreatAircraftMaintainPlanDetail()
+        {
+            var detail = new AircraftMaintainPlanDetail();
+            detail.GenerateNewIdentity();
+            return detail;
+        }
+
+        public static void SetAircraftMaintainPlan(AircraftMaintainPlan aircraftMaintainPlan, int firstHalfYear, int secondHalfYear, string note, Guid annual)
+        {
+            aircraftMaintainPlan.FirstHalfYear = firstHalfYear;
+            aircraftMaintainPlan.SecondHalfYear = secondHalfYear;
+            aircraftMaintainPlan.Note = note;
+            aircraftMaintainPlan.AnnualId = annual;
+        }
+
+        public static void SetAircraftMaintainPlanDetail(AircraftMaintainPlanDetail aircraftMaintainPlanDetail, string aircraftNumber, string aircraftType,
+           string level, DateTime inDate, DateTime outDate)
+        {
+            aircraftMaintainPlanDetail.AircraftNumber = aircraftNumber;
+            aircraftMaintainPlanDetail.AircraftType = aircraftType;
+            aircraftMaintainPlanDetail.Level = level;
+            aircraftMaintainPlanDetail.InDate = inDate;
+            aircraftMaintainPlanDetail.OutDate = outDate;
+        }
     }
 }

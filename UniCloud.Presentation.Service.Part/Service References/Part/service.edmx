@@ -482,6 +482,25 @@
         <Property Name="FeeTotalSum" Type="Edm.Decimal" Nullable="false" />
         <Property Name="BudgetToalSum" Type="Edm.Decimal" Nullable="false" />
       </ComplexType>
+      <EntityType Name="AircraftMaintainPlanDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="FirstHalfYear" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SecondHalfYear" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="AnnualId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftMaintainPlanDetails" Type="Collection(UniCloud.Application.PartBC.DTO.AircraftMaintainPlanDetailDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="AircraftMaintainPlanDetailDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftNumber" Type="Edm.String" />
+        <Property Name="AircraftType" Type="Edm.String" />
+        <Property Name="Level" Type="Edm.String" />
+        <Property Name="InDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="OutDate" Type="Edm.DateTime" Nullable="false" />
+      </ComplexType>
       <EntityType Name="UtilizationReportDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -560,6 +579,7 @@
         <EntitySet Name="AirStructureDamages" EntityType="UniCloud.Application.PartBC.DTO.AirStructureDamageDTO" />
         <EntitySet Name="AdSbs" EntityType="UniCloud.Application.PartBC.DTO.AdSbDTO" />
         <EntitySet Name="EngineMaintainPlans" EntityType="UniCloud.Application.PartBC.DTO.EngineMaintainPlanDTO" />
+        <EntitySet Name="AircraftMaintainPlans" EntityType="UniCloud.Application.PartBC.DTO.AircraftMaintainPlanDTO" />
         <EntitySet Name="UtilizationReports" EntityType="UniCloud.Application.PartBC.DTO.UtilizationReportDTO" />
         <FunctionImport Name="GetItemsByAircraftType" ReturnType="Collection(UniCloud.Application.PartBC.DTO.ItemDTO)" EntitySet="Items" m:HttpMethod="GET">
           <Parameter Name="aircraftTypeId" Type="Edm.String" />

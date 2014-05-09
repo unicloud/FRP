@@ -70,5 +70,31 @@ namespace UniCloud.Application.PartBC.Query.AnnualMaintainPlanQueries
                 }).ToList(),
             });
         }
+
+         /// <summary>
+         /// AircraftMaintainPlan查询。
+         /// </summary>
+         /// <param name="query">查询表达式</param>
+         ///  <returns>AircraftMaintainPlanDTO集合</returns>
+         public IQueryable<AircraftMaintainPlanDTO> AircraftMaintainPlanDTOQuery(QueryBuilder<AircraftMaintainPlan> query)
+         {
+             return query.ApplyTo(_unitOfWork.CreateSet<AircraftMaintainPlan>()).Select(p => new AircraftMaintainPlanDTO
+             {
+                 Id = p.Id,
+                 AnnualId = p.AnnualId,
+                 FirstHalfYear = p.FirstHalfYear,
+                 SecondHalfYear = p.SecondHalfYear,
+                 Note = p.Note,
+                 AircraftMaintainPlanDetails = p.AircraftMaintainPlanDetails.Select(q => new AircraftMaintainPlanDetailDTO
+                 {
+                     Id = q.Id,
+                     AircraftNumber = q.AircraftNumber,
+                     AircraftType = q.AircraftType,
+                     Level = q.Level,
+                     InDate = q.InDate,
+                     OutDate = q.OutDate
+                 }).ToList(),
+             });
+         }
     }
 }

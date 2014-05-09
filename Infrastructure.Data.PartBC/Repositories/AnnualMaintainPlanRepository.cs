@@ -59,5 +59,32 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
             currentUnitOfWork.CreateSet<EngineMaintainPlanDetail>().Remove(engineMaintainPlanDetail);
         }
         #endregion
+
+        #region AircraftMaintainPlan
+        public AircraftMaintainPlan GetAircraftMaintainPlan(int id)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<AircraftMaintainPlan>();
+            return set.Include(t => t.AircraftMaintainPlanDetails).FirstOrDefault(p => p.Id == id);
+        }
+
+        public void DeleteAircraftMaintainPlan(AircraftMaintainPlan aircraftMaintainPlan)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var dbEngineMaintainPlanDetails = currentUnitOfWork.CreateSet<AircraftMaintainPlanDetail>();
+            var dbEngineMaintainPlans = currentUnitOfWork.CreateSet<AircraftMaintainPlan>();
+            dbEngineMaintainPlanDetails.RemoveRange(aircraftMaintainPlan.AircraftMaintainPlanDetails);
+            dbEngineMaintainPlans.Remove(aircraftMaintainPlan);
+        }
+
+        public void RemoveAircraftMaintainPlanDetail(AircraftMaintainPlanDetail aircraftMaintainPlanDetail)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<AircraftMaintainPlanDetail>().Remove(aircraftMaintainPlanDetail);
+        }
+        #endregion
     }
 }

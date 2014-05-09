@@ -33,5 +33,12 @@ namespace UniCloud.Application.PartBC.Query.AnnualMaintainPlanQueries
         /// <param name="query">查询表达式</param>
         ///  <returns>EngineMaintainPlanDTO集合</returns>
         IQueryable<EngineMaintainPlanDTO> EngineMaintainPlanDTOQuery(QueryBuilder<EngineMaintainPlan> query);
+
+        /// <summary>
+        /// AircraftMaintainPlan查询。
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        ///  <returns>AircraftMaintainPlanDTO集合</returns>
+        IQueryable<AircraftMaintainPlanDTO> AircraftMaintainPlanDTOQuery(QueryBuilder<AircraftMaintainPlan> query);
     }
 }

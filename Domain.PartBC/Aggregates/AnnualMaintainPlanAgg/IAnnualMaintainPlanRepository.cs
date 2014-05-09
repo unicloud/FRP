@@ -24,5 +24,11 @@ namespace UniCloud.Domain.PartBC.Aggregates.AnnualMaintainPlanAgg
         void DeleteEngineMaintainPlan(EngineMaintainPlan engineMaintainPlan);
         void RemoveEngineMaintainPlanDetail(EngineMaintainPlanDetail engineMaintainPlanDetail);
         #endregion
+
+        #region AircraftMaintainPlan
+        AircraftMaintainPlan GetAircraftMaintainPlan(int id);
+        void DeleteAircraftMaintainPlan(AircraftMaintainPlan aircraftMaintainPlan);
+        void RemoveAircraftMaintainPlanDetail(AircraftMaintainPlanDetail aircraftMaintainPlanDetail);
+        #endregion
     }
 }

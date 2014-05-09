@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/5/8 17:19:37
+// 生成日期: 2014/5/9 9:49:26
 namespace UniCloud.Presentation.Service.Part.Part
 {
     
@@ -588,6 +588,23 @@ namespace UniCloud.Presentation.Service.Part.Part
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<EngineMaintainPlanDTO> _EngineMaintainPlans;
         /// <summary>
+        /// 架构中不存在 AircraftMaintainPlans 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<AircraftMaintainPlanDTO> AircraftMaintainPlans
+        {
+            get
+            {
+                if ((this._AircraftMaintainPlans == null))
+                {
+                    this._AircraftMaintainPlans = base.CreateQuery<AircraftMaintainPlanDTO>("AircraftMaintainPlans");
+                }
+                return this._AircraftMaintainPlans;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<AircraftMaintainPlanDTO> _AircraftMaintainPlans;
+        /// <summary>
         /// 架构中不存在 UtilizationReports 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -851,6 +868,14 @@ namespace UniCloud.Presentation.Service.Part.Part
         public void AddToEngineMaintainPlans(EngineMaintainPlanDTO engineMaintainPlanDTO)
         {
             base.AddObject("EngineMaintainPlans", engineMaintainPlanDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 AircraftMaintainPlans 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToAircraftMaintainPlans(AircraftMaintainPlanDTO aircraftMaintainPlanDTO)
+        {
+            base.AddObject("AircraftMaintainPlans", aircraftMaintainPlanDTO);
         }
         /// <summary>
         /// 架构中不存在 UtilizationReports 的注释。
@@ -1139,106 +1164,120 @@ namespace UniCloud.Presentation.Service.Part.Part
                 "Note\" Type=\"Edm.String\" /><Property Name=\"FeeLittleSum\" Type=\"Edm.Decimal\" Nulla" +
                 "ble=\"false\" /><Property Name=\"FeeTotalSum\" Type=\"Edm.Decimal\" Nullable=\"false\" /" +
                 "><Property Name=\"BudgetToalSum\" Type=\"Edm.Decimal\" Nullable=\"false\" /></ComplexT" +
-                "ype><EntityType Name=\"UtilizationReportDTO\"><Key><PropertyRef Name=\"Id\" /></Key>" +
-                "<Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RegNumbe" +
-                "r\" Type=\"Edm.String\" /><Property Name=\"Title\" Type=\"Edm.String\" /><Property Name" +
-                "=\"ReportDate\" Type=\"Edm.DateTime\" /><Property Name=\"From\" Type=\"Edm.String\" /><P" +
-                "roperty Name=\"To\" Type=\"Edm.String\" /><Property Name=\"FirstSubReports\" Type=\"Col" +
-                "lection(UniCloud.Application.PartBC.DTO.SubUtilizationReportDTO)\" Nullable=\"fals" +
-                "e\" /><Property Name=\"SecondSubReports\" Type=\"Collection(UniCloud.Application.Par" +
-                "tBC.DTO.SubUtilizationReportDTO)\" Nullable=\"false\" /><Property Name=\"ThirdSubRep" +
-                "orts\" Type=\"Collection(UniCloud.Application.PartBC.DTO.SubUtilizationReportDTO)\"" +
-                " Nullable=\"false\" /><Property Name=\"ForthSubReports\" Type=\"Collection(UniCloud.A" +
-                "pplication.PartBC.DTO.SubUtilizationReportDTO)\" Nullable=\"f";
+                "ype><EntityType Name=\"AircraftMaintainPlanDTO\"><Key><PropertyRef Name=\"Id\" /></K" +
+                "ey><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"First" +
+                "HalfYear\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SecondHalfYear\" Ty" +
+                "pe=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Pro" +
+                "perty Name=\"AnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Aircraf" +
+                "tMaintainPlanDetails\" Type=\"Collection(UniCloud.Application.PartBC.DTO.AircraftM" +
+                "aintainPlanDetailDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"Aircra" +
+                "ftMaintainPlanDetailDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /" +
+                "><Property Name=\"AircraftNumber\" Type=\"Edm.String\" /><Property Name=\"AircraftTyp" +
+                "e\" Type=\"Edm.String\" /><Property Name=\"Level\" Type=\"Edm.String\" /><Property Name" +
+                "=\"InDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property ";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart3 = "alse\" /></EntityType><ComplexType Name=\"SubUtilizationReportDTO\"><Property Name=\"" +
-                "Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Title\" Type=\"Edm.String\"" +
-                " /><Property Name=\"FirstValue\" Type=\"Edm.String\" /><Property Name=\"SecondValue\" " +
-                "Type=\"Edm.String\" /><Property Name=\"ThirdValue\" Type=\"Edm.String\" /><Property Na" +
-                "me=\"ForthValue\" Type=\"Edm.String\" /><Property Name=\"FifthValue\" Type=\"Edm.String" +
-                "\" /></ComplexType><Association Name=\"AcConfigDTO_SubAcConfigs\"><End Type=\"UniClo" +
-                "ud.Application.PartBC.DTO.AcConfigDTO\" Role=\"SubAcConfigs\" Multiplicity=\"*\" /><E" +
-                "nd Type=\"UniCloud.Application.PartBC.DTO.AcConfigDTO\" Role=\"AcConfigDTO\" Multipl" +
-                "icity=\"*\" /></Association><Association Name=\"BasicConfigDTO_SubBasicConfigs\"><En" +
-                "d Type=\"UniCloud.Application.PartBC.DTO.BasicConfigDTO\" Role=\"SubBasicConfigs\" M" +
-                "ultiplicity=\"*\" /><End Type=\"UniCloud.Application.PartBC.DTO.BasicConfigDTO\" Rol" +
-                "e=\"BasicConfigDTO\" Multiplicity=\"*\" /></Association><Association Name=\"SnRegDTO_" +
-                "SnHistories\"><End Type=\"UniCloud.Application.PartBC.DTO.SnRegDTO\" Role=\"SnRegDTO" +
-                "\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.PartBC.DTO.SnHistoryDTO\" Ro" +
-                "le=\"SnHistories\" Multiplicity=\"*\" /></Association><Association Name=\"ApuEngineSn" +
-                "RegDTO_SnHistories\"><End Type=\"UniCloud.Application.PartBC.DTO.SnHistoryDTO\" Rol" +
-                "e=\"SnHistories\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.PartBC.DTO.Ap" +
-                "uEngineSnRegDTO\" Role=\"ApuEngineSnRegDTO\" Multiplicity=\"*\" /></Association><Asso" +
-                "ciation Name=\"SpecialConfigDTO_SubSpecialConfigs\"><End Type=\"UniCloud.Applicatio" +
-                "n.PartBC.DTO.SpecialConfigDTO\" Role=\"SubSpecialConfigs\" Multiplicity=\"*\" /><End " +
-                "Type=\"UniCloud.Application.PartBC.DTO.SpecialConfigDTO\" Role=\"SpecialConfigDTO\" " +
-                "Multiplicity=\"*\" /></Association></Schema><Schema Namespace=\"UniCloud.Distribute" +
-                "dServices.Part\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityCont" +
-                "ainer Name=\"PartData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"AcDaily" +
-                "Utilizations\" EntityType=\"UniCloud.Application.PartBC.DTO.AcDailyUtilizationDTO\"" +
-                " /><EntitySet Name=\"Aircrafts\" EntityType=\"UniCloud.Application.PartBC.DTO.Aircr" +
-                "aftDTO\" /><EntitySet Name=\"AircraftTypes\" EntityType=\"UniCloud.Application.PartB" +
-                "C.DTO.AircraftTypeDTO\" /><EntitySet Name=\"AircraftSeriess\" EntityType=\"UniCloud." +
-                "Application.PartBC.DTO.AircraftSeriesDTO\" /><EntitySet Name=\"AcConfigs\" EntityTy" +
-                "pe=\"UniCloud.Application.PartBC.DTO.AcConfigDTO\" /><EntitySet Name=\"BasicConfigG" +
-                "roups\" EntityType=\"UniCloud.Application.PartBC.DTO.BasicConfigGroupDTO\" /><Entit" +
-                "ySet Name=\"BasicConfigs\" EntityType=\"UniCloud.Application.PartBC.DTO.BasicConfig" +
-                "DTO\" /><EntitySet Name=\"BasicConfigHistories\" EntityType=\"UniCloud.Application.P" +
-                "artBC.DTO.BasicConfigHistoryDTO\" /><EntitySet Name=\"ContractAircrafts\" EntityTyp" +
-                "e=\"UniCloud.Application.PartBC.DTO.ContractAircraftDTO\" /><EntitySet Name=\"CtrlU" +
-                "nits\" EntityType=\"UniCloud.Application.PartBC.DTO.CtrlUnitDTO\" /><EntitySet Name" +
-                "=\"Items\" EntityType=\"UniCloud.Application.PartBC.DTO.ItemDTO\" /><EntitySet Name=" +
-                "\"InstallControllers\" EntityType=\"UniCloud.Application.PartBC.DTO.InstallControll" +
-                "erDTO\" /><EntitySet Name=\"ItemMaintainCtrls\" EntityType=\"UniCloud.Application.Pa" +
-                "rtBC.DTO.ItemMaintainCtrlDTO\" /><EntitySet Name=\"PnMaintainCtrls\" EntityType=\"Un" +
-                "iCloud.Application.PartBC.DTO.PnMaintainCtrlDTO\" /><EntitySet Name=\"SnMaintainCt" +
-                "rls\" EntityType=\"UniCloud.Application.PartBC.DTO.SnMaintainCtrlDTO\" /><EntitySet" +
-                " Name=\"MaintainWorks\" EntityType=\"UniCloud.Application.PartBC.DTO.MaintainWorkDT" +
-                "O\" /><EntitySet Name=\"Mods\" EntityType=\"UniCloud.Application.PartBC.DTO.ModDTO\" " +
-                "/><EntitySet Name=\"EngineOils\" EntityType=\"UniCloud.Application.PartBC.DTO.Engin" +
-                "eOilDTO\" /><EntitySet Name=\"APUOils\" EntityType=\"UniCloud.Application.PartBC.DTO" +
-                ".APUOilDTO\" /><EntitySet Name=\"OilMonitors\" EntityType=\"UniCloud.Application.Par" +
-                "tBC.DTO.OilMonitorDTO\" /><EntitySet Name=\"PnRegs\" EntityType=\"UniCloud.Applicati" +
-                "on.PartBC.DTO.PnRegDTO\" /><EntitySet Name=\"Scns\" EntityType=\"UniCloud.Applicatio" +
-                "n.PartBC.DTO.ScnDTO\" /><EntitySet Name=\"AirBusScns\" EntityType=\"UniCloud.Applica" +
-                "tion.PartBC.DTO.AirBusScnDTO\" /><EntitySet Name=\"SnRegs\" EntityType=\"UniCloud.Ap" +
-                "plication.PartBC.DTO.SnRegDTO\" /><EntitySet Name=\"ApuEngineSnRegs\" EntityType=\"U" +
-                "niCloud.Application.PartBC.DTO.ApuEngineSnRegDTO\" /><EntitySet Name=\"SnHistories" +
-                "\" EntityType=\"UniCloud.Application.PartBC.DTO.SnHistoryDTO\" /><EntitySet Name=\"S" +
-                "nRemInstRecords\" EntityType=\"UniCloud.Application.PartBC.DTO.SnRemInstRecordDTO\"" +
-                " /><EntitySet Name=\"SpecialConfigs\" EntityType=\"UniCloud.Application.PartBC.DTO." +
-                "SpecialConfigDTO\" /><EntitySet Name=\"AirStructureDamages\" EntityType=\"UniCloud.A" +
-                "pplication.PartBC.DTO.AirStructureDamageDTO\" /><EntitySet Name=\"AdSbs\" EntityTyp" +
-                "e=\"UniCloud.Application.PartBC.DTO.AdSbDTO\" /><EntitySet Name=\"EngineMaintainPla" +
-                "ns\" EntityType=\"UniCloud.Application.PartBC.DTO.EngineMaintainPlanDTO\" /><Entity" +
-                "Set Name=\"UtilizationReports\" EntityType=\"UniCloud.Application.PartBC.DTO.Utiliz" +
-                "ationReportDTO\" /><FunctionImport Name=\"GetItemsByAircraftType\" ReturnType=\"Coll" +
-                "ection(UniCloud.Application.PartBC.DTO.ItemDTO)\" EntitySet=\"Items\" m:HttpMethod=" +
-                "\"GET\"><Parameter Name=\"aircraftTypeId\" Type=\"Edm.String\" /></FunctionImport><Fun" +
-                "ctionImport Name=\"QueryAcConfigs\" ReturnType=\"Collection(UniCloud.Application.Pa" +
-                "rtBC.DTO.AcConfigDTO)\" EntitySet=\"AcConfigs\" m:HttpMethod=\"GET\"><Parameter Name=" +
-                "\"contractAircraftId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Parameter Name=\"date\" " +
-                "Type=\"Edm.String\" /></FunctionImport><AssociationSet Name=\"AcConfigDTO_SubAcConf" +
-                "igs\" Association=\"UniCloud.Application.PartBC.DTO.AcConfigDTO_SubAcConfigs\"><End" +
-                " Role=\"AcConfigDTO\" EntitySet=\"AcConfigs\" /><End Role=\"SubAcConfigs\" EntitySet=\"" +
-                "AcConfigs\" /></AssociationSet><AssociationSet Name=\"BasicConfigDTO_SubBasicConfi" +
-                "gs\" Association=\"UniCloud.Application.PartBC.DTO.BasicConfigDTO_SubBasicConfigs\"" +
-                "><End Role=\"BasicConfigDTO\" EntitySet=\"BasicConfigs\" /><End Role=\"SubBasicConfig" +
-                "s\" EntitySet=\"BasicConfigs\" /></AssociationSet><AssociationSet Name=\"SnRegDTO_Sn" +
-                "Histories\" Association=\"UniCloud.Application.PartBC.DTO.SnRegDTO_SnHistories\"><E" +
-                "nd Role=\"SnRegDTO\" EntitySet=\"SnRegs\" /><End Role=\"SnHistories\" EntitySet=\"SnHis" +
-                "tories\" /></AssociationSet><AssociationSet Name=\"ApuEngineSnRegDTO_SnHistories\" " +
-                "Association=\"UniCloud.Application.PartBC.DTO.ApuEngineSnRegDTO_SnHistories\"><End" +
-                " Role=\"ApuEngineSnRegDTO\" EntitySet=\"ApuEngineSnRegs\" /><End Role=\"SnHistories\" " +
-                "EntitySet=\"SnHistories\" /></AssociationSet><AssociationSet Name=\"SpecialConfigDT" +
-                "O_SubSpecialConfigs\" Association=\"UniCloud.Application.PartBC.DTO.SpecialConfigD" +
-                "TO_SubSpecialConfigs\"><End Role=\"SpecialConfigDTO\" EntitySet=\"SpecialConfigs\" />" +
-                "<End Role=\"SubSpecialConfigs\" EntitySet=\"SpecialConfigs\" /></AssociationSet></En" +
-                "tityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+            private const string ModelPart3 = "Name=\"OutDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /></ComplexType><EntityType N" +
+                "ame=\"UtilizationReportDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"I" +
+                "d\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RegNumber\" Type=\"Edm.Stri" +
+                "ng\" /><Property Name=\"Title\" Type=\"Edm.String\" /><Property Name=\"ReportDate\" Typ" +
+                "e=\"Edm.DateTime\" /><Property Name=\"From\" Type=\"Edm.String\" /><Property Name=\"To\"" +
+                " Type=\"Edm.String\" /><Property Name=\"FirstSubReports\" Type=\"Collection(UniCloud." +
+                "Application.PartBC.DTO.SubUtilizationReportDTO)\" Nullable=\"false\" /><Property Na" +
+                "me=\"SecondSubReports\" Type=\"Collection(UniCloud.Application.PartBC.DTO.SubUtiliz" +
+                "ationReportDTO)\" Nullable=\"false\" /><Property Name=\"ThirdSubReports\" Type=\"Colle" +
+                "ction(UniCloud.Application.PartBC.DTO.SubUtilizationReportDTO)\" Nullable=\"false\"" +
+                " /><Property Name=\"ForthSubReports\" Type=\"Collection(UniCloud.Application.PartBC" +
+                ".DTO.SubUtilizationReportDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name" +
+                "=\"SubUtilizationReportDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\"" +
+                " /><Property Name=\"Title\" Type=\"Edm.String\" /><Property Name=\"FirstValue\" Type=\"" +
+                "Edm.String\" /><Property Name=\"SecondValue\" Type=\"Edm.String\" /><Property Name=\"T" +
+                "hirdValue\" Type=\"Edm.String\" /><Property Name=\"ForthValue\" Type=\"Edm.String\" /><" +
+                "Property Name=\"FifthValue\" Type=\"Edm.String\" /></ComplexType><Association Name=\"" +
+                "AcConfigDTO_SubAcConfigs\"><End Type=\"UniCloud.Application.PartBC.DTO.AcConfigDTO" +
+                "\" Role=\"SubAcConfigs\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.PartBC." +
+                "DTO.AcConfigDTO\" Role=\"AcConfigDTO\" Multiplicity=\"*\" /></Association><Associatio" +
+                "n Name=\"BasicConfigDTO_SubBasicConfigs\"><End Type=\"UniCloud.Application.PartBC.D" +
+                "TO.BasicConfigDTO\" Role=\"SubBasicConfigs\" Multiplicity=\"*\" /><End Type=\"UniCloud" +
+                ".Application.PartBC.DTO.BasicConfigDTO\" Role=\"BasicConfigDTO\" Multiplicity=\"*\" /" +
+                "></Association><Association Name=\"SnRegDTO_SnHistories\"><End Type=\"UniCloud.Appl" +
+                "ication.PartBC.DTO.SnRegDTO\" Role=\"SnRegDTO\" Multiplicity=\"*\" /><End Type=\"UniCl" +
+                "oud.Application.PartBC.DTO.SnHistoryDTO\" Role=\"SnHistories\" Multiplicity=\"*\" /><" +
+                "/Association><Association Name=\"ApuEngineSnRegDTO_SnHistories\"><End Type=\"UniClo" +
+                "ud.Application.PartBC.DTO.SnHistoryDTO\" Role=\"SnHistories\" Multiplicity=\"*\" /><E" +
+                "nd Type=\"UniCloud.Application.PartBC.DTO.ApuEngineSnRegDTO\" Role=\"ApuEngineSnReg" +
+                "DTO\" Multiplicity=\"*\" /></Association><Association Name=\"SpecialConfigDTO_SubSpe" +
+                "cialConfigs\"><End Type=\"UniCloud.Application.PartBC.DTO.SpecialConfigDTO\" Role=\"" +
+                "SubSpecialConfigs\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.PartBC.DTO" +
+                ".SpecialConfigDTO\" Role=\"SpecialConfigDTO\" Multiplicity=\"*\" /></Association></Sc" +
+                "hema><Schema Namespace=\"UniCloud.DistributedServices.Part\" xmlns=\"http://schemas" +
+                ".microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"PartData\" m:IsDefaultEnti" +
+                "tyContainer=\"true\"><EntitySet Name=\"AcDailyUtilizations\" EntityType=\"UniCloud.Ap" +
+                "plication.PartBC.DTO.AcDailyUtilizationDTO\" /><EntitySet Name=\"Aircrafts\" Entity" +
+                "Type=\"UniCloud.Application.PartBC.DTO.AircraftDTO\" /><EntitySet Name=\"AircraftTy" +
+                "pes\" EntityType=\"UniCloud.Application.PartBC.DTO.AircraftTypeDTO\" /><EntitySet N" +
+                "ame=\"AircraftSeriess\" EntityType=\"UniCloud.Application.PartBC.DTO.AircraftSeries" +
+                "DTO\" /><EntitySet Name=\"AcConfigs\" EntityType=\"UniCloud.Application.PartBC.DTO.A" +
+                "cConfigDTO\" /><EntitySet Name=\"BasicConfigGroups\" EntityType=\"UniCloud.Applicati" +
+                "on.PartBC.DTO.BasicConfigGroupDTO\" /><EntitySet Name=\"BasicConfigs\" EntityType=\"" +
+                "UniCloud.Application.PartBC.DTO.BasicConfigDTO\" /><EntitySet Name=\"BasicConfigHi" +
+                "stories\" EntityType=\"UniCloud.Application.PartBC.DTO.BasicConfigHistoryDTO\" /><E" +
+                "ntitySet Name=\"ContractAircrafts\" EntityType=\"UniCloud.Application.PartBC.DTO.Co" +
+                "ntractAircraftDTO\" /><EntitySet Name=\"CtrlUnits\" EntityType=\"UniCloud.Applicatio" +
+                "n.PartBC.DTO.CtrlUnitDTO\" /><EntitySet Name=\"Items\" EntityType=\"UniCloud.Applica" +
+                "tion.PartBC.DTO.ItemDTO\" /><EntitySet Name=\"InstallControllers\" EntityType=\"UniC" +
+                "loud.Application.PartBC.DTO.InstallControllerDTO\" /><EntitySet Name=\"ItemMaintai" +
+                "nCtrls\" EntityType=\"UniCloud.Application.PartBC.DTO.ItemMaintainCtrlDTO\" /><Enti" +
+                "tySet Name=\"PnMaintainCtrls\" EntityType=\"UniCloud.Application.PartBC.DTO.PnMaint" +
+                "ainCtrlDTO\" /><EntitySet Name=\"SnMaintainCtrls\" EntityType=\"UniCloud.Application" +
+                ".PartBC.DTO.SnMaintainCtrlDTO\" /><EntitySet Name=\"MaintainWorks\" EntityType=\"Uni" +
+                "Cloud.Application.PartBC.DTO.MaintainWorkDTO\" /><EntitySet Name=\"Mods\" EntityTyp" +
+                "e=\"UniCloud.Application.PartBC.DTO.ModDTO\" /><EntitySet Name=\"EngineOils\" Entity" +
+                "Type=\"UniCloud.Application.PartBC.DTO.EngineOilDTO\" /><EntitySet Name=\"APUOils\" " +
+                "EntityType=\"UniCloud.Application.PartBC.DTO.APUOilDTO\" /><EntitySet Name=\"OilMon" +
+                "itors\" EntityType=\"UniCloud.Application.PartBC.DTO.OilMonitorDTO\" /><EntitySet N" +
+                "ame=\"PnRegs\" EntityType=\"UniCloud.Application.PartBC.DTO.PnRegDTO\" /><EntitySet " +
+                "Name=\"Scns\" EntityType=\"UniCloud.Application.PartBC.DTO.ScnDTO\" /><EntitySet Nam" +
+                "e=\"AirBusScns\" EntityType=\"UniCloud.Application.PartBC.DTO.AirBusScnDTO\" /><Enti" +
+                "tySet Name=\"SnRegs\" EntityType=\"UniCloud.Application.PartBC.DTO.SnRegDTO\" /><Ent" +
+                "itySet Name=\"ApuEngineSnRegs\" EntityType=\"UniCloud.Application.PartBC.DTO.ApuEng" +
+                "ineSnRegDTO\" /><EntitySet Name=\"SnHistories\" EntityType=\"UniCloud.Application.Pa" +
+                "rtBC.DTO.SnHistoryDTO\" /><EntitySet Name=\"SnRemInstRecords\" EntityType=\"UniCloud" +
+                ".Application.PartBC.DTO.SnRemInstRecordDTO\" /><EntitySet Name=\"SpecialConfigs\" E" +
+                "ntityType=\"UniCloud.Application.PartBC.DTO.SpecialConfigDTO\" /><EntitySet Name=\"" +
+                "AirStructureDamages\" EntityType=\"UniCloud.Application.PartBC.DTO.AirStructureDam" +
+                "ageDTO\" /><EntitySet Name=\"AdSbs\" EntityType=\"UniCloud.Application.PartBC.DTO.Ad" +
+                "SbDTO\" /><EntitySet Name=\"EngineMaintainPlans\" EntityType=\"UniCloud.Application." +
+                "PartBC.DTO.EngineMaintainPlanDTO\" /><EntitySet Name=\"AircraftMaintainPlans\" Enti" +
+                "tyType=\"UniCloud.Application.PartBC.DTO.AircraftMaintainPlanDTO\" /><EntitySet Na" +
+                "me=\"UtilizationReports\" EntityType=\"UniCloud.Application.PartBC.DTO.UtilizationR" +
+                "eportDTO\" /><FunctionImport Name=\"GetItemsByAircraftType\" ReturnType=\"Collection" +
+                "(UniCloud.Application.PartBC.DTO.ItemDTO)\" EntitySet=\"Items\" m:HttpMethod=\"GET\">" +
+                "<Parameter Name=\"aircraftTypeId\" Type=\"Edm.String\" /></FunctionImport><FunctionI" +
+                "mport Name=\"QueryAcConfigs\" ReturnType=\"Collection(UniCloud.Application.PartBC.D" +
+                "TO.AcConfigDTO)\" EntitySet=\"AcConfigs\" m:HttpMethod=\"GET\"><Parameter Name=\"contr" +
+                "actAircraftId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Parameter Name=\"date\" Type=\"" +
+                "Edm.String\" /></FunctionImport><AssociationSet Name=\"AcConfigDTO_SubAcConfigs\" A" +
+                "ssociation=\"UniCloud.Application.PartBC.DTO.AcConfigDTO_SubAcConfigs\"><End Role=" +
+                "\"AcConfigDTO\" EntitySet=\"AcConfigs\" /><End Role=\"SubAcConfigs\" EntitySet=\"AcConf" +
+                "igs\" /></AssociationSet><AssociationSet Name=\"BasicConfigDTO_SubBasicConfigs\" As" +
+                "sociation=\"UniCloud.Application.PartBC.DTO.BasicConfigDTO_SubBasicConfigs\"><End " +
+                "Role=\"BasicConfigDTO\" EntitySet=\"BasicConfigs\" /><End Role=\"SubBasicConfigs\" Ent" +
+                "itySet=\"BasicConfigs\" /></AssociationSet><AssociationSet Name=\"SnRegDTO_SnHistor" +
+                "ies\" Association=\"UniCloud.Application.PartBC.DTO.SnRegDTO_SnHistories\"><End Rol" +
+                "e=\"SnRegDTO\" EntitySet=\"SnRegs\" /><End Role=\"SnHistories\" EntitySet=\"SnHistories" +
+                "\" /></AssociationSet><AssociationSet Name=\"ApuEngineSnRegDTO_SnHistories\" Associ" +
+                "ation=\"UniCloud.Application.PartBC.DTO.ApuEngineSnRegDTO_SnHistories\"><End Role=" +
+                "\"ApuEngineSnRegDTO\" EntitySet=\"ApuEngineSnRegs\" /><End Role=\"SnHistories\" Entity" +
+                "Set=\"SnHistories\" /></AssociationSet><AssociationSet Name=\"SpecialConfigDTO_SubS" +
+                "pecialConfigs\" Association=\"UniCloud.Application.PartBC.DTO";
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+            private const string ModelPart4 = ".SpecialConfigDTO_SubSpecialConfigs\"><End Role=\"SpecialConfigDTO\" EntitySet=\"Spec" +
+                "ialConfigs\" /><End Role=\"SubSpecialConfigs\" EntitySet=\"SpecialConfigs\" /></Assoc" +
+                "iationSet></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
-                return string.Concat(ModelPart0, ModelPart1, ModelPart2, ModelPart3);
+                return string.Concat(ModelPart0, ModelPart1, ModelPart2, ModelPart3, ModelPart4);
             }
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             public static global::Microsoft.Data.Edm.IEdmModel GetInstance()
@@ -9610,6 +9649,345 @@ namespace UniCloud.Presentation.Service.Part.Part
         private global::System.Collections.ObjectModel.ObservableCollection<EngineMaintainPlanDetailDTO> _EngineMaintainPlanDetails = new global::System.Collections.ObjectModel.ObservableCollection<EngineMaintainPlanDetailDTO>();
         partial void OnEngineMaintainPlanDetailsChanging(global::System.Collections.ObjectModel.ObservableCollection<EngineMaintainPlanDetailDTO> value);
         partial void OnEngineMaintainPlanDetailsChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 ComplexType UniCloud.Application.PartBC.DTO.AircraftMaintainPlanDetailDTO 的注释。
+    /// </summary>
+    public partial class AircraftMaintainPlanDetailDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 AircraftMaintainPlanDetailDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="inDate">InDate 的初始值。</param>
+        /// <param name="outDate">OutDate 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static AircraftMaintainPlanDetailDTO CreateAircraftMaintainPlanDetailDTO(int ID, global::System.DateTime inDate, global::System.DateTime outDate)
+        {
+            AircraftMaintainPlanDetailDTO aircraftMaintainPlanDetailDTO = new AircraftMaintainPlanDetailDTO();
+            aircraftMaintainPlanDetailDTO.Id = ID;
+            aircraftMaintainPlanDetailDTO.InDate = inDate;
+            aircraftMaintainPlanDetailDTO.OutDate = outDate;
+            return aircraftMaintainPlanDetailDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string AircraftNumber
+        {
+            get
+            {
+                return this._AircraftNumber;
+            }
+            set
+            {
+                this.OnAircraftNumberChanging(value);
+                this._AircraftNumber = value;
+                this.OnAircraftNumberChanged();
+                this.OnPropertyChanged("AircraftNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _AircraftNumber;
+        partial void OnAircraftNumberChanging(string value);
+        partial void OnAircraftNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftType 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string AircraftType
+        {
+            get
+            {
+                return this._AircraftType;
+            }
+            set
+            {
+                this.OnAircraftTypeChanging(value);
+                this._AircraftType = value;
+                this.OnAircraftTypeChanged();
+                this.OnPropertyChanged("AircraftType");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _AircraftType;
+        partial void OnAircraftTypeChanging(string value);
+        partial void OnAircraftTypeChanged();
+        /// <summary>
+        /// 架构中不存在属性 Level 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Level
+        {
+            get
+            {
+                return this._Level;
+            }
+            set
+            {
+                this.OnLevelChanging(value);
+                this._Level = value;
+                this.OnLevelChanged();
+                this.OnPropertyChanged("Level");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Level;
+        partial void OnLevelChanging(string value);
+        partial void OnLevelChanged();
+        /// <summary>
+        /// 架构中不存在属性 InDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime InDate
+        {
+            get
+            {
+                return this._InDate;
+            }
+            set
+            {
+                this.OnInDateChanging(value);
+                this._InDate = value;
+                this.OnInDateChanged();
+                this.OnPropertyChanged("InDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _InDate;
+        partial void OnInDateChanging(global::System.DateTime value);
+        partial void OnInDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 OutDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime OutDate
+        {
+            get
+            {
+                return this._OutDate;
+            }
+            set
+            {
+                this.OnOutDateChanging(value);
+                this._OutDate = value;
+                this.OnOutDateChanged();
+                this.OnPropertyChanged("OutDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _OutDate;
+        partial void OnOutDateChanging(global::System.DateTime value);
+        partial void OnOutDateChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PartBC.DTO.AircraftMaintainPlanDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("AircraftMaintainPlans")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class AircraftMaintainPlanDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 AircraftMaintainPlanDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="firstHalfYear">FirstHalfYear 的初始值。</param>
+        /// <param name="secondHalfYear">SecondHalfYear 的初始值。</param>
+        /// <param name="annualId">AnnualId 的初始值。</param>
+        /// <param name="aircraftMaintainPlanDetails">AircraftMaintainPlanDetails 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static AircraftMaintainPlanDTO CreateAircraftMaintainPlanDTO(int ID, int firstHalfYear, int secondHalfYear, global::System.Guid annualId, global::System.Collections.ObjectModel.ObservableCollection<AircraftMaintainPlanDetailDTO> aircraftMaintainPlanDetails)
+        {
+            AircraftMaintainPlanDTO aircraftMaintainPlanDTO = new AircraftMaintainPlanDTO();
+            aircraftMaintainPlanDTO.Id = ID;
+            aircraftMaintainPlanDTO.FirstHalfYear = firstHalfYear;
+            aircraftMaintainPlanDTO.SecondHalfYear = secondHalfYear;
+            aircraftMaintainPlanDTO.AnnualId = annualId;
+            if ((aircraftMaintainPlanDetails == null))
+            {
+                throw new global::System.ArgumentNullException("aircraftMaintainPlanDetails");
+            }
+            aircraftMaintainPlanDTO.AircraftMaintainPlanDetails = aircraftMaintainPlanDetails;
+            return aircraftMaintainPlanDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 FirstHalfYear 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int FirstHalfYear
+        {
+            get
+            {
+                return this._FirstHalfYear;
+            }
+            set
+            {
+                this.OnFirstHalfYearChanging(value);
+                this._FirstHalfYear = value;
+                this.OnFirstHalfYearChanged();
+                this.OnPropertyChanged("FirstHalfYear");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _FirstHalfYear;
+        partial void OnFirstHalfYearChanging(int value);
+        partial void OnFirstHalfYearChanged();
+        /// <summary>
+        /// 架构中不存在属性 SecondHalfYear 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SecondHalfYear
+        {
+            get
+            {
+                return this._SecondHalfYear;
+            }
+            set
+            {
+                this.OnSecondHalfYearChanging(value);
+                this._SecondHalfYear = value;
+                this.OnSecondHalfYearChanged();
+                this.OnPropertyChanged("SecondHalfYear");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SecondHalfYear;
+        partial void OnSecondHalfYearChanging(int value);
+        partial void OnSecondHalfYearChanged();
+        /// <summary>
+        /// 架构中不存在属性 Note 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Note
+        {
+            get
+            {
+                return this._Note;
+            }
+            set
+            {
+                this.OnNoteChanging(value);
+                this._Note = value;
+                this.OnNoteChanged();
+                this.OnPropertyChanged("Note");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Note;
+        partial void OnNoteChanging(string value);
+        partial void OnNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 AnnualId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AnnualId
+        {
+            get
+            {
+                return this._AnnualId;
+            }
+            set
+            {
+                this.OnAnnualIdChanging(value);
+                this._AnnualId = value;
+                this.OnAnnualIdChanged();
+                this.OnPropertyChanged("AnnualId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AnnualId;
+        partial void OnAnnualIdChanging(global::System.Guid value);
+        partial void OnAnnualIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftMaintainPlanDetails 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<AircraftMaintainPlanDetailDTO> AircraftMaintainPlanDetails
+        {
+            get
+            {
+                return this._AircraftMaintainPlanDetails;
+            }
+            set
+            {
+                this.OnAircraftMaintainPlanDetailsChanging(value);
+                this._AircraftMaintainPlanDetails = value;
+                this.OnAircraftMaintainPlanDetailsChanged();
+                this.OnPropertyChanged("AircraftMaintainPlanDetails");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<AircraftMaintainPlanDetailDTO> _AircraftMaintainPlanDetails = new global::System.Collections.ObjectModel.ObservableCollection<AircraftMaintainPlanDetailDTO>();
+        partial void OnAircraftMaintainPlanDetailsChanging(global::System.Collections.ObjectModel.ObservableCollection<AircraftMaintainPlanDetailDTO> value);
+        partial void OnAircraftMaintainPlanDetailsChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

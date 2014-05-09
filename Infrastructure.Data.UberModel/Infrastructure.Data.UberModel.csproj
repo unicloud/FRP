@@ -95,6 +95,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftCabinTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftConfigurationEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftLicenseEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftMaintainPlanDetailEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftMaintainPlanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftSeriesEntityConfiguration.cs">
       <SubType>Code</SubType>
     </Compile>

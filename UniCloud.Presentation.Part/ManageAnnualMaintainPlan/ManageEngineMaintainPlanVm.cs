@@ -379,6 +379,11 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
         public void PaneSelectedChange(int maintainPlanType)
         {
             _maintainPlanType = maintainPlanType;
+            if (Annual != null)
+            {
+                Title = _maintainPlanType == 0 ? Annual.Year + "年发动机非FHA送修预算表" : Annual.Year + "年发动机超包修预算表";
+                _annualFilterDescriptor.Value = Annual.Id;
+            }
             _maintainPlanTypeFilterDescriptor.Value = _maintainPlanType;
             EngineMaintainPlans.Load(true);
         }

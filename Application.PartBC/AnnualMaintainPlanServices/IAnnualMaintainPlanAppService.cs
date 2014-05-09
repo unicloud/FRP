@@ -30,5 +30,10 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
         /// 获取所有EngineMaintainPlan。
         /// </summary>
         IQueryable<EngineMaintainPlanDTO> GetEngineMaintainPlans();
+
+        /// <summary>
+        /// 获取所有AircraftMaintainPlan。
+        /// </summary>
+        IQueryable<AircraftMaintainPlanDTO> GetAircraftMaintainPlans();
     }
 }
