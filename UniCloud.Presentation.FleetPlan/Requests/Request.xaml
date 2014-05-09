@@ -32,7 +32,7 @@
                                                telerik:ProportionalStackPanel.RelativeSize="450, 600">
                         <telerik:RadSplitContainer Orientation="Vertical">
                             <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="450, 600">
-                                <telerik:RadPane Header="申请"
+                                <telerik:RadPane Header="在途申请"
                                                  CanFloat="False"
                                                  CanUserClose="False"
                                                  CanUserPin="False"
@@ -100,7 +100,6 @@
                                                                  CanUserFreezeColumns="False"
                                                                  IsFilteringAllowed="True"
                                                                  EditTriggers="CellClick"
-                                                                 RowDetailsVisibilityMode="VisibleWhenSelected"
                                                                  FontSize="{StaticResource TextFontSize}"
                                                                  ItemsSource="{Binding Requests}"
                                                                  SelectedItem="{Binding SelRequest,Mode=TwoWay}"
@@ -139,7 +138,7 @@
                                                     <telerik:GridViewDataColumn Header="状态"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 HeaderTextAlignment="Center"
-                                                                                DataMemberBinding="{Binding Status,Mode=TwoWay}"
+                                                                                DataMemberBinding="{Binding RequestStatus}"
                                                                                 IsReadOnly="True" />
                                                     <telerik:GridViewDataColumn Header="创建日期"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
