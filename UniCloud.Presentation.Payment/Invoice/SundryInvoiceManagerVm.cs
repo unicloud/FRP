@@ -280,8 +280,8 @@ namespace UniCloud.Presentation.Payment.Invoice
                 return;
             }
             SundryInvoices.Remove(SelectSundryInvoice);
-            var currentCreditNote = SundryInvoices.FirstOrDefault();
-            if (currentCreditNote == null)
+            SelectSundryInvoice = SundryInvoices.FirstOrDefault();
+            if (SelectSundryInvoice == null)
             {
                 //删除完，若没有记录了，则也要删除界面明细
                 InvoiceLines.Clear();
@@ -304,13 +304,13 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnAdd(object obj)
         {
-            var invoiceLine = new InvoiceLineDTO
+            SelInvoiceLine = new InvoiceLineDTO
             {
                 InvoiceLineId = RandomHelper.Next(),
                 InvoiceId = SelectSundryInvoice.SundryInvoiceId,
             };
-            SelectSundryInvoice.InvoiceLines.Add(invoiceLine);
-            InvoiceLines.Add(invoiceLine);
+            SelectSundryInvoice.InvoiceLines.Add(SelInvoiceLine);
+            InvoiceLines.Add(SelInvoiceLine);
         }
 
         private bool CanAdd(object obj)
@@ -330,6 +330,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void OnRemove(object obj)
         {
             SelectSundryInvoice.InvoiceLines.Remove(SelInvoiceLine);
+            SelInvoiceLine = SelectSundryInvoice.InvoiceLines.FirstOrDefault();
             InvoiceLines.Remove(SelInvoiceLine);
         }
 

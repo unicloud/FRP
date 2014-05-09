@@ -350,6 +350,8 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                                                 if (arg.DialogResult != true) return;
                                                 EngineMaintainPlan.EngineMaintainPlanDetails.Remove(
                                                     EngineMaintainPlanDetail);
+                                                EngineMaintainPlanDetail =
+                                                    EngineMaintainPlan.EngineMaintainPlanDetails.FirstOrDefault();
                                             });
         }
 

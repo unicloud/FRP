@@ -203,7 +203,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// <param name="sender"></param>
         public void OndAddGuarantee(object sender)
         {
-            var guarantee = new LeaseGuaranteeDTO
+            SelectedLeaseGuarantee = new LeaseGuaranteeDTO
             {
                 GuaranteeId = RandomHelper.Next(),
                 CreateDate = DateTime.Now,
@@ -211,7 +211,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 EndDate = DateTime.Now.AddDays(7),
                 OperatorName = SessionUser.UserName,
             };
-            LeaseGuaranteesView.AddNew(guarantee);
+            LeaseGuaranteesView.AddNew(SelectedLeaseGuarantee);
         }
 
         /// <summary>
@@ -242,6 +242,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 return;
             }
             LeaseGuaranteesView.Remove(SelectedLeaseGuarantee);
+            SelectedLeaseGuarantee = LeaseGuaranteesView.FirstOrDefault();
             RefreshCommandState();
         }
 

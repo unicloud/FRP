@@ -393,8 +393,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void OnDelete(object obj)
         {
             PurchaseInvoices.Remove(SelPurchaseInvoice);
-            var currentPurchaseInvoice = PurchaseInvoices.FirstOrDefault();
-            if (currentPurchaseInvoice == null)
+            SelPurchaseInvoice = PurchaseInvoices.FirstOrDefault();
+            if (SelPurchaseInvoice == null)
             {
                 //删除完，若没有记录了，则也要删除界面明细
                 InvoiceLines.Clear();
@@ -424,13 +424,13 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnAdd(object obj)
         {
-            var invoiceLine = new InvoiceLineDTO
+            SelInvoiceLine = new InvoiceLineDTO
             {
                 InvoiceLineId = RandomHelper.Next(),
                 InvoiceId = SelPurchaseInvoice.PurchaseInvoiceId
             };
-            SelPurchaseInvoice.InvoiceLines.Add(invoiceLine);
-            InvoiceLines.Add(invoiceLine);
+            SelPurchaseInvoice.InvoiceLines.Add(SelInvoiceLine);
+            InvoiceLines.Add(SelInvoiceLine);
         }
 
         private bool CanAdd(object obj)
@@ -450,6 +450,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void OnRemove(object obj)
         {
             SelPurchaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
+            SelInvoiceLine = SelPurchaseInvoice.InvoiceLines.FirstOrDefault();
             InvoiceLines.Remove(SelInvoiceLine);
         }
 

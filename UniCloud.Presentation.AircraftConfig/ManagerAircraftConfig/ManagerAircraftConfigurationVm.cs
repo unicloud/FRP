@@ -260,6 +260,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             {
                 if (arg.DialogResult != true) return;
                 AircraftConfigurations.Remove(AircraftConfiguration);
+                AircraftConfiguration = AircraftConfigurations.FirstOrDefault();
             });
         }
         protected bool CanRemoveAircraftConfig(object obj)
@@ -314,6 +315,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             {
                 if (arg.DialogResult != true) return;
                 AircraftConfiguration.AircraftCabins.Remove(AircraftCabin);
+                AircraftCabin = AircraftConfiguration.AircraftCabins.FirstOrDefault();
             });
         }
         protected bool CanRemoveCabin(object obj)

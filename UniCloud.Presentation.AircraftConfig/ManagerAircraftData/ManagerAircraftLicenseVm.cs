@@ -216,7 +216,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
                 MessageAlert("请选择一条飞机记录！");
                 return;
             }
-            var aircraftLicense = new AircraftLicenseDTO
+            AircraftLicense = new AircraftLicenseDTO
             {
                 AircraftLicenseId = RandomHelper.Next(),
                 IssuedDate = DateTime.Now,
@@ -224,8 +224,8 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             };
             var firstOrDefault = LicenseTypes.FirstOrDefault();
             if (firstOrDefault != null)
-                aircraftLicense.LicenseTypeId = firstOrDefault.LicenseTypeId;
-            Aircraft.AircraftLicenses.Add(aircraftLicense);
+                AircraftLicense.LicenseTypeId = firstOrDefault.LicenseTypeId;
+            Aircraft.AircraftLicenses.Add(AircraftLicense);
             Image = null;
         }
         protected virtual bool CanAddAircraftLicense(object obj)
@@ -251,6 +251,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             {
                 if (arg.DialogResult != true) return;
                 Aircraft.AircraftLicenses.Remove(AircraftLicense);
+                AircraftLicense = Aircraft.AircraftLicenses.FirstOrDefault();
             });
         }
         protected virtual bool CanRemoveAircraftLicense(object obj)
