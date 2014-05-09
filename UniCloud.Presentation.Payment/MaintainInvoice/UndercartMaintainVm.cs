@@ -184,8 +184,8 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         {
             if (PrepayPayscheduleChildView.Tag != null)
             {
-                var maintainInvoice = PrepayPayscheduleChildView.Tag as UndercartMaintainInvoiceDTO;
-                UndercartMaintainInvoices.AddNew(maintainInvoice);
+                UndercartMaintainInvoice = PrepayPayscheduleChildView.Tag as UndercartMaintainInvoiceDTO;
+                UndercartMaintainInvoices.AddNew(UndercartMaintainInvoice);
             }
         }
         #endregion
@@ -202,7 +202,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
             {
                 if (arg.DialogResult != true) return;
-                UndercartMaintainInvoices.Remove(_undercartMaintainInvoice);
+                UndercartMaintainInvoices.Remove(UndercartMaintainInvoice);
                 UndercartMaintainInvoice = UndercartMaintainInvoices.FirstOrDefault();
             });
         }
@@ -223,12 +223,12 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            var maintainInvoiceLine = new MaintainInvoiceLineDTO
+            UndercartMaintainInvoiceLine = new MaintainInvoiceLineDTO
             {
                 MaintainInvoiceLineId = RandomHelper.Next(),
             };
 
-            UndercartMaintainInvoice.MaintainInvoiceLines.Add(maintainInvoiceLine);
+            UndercartMaintainInvoice.MaintainInvoiceLines.Add(UndercartMaintainInvoiceLine);
         }
 
         protected override bool CanAddInvoiceLine(object obj)
@@ -251,6 +251,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             {
                 if (arg.DialogResult != true) return;
                 UndercartMaintainInvoice.MaintainInvoiceLines.Remove(UndercartMaintainInvoiceLine);
+                UndercartMaintainInvoiceLine = UndercartMaintainInvoice.MaintainInvoiceLines.FirstOrDefault();
             });
         }
 

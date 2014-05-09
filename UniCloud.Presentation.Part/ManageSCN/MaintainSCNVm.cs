@@ -226,6 +226,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             {
                 if (arg.DialogResult != true) return;
                 Scns.Remove(Scn);
+                Scn = Scns.FirstOrDefault();
             });
         }
 
@@ -284,6 +285,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             {
                 if (arg.DialogResult != true) return;
                 Scn.ApplicableAircrafts.Remove(ApplicableAircraft);
+                ApplicableAircraft = Scn.ApplicableAircrafts.FirstOrDefault();
                 CaculateApplicableAircraftCost();
             });
         }

@@ -24,7 +24,6 @@ using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Payment.Invoice;
 using UniCloud.Presentation.Payment.MaintainInvoice;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
@@ -197,7 +196,8 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
             {
                 if (arg.DialogResult != true) return;
-                PaymentNotices.Remove(_paymentNotice);
+                PaymentNotices.Remove(PaymentNotice);
+                PaymentNotice = PaymentNotices.FirstOrDefault();
             });
         }
 
@@ -250,6 +250,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             {
                 if (arg.DialogResult != true) return;
                 PaymentNotice.PaymentNoticeLines.Remove(PaymentNoticeLine);
+                PaymentNoticeLine = PaymentNotice.PaymentNoticeLines.FirstOrDefault();
             });
         }
 

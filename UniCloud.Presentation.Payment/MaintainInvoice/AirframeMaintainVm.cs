@@ -180,8 +180,8 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         {
             if (PrepayPayscheduleChildView.Tag != null)
             {
-                var maintainInvoice = PrepayPayscheduleChildView.Tag as AirframeMaintainInvoiceDTO;
-                AirframeMaintainInvoices.AddNew(maintainInvoice);
+                AirframeMaintainInvoice = PrepayPayscheduleChildView.Tag as AirframeMaintainInvoiceDTO;
+                AirframeMaintainInvoices.AddNew(AirframeMaintainInvoice);
             }
         }
         #endregion
@@ -219,12 +219,12 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            var maintainInvoiceLine = new MaintainInvoiceLineDTO
+            AirframeMaintainInvoiceLine = new MaintainInvoiceLineDTO
             {
                 MaintainInvoiceLineId = RandomHelper.Next(),
             };
 
-            AirframeMaintainInvoice.MaintainInvoiceLines.Add(maintainInvoiceLine);
+            AirframeMaintainInvoice.MaintainInvoiceLines.Add(AirframeMaintainInvoiceLine);
         }
 
         protected override bool CanAddInvoiceLine(object obj)
@@ -247,6 +247,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             {
                 if (arg.DialogResult != true) return;
                 AirframeMaintainInvoice.MaintainInvoiceLines.Remove(AirframeMaintainInvoiceLine);
+                AirframeMaintainInvoiceLine = AirframeMaintainInvoice.MaintainInvoiceLines.FirstOrDefault();
             });
         }
 

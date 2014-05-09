@@ -203,7 +203,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// <param name="sender"></param>
         public void OndAddGuarantee(object sender)
         {
-            var guarantee = new MaintainGuaranteeDTO
+            SelectedMaintainGuarantee = new MaintainGuaranteeDTO
             {
                 GuaranteeId = RandomHelper.Next(),
                 CreateDate = DateTime.Now,
@@ -211,7 +211,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 EndDate = DateTime.Now.AddDays(7),
                 OperatorName = SessionUser.UserName,
             };
-            MaintainGuaranteesView.AddNew(guarantee);
+            MaintainGuaranteesView.AddNew(SelectedMaintainGuarantee);
         }
 
         /// <summary>
@@ -242,6 +242,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 return;
             }
             MaintainGuaranteesView.Remove(SelectedMaintainGuarantee);
+            SelectedMaintainGuarantee = MaintainGuaranteesView.FirstOrDefault();
             RefreshCommandState();
         }
 

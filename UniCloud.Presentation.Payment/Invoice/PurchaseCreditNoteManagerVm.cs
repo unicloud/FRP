@@ -311,8 +311,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void OnDelete(object obj)
         {
             CreditNotes.Remove(SelCreditNote);
-            var currentCreditNote = CreditNotes.FirstOrDefault();
-            if (currentCreditNote == null)
+            SelCreditNote = CreditNotes.FirstOrDefault();
+            if (SelCreditNote == null)
             {
                 //删除完，若没有记录了，则也要删除界面明细
                 InvoiceLines.Clear();
@@ -336,13 +336,13 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnAdd(object obj)
         {
-            var invoiceLine = new InvoiceLineDTO
+            SelInvoiceLine = new InvoiceLineDTO
             {
                 InvoiceLineId = RandomHelper.Next(),
                 InvoiceId = SelCreditNote.CreditNoteId,
             };
-            SelCreditNote.InvoiceLines.Add(invoiceLine);
-            InvoiceLines.Add(invoiceLine);
+            SelCreditNote.InvoiceLines.Add(SelInvoiceLine);
+            InvoiceLines.Add(SelInvoiceLine);
         }
 
         private bool CanAdd(object obj)
@@ -362,6 +362,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void OnRemove(object obj)
         {
             SelCreditNote.InvoiceLines.Remove(SelInvoiceLine);
+            SelInvoiceLine = SelCreditNote.InvoiceLines.FirstOrDefault();
             InvoiceLines.Remove(SelInvoiceLine);
         }
 

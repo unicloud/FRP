@@ -341,6 +341,8 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                                                 }
                                                 AircraftMaintainPlan.AircraftMaintainPlanDetails.Remove(
                                                     AircraftMaintainPlanDetail);
+                                                AircraftMaintainPlanDetail =
+                                                    AircraftMaintainPlan.AircraftMaintainPlanDetails.FirstOrDefault(); 
                                             });
         }
 

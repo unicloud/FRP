@@ -181,8 +181,8 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         {
             if (PrepayPayscheduleChildView.Tag != null)
             {
-                var maintainInvoice = PrepayPayscheduleChildView.Tag as APUMaintainInvoiceDTO;
-                ApuMaintainInvoices.AddNew(maintainInvoice);
+                ApuMaintainInvoice = PrepayPayscheduleChildView.Tag as APUMaintainInvoiceDTO;
+                ApuMaintainInvoices.AddNew(ApuMaintainInvoice);
             }
         }
         #endregion
@@ -199,7 +199,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
             {
                 if (arg.DialogResult != true) return;
-                ApuMaintainInvoices.Remove(_apuMaintainInvoice);
+                ApuMaintainInvoices.Remove(ApuMaintainInvoice);
                 ApuMaintainInvoice = ApuMaintainInvoices.FirstOrDefault();
             });
         }
@@ -220,12 +220,12 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            var maintainInvoiceLine = new MaintainInvoiceLineDTO
+            ApuMaintainInvoiceLine = new MaintainInvoiceLineDTO
             {
                 MaintainInvoiceLineId = RandomHelper.Next(),
             };
 
-            ApuMaintainInvoice.MaintainInvoiceLines.Add(maintainInvoiceLine);
+            ApuMaintainInvoice.MaintainInvoiceLines.Add(ApuMaintainInvoiceLine);
         }
 
         protected override bool CanAddInvoiceLine(object obj)
@@ -248,6 +248,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             {
                 if (arg.DialogResult != true) return;
                 ApuMaintainInvoice.MaintainInvoiceLines.Remove(ApuMaintainInvoiceLine);
+                ApuMaintainInvoiceLine = ApuMaintainInvoice.MaintainInvoiceLines.FirstOrDefault();
             });
         }
 
