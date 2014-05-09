@@ -110,24 +110,10 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public string Regional { get; set; }
 
-        private string _operateStatus;
-        public string OperateStatus
-        {
-            get
-            {
-                if (ExportDate == null)
-                    _operateStatus = "运营中";
-                else _operateStatus = "已退出";
-                return _operateStatus;
-            }
-            set
-            {
-                if (this._operateStatus != value)
-                {
-                    _operateStatus = value;
-                }
-            }
-        }
+        /// <summary>
+        /// 运营状态
+        /// </summary>
+        public string OperateStatus { get; set; }
 
         /// <summary>
         ///     运营权历史

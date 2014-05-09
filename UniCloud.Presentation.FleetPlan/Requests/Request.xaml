@@ -319,6 +319,7 @@
                                                                     DataMemberBinding="{Binding ManaStatus}" />
                                         <telerik:GridViewComboBoxColumn Header="申请状态"
                                                                         IsReadOnly="True"
+                                                                        IsVisible="False"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         ItemsSource="{Binding DataContext.CanRequests,ElementName=RequestUserControl,Mode=TwoWay}"

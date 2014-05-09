@@ -63,6 +63,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftQueries
                                      AirlinesName = p.Airlines.CnName,
                                      ImportCategoryId = p.ImportCategoryId,
                                      ImportCategoryName = p.ImportCategory.ActionType + ":" + p.ImportCategory.ActionName,
+                                     OperateStatus = p.ExportDate == null ? "运营中" : "已退出",
                                      OperationHistories = p.OperationHistories.Select(q => new OperationHistoryDTO
                                                                                            {
                                                                                                OperationHistoryId = q.Id,
