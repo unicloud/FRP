@@ -229,6 +229,11 @@
       <DependentUpon>AircraftOwnership.xaml</DependentUpon>
     </Compile>
     <Compile Include="AircraftOwnerShips\AircraftOwnershipVM.cs" />
+    <Compile Include="Approvals\Approval.xaml.cs">
+      <DependentUpon>Approval.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Approvals\ApprovalInput.cs" />
+    <Compile Include="Approvals\ApprovalVM.cs" />
     <Compile Include="Converts\OperationStatusConvert.cs" />
     <Compile Include="PrepareFleetPlan\AirProgramming.xaml.cs">
       <DependentUpon>AirProgramming.xaml</DependentUpon>
@@ -345,6 +350,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="AircraftOwnerShips\AircraftOwnership.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Approvals\Approval.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

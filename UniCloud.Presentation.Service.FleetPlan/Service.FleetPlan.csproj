@@ -108,6 +108,7 @@
     <Compile Include="FleetPlan\ActionCateDTO.cs" />
     <Compile Include="FleetPlan\ActionCategoryDTO.cs" />
     <Compile Include="FleetPlan\AircraftDTO.cs" />
+    <Compile Include="FleetPlan\ApprovalDocDTO.cs" />
     <Compile Include="FleetPlan\EnginePlanDTO.cs" />
     <Compile Include="FleetPlan\EnginePlanHistoryDTO.cs" />
     <Compile Include="FleetPlan\Enums\CanDeliver.cs" />

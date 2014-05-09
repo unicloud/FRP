@@ -2,12 +2,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Telerik.Windows.Controls;
+using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -22,580 +22,496 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ApprovalVM : EditViewModelBase
     {
+        #region 声明、初始化
+
         private readonly FleetPlanData _context;
+        private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
 
-        /// <summary>
-        ///     构造函数。
-        /// </summary>
         [ImportingConstructor]
-        public ApprovalVM(IFleetPlanService service)
+        public ApprovalVM(IRegionManager regionManager, IFleetPlanService service)
             : base(service)
         {
+            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
-            InitialRequest(); //初始化申请
-            InitialApprovalDoc(); //初始化批文
-            InitialCommand(); //初始化命令
+            InitializeVM();
+            InitializerCommand();
         }
 
-        #region 加载申请
+        /// <summary>
+        ///     初始化ViewModel
+        ///     <remarks>
+        ///         统一在此处创建并注册CollectionView集合。
+        ///     </remarks>
+        /// </summary>
+        private void InitializeVM()
+        {
+            ApprovalDocs = _service.CreateCollection(_context.ApprovalDocs);
+            ApprovalDocs.LoadedData += (s, e) =>
+            {
+                _viewApprovalDocs = new ObservableCollection<ApprovalDocDTO>();
+                foreach (ApprovalDocDTO appDoc in ApprovalDocs.SourceCollection.Cast<ApprovalDocDTO>())
+                {
+                    List<RequestDTO> requests =
+                        Requests.SourceCollection.Cast<RequestDTO>().Where(p => p.ApprovalDocId == appDoc.Id).ToList();
+                    if (appDoc.Status < (int) OperationStatus.已提交 || requests.Any() || requests.Any(r => !r.IsFinished))
+                    {
+                        ViewApprovalDocs.Add(appDoc);
+                    }
+                }
+            };
+            _service.RegisterCollectionView(ApprovalDocs);
 
-        private ApprovalHistoryDTO _selectedApprovalHistory;
-        private RequestDTO _selectedEnRouteRequest;
-        private RequestDTO _selectedRequest;
+            Requests = _service.CreateCollection(_context.Requests, o => o.ApprovalHistories, o => o.RelatedDocs);
+            Requests.LoadedData += (s, e) =>
+            {
+                ApprovalDocs.Load(true);
+                _enRouteRequests = new ObservableCollection<RequestDTO>();
+                foreach (RequestDTO req in Requests.SourceCollection.Cast<RequestDTO>())
+                {
+                    if (req.Note != "指标飞机申请（系统添加）" && req.Status <= (int) RequestStatus.已审批)
+                    {
+                        EnRouteRequests.Add(req);
+                    }
+                }
+            };
+            _service.RegisterCollectionView(Requests);
+        }
 
         /// <summary>
-        ///     选择申请。
+        ///     初始化命令。
         /// </summary>
-        public RequestDTO SelectedRequest
+        private void InitializerCommand()
         {
-            get { return _selectedRequest; }
-            set
+            NewCommand = new DelegateCommand<object>(OnNew, CanNew);
+            CommitCommand = new DelegateCommand<object>(OnCommit, CanCommit);
+            CheckCommand = new DelegateCommand<object>(OnCheck, CanCheck);
+            SendCommand = new DelegateCommand<object>(OnSend, CanSend);
+            EditCommand = new DelegateCommand<object>(OnEdit, CanEdit);
+        }
+
+        #endregion
+
+        #region 数据
+
+        #region 公共属性
+
+        #endregion
+
+        #region 加载数据
+
+        /// <summary>
+        ///     加载数据方法
+        ///     <remarks>
+        ///         导航到此页面时调用。
+        ///         可在此处将CollectionView的AutoLoad属性设为True，以实现数据的自动加载。
+        ///     </remarks>
+        /// </summary>
+        public override void LoadData()
+        {
+            if (!Requests.AutoLoad)
+                Requests.AutoLoad = true;
+            else
+                Requests.Load(true);
+        }
+
+        #region 业务
+
+        #region 所有批文集合
+
+        private ApprovalDocDTO _selApprovalDoc;
+        private ObservableCollection<ApprovalDocDTO> _viewApprovalDocs = new ObservableCollection<ApprovalDocDTO>();
+
+        /// <summary>
+        ///     所有批文集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ApprovalDocDTO> ApprovalDocs { get; set; }
+
+        /// <summary>
+        ///     未使用的批文集合（批文中的飞机未完成计划，或未提交的批文）
+        /// </summary>
+        public ObservableCollection<ApprovalDocDTO> ViewApprovalDocs
+        {
+            get { return _viewApprovalDocs; }
+            private set
             {
-                if (_selectedRequest != value)
+                if (_viewApprovalDocs != value)
                 {
-                    _selectedRequest = value;
-                    RaisePropertyChanged(() => SelectedRequest);
+                    _viewApprovalDocs = value;
+                    RaisePropertyChanged(() => ViewApprovalDocs);
                 }
             }
         }
 
         /// <summary>
-        ///     选择在途申请。
+        ///     选择的批文
         /// </summary>
-        public RequestDTO SelectedEnRouteRequest
+        public ApprovalDocDTO SelApprovalDoc
         {
-            get { return _selectedEnRouteRequest; }
-            set
+            get { return _selApprovalDoc; }
+            private set
             {
-                if (_selectedEnRouteRequest != value)
+                if (_selApprovalDoc != value)
                 {
-                    _selectedEnRouteRequest = value;
-                    RaisePropertyChanged(() => SelectedEnRouteRequest);
+                    _selApprovalDoc = value;
+                    ApprovalRequests=new ObservableCollection<RequestDTO>();
+                    if (value != null)
+                    {
+                        foreach (RequestDTO req in Requests.SourceCollection.Cast<RequestDTO>())
+                        {
+                            if (req.ApprovalDocId == value.Id)
+                                ApprovalRequests.Add(req);
+                        }
+                        if (ApprovalRequests.Count != 0) SelApprovalRequest = ApprovalRequests.First();
+                    }
+                    RaisePropertyChanged(() => SelApprovalDoc);
                 }
             }
         }
 
+        #endregion
+
+        #region 所有申请集合
+
+        private ObservableCollection<RequestDTO> _approvalRequests = new ObservableCollection<RequestDTO>();
+        private ObservableCollection<RequestDTO> _enRouteRequests = new ObservableCollection<RequestDTO>();
+        private ApprovalHistoryDTO _selApprovalHistory;
+
+        private RequestDTO _selApprovalRequest;
+        private RequestDTO _selEnRouteRequest;
+
         /// <summary>
-        ///     选择申请明细。
+        ///     所有未审批完成申请集合
         /// </summary>
-        public ApprovalHistoryDTO SelectedApprovalHistory
+        public QueryableDataServiceCollectionView<RequestDTO> Requests { get; set; }
+
+        /// <summary>
+        ///     批文对应的申请集合
+        /// </summary>
+        public ObservableCollection<RequestDTO> ApprovalRequests
         {
-            get { return _selectedApprovalHistory; }
-            set
+            get { return _approvalRequests; }
+            private set
             {
-                if (_selectedApprovalHistory != value)
+                if (_approvalRequests != value)
                 {
-                    _selectedApprovalHistory = value;
-                    RaisePropertyChanged(() => SelectedApprovalHistory);
+                    _approvalRequests = value;
+                    RaisePropertyChanged(() => ApprovalRequests);
                 }
             }
         }
-
-        /// <summary>
-        ///     获取所有申请信息。
-        /// </summary>
-        public QueryableDataServiceCollectionView<RequestDTO> RequestsView { get; set; }
 
         /// <summary>
         ///     在途申请集合
         /// </summary>
-        public IEnumerable<RequestDTO> ViewEnRouteRequest
+        public ObservableCollection<RequestDTO> EnRouteRequests
         {
-            get
+            get { return _enRouteRequests; }
+            private set
             {
-                return
-                    RequestsView.SourceCollection.Cast<RequestDTO>()
-                        .Where(r => r.Status == (int) RequestStatus.已提交 || r.Status == (int) RequestStatus.已审批);
+                if (_enRouteRequests != value)
+                {
+                    _enRouteRequests = value;
+                    RaisePropertyChanged(() => EnRouteRequests);
+                }
             }
         }
 
         /// <summary>
-        ///     批文的申请集合
+        ///     选择的批文申请
         /// </summary>
-        public IEnumerable<RequestDTO> ViewRequest
+        public RequestDTO SelApprovalRequest
         {
-            get
+            get { return _selApprovalRequest; }
+            private set
             {
-                var requests=
-                    SelectedApprovalDoc == null
-                        ? null
-                        : RequestsView.Where(r => r.ApprovalDocId == SelectedApprovalDoc.Id);
-                if (requests==null)
+                if (_selApprovalRequest != value)
                 {
-                    return null;
+                    _selApprovalRequest = value;
+                    RaisePropertyChanged(() => SelApprovalRequest);
                 }
-                SelectedRequest = requests.FirstOrDefault();
-                return requests;
             }
         }
 
         /// <summary>
-        ///     初始化申请信息。
+        ///     选择的在途申请
         /// </summary>
-        private void InitialRequest()
+        public RequestDTO SelEnRouteRequest
         {
-            RequestsView = _service.CreateCollection(_context.Requests, o => o.ApprovalHistories);
-            _service.RegisterCollectionView(RequestsView);
-            RequestsView.LoadedData += (sender, e) =>
+            get { return _selEnRouteRequest; }
+            private set
             {
-                SetIsBusy();
-                if (e.HasError)
+                if (_selEnRouteRequest != value)
                 {
-                    e.MarkErrorAsHandled();
-                    return;
+                    _selEnRouteRequest = value;
+                    RaisePropertyChanged(() => SelEnRouteRequest);
                 }
-                RefreshCommandState();
-                RefreshRequest();
-            };
+            }
         }
 
         /// <summary>
-        ///     刷新申请
+        ///     选择的申请明细
         /// </summary>
-        private void RefreshRequest()
+        public ApprovalHistoryDTO SelApprovalHistory
         {
-            RaisePropertyChanged(() => ViewEnRouteRequest);
-            RaisePropertyChanged(() => ViewRequest);
+            get { return _selApprovalHistory; }
+            private set
+            {
+                if (_selApprovalHistory != value)
+                {
+                    _selApprovalHistory = value;
+                    RaisePropertyChanged(() => SelApprovalHistory);
+                }
+            }
         }
 
         #endregion
 
-        #region 加载批文
+        #endregion
 
-        private ApprovalDocDTO _selectedApprovalDoc;
+        #endregion
 
-        /// <summary>
-        ///     选择批文。
-        /// </summary>
-        public ApprovalDocDTO SelectedApprovalDoc
+        #endregion
+
+        #region 操作
+
+        #region 刷新按钮状态
+
+        protected override void RefreshCommandState()
         {
-            get { return _selectedApprovalDoc; }
-            set
-            {
-                if (_selectedApprovalDoc != value)
-                {
-                    _selectedApprovalDoc = value;
-                    RaisePropertyChanged(() => SelectedApprovalDoc);
-                    RaisePropertyChanged(()=>ApprovalDocReadOnly);
-                    RefreshRequest();
-                }
-            }
-        }
-
-
-        /// <summary>
-        ///     获取所有批文信息。
-        /// </summary>
-        public QueryableDataServiceCollectionView<ApprovalDocDTO> ApprovalDocsView { get; set; }
-
-        /// <summary>
-        ///     初始化批文信息。
-        /// </summary>
-        private void InitialApprovalDoc()
-        {
-            ApprovalDocsView = _service.CreateCollection(_context.ApprovalDocs);
-            _service.RegisterCollectionView(ApprovalDocsView);
-            ApprovalDocsView.PageSize = 20;
-            ApprovalDocsView.LoadedData += (sender, e) =>
-            {
-                SetIsBusy();
-                if (e.HasError)
-                {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                RefreshCommandState();
-                RefreshRequest();
-            };
+            AddAttachCommand.RaiseCanExecuteChanged();
+            NewCommand.RaiseCanExecuteChanged();
+            CommitCommand.RaiseCanExecuteChanged();
+            CheckCommand.RaiseCanExecuteChanged();
+            SendCommand.RaiseCanExecuteChanged();
+            EditCommand.RaiseCanExecuteChanged();
         }
 
         #endregion
 
-        #region 附件添加相关
-
-        private bool _isDropDownClose;
-
-        private string _selDocType;
-
-        public bool IsDropDownClose
+        protected override bool CanAddAttach(object obj)
         {
-            get { return _isDropDownClose; }
-            set
-            {
-                if (_isDropDownClose != value)
-                {
-                    _isDropDownClose = value;
-                    RaisePropertyChanged(() => IsDropDownClose);
-                }
-            }
+            return _selApprovalDoc != null;
         }
+
+        #region 添加附件成功后执行的操作
 
         /// <summary>
-        ///     选中添加附件的类型
+        ///     子窗口关闭后执行的操作
         /// </summary>
-        public string SelDocType
-        {
-            get { return _selDocType; }
-            set
-            {
-                _selDocType = value;
-                IsDropDownClose = false;
-                if (value != null)
-                {
-                    AddAttach();
-                }
-                RaisePropertyChanged(() => SelDocType);
-            }
-        }
-
-        /// <summary>
-        ///     添加附件类型的集合
-        /// </summary>
-        public List<string> DocTypes
-        {
-            get
-            {
-                return new List<string>
-                {
-                    "民航局批文文档",
-                    "发改委批文文档",
-                };
-            }
-        }
-
-        /// <summary>
-        ///     附件添加按钮是否可用
-        /// </summary>
-        public bool AttachButtonEnabled
-        {
-            get
-            {
-                if (!GetButtonState())
-                {
-                    return false;
-                }
-                return SelectedApprovalDoc != null && SelectedApprovalDoc.Status < (int) OperationStatus.已审核;
-            }
-        }
-
-        /// <summary>
-        ///     添加附件
-        /// </summary>
-        private void AddAttach()
-        {
-            if (SelectedApprovalDoc == null)
-            {
-                MessageAlert("请选择一条记录！");
-                SelDocType = null;
-                return;
-            }
-            OnAddAttach(Guid.Empty);
-        }
-
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
         protected override void WindowClosed(DocumentDTO doc, object sender)
         {
-            if (doc!=null)
+            base.WindowClosed(doc, sender);
+            if (sender is Guid) //添加民航局批文
             {
-                if (SelDocType.Equals("民航局批文文档"))
-                {
-                    SelectedApprovalDoc.CaacDocumentId = doc.DocumentId;
-                    SelectedApprovalDoc.CaacDocumentName = doc.Name;
-                }
-                else
-                {
-                    SelectedApprovalDoc.NdrcDocumentId = doc.DocumentId;
-                    SelectedApprovalDoc.NdrcDocumentName = doc.Name;
-                }
+                SelApprovalDoc.CaacDocumentId = doc.DocumentId;
+                SelApprovalDoc.CaacDocumentName = doc.Name;
             }
-            SelDocType = null;
-        }
-        #endregion
-
-        #region 申请拖拽，批文增加、删除,批文状态控制
-
-        /// <summary>
-        ///     批文是否只读
-        /// </summary>
-        public bool ApprovalDocReadOnly
-        {
-            get
+            else //添加发改委批文
             {
-                return SelectedApprovalDoc == null ||
-                       SelectedApprovalDoc.Status >= (int) OperationStatus.已审核;
+                SelApprovalDoc.NdrcDocumentId = doc.DocumentId;
+                SelApprovalDoc.NdrcDocumentName = doc.Name;
             }
-        }
-
-        /// <summary>
-        ///     申请能否被拖拽
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public bool DragRequest(object request)
-        {
-            return request is RequestDTO && SelectedApprovalDoc != null &&
-                   SelectedApprovalDoc.Status < (int) OperationStatus.已审核 &&
-                   (request as RequestDTO).Status == (int) RequestStatus.已提交;
-        }
-
-        /// <summary>
-        /// 判断批文中的申请是否可拖拽或双击
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public bool DrapApproval(object request)
-        {
-            return request is RequestDTO && SelectedApprovalDoc != null &&
-                   SelectedApprovalDoc.Status < (int) OperationStatus.已审核;
-        }
-
-        /// <summary>
-        ///     创建批文历史
-        /// </summary>
-        /// <param name="request"></param>
-        public void AddRequest(RequestDTO request)
-        {
-            if (!GetButtonState())
-            {
-                MessageAlert("当前界面处于加载中或提交数据中，请稍后...");
-            }
-            if (!DragRequest(request))
-            {
-                MessageAlert("当前申请不能添加到批文中");
-                return;
-            }
-            request.ApprovalDocId = SelectedApprovalDoc.Id;
-            // 申请状态改为已审批
-            request.Status = (int) RequestStatus.已审批;
-            // 相关申请明细对应计划飞机置为批准，其管理状态置为批文
-            request.ApprovalHistories.ToList().ForEach(ah =>
-            {
-                ah.IsApproved = true;
-                ah.PlanAircraftStatus = (int) ManageStatus.批文;
-            });
-            RaisePropertyChanged(()=>ViewRequest);
-        }
-
-        /// <summary>
-        ///     删除申请明细
-        /// </summary>
-        public void RemoveRequest(RequestDTO request)
-        {
-            if (!GetButtonState())
-            {
-                MessageAlert("当前界面处于加载中或提交数据中，请稍后...");
-            }
-            if (!DrapApproval(request))
-            {
-                MessageAlert("当前申请已经过审核不能删除");
-                return;
-            }
-            request.ApprovalDocId = null;
-            // 申请状态改为已审批
-            request.Status = (int) RequestStatus.已提交;
-            // 相关申请明细对应计划飞机置为批准，其管理状态置为批文
-            request.ApprovalHistories.ToList().ForEach(ah =>
-            {
-                ah.IsApproved = false;
-                ah.PlanAircraftStatus = (int)ManageStatus.申请;
-            });
-            RefreshRequest();
-
         }
 
         #endregion
 
-        #region 命令
-
-        #region 新增批文命令
-
-        public DelegateCommand<object> AddApprovalCommand { get; private set; }
+        #region 创建批文
 
         /// <summary>
-        ///     执行新增命令。
+        ///     创建新申请
         /// </summary>
-        /// <param name="sender"></param>
-        public void OndAddApproval(object sender)
+        public DelegateCommand<object> NewCommand { get; private set; }
+
+        private void OnNew(object obj)
         {
-            var approvalDoc = new ApprovalDocDTO
+            var newApprovalDoc = new ApprovalDocDTO
             {
                 Id = Guid.NewGuid(),
+                Status = (int) OperationStatus.草稿,
             };
-            ApprovalDocsView.AddNewItem(approvalDoc);
+            ApprovalDocs.AddNew(newApprovalDoc);
             RefreshCommandState();
         }
 
-        /// <summary>
-        ///     判断新增命令是否可用。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>新增命令是否可用。</returns>
-        public bool CanAddApproval(object sender)
+        private bool CanNew(object obj)
         {
-            return GetButtonState();
+            return true;
+        }
+
+        #endregion
+
+        #region 往批文添加申请
+
+        internal void AddRequestToApprovalDoc(RequestDTO request)
+        {
+            //var req = this.service.AddRequestToApprovalDoc(this.SelApprovalDoc, request);
+            //this._needReFreshViewEnRouteRequest = true;
+            //this.RaiseViewEnRouteRequest();
+            //this._needReFreshViewRequest = true;
+            //this.RaiseViewRequest();
+            //this.SelRequest = req;
+        }
+
+        #endregion
+
+        #region 移除批文下的申请
+
+        internal void RemoveRequest(RequestDTO request)
+        {
+            //this.service.RemoveRequest(request);
+            //this._needReFreshViewEnRouteRequest = true;
+            //this.RaiseViewEnRouteRequest();
+            //this._needReFreshViewRequest = true;
+            //this.RaiseViewRequest();
+            //this.SelRequest = ViewRequest.LastOrDefault();
         }
 
         #endregion
 
         #region 提交审核
 
-        public DelegateCommand<object> SubmitApprovalCommand { get; private set; }
-
         /// <summary>
-        ///     提交审核。
+        ///     提交审核
         /// </summary>
-        /// <param name="sender"></param>
-        public void OnSubmitApproval(object sender)
+        public DelegateCommand<object> CommitCommand { get; private set; }
+
+        private void OnCommit(object obj)
         {
-            if (SelectedApprovalDoc == null)
-            {
-                MessageAlert("批文不能为空");
-                return;
-            }
-            SelectedApprovalDoc.Status = (int) OperationStatus.待审核;
+            SelApprovalDoc.Status = (int) OperationStatus.待审核;
             RefreshCommandState();
         }
 
-        /// <summary>
-        ///     判断提交审核命令是否可用。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>提交审核命令是否可用。</returns>
-        public bool CanSubmitApproval(object sender)
+        private bool CanCommit(object obj)
         {
-            if (!GetButtonState())
+            // 选中批文为空时，按钮不可用
+            if (SelApprovalDoc == null)
             {
                 return false;
             }
-            return SelectedApprovalDoc != null && SelectedApprovalDoc.Status < (int) RequestStatus.待审核;
+            // 批文号、民航局批文文档、审批日期为空时，按钮不可用
+            if (string.IsNullOrWhiteSpace(SelApprovalDoc.CaacApprovalNumber) ||
+                SelApprovalDoc.CaacDocumentId == Guid.Empty ||
+                SelApprovalDoc.CaacExamineDate == null)
+            {
+                return false;
+            }
+            // 选中批文的状态处于草稿，且批文申请明细不为空时，按钮可用
+            return SelApprovalDoc.Status == (int) OperationStatus.草稿 && ApprovalRequests.Any();
         }
 
         #endregion
 
         #region 审核
 
-        public DelegateCommand<object> ReviewApprovalCommand { get; private set; }
-
         /// <summary>
-        ///     执行编辑付款计划行命令。
+        ///     审核
         /// </summary>
-        /// <param name="sender"></param>
-        public void OnReviewApproval(object sender)
+        public DelegateCommand<object> CheckCommand { get; private set; }
+
+        private void OnCheck(object obj)
         {
-            if (SelectedApprovalDoc == null)
-            {
-                MessageAlert("批文不能为空");
-                return;
-            }
-            SelectedApprovalDoc.Status = (int)OperationStatus.已审核;
+            SelApprovalDoc.Status = (int) OperationStatus.已审核;
             RefreshCommandState();
         }
 
-        /// <summary>
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>新增命令是否可用。</returns>
-        public bool CanReviewApproval(object sender)
+        private bool CanCheck(object obj)
         {
-            if (!GetButtonState())
+            // 选中批文为空时，按钮不可用
+            if (SelApprovalDoc == null)
             {
                 return false;
             }
-            return SelectedApprovalDoc != null && SelectedApprovalDoc.Status < (int) OperationStatus.已审核
-                   && SelectedApprovalDoc.Status > (int) OperationStatus.草稿;
+            // 批文号、民航局批文文档、审批日期为空时，按钮不可用
+            if (string.IsNullOrWhiteSpace(SelApprovalDoc.CaacApprovalNumber) ||
+                SelApprovalDoc.CaacDocumentId == Guid.Empty ||
+                SelApprovalDoc.CaacExamineDate == null)
+            {
+                return false;
+            }
+            // 选中批文的状态处于审核，且批文申请明细不为空时，按钮可用
+            return SelApprovalDoc.Status == (int) OperationStatus.待审核 && ApprovalRequests.Any();
         }
 
         #endregion
 
-        /// <summary>
-        ///     获取按钮状态
-        /// </summary>
-        /// <returns></returns>
-        private bool GetButtonState()
-        {
-            //当处于加载中，按钮是不可用的
-            return !RequestsView.IsLoading
-                   && !RequestsView.IsSubmittingChanges
-                   && !ApprovalDocsView.IsLoading
-                   && !ApprovalDocsView.IsLoading;
-
-        }
+        #region 发送
 
         /// <summary>
-        ///     初始化命令
+        ///     发送
         /// </summary>
-        private void InitialCommand()
+        public DelegateCommand<object> SendCommand { get; private set; }
+
+        private void OnSend(object obj)
         {
-            AddApprovalCommand = new DelegateCommand<object>(OndAddApproval, CanAddApproval);
-            SubmitApprovalCommand = new DelegateCommand<object>(OnSubmitApproval,
-                CanSubmitApproval);
-            ReviewApprovalCommand = new DelegateCommand<object>(OnReviewApproval,
-                CanReviewApproval);
-        }
-
-        #endregion
-
-        #region 重载基类服务
-
-        public override void LoadData()
-        {
-            if (!RequestsView.AutoLoad)
+            string content = "是否向【民航局】报送批文：" + SelApprovalDoc.CaacApprovalNumber + "？";
+            MessageConfirm("确认报送批文", content, (o, e) =>
             {
-                RequestsView.AutoLoad = true;
-            }
-            else
-            {
-                RequestsView.Load(true);
-            }
-
-            if (!ApprovalDocsView.AutoLoad)
-            {
-                ApprovalDocsView.AutoLoad = true;
-            }
-            else
-            {
-                ApprovalDocsView.Load(true);
-            }
-        }
-
-        protected override void RefreshCommandState()
-        {
-            AddApprovalCommand.RaiseCanExecuteChanged();
-            SubmitApprovalCommand.RaiseCanExecuteChanged();
-            ReviewApprovalCommand.RaiseCanExecuteChanged();
-            RaisePropertyChanged(() => AttachButtonEnabled);
-            RaisePropertyChanged(() => ApprovalDocReadOnly);
-        }
-
-        protected override bool OnSaveExecuting(object sender)
-        {
-            ApprovalDocsView.ToList().ForEach(p => RequestsView.Where(c => c.ApprovalDocId == p.Id)
-                .SelectMany(c => c.ApprovalHistories).ToList()
-                .ForEach(c =>
+                if (e.DialogResult == true)
                 {
-                    if (c.IsApproved)
+                    // 审核、已提交状态下可以发送。如果已处于提交状态，需要重新发送的，不必改变状态。
+                    if (SelApprovalDoc != null && SelApprovalDoc.Status != (int) OperationStatus.已提交)
                     {
-                        c.PlanAircraftStatus = (int) ManageStatus.批文;
+                        SelApprovalDoc.Status = (int) OperationStatus.已提交;
                     }
-                }));
-            return true;
+                    //this.service.SubmitChanges(sc =>
+                    //{
+                    //    if (sc.Error == null)
+                    //    {
+                    //        // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
+                    //        this.service.TransferApprovalDoc(this.SelApprovalDoc.ApprovalDocID, tp => { }, null);
+                    //        RefreshButtonState();
+                    //    }
+                    //}, null);
+                }
+            });
+            RefreshCommandState();
         }
 
-        protected override void OnSaveSuccess(object sender)
+        private bool CanSend(object obj)
         {
-           
+            // 选中批文为空时，按钮不可用
+            if (SelApprovalDoc == null) return false;
+            // 选中批文的状态处于已审核或已提交时，按钮可用
+            return SelApprovalDoc.Status == (int) OperationStatus.已审核 ||
+                   SelApprovalDoc.Status == (int) OperationStatus.已提交;
         }
 
-        protected override void SetIsBusy()
+        #endregion
+
+        #region 修改批文
+
+        /// <summary>
+        ///     修改批文
+        /// </summary>
+        public DelegateCommand<object> EditCommand { get; private set; }
+
+        private void OnEdit(object obj)
         {
-            if (RequestsView == null || ApprovalDocsView==null)
+            const string content = "确认后批文状态将改为草稿并允许编辑，是否要对该批文进行修改？";
+            MessageConfirm("确认修改批文", content, (o, e) =>
             {
-                IsBusy = true;
-                return;
-            }
-            IsBusy = RequestsView.IsBusy || ApprovalDocsView.IsBusy;
+                if (e.DialogResult == true)
+                {
+                    SelApprovalDoc.Status = (int) OperationStatus.草稿;
+                    //this.service.SubmitChanges(sc => { }, null);
+                    RefreshCommandState();
+                }
+            });
         }
+
+        private bool CanEdit(object obj)
+        {
+            // 选中批文为空时，按钮不可用
+            if (SelApprovalDoc == null) return false;
+            // 选中批文的状态不是草稿时，按钮可用
+            return SelApprovalDoc.Status != (int) OperationStatus.草稿;
+        }
+
+        #endregion
 
         #endregion
     }
