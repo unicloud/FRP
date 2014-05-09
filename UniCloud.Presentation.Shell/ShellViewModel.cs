@@ -1035,7 +1035,7 @@ namespace UniCloud.Presentation.Shell
             var menu832 = new MenuItem
             {
                 Text = "管理机身、起落架年度送修计划",
-                NavUri = ""
+                NavUri = "UniCloud.Presentation.Part.ManageAnnualMaintainPlan.ManageAircraftMaintainPlan"
             };
 
             menu83.Items.Add(menu831);

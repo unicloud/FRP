@@ -360,7 +360,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
 
             var menu83 = FunctionItemFactory.CreateFunctionItem("管理年度送修计划", menu8.Id, 803, false, false, string.Empty);
             var menu831 = FunctionItemFactory.CreateFunctionItem("管理发动机年度送修计划", menu83.Id, 80301, false, false, "UniCloud.Presentation.Part.ManageAnnualMaintainPlan.ManageEngineMaintainPlan");
-            var menu832 = FunctionItemFactory.CreateFunctionItem("管理机身、起落架年度送修计划", menu83.Id, 80302, false, false, "");
+            var menu832 = FunctionItemFactory.CreateFunctionItem("管理机身、起落架年度送修计划", menu83.Id, 80302, false, false, "UniCloud.Presentation.Part.ManageAnnualMaintainPlan.ManageAircraftMaintainPlan");
             menu83.SubFunctionItems.Add(menu831);
             menu83.SubFunctionItems.Add(menu832);
             menu8.SubFunctionItems.Add(menu83);

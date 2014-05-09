@@ -235,6 +235,10 @@
       <DependentUpon>MaintainAirStructureDamage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageAirStructureDamage\MaintainAirStructureDamageVm.cs" />
+    <Compile Include="ManageAnnualMaintainPlan\ManageAircraftMaintainPlan.xaml.cs">
+      <DependentUpon>ManageAircraftMaintainPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageAnnualMaintainPlan\ManageAircraftMaintainPlanVm.cs" />
     <Compile Include="ManageAnnualMaintainPlan\ManageEngineMaintainPlan.xaml.cs">
       <DependentUpon>ManageEngineMaintainPlan.xaml</DependentUpon>
     </Compile>
@@ -355,6 +359,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManageAirStructureDamage\MaintainAirStructureDamage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageAnnualMaintainPlan\ManageAircraftMaintainPlan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

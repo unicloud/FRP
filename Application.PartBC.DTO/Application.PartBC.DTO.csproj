@@ -58,6 +58,8 @@
     <Compile Include="AircraftTypeDTO\AircraftSeriesDTO.cs" />
     <Compile Include="AircraftTypeDTO\AircraftTypeDTO.cs" />
     <Compile Include="AirStructureDamageDTO\AirStructureDamageDTO.cs" />
+    <Compile Include="AnnualMaintainPlanDTO\AircraftMaintainPlanDetailDTO.cs" />
+    <Compile Include="AnnualMaintainPlanDTO\AircraftMaintainPlanDTO.cs" />
     <Compile Include="AnnualMaintainPlanDTO\EngineMaintainPlanDetailDTO.cs" />
     <Compile Include="AnnualMaintainPlanDTO\EngineMaintainPlanDTO.cs" />
     <Compile Include="BasicConfigDTO\BasicConfigDTO.cs" />

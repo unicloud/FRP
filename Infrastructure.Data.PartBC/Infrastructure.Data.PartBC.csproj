@@ -79,6 +79,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AdSbEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirBusScnEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftMaintainPlanDetailEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftMaintainPlanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftSeriesEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirStructureDamageEntityConfiguration.cs" />

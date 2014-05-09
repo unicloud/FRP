@@ -88,6 +88,8 @@
     <Compile Include="Aggregates\AirStructureDamageAgg\IAirStructureDamageRepository.cs" />
     <Compile Include="Aggregates\AnnualAgg\Annual.cs" />
     <Compile Include="Aggregates\AnnualAgg\AnnualFactory.cs" />
+    <Compile Include="Aggregates\AnnualMaintainPlanAgg\AircraftMaintainPlan.cs" />
+    <Compile Include="Aggregates\AnnualMaintainPlanAgg\AircraftMaintainPlanDetail.cs" />
     <Compile Include="Aggregates\AnnualMaintainPlanAgg\AnnualMaintainPlan.cs" />
     <Compile Include="Aggregates\AnnualMaintainPlanAgg\AnnualMaintainPlanFactory.cs" />
     <Compile Include="Aggregates\AnnualMaintainPlanAgg\AnnualMaintainPlanSpecification.cs" />

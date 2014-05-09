@@ -1,0 +1,236 @@
+﻿<UserControl x:Class="UniCloud.Presentation.Part.ManageAnnualMaintainPlan.ManageAircraftMaintainPlan"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:input="clr-namespace:UniCloud.Presentation.Input;assembly=UniCloud.Presentation"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance uc:ManageAircraftMaintainPlanVm}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <telerik:RadBusyIndicator BusyContent="{Binding BusyContent,Mode=TwoWay}"
+                              IsBusy="{Binding AircraftMaintainPlans.IsBusy,Mode=TwoWay}">
+        <Grid>
+            <telerik:RadDocking BorderThickness="0"
+                                Padding="0"
+                                FlowDirection="LeftToRight"
+                                HasDocumentHost="False">
+                <telerik:RadSplitContainer Orientation="Horizontal">
+                    <telerik:RadSplitContainer Orientation="Horizontal">
+                        <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="100,600">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header="年度"
+                                                 IsPinned="True"
+                                                 CanFloat="False"
+                                                 CanUserClose="False"
+                                                 CanUserPin="False"
+                                                 FontSize="{StaticResource TextFontSize}"
+                                                 ContextMenuTemplate="{x:Null}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                            Margin="-1 -2 -1 0"
+                                                            OverflowButtonVisibility="Collapsed">
+                                            <telerik:RadButton Margin="4,2,2,-2"
+                                                               Command="{Binding SaveCommand}"
+                                                               CommandParameter="{Binding AircraftMaintainPlans}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="保存" />
+                                            </telerik:RadButton>
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding AbortCommand}"
+                                                               CommandParameter="{Binding AircraftMaintainPlans}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="放弃更改" />
+                                            </telerik:RadButton>
+                                            <telerik:RadToolBarSeparator />
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding AddCommand}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="创建新年度计划" />
+                                            </telerik:RadButton>
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding RemoveCommand}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="删除年度计划" />
+                                            </telerik:RadButton>
+                                            <telerik:RadToolBarSeparator />
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding AddDetailCommand}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="增加计划明细" />
+                                            </telerik:RadButton>
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding RemoveDetailCommand}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="移除计划明细" />
+                                            </telerik:RadButton>
+                                        </telerik:RadToolBar>
+                                        <telerik:RadGridView x:Name="Annuals"
+                                                             Grid.Row="1"
+                                                             AutoExpandGroups="True"
+                                                             ShowGroupPanel="False"
+                                                             AutoGenerateColumns="False"
+                                                             CanUserSortColumns="True"
+                                                             ItemsSource="{Binding Annuals,Mode=TwoWay}"
+                                                             SelectedItem="{Binding Annual,Mode=TwoWay}"
+                                                             CanUserFreezeColumns="False"
+                                                             RowIndicatorVisibility="Collapsed"
+                                                             CanUserResizeColumns="False"
+                                                             IsFilteringAllowed="True"
+                                                             IsReadOnly="True"
+                                                             IsBusy="{Binding Annuals.IsBusy}">
+                                            <telerik:RadGridView.Columns>
+                                                <telerik:GridViewDataColumn Header="年度"
+                                                                            DataMemberBinding="{Binding Year}" />
+                                            </telerik:RadGridView.Columns>
+                                        </telerik:RadGridView>
+                                    </Grid>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
+                        <telerik:RadSplitContainer Orientation="Vertical"
+                                                   telerik:ProportionalStackPanel.RelativeSize="400, 600">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header="{Binding Title,Mode=TwoWay}"
+                                                 CanFloat="False"
+                                                 CanUserClose="False"
+                                                 CanUserPin="False"
+                                                 FontSize="{StaticResource TextFontSize}"
+                                                 ContextMenuTemplate="{x:Null}">
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100" />
+                                                <ColumnDefinition Width="110" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="50" />
+                                                <ColumnDefinition Width="100" />
+                                                <ColumnDefinition Width="110" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="50" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="上半年计划（总计"
+                                                       VerticalAlignment="Center"
+                                                       TextAlignment="Right" />
+                                            <TextBox Grid.Column="2"
+                                                     Margin="0,3,10,0"
+                                                     telerik:StyleManager.Theme="Windows8"
+                                                     IsReadOnly="True"
+                                                     TextAlignment="Center"
+                                                     Text="{Binding AircraftMaintainPlan.FirstHalfYear, Mode=TwoWay}" />
+                                            <TextBlock Grid.Column="3"
+                                                       Text="架次）"
+                                                       VerticalAlignment="Center"
+                                                       TextAlignment="Left" />
+                                            <TextBlock Grid.Column="5"
+                                                       Text="下半年计划（总计"
+                                                       VerticalAlignment="Center"
+                                                       TextAlignment="Right" />
+                                            <TextBox Grid.Column="6"
+                                                     Margin="0,3,10,0"
+                                                     telerik:StyleManager.Theme="Windows8"
+                                                     IsReadOnly="True"
+                                                     TextAlignment="Center"
+                                                     Text="{Binding AircraftMaintainPlan.SecondHalfYear, Mode=TwoWay}" />
+                                            <TextBlock Grid.Column="7"
+                                                       Text="架次）"
+                                                       VerticalAlignment="Center"
+                                                       TextAlignment="Left" />
+                                        </Grid>
+                                        <telerik:RadGridView Grid.Row="1"
+                                                             Name="AircraftMaintainPlanDetailView"
+                                                             ItemsSource="{Binding AircraftMaintainPlan.AircraftMaintainPlanDetails,Mode=TwoWay}"
+                                                             ShowGroupPanel="False"
+                                                             IsFilteringAllowed="False"
+                                                             CanUserFreezeColumns="False"
+                                                             RowIndicatorVisibility="Collapsed"
+                                                             SelectedItem="{Binding AircraftMaintainPlanDetail, Mode=TwoWay}">
+                                            <telerik:RadContextMenu.ContextMenu>
+                                                <telerik:RadContextMenu>
+                                                    <telerik:RadMenuItem Header="导出Excel"
+                                                                         Command="{Binding ExcelExportCommand}"
+                                                                         CommandParameter="{Binding ElementName=Plans, Mode=OneWay}" />
+                                                    <telerik:RadMenuItem Header="导出Word"
+                                                                         Command="{Binding WordExportCommand}"
+                                                                         CommandParameter="{Binding ElementName=Plans, Mode=OneWay}" />
+                                                </telerik:RadContextMenu>
+                                            </telerik:RadContextMenu.ContextMenu>
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="CellEditEnded">
+                                                    <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
+                                                                           CommandParameter="{Binding ElementName=AircraftMaintainPlanDetailView}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                            <telerik:RadGridView.Columns>
+                                                <telerik:GridViewDataColumn Header="机号"
+                                                                            DataMemberBinding="{Binding AircraftNumber}"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                                <telerik:GridViewDataColumn Header="机型"
+                                                                            DataMemberBinding="{Binding AircraftType}"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                                <input:DataPageSerialColumn Header="序号"
+                                                                            HeaderTextAlignment="Center" />
+                                                <telerik:GridViewDataColumn Header="定检级别"
+                                                                            DataMemberBinding="{Binding Level}"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                                <telerik:GridViewDataColumn Header="预计进场时间"
+                                                                            UniqueName="InDate"
+                                                                            DataMemberBinding="{Binding InDate,StringFormat={StaticResource DateStringFormat}}"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                                <telerik:GridViewDataColumn Header="预计出场时间"
+                                                                            UniqueName="OutDate"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding OutDate,StringFormat={StaticResource DateStringFormat}}" />
+                                                <telerik:GridViewDataColumn  Header="周期"
+                                                                             IsReadOnly="True"
+                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                             DataMemberBinding="{Binding Cycle}" />
+                                            </telerik:RadGridView.Columns>
+                                        </telerik:RadGridView>
+                                        <Grid Row="2">
+                                            <TextBox Margin="0,3"
+                                                     Height="100"
+                                                     AcceptsReturn="True"
+                                                     telerik:StyleManager.Theme="Windows8"
+                                                     IsEnabled="{Binding IsEnable,Mode=TwoWay}"
+                                                     Text="{Binding AircraftMaintainPlan.Note, Mode=TwoWay}" />
+                                        </Grid>
+                                    </Grid>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
+                    </telerik:RadSplitContainer>
+                </telerik:RadSplitContainer>
+            </telerik:RadDocking>
+        </Grid>
+    </telerik:RadBusyIndicator >
+</UserControl>

@@ -21,8 +21,7 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.PartBC.DTO
 {
     /// <summary>
-    ///     public class EngineMaintainPlanDetailDTO
-
+    ///   EngineMaintainPlanDetailDTO
     /// </summary>
     [DataServiceKey("Id")]
     public class EngineMaintainPlanDetailDTO

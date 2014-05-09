@@ -81,11 +81,17 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<SnRemInstRecord> _snRemInstRecords;
         private IDbSet<SpecialConfig> _specialConfigs;
         private IDbSet<Thrust> _thrusts;
-        private IDbSet<EngineMaintainPlan> _engineExceedMaintainPlans;
+        private IDbSet<EngineMaintainPlan> _engineMaintainPlans;
+        private IDbSet<AircraftMaintainPlan> _aircraftMaintainPlans;
 
-        public IDbSet<EngineMaintainPlan> EngineExceedMaintainPlans
+        public IDbSet<AircraftMaintainPlan> AircraftMaintainPlans
         {
-            get { return _engineExceedMaintainPlans ?? (_engineExceedMaintainPlans = Set<EngineMaintainPlan>()); }
+            get { return _aircraftMaintainPlans ?? (_aircraftMaintainPlans = Set<AircraftMaintainPlan>()); }
+        }
+
+        public IDbSet<EngineMaintainPlan> EngineMaintainPlans
+        {
+            get { return _engineMaintainPlans ?? (_engineMaintainPlans = Set<EngineMaintainPlan>()); }
         }
         public IDbSet<AcDailyUtilization> AcDailyUtilizations
         {
@@ -278,6 +284,8 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
 .Add(new AnnualMaintainPlanEntityConfiguration())
 .Add(new EngineMaintainPlanEntityConfiguration())
 .Add(new EngineMaintainPlanDetailEntityConfiguration())
+.Add(new AircraftMaintainPlanEntityConfiguration())
+.Add(new AircraftMaintainPlanDetailEntityConfiguration())
             #endregion
 
             #region BasicConfigGroupAgg
