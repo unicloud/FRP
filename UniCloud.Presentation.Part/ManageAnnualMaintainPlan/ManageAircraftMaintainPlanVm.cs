@@ -234,6 +234,7 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                                  {
                                      Id = RandomHelper.Next(),
                                      AnnualId = Annual.Id,
+                                     Note = Title
                                  };
             AircraftMaintainPlans.AddNew(AircraftMaintainPlan);
         }
@@ -285,7 +286,7 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
         {
             if (AircraftMaintainPlan == null)
             {
-                MessageAlert("请选择一条记录！");
+                MessageAlert("请新建年度送修计划！");
                 return;
             }
 
