@@ -14,6 +14,7 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;

@@ -204,8 +204,8 @@
         <Property Name="Note" Type="Edm.String" />
         <Property Name="CaacDocumentName" Type="Edm.String" />
         <Property Name="NdrcDocumentName" Type="Edm.String" />
-        <Property Name="CaacDocumentId" Type="Edm.Guid" />
-        <Property Name="NdrcDocumentId" Type="Edm.Guid" />
+        <Property Name="CaacDocumentId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="NdrcDocumentId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
       <EntityType Name="CaacProgrammingDTO">
         <Key>
@@ -522,7 +522,7 @@
         <Property Name="LogWriter" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="ApprovalDocId" Type="Edm.Guid" />
-        <Property Name="CaacDocumentId" Type="Edm.Guid" />
+        <Property Name="CaacDocumentId" Type="Edm.Guid" Nullable="false" />
         <Property Name="CaacDocumentName" Type="Edm.String" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AirlinesName" Type="Edm.String" />

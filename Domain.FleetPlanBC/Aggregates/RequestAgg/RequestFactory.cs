@@ -42,7 +42,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <returns></returns>
         public static Request CreateRequest(DateTime? submitDate, string title,
             string caacDocNumber, int status, string note,string caacDocumentName,
-             Guid? caacDocumentId, Guid airlinesId)
+             Guid caacDocumentId, Guid airlinesId)
         {
             var request = new Request
             {

@@ -99,7 +99,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         ///     民航局申请文档Id
         /// </summary>
-        public Guid? CaacDocumentId { get; set; }
+        public Guid CaacDocumentId { get; set; }
 
         /// <summary>
         ///     民航局申请文档名称

@@ -54,7 +54,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 {
                     var aircraft = draggedItem as AircraftDTO;
                     PlanAircraftDTO planAircraft =
-                        ViewModel.ViewPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>()
+                        ViewModel.AllPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>()
                             .Where(p => p.Id == aircraft.AircraftId)
                             .FirstOrDefault(pa => pa.IsOwn);
                     ViewModel.OpenEditDialog(planAircraft, PlanDetailCreateSource.Aircraft);

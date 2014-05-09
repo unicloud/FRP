@@ -95,12 +95,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         /// <summary>
         ///     民航局批文文档
         /// </summary>
-        public Guid? CaacDocumentId { get; private set; }
+        public Guid CaacDocumentId { get; private set; }
 
         /// <summary>
         ///     发改委批文文档
         /// </summary>
-        public Guid? NdrcDocumentId { get; private set; }
+        public Guid NdrcDocumentId { get; private set; }
 
         #endregion
 
@@ -172,7 +172,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         /// </summary>
         /// <param name="caacDocumentId"></param>
         /// <param name="caacDocumentName"></param>
-        public void SetCaacDocument(Guid? caacDocumentId, string caacDocumentName)
+        public void SetCaacDocument(Guid caacDocumentId, string caacDocumentName)
         {
             CaacDocumentId = caacDocumentId;
             CaacDocumentName = caacDocumentName;
@@ -192,7 +192,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         /// </summary>
         /// <param name="ndrcDocumentId"></param>
         /// <param name="ndrcDocumentName"></param>
-        public void SetNdrcDocument(Guid? ndrcDocumentId, string ndrcDocumentName)
+        public void SetNdrcDocument(Guid ndrcDocumentId, string ndrcDocumentName)
         {
             NdrcDocumentId = ndrcDocumentId;
             NdrcDocumentName = ndrcDocumentName;

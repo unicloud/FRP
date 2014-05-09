@@ -74,11 +74,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         ///     民航局批文文档
         /// </summary>
-        public Guid? CaacDocumentId { get;  set; }
+        public Guid CaacDocumentId { get;  set; }
 
         /// <summary>
         ///     发改委批文文档
         /// </summary>
-        public Guid? NdrcDocumentId { get;  set; }
+        public Guid NdrcDocumentId { get;  set; }
     }
 }
