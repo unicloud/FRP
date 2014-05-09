@@ -53,6 +53,10 @@ namespace UniCloud.Application.PartBC.DTO
         /// 预计出场时间
         /// </summary>
         public DateTime OutDate { get; set; }
+        /// <summary>
+        /// 周期
+        /// </summary>
+        public int Cycle { get; set; }
         #endregion
     }
 }

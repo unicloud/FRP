@@ -108,13 +108,14 @@ namespace UniCloud.Domain.PartBC.Aggregates.AnnualMaintainPlanAgg
         }
 
         public static void SetAircraftMaintainPlanDetail(AircraftMaintainPlanDetail aircraftMaintainPlanDetail, string aircraftNumber, string aircraftType,
-           string level, DateTime inDate, DateTime outDate)
+           string level, DateTime inDate, DateTime outDate, int cycle)
         {
             aircraftMaintainPlanDetail.AircraftNumber = aircraftNumber;
             aircraftMaintainPlanDetail.AircraftType = aircraftType;
             aircraftMaintainPlanDetail.Level = level;
             aircraftMaintainPlanDetail.InDate = inDate;
             aircraftMaintainPlanDetail.OutDate = outDate;
+            aircraftMaintainPlanDetail.Cycle = cycle;
         }
     }
 }

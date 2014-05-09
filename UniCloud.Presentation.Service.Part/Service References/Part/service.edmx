@@ -500,6 +500,7 @@
         <Property Name="Level" Type="Edm.String" />
         <Property Name="InDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="OutDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Cycle" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="UtilizationReportDTO">
         <Key>

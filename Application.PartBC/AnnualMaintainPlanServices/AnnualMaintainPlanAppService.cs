@@ -153,14 +153,14 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
         public void InsertAircraftMaintainPlan(AircraftMaintainPlanDTO aircraftMaintainPlan)
         {
             var newAircraftMaintainPlan = AnnualMaintainPlanFactory.CreatAircraftMaintainPlan();
-            AnnualMaintainPlanFactory.SetAircraftMaintainPlan(newAircraftMaintainPlan,aircraftMaintainPlan.FirstHalfYear,aircraftMaintainPlan.SecondHalfYear,aircraftMaintainPlan.Note, aircraftMaintainPlan.AnnualId);
+            AnnualMaintainPlanFactory.SetAircraftMaintainPlan(newAircraftMaintainPlan, aircraftMaintainPlan.FirstHalfYear, aircraftMaintainPlan.SecondHalfYear, aircraftMaintainPlan.Note, aircraftMaintainPlan.AnnualId);
             if (aircraftMaintainPlan.AircraftMaintainPlanDetails != null)
             {
                 foreach (var aircraftMaintainPlanLine in aircraftMaintainPlan.AircraftMaintainPlanDetails)
                 {
                     var newAircraftMaintainPlanLine = AnnualMaintainPlanFactory.CreatAircraftMaintainPlanDetail();
-                    AnnualMaintainPlanFactory.SetAircraftMaintainPlanDetail(newAircraftMaintainPlanLine, aircraftMaintainPlanLine.AircraftNumber, aircraftMaintainPlanLine.AircraftType, 
-                        aircraftMaintainPlanLine.Level, aircraftMaintainPlanLine.InDate, aircraftMaintainPlanLine.OutDate);
+                    AnnualMaintainPlanFactory.SetAircraftMaintainPlanDetail(newAircraftMaintainPlanLine, aircraftMaintainPlanLine.AircraftNumber, aircraftMaintainPlanLine.AircraftType,
+                        aircraftMaintainPlanLine.Level, aircraftMaintainPlanLine.InDate, aircraftMaintainPlanLine.OutDate, aircraftMaintainPlanLine.Cycle);
                     newAircraftMaintainPlan.AircraftMaintainPlanDetails.Add(newAircraftMaintainPlanLine);
                 }
             }
@@ -211,7 +211,7 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
                     result.ChangeCurrentIdentity(sourceAircraftMaintainPlanLine.Id);
                 }
                 AnnualMaintainPlanFactory.SetAircraftMaintainPlanDetail(result, sourceAircraftMaintainPlanLine.AircraftNumber, sourceAircraftMaintainPlanLine.AircraftType,
-                        sourceAircraftMaintainPlanLine.Level, sourceAircraftMaintainPlanLine.InDate, sourceAircraftMaintainPlanLine.OutDate);
+                        sourceAircraftMaintainPlanLine.Level, sourceAircraftMaintainPlanLine.InDate, sourceAircraftMaintainPlanLine.OutDate, sourceAircraftMaintainPlanLine.Cycle);
                 aircraftMaintainPlanLines.Add(result);
             }
             dstAircraftMaintainPlan.AircraftMaintainPlanDetails.ToList().ForEach(p =>

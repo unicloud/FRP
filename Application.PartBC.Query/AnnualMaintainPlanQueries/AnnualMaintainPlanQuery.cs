@@ -92,7 +92,8 @@ namespace UniCloud.Application.PartBC.Query.AnnualMaintainPlanQueries
                      AircraftType = q.AircraftType,
                      Level = q.Level,
                      InDate = q.InDate,
-                     OutDate = q.OutDate
+                     OutDate = q.OutDate,
+                     Cycle = q.Cycle
                  }).ToList(),
              });
          }

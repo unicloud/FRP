@@ -39,6 +39,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.Level).HasColumnName("Level");
             Property(p => p.InDate).HasColumnName("InDate").HasColumnType("datetime2");
             Property(p => p.OutDate).HasColumnName("OutDate").HasColumnType("datetime2");
+            Property(p => p.Cycle).HasColumnName("Cycle");
         }
     }
 }
