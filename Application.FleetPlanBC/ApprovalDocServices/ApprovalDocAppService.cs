@@ -106,7 +106,7 @@ namespace UniCloud.Application.FleetPlanBC.ApprovalDocServices
             }
             if (pesistApprovalDoc.NdrcDocumentId != approvalDoc.NdrcDocumentId)
             {
-                pesistApprovalDoc.SetNdrcDocument(approvalDoc.NdrcDocumentId, pesistApprovalDoc.NdrcDocumentName);
+                pesistApprovalDoc.SetNdrcDocument(approvalDoc.NdrcDocumentId, approvalDoc.NdrcDocumentName);
             }
             _approvalDocRepository.Modify(pesistApprovalDoc);
         }

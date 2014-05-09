@@ -59,6 +59,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                     {
                         ViewApprovalDocs.Add(appDoc);
                     }
+                    RaisePropertyChanged(() => ViewApprovalDocs);
                 }
             };
             _service.RegisterCollectionView(ApprovalDocs);
@@ -66,7 +67,11 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
             Requests = _service.CreateCollection(_context.Requests, o => o.ApprovalHistories, o => o.RelatedDocs);
             Requests.LoadedData += (s, e) =>
             {
-                ApprovalDocs.Load(true);
+                if (!ApprovalDocs.AutoLoad)
+                    ApprovalDocs.AutoLoad = true;
+                else
+                    ApprovalDocs.Load(true);
+
                 _enRouteRequests = new ObservableCollection<RequestDTO>();
                 foreach (RequestDTO req in Requests.SourceCollection.Cast<RequestDTO>())
                 {
@@ -74,6 +79,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                     {
                         EnRouteRequests.Add(req);
                     }
+                    RaisePropertyChanged(() => EnRouteRequests);
                 }
             };
             _service.RegisterCollectionView(Requests);
@@ -166,6 +172,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                         if (ApprovalRequests.Count != 0) SelApprovalRequest = ApprovalRequests.First();
                     }
                     RaisePropertyChanged(() => SelApprovalDoc);
+                    RefreshCommandState();
                 }
             }
         }
@@ -198,6 +205,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 {
                     _approvalRequests = value;
                     RaisePropertyChanged(() => ApprovalRequests);
+                    RefreshCommandState();
                 }
             }
         }
