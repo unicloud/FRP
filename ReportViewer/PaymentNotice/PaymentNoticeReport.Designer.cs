@@ -386,7 +386,7 @@ namespace ReportViewer.PaymentNotice
             this.textBox26.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.6499998569488525D), Telerik.Reporting.Drawing.Unit.Cm(0.899999737739563D));
             this.textBox26.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox26.StyleName = "Office.TableBody";
-            this.textBox26.Value = "=Fields.InvoiceTypeString";
+            this.textBox26.Value = "= Fields.InvoiceTypeString";
             // 
             // textBox27
             // 

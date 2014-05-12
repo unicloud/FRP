@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/5/6 14:54:36
+// 生成日期: 2014/5/12 10:30:42
 namespace UniCloud.Presentation.Service.Payment.Payment
 {
     
@@ -1222,244 +1222,244 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "\"false\" /><Property Name=\"BankAccountId\" Type=\"Edm.Int32\" Nullable=\"false\" /></E" +
                 "ntityType><ComplexType Name=\"PaymentNoticeLineDTO\"><Property Name=\"PaymentNotice" +
                 "LineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"InvoiceType\" Type=\"E" +
-                "dm.Int32\" Nullable=\"false\" /><Property Name=\"InvoiceId\" Type=\"Edm.Int32\" Nullabl" +
-                "e=\"false\" /><Property Name=\"InvoiceNumber\" Type=\"Edm.String\" /><Property Name=\"A" +
-                "mount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.Str" +
-                "ing\" /></ComplexType><EntityType Name=\"SupplierDTO\"><Key><PropertyRef Name=\"Supp" +
-                "lierId\" /></Key><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" />" +
-                "<Property Name=\"Code\" Type=\"Edm.String\" /><Property Name=\"Name\" Type=\"Edm.String" +
-                "\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Nam" +
-                "e=\"Note\" Type=\"Edm.String\" /><Property Name=\"SuppierCompanyId\" Type=\"Edm.Int32\" " +
-                "Nullable=\"false\" /><Property Name=\"AircraftLeaseSupplier\" Type=\"Edm.Boolean\" Nul" +
-                "lable=\"false\" /><Property Name=\"AircraftPurchaseSupplier\" Type=\"Edm.Boolean\" Nul" +
-                "lable=\"false\" /><Property Name=\"EngineLeaseSupplier\" Type=\"Edm.Boolean\" Nullable" +
-                "=\"false\" /><Property Name=\"EnginePurchaseSupplier\" Type=\"Edm.Boolean\" Nullable=\"" +
-                "false\" /><Property Name=\"BFEPurchaseSupplier\" Type=\"Edm.Boolean\" Nullable=\"false" +
-                "\" /><Property Name=\"MaintainSupplier\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Pro" +
-                "perty Name=\"OtherSupplier\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=" +
-                "\"BankAccounts\" Type=\"Collection(UniCloud.Application.PaymentBC.DTO.BankAccountDT" +
-                "O)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"BankAccountDTO\"><Property" +
-                " Name=\"BankAccountId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Accoun" +
-                "t\" Type=\"Edm.String\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=" +
-                "\"Bank\" Type=\"Edm.String\" /><Property Name=\"Branch\" Type=\"Edm.String\" /><Property" +
-                " Name=\"Country\" Type=\"Edm.String\" /><Property Name=\"Address\" Type=\"Edm.String\" /" +
-                "><Property Name=\"IsCurrent\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name" +
-                "=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name" +
-                "=\"OrderDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.In" +
-                "t32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name" +
-                "=\"Version\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=" +
-                "\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /" +
-                "><Property Name=\"OrderDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Nam" +
-                "e=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.S" +
-                "tring\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Proper" +
-                "ty Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"OrderLines\" Type=\"Col" +
-                "lection(UniCloud.Application.PaymentBC.DTO.OrderLineDTO)\" Nullable=\"false\" /></E" +
-                "ntityType><ComplexType Name=\"OrderLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" " +
-                "Nullable=\"false\" /><Property Name=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false" +
-                "\" /><Property Name=\"Amount\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"" +
-                "Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"EstimateDelivery" +
-                "Date\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.Str" +
-                "ing\" /><Property Name=\"TotalLine\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Propert" +
-                "y Name=\"MaterialName\" Type=\"Edm.String\" /><Property Name=\"OrderId\" Type=\"Edm.Int" +
-                "32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"PurchaseOrderDTO\"><Key><P" +
-                "ropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"fals" +
-                "e\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Version\" Type=\"Ed" +
-                "m.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullabl" +
-                "e=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"Or" +
-                "derDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Ed" +
-                "m.Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property " +
-                "Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierNa" +
-                "me\" Type=\"Edm.String\" /><Property Name=\"OrderLines\" Type=\"Collection(UniCloud.Ap" +
-                "plication.PaymentBC.DTO.OrderLineDTO)\" Nullable=\"false\" /></EntityType><EntityTy" +
-                "pe Name=\"LeaseOrderDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" " +
-                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><P" +
-                "roperty Name=\"Version\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Curre" +
-                "ncyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=\"E" +
-                "dm.String\" /><Property Name=\"OrderDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><" +
-                "Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Note\"" +
-                " Type=\"Edm.String\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"fals" +
-                "e\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /></EntityType><EntityType " +
-                "Name=\"AircraftPurchaseOrderDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Na" +
-                "me=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"TradeId\" Type=\"Edm.I" +
-                "nt32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Nam" +
-                "e=\"Version\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type" +
-                "=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" " +
-                "/><Property Name=\"OrderDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Na" +
-                "me=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm." +
-                "String\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
-                "rty Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"AircraftPurchaseOrde" +
-                "rLines\" Type=\"Collection(UniCloud.Application.PaymentBC.DTO.AircraftPurchaseOrde" +
-                "rLineDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"AircraftPurchaseOr" +
-                "derLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Na" +
-                "me=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Amount\" Typ" +
-                "e=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\" Nu" +
-                "llable=\"false\" /><Property Name=\"AirframePrice\" Type=\"Edm.Decimal\" Nullable=\"fal" +
-                "se\" /><Property Name=\"RefitCost\" Type=\"Edm.Decimal\" Nullabl";
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart4 = "e=\"false\" /><Property Name=\"EnginePrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><P" +
-                "roperty Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Prop" +
-                "erty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"TotalLine\" Type=\"Edm.Decima" +
-                "l\" Nullable=\"false\" /><Property Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\"" +
-                " /><Property Name=\"ContractAircraftId\" Type=\"Edm.Int32\" Nullable=\"false\" /></Com" +
-                "plexType><EntityType Name=\"AircraftLeaseOrderDTO\"><Key><PropertyRef Name=\"Id\" />" +
-                "</Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Na" +
-                "me\" Type=\"Edm.String\" /><Property Name=\"Version\" Type=\"Edm.Int32\" Nullable=\"fals" +
-                "e\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
-                "ame=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"OrderDate\" Type=\"Edm.Date" +
-                "Time\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"fals" +
-                "e\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"SupplierId\" Type=" +
-                "\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /" +
-                "><Property Name=\"AircraftLeaseOrderLines\" Type=\"Collection(UniCloud.Application." +
-                "PaymentBC.DTO.AircraftLeaseOrderLineDTO)\" Nullable=\"false\" /></EntityType><Compl" +
-                "exType Name=\"AircraftLeaseOrderLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nul" +
-                "lable=\"false\" /><Property Name=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /" +
-                "><Property Name=\"Amount\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Dis" +
-                "count\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"EstimateDeliveryDat" +
-                "e\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String" +
-                "\" /><Property Name=\"TotalLine\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property N" +
-                "ame=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ContractAircra" +
-                "ftId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"Engine" +
-                "PurchaseOrderDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"" +
-                "Edm.Int32\" Nullable=\"false\" /><Property Name=\"TradeId\" Type=\"Edm.Int32\" Nullable" +
+                "dm.Int32\" Nullable=\"false\" /><Property Name=\"InvoiceTypeString\" Type=\"Edm.String" +
+                "\" /><Property Name=\"InvoiceId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Nam" +
+                "e=\"InvoiceNumber\" Type=\"Edm.String\" /><Property Name=\"Amount\" Type=\"Edm.Decimal\"" +
+                " Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /></ComplexType><Ent" +
+                "ityType Name=\"SupplierDTO\"><Key><PropertyRef Name=\"SupplierId\" /></Key><Property" +
+                " Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Code\" Typ" +
+                "e=\"Edm.String\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"IsVal" +
+                "id\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String" +
+                "\" /><Property Name=\"SuppierCompanyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"AircraftLeaseSupplier\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property" +
+                " Name=\"AircraftPurchaseSupplier\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property" +
+                " Name=\"EngineLeaseSupplier\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name" +
+                "=\"EnginePurchaseSupplier\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"" +
+                "BFEPurchaseSupplier\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Maint" +
+                "ainSupplier\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"OtherSupplier" +
+                "\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"BankAccounts\" Type=\"Coll" +
+                "ection(UniCloud.Application.PaymentBC.DTO.BankAccountDTO)\" Nullable=\"false\" /></" +
+                "EntityType><ComplexType Name=\"BankAccountDTO\"><Property Name=\"BankAccountId\" Typ" +
+                "e=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Account\" Type=\"Edm.String\" /><P" +
+                "roperty Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Bank\" Type=\"Edm.String\" " +
+                "/><Property Name=\"Branch\" Type=\"Edm.String\" /><Property Name=\"Country\" Type=\"Edm" +
+                ".String\" /><Property Name=\"Address\" Type=\"Edm.String\" /><Property Name=\"IsCurren" +
+                "t\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.I" +
+                "nt32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"OrderDTO\"><Key><Propert" +
+                "yRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><" +
+                "Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Version\" Type=\"Edm.Int3" +
+                "2\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"fal" +
+                "se\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"OrderDat" +
+                "e\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int3" +
+                "2\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"" +
+                "SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierName\" Ty" +
+                "pe=\"Edm.String\" /><Property Name=\"OrderLines\" Type=\"Collection(UniCloud.Applicat" +
+                "ion.PaymentBC.DTO.OrderLineDTO)\" Nullable=\"false\" /></EntityType><ComplexType Na" +
+                "me=\"OrderLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Amoun" +
+                "t\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Discount\" Type=\"Edm.Decim" +
+                "al\" Nullable=\"false\" /><Property Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\"" +
+                " Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"To" +
+                "talLine\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"MaterialName\" Typ" +
+                "e=\"Edm.String\" /><Property Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\" /></" +
+                "ComplexType><EntityType Name=\"PurchaseOrderDTO\"><Key><PropertyRef Name=\"Id\" /></" +
+                "Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name" +
+                "\" Type=\"Edm.String\" /><Property Name=\"Version\" Type=\"Edm.Int32\" Nullable=\"false\"" +
+                " /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Nam" +
+                "e=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"OrderDate\" Type=\"Edm.DateTi" +
+                "me\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\"" +
+                " /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"SupplierId\" Type=\"E" +
+                "dm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><" +
+                "Property Name=\"OrderLines\" Type=\"Collection(UniCloud.Application.PaymentBC.DTO.O" +
+                "rderLineDTO)\" Nullable=\"false\" /></EntityType><EntityType Name=\"LeaseOrderDTO\"><" +
+                "Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable" +
                 "=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Version\" Ty" +
                 "pe=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" N" +
                 "ullable=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property Na" +
                 "me=\"OrderDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Status\" Ty" +
                 "pe=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Pro" +
                 "perty Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Supp" +
-                "lierName\" Type=\"Edm.String\" /><Property Name=\"EnginePurchaseOrderLines\" Type=\"Co" +
-                "llection(UniCloud.Application.PaymentBC.DTO.EnginePurchaseOrderLineDTO)\" Nullabl" +
-                "e=\"false\" /></EntityType><ComplexType Name=\"EnginePurchaseOrderLineDTO\"><Propert" +
-                "y Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"UnitPrice\" Type=" +
-                "\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Amount\" Type=\"Edm.Int32\" Nullab" +
-                "le=\"false\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Pr" +
-                "operty Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Prope" +
-                "rty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"TotalLine\" Type=\"Edm.Decimal" +
-                "\" Nullable=\"false\" /><Property Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\" " +
-                "/><Property Name=\"ContractEngineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></Comple" +
-                "xType><EntityType Name=\"EngineLeaseOrderDTO\"><Key><PropertyRef Name=\"Id\" /></Key" +
-                "><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"TradeId" +
-                "\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" />" +
-                "<Property Name=\"Version\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Cur" +
-                "rencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=" +
-                "\"Edm.String\" /><Property Name=\"LinkmanId\" Type=\"Edm.Int32\" Nullable=\"false\" /><P" +
-                "roperty Name=\"OrderDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"" +
-                "Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.Stri" +
-                "ng\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property " +
-                "Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"EngineLeaseOrderLines\" T" +
-                "ype=\"Collection(UniCloud.Application.PaymentBC.DTO.EngineLeaseOrderLineDTO)\" Nul" +
-                "lable=\"false\" /></EntityType><ComplexType Name=\"EngineLeaseOrderLineDTO\"><Proper" +
-                "ty Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"UnitPrice\" Type" +
-                "=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Amount\" Type=\"Edm.Int32\" Nulla" +
-                "ble=\"false\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><P" +
-                "roperty Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Prop" +
-                "erty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"TotalLine\" Type=\"Edm.Decima" +
-                "l\" Nullable=\"false\" /><Property Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\"" +
-                " /><Property Name=\"ContractEngineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></Compl" +
-                "exType><EntityType Name=\"BFEPurchaseOrderDTO\"><Key><PropertyRef Name=\"Id\" /></Ke" +
-                "y><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"TradeI" +
-                "d\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /" +
-                "><Property Name=\"Version\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Cu" +
-                "rrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type" +
-                "=\"Edm.String\" /><Property Name=\"OrderDate\" Type=\"Edm.DateTime\" Nullable=\"false\" " +
-                "/><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"No" +
-                "te\" Type=\"Edm.String\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"f" +
-                "alse\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"BFEPur" +
-                "chaseOrderLines\" Type=\"Collection(UniCloud.Application.PaymentBC.DTO.BFEPurchase" +
-                "OrderLineDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"BFEPurchaseOrd" +
-                "erLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Nam" +
-                "e=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Amount\" Type" +
-                "=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\" Nul" +
-                "lable=\"false\" /><Property Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\" Nullab" +
-                "le=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"TotalLine" +
-                "\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"BFEMaterialId\" Type=\"Edm" +
-                ".Int32\" Nullable=\"false\" /><Property Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"f" +
-                "alse\" /></ComplexType><EntityType Name=\"StandardOrderDTO\"><Key><PropertyRef Name" +
-                "=\"StandardOrderId\" /></Key><Property Name=\"StandardOrderId\" Type=\"Edm.Int32\" Nul" +
-                "lable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Contra" +
-                "ctNumber\" Type=\"Edm.String\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nulla" +
-                "ble=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><P" +
-                "roperty Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm." +
-                "String\" /></EntityType><EntityType Name=\"LeaseGuaranteeDTO\"><Key><PropertyRef Na" +
-                "me=\"GuaranteeId\" /></Key><Property Name=\"GuaranteeId\" Type=\"Edm.Int32\" Nullable=" +
-                "\"false\" /><Property Name=\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Pro" +
-                "perty Name=\"EndDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Amou" +
-                "nt\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Ed" +
-                "m.String\" /><Property Name=\"CurrencyName\" Type=\"Edm.String\" /><Property Name=\"Op" +
-                "eratorName\" Type=\"Edm.String\" /><Property Name=\"Reviewer\" Type=\"Edm.String\" /><P" +
-                "roperty Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=" +
-                "\"ReviewDate\" Type=\"Edm.DateTime\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Null" +
-                "able=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\"";
+                "lierName\" Type=\"Edm.String\" /></EntityType><EntityType Name=\"AircraftPurchaseOrd" +
+                "erDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" " +
+                "Nullable=\"false\" /><Property Name=\"TradeId\" Type=\"Edm.Int32\" Nullable=\"false\" />" +
+                "<Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Version\" Type=\"Edm.Int" +
+                "32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"OrderDa" +
+                "te\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int" +
+                "32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=" +
+                "\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierName\" T" +
+                "ype=\"Edm.String\" /><Property Name=\"AircraftPurchaseOrderLines\" Type=\"Collection(" +
+                "UniCloud.Application.PaymentBC.DTO.AircraftPurchaseOrderLineDTO)\" Nullable=\"fals" +
+                "e\" /></EntityType><ComplexType Name=\"AircraftPurchaseOrderLineDTO\"><Property Nam" +
+                "e=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"UnitPrice\" Type=\"Edm." +
+                "Decimal\" Nullable=\"false\" /><Property Name=\"Amount\" Type=\"Edm.Int32\" Nullable=\"f" +
+                "alse\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Propert" +
+                "y Name=\"AirframePrice\" Type=\"Edm.Decimal\" Nullable=\"false\" ";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart5 = " Nullable=\"false\" /><Property Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\" />" +
-                "<Property Name=\"OrderName\" Type=\"Edm.String\" /><Property Name=\"CurrencyId\" Type=" +
-                "\"Edm.Int32\" Nullable=\"false\" /></EntityType><EntityType Name=\"MaintainGuaranteeD" +
-                "TO\"><Key><PropertyRef Name=\"GuaranteeId\" /></Key><Property Name=\"MaintainContrac" +
-                "tId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"MaintainContractName\" T" +
-                "ype=\"Edm.String\" /><Property Name=\"GuaranteeId\" Type=\"Edm.Int32\" Nullable=\"false" +
-                "\" /><Property Name=\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property " +
-                "Name=\"EndDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Amount\" Ty" +
-                "pe=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.Stri" +
-                "ng\" /><Property Name=\"CurrencyName\" Type=\"Edm.String\" /><Property Name=\"Operator" +
-                "Name\" Type=\"Edm.String\" /><Property Name=\"Reviewer\" Type=\"Edm.String\" /><Propert" +
-                "y Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Revie" +
-                "wDate\" Type=\"Edm.DateTime\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"" +
-                "false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Proper" +
-                "ty Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType><EntityTyp" +
-                "e Name=\"MaintainContractDTO\"><Key><PropertyRef Name=\"MaintainContractId\" /></Key" +
-                "><Property Name=\"MaintainContractId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Proper" +
-                "ty Name=\"Number\" Type=\"Edm.String\" /><Property Name=\"Name\" Type=\"Edm.String\" /><" +
-                "Property Name=\"Signatory\" Type=\"Edm.String\" /><Property Name=\"SignatoryId\" Type=" +
-                "\"Edm.Int32\" Nullable=\"false\" /></EntityType></Schema><Schema Namespace=\"UniCloud" +
-                ".DistributedServices.Payment\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/ed" +
-                "m\"><EntityContainer Name=\"PaymentData\" m:IsDefaultEntityContainer=\"true\"><Entity" +
-                "Set Name=\"PurchaseCreditNotes\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Pu" +
-                "rchaseCreditNoteDTO\" /><EntitySet Name=\"MaintainCreditNotes\" EntityType=\"UniClou" +
-                "d.Application.PaymentBC.DTO.MaintainCreditNoteDTO\" /><EntitySet Name=\"LeaseInvoi" +
-                "ces\" EntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO\" /><EntitySe" +
-                "t Name=\"PurchasePrepaymentInvoices\" EntityType=\"UniCloud.Application.PaymentBC.D" +
-                "TO.PurchasePrepaymentInvoiceDTO\" /><EntitySet Name=\"MaintainPrepaymentInvoices\" " +
-                "EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainPrepaymentInvoiceDTO\" /><" +
-                "EntitySet Name=\"PurchaseInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO" +
-                ".PurchaseInvoiceDTO\" /><EntitySet Name=\"SundryInvoices\" EntityType=\"UniCloud.App" +
-                "lication.PaymentBC.DTO.SundryInvoiceDTO\" /><EntitySet Name=\"Invoices\" EntityType" +
-                "=\"UniCloud.Application.PaymentBC.DTO.BaseInvoiceDTO\" /><EntitySet Name=\"EngineMa" +
-                "intainInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EngineMaintainInv" +
-                "oiceDTO\" /><EntitySet Name=\"APUMaintainInvoices\" EntityType=\"UniCloud.Applicatio" +
-                "n.PaymentBC.DTO.APUMaintainInvoiceDTO\" /><EntitySet Name=\"AirframeMaintainInvoic" +
-                "es\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceDTO\" /" +
-                "><EntitySet Name=\"UndercartMaintainInvoices\" EntityType=\"UniCloud.Application.Pa" +
-                "ymentBC.DTO.UndercartMaintainInvoiceDTO\" /><EntitySet Name=\"ContractAircrafts\" E" +
-                "ntityType=\"UniCloud.Application.PaymentBC.DTO.ContractAircraftDTO\" /><EntitySet " +
-                "Name=\"ContractEngines\" EntityType=\"UniCloud.Application.PaymentBC.DTO.ContractEn" +
-                "gineDTO\" /><EntitySet Name=\"Currencies\" EntityType=\"UniCloud.Application.Payment" +
-                "BC.DTO.CurrencyDTO\" /><EntitySet Name=\"PaymentSchedules\" EntityType=\"UniCloud.Ap" +
-                "plication.PaymentBC.DTO.PaymentScheduleDTO\" /><EntitySet Name=\"AcPaymentSchedule" +
-                "s\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AcPaymentScheduleDTO\" /><Entit" +
-                "ySet Name=\"EnginePaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DT" +
-                "O.EnginePaymentScheduleDTO\" /><EntitySet Name=\"StandardPaymentSchedules\" EntityT" +
-                "ype=\"UniCloud.Application.PaymentBC.DTO.StandardPaymentScheduleDTO\" /><EntitySet" +
-                " Name=\"MaintainPaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO." +
-                "MaintainPaymentScheduleDTO\" /><EntitySet Name=\"PaymentNotices\" EntityType=\"UniCl" +
-                "oud.Application.PaymentBC.DTO.PaymentNoticeDTO\" /><EntitySet Name=\"Suppliers\" En" +
-                "tityType=\"UniCloud.Application.PaymentBC.DTO.SupplierDTO\" /><EntitySet Name=\"Ord" +
-                "ers\" EntityType=\"UniCloud.Application.PaymentBC.DTO.OrderDTO\" /><EntitySet Name=" +
-                "\"PurchaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PurchaseOrderDTO" +
-                "\" /><EntitySet Name=\"LeaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO" +
-                ".LeaseOrderDTO\" /><EntitySet Name=\"AircraftPurchaseOrders\" EntityType=\"UniCloud." +
-                "Application.PaymentBC.DTO.AircraftPurchaseOrderDTO\" /><EntitySet Name=\"AircraftL" +
-                "easeOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AircraftLeaseOrderDTO" +
-                "\" /><EntitySet Name=\"EnginePurchaseOrders\" EntityType=\"UniCloud.Application.Paym" +
-                "entBC.DTO.EnginePurchaseOrderDTO\" /><EntitySet Name=\"EngineLeaseOrders\" EntityTy" +
-                "pe=\"UniCloud.Application.PaymentBC.DTO.EngineLeaseOrderDTO\" /><EntitySet Name=\"B" +
-                "FEPurchaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.BFEPurchaseOrde" +
-                "rDTO\" /><EntitySet Name=\"StandardOrders\" EntityType=\"UniCloud.Application.Paymen" +
-                "tBC.DTO.StandardOrderDTO\" /><EntitySet Name=\"LeaseGuarantees\" EntityType=\"UniClo" +
-                "ud.Application.PaymentBC.DTO.LeaseGuaranteeDTO\" /><EntitySet Name=\"MaintainGuara" +
-                "ntees\" EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainGuaranteeDTO\" /><E" +
-                "ntitySet Name=\"MaintainContracts\" EntityType=\"UniCloud.Application.PaymentBC.DTO" +
-                ".MaintainContractDTO\" /></EntityContainer></Schema></edmx:DataServices></edmx:Ed" +
-                "mx>";
+            private const string ModelPart4 = "/><Property Name=\"RefitCost\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name" +
+                "=\"EnginePrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"EstimateDel" +
+                "iveryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Ed" +
+                "m.String\" /><Property Name=\"TotalLine\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Contra" +
+                "ctAircraftId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name" +
+                "=\"AircraftLeaseOrderDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\"" +
+                " Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><" +
+                "Property Name=\"Version\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Curr" +
+                "encyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=\"" +
+                "Edm.String\" /><Property Name=\"OrderDate\" Type=\"Edm.DateTime\" Nullable=\"false\" />" +
+                "<Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Note" +
+                "\" Type=\"Edm.String\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"fal" +
+                "se\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"Aircraft" +
+                "LeaseOrderLines\" Type=\"Collection(UniCloud.Application.PaymentBC.DTO.AircraftLea" +
+                "seOrderLineDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"AircraftLeas" +
+                "eOrderLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property" +
+                " Name=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Amount\" " +
+                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\"" +
+                " Nullable=\"false\" /><Property Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\" Nu" +
+                "llable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"Total" +
+                "Line\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"OrderId\" Type=\"Edm.I" +
+                "nt32\" Nullable=\"false\" /><Property Name=\"ContractAircraftId\" Type=\"Edm.Int32\" Nu" +
+                "llable=\"false\" /></ComplexType><EntityType Name=\"EnginePurchaseOrderDTO\"><Key><P" +
+                "ropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"fals" +
+                "e\" /><Property Name=\"TradeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name" +
+                "=\"Name\" Type=\"Edm.String\" /><Property Name=\"Version\" Type=\"Edm.Int32\" Nullable=\"" +
+                "false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Proper" +
+                "ty Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"OrderDate\" Type=\"Edm." +
+                "DateTime\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"" +
+                "false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"SupplierId\" T" +
+                "ype=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.Strin" +
+                "g\" /><Property Name=\"EnginePurchaseOrderLines\" Type=\"Collection(UniCloud.Applica" +
+                "tion.PaymentBC.DTO.EnginePurchaseOrderLineDTO)\" Nullable=\"false\" /></EntityType>" +
+                "<ComplexType Name=\"EnginePurchaseOrderLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int" +
+                "32\" Nullable=\"false\" /><Property Name=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"f" +
+                "alse\" /><Property Name=\"Amount\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Na" +
+                "me=\"Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"EstimateDeli" +
+                "veryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm" +
+                ".String\" /><Property Name=\"TotalLine\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Pro" +
+                "perty Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Contrac" +
+                "tEngineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"E" +
+                "ngineLeaseOrderDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type" +
+                "=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"TradeId\" Type=\"Edm.Int32\" Nullab" +
+                "le=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Version\" " +
+                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\"" +
+                " Nullable=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property " +
+                "Name=\"LinkmanId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OrderDate\" " +
+                "Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" " +
+                "Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"Sup" +
+                "plierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=" +
+                "\"Edm.String\" /><Property Name=\"EngineLeaseOrderLines\" Type=\"Collection(UniCloud." +
+                "Application.PaymentBC.DTO.EngineLeaseOrderLineDTO)\" Nullable=\"false\" /></EntityT" +
+                "ype><ComplexType Name=\"EngineLeaseOrderLineDTO\"><Property Name=\"Id\" Type=\"Edm.In" +
+                "t32\" Nullable=\"false\" /><Property Name=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"" +
+                "false\" /><Property Name=\"Amount\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
+                "ame=\"Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"EstimateDel" +
+                "iveryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Ed" +
+                "m.String\" /><Property Name=\"TotalLine\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Contra" +
+                "ctEngineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"" +
+                "BFEPurchaseOrderDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Typ" +
+                "e=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"TradeId\" Type=\"Edm.Int32\" Nulla" +
+                "ble=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Version\"" +
+                " Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32" +
+                "\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property" +
+                " Name=\"OrderDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Status\"" +
+                " Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><" +
+                "Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"S" +
+                "upplierName\" Type=\"Edm.String\" /><Property Name=\"BFEPurchaseOrderLines\" Type=\"Co" +
+                "llection(UniCloud.Application.PaymentBC.DTO.BFEPurchaseOrderLineDTO)\" Nullable=\"" +
+                "false\" /></EntityType><ComplexType Name=\"BFEPurchaseOrderLineDTO\"><Property Name" +
+                "=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"UnitPrice\" Type=\"Edm.D" +
+                "ecimal\" Nullable=\"false\" /><Property Name=\"Amount\" Type=\"Edm.Int32\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property" +
+                " Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Na" +
+                "me=\"Note\" Type=\"Edm.String\" /><Property Name=\"TotalLine\" Type=\"Edm.Decimal\" Null" +
+                "able=\"false\" /><Property Name=\"BFEMaterialId\" Type=\"Edm.Int32\" Nullable=\"false\" " +
+                "/><Property Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><En" +
+                "tityType Name=\"StandardOrderDTO\"><Key><PropertyRef Name=\"StandardOrderId\" /></Ke" +
+                "y><Property Name=\"StandardOrderId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property" +
+                " Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"ContractNumber\" Type=\"Edm.Strin" +
+                "g\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
+                "ame=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierNam" +
+                "e\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /></EntityType><E" +
+                "ntityType Name=\"LeaseGuaranteeDTO\"><Key><PropertyRef Name=\"GuaranteeId\" /></Key>" +
+                "<Property Name=\"GuaranteeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=" +
+                "\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"EndDate\" Type" +
+                "=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Amount\" Type=\"Edm.Decimal\" Nu" +
+                "llable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Property Nam" +
+                "e=\"CurrencyName\" Type=\"Edm.String\" /><Property Name=\"OperatorName\" Type=\"Edm.Str" +
+                "ing\" /><Property Name=\"Reviewer\" Type=\"Edm.String\" /><Property Name=\"CreateDate\"" +
+                " Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"ReviewDate\" Type=\"Edm.Da" +
+                "teTime\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable";
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+            private const string ModelPart5 = "=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OrderName" +
+                "\" Type=\"Edm.String\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"fal" +
+                "se\" /></EntityType><EntityType Name=\"MaintainGuaranteeDTO\"><Key><PropertyRef Nam" +
+                "e=\"GuaranteeId\" /></Key><Property Name=\"MaintainContractId\" Type=\"Edm.Int32\" Nul" +
+                "lable=\"false\" /><Property Name=\"MaintainContractName\" Type=\"Edm.String\" /><Prope" +
+                "rty Name=\"GuaranteeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Start" +
+                "Date\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"EndDate\" Type=\"Edm." +
+                "DateTime\" Nullable=\"false\" /><Property Name=\"Amount\" Type=\"Edm.Decimal\" Nullable" +
+                "=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"Cur" +
+                "rencyName\" Type=\"Edm.String\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /" +
+                "><Property Name=\"Reviewer\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=" +
+                "\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"ReviewDate\" Type=\"Edm.DateTime" +
+                "\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"" +
+                "SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type" +
+                "=\"Edm.Int32\" Nullable=\"false\" /></EntityType><EntityType Name=\"MaintainContractD" +
+                "TO\"><Key><PropertyRef Name=\"MaintainContractId\" /></Key><Property Name=\"Maintain" +
+                "ContractId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Number\" Type=\"Ed" +
+                "m.String\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Signatory\"" +
+                " Type=\"Edm.String\" /><Property Name=\"SignatoryId\" Type=\"Edm.Int32\" Nullable=\"fal" +
+                "se\" /></EntityType></Schema><Schema Namespace=\"UniCloud.DistributedServices.Paym" +
+                "ent\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=" +
+                "\"PaymentData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"PurchaseCreditN" +
+                "otes\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PurchaseCreditNoteDTO\" /><E" +
+                "ntitySet Name=\"MaintainCreditNotes\" EntityType=\"UniCloud.Application.PaymentBC.D" +
+                "TO.MaintainCreditNoteDTO\" /><EntitySet Name=\"LeaseInvoices\" EntityType=\"UniCloud" +
+                ".Application.PaymentBC.DTO.LeaseInvoiceDTO\" /><EntitySet Name=\"PurchasePrepaymen" +
+                "tInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PurchasePrepaymentInvo" +
+                "iceDTO\" /><EntitySet Name=\"MaintainPrepaymentInvoices\" EntityType=\"UniCloud.Appl" +
+                "ication.PaymentBC.DTO.MaintainPrepaymentInvoiceDTO\" /><EntitySet Name=\"PurchaseI" +
+                "nvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PurchaseInvoiceDTO\" /><E" +
+                "ntitySet Name=\"SundryInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Su" +
+                "ndryInvoiceDTO\" /><EntitySet Name=\"Invoices\" EntityType=\"UniCloud.Application.Pa" +
+                "ymentBC.DTO.BaseInvoiceDTO\" /><EntitySet Name=\"EngineMaintainInvoices\" EntityTyp" +
+                "e=\"UniCloud.Application.PaymentBC.DTO.EngineMaintainInvoiceDTO\" /><EntitySet Nam" +
+                "e=\"APUMaintainInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.APUMainta" +
+                "inInvoiceDTO\" /><EntitySet Name=\"AirframeMaintainInvoices\" EntityType=\"UniCloud." +
+                "Application.PaymentBC.DTO.AirframeMaintainInvoiceDTO\" /><EntitySet Name=\"Underca" +
+                "rtMaintainInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.UndercartMain" +
+                "tainInvoiceDTO\" /><EntitySet Name=\"ContractAircrafts\" EntityType=\"UniCloud.Appli" +
+                "cation.PaymentBC.DTO.ContractAircraftDTO\" /><EntitySet Name=\"ContractEngines\" En" +
+                "tityType=\"UniCloud.Application.PaymentBC.DTO.ContractEngineDTO\" /><EntitySet Nam" +
+                "e=\"Currencies\" EntityType=\"UniCloud.Application.PaymentBC.DTO.CurrencyDTO\" /><En" +
+                "titySet Name=\"PaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO.P" +
+                "aymentScheduleDTO\" /><EntitySet Name=\"AcPaymentSchedules\" EntityType=\"UniCloud.A" +
+                "pplication.PaymentBC.DTO.AcPaymentScheduleDTO\" /><EntitySet Name=\"EnginePaymentS" +
+                "chedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EnginePaymentScheduleDT" +
+                "O\" /><EntitySet Name=\"StandardPaymentSchedules\" EntityType=\"UniCloud.Application" +
+                ".PaymentBC.DTO.StandardPaymentScheduleDTO\" /><EntitySet Name=\"MaintainPaymentSch" +
+                "edules\" EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainPaymentScheduleDT" +
+                "O\" /><EntitySet Name=\"PaymentNotices\" EntityType=\"UniCloud.Application.PaymentBC" +
+                ".DTO.PaymentNoticeDTO\" /><EntitySet Name=\"Suppliers\" EntityType=\"UniCloud.Applic" +
+                "ation.PaymentBC.DTO.SupplierDTO\" /><EntitySet Name=\"Orders\" EntityType=\"UniCloud" +
+                ".Application.PaymentBC.DTO.OrderDTO\" /><EntitySet Name=\"PurchaseOrders\" EntityTy" +
+                "pe=\"UniCloud.Application.PaymentBC.DTO.PurchaseOrderDTO\" /><EntitySet Name=\"Leas" +
+                "eOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseOrderDTO\" /><Entity" +
+                "Set Name=\"AircraftPurchaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO" +
+                ".AircraftPurchaseOrderDTO\" /><EntitySet Name=\"AircraftLeaseOrders\" EntityType=\"U" +
+                "niCloud.Application.PaymentBC.DTO.AircraftLeaseOrderDTO\" /><EntitySet Name=\"Engi" +
+                "nePurchaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EnginePurchaseO" +
+                "rderDTO\" /><EntitySet Name=\"EngineLeaseOrders\" EntityType=\"UniCloud.Application." +
+                "PaymentBC.DTO.EngineLeaseOrderDTO\" /><EntitySet Name=\"BFEPurchaseOrders\" EntityT" +
+                "ype=\"UniCloud.Application.PaymentBC.DTO.BFEPurchaseOrderDTO\" /><EntitySet Name=\"" +
+                "StandardOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.StandardOrderDTO\"" +
+                " /><EntitySet Name=\"LeaseGuarantees\" EntityType=\"UniCloud.Application.PaymentBC." +
+                "DTO.LeaseGuaranteeDTO\" /><EntitySet Name=\"MaintainGuarantees\" EntityType=\"UniClo" +
+                "ud.Application.PaymentBC.DTO.MaintainGuaranteeDTO\" /><EntitySet Name=\"MaintainCo" +
+                "ntracts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainContractDTO\" /><" +
+                "/EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -9816,6 +9816,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private int _InvoiceType;
         partial void OnInvoiceTypeChanging(int value);
         partial void OnInvoiceTypeChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceTypeString 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string InvoiceTypeString
+        {
+            get
+            {
+                return this._InvoiceTypeString;
+            }
+            set
+            {
+                this.OnInvoiceTypeStringChanging(value);
+                this._InvoiceTypeString = value;
+                this.OnInvoiceTypeStringChanged();
+                this.OnPropertyChanged("InvoiceTypeString");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _InvoiceTypeString;
+        partial void OnInvoiceTypeStringChanging(string value);
+        partial void OnInvoiceTypeStringChanged();
         /// <summary>
         /// 架构中不存在属性 InvoiceId 的注释。
         /// </summary>

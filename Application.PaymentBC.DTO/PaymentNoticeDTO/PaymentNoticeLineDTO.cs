@@ -42,6 +42,12 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// </summary>
         public int InvoiceType { get; set; }
 
+        public string InvoiceTypeString
+        {
+            get { return ((InvoiceType) InvoiceType).ToString(); }
+            set { }
+        }
+
         /// <summary>
         ///     发票ID
         /// </summary>

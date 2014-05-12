@@ -121,13 +121,13 @@
     <None Include="Service References\Payment\service.edmx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\Payment\Reference.datasvcmap">
+    <None Include="Service References\Part\Reference.datasvcmap">
       <Generator>DataServicesCoreClientGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\Part\Reference.datasvcmap">
+    <None Include="Service References\Payment\Reference.datasvcmap">
       <Generator>DataServicesCoreClientGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
