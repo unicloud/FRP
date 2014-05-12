@@ -416,6 +416,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         {
             AddAttachCommand.RaiseCanExecuteChanged();
             NewCommand.RaiseCanExecuteChanged();
+            RemoveCommand.RaiseCanExecuteChanged();
             RemoveEntityCommand.RaiseCanExecuteChanged();
             CellEditEndCommand.RaiseCanExecuteChanged();
         }

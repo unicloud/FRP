@@ -23,6 +23,7 @@ using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.GridView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -34,7 +35,7 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.ManageItem
 {
-    [Export(typeof(ItemVm))]
+    [Export(typeof (ItemVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ItemVm : EditViewModelBase
     {
@@ -120,8 +121,14 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         public Dictionary<int, ControlStrategy> ControlStrategies
         {
-            get { return Enum.GetValues(typeof(ControlStrategy)).Cast<object>().ToDictionary(value => (int)value, value => (ControlStrategy)value); }
+            get
+            {
+                return Enum.GetValues(typeof (ControlStrategy))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (ControlStrategy) value);
+            }
         }
+
         #endregion
 
         #region 加载数据
@@ -163,19 +170,19 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         public ItemDTO SelItem
         {
-            get { return this._selItem; }
+            get { return _selItem; }
             private set
             {
-                if (this._selItem != value)
+                if (_selItem != value)
                 {
-                    this._selItem = value;
+                    _selItem = value;
                     if (value != null)
                     {
                         _pnRegFilter.Value = value.Id;
                         PnRegs.Load(true);
                         CurItemMaintainCtrl = ItemMaintainCtrls.SingleOrDefault(p => p.ItemId == value.Id);
                     }
-                    RaisePropertyChanged(() => this.SelItem);
+                    RaisePropertyChanged(() => SelItem);
                     RefreshCommandState();
                 }
             }
@@ -193,20 +200,22 @@ namespace UniCloud.Presentation.Part.ManageItem
         public QueryableDataServiceCollectionView<ItemMaintainCtrlDTO> ItemMaintainCtrls { get; set; }
 
         /// <summary>
-        /// 选中的Item的维修控制组
+        ///     选中的Item的维修控制组
         /// </summary>
         public ItemMaintainCtrlDTO CurItemMaintainCtrl
         {
-            get { return this._curItemMaintainCtrl; }
+            get { return _curItemMaintainCtrl; }
             private set
             {
-                if (this._curItemMaintainCtrl != value)
+                if (_curItemMaintainCtrl != value)
                 {
                     _curItemMaintainCtrl = value;
-                    this.RaisePropertyChanged(() => this.CurItemMaintainCtrl);
+                    RaisePropertyChanged(() => CurItemMaintainCtrl);
+                    RefreshCommandState();
                 }
             }
         }
+
         #endregion
 
         #region 选择的项维修控制明细
@@ -214,17 +223,18 @@ namespace UniCloud.Presentation.Part.ManageItem
         private MaintainCtrlLineDTO _selCtrlLine;
 
         /// <summary>
-        /// 选择的项维修控制明细
+        ///     选择的项维修控制明细
         /// </summary>
         public MaintainCtrlLineDTO SelCtrlLine
         {
-            get { return this._selCtrlLine; }
+            get { return _selCtrlLine; }
             private set
             {
-                if (this._selCtrlLine != value)
+                if (_selCtrlLine != value)
                 {
                     _selCtrlLine = value;
-                    this.RaisePropertyChanged(() => this.SelCtrlLine);
+                    RaisePropertyChanged(() => SelCtrlLine);
+                    RefreshCommandState();
                 }
             }
         }
@@ -289,10 +299,10 @@ namespace UniCloud.Presentation.Part.ManageItem
             var gridView = obj as RadGridView;
             if (gridView != null)
             {
-                var cell = gridView.CurrentCell;
+                GridViewCell cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "IsLife"))
                 {
-                    if (SelItem!=null&&SelItem.IsLife && CurItemMaintainCtrl==null)
+                    if (SelItem != null && SelItem.IsLife && CurItemMaintainCtrl == null)
                     {
                         var itemMaintainCtrl = new ItemMaintainCtrlDTO
                         {
@@ -303,26 +313,27 @@ namespace UniCloud.Presentation.Part.ManageItem
                         ItemMaintainCtrls.AddNew(itemMaintainCtrl);
                         CurItemMaintainCtrl = itemMaintainCtrl;
                     }
-                   else if (SelItem != null && !SelItem.IsLife && CurItemMaintainCtrl != null)
-                   {
-                       const string content = "将此项设置改为非寿控项，将移除已维护的维修控制组，是否继续？";
-                       MessageConfirm("确认修改为非寿控项", content, (o, e) =>
-                       {
-                           if (e.DialogResult == true)
-                           {
-                               if (SelItem != null && CurItemMaintainCtrl != null)
-                               {
-                                   ItemMaintainCtrls.Remove(CurItemMaintainCtrl);
-                                   CurItemMaintainCtrl = null;
-                                   RefreshCommandState();
-                               }
-                           }
-                           else
-                           {
-                               SelItem.IsLife = true;
-                           }
-                       });
-                   }
+                    else if (SelItem != null && !SelItem.IsLife && CurItemMaintainCtrl != null)
+                    {
+                        const string content = "将此项设置改为非寿控项，将移除已维护的维修控制组，是否继续？";
+                        MessageConfirm("确认修改为非寿控项", content, (o, e) =>
+                        {
+                            if (e.DialogResult == true)
+                            {
+                                if (SelItem != null && CurItemMaintainCtrl != null)
+                                {
+                                    ItemMaintainCtrls.Remove(CurItemMaintainCtrl);
+                                    CurItemMaintainCtrl = null;
+                                    RefreshCommandState();
+                                }
+                            }
+                            else
+                            {
+                                SelItem.IsLife = true;
+                            }
+                        });
+                    }
+                    RefreshCommandState();
                 }
             }
         }
@@ -436,10 +447,11 @@ namespace UniCloud.Presentation.Part.ManageItem
         {
             if (SelCtrlLine != null)
                 return true;
-            else return false;
+            return false;
         }
 
         #endregion
+
         #endregion
     }
 }

@@ -59,7 +59,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition MaxWidth="150" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition MaxWidth="100" />
+                                    <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Orientation="Horizontal"
                                             Grid.Column="0"
