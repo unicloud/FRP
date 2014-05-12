@@ -23,7 +23,6 @@ using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Payment.Invoice;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;

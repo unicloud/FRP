@@ -36,21 +36,17 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
     {
         #region 声明、初始化
 
-        private readonly PaymentData _context;
-        private readonly IPaymentService _service;
         [Import]
         public MaintainPaymentScheduleView PrepayPayscheduleChildView; //初始化子窗体
 
         [ImportingConstructor]
-        public InvoiceVm(IPaymentService service) : base(service)
+        public InvoiceVm(IPaymentService service)
+            : base(service)
         {
-            _service = service;
-            _context = _service.Context;
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context,
-                _context.Suppliers);
-            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context,
-                _context.Currencies);
-            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context, _context.PaymentSchedules);
+            PaymentData context = service.Context;
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(context, context.Suppliers);
+            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(context, context.Currencies);
+            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(context, context.PaymentSchedules);
 
             AddInvoiceCommand = new DelegateCommand<object>(OnAddInvoice, CanAddInvoice);
             RemoveInvoiceCommand = new DelegateCommand<object>(OnRemoveInvoice, CanRemoveInvoice);
