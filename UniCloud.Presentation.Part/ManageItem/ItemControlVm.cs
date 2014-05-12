@@ -459,6 +459,7 @@ namespace UniCloud.Presentation.Part.ManageItem
                             PnRegId = pnRegDTO.Id,
                             ItemId = SelItem.Id,
                             ItemNo = SelItem.ItemNo,
+                            ItemName = SelItem.Name,
                             Description = pnRegDTO.Description,
                             AircraftTypeId = SelAircraftType.Id,
                             AircraftTypeName = SelAircraftType.Name,
