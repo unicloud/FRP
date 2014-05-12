@@ -180,12 +180,14 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 if (_engineMaintainPlan != null)
                 {
                     IsEnable = true;
-                    DollarRate = _engineMaintainPlan.DollarRate;
+                    _dollarRate = _engineMaintainPlan.DollarRate;
                 }
                 else
                 {
                     IsEnable = false;
+                    _dollarRate = 0;
                 }
+                RaisePropertyChanged(() => DollarRate);
                 RaisePropertyChanged(() => EngineMaintainPlan);
             }
         }
@@ -230,9 +232,6 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
             // 将CollectionView的AutoLoad属性设为True
             if (!Annuals.AutoLoad)
                 Annuals.AutoLoad = true;
-            if (!EngineMaintainPlans.AutoLoad)
-                EngineMaintainPlans.AutoLoad = true;
-            EngineMaintainPlans.Load(true);
         }
 
         #endregion
