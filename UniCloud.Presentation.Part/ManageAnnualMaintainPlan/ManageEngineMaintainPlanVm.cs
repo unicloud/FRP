@@ -232,9 +232,6 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
             // 将CollectionView的AutoLoad属性设为True
             if (!Annuals.AutoLoad)
                 Annuals.AutoLoad = true;
-            if (!EngineMaintainPlans.AutoLoad)
-                EngineMaintainPlans.AutoLoad = true;
-            EngineMaintainPlans.Load(true);
         }
 
         #endregion
