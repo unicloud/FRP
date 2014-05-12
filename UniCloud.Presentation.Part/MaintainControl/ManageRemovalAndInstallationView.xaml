@@ -108,11 +108,16 @@
                                                                  CommandParameter="{Binding ElementName=SnRemInstRecords, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="CellEditEnded">
+                                            <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
+                                                                   CommandParameter="{Binding ElementName=SnRemInstRecords}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadGridView.Columns>
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="拆装指令"
-                                                                    IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding ActionNo}" />
@@ -123,7 +128,8 @@
                                                                         DisplayMemberPath="Value"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding ActionType,Mode=TwoWay}"
-                                                                        EditorStyle="{StaticResource EditComboBox}"/>
+                                                                        EditorStyle="{StaticResource EditComboBox}"
+                                                                        UniqueName="ActionType"/>
                                         <telerik:GridViewComboBoxColumn Header="飞机"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         ItemsSource="{Binding DataContext.Aircrafts, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
@@ -131,9 +137,9 @@
                                                                         DataMemberBinding="{Binding AircraftId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
                                                                         IsComboBoxEditable="True"
-                                                                        EditorStyle="{StaticResource EditComboBox}" />
+                                                                        EditorStyle="{StaticResource EditComboBox}" 
+                                                                        UniqueName="Aircraft"/>
                                         <telerik:GridViewDataColumn Header="拆装位置"
-                                                                    IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Position}" />
@@ -142,7 +148,6 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Reason}" />
                                         <telerik:GridViewDataColumn Header="拆装日期"
-                                                                    IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding ActionDate}" 

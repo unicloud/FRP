@@ -227,6 +227,9 @@
       <DependentUpon>QueryRemovalAndInstallationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MaintainControl\QueryRemovalAndInstallationVm.cs" />
+    <Compile Include="MaintainControl\SnRegsChildView.xaml.cs">
+      <DependentUpon>SnRegsChildView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManageAdSb\QueryAdSb.xaml.cs">
       <DependentUpon>QueryAdSb.xaml</DependentUpon>
     </Compile>
@@ -351,6 +354,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MaintainControl\QueryRemovalAndInstallationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainControl\SnRegsChildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
