@@ -180,12 +180,14 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 if (_engineMaintainPlan != null)
                 {
                     IsEnable = true;
-                    DollarRate = _engineMaintainPlan.DollarRate;
+                    _dollarRate = _engineMaintainPlan.DollarRate;
                 }
                 else
                 {
                     IsEnable = false;
+                    _dollarRate = 0;
                 }
+                RaisePropertyChanged(() => DollarRate);
                 RaisePropertyChanged(() => EngineMaintainPlan);
             }
         }
