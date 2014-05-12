@@ -17,6 +17,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -110,7 +111,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             _service.RegisterCollectionView(Plans);//注册查询集合
 
             CurPlanHistories = _service.CreateCollection(_context.PlanHistories);
-            _planHistoryDescriptor=new FilterDescriptor("PlanId",FilterOperator.IsEqualTo,Guid.Empty);
+            _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
             CurPlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
             CurPlanHistories.LoadedData += (sender, e) =>
             {
@@ -128,8 +129,8 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             _service.RegisterCollectionView(CurPlanHistories);//注册查询集合
 
             Aircrafts = _service.CreateCollection(_context.Aircrafts);
-            //var sort = new SortDescriptor { Member = "OperateStatus", SortDirection = ListSortDirection.Descending };
-            //Aircrafts.SortDescriptors.Add(sort);
+            var group = new GroupDescriptor { Member = "OperateStatus", SortDirection = ListSortDirection.Ascending };
+            Aircrafts.GroupDescriptors.Add(group);
             _service.RegisterCollectionView(Aircrafts);//注册查询集合
         }
 
@@ -151,6 +152,16 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         #region 数据
 
         #region 公共属性
+
+        public Dictionary<int, CanDeliver> CanDelivers
+        {
+            get
+            {
+                return Enum.GetValues(typeof(CanDeliver))
+                    .Cast<object>()
+                    .ToDictionary(value => (int)value, value => (CanDeliver)value);
+            }
+        }
 
         #region 当前计划年度
 
@@ -583,7 +594,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 return false;
             }
             // 选中计划明细的完成状态为无，且计划明细为可交付时，按钮可用
-            return this.SelPlanHistory.CompleteStatus == CompleteStatus.无状态 && this.SelPlanHistory.CanDeliver == CanDeliver.可交付;
+            return this.SelPlanHistory.CompleteStatus == CompleteStatus.无状态 && this.SelPlanHistory.CanDeliver == (int)CanDeliver.可交付;
         }
 
         #endregion

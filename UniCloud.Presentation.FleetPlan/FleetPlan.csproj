@@ -235,6 +235,21 @@
     <Compile Include="Approvals\ApprovalInput.cs" />
     <Compile Include="Approvals\ApprovalVM.cs" />
     <Compile Include="Converts\OperationStatusConvert.cs" />
+    <Compile Include="PerformFleetPlan\FleetPlanDeliver.xaml.cs">
+      <DependentUpon>FleetPlanDeliver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PerformFleetPlan\FleetPlanDeliverVM.cs" />
+    <Compile Include="PerformFleetPlan\OperationChild.xaml.cs">
+      <DependentUpon>OperationChild.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PerformFleetPlan\OperationChildVM.cs" />
+    <Compile Include="PerformFleetPlan\PlanDeliverEditDialog.xaml.cs">
+      <DependentUpon>PlanDeliverEditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PerformFleetPlan\QueryPerformPlan.xaml.cs">
+      <DependentUpon>QueryPerformPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PerformFleetPlan\QueryPerformPlanVM.cs" />
     <Compile Include="PrepareFleetPlan\AirProgramming.xaml.cs">
       <DependentUpon>AirProgramming.xaml</DependentUpon>
     </Compile>
@@ -354,6 +369,22 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Approvals\Approval.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PerformFleetPlan\FleetPlanDeliver.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PerformFleetPlan\OperationChild.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PerformFleetPlan\PlanDeliverEditDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PerformFleetPlan\QueryPerformPlan.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -11,7 +11,8 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:FleetPlanDeliverVM}">
+             d:DataContext="{d:DesignInstance uc:FleetPlanDeliverVM}"
+             Name="DeliverUserControl">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -97,6 +98,7 @@
                                                      Grid.Row="1"
                                                      AutoExpandGroups="True"
                                                      ShowGroupPanel="False"
+                                                     ShowGroupFooters="True"
                                                      AutoGenerateColumns="False"
                                                      CanUserSortColumns="True"
                                                      CanUserFreezeColumns="False"
@@ -113,6 +115,11 @@
                                                                  MethodName="GridViewSelectionChanged" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
+                                    <telerik:RadGridView.GroupDescriptors>
+                                        <telerik:GroupDescriptor Member="CanDeliver"
+                                                                 SortDirection="Ascending">
+                                        </telerik:GroupDescriptor>
+                                    </telerik:RadGridView.GroupDescriptors>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -123,16 +130,8 @@
                                                                  CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
-                                    <telerik:RadGridView.GroupDescriptors>
-                                       <telerik:GroupDescriptor Member="CanDeliver"
-                                                                 SortDirection="Ascending">
-                                            <telerik:GroupDescriptor.AggregateFunctions>
-                                                <telerik:CountFunction ResultFormatString="小计：{0}项" />
-                                            </telerik:GroupDescriptor.AggregateFunctions>
-                                        </telerik:GroupDescriptor>
-                                    </telerik:RadGridView.GroupDescriptors>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <uc:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="航空公司"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -159,23 +158,44 @@
                                                                           Expression="(Year+'/'+PerformMonth)" />
                                         <telerik:GridViewDataColumn Header="净增客机"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding }">
+                                                                    DataMemberBinding="{Binding DeltaPnr}">
+                                            <telerik:GridViewDataColumn.AggregateFunctions>
+                                                <telerik:SumFunction ResultFormatString="净增客机：{0}架" />
+                                            </telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="净增座位"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding SeatingCapacity}">
+                                            <telerik:GridViewDataColumn.AggregateFunctions>
+                                                <telerik:SumFunction ResultFormatString="净增座位：{0}座" />
+                                            </telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="净增商载（吨）"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding CarryingCapacity}">
+                                            <telerik:GridViewDataColumn.AggregateFunctions>
+                                                <telerik:SumFunction ResultFormatString="净增商载：{0}吨" />
+                                            </telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="净增货机"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding }">
+                                                                    DataMemberBinding="{Binding DeltaCargo}">
+                                            <telerik:GridViewDataColumn.AggregateFunctions>
+                                                <telerik:SumFunction ResultFormatString="净增货机：{0}架" />
+                                            </telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="管理状态"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding ManageStatus}" />
+                                                                    DataMemberBinding="{Binding ManaStatus}" />
+                                        <telerik:GridViewComboBoxColumn Header="交付状态"
+                                                                        IsReadOnly="True"
+                                                                        IsVisible="False"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.CanDelivers,ElementName=DeliverUserControl,Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding CanDeliver}"
+                                                                        SelectedValueMemberPath="Key"
+                                                                        DisplayMemberPath="Value" />
                                         <telerik:GridViewDataColumn Header="备注"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Note}" />
@@ -222,7 +242,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <uc:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="机型"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -302,7 +322,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <uc:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewComboBoxColumn Header="引进方式"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -392,7 +412,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <uc:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewComboBoxColumn Header="座级"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
