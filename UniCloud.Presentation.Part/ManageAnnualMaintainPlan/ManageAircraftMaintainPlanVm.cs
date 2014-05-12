@@ -340,7 +340,7 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                                                 AircraftMaintainPlan.AircraftMaintainPlanDetails.Remove(
                                                     AircraftMaintainPlanDetail);
                                                 AircraftMaintainPlanDetail =
-                                                    AircraftMaintainPlan.AircraftMaintainPlanDetails.FirstOrDefault(); 
+                                                    AircraftMaintainPlan.AircraftMaintainPlanDetails.FirstOrDefault();
                                             });
         }
 
@@ -362,22 +362,19 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 var currentColumn = girdView.CurrentColumn;
                 if (currentColumn.UniqueName.Equals("InDate", StringComparison.OrdinalIgnoreCase))
                 {
-                    DateTime tempDate = DateTime.Parse((string)girdView.CurrentCell.Value);
-                    if (AircraftMaintainPlanDetail.InDate.Year < Annual.Year && tempDate.Month > 6)
-                    {
-                        AircraftMaintainPlan.FirstHalfYear += 1;
-                        AircraftMaintainPlan.SecondHalfYear -= 1;
-                    }
-                    else if (tempDate.Month < 7 && AircraftMaintainPlanDetail.InDate.Month >= 7)
-                    {
-                        AircraftMaintainPlan.FirstHalfYear -= 1;
-                        AircraftMaintainPlan.SecondHalfYear += 1;
-                    }
-                    else if (tempDate.Month >= 7 && AircraftMaintainPlanDetail.InDate.Month < 7)
-                    {
-                        AircraftMaintainPlan.FirstHalfYear += 1;
-                        AircraftMaintainPlan.SecondHalfYear -= 1;
-                    }
+                    AircraftMaintainPlan.FirstHalfYear = 0;
+                    AircraftMaintainPlan.SecondHalfYear = 0;
+                    AircraftMaintainPlan.AircraftMaintainPlanDetails.ToList().ForEach(p =>
+                                                                                      {
+                                                                                          if (p.InDate.Year < Annual.Year || p.InDate.Month < 7)
+                                                                                          {
+                                                                                              AircraftMaintainPlan.FirstHalfYear++;
+                                                                                          }
+                                                                                          else
+                                                                                          {
+                                                                                              AircraftMaintainPlan.SecondHalfYear++;
+                                                                                          }
+                                                                                      });
                 }
             }
             AircraftMaintainPlanDetail.Cycle = (AircraftMaintainPlanDetail.OutDate.Date - AircraftMaintainPlanDetail.InDate.Date).Days + 1;

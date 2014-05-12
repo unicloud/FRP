@@ -130,7 +130,6 @@
                                                          CanUserPin="False"
                                                          FontSize="{StaticResource TextFontSize}"
                                                          ContextMenuTemplate="{x:Null}">
-
                                             <Grid>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
@@ -227,7 +226,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding NonFhaFee,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -241,7 +240,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding PartFee,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -255,7 +254,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding ChangeLlpFee,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -270,7 +269,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding FeeLittleSum,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -285,7 +284,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding FeeTotalSum,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -299,7 +298,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding CustomsTax,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -313,7 +312,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding FreightFee,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -328,7 +327,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding BudgetToalSum,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -500,7 +499,6 @@
                                                          CanUserPin="False"
                                                          FontSize="{StaticResource TextFontSize}"
                                                          ContextMenuTemplate="{x:Null}">
-
                                             <Grid>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
@@ -597,7 +595,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding PartFee,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -611,7 +609,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding ChangeLlpFee,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -626,7 +624,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding FeeLittleSum,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -641,7 +639,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding FeeTotalSum,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -655,7 +653,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding CustomsTax,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
@@ -670,7 +668,7 @@
                                                                                            TextAlignment="Right"
                                                                                            HeaderTextAlignment="Center"
                                                                                            DataMemberBinding="{Binding BudgetToalSum,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                                           MaskType="Currency"
+                                                                                           MaskType="Numeric"
                                                                                            Mask="###,###,###.##">
                                                             <telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                                                 <telerik:SumFunction  Caption="总计:"
