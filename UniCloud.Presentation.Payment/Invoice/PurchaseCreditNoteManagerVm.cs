@@ -315,14 +315,18 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            CreditNotes.Remove(SelCreditNote);
-            SelCreditNote = CreditNotes.FirstOrDefault();
-            if (SelCreditNote == null)
-            {
-                //删除完，若没有记录了，则也要删除界面明细
-                InvoiceLines.Clear();
-                RelatedPurchaseOrders.Clear();
-            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                CreditNotes.Remove(SelCreditNote);
+                                                SelCreditNote = CreditNotes.FirstOrDefault();
+                                                if (SelCreditNote == null)
+                                                {
+                                                    //删除完，若没有记录了，则也要删除界面明细
+                                                    InvoiceLines.Clear();
+                                                    RelatedPurchaseOrders.Clear();
+                                                }
+                                            });
         }
 
         private bool CanDelete(object obj)
@@ -376,9 +380,13 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            SelCreditNote.InvoiceLines.Remove(SelInvoiceLine);
-            SelInvoiceLine = SelCreditNote.InvoiceLines.FirstOrDefault();
-            InvoiceLines.Remove(SelInvoiceLine);
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SelCreditNote.InvoiceLines.Remove(SelInvoiceLine);
+                                                SelInvoiceLine = SelCreditNote.InvoiceLines.FirstOrDefault();
+                                                InvoiceLines.Remove(SelInvoiceLine);
+                                            });
         }
 
         private bool CanRemove(object obj)

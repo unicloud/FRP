@@ -241,9 +241,13 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 MessageAlert("提示", "请选择需要删除的记录");
                 return;
             }
-            MaintainGuaranteesView.Remove(SelectedMaintainGuarantee);
-            SelectedMaintainGuarantee = MaintainGuaranteesView.FirstOrDefault();
-            RefreshCommandState();
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                MaintainGuaranteesView.Remove(SelectedMaintainGuarantee);
+                                                SelectedMaintainGuarantee = MaintainGuaranteesView.FirstOrDefault();
+                                                RefreshCommandState();
+                                            });
         }
 
         /// <summary>

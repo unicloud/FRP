@@ -392,14 +392,18 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnDelete(object obj)
         {
-            PurchaseInvoices.Remove(SelPurchaseInvoice);
-            SelPurchaseInvoice = PurchaseInvoices.FirstOrDefault();
-            if (SelPurchaseInvoice == null)
-            {
-                //删除完，若没有记录了，则也要删除界面明细
-                InvoiceLines.Clear();
-                RelatedPaymentSchedule.Clear();
-            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                PurchaseInvoices.Remove(SelPurchaseInvoice);
+                                                SelPurchaseInvoice = PurchaseInvoices.FirstOrDefault();
+                                                if (SelPurchaseInvoice == null)
+                                                {
+                                                    //删除完，若没有记录了，则也要删除界面明细
+                                                    InvoiceLines.Clear();
+                                                    RelatedPaymentSchedule.Clear();
+                                                }
+                                            });
         }
 
         private bool CanDelete(object obj)
@@ -459,9 +463,13 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            SelPurchaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
-            SelInvoiceLine = SelPurchaseInvoice.InvoiceLines.FirstOrDefault();
-            InvoiceLines.Remove(SelInvoiceLine);
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SelPurchaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
+                                                SelInvoiceLine = SelPurchaseInvoice.InvoiceLines.FirstOrDefault();
+                                                InvoiceLines.Remove(SelInvoiceLine);
+                                            });
         }
 
         private bool CanRemove(object obj)
