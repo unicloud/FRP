@@ -1123,9 +1123,15 @@ namespace UniCloud.Presentation.Shell
             {
                 Text = "管理提醒策略",
             };
+            var menu934 = new MenuItem
+            {
+                Text = "配置邮件账号",
+                NavUri = "UniCloud.Presentation.BaseManagement.MaintainBaseSettings.ConfigMailAddress"
+            };
             menu93.Items.Add(menu931);
             menu93.Items.Add(menu932);
             menu93.Items.Add(menu933);
+            menu93.Items.Add(menu934);
             menu9.Items.Add(menu93);
 
             _items.Add(menu9);

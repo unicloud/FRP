@@ -393,9 +393,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var menu931 = FunctionItemFactory.CreateFunctionItem("维护分支机构", menu93.Id, 90301, false, false, "UniCloud.Presentation.BaseManagement.ManageSubsidiary.BranchCompany");
             var menu932 = FunctionItemFactory.CreateFunctionItem("管理系统配置", menu93.Id, 90302, false, false, "UniCloud.Presentation.BaseManagement.MaintainBaseSettings.ManageSystemConfig");
             var menu933 = FunctionItemFactory.CreateFunctionItem("管理提醒策略", menu93.Id, 90303, false, false, string.Empty);
+            var menu934 = FunctionItemFactory.CreateFunctionItem("配置邮件账号", menu93.Id, 90304, false, false, "UniCloud.Presentation.BaseManagement.MaintainBaseSettings.ConfigMailAddress");
             menu93.SubFunctionItems.Add(menu931);
             menu93.SubFunctionItems.Add(menu932);
             menu93.SubFunctionItems.Add(menu933);
+            menu93.SubFunctionItems.Add(menu934);
             menu9.SubFunctionItems.Add(menu93);
 
             #endregion
