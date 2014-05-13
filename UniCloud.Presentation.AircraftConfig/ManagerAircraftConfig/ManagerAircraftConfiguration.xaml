@@ -85,6 +85,16 @@
                                                              RowIndicatorVisibility="Collapsed"
                                                              ItemsSource="{Binding AircraftConfigurations,Mode=TwoWay}"
                                                              SelectedItem="{Binding AircraftConfiguration,Mode=TwoWay}">
+                                            <telerik:RadContextMenu.ContextMenu>
+                                                <telerik:RadContextMenu>
+                                                    <telerik:RadMenuItem Header="导出Excel"
+                                                                         Command="{Binding ExcelExportCommand}"
+                                                                         CommandParameter="{Binding ElementName=AircraftConfigurationInfos, Mode=OneWay}" />
+                                                    <telerik:RadMenuItem Header="导出Word"
+                                                                         Command="{Binding WordExportCommand}"
+                                                                         CommandParameter="{Binding ElementName=AircraftConfigurationInfos, Mode=OneWay}" />
+                                                </telerik:RadContextMenu>
+                                            </telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
                                                                          HeaderTextAlignment="Center" />
@@ -215,6 +225,16 @@
                                                                  FontSize="{StaticResource TextFontSize}"
                                                                  ValidatesOnDataErrors="InEditMode"
                                                                  RowIndicatorVisibility="Visible">
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu>
+                                                        <telerik:RadMenuItem Header="导出Excel"
+                                                                             Command="{Binding ExcelExportCommand}"
+                                                                             CommandParameter="{Binding ElementName=AircraftCabinList, Mode=OneWay}" />
+                                                        <telerik:RadMenuItem Header="导出Word"
+                                                                             Command="{Binding WordExportCommand}"
+                                                                             CommandParameter="{Binding ElementName=AircraftCabinList, Mode=OneWay}" />
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
                                                     <input:DataPageSerialColumn Header="序号" />
                                                     <telerik:GridViewComboBoxColumn Header="飞机舱位"

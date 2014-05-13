@@ -87,6 +87,16 @@
                                                                  IsReadOnly="True"
                                                                  ItemsSource="{Binding CompareMscns,Mode=TwoWay}"
                                                                  FrozenColumnCount="4">
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu>
+                                                        <telerik:RadMenuItem Header="导出Excel"
+                                                                             Command="{Binding ExcelExportCommand}"
+                                                                             CommandParameter="{Binding ElementName=SCNList, Mode=OneWay}" />
+                                                        <telerik:RadMenuItem Header="导出Word"
+                                                                             Command="{Binding WordExportCommand}"
+                                                                             CommandParameter="{Binding ElementName=SCNList, Mode=OneWay}" />
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.ColumnGroups>
                                                     <telerik:GridViewColumnGroup  Name="ChuanAir"
                                                                                   Header="川航" />
@@ -194,6 +204,16 @@
                                                                  IsReadOnly="True"
                                                                  ItemsSource="{Binding CompareAircraftScns,Mode=TwoWay}"
                                                                  FrozenColumnCount="4">
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu>
+                                                        <telerik:RadMenuItem Header="导出Excel"
+                                                                             Command="{Binding ExcelExportCommand}"
+                                                                             CommandParameter="{Binding ElementName=AircraftScnList, Mode=OneWay}" />
+                                                        <telerik:RadMenuItem Header="导出Word"
+                                                                             Command="{Binding WordExportCommand}"
+                                                                             CommandParameter="{Binding ElementName=AircraftScnList, Mode=OneWay}" />
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
                                                     <uc:DataPageSerialColumn Header="序号"
                                                                              HeaderTextAlignment="Center" />

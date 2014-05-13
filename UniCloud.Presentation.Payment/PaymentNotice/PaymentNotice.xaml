@@ -110,6 +110,16 @@
                                                          SelectedItem="{Binding PaymentNotice,Mode=TwoWay}"
                                                          ValidatesOnDataErrors="InEditMode"
                                                          RowIndicatorVisibility="Visible">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu>
+                                                <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=PaymentNoticeList, Mode=OneWay}" />
+                                                <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=PaymentNoticeList, Mode=OneWay}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="CellEditEnded">
                                                 <ei:CallMethodAction  TargetObject="{Binding}"
