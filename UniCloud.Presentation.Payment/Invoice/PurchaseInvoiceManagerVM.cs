@@ -424,6 +424,11 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnAdd(object obj)
         {
+            if (SelPurchaseInvoice == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
             SelInvoiceLine = new InvoiceLineDTO
             {
                 InvoiceLineId = RandomHelper.Next(),
@@ -449,6 +454,11 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnRemove(object obj)
         {
+            if (SelInvoiceLine == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
             SelPurchaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
             SelInvoiceLine = SelPurchaseInvoice.InvoiceLines.FirstOrDefault();
             InvoiceLines.Remove(SelInvoiceLine);

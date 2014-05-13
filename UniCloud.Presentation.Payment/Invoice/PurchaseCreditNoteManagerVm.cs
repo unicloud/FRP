@@ -310,6 +310,11 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnDelete(object obj)
         {
+            if (SelCreditNote == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
             CreditNotes.Remove(SelCreditNote);
             SelCreditNote = CreditNotes.FirstOrDefault();
             if (SelCreditNote == null)
@@ -336,6 +341,11 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnAdd(object obj)
         {
+            if (SelCreditNote == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
             SelInvoiceLine = new InvoiceLineDTO
             {
                 InvoiceLineId = RandomHelper.Next(),
@@ -361,6 +371,11 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnRemove(object obj)
         {
+            if (SelInvoiceLine == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
             SelCreditNote.InvoiceLines.Remove(SelInvoiceLine);
             SelInvoiceLine = SelCreditNote.InvoiceLines.FirstOrDefault();
             InvoiceLines.Remove(SelInvoiceLine);
