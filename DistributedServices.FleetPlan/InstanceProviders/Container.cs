@@ -22,6 +22,7 @@ using UniCloud.Application.FleetPlanBC.CaacProgrammingServices;
 using UniCloud.Application.FleetPlanBC.EnginePlanServices;
 using UniCloud.Application.FleetPlanBC.EngineServices;
 using UniCloud.Application.FleetPlanBC.EngineTypeServices;
+using UniCloud.Application.FleetPlanBC.FleetTransferServices;
 using UniCloud.Application.FleetPlanBC.IssuedUnitServices;
 using UniCloud.Application.FleetPlanBC.MailAddressServices;
 using UniCloud.Application.FleetPlanBC.ManagerServices;
@@ -323,6 +324,8 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IRelatedDocRepository, RelatedDocRepository>()
                 .RegisterType<IDocumentRepository,DocumentRepository>()
                 #endregion
+                .RegisterType<IFleetTransferService, FleetTransferService>()
+
                 ;
         }
 
