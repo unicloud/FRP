@@ -184,6 +184,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseManagementModule.cs" />
+    <Compile Include="MaintainBaseSettings\ConfigMailAddress.xaml.cs">
+      <DependentUpon>ConfigMailAddress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainBaseSettings\ConfigMailAddressVm.cs" />
     <Compile Include="MaintainBaseSettings\ManageSystemConfig.xaml.cs">
       <DependentUpon>ManageSystemConfig.xaml</DependentUpon>
     </Compile>
@@ -227,6 +231,11 @@
       <Name>Service.BaseManagement</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.FleetPlan\Service.FleetPlan.csproj">
+      <Project>{b2d2a463-a571-4467-b552-338d89d322f8}</Project>
+      <Name>Service.FleetPlan</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service\Service.csproj">
       <Project>{5f45eae5-2f35-4ad1-bf0e-f5fd5539fd32}</Project>
       <Name>Service</Name>
@@ -240,6 +249,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="MaintainBaseSettings\ConfigMailAddress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MaintainBaseSettings\ManageSystemConfig.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

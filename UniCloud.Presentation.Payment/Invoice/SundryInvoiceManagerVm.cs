@@ -61,6 +61,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVM()
         {
             SundryInvoices = _service.CreateCollection(_context.SundryInvoices, o => o.InvoiceLines);
+            SundryInvoices.LoadedData += (o, e) =>
+                                         {
+                                             if (SelectSundryInvoice == null)
+                                                 SelectSundryInvoice = SundryInvoices.FirstOrDefault();
+                                         };
             _service.RegisterCollectionView(SundryInvoices); //注册查询集合。
 
         }
@@ -166,16 +171,17 @@ namespace UniCloud.Presentation.Payment.Invoice
             get { return _selectSundryInvoice; }
             set
             {
-                if (value != null && _selectSundryInvoice != value)
+                _selectSundryInvoice = value;
+                _invoiceLines.Clear();
+                if (value != null)
                 {
-                    _selectSundryInvoice = value;
-                    _invoiceLines.Clear();
+                    SelInvoiceLine = value.InvoiceLines.FirstOrDefault();
                     foreach (var invoiceLine in value.InvoiceLines)
                     {
                         InvoiceLines.Add(invoiceLine);
                     }
-                    RaisePropertyChanged(() => SelectSundryInvoice);
                 }
+                RaisePropertyChanged(() => SelectSundryInvoice);
             }
         }
 
@@ -279,13 +285,17 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            SundryInvoices.Remove(SelectSundryInvoice);
-            SelectSundryInvoice = SundryInvoices.FirstOrDefault();
-            if (SelectSundryInvoice == null)
-            {
-                //删除完，若没有记录了，则也要删除界面明细
-                InvoiceLines.Clear();
-            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SundryInvoices.Remove(SelectSundryInvoice);
+                                                SelectSundryInvoice = SundryInvoices.FirstOrDefault();
+                                                if (SelectSundryInvoice == null)
+                                                {
+                                                    //删除完，若没有记录了，则也要删除界面明细
+                                                    InvoiceLines.Clear();
+                                                }
+                                            });
         }
 
         private bool CanDelete(object obj)
@@ -304,6 +314,11 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnAdd(object obj)
         {
+            if (SelectSundryInvoice == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
             SelInvoiceLine = new InvoiceLineDTO
             {
                 InvoiceLineId = RandomHelper.Next(),
@@ -329,9 +344,18 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnRemove(object obj)
         {
-            SelectSundryInvoice.InvoiceLines.Remove(SelInvoiceLine);
-            SelInvoiceLine = SelectSundryInvoice.InvoiceLines.FirstOrDefault();
-            InvoiceLines.Remove(SelInvoiceLine);
+            if (SelInvoiceLine == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SelectSundryInvoice.InvoiceLines.Remove(SelInvoiceLine);
+                                                SelInvoiceLine = SelectSundryInvoice.InvoiceLines.FirstOrDefault();
+                                                InvoiceLines.Remove(SelInvoiceLine);
+                                            });
         }
 
         private bool CanRemove(object obj)

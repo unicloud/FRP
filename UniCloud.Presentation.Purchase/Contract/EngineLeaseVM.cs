@@ -33,7 +33,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof (EngineLeaseVM))]
+    [Export(typeof(EngineLeaseVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class EngineLeaseVM : EditViewModelBase
     {
@@ -47,7 +47,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         private FilterDescriptor _tradeDescriptor2;
 
         [ImportingConstructor]
-        public EngineLeaseVM(IPurchaseService service) : base(service)
+        public EngineLeaseVM(IPurchaseService service)
+            : base(service)
         {
             _service = service;
             _context = _service.Context;
@@ -202,6 +203,11 @@ namespace UniCloud.Presentation.Purchase.Contract
             _tradeDescriptor2 = new FilterDescriptor("TradeType", FilterOperator.IsEqualTo, TradeType);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor1);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor2);
+            ViewTradeDTO.LoadedData += (o, e) =>
+                                       {
+                                           if (SelTradeDTO == null)
+                                               SelTradeDTO = ViewTradeDTO.FirstOrDefault();
+                                       };
             _service.RegisterCollectionView(ViewTradeDTO);
         }
 
@@ -227,6 +233,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (_selEngineLeaseOrderDTO != value)
                 {
                     _selEngineLeaseOrderDTO = value;
+                    if (_selEngineLeaseOrderDTO != null)
+                        SelEngineLeaseOrderLineDTO = _selEngineLeaseOrderDTO.EngineLeaseOrderLines.FirstOrDefault();
                     RaisePropertyChanged(() => SelEngineLeaseOrderDTO);
                     // 刷新按钮状态
                     RefreshCommandState();
@@ -244,6 +252,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                 o => o.EngineLeaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
             _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
             ViewEngineLeaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
+            ViewEngineLeaseOrderDTO.LoadedData += (o, e) =>
+                                                  {
+                                                      if (SelEngineLeaseOrderDTO == null)
+                                                          SelEngineLeaseOrderDTO = ViewEngineLeaseOrderDTO.FirstOrDefault();
+                                                  };
             _service.RegisterCollectionView(ViewEngineLeaseOrderDTO);
         }
 
@@ -392,13 +405,19 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddTrade(object obj)
         {
-            var trade = new TradeDTO
+            SelTradeDTO = new TradeDTO
             {
                 Id = RandomHelper.Next(),
                 TradeType = TradeType,
                 StartDate = DateTime.Now,
             };
-            ViewTradeDTO.AddNew(trade);
+            var supplier = Suppliers.FirstOrDefault();
+            if (supplier != null)
+            {
+                SelTradeDTO.SupplierId = supplier.SupplierId;
+                SelTradeDTO.SuppierCompanyId = supplier.SuppierCompanyId;
+            }
+            ViewTradeDTO.AddNew(SelTradeDTO);
         }
 
         private bool CanAddTrade(object obj)
@@ -417,10 +436,17 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveTrade(object obj)
         {
-            if (_selTradeDTO != null)
+            if (SelTradeDTO == null)
             {
-                ViewTradeDTO.Remove(_selTradeDTO);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                ViewTradeDTO.Remove(SelTradeDTO);
+                                                SelTradeDTO = ViewTradeDTO.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemoveTrade(object obj)
@@ -439,9 +465,9 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddOrder(object obj)
         {
-            if (_selEngineLeaseOrderDTO == null)
+            if (SelEngineLeaseOrderDTO == null)
             {
-                var order = new EngineLeaseOrderDTO
+                SelEngineLeaseOrderDTO = new EngineLeaseOrderDTO
                 {
                     Id = RandomHelper.Next(),
                     OrderDate = DateTime.Now,
@@ -449,8 +475,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SourceGuid = Guid.NewGuid(),
                     SupplierId = _selTradeDTO.SupplierId
                 };
-                ViewEngineLeaseOrderDTO.AddNew(order);
-                SelTradeDTO.Status = (int) TradeStatus.进行中;
+                var currency = Currencies.FirstOrDefault();
+                if (currency != null)
+                    SelEngineLeaseOrderDTO.CurrencyId = currency.Id;
+                ViewEngineLeaseOrderDTO.AddNew(SelEngineLeaseOrderDTO);
+                SelTradeDTO.Status = (int)TradeStatus.进行中;
             }
             else
             {
@@ -459,7 +488,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                         .OrderBy(o => o.Version)
                         .LastOrDefault();
                 if (order == null) return;
-                var newOrder = new EngineLeaseOrderDTO
+                SelEngineLeaseOrderDTO = new EngineLeaseOrderDTO
                 {
                     Id = RandomHelper.Next(),
                     OrderDate = DateTime.Now,
@@ -470,7 +499,10 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SourceGuid = Guid.NewGuid(),
                     SupplierId = order.SupplierId
                 };
-                ViewEngineLeaseOrderDTO.AddNew(newOrder);
+                var currency = Currencies.FirstOrDefault();
+                if (currency != null)
+                    SelEngineLeaseOrderDTO.CurrencyId = currency.Id;
+                ViewEngineLeaseOrderDTO.AddNew(SelEngineLeaseOrderDTO);
                 order.EngineLeaseOrderLines.ToList().ForEach(line =>
                 {
                     var newLine = new EngineLeaseOrderLineDTO
@@ -487,7 +519,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                         SerialNumber = line.SerialNumber,
                         Status = line.Status
                     };
-                    newOrder.EngineLeaseOrderLines.Add(newLine);
+                    SelEngineLeaseOrderDTO.EngineLeaseOrderLines.Add(newLine);
                 });
             }
         }
@@ -515,10 +547,17 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveOrder(object obj)
         {
-            if (_selEngineLeaseOrderDTO != null)
+            if (SelEngineLeaseOrderDTO == null)
             {
-                ViewEngineLeaseOrderDTO.Remove(_selEngineLeaseOrderDTO);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                ViewEngineLeaseOrderDTO.Remove(SelEngineLeaseOrderDTO);
+                                                SelEngineLeaseOrderDTO = ViewEngineLeaseOrderDTO.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemoveOrder(object obj)
@@ -566,7 +605,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddOrderLine(object obj)
         {
-            var orderLine = new EngineLeaseOrderLineDTO
+            SelEngineLeaseOrderLineDTO = new EngineLeaseOrderLineDTO
             {
                 Id = RandomHelper.Next(),
                 Amount = 1,
@@ -574,7 +613,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 ContractEngineId = RandomHelper.Next()
             };
 
-            SelEngineLeaseOrderDTO.EngineLeaseOrderLines.Add(orderLine);
+            SelEngineLeaseOrderDTO.EngineLeaseOrderLines.Add(SelEngineLeaseOrderLineDTO);
         }
 
         private bool CanAddOrderLine(object obj)
@@ -593,11 +632,18 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveOrderLine(object obj)
         {
-            if (_selEngineLeaseOrderLineDTO != null)
+            if (SelEngineLeaseOrderLineDTO == null)
             {
-                SelEngineLeaseOrderDTO.EngineLeaseOrderLines.Remove(_selEngineLeaseOrderLineDTO);
-                RemoveOrderCommand.RaiseCanExecuteChanged();
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SelEngineLeaseOrderDTO.EngineLeaseOrderLines.Remove(SelEngineLeaseOrderLineDTO);
+                                                SelEngineLeaseOrderLineDTO = SelEngineLeaseOrderDTO.EngineLeaseOrderLines.FirstOrDefault();
+                                                RemoveOrderCommand.RaiseCanExecuteChanged();
+                                            });
         }
 
         private bool CanRemoveOrderLine(object obj)
@@ -616,12 +662,11 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddContent(object obj)
         {
-            var content = new ContractContentDTO
+            SelContractContentDTO = new ContractContentDTO
             {
                 Id = RandomHelper.Next(),
             };
-            SelEngineLeaseOrderDTO.ContractContents.Add(content);
-            SelContractContentDTO = content;
+            SelEngineLeaseOrderDTO.ContractContents.Add(SelContractContentDTO);
         }
 
         private bool CanAddContent(object obj)
@@ -640,10 +685,10 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveContent(object obj)
         {
-            if (_selContractContentDTO != null)
+            if (SelContractContentDTO != null)
             {
-                SelEngineLeaseOrderDTO.ContractContents.Remove(_selContractContentDTO);
-                SelContractContentDTO = null;
+                SelEngineLeaseOrderDTO.ContractContents.Remove(SelContractContentDTO);
+                SelContractContentDTO = SelEngineLeaseOrderDTO.ContractContents.FirstOrDefault();
             }
         }
 
@@ -663,7 +708,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnCommit(object obj)
         {
-            SelEngineLeaseOrderDTO.Status = (int) OrderStatus.待审核;
+            SelEngineLeaseOrderDTO.Status = (int)OrderStatus.待审核;
             // 刷新按钮状态
             RefreshCommandState();
         }
@@ -684,7 +729,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnCheck(object obj)
         {
-            SelEngineLeaseOrderDTO.Status = (int) OrderStatus.已审核;
+            SelEngineLeaseOrderDTO.Status = (int)OrderStatus.已审核;
             // 刷新按钮状态
             RefreshCommandState();
         }

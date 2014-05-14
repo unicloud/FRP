@@ -68,6 +68,11 @@ namespace UniCloud.Presentation.Part.ManageItem
             InstallControllers = _service.CreateCollection(_context.InstallControllers, o => o.Dependencies);
             InstallControllers.GroupDescriptors.Add(new GroupDescriptor { Member = "AircraftTypeName", SortDirection = ListSortDirection.Ascending });
             InstallControllers.GroupDescriptors.Add(new GroupDescriptor { Member = "ItemName", SortDirection = ListSortDirection.Ascending });
+            InstallControllers.LoadedData += (o, e) =>
+                                             {
+                                                 if (SelInstallController == null)
+                                                     SelInstallController = InstallControllers.FirstOrDefault();
+                                             };
             _service.RegisterCollectionView(InstallControllers);
 
             PnRegs = _service.CreateCollection(_context.PnRegs);
@@ -109,13 +114,13 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         public ObservableCollection<PnRegDTO> ViewPnRegs
         {
-            get { return this._viewPnRegs; }
+            get { return _viewPnRegs; }
             private set
             {
-                if (this._viewPnRegs != value)
+                if (_viewPnRegs != value)
                 {
-                    this._viewPnRegs = value;
-                    RaisePropertyChanged(() => this.ViewPnRegs);
+                    _viewPnRegs = value;
+                    RaisePropertyChanged(() => ViewPnRegs);
                 }
             }
         }
@@ -135,13 +140,13 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         public AircraftTypeDTO SelAircraftType
         {
-            get { return this._selAircraftType; }
-            private set
+            get { return _selAircraftType; }
+             set
             {
-                if (this._selAircraftType != value)
+                if (_selAircraftType != value)
                 {
-                    this._selAircraftType = value;
-                    RaisePropertyChanged(() => this.SelAircraftType);
+                    _selAircraftType = value;
+                    RaisePropertyChanged(() => SelAircraftType);
                     RefreshCommandState();
                 }
             }
@@ -163,13 +168,13 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         public ItemDTO SelItem
         {
-            get { return this._selItem; }
-            private set
+            get { return _selItem; }
+             set
             {
-                if (this._selItem != value)
+                if (_selItem != value)
                 {
-                    this._selItem = value;
-                    RaisePropertyChanged(() => this.SelItem);
+                    _selItem = value;
+                    RaisePropertyChanged(() => SelItem);
                     RefreshCommandState();
                 }
             }
@@ -218,13 +223,15 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         public InstallControllerDTO SelInstallController
         {
-            get { return this._selInstallController; }
+            get { return _selInstallController; }
             private set
             {
-                if (this._selInstallController != value)
+                if (_selInstallController != value)
                 {
                     _selInstallController = value;
-                    this.RaisePropertyChanged(() => this.SelInstallController);
+                    if (_selInstallController != null)
+                        SelDependency = _selInstallController.Dependencies.FirstOrDefault();
+                    RaisePropertyChanged(() => SelInstallController);
                 }
                 RefreshCommandState();
             }
@@ -241,13 +248,13 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         public DependencyDTO SelDependency
         {
-            get { return this._selDependency; }
-            private set
+            get { return _selDependency; }
+             set
             {
-                if (this._selDependency != value)
+                if (_selDependency != value)
                 {
                     _selDependency = value;
-                    this.RaisePropertyChanged(() => this.SelDependency);
+                    RaisePropertyChanged(() => SelDependency);
                 }
             }
         }
@@ -329,6 +336,7 @@ namespace UniCloud.Presentation.Part.ManageItem
                 if (pnReg != null) pnReg.ItemId = null;
             }
             InstallControllers.Remove(SelInstallController);
+            SelInstallController = InstallControllers.FirstOrDefault();
             RefreshCommandState();
         }
 
@@ -382,6 +390,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         private void OnRemoveDependency(object obj)
         {
             SelInstallController.Dependencies.Remove(SelDependency);
+            SelDependency = SelInstallController.Dependencies.FirstOrDefault();
             RefreshCommandState();
         }
 
@@ -447,20 +456,20 @@ namespace UniCloud.Presentation.Part.ManageItem
             {
                 radGridView.SelectedItems.ToList().ForEach(p =>
                 {
-                    var pnRegDTO = p as PnRegDTO;
-                    if (pnRegDTO != null)
+                    var pnRegDto = p as PnRegDTO;
+                    if (pnRegDto != null)
                     {
-                        if (pnRegDTO.ItemId == null)
-                            pnRegDTO.ItemId = SelItem.Id;
+                        if (pnRegDto.ItemId == null)
+                            pnRegDto.ItemId = SelItem.Id;
                         var installController = new InstallControllerDTO
                         {
                             Id = RandomHelper.Next(),
-                            Pn = pnRegDTO.Pn,
-                            PnRegId = pnRegDTO.Id,
+                            Pn = pnRegDto.Pn,
+                            PnRegId = pnRegDto.Id,
                             ItemId = SelItem.Id,
                             ItemNo = SelItem.ItemNo,
                             ItemName = SelItem.Name,
-                            Description = pnRegDTO.Description,
+                            Description = pnRegDto.Description,
                             AircraftTypeId = SelAircraftType.Id,
                             AircraftTypeName = SelAircraftType.Name,
                             StartDate = DateTime.Now,
@@ -474,16 +483,16 @@ namespace UniCloud.Presentation.Part.ManageItem
             {
                 radGridView.SelectedItems.ToList().ForEach(p =>
                 {
-                    var pnRegDTO = p as PnRegDTO;
-                    if (pnRegDTO != null)
+                    var pnRegDto = p as PnRegDTO;
+                    if (pnRegDto != null)
                     {
-                        var dependency = new DependencyDTO()
-                        {
-                            Id = RandomHelper.Next(),
-                            Pn = pnRegDTO.Pn,
-                            DependencyPnId = pnRegDTO.Id,
-                            InstallControllerId = SelInstallController.Id,
-                        };
+                        var dependency = new DependencyDTO
+                                         {
+                                             Id = RandomHelper.Next(),
+                                             Pn = pnRegDto.Pn,
+                                             DependencyPnId = pnRegDto.Id,
+                                             InstallControllerId = SelInstallController.Id,
+                                         };
                         SelInstallController.Dependencies.Add(dependency);
                     }
                 });

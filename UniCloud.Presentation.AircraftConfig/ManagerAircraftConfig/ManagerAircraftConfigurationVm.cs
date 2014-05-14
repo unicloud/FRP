@@ -75,6 +75,11 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             AircraftSerieses = _service.CreateCollection(_context.AircraftSeries);
             AircraftConfigurations = _service.CreateCollection(_context.AircraftConfigurations, o => o.AircraftCabins);
             AircraftConfigurations.PageSize = 6;
+            AircraftConfigurations.LoadedData += (o, e) =>
+                                                 {
+                                                     if (AircraftConfiguration == null)
+                                                         AircraftConfiguration = AircraftConfigurations.FirstOrDefault();
+                                                 };
             _service.RegisterCollectionView(AircraftConfigurations);
             var baseManagementService = ServiceLocator.Current.GetInstance<IBaseManagementService>();
             AircraftCabinTypes = _service.CreateCollection(baseManagementService.Context.AircraftCabinTypes);
@@ -121,6 +126,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 _aircraftConfiguration = value;
                 if (_aircraftConfiguration != null)
                 {
+                    AircraftCabin = _aircraftConfiguration.AircraftCabins.FirstOrDefault();
                     if (_aircraftConfiguration.FileContent != null)
                     {
                         IImageFormatProvider providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(

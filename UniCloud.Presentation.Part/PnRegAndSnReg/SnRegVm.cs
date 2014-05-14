@@ -64,7 +64,11 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         {
             SnRegs = new QueryableDataServiceCollectionView<SnRegDTO>(_context, _context.SnRegs);
             SnRegs.PageSize = 20;
-
+            SnRegs.LoadedData += (o, e) =>
+                                 {
+                                     if (SelSnReg == null)
+                                         SelSnReg = SnRegs.FirstOrDefault();
+                                 };
             SnHistories = _service.CreateCollection(_context.SnHistories);
             SnHistories.LoadedData += (s, e) =>
             {

@@ -24,7 +24,6 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -66,6 +65,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private void InitializeVM()
         {
             EnginePlans = _service.CreateCollection(_context.EnginePlans, o => o.EnginePlanHistories);
+            EnginePlans.LoadedData += (o, e) =>
+                                      {
+                                          if (SelEnginePlan == null)
+                                              SelEnginePlan = EnginePlans.FirstOrDefault();
+                                      };
             _service.RegisterCollectionView(EnginePlans);//注册查询集合
 
             PlanEngines = _service.CreateCollection(_context.PlanEngines);
@@ -202,9 +206,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 {
                     _selEnginePlan = value;
                     RaisePropertyChanged(() => SelEnginePlan);
-                    EnginePlanHistories=new ObservableCollection<EnginePlanHistoryDTO>();
+                    EnginePlanHistories = new ObservableCollection<EnginePlanHistoryDTO>();
                     if (_selEnginePlan != null)
                     {
+                        SelEnginePlanHistory = _selEnginePlan.EnginePlanHistories.FirstOrDefault();
                         foreach (var enginePh in _selEnginePlan.EnginePlanHistories)
                         {
                             EnginePlanHistories.Add(enginePh);
@@ -220,7 +225,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 备发计划明细集合
 
-        private ObservableCollection<EnginePlanHistoryDTO> _enginePlanHistories=new ObservableCollection<EnginePlanHistoryDTO>();
+        private ObservableCollection<EnginePlanHistoryDTO> _enginePlanHistories = new ObservableCollection<EnginePlanHistoryDTO>();
 
         /// <summary>
         ///     备发计划明细集合
@@ -297,21 +302,24 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnNew(object obj)
         {
-            var newEnginePlan = new EnginePlanDTO()
-            {
-                Id = Guid.NewGuid(),
-                CreateDate = DateTime.Now,
-                VersionNumber = 1,
-                Status = 0,
-                AirlinesId = _curAirlines.Id,
-            };
+            SelEnginePlan = new EnginePlanDTO
+                            {
+                                Id = Guid.NewGuid(),
+                                CreateDate = DateTime.Now,
+                                VersionNumber = 1,
+                                Status = 0,
+                                AirlinesId = _curAirlines.Id,
+                            };
+            var annual = Annuals.FirstOrDefault();
+            if (annual != null)
+                SelEnginePlan.AnnualId = annual.Id;
             //如果有上个版本的备发计划，将未执行完的计划明细复制到新的计划中
             var enginePlan = EnginePlans.OrderBy(p => p.CreateDate).LastOrDefault();
             if (enginePlan != null)
             {
                 foreach (var ph in enginePlan.EnginePlanHistories)
                 {
-                    if (ph.Status < (int) EnginePlanDeliverStatus.运营)
+                    if (ph.Status < (int)EnginePlanDeliverStatus.运营)
                     {
                         var enginePh = new EnginePlanHistoryDTO
                         {
@@ -327,11 +335,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                             Note = ph.Note,
                             Status = ph.Status,
                         };
-                        newEnginePlan.EnginePlanHistories.Add(enginePh);
+                        SelEnginePlan.EnginePlanHistories.Add(enginePh);
                     }
                 }
             }
-            EnginePlans.AddNew(newEnginePlan);
+            EnginePlans.AddNew(SelEnginePlan);
             RefreshCommandState();
         }
 
@@ -352,10 +360,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnRemove(object obj)
         {
-            if (_selEnginePlan != null)
+            if (SelEnginePlan == null)
             {
-                EnginePlans.Remove(_selEnginePlan);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                EnginePlans.Remove(SelEnginePlan);
+                                                SelEnginePlan = EnginePlans.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemove(object obj)
@@ -415,22 +430,31 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnAddEntity(object obj)
         {
-            var enginePh = new EnginePlanHistoryDTO
+            SelEnginePlanHistory = new EnginePlanHistoryDTO
             {
                 Id = Guid.NewGuid(),
                 Status = 0,
                 PerformMonth = 1,
                 MaxThrust = 1,
             };
+            var annual = Annuals.FirstOrDefault();
+            if (annual != null)
+                SelEnginePlanHistory.PerformAnnualId = annual.Id;
+            var category = ActionCategories.FirstOrDefault();
+            if (category != null)
+                SelEnginePlanHistory.ActionCategoryId = category.Id;
+            var engineType = EngineTypes.FirstOrDefault();
+            if (engineType != null)
+                SelEnginePlanHistory.EngineTypeId = engineType.Id;
             var planEngine = new PlanEngineDTO
             {
                 Id = Guid.NewGuid(),
                 AirlinesId = _curAirlines.Id,
             };
-            enginePh.PlanEngineId = planEngine.Id;
+            SelEnginePlanHistory.PlanEngineId = planEngine.Id;
             PlanEngines.AddNew(planEngine);
-            EnginePlanHistories.Add(enginePh);
-            _selEnginePlan.EnginePlanHistories.Add(enginePh);
+            EnginePlanHistories.Add(SelEnginePlanHistory);
+            SelEnginePlan.EnginePlanHistories.Add(SelEnginePlanHistory);
         }
 
         private bool CanAddEntity(object obj)
@@ -449,11 +473,18 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnRemoveEntity(object obj)
         {
-            if (_selEnginePlanHistory != null)
+            if (SelEnginePlanHistory == null)
             {
-                SelEnginePlan.EnginePlanHistories.Remove(_selEnginePlanHistory);
-                EnginePlanHistories.Remove(_selEnginePlanHistory);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SelEnginePlan.EnginePlanHistories.Remove(SelEnginePlanHistory);
+                                                EnginePlanHistories.Remove(SelEnginePlanHistory);
+                                                SelEnginePlanHistory = SelEnginePlan.EnginePlanHistories.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemoveEntity(object obj)

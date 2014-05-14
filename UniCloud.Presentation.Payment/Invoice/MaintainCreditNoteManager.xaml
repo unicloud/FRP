@@ -94,6 +94,7 @@
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
                                 <telerik:RadGridView Grid.Row="1"
+                                                     Name="CreditNoteList"
                                                      IsReadOnly="{Binding IsSubmited}"
                                                      ItemsSource="{Binding CreditNotes,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
@@ -103,6 +104,16 @@
                                                      CanUserSortColumns="True"
                                                      RowIndicatorVisibility="Visible"
                                                      CanUserFreezeColumns="False">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=CreditNoteList, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=CreditNoteList, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号"
                                                                  CellStyle="{StaticResource CellStyle}"
@@ -230,6 +241,16 @@
                                                      CanUserSortColumns="True"
                                                      RowIndicatorVisibility="Visible"
                                                      CanUserFreezeColumns="False">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=InvoiceLines, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=InvoiceLines, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="CellEditEnded">
                                             <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"

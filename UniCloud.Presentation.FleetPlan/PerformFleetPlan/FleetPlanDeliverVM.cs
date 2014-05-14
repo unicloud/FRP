@@ -124,6 +124,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                     _context.ChangeState(ph, EntityStates.Unchanged);
                     ViewPlanHistories.Add(ph);
                 }
+                SelPlanHistory = ViewPlanHistories.FirstOrDefault();
                 RefreshCommandState();
             };
             _service.RegisterCollectionView(CurPlanHistories);//注册查询集合

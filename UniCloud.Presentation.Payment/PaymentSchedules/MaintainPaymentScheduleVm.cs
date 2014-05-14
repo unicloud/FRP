@@ -103,12 +103,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             PaymentSchedulesView.PageSize = 19;
             PaymentSchedulesView.LoadedData += (sender, e) =>
             {
-                if (e.HasError)
-                {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                SelectedPaymentSchedule = e.Entities.Cast<MaintainPaymentScheduleDTO>().FirstOrDefault();
+                if (SelectedPaymentSchedule == null)
+                    SelectedPaymentSchedule = e.Entities.Cast<MaintainPaymentScheduleDTO>().FirstOrDefault();
                 RefreshCommandState(); //刷新按钮状态
             };
             PaymentSchedulesView.PropertyChanged += (s, o) => { };
@@ -194,7 +190,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 MessageAlert("提示", "请选择需要删除的付款计划明细");
                 return;
             }
-            MessageConfirm("提示", "是否删除改记录", (s, e) =>
+            MessageConfirm("提示", "是否删除该记录", (s, e) =>
             {
                 if (e.DialogResult == true)
                 {

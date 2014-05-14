@@ -102,6 +102,16 @@
                                                                  ValidatesOnDataErrors="InEditMode"
                                                                  ItemsSource="{Binding Scns,Mode=TwoWay}"
                                                                  SelectedItem="{Binding Scn,Mode=TwoWay}">
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu>
+                                                        <telerik:RadMenuItem Header="导出Excel"
+                                                                             Command="{Binding ExcelExportCommand}"
+                                                                             CommandParameter="{Binding ElementName=SCNList, Mode=OneWay}" />
+                                                        <telerik:RadMenuItem Header="导出Word"
+                                                                             Command="{Binding WordExportCommand}"
+                                                                             CommandParameter="{Binding ElementName=SCNList, Mode=OneWay}" />
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
                                                     <uc:DataPageSerialColumn Header="序号"
                                                                              HeaderTextAlignment="Center" />
@@ -238,6 +248,16 @@
                                                                  ValidatesOnDataErrors="InEditMode"
                                                                  ItemsSource="{Binding Scn.ApplicableAircrafts,Mode=TwoWay}"
                                                                  SelectedItem="{Binding ApplicableAircraft,Mode=TwoWay}">
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu>
+                                                        <telerik:RadMenuItem Header="导出Excel"
+                                                                             Command="{Binding ExcelExportCommand}"
+                                                                             CommandParameter="{Binding ElementName=AircraftList, Mode=OneWay}" />
+                                                        <telerik:RadMenuItem Header="导出Word"
+                                                                             Command="{Binding WordExportCommand}"
+                                                                             CommandParameter="{Binding ElementName=AircraftList, Mode=OneWay}" />
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
                                                     <uc:DataPageSerialColumn Header="序号"
                                                                              HeaderTextAlignment="Center" />

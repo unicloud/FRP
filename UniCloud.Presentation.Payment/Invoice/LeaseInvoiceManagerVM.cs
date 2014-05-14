@@ -63,6 +63,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVM()
         {
             LeaseInvoices = _service.CreateCollection(_context.LeaseInvoices, o => o.InvoiceLines);
+            LeaseInvoices.LoadedData += (o, e) =>
+                                        {
+                                            if (SelLeaseInvoice == null)
+                                                SelLeaseInvoice = LeaseInvoices.FirstOrDefault();
+                                        };
             _service.RegisterCollectionView(LeaseInvoices); //注册查询集合。
 
             AcPaymentSchedules = _service.CreateCollection(_context.AcPaymentSchedules, o => o.PaymentScheduleLines);
@@ -213,10 +218,11 @@ namespace UniCloud.Presentation.Payment.Invoice
             get { return _selLeaseInvoice; }
             set
             {
-                if (_selLeaseInvoice != value)
+                _selLeaseInvoice = value;
+                _invoiceLines.Clear();
+                if (_selLeaseInvoice != null)
                 {
-                    _selLeaseInvoice = value;
-                    _invoiceLines.Clear();
+                    SelInvoiceLine = value.InvoiceLines.FirstOrDefault();
                     foreach (var invoiceLine in value.InvoiceLines)
                     {
                         InvoiceLines.Add(invoiceLine);
@@ -236,8 +242,8 @@ namespace UniCloud.Presentation.Payment.Invoice
                         RelatedPaymentScheduleLine =
                             SelPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
                                 l => l.InvoiceId == value.LeaseInvoiceId);
-                    RaisePropertyChanged(() => SelLeaseInvoice);
                 }
+                RaisePropertyChanged(() => SelLeaseInvoice);
             }
         }
 
@@ -382,14 +388,18 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnDelete(object obj)
         {
-            LeaseInvoices.Remove(SelLeaseInvoice);
-            SelLeaseInvoice = LeaseInvoices.FirstOrDefault();
-            if (SelLeaseInvoice == null)
-            {
-                //删除完，若没有记录了，则也要删除界面明细
-                InvoiceLines.Clear();
-                RelatedPaymentSchedule.Clear();
-            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                LeaseInvoices.Remove(SelLeaseInvoice);
+                                                SelLeaseInvoice = LeaseInvoices.FirstOrDefault();
+                                                if (SelLeaseInvoice == null)
+                                                {
+                                                    //删除完，若没有记录了，则也要删除界面明细
+                                                    InvoiceLines.Clear();
+                                                    RelatedPaymentSchedule.Clear();
+                                                }
+                                            });
         }
 
         private bool CanDelete(object obj)
@@ -414,6 +424,11 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnAdd(object obj)
         {
+            if (SelLeaseInvoice == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
             SelInvoiceLine = new InvoiceLineDTO
             {
                 InvoiceLineId = RandomHelper.Next(),
@@ -439,9 +454,18 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnRemove(object obj)
         {
-            SelLeaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
-            SelInvoiceLine = SelLeaseInvoice.InvoiceLines.FirstOrDefault();
-            InvoiceLines.Remove(SelInvoiceLine);
+            if (SelInvoiceLine == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SelLeaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
+                                                SelInvoiceLine = SelLeaseInvoice.InvoiceLines.FirstOrDefault();
+                                                InvoiceLines.Remove(SelInvoiceLine);
+                                            });
         }
 
         private bool CanRemove(object obj)

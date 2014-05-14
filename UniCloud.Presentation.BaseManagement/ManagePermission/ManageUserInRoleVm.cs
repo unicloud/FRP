@@ -17,7 +17,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using System.Data.Services.Client;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -301,6 +300,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 var userRole = User.UserRoles.FirstOrDefault(p => p.RoleId == UserRole.Id);
                 User.UserRoles.Remove(userRole);
                 UserRoles.Remove(UserRole);
+                UserRole = UserRoles.FirstOrDefault();
             });
         }
 

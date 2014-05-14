@@ -125,6 +125,7 @@
     <Compile Include="FleetPlan\Enums\PlanPublishStatus.cs" />
     <Compile Include="FleetPlan\Enums\PlanRelativeSubmitState.cs" />
     <Compile Include="FleetPlan\Enums\PlanStatus.cs" />
+    <Compile Include="FleetPlan\MailAddressDTO.cs" />
     <Compile Include="FleetPlan\OwnershipHistoryDTO.cs" />
     <Compile Include="FleetPlan\PlanHistoryDTO.cs" />
     <Compile Include="FleetPlan\RequestDTO.cs" />

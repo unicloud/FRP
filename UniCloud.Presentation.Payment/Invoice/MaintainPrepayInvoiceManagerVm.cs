@@ -61,6 +61,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVM()
         {
             PrepaymentInvoices = _service.CreateCollection(_context.MaintainPrepaymentInvoices, o => o.InvoiceLines);
+            PrepaymentInvoices.LoadedData += (o, e) =>
+                                             {
+                                                 if (SelPrepaymentInvoice == null)
+                                                     SelPrepaymentInvoice = PrepaymentInvoices.FirstOrDefault();
+                                             };
             _service.RegisterCollectionView(PrepaymentInvoices); //注册查询集合。
 
             MaintainPaymentSchedules = _service.CreateCollection(_context.MaintainPaymentSchedules, o => o.PaymentScheduleLines);
@@ -174,10 +179,11 @@ namespace UniCloud.Presentation.Payment.Invoice
             get { return _selPrepaymentInvoice; }
             set
             {
-                if (value != null && _selPrepaymentInvoice != value)
+                _selPrepaymentInvoice = value;
+                _invoiceLines.Clear();
+                if (value != null)
                 {
-                    _selPrepaymentInvoice = value;
-                    _invoiceLines.Clear();
+                    SelInvoiceLine = value.InvoiceLines.FirstOrDefault();
                     foreach (var invoiceLine in value.InvoiceLines)
                     {
                         InvoiceLines.Add(invoiceLine);
@@ -198,8 +204,8 @@ namespace UniCloud.Presentation.Payment.Invoice
                         RelatedPaymentScheduleLine =
                             SelPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
                                 l => l.InvoiceId == value.PrepaymentInvoiceId);
-                    RaisePropertyChanged(() => SelPrepaymentInvoice);
                 }
+                RaisePropertyChanged(() => SelPrepaymentInvoice);
             }
         }
 
@@ -343,14 +349,18 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnDelete(object obj)
         {
-            PrepaymentInvoices.Remove(SelPrepaymentInvoice);
-            SelPrepaymentInvoice = PrepaymentInvoices.FirstOrDefault();
-            if (SelPrepaymentInvoice == null)
-            {
-                //删除完，若没有记录了，则也要删除界面明细
-                InvoiceLines.Clear();
-                RelatedPaymentSchedule.Clear();
-            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                PrepaymentInvoices.Remove(SelPrepaymentInvoice);
+                                                SelPrepaymentInvoice = PrepaymentInvoices.FirstOrDefault();
+                                                if (SelPrepaymentInvoice == null)
+                                                {
+                                                    //删除完，若没有记录了，则也要删除界面明细
+                                                    InvoiceLines.Clear();
+                                                    RelatedPaymentSchedule.Clear();
+                                                }
+                                            });
         }
 
         private bool CanDelete(object obj)
@@ -375,6 +385,12 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnAdd(object obj)
         {
+            if (SelPrepaymentInvoice == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+
             SelInvoiceLine = new InvoiceLineDTO
             {
                 InvoiceLineId = RandomHelper.Next(),
@@ -400,9 +416,18 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnRemove(object obj)
         {
-            SelPrepaymentInvoice.InvoiceLines.Remove(SelInvoiceLine);
-            SelInvoiceLine = SelPrepaymentInvoice.InvoiceLines.FirstOrDefault();
-            InvoiceLines.Remove(SelInvoiceLine);
+            if (SelInvoiceLine == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SelPrepaymentInvoice.InvoiceLines.Remove(SelInvoiceLine);
+                                                SelInvoiceLine = SelPrepaymentInvoice.InvoiceLines.FirstOrDefault();
+                                                InvoiceLines.Remove(SelInvoiceLine);
+                                            });
         }
 
         private bool CanRemove(object obj)

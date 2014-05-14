@@ -23,7 +23,6 @@ using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Payment.Invoice;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
@@ -65,6 +64,11 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             // 创建并注册CollectionView
             EngineMaintainInvoices = _service.CreateCollection(_context.EngineMaintainInvoices, o => o.MaintainInvoiceLines);
             EngineMaintainInvoices.PageSize = 6;
+            EngineMaintainInvoices.LoadedData += (o, e) =>
+                                                 {
+                                                     if (EngineMaintainInvoice == null)
+                                                         EngineMaintainInvoice = EngineMaintainInvoices.FirstOrDefault();
+                                                 };
             var supplierFilter = new FilterDescriptor("MaintainSupplier", FilterOperator.IsEqualTo, true);
             Suppliers.FilterDescriptors.Add(supplierFilter);
             _service.RegisterCollectionView(EngineMaintainInvoices);
@@ -120,8 +124,9 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 _engineMaintainInvoice = value;
                 RelatedPaymentSchedule.Clear();
                 SelPaymentSchedule = null;
-                if (value != null )
+                if (value != null)
                 {
+                    EngineMaintainInvoiceLine = value.MaintainInvoiceLines.FirstOrDefault();
                     RelatedPaymentSchedule.Add(
                         PaymentSchedules.FirstOrDefault(p =>
                         {

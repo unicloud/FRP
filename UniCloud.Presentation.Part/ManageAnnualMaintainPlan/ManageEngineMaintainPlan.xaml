@@ -165,15 +165,16 @@
                                                                      CanUserFreezeColumns="False"
                                                                      RowIndicatorVisibility="Collapsed"
                                                                      SelectedItem="{Binding EngineMaintainPlanDetail, Mode=TwoWay}"
-                                                                     ShowColumnFooters="True">
+                                                                     ShowColumnFooters="True"
+                                                                     Name="NonFhaDetails">
                                                     <telerik:RadContextMenu.ContextMenu>
                                                         <telerik:RadContextMenu>
                                                             <telerik:RadMenuItem Header="导出Excel"
                                                                                  Command="{Binding ExcelExportCommand}"
-                                                                                 CommandParameter="{Binding ElementName=Plans, Mode=OneWay}" />
+                                                                                 CommandParameter="{Binding ElementName=NonFhaDetails, Mode=OneWay}" />
                                                             <telerik:RadMenuItem Header="导出Word"
                                                                                  Command="{Binding WordExportCommand}"
-                                                                                 CommandParameter="{Binding ElementName=Plans, Mode=OneWay}" />
+                                                                                 CommandParameter="{Binding ElementName=NonFhaDetails, Mode=OneWay}" />
                                                         </telerik:RadContextMenu>
                                                     </telerik:RadContextMenu.ContextMenu>
                                                     <i:Interaction.Triggers>
@@ -534,15 +535,16 @@
                                                                      CanUserFreezeColumns="False"
                                                                      RowIndicatorVisibility="Collapsed"
                                                                      SelectedItem="{Binding EngineMaintainPlanDetail, Mode=TwoWay}"
-                                                                     ShowColumnFooters="True">
+                                                                     ShowColumnFooters="True"
+                                                                     Name="ExceedDetails">
                                                     <telerik:RadContextMenu.ContextMenu>
                                                         <telerik:RadContextMenu>
                                                             <telerik:RadMenuItem Header="导出Excel"
                                                                                  Command="{Binding ExcelExportCommand}"
-                                                                                 CommandParameter="{Binding ElementName=Plans, Mode=OneWay}" />
+                                                                                 CommandParameter="{Binding ElementName=ExceedDetails, Mode=OneWay}" />
                                                             <telerik:RadMenuItem Header="导出Word"
                                                                                  Command="{Binding WordExportCommand}"
-                                                                                 CommandParameter="{Binding ElementName=Plans, Mode=OneWay}" />
+                                                                                 CommandParameter="{Binding ElementName=ExceedDetails, Mode=OneWay}" />
                                                         </telerik:RadContextMenu>
                                                     </telerik:RadContextMenu.ContextMenu>
                                                     <i:Interaction.Triggers>

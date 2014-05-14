@@ -68,6 +68,11 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             //创建并注册CollectionView
             Aircrafts = _service.CreateCollection(_context.Aircrafts, o => o.AircraftLicenses);
             Aircrafts.PageSize = 7;
+            Aircrafts.LoadedData += (o, e) =>
+                                    {
+                                        if (Aircraft == null)
+                                            Aircraft = Aircrafts.FirstOrDefault();
+                                    };
             _service.RegisterCollectionView(Aircrafts);
             LicenseTypes = new QueryableDataServiceCollectionView<LicenseTypeDTO>(_context, _context.LicenseTypes);
         }
@@ -113,11 +118,12 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             get { return _aircraft; }
             set
             {
-                if (_aircraft != value)
+                _aircraft = value;
+                if (_aircraft != null)
                 {
-                    _aircraft = value;
-                    RaisePropertyChanged(() => Aircraft);
+                    AircraftLicense = _aircraft.AircraftLicenses.FirstOrDefault();
                 }
+                RaisePropertyChanged(() => Aircraft);
             }
         }
 

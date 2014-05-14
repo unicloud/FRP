@@ -16,6 +16,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -31,7 +32,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
     [Export(typeof(MaintainPaymentScheduleViewVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class MaintainPaymentScheduleViewVm: EditViewModelBase
+    public class MaintainPaymentScheduleViewVm : EditViewModelBase
     {
         #region 声明、初始化
 
@@ -59,6 +60,11 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         private void InitializeVM()
         {
             MaintainPaymentSchedules = _service.CreateCollection(_context.MaintainPaymentSchedules, o => o.PaymentScheduleLines);
+            MaintainPaymentSchedules.LoadedData += (o, e) =>
+                                                   {
+                                                       if (SelectMaintainPaymentSchedule == null)
+                                                           SelectMaintainPaymentSchedule = MaintainPaymentSchedules.FirstOrDefault();
+                                                   };
             _service.RegisterCollectionView(MaintainPaymentSchedules); //注册查询集合。
 
             PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context, _context.PaymentSchedules);
@@ -111,10 +117,10 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         /// </summary>
         public override void LoadData()
         {
-           
+
         }
 
-        public  void InitData(Type type, EventHandler<WindowClosedEventArgs> closed)
+        public void InitData(Type type, EventHandler<WindowClosedEventArgs> closed)
         {
             PrepayPayscheduleChildView.Tag = null;
             _currentType = type;
@@ -161,6 +167,10 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 if (_selectMaintainPaymentSchedule != value)
                 {
                     _selectMaintainPaymentSchedule = value;
+                    if (_selectMaintainPaymentSchedule != null)
+                    {
+                        SelectPaymentScheduleLine = _selectMaintainPaymentSchedule.PaymentScheduleLines.FirstOrDefault();
+                    }
                     RaisePropertyChanged(() => SelectMaintainPaymentSchedule);
                 }
             }
@@ -286,7 +296,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                         maintainInvoice.MaintainInvoiceLines.Add(invoiceLine);
                         PrepayPayscheduleChildView.Tag = maintainInvoice;
                     }
-                    else 
+                    else
                     {
                         var maintainInvoice = new UndercartMaintainInvoiceDTO
                         {

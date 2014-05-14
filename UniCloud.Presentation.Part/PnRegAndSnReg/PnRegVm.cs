@@ -65,6 +65,11 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         {
             PnRegs = _service.CreateCollection(_context.PnRegs);
             PnRegs.PageSize = 20;
+            PnRegs.LoadedData += (o, e) =>
+                                 {
+                                     if (SelPnReg == null)
+                                         SelPnReg = PnRegs.FirstOrDefault();
+                                 };
             _service.RegisterCollectionView(PnRegs);
 
             PnMaintainCtrls = _service.CreateCollection(_context.PnMaintainCtrls);
@@ -113,7 +118,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public ObservableCollection<CtrlUnitDTO> ViewCtrlUnits
         {
             get { return _viewCtrlUnits; }
-            private set
+            set
             {
                 if (!_viewCtrlUnits.Equals(value))
                     _viewCtrlUnits = value;
@@ -149,13 +154,13 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         public ItemMaintainCtrlDTO CurItemMaintainCtrl
         {
-            get { return this._curItemMaintainCtrl; }
+            get { return _curItemMaintainCtrl; }
             private set
             {
-                if (this._curItemMaintainCtrl != value)
+                if (_curItemMaintainCtrl != value)
                 {
                     _curItemMaintainCtrl = value;
-                    this.RaisePropertyChanged(() => this.CurItemMaintainCtrl);
+                    RaisePropertyChanged(() => CurItemMaintainCtrl);
                 }
             }
         }
@@ -195,12 +200,12 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         public PnRegDTO SelPnReg
         {
-            get { return this._selPnReg; }
+            get { return _selPnReg; }
             private set
             {
-                if (this._selPnReg != value)
+                if (_selPnReg != value)
                 {
-                    this._selPnReg = value;
+                    _selPnReg = value;
                     ViewCtrlUnits.Clear();
                     CurPnMaintainCtrl = PnMaintainCtrls.SingleOrDefault(p => p.PnRegId == value.Id);
                     if (value != null)
@@ -213,7 +218,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                         }
                     }
                     RefreshCommandState();
-                    RaisePropertyChanged(() => this.SelPnReg);
+                    RaisePropertyChanged(() => SelPnReg);
                 }
             }
         }
@@ -231,13 +236,13 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         public PnMaintainCtrlDTO CurPnMaintainCtrl
         {
-            get { return this._curPnMaintainCtrl; }
+            get { return _curPnMaintainCtrl; }
             private set
             {
-                if (this._curPnMaintainCtrl != value)
+                if (_curPnMaintainCtrl != value)
                 {
                     _curPnMaintainCtrl = value;
-                    this.RaisePropertyChanged(() => this.CurPnMaintainCtrl);
+                    RaisePropertyChanged(() => CurPnMaintainCtrl);
                 }
             }
         }
@@ -252,13 +257,13 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         public MaintainCtrlLineDTO SelCtrlLine
         {
-            get { return this._selCtrlLine; }
+            get { return _selCtrlLine; }
             private set
             {
-                if (this._selCtrlLine != value)
+                if (_selCtrlLine != value)
                 {
                     _selCtrlLine = value;
-                    this.RaisePropertyChanged(() => this.SelCtrlLine);
+                    RaisePropertyChanged(() => SelCtrlLine);
                     RefreshCommandState();
                 }
             }
@@ -373,12 +378,12 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         {
             if (CurPnMaintainCtrl != null)
             {
-                var maintainCtrlLine = new MaintainCtrlLineDTO
+                SelCtrlLine = new MaintainCtrlLineDTO
                 {
                     Id = RandomHelper.Next(),
                     MaintainCtrlId = CurPnMaintainCtrl.Id,
                 };
-                CurPnMaintainCtrl.MaintainCtrlLines.Add(maintainCtrlLine);
+                CurPnMaintainCtrl.MaintainCtrlLines.Add(SelCtrlLine);
             }
         }
 
@@ -400,8 +405,17 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         private void OnRemoveCtrlLine(object obj)
         {
-            if (SelCtrlLine != null)
-                CurPnMaintainCtrl.MaintainCtrlLines.Remove(SelCtrlLine);
+            if (SelCtrlLine == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                CurPnMaintainCtrl.MaintainCtrlLines.Remove(SelCtrlLine);
+                                                SelCtrlLine = CurPnMaintainCtrl.MaintainCtrlLines.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemoveCtrlLine(object obj)

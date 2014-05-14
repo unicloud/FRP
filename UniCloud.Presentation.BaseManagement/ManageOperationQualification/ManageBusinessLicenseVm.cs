@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -67,6 +68,11 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
             //创建并注册CollectionView
             BusinessLicenses = _service.CreateCollection(_context.BusinessLicenses);
             BusinessLicenses.PageSize = 18;
+            BusinessLicenses.LoadedData += (o, e) =>
+                                           {
+                                               if (BusinessLicense == null)
+                                                   BusinessLicense = BusinessLicenses.FirstOrDefault();
+                                           };
             _service.RegisterCollectionView(BusinessLicenses);
         }
 
@@ -224,6 +230,7 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
             {
                 if (arg.DialogResult != true) return;
                 BusinessLicenses.Remove(BusinessLicense);
+                BusinessLicense = BusinessLicenses.FirstOrDefault();
             });
         }
 

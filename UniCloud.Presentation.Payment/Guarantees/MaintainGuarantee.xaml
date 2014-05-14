@@ -94,8 +94,17 @@
                                                      ItemsSource="{Binding MaintainGuaranteesView,Mode=TwoWay}"
                                                      IsBusy="{Binding MaintainGuaranteesView.IsBusy}"
                                                      SelectedItem="{Binding SelectedMaintainGuarantee,Mode=TwoWay}"
-                                                     ValidatesOnDataErrors="InEditMode"
-                                                    >
+                                                     ValidatesOnDataErrors="InEditMode">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=EngineMaintainInvoiceList, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=EngineMaintainInvoiceList, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
                                         <telerik:GridViewDataColumn Header="开始时间"

@@ -59,6 +59,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                     {
                         ViewApprovalDocs.Add(appDoc);
                     }
+                    SelApprovalDoc = ViewApprovalDocs.FirstOrDefault();
                     RaisePropertyChanged(() => ViewApprovalDocs);
                 }
             };
@@ -336,12 +337,12 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
 
         private void OnNew(object obj)
         {
-            var newApprovalDoc = new ApprovalDocDTO
+            SelApprovalDoc = new ApprovalDocDTO
             {
                 Id = Guid.NewGuid(),
                 Status = (int) OperationStatus.草稿,
             };
-            ApprovalDocs.AddNew(newApprovalDoc);
+            ApprovalDocs.AddNew(SelApprovalDoc);
             RefreshCommandState();
         }
 

@@ -106,6 +106,16 @@
                                                              SelectedItem="{Binding UndercartMaintainInvoice,Mode=TwoWay}"
                                                              ValidatesOnDataErrors="InEditMode"
                                                              RowIndicatorVisibility="Visible">
+                                            <telerik:RadContextMenu.ContextMenu>
+                                                <telerik:RadContextMenu>
+                                                    <telerik:RadMenuItem Header="导出Excel"
+                                                                         Command="{Binding ExcelExportCommand}"
+                                                                         CommandParameter="{Binding ElementName=UndercartMaintainInvoiceList, Mode=OneWay}" />
+                                                    <telerik:RadMenuItem Header="导出Word"
+                                                                         Command="{Binding WordExportCommand}"
+                                                                         CommandParameter="{Binding ElementName=UndercartMaintainInvoiceList, Mode=OneWay}" />
+                                                </telerik:RadContextMenu>
+                                            </telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号" />
                                                 <telerik:GridViewDataColumn Header="序列号"

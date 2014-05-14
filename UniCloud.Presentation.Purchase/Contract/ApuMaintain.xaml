@@ -251,6 +251,16 @@
                                                              FontSize="{StaticResource TextFontSize}"
                                                              ValidatesOnDataErrors="InEditMode"
                                                              RowIndicatorVisibility="Visible">
+                                            <telerik:RadContextMenu.ContextMenu>
+                                                <telerik:RadContextMenu>
+                                                    <telerik:RadMenuItem Header="导出Excel"
+                                                                         Command="{Binding ExcelExportCommand}"
+                                                                         CommandParameter="{Binding ElementName=ApuMaintainContractList, Mode=OneWay}" />
+                                                    <telerik:RadMenuItem Header="导出Word"
+                                                                         Command="{Binding WordExportCommand}"
+                                                                         CommandParameter="{Binding ElementName=ApuMaintainContractList, Mode=OneWay}" />
+                                                </telerik:RadContextMenu>
+                                            </telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadGridView.Columns>
                                                 <input:DataPageSerialColumn Header="序号" />
                                                 <telerik:GridViewDataColumn Header="合同号"

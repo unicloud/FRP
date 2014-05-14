@@ -33,7 +33,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof (AircraftPurchaseVM))]
+    [Export(typeof(AircraftPurchaseVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AircraftPurchaseVM : EditViewModelBase
     {
@@ -47,7 +47,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         private FilterDescriptor _tradeDescriptor2;
 
         [ImportingConstructor]
-        public AircraftPurchaseVM(IPurchaseService service) : base(service)
+        public AircraftPurchaseVM(IPurchaseService service)
+            : base(service)
         {
             _service = service;
             _context = _service.Context;
@@ -199,6 +200,11 @@ namespace UniCloud.Presentation.Purchase.Contract
             _tradeDescriptor2 = new FilterDescriptor("TradeType", FilterOperator.IsEqualTo, TradeType);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor1);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor2);
+            ViewTradeDTO.LoadedData += (o, e) =>
+                                       {
+                                           if (SelTradeDTO == null)
+                                               SelTradeDTO = ViewTradeDTO.FirstOrDefault();
+                                       };
             _service.RegisterCollectionView(ViewTradeDTO);
         }
 
@@ -224,6 +230,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (_selAircraftPurchaseOrderDTO != value)
                 {
                     _selAircraftPurchaseOrderDTO = value;
+                    if (_selAircraftPurchaseOrderDTO != null)
+                        SelAircraftPurchaseOrderLineDTO = _selAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.FirstOrDefault();
                     RaisePropertyChanged(() => SelAircraftPurchaseOrderDTO);
                     // 刷新按钮状态
                     RefreshCommandState();
@@ -241,6 +249,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                 o => o.AircraftPurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
             _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
             ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
+            ViewAircraftPurchaseOrderDTO.LoadedData += (o, e) =>
+                                                       {
+                                                           if (SelAircraftPurchaseOrderDTO == null)
+                                                               SelAircraftPurchaseOrderDTO = ViewAircraftPurchaseOrderDTO.FirstOrDefault();
+                                                       };
             _service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
         }
 
@@ -389,13 +402,19 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddTrade(object obj)
         {
-            var trade = new TradeDTO
+            SelTradeDTO = new TradeDTO
             {
                 Id = RandomHelper.Next(),
                 TradeType = TradeType,
                 StartDate = DateTime.Now,
             };
-            ViewTradeDTO.AddNew(trade);
+            var supplier = Suppliers.FirstOrDefault();
+            if (supplier != null)
+            {
+                SelTradeDTO.SupplierId = supplier.SupplierId;
+                SelTradeDTO.SuppierCompanyId = supplier.SuppierCompanyId;
+            }
+            ViewTradeDTO.AddNew(SelTradeDTO);
         }
 
         private bool CanAddTrade(object obj)
@@ -414,10 +433,17 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveTrade(object obj)
         {
-            if (_selTradeDTO != null)
+            if (SelTradeDTO == null)
             {
-                ViewTradeDTO.Remove(_selTradeDTO);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                ViewTradeDTO.Remove(SelTradeDTO);
+                                                SelTradeDTO = ViewTradeDTO.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemoveTrade(object obj)
@@ -436,9 +462,9 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddOrder(object obj)
         {
-            if (_selAircraftPurchaseOrderDTO == null)
+            if (SelAircraftPurchaseOrderDTO == null)
             {
-                var order = new AircraftPurchaseOrderDTO
+                SelAircraftPurchaseOrderDTO = new AircraftPurchaseOrderDTO
                 {
                     Id = RandomHelper.Next(),
                     OrderDate = DateTime.Now,
@@ -446,8 +472,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SourceGuid = Guid.NewGuid(),
                     SupplierId = _selTradeDTO.SupplierId
                 };
-                ViewAircraftPurchaseOrderDTO.AddNew(order);
-                SelTradeDTO.Status = (int) TradeStatus.进行中;
+                var currency = Currencies.FirstOrDefault();
+                if (currency != null)
+                    SelAircraftPurchaseOrderDTO.CurrencyId = currency.Id;
+                ViewAircraftPurchaseOrderDTO.AddNew(SelAircraftPurchaseOrderDTO);
+                SelTradeDTO.Status = (int)TradeStatus.进行中;
             }
             else
             {
@@ -456,7 +485,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                         .OrderBy(o => o.Version)
                         .LastOrDefault();
                 if (order == null) return;
-                var newOrder = new AircraftPurchaseOrderDTO
+                SelAircraftPurchaseOrderDTO = new AircraftPurchaseOrderDTO
                 {
                     Id = RandomHelper.Next(),
                     OrderDate = DateTime.Now,
@@ -467,7 +496,10 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SourceGuid = Guid.NewGuid(),
                     SupplierId = order.SupplierId
                 };
-                ViewAircraftPurchaseOrderDTO.AddNew(newOrder);
+                var currency = Currencies.FirstOrDefault();
+                if (currency != null)
+                    SelAircraftPurchaseOrderDTO.CurrencyId = currency.Id;
+                ViewAircraftPurchaseOrderDTO.AddNew(SelAircraftPurchaseOrderDTO);
                 order.AircraftPurchaseOrderLines.ToList().ForEach(line =>
                 {
                     var newLine = new AircraftPurchaseOrderLineDTO
@@ -488,7 +520,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                         SerialNumber = line.SerialNumber,
                         Status = line.Status
                     };
-                    newOrder.AircraftPurchaseOrderLines.Add(newLine);
+                    SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Add(newLine);
                 });
             }
         }
@@ -516,10 +548,17 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveOrder(object obj)
         {
-            if (_selAircraftPurchaseOrderDTO != null)
+            if (SelAircraftPurchaseOrderDTO == null)
             {
-                ViewAircraftPurchaseOrderDTO.Remove(_selAircraftPurchaseOrderDTO);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                ViewAircraftPurchaseOrderDTO.Remove(SelAircraftPurchaseOrderDTO);
+                                                SelAircraftPurchaseOrderDTO = ViewAircraftPurchaseOrderDTO.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemoveOrder(object obj)
@@ -567,7 +606,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddOrderLine(object obj)
         {
-            var orderLine = new AircraftPurchaseOrderLineDTO
+            SelAircraftPurchaseOrderLineDTO = new AircraftPurchaseOrderLineDTO
             {
                 Id = RandomHelper.Next(),
                 Amount = 1,
@@ -575,7 +614,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 ContractAircraftId = RandomHelper.Next()
             };
 
-            SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Add(orderLine);
+            SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Add(SelAircraftPurchaseOrderLineDTO);
         }
 
         private bool CanAddOrderLine(object obj)
@@ -594,11 +633,18 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveOrderLine(object obj)
         {
-            if (_selAircraftPurchaseOrderLineDTO != null)
+            if (SelAircraftPurchaseOrderLineDTO == null)
             {
-                SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Remove(_selAircraftPurchaseOrderLineDTO);
-                RemoveOrderCommand.RaiseCanExecuteChanged();
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Remove(SelAircraftPurchaseOrderLineDTO);
+                                                SelAircraftPurchaseOrderLineDTO = SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.FirstOrDefault();
+                                                RemoveOrderCommand.RaiseCanExecuteChanged();
+                                            });
         }
 
         private bool CanRemoveOrderLine(object obj)
@@ -617,12 +663,11 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddContent(object obj)
         {
-            var content = new ContractContentDTO
+            SelContractContentDTO = new ContractContentDTO
             {
                 Id = RandomHelper.Next(),
             };
-            SelAircraftPurchaseOrderDTO.ContractContents.Add(content);
-            SelContractContentDTO = content;
+            SelAircraftPurchaseOrderDTO.ContractContents.Add(SelContractContentDTO);
         }
 
         private bool CanAddContent(object obj)
@@ -641,10 +686,10 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveContent(object obj)
         {
-            if (_selContractContentDTO != null)
+            if (SelContractContentDTO != null)
             {
-                SelAircraftPurchaseOrderDTO.ContractContents.Remove(_selContractContentDTO);
-                SelContractContentDTO = null;
+                SelAircraftPurchaseOrderDTO.ContractContents.Remove(SelContractContentDTO);
+                SelContractContentDTO = SelAircraftPurchaseOrderDTO.ContractContents.FirstOrDefault();
             }
         }
 
@@ -664,7 +709,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnCommit(object obj)
         {
-            SelAircraftPurchaseOrderDTO.Status = (int) OrderStatus.待审核;
+            SelAircraftPurchaseOrderDTO.Status = (int)OrderStatus.待审核;
             // 刷新按钮状态
             RefreshCommandState();
         }
@@ -685,7 +730,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnCheck(object obj)
         {
-            SelAircraftPurchaseOrderDTO.Status = (int) OrderStatus.已审核;
+            SelAircraftPurchaseOrderDTO.Status = (int)OrderStatus.已审核;
             // 刷新按钮状态
             RefreshCommandState();
         }

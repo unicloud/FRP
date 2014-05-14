@@ -72,9 +72,9 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
             newMailAddress.SetDisplayName(dto.DisplayName);
             newMailAddress.SetLoginPassword(dto.LoginPassword);
             newMailAddress.SetLoginUser(dto.LoginUser);
-            newMailAddress.SetPop3Host(dto.Pop3Host);
-            newMailAddress.SetReceivePort(dto.ReceivePort);
-            newMailAddress.SetReceiveSSL(dto.ReceiveSSL);
+            //newMailAddress.SetPop3Host(dto.Pop3Host);
+            //newMailAddress.SetReceivePort(dto.ReceivePort);
+            //newMailAddress.SetReceiveSSL(dto.ReceiveSSL);
             newMailAddress.SetSendPort(dto.SendPort);
             newMailAddress.SetSendSSL(dto.SendSSL);
             newMailAddress.SetServerType(dto.ServerType);
@@ -101,9 +101,9 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
                 updateMailAddress.SetDisplayName(dto.DisplayName);
                 updateMailAddress.SetLoginPassword(dto.LoginPassword);
                 updateMailAddress.SetLoginUser(dto.LoginUser);
-                updateMailAddress.SetPop3Host(dto.Pop3Host);
-                updateMailAddress.SetReceivePort(dto.ReceivePort);
-                updateMailAddress.SetReceiveSSL(dto.ReceiveSSL);
+                //updateMailAddress.SetPop3Host(dto.Pop3Host);
+                //updateMailAddress.SetReceivePort(dto.ReceivePort);
+                //updateMailAddress.SetReceiveSSL(dto.ReceiveSSL);
                 updateMailAddress.SetSendPort(dto.SendPort);
                 updateMailAddress.SetSendSSL(dto.SendSSL);
                 updateMailAddress.SetServerType(dto.ServerType);

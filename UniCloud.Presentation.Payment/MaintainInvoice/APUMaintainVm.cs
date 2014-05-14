@@ -64,6 +64,11 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             // 创建并注册CollectionView
             ApuMaintainInvoices = _service.CreateCollection(_context.APUMaintainInvoices, o => o.MaintainInvoiceLines);
             ApuMaintainInvoices.PageSize = 6;
+            ApuMaintainInvoices.LoadedData += (o, e) =>
+                                              {
+                                                  if (ApuMaintainInvoice == null)
+                                                      ApuMaintainInvoice = ApuMaintainInvoices.FirstOrDefault();
+                                              };
             var supplierFilter = new FilterDescriptor("MaintainSupplier", FilterOperator.IsEqualTo, true);
             Suppliers.FilterDescriptors.Add(supplierFilter);
             _service.RegisterCollectionView(ApuMaintainInvoices);
@@ -121,6 +126,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 SelPaymentSchedule = null;
                 if (value != null)
                 {
+                    ApuMaintainInvoiceLine = value.MaintainInvoiceLines.FirstOrDefault();
                     RelatedPaymentSchedule.Add(
                         PaymentSchedules.FirstOrDefault(p =>
                         {

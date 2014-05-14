@@ -63,6 +63,11 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             // 创建并注册CollectionView
             AirframeMaintainInvoices = _service.CreateCollection(_context.AirframeMaintainInvoices, o => o.MaintainInvoiceLines);
             AirframeMaintainInvoices.PageSize = 6;
+            AirframeMaintainInvoices.LoadedData += (o, e) =>
+                                                   {
+                                                       if (AirframeMaintainInvoice == null)
+                                                           AirframeMaintainInvoice = AirframeMaintainInvoices.FirstOrDefault();
+                                                   };
             var supplierFilter = new FilterDescriptor("MaintainSupplier", FilterOperator.IsEqualTo, true);
             Suppliers.FilterDescriptors.Add(supplierFilter);
             _service.RegisterCollectionView(AirframeMaintainInvoices);
@@ -120,6 +125,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 SelPaymentSchedule = null;
                 if (value != null)
                 {
+                    AirframeMaintainInvoiceLine = value.MaintainInvoiceLines.FirstOrDefault();
                     RelatedPaymentSchedule.Add(
                         PaymentSchedules.FirstOrDefault(p =>
                         {

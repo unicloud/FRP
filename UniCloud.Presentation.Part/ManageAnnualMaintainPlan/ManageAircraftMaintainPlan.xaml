@@ -119,7 +119,6 @@
                                                  CanUserPin="False"
                                                  FontSize="{StaticResource TextFontSize}"
                                                  ContextMenuTemplate="{x:Null}">
-
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -178,10 +177,10 @@
                                                 <telerik:RadContextMenu>
                                                     <telerik:RadMenuItem Header="导出Excel"
                                                                          Command="{Binding ExcelExportCommand}"
-                                                                         CommandParameter="{Binding ElementName=Plans, Mode=OneWay}" />
+                                                                         CommandParameter="{Binding ElementName=AircraftMaintainPlanDetailView, Mode=OneWay}" />
                                                     <telerik:RadMenuItem Header="导出Word"
                                                                          Command="{Binding WordExportCommand}"
-                                                                         CommandParameter="{Binding ElementName=Plans, Mode=OneWay}" />
+                                                                         CommandParameter="{Binding ElementName=AircraftMaintainPlanDetailView, Mode=OneWay}" />
                                                 </telerik:RadContextMenu>
                                             </telerik:RadContextMenu.ContextMenu>
                                             <i:Interaction.Triggers>
