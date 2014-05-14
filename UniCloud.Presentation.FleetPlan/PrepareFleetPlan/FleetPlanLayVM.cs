@@ -29,7 +29,6 @@ using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
@@ -163,13 +162,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public bool IsPlanReadOnly
         {
-            get { return this._isPlanReadOnly; }
+            get { return _isPlanReadOnly; }
             private set
             {
-                if (this._isPlanReadOnly != value)
+                if (_isPlanReadOnly != value)
                 {
                     _isPlanReadOnly = value;
-                    this.RaisePropertyChanged(() => this.IsPlanReadOnly);
+                    RaisePropertyChanged(() => IsPlanReadOnly);
                 }
             }
         }
@@ -304,10 +303,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                             if (ph.PlanId == value.Id)
                                 ViewPlanHistories.Add(ph);
                         }
+                        //计划到审核阶段了，不能编辑
+                        if (CurPlan.Status >= (int)PlanStatus.待审核)
+                            IsPlanReadOnly = true;
                     }
-                    //计划到审核阶段了，不能编辑
-                    if (CurPlan.Status >= (int)PlanStatus.待审核)
-                        IsPlanReadOnly = true;
+                   
                     RaisePropertyChanged(() => ViewPlanHistories);
                     RaisePropertyChanged(() => CurPlan);
                     RaisePropertyChanged(() => PlanTitle);
@@ -518,7 +518,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnAddEntity(object obj)
         {
-            this.EditPlanAircraft = null;
+            EditPlanAircraft = null;
 
             OpenEditDialog(null, PlanDetailCreateSource.New);
             //将新建的实体添加到对应的注册集合中
@@ -575,7 +575,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 // 选中计划明细的操作类型为引进时，按钮不可用
                 else
                 {
-                    return this.SelPlanHistory.ActionType != "引进";
+                    return SelPlanHistory.ActionType != "引进";
                 }
                 // 3、选中计划明细对应的计划飞机在当前计划中没有明细项（业务逻辑控制上不会出现这种情况）
             }
@@ -790,13 +790,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public PlanHistoryDTO EditPlanHistory
         {
-            get { return this._editPlanHistory; }
+            get { return _editPlanHistory; }
             private set
             {
-                if (this._editPlanHistory != value)
+                if (_editPlanHistory != value)
                 {
-                    this._editPlanHistory = value;
-                    this.RaisePropertyChanged(() => this.EditPlanHistory);
+                    _editPlanHistory = value;
+                    RaisePropertyChanged(() => EditPlanHistory);
                 }
             }
         }
@@ -820,10 +820,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// <param name="source">调用的来源</param>
         public void OpenEditDialog(PlanAircraftDTO planAircraft, PlanDetailCreateSource source)
         {
-            this.EditPlanAircraft = planAircraft;
-            this.EditPlanHistory = null;
-            this._operationPlan = null;
-            this._changePlan = null;
+            EditPlanAircraft = planAircraft;
+            EditPlanHistory = null;
+            _operationPlan = null;
+            _changePlan = null;
             // 获取计划飞机在当前计划中的明细项集合
             var planDetails = new List<PlanHistoryDTO>();
             if (CurPlan != null && EditPlanAircraft != null)
@@ -831,7 +831,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
             // 1、计划飞机在当前计划中没有明细项(新增计划明细或计划飞机为预备状态）
             if (!planDetails.Any())
-                this.ShowEditDialog(null, source);
+                ShowEditDialog(null, source);
             // 2、计划飞机在当前计划中已有明细项
             else
             {
@@ -848,7 +848,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                             {
                                 if (e.DialogResult == true)
                                 {
-                                    this.ShowEditDialog(planDetails[0], source);
+                                    ShowEditDialog(planDetails[0], source);
                                 }
 
                             });
@@ -861,7 +861,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                             {
                                 if (e.DialogResult == true)
                                 {
-                                    this.ShowEditDialog(planDetails[0], source);
+                                    ShowEditDialog(planDetails[0], source);
                                 }
 
                             });
@@ -883,44 +883,44 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             switch (source)
             {
                 case PlanDetailCreateSource.New:
-                    this.IsPlanTypeVisible = Visibility.Collapsed;
-                    this._operationPlan = _service.CreatePlanHistory(CurPlan, AllPlanHistories, ref EditPlanAircraft, null, "引进", 1); //此时EditPlanAircraft=null
-                    this.EditPlanHistory = this._operationPlan;
-                    this.IsChangeable = true;
+                    IsPlanTypeVisible = Visibility.Collapsed;
+                    _operationPlan = _service.CreatePlanHistory(CurPlan, AllPlanHistories, ref EditPlanAircraft, null, "引进", 1); //此时EditPlanAircraft=null
+                    EditPlanHistory = _operationPlan;
+                    IsChangeable = true;
                     break;
                 case PlanDetailCreateSource.PlanAircraft:
-                    this.IsPlanTypeVisible = Visibility.Collapsed;
+                    IsPlanTypeVisible = Visibility.Collapsed;
                     // 计划飞机已有的明细项肯定是引进计划，只能添加退出计划
-                    this._operationPlan = _service.CreatePlanHistory(CurPlan, AllPlanHistories, ref EditPlanAircraft, null, existDetail != null ? "退出" : "引进", 1); //existDetail=null为计划飞机是预备状态的情况
-                    this.EditPlanHistory = this._operationPlan;
+                    _operationPlan = _service.CreatePlanHistory(CurPlan, AllPlanHistories, ref EditPlanAircraft, null, existDetail != null ? "退出" : "引进", 1); //existDetail=null为计划飞机是预备状态的情况
+                    EditPlanHistory = _operationPlan;
                     ViewPlanHistories.Add(EditPlanHistory);
                     AllPlanHistories.AddNew(EditPlanHistory);
                     //这时不能修改机型和座机
-                    this.IsChangeable = false;
+                    IsChangeable = false;
                     break;
                 case PlanDetailCreateSource.Aircraft:
-                    this.IsPlanTypeVisible = Visibility.Visible;
+                    IsPlanTypeVisible = Visibility.Visible;
                     // 1、计划飞机已有明细项
                     if (existDetail != null)
                     {
                         // 已有的是变更计划，只能添加退出计划
                         if (existDetail.ActionType == "变更")
                         {
-                            this.IsChangeEnabled = false;
-                            this.IsOperation = true;
-                            this.IsChange = false;
-                            this.OnOperation();
+                            IsChangeEnabled = false;
+                            IsOperation = true;
+                            IsChange = false;
+                            OnOperation();
                             ViewPlanHistories.Add(EditPlanHistory);
                             AllPlanHistories.AddNew(EditPlanHistory);
                         }
                         // 已有的是退出计划，只能添加变更计划
                         else
                         {
-                            this.IsOperationEnabled = false;
-                            this.IsOperation = false;
-                            this.IsChange = true;
-                            this.OnOperation();//生成之后，不让用户编辑，起到保存原计划历史的机型的作用，在取消时，能够用来恢复计划飞机数据
-                            this.OnChange();
+                            IsOperationEnabled = false;
+                            IsOperation = false;
+                            IsChange = true;
+                            OnOperation();//生成之后，不让用户编辑，起到保存原计划历史的机型的作用，在取消时，能够用来恢复计划飞机数据
+                            OnChange();
                             ViewPlanHistories.Add(EditPlanHistory);
                             AllPlanHistories.AddNew(EditPlanHistory);
                         }
@@ -928,10 +928,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     // 2、计划飞机没有明细项
                     else
                     {
-                        this.IsChangeEnabled = true;
-                        this.IsOperationEnabled = true;
-                        if (!this.IsOperation) this.IsOperation = true;
-                        this.OnOperation();
+                        IsChangeEnabled = true;
+                        IsOperationEnabled = true;
+                        if (!IsOperation) IsOperation = true;
+                        OnOperation();
                         ViewPlanHistories.Add(EditPlanHistory);
                         AllPlanHistories.AddNew(EditPlanHistory);
                     }
@@ -940,36 +940,36 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     throw new ArgumentOutOfRangeException("source");
             }
 
-            this.EditDialog.ShowDialog();
+            EditDialog.ShowDialog();
         }
 
         #region 调用业务逻辑处理
 
         private void OnOperation()
         {
-            if (this._operationPlan == null && EditPlanAircraft!=null)
+            if (_operationPlan == null && EditPlanAircraft!=null)
             {
                 var aircraft =
                     Aircrafts.SourceCollection.Cast<AircraftDTO>()
                         .FirstOrDefault(p => p.AircraftId == EditPlanAircraft.AircraftId);
                 // 针对运营飞机的运营计划只能是退出
-                this._operationPlan = _service.CreatePlanHistory(CurPlan, AllPlanHistories, ref EditPlanAircraft, aircraft, "退出", 1);
+                _operationPlan = _service.CreatePlanHistory(CurPlan, AllPlanHistories, ref EditPlanAircraft, aircraft, "退出", 1);
             }
-            this.EditPlanHistory = this._operationPlan;
-            this.IsChangeable = false;
+            EditPlanHistory = _operationPlan;
+            IsChangeable = false;
         }
 
         private void OnChange()
         {
-            if (this._changePlan == null && EditPlanAircraft != null)
+            if (_changePlan == null && EditPlanAircraft != null)
             {
                 var aircraft =
                     Aircrafts.SourceCollection.Cast<AircraftDTO>()
                         .FirstOrDefault(p => p.AircraftId == EditPlanAircraft.AircraftId);
-                this._changePlan = _service.CreatePlanHistory(CurPlan, AllPlanHistories, ref this.EditPlanAircraft, aircraft, "变更", 2);
+                _changePlan = _service.CreatePlanHistory(CurPlan, AllPlanHistories, ref EditPlanAircraft, aircraft, "变更", 2);
             }
-            this.EditPlanHistory = this._changePlan;
-            this.IsChangeable = true;
+            EditPlanHistory = _changePlan;
+            IsChangeable = true;
         }
 
         #endregion
@@ -984,14 +984,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public bool IsOperation
         {
-            get { return this._isOperation; }
+            get { return _isOperation; }
             private set
             {
-                if (this._isOperation != value)
+                if (_isOperation != value)
                 {
-                    this._isOperation = value;
-                    this.RaisePropertyChanged(() => this.IsOperation);
-                    this.OnOperation();
+                    _isOperation = value;
+                    RaisePropertyChanged(() => IsOperation);
+                    OnOperation();
                 }
             }
         }
@@ -1007,14 +1007,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public bool IsChange
         {
-            get { return this._isChange; }
+            get { return _isChange; }
             private set
             {
-                if (this._isChange != value)
+                if (_isChange != value)
                 {
-                    this._isChange = value;
-                    this.RaisePropertyChanged(() => this.IsChange);
-                    this.OnChange();
+                    _isChange = value;
+                    RaisePropertyChanged(() => IsChange);
+                    OnChange();
                 }
             }
         }
@@ -1030,10 +1030,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public ActionCategoryDTO SelActionCategory
         {
-            get { return this._selActionCategory; }
+            get { return _selActionCategory; }
             private set
             {
-                if (this._selActionCategory != value)
+                if (_selActionCategory != value)
                 {
                     _selActionCategory = value;
                     if (value != null)
@@ -1044,7 +1044,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                         EditPlanHistory.AircraftCategories = new ObservableCollection<AircraftCateDTO>();
                         EditPlanHistory.AircraftCategories.AddRange(_service.GetAircraftCategoriesForPlanHistory(EditPlanHistory));
                     }
-                    this.RaisePropertyChanged(() => this.SelActionCategory);
+                    RaisePropertyChanged(() => SelActionCategory);
                 }
             }
         }
@@ -1060,10 +1060,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public AircraftCategoryDTO SelAircraftCategory
         {
-            get { return this._selAircraftCategory; }
+            get { return _selAircraftCategory; }
             set
             {
-                if (this._selAircraftCategory != value)
+                if (_selAircraftCategory != value)
                 {
                     _selAircraftCategory = value;
                     if (value != null)
@@ -1071,9 +1071,9 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                         EditPlanHistory.AircraftTypes = new ObservableCollection<AircraftTyDTO>();
                         EditPlanHistory.AircraftTypes.AddRange(_service.GetAircraftTypesForPlanHistory(EditPlanHistory));
                         EditPlanAircraft.Regional = value.Regional;
-                        this.RaisePropertyChanged(() => this.SelAircraftType);
+                        RaisePropertyChanged(() => SelAircraftType);
                     }
-                    this.RaisePropertyChanged(() => this.SelAircraftCategory);
+                    RaisePropertyChanged(() => SelAircraftCategory);
                 }
             }
         }
@@ -1089,10 +1089,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public AircraftTypeDTO SelAircraftType
         {
-            get { return this._selAircraftType; }
+            get { return _selAircraftType; }
             set
             {
-                if (this._selAircraftType != value)
+                if (_selAircraftType != value)
                 {
                     _selAircraftType = value;
                     if (value != null)
@@ -1103,7 +1103,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                         EditPlanAircraft.AircraftTypeId = value.Id;
                         EditPlanAircraft.AircraftTypeName = value.Name;
                     }
-                    this.RaisePropertyChanged(() => this.SelAircraftType);
+                    RaisePropertyChanged(() => SelAircraftType);
                 }
             }
         }
@@ -1119,13 +1119,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public bool IsOperationEnabled
         {
-            get { return this._isOperationEnabled; }
+            get { return _isOperationEnabled; }
             private set
             {
-                if (this._isOperationEnabled != value)
+                if (_isOperationEnabled != value)
                 {
-                    this._isOperationEnabled = value;
-                    this.RaisePropertyChanged(() => this.IsOperationEnabled);
+                    _isOperationEnabled = value;
+                    RaisePropertyChanged(() => IsOperationEnabled);
                 }
             }
         }
@@ -1141,13 +1141,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public bool IsChangeEnabled
         {
-            get { return this._isChangeEnabled; }
+            get { return _isChangeEnabled; }
             private set
             {
-                if (this._isChangeEnabled != value)
+                if (_isChangeEnabled != value)
                 {
-                    this._isChangeEnabled = value;
-                    this.RaisePropertyChanged(() => this.IsChangeEnabled);
+                    _isChangeEnabled = value;
+                    RaisePropertyChanged(() => IsChangeEnabled);
                 }
             }
         }
@@ -1163,13 +1163,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public Visibility IsPlanTypeVisible
         {
-            get { return this._isPlanTypeVisible; }
+            get { return _isPlanTypeVisible; }
             private set
             {
-                if (this._isPlanTypeVisible != value)
+                if (_isPlanTypeVisible != value)
                 {
-                    this._isPlanTypeVisible = value;
-                    this.RaisePropertyChanged(() => this.IsPlanTypeVisible);
+                    _isPlanTypeVisible = value;
+                    RaisePropertyChanged(() => IsPlanTypeVisible);
                 }
             }
         }
@@ -1185,13 +1185,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public bool IsAicraftTypeAndRegionalChangeable
         {
-            get { return this._isAicraftTypeAndRegionalChangeable; }
+            get { return _isAicraftTypeAndRegionalChangeable; }
             private set
             {
-                if (this._isAicraftTypeAndRegionalChangeable != value)
+                if (_isAicraftTypeAndRegionalChangeable != value)
                 {
-                    this._isAicraftTypeAndRegionalChangeable = value;
-                    this.RaisePropertyChanged(() => this.IsAicraftTypeAndRegionalChangeable);
+                    _isAicraftTypeAndRegionalChangeable = value;
+                    RaisePropertyChanged(() => IsAicraftTypeAndRegionalChangeable);
                 }
             }
         }
@@ -1206,10 +1206,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             get { return _isChangeable; }
             private set
             {
-                if (this._isChangeable != value)
+                if (_isChangeable != value)
                 {
-                    this._isChangeable = value;
-                    this.RaisePropertyChanged(() => this.IsChangeable);
+                    _isChangeable = value;
+                    RaisePropertyChanged(() => IsChangeable);
                     //this.IsAicraftTypeAndRegionalChangeable = (this.PlanDetail.IsNotOperationOrChangePlan && this._isChangeable);
                 }
             }
@@ -1236,7 +1236,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         protected virtual void OnOkExecute(object sender)
         {
-            this.EditDialog.Close();
+            EditDialog.Close();
         }
 
         #endregion
@@ -1271,7 +1271,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         protected virtual void OnCancelExecute(object sender)
         {
-            this.EditDialog.Close();
+            EditDialog.Close();
         }
 
         #endregion

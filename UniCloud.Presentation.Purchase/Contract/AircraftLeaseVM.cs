@@ -410,6 +410,12 @@ namespace UniCloud.Presentation.Purchase.Contract
                 TradeType = TradeType,
                 StartDate = DateTime.Now,
             };
+            var supplier = Suppliers.FirstOrDefault();
+            if (supplier != null)
+            {
+                SelTradeDTO.SupplierId = supplier.SupplierId;
+                SelTradeDTO.SuppierCompanyId = supplier.SuppierCompanyId;
+            }
             ViewTradeDTO.AddNew(SelTradeDTO);
         }
 
@@ -468,6 +474,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SourceGuid = Guid.NewGuid(),
                     SupplierId = _selTradeDTO.SupplierId
                 };
+                var currency = Currencies.FirstOrDefault();
+                if (currency != null)
+                    SelAircraftLeaseOrderDTO.CurrencyId = currency.Id;
                 ViewAircraftLeaseOrderDTO.AddNew(SelAircraftLeaseOrderDTO);
                 SelTradeDTO.Status = (int) TradeStatus.进行中;
             }
@@ -489,6 +498,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SourceGuid = Guid.NewGuid(),
                     SupplierId = order.SupplierId
                 };
+                var currency = Currencies.FirstOrDefault();
+                if (currency != null)
+                    SelAircraftLeaseOrderDTO.CurrencyId = currency.Id;
                 ViewAircraftLeaseOrderDTO.AddNew(SelAircraftLeaseOrderDTO);
                 order.AircraftLeaseOrderLines.ToList().ForEach(line =>
                 {

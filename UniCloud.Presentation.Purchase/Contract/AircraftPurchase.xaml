@@ -76,6 +76,7 @@
                                                          EditTriggers="CellClick"
                                                          ShowGroupPanel="False"
                                                          IsFilteringAllowed="False"
+                                                         CanUserFreezeColumns="False"
                                                          IsReadOnlyBinding="{Binding IsActive}">
                                         <telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadContextMenu>
@@ -184,6 +185,7 @@
                                                          SelectedItem="{Binding SelAircraftPurchaseOrderDTO,Mode=TwoWay}"
                                                          ShowGroupPanel="False"
                                                          IsFilteringAllowed="False"
+                                                         CanUserFreezeColumns="False"
                                                          EditTriggers="CellClick">
                                         <telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadContextMenu>
@@ -320,6 +322,7 @@
                                                          ShowGroupPanel="False"
                                                          IsFilteringAllowed="False"
                                                          EditTriggers="CellClick"
+                                                         CanUserFreezeColumns="False"
                                                          Margin="1,1,1,0">
                                         <telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadContextMenu>

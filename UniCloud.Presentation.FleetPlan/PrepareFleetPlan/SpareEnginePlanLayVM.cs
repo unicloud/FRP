@@ -24,7 +24,6 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -303,14 +302,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnNew(object obj)
         {
-            SelEnginePlan = new EnginePlanDTO()
-            {
-                Id = Guid.NewGuid(),
-                CreateDate = DateTime.Now,
-                VersionNumber = 1,
-                Status = 0,
-                AirlinesId = _curAirlines.Id,
-            };
+            SelEnginePlan = new EnginePlanDTO
+                            {
+                                Id = Guid.NewGuid(),
+                                CreateDate = DateTime.Now,
+                                VersionNumber = 1,
+                                Status = 0,
+                                AirlinesId = _curAirlines.Id,
+                            };
+            var annual = Annuals.FirstOrDefault();
+            if (annual != null)
+                SelEnginePlan.AnnualId = annual.Id;
             //如果有上个版本的备发计划，将未执行完的计划明细复制到新的计划中
             var enginePlan = EnginePlans.OrderBy(p => p.CreateDate).LastOrDefault();
             if (enginePlan != null)
@@ -435,6 +437,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 PerformMonth = 1,
                 MaxThrust = 1,
             };
+            var annual = Annuals.FirstOrDefault();
+            if (annual != null)
+                SelEnginePlanHistory.PerformAnnualId = annual.Id;
+            var category = ActionCategories.FirstOrDefault();
+            if (category != null)
+                SelEnginePlanHistory.ActionCategoryId = category.Id;
+            var engineType = EngineTypes.FirstOrDefault();
+            if (engineType != null)
+                SelEnginePlanHistory.EngineTypeId = engineType.Id;
             var planEngine = new PlanEngineDTO
             {
                 Id = Guid.NewGuid(),
@@ -462,7 +473,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnRemoveEntity(object obj)
         {
-           if (SelEnginePlanHistory == null)
+            if (SelEnginePlanHistory == null)
             {
                 MessageAlert("请选择一条记录！");
                 return;

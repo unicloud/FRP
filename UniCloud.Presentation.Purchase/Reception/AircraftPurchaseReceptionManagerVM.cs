@@ -325,6 +325,12 @@ namespace UniCloud.Presentation.Purchase.Reception
                 CreateDate = DateTime.Now,
                 StartDate = DateTime.Now,
             };
+            var supplier = Suppliers.FirstOrDefault();
+            if (supplier != null)
+            {
+                SelAircraftPurchaseReception.SupplierId = supplier.SupplierId;
+                SelAircraftPurchaseReception.SupplierName = supplier.Name;
+            }
             AircraftPurchaseReceptions.AddNew(SelAircraftPurchaseReception);
         }
 
@@ -382,6 +388,15 @@ namespace UniCloud.Presentation.Purchase.Reception
                 DeliverDate = DateTime.Now,
                 ReceptionId = SelAircraftPurchaseReception.AircraftPurchaseReceptionId
             };
+            var contractAircraft = ViewPurchaseContractAircrafts.FirstOrDefault();
+            if (contractAircraft != null)
+            {
+                SelAircraftPurchaseReceptionLine.ContractName = contractAircraft.ContractName;
+                SelAircraftPurchaseReceptionLine.ContractNumber = contractAircraft.ContractNumber;
+                SelAircraftPurchaseReceptionLine.RankNumber = contractAircraft.RankNumber;
+                SelAircraftPurchaseReceptionLine.MSN = contractAircraft.SerialNumber;
+                SelAircraftPurchaseReceptionLine.AircraftType = contractAircraft.AircraftTypeName;
+            }
             SelAircraftPurchaseReception.ReceptionLines.Add(SelAircraftPurchaseReceptionLine);
         }
 

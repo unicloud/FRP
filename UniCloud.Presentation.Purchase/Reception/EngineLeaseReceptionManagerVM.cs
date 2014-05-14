@@ -339,6 +339,12 @@ namespace UniCloud.Presentation.Purchase.Reception
                 CreateDate = DateTime.Now,
                 StartDate = DateTime.Now,
             };
+            var supplier = Suppliers.FirstOrDefault();
+            if (supplier != null)
+            {
+                SelEngineLeaseReception.SupplierId = supplier.SupplierId;
+                SelEngineLeaseReception.SupplierName = supplier.Name;
+            }
             EngineLeaseReceptions.AddNew(SelEngineLeaseReception);
         }
 
@@ -396,6 +402,14 @@ namespace UniCloud.Presentation.Purchase.Reception
                 DeliverDate = DateTime.Now,
                 ReceptionId = SelEngineLeaseReception.EngineLeaseReceptionId
             };
+            var contractEngine =ViewLeaseContractEngines.FirstOrDefault();
+            if (contractEngine != null)
+            {
+                SelEngineLeaseReceptionLine.ContractName = contractEngine.ContractName;
+                SelEngineLeaseReceptionLine.ContractNumber = contractEngine.ContractNumber;
+                SelEngineLeaseReceptionLine.RankNumber = contractEngine.RankNumber;
+                SelEngineLeaseReceptionLine.SerialNumber = contractEngine.SerialNumber;
+            }
             SelEngineLeaseReception.ReceptionLines.Add(receptionLine);
         }
 

@@ -340,6 +340,12 @@ namespace UniCloud.Presentation.Purchase.Reception
                 CreateDate = DateTime.Now,
                 StartDate = DateTime.Now,
             };
+            var supplier = Suppliers.FirstOrDefault();
+            if (supplier != null)
+            {
+                SelEnginePurchaseReception.SupplierId = supplier.SupplierId;
+                SelEnginePurchaseReception.SupplierName = supplier.Name;
+            }
             EnginePurchaseReceptions.AddNew(SelEnginePurchaseReception);
         }
 
@@ -398,6 +404,14 @@ namespace UniCloud.Presentation.Purchase.Reception
                 DeliverDate = DateTime.Now,
                 ReceptionId = SelEnginePurchaseReception.EnginePurchaseReceptionId
             };
+            var contractEngine = ViewPurchaseContractEngines.FirstOrDefault();
+            if (contractEngine != null)
+            {
+                SelEnginePurchaseReceptionLine.ContractName = contractEngine.ContractName;
+                SelEnginePurchaseReceptionLine.ContractNumber = contractEngine.ContractNumber;
+                SelEnginePurchaseReceptionLine.RankNumber = contractEngine.RankNumber;
+                SelEnginePurchaseReceptionLine.SerialNumber = contractEngine.SerialNumber;
+            }
             SelEnginePurchaseReception.ReceptionLines.Add(SelEnginePurchaseReceptionLine);
         }
 

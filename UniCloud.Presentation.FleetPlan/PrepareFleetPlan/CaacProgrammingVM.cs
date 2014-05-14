@@ -330,6 +330,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 Id = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
             };
+            var programming = Programmings.FirstOrDefault();
+            if (programming != null)
+                SelCaacProgramming.ProgrammingId = programming.Id;
+            var issuedUnit = IssuedUnits.FirstOrDefault();
+            if (issuedUnit != null)
+                SelCaacProgramming.IssuedUnitId = issuedUnit.Id;
             CaacProgrammings.AddNew(SelCaacProgramming);
         }
 
@@ -384,7 +390,9 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 Number = 1,
                 CaacProgrammingId = SelCaacProgramming.Id,
             };
-
+            var category = AircraftCategories.FirstOrDefault();
+            if (category != null)
+                SelCaacProgrammingLine.AircraftCategoryId = category.Id;
             SelCaacProgramming.CaacProgrammingLines.Add(SelCaacProgrammingLine);
         }
 

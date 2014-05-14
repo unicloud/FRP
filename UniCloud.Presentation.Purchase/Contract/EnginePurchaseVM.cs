@@ -33,7 +33,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof (EnginePurchaseVM))]
+    [Export(typeof(EnginePurchaseVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class EnginePurchaseVM : EditViewModelBase
     {
@@ -47,7 +47,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         private FilterDescriptor _tradeDescriptor2;
 
         [ImportingConstructor]
-        public EnginePurchaseVM(IPurchaseService service) : base(service)
+        public EnginePurchaseVM(IPurchaseService service)
+            : base(service)
         {
             _service = service;
             _context = _service.Context;
@@ -233,7 +234,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 {
                     _selEnginePurchaseOrderDTO = value;
                     if (_selEnginePurchaseOrderDTO != null)
-                        SelEnginePurchaseOrderLineDTO =_selEnginePurchaseOrderDTO.EnginePurchaseOrderLines.FirstOrDefault();
+                        SelEnginePurchaseOrderLineDTO = _selEnginePurchaseOrderDTO.EnginePurchaseOrderLines.FirstOrDefault();
                     RaisePropertyChanged(() => SelEnginePurchaseOrderDTO);
                     // 刷新按钮状态
                     RefreshCommandState();
@@ -410,6 +411,12 @@ namespace UniCloud.Presentation.Purchase.Contract
                 TradeType = TradeType,
                 StartDate = DateTime.Now,
             };
+            var supplier = Suppliers.FirstOrDefault();
+            if (supplier != null)
+            {
+                SelTradeDTO.SupplierId = supplier.SupplierId;
+                SelTradeDTO.SuppierCompanyId = supplier.SuppierCompanyId;
+            }
             ViewTradeDTO.AddNew(SelTradeDTO);
         }
 
@@ -468,8 +475,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SourceGuid = Guid.NewGuid(),
                     SupplierId = _selTradeDTO.SupplierId
                 };
+                var currency = Currencies.FirstOrDefault();
+                if (currency != null)
+                    SelEnginePurchaseOrderDTO.CurrencyId = currency.Id;
                 ViewEnginePurchaseOrderDTO.AddNew(SelEnginePurchaseOrderDTO);
-                SelTradeDTO.Status = (int) TradeStatus.进行中;
+                SelTradeDTO.Status = (int)TradeStatus.进行中;
             }
             else
             {
@@ -489,6 +499,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SourceGuid = Guid.NewGuid(),
                     SupplierId = order.SupplierId
                 };
+                var currency = Currencies.FirstOrDefault();
+                if (currency != null)
+                    SelEnginePurchaseOrderDTO.CurrencyId = currency.Id;
                 ViewEnginePurchaseOrderDTO.AddNew(SelEnginePurchaseOrderDTO);
                 order.EnginePurchaseOrderLines.ToList().ForEach(line =>
                 {
@@ -627,7 +640,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
                                             {
                                                 if (arg.DialogResult != true) return;
-                                                SelEnginePurchaseOrderDTO.EnginePurchaseOrderLines.Remove( SelEnginePurchaseOrderLineDTO);
+                                                SelEnginePurchaseOrderDTO.EnginePurchaseOrderLines.Remove(SelEnginePurchaseOrderLineDTO);
                                                 SelEnginePurchaseOrderLineDTO = SelEnginePurchaseOrderDTO.EnginePurchaseOrderLines.FirstOrDefault();
                                                 RemoveOrderCommand.RaiseCanExecuteChanged();
                                             });
@@ -695,7 +708,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnCommit(object obj)
         {
-            SelEnginePurchaseOrderDTO.Status = (int) OrderStatus.待审核;
+            SelEnginePurchaseOrderDTO.Status = (int)OrderStatus.待审核;
             // 刷新按钮状态
             RefreshCommandState();
         }
@@ -716,7 +729,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnCheck(object obj)
         {
-            SelEnginePurchaseOrderDTO.Status = (int) OrderStatus.已审核;
+            SelEnginePurchaseOrderDTO.Status = (int)OrderStatus.已审核;
             // 刷新按钮状态
             RefreshCommandState();
         }
