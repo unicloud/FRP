@@ -137,6 +137,20 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
             var aircraftBusiness = currentUnitOfWork.CreateSet<AircraftBusiness>().Find((Guid)id);
             return aircraftBusiness;
         }
+
+        /// <summary>
+        /// 获取单个的所有权历史
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public OwnershipHistory GetOh(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            if (id == null) return null;
+            var ownershipHistory = currentUnitOfWork.CreateSet<OwnershipHistory>().Find((Guid)id);
+            return ownershipHistory;
+        }
         #endregion
     }
 }

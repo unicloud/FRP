@@ -23,6 +23,7 @@ using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.EnginePlanServices;
 using UniCloud.Application.FleetPlanBC.EngineServices;
 using UniCloud.Application.FleetPlanBC.EngineTypeServices;
+using UniCloud.Application.FleetPlanBC.FleetTransferServices;
 using UniCloud.Application.FleetPlanBC.IssuedUnitServices;
 using UniCloud.Application.FleetPlanBC.MailAddressServices;
 using UniCloud.Application.FleetPlanBC.ManagerServices;
@@ -75,6 +76,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         private readonly IRequestAppService _requestAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly IXmlConfigAppService _xmlConfigAppService;
+        private readonly IFleetTransferService _fleetTransferService;
 
         public FleetPlanData()
             : base("UniCloud.Application.FleetPlanBC.DTO")
@@ -110,6 +112,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             _xmlConfigAppService = DefaultContainer.Resolve<IXmlConfigAppService>();
             _requestAppService = DefaultContainer.Resolve<IRequestAppService>();
             _approvalDocAppService = DefaultContainer.Resolve<IApprovalDocAppService>();
+            _fleetTransferService = DefaultContainer.Resolve<IFleetTransferService>();
         }
 
         #region 活动类型

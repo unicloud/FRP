@@ -7,6 +7,7 @@ using System.ServiceModel.Web;
 using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
 using UniCloud.Application.FleetPlanBC.ApprovalDocServices;
 using UniCloud.Application.FleetPlanBC.DTO;
+using UniCloud.Application.FleetPlanBC.FleetTransferServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
 namespace UniCloud.DistributedServices.FleetPlan
@@ -33,6 +34,15 @@ namespace UniCloud.DistributedServices.FleetPlan
 
             // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("PerformPlanQuery", ServiceOperationRights.All);
+
+            config.SetServiceOperationAccessRule("TransferRequest", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("TransferPlan", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("TransferPlanAndRequest", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("TransferApprovalDoc", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("TransferOperationHistory", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("TransferAircraftBusiness", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("TransferOwnershipHistory", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("TransferPlanHistory", ServiceOperationRights.All);
 
             #endregion
 
@@ -79,6 +89,112 @@ namespace UniCloud.DistributedServices.FleetPlan
          var  planAppService = DefaultContainer.Resolve<IPlanAppService>();
           return  planAppService.PerformPlanQuery(planHistoryId, approvalHistoryId, planType, relatedGuid);
         }
+
+        #region 数据传输
+
+        /// <summary>
+        /// 传输申请
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentRequest"></param>
+        [WebGet]
+        public bool TransferRequest(Guid currentAirlines, Guid currentRequest)
+        {
+            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            return transferService.TransferRequest(currentAirlines, currentRequest);
+        }
+
+        /// <summary>
+        /// 传输计划
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentPlan"></param>
+        [WebGet]
+        public bool TransferPlan(Guid currentAirlines, Guid currentPlan)
+        {
+            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            return transferService.TransferRequest(currentAirlines, currentPlan);
+
+        }
+
+        /// <summary>
+        /// 传输计划申请
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentPlan"></param>
+        /// <param name="currentRequest"></param>
+        /// <returns></returns>
+        [WebGet]
+        public bool TransferPlanAndRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest)
+        {
+            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            return transferService.TransferPlanAndRequest(currentAirlines, currentPlan, currentRequest);
+        }
+
+        /// <summary>
+        /// 传输批文
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentApprovalDoc"></param>
+        [WebGet]
+        public bool TransferApprovalDoc(Guid currentAirlines, Guid currentApprovalDoc)
+        {
+            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            return transferService.TransferApprovalDoc(currentAirlines, currentApprovalDoc);
+        }
+
+        /// <summary>
+        /// 传输运营历史
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentOperationHistory"></param>
+        /// <returns></returns>
+        [WebGet]
+        public bool TransferOperationHistory(Guid currentAirlines, Guid currentOperationHistory)
+        {
+            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            return transferService.TransferOperationHistory(currentAirlines, currentOperationHistory);
+        }
+
+
+        /// <summary>
+        /// 传输商业数据
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentAircraftBusiness"></param>
+        [WebGet]
+        public bool TransferAircraftBusiness(Guid currentAirlines, Guid currentAircraftBusiness)
+        {
+            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            return transferService.TransferAircraftBusiness(currentAirlines, currentAircraftBusiness);
+        }
+
+        /// <summary>
+        /// 传输所有权历史
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentOwnershipHistory"></param>
+        [WebGet]
+        public bool TransferOwnershipHistory(Guid currentAirlines, Guid currentOwnershipHistory)
+        {
+            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            return transferService.TransferOwnershipHistory(currentAirlines, currentOwnershipHistory);
+        }
+
+        /// <summary>
+        /// 传输计划明细
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentPlanHistory"></param>
+        /// <returns></returns>
+        [WebGet]
+        public bool TransferPlanHistory(Guid currentAirlines, Guid currentPlanHistory)
+        {
+            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            return transferService.TransferPlanHistory(currentAirlines, currentPlanHistory);
+        }
+
+        #endregion
 
         #endregion
     }
