@@ -26,6 +26,7 @@ using UniCloud.Application.FleetPlanBC.DTO.DataTransfer;
 
 namespace UniCloud.Application.FleetPlanBC.DTO.DataTransfer
 {
+    [Serializable]
     public class Aircraft
     {
         public Aircraft()

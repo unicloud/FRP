@@ -3,11 +3,11 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2014/5/13 17:27:45
-// 文件名：Manufacturer
+// 作者：HuangQiBin 时间：2014/5/14 17:34:10
+// 文件名：IDocumentRepository
 // 版本：V1.0.0
 //
-// 修改者：  时间：2014/5/13 17:27:45
+// 修改者：  时间：2014/5/14 17:34:10
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -22,17 +22,13 @@ using System.Threading.Tasks;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.DataTransfer
+namespace UniCloud.Domain.FleetPlanBC.Aggregates.DocumentAgg
 {
-    [Serializable]
-    public class Manufacturer : Owner
+    /// <summary>
+    ///     文档仓储接口
+    ///     <see cref="UniCloud.Domain.IRepository{Document}" />
+    /// </summary>
+    public interface IDocumentRepository : IRepository<Document>
     {
-        public Manufacturer()
-        {
-            this.AircraftTypes = new HashSet<AircraftType>();
-        }
-
-        public virtual ICollection<AircraftType> AircraftTypes { get; set; }
     }
-
 }

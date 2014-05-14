@@ -28,6 +28,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO.DataTransfer
     /// <summary>
     /// 飞机类别
     /// </summary>
+    [Serializable]
     public class AircraftCategory
     {
         public AircraftCategory()

@@ -25,6 +25,7 @@ using UniCloud.Application.FleetPlanBC.DTO.DataTransfer;
 
 namespace UniCloud.Application.FleetPlanBC.DTO.DataTransfer
 {
+    [Serializable]
     public class AgreementDetail
     {
         public Guid AgreementDetailID { get; set; }

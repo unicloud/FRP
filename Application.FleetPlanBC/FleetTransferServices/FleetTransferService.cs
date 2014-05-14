@@ -24,17 +24,13 @@ using System.Text;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.FleetPlanBC.DTO.DataTransfer;
 using UniCloud.Domain.Common.Enums;
-using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Mail;
@@ -48,7 +44,7 @@ using OperationPlan = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.Operatio
 using OwnershipHistory = UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg.OwnershipHistory;
 using Plan = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.Plan;
 using PlanAircraft = UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg.PlanAircraft;
-using PlanHistory = UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg.PlanHistory;
+using PlanHistory = UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg.PlanHistory; 
 using PlanPublishStatus = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.PlanPublishStatus;
 using PlanStatus = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.PlanStatus;
 using Request = UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg.Request;
@@ -303,8 +299,8 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
 
         private BaseMailAccount TransformMailAddress(Domain.FleetPlanBC.Aggregates.MailAddressAgg.MailAddress dbMail)
         {
-            var mailAddress = MailAccountHelper.GetMailAccountFromAddr(dbMail.Address, dbMail.DisplayName, dbMail.LoginUser,dbMail.LoginPassword,
-                dbMail.Pop3Host, dbMail.ReceivePort,dbMail.ReceiveSSL,dbMail.SmtpHost,dbMail.SendPort,dbMail.SendSSL,dbMail.StartTLS);
+            var mailAddress = MailAccountHelper.GetMailAccountFromAddr(dbMail.Address, dbMail.DisplayName, dbMail.LoginUser, dbMail.LoginPassword,
+                dbMail.Pop3Host, dbMail.ReceivePort, dbMail.ReceiveSSL, dbMail.SmtpHost, dbMail.SendPort, dbMail.SendSSL, dbMail.StartTLS);
             return mailAddress;
         }
 
@@ -325,11 +321,11 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 IsOperation = dbAircraft.IsOperation,
                 SeatingCapacity = dbAircraft.SeatingCapacity,
             };
-            if (dbAircraft.Supplier.SupplierType == SupplierType.国外) //SupplierType：0--国外，1--国内
+            if (dbAircraft.Supplier != null && dbAircraft.Supplier.SupplierType == SupplierType.国外) //SupplierType：0--国外，1--国内
             {
                 aircraft.OwnerID = Guid.Parse("76B17B09-A452-41CE-811C-29688595EFB7");//民航局数据库Owner表中国外供应商外键
             }
-            else if (dbAircraft.Supplier.SupplierType == SupplierType.国内)
+            else if (dbAircraft.Supplier != null && dbAircraft.Supplier.SupplierType == SupplierType.国内)
             {
                 aircraft.OwnerID = Guid.Parse("5256C5F4-CC0E-49E6-A382-903B031BFC12");//民航局数据库Owner表中国外供应商外键
             }
@@ -374,9 +370,17 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 };
                 var operationPlan = dbPlanHistory as Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg.OperationPlan;
                 if (operationPlan != null)
+                {
                     planHistory.OperationHistoryID = operationPlan.OperationHistoryId;
-                planHistory.PlanAircraft = TransformPlanAircraft(dbPlanHistory.PlanAircraft);
-                planHistory.PlanAircraft.Aircraft = TransformAircraft(dbPlanHistory.PlanAircraft.Aircraft);
+                }
+                if (dbPlanHistory.PlanAircraft != null)
+                {
+                    planHistory.PlanAircraft = TransformPlanAircraft(dbPlanHistory.PlanAircraft);
+                    if (planHistory.PlanAircraft != null && dbPlanHistory.PlanAircraft.Aircraft != null)
+                    {
+                        planHistory.PlanAircraft.Aircraft = TransformAircraft(dbPlanHistory.PlanAircraft.Aircraft);
+                    }
+                }
                 return planHistory;
             }
             if (dbPlanHistory.GetType() != typeof(Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg.ChangePlan))
@@ -400,14 +404,21 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 };
                 var changePlan = dbPlanHistory as Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg.ChangePlan;
                 if (changePlan != null)
+                {
                     planHistory.AircraftBusinessID = changePlan.AircraftBusinessId;
-                planHistory.PlanAircraft = TransformPlanAircraft(dbPlanHistory.PlanAircraft);
-                planHistory.PlanAircraft.Aircraft = TransformAircraft(dbPlanHistory.PlanAircraft.Aircraft);
+                }
+                if (dbPlanHistory.PlanAircraft != null)
+                {
+                    planHistory.PlanAircraft = TransformPlanAircraft(dbPlanHistory.PlanAircraft);
+                    if (planHistory.PlanAircraft != null && dbPlanHistory.PlanAircraft.Aircraft != null)
+                    {
+                        planHistory.PlanAircraft.Aircraft = TransformAircraft(dbPlanHistory.PlanAircraft.Aircraft);
+                    }
+                }
                 return planHistory;
             }
             return null;
         }
-
 
         private Plan TransformPlan(Domain.FleetPlanBC.Aggregates.AircraftPlanAgg.Plan dbPlan)
         {
@@ -431,9 +442,15 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 PlanPublishStatus = (PlanPublishStatus)dbPlan.PublishStatus,
             };
             var document = _documentRepository.Get(dbPlan.DocumentId);
-            plan.AttachDoc = document.FileStorage;
+            if (document != null)
+            {
+                plan.AttachDoc = document.FileStorage;
+            }
             var planHistories = _planHistoryRepository.GetAll().Where(p => p.PlanId == dbPlan.Id).ToList();
-            planHistories.ForEach(p => plan.PlanHistories.Add(TransformPlanHistory(p)));
+            if (planHistories.Any())
+            {
+                planHistories.ForEach(p => plan.PlanHistories.Add(TransformPlanHistory(p)));
+            }
             return plan;
         }
 
@@ -454,7 +471,10 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 ReqStatus = (ReqStatus)dbReq.Status,
             };
             var document = _documentRepository.Get(dbReq.CaacDocumentId);
-            request.AttachDoc = document.FileStorage;
+            if (document != null)
+            {
+                request.AttachDoc = document.FileStorage;
+            }
             dbReq.ApprovalHistories.ToList().ForEach(p =>
             {
                 var approvalHistory = new DTO.DataTransfer.ApprovalHistory
@@ -462,7 +482,6 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                     ApprovalHistoryID = p.Id,
                     AirlinesID = p.AirlinesId,
                     PlanAircraftID = p.PlanAircraftId,
-                    PlanAircraft = TransformPlanAircraft(p.PlanAircraft),
                     RequestID = p.RequestId,
                     ImportCategoryID = p.ImportCategoryId,
                     SeatingCapacity = p.SeatingCapacity,
@@ -472,7 +491,22 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                     IsApproved = p.IsApproved,
                     Note = p.Note,
                 };
-                approvalHistory.PlanAircraft.Aircraft = TransformAircraft(p.PlanAircraft.Aircraft);
+                if (approvalHistory.PlanAircraftID != Guid.Empty)
+                {
+                    var dbPlanAircraft = _planAircraftRepository.Get(approvalHistory.PlanAircraftID);
+                    if (dbPlanAircraft != null)
+                    {
+                        approvalHistory.PlanAircraft = TransformPlanAircraft(dbPlanAircraft);
+                        if (approvalHistory.PlanAircraft != null && dbPlanAircraft.AircraftId != null)
+                        {
+                            var dbAircraft = _aircraftRepository.Get(dbPlanAircraft.AircraftId);
+                            if (dbAircraft != null)
+                            {
+                                approvalHistory.PlanAircraft.Aircraft = TransformAircraft(dbAircraft);
+                            }
+                        }
+                    }
+                }
                 request.ApprovalHistories.Add(approvalHistory);
             });
             return request;
@@ -491,9 +525,15 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 OpStatus = (OpStatus)dbApprovalDoc.Status,
             };
             var document = _documentRepository.Get(dbApprovalDoc.CaacDocumentId);
-            approvalDoc.AttachDoc = document.FileStorage;
+            if (document != null)
+            {
+                approvalDoc.AttachDoc = document.FileStorage;
+            }
             var requests = _requestRepository.GetAll().Where(p => p.ApprovalDocId == dbApprovalDoc.Id).ToList();
-            requests.ForEach(p => approvalDoc.Requests.Add(TransformRequest(p)));
+            if (requests.Any())
+            {
+                requests.ForEach(p => approvalDoc.Requests.Add(TransformRequest(p)));
+            }
             return approvalDoc;
         }
 
@@ -519,9 +559,15 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 OpStatus = (OpStatus)dbOperationHistory.Status,
             };
             var aircraft = _aircraftRepository.Get(dbOperationHistory.AircraftId);
-            operationHistory.Aircraft = TransformAircraft(aircraft);
-            var planAircrafts = _planAircraftRepository.GetAll().Where(p => p.AircraftId == aircraft.Id).ToList();
-            planAircrafts.ForEach(p => operationHistory.Aircraft.PlanAircrafts.Add(TransformPlanAircraft(p)));
+            if (aircraft != null)
+            {
+                operationHistory.Aircraft = TransformAircraft(aircraft);
+                var planAircrafts = _planAircraftRepository.GetAll().Where(p => p.AircraftId == aircraft.Id).ToList();
+                if (operationHistory.Aircraft != null && planAircrafts.Any())
+                {
+                    planAircrafts.ForEach(p => operationHistory.Aircraft.PlanAircrafts.Add(TransformPlanAircraft(p)));
+                }
+            }
             return operationHistory;
         }
 
@@ -541,9 +587,15 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 OpStatus = (OpStatus)dbAircraftBusiness.Status,
             };
             var aircraft = _aircraftRepository.Get(dbAircraftBusiness.AircraftId);
-            aircraftBusiness.Aircraft = TransformAircraft(aircraft);
-            var planAircrafts = _planAircraftRepository.GetAll().Where(p => p.AircraftId == aircraft.Id).ToList();
-            planAircrafts.ForEach(p => aircraftBusiness.Aircraft.PlanAircrafts.Add(TransformPlanAircraft(p)));
+            if (aircraft != null)
+            {
+                aircraftBusiness.Aircraft = TransformAircraft(aircraft);
+                var planAircrafts = _planAircraftRepository.GetAll().Where(p => p.AircraftId == aircraft.Id).ToList();
+                if (planAircrafts.Any())
+                {
+                    planAircrafts.ForEach(p => aircraftBusiness.Aircraft.PlanAircrafts.Add(TransformPlanAircraft(p)));
+                }
+            }
             return aircraftBusiness;
         }
 
@@ -567,9 +619,15 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 ownershipHistory.OwnerID = Guid.Parse("5256C5F4-CC0E-49E6-A382-903B031BFC12");//民航局数据库Owner表中国外供应商外键
             }
             var aircraft = _aircraftRepository.Get(dbOwnershipHistory.AircraftId);
-            ownershipHistory.Aircraft = TransformAircraft(aircraft);
-            var planAircrafts = _planAircraftRepository.GetAll().Where(p => p.AircraftId == aircraft.Id).ToList();
-            planAircrafts.ForEach(p => ownershipHistory.Aircraft.PlanAircrafts.Add(TransformPlanAircraft(p)));
+            if (aircraft != null)
+            {
+                ownershipHistory.Aircraft = TransformAircraft(aircraft);
+                var planAircrafts = _planAircraftRepository.GetAll().Where(p => p.AircraftId == aircraft.Id).ToList();
+                if (planAircrafts.Any())
+                {
+                    planAircrafts.ForEach(p => ownershipHistory.Aircraft.PlanAircrafts.Add(TransformPlanAircraft(p)));
+                }
+            }
             return ownershipHistory;
         }
 

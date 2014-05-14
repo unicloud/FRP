@@ -21,6 +21,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UniCloud.Application.FleetPlanBC.DTO.DataTransfer
 {
+    [Serializable]
     public class ActionCategory
     {
         public Guid ActionCategoryID { get; set; }

@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 
 namespace UniCloud.Application.FleetPlanBC.DTO.DataTransfer
 {
+    [Serializable]
     public class SubOperationHistory
     {
         public Guid SubOperationHistoryID { get; set; }
