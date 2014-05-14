@@ -35,7 +35,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof (CaacProgrammingVM))]
+    [Export(typeof(CaacProgrammingVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class CaacProgrammingVM : EditViewModelBase
     {
@@ -64,12 +64,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            var sort = new SortDescriptor {Member = "CreateDate", SortDirection = ListSortDirection.Ascending};
-            var group = new GroupDescriptor {Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending};
+            var sort = new SortDescriptor { Member = "CreateDate", SortDirection = ListSortDirection.Ascending };
+            var group = new GroupDescriptor { Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending };
 
             CaacProgrammings = _service.CreateCollection(_context.CaacProgrammings, o => o.CaacProgrammingLines);
             CaacProgrammings.SortDescriptors.Add(sort);
             CaacProgrammings.GroupDescriptors.Add(group);
+            CaacProgrammings.LoadedData += (o, e) =>
+                                           {
+                                               if (SelCaacProgramming == null)
+                                                   SelCaacProgramming = CaacProgrammings.FirstOrDefault();
+                                           };
             _service.RegisterCollectionView(CaacProgrammings); //注册查询集合
 
             ProgrammingFiles = _service.CreateCollection(_context.ProgrammingFiles);
@@ -228,6 +233,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (_selCaacProgramming != value)
                 {
                     _selCaacProgramming = value;
+                    if (_selCaacProgramming != null)
+                        SelCaacProgrammingLine = _selCaacProgramming.CaacProgrammingLines.FirstOrDefault();
                     RaisePropertyChanged(() => SelCaacProgramming);
                     // 刷新按钮状态
                     RefreshCommandState();
@@ -272,7 +279,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public ProgrammingFileDTO SelProgrammingFile
         {
             get { return _selProgrammingFile; }
-            private set
+            set
             {
                 if (_selProgrammingFile != value)
                 {
@@ -318,12 +325,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnNew(object obj)
         {
-            var caacProg = new CaacProgrammingDTO
+            SelCaacProgramming = new CaacProgrammingDTO
             {
                 Id = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
             };
-            CaacProgrammings.AddNew(caacProg);
+            CaacProgrammings.AddNew(SelCaacProgramming);
         }
 
         private bool CanNew(object obj)
@@ -342,15 +349,22 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnRemove(object obj)
         {
-            if (_selCaacProgramming != null)
+            if (SelCaacProgramming == null)
             {
-                CaacProgrammings.Remove(_selCaacProgramming);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                CaacProgrammings.Remove(SelCaacProgramming);
+                                                SelCaacProgramming = CaacProgrammings.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemove(object obj)
         {
-            return _selCaacProgramming != null;
+            return SelCaacProgramming != null;
         }
 
         #endregion
@@ -364,19 +378,19 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnAddEntity(object obj)
         {
-            var caacProgLine = new CaacProgrammingLineDTO
+            SelCaacProgrammingLine = new CaacProgrammingLineDTO
             {
                 Id = Guid.NewGuid(),
                 Number = 1,
                 CaacProgrammingId = SelCaacProgramming.Id,
             };
 
-            SelCaacProgramming.CaacProgrammingLines.Add(caacProgLine);
+            SelCaacProgramming.CaacProgrammingLines.Add(SelCaacProgrammingLine);
         }
 
         private bool CanAddEntity(object obj)
         {
-            return _selCaacProgramming != null;
+            return SelCaacProgramming != null;
         }
 
         #endregion
@@ -390,10 +404,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnRemoveEntity(object obj)
         {
-            if (_selCaacProgrammingLine != null)
+            if (SelCaacProgrammingLine == null)
             {
-                SelCaacProgramming.CaacProgrammingLines.Remove(_selCaacProgrammingLine);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SelCaacProgramming.CaacProgrammingLines.Remove(SelCaacProgrammingLine);
+                                                SelCaacProgrammingLine = SelCaacProgramming.CaacProgrammingLines.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemoveEntity(object obj)

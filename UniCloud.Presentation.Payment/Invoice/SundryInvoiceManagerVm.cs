@@ -61,6 +61,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVM()
         {
             SundryInvoices = _service.CreateCollection(_context.SundryInvoices, o => o.InvoiceLines);
+            SundryInvoices.LoadedData += (o, e) =>
+                                         {
+                                             if (SelectSundryInvoice == null)
+                                                 SelectSundryInvoice = SundryInvoices.FirstOrDefault();
+                                         };
             _service.RegisterCollectionView(SundryInvoices); //注册查询集合。
 
         }
@@ -166,16 +171,17 @@ namespace UniCloud.Presentation.Payment.Invoice
             get { return _selectSundryInvoice; }
             set
             {
-                if (value != null && _selectSundryInvoice != value)
+                _selectSundryInvoice = value;
+                _invoiceLines.Clear();
+                if (value != null)
                 {
-                    _selectSundryInvoice = value;
-                    _invoiceLines.Clear();
+                    SelInvoiceLine = value.InvoiceLines.FirstOrDefault();
                     foreach (var invoiceLine in value.InvoiceLines)
                     {
                         InvoiceLines.Add(invoiceLine);
                     }
-                    RaisePropertyChanged(() => SelectSundryInvoice);
                 }
+                RaisePropertyChanged(() => SelectSundryInvoice);
             }
         }
 

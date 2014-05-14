@@ -73,6 +73,11 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                                         };
             Roles = _service.CreateCollection(_context.Roles, o => o.RoleFunctions);
             Roles.PageSize = 6;
+            Roles.LoadedData += (o, e) =>
+                                {
+                                    if (Role == null)
+                                        Role = Roles.FirstOrDefault();
+                                };
             _service.RegisterCollectionView(Roles);
         }
 
@@ -227,6 +232,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             {
                 if (arg.DialogResult != true) return;
                 Roles.Remove(Role);
+                Role = Roles.FirstOrDefault();
             });
         }
 

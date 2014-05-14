@@ -67,6 +67,11 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             // 创建并注册CollectionView
             UndercartMaintainInvoices = _service.CreateCollection(_context.UndercartMaintainInvoices, o => o.MaintainInvoiceLines);
             UndercartMaintainInvoices.PageSize = 6;
+            UndercartMaintainInvoices.LoadedData += (o, e) =>
+                                                    {
+                                                        if (UndercartMaintainInvoice == null)
+                                                            UndercartMaintainInvoice = UndercartMaintainInvoices.FirstOrDefault();
+                                                    };
             var supplierFilter = new FilterDescriptor("MaintainSupplier", FilterOperator.IsEqualTo, true);
             Suppliers.FilterDescriptors.Add(supplierFilter);
             _service.RegisterCollectionView(UndercartMaintainInvoices);
@@ -122,8 +127,9 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 _undercartMaintainInvoice = value;
                 RelatedPaymentSchedule.Clear();
                 SelPaymentSchedule = null;
-                if (value != null )
+                if (value != null)
                 {
+                    UndercartMaintainInvoiceLine = value.MaintainInvoiceLines.FirstOrDefault();
                     RelatedPaymentSchedule.Add(
                         PaymentSchedules.FirstOrDefault(p =>
                         {

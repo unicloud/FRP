@@ -71,7 +71,11 @@ namespace UniCloud.Presentation.Part.EngineConfig
             ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_context, _context.ContractAircrafts);
             var sort = new SortDescriptor { Member = "CSCNumber", SortDirection = ListSortDirection.Ascending };
             ContractAircrafts.SortDescriptors.Add(sort);
-
+            ContractAircrafts.LoadedData += (o, e) =>
+                                            {
+                                                if (SelContractAircraft == null)
+                                                    SelContractAircraft = ContractAircrafts.FirstOrDefault();
+                                            };
             BasicConfigGroups = new QueryableDataServiceCollectionView<BasicConfigGroupDTO>(_context, _context.BasicConfigGroups);
             _bcGroupDescriptor = new FilterDescriptor("AircraftTypeId", FilterOperator.IsEqualTo, Guid.Empty);
             BasicConfigGroups.FilterDescriptors.Add(_bcGroupDescriptor);
@@ -82,7 +86,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
             SpecialConfigs = _service.CreateCollection(_context.SpecialConfigs);
             SpecialConfigs.LoadedData += (o, e) =>
             {
-                SpecialConfigs.ToList().ForEach(p=>p.SubSpecialConfigs.Clear());
+                SpecialConfigs.ToList().ForEach(p => p.SubSpecialConfigs.Clear());
                 SpecialConfigs.ToList().ForEach(GenerateSpecialConfigStructure);
                 if (SelContractAircraft != null)
                 {
@@ -154,7 +158,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                         {
                             bchs.ToList().ForEach(p => ViewBasicConfigHistories.Add(p));
                         }
-
+                        SelBasicConfigHistory = ViewBasicConfigHistories.FirstOrDefault();
                         //加载特定选型集合
                         List<SpecialConfigDTO> bcs =
                             SpecialConfigs.SourceCollection.Cast<SpecialConfigDTO>()
@@ -452,14 +456,14 @@ namespace UniCloud.Presentation.Part.EngineConfig
             StartDisplayDate =
             ViewBasicConfigHistories.Select(p => p.StartDate).OrderBy(p => p).LastOrDefault();
 
-            var newBasicConfigHistory = new BasicConfigHistoryDTO
+            SelBasicConfigHistory = new BasicConfigHistoryDTO
             {
                 Id = RandomHelper.Next(),
                 ContractAircraftId = SelContractAircraft.Id,
                 StartDate = (StartDisplayDate == null || StartDisplayDate.Value == DateTime.MinValue) ? DateTime.Now : StartDisplayDate.Value.AddDays(1),
             };
-            ViewBasicConfigHistories.Add(newBasicConfigHistory);
-            BasicConfigHistories.AddNew(newBasicConfigHistory);
+            ViewBasicConfigHistories.Add(SelBasicConfigHistory);
+            BasicConfigHistories.AddNew(SelBasicConfigHistory);
             RefreshCommandState();
         }
 
@@ -479,11 +483,18 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         private void OnRemove(object obj)
         {
-            if (_selBasicConfigHistory != null)
+            if (SelBasicConfigHistory == null)
             {
-                ViewBasicConfigHistories.Remove(_selBasicConfigHistory);
-                BasicConfigHistories.Remove(_selBasicConfigHistory);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                ViewBasicConfigHistories.Remove(SelBasicConfigHistory);
+                                                BasicConfigHistories.Remove(SelBasicConfigHistory);
+                                                SelBasicConfigHistory = ViewBasicConfigHistories.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemove(object obj)

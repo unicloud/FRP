@@ -20,20 +20,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -80,6 +69,11 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             ApprovalDocs = _service.CreateCollection(_context.ApprovalDocs);
             var approvalDocDescriptor = new FilterDescriptor("Note", FilterOperator.IsEqualTo, "指标飞机批文");
             ApprovalDocs.FilterDescriptors.Add(approvalDocDescriptor);
+            ApprovalDocs.LoadedData += (o, e) =>
+                                       {
+                                           if (SelApprovalDoc == null)
+                                               SelApprovalDoc = ApprovalDocs.FirstOrDefault();
+                                       };
             _service.RegisterCollectionView(ApprovalDocs);
 
             Requests = _service.CreateCollection(_context.Requests, o => o.ApprovalHistories);
@@ -181,7 +175,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         public ObservableCollection<PlanDTO> CurPlan
         {
             get { return _curPlan; }
-            private set
+            set
             {
                 if (_curPlan != value)
                 {
@@ -204,13 +198,13 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         public PlanHistoryDTO SelPlanHistory
         {
-            get { return this._selPlanHistory; }
-            private set
+            get { return _selPlanHistory; }
+            set
             {
-                if (this._selPlanHistory != value)
+                if (_selPlanHistory != value)
                 {
                     _selPlanHistory = value;
-                    this.RaisePropertyChanged(() => this.SelPlanHistory);
+                    RaisePropertyChanged(() => SelPlanHistory);
                 }
             }
         }
@@ -260,10 +254,10 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         public ApprovalDocDTO SelApprovalDoc
         {
-            get { return this._selApprovalDoc; }
+            get { return _selApprovalDoc; }
             private set
             {
-                if (this._selApprovalDoc != value)
+                if (_selApprovalDoc != value)
                 {
                     _selApprovalDoc = value;
                     if (value != null)
@@ -273,7 +267,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                             _curRequest = Requests.SourceCollection.Cast<RequestDTO>().FirstOrDefault(p => value.Id == p.ApprovalDocId);
                         }
                     }
-                    this.RaisePropertyChanged(() => this.SelApprovalDoc);
+                    RaisePropertyChanged(() => SelApprovalDoc);
                     RefreshCommandState();
                 }
             }
@@ -296,13 +290,13 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         public RequestDTO CurRequest
         {
-            get { return this._curRequest; }
-            private set
+            get { return _curRequest; }
+            set
             {
-                if (this._curRequest != value)
+                if (_curRequest != value)
                 {
                     _curRequest = value;
-                    this.RaisePropertyChanged(() => this.CurRequest);
+                    RaisePropertyChanged(() => CurRequest);
                 }
             }
         }
@@ -315,13 +309,13 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         public ApprovalHistoryDTO SelApprovalHistory
         {
-            get { return this._selApprovalHistory; }
-            private set
+            get { return _selApprovalHistory; }
+            set
             {
-                if (this._selApprovalHistory != value)
+                if (_selApprovalHistory != value)
                 {
                     _selApprovalHistory = value;
-                    this.RaisePropertyChanged(() => this.SelApprovalHistory);
+                    RaisePropertyChanged(() => SelApprovalHistory);
                 }
             }
         }
@@ -378,13 +372,13 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         private void OnNew(object obj)
         {
-            var newApprovalDoc = new ApprovalDocDTO
+            SelApprovalDoc = new ApprovalDocDTO
             {
                 Id = Guid.NewGuid(),
                 Note = "指标飞机批文",
                 Status = (int)OperationStatus.草稿,
             };
-            ApprovalDocs.AddNew(newApprovalDoc);
+            ApprovalDocs.AddNew(SelApprovalDoc);
 
             var newRequest = new RequestDTO
             {
@@ -396,7 +390,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 AirlinesId = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"),
                 Status = (int)RequestStatus.草稿,
                 IsFinished = true,
-                ApprovalDocId = newApprovalDoc.Id,
+                ApprovalDocId = SelApprovalDoc.Id,
             };
             Requests.AddNew(newRequest);
             RefreshCommandState();

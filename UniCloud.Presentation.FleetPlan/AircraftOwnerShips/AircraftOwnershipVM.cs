@@ -75,6 +75,11 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
                 if (_selectedAircraft != value)
                 {
                     _selectedAircraft = value;
+                    if (_selectedAircraft != null)
+                    {
+                        SelectedAcConfigHistory = _selectedAircraft.AcConfigHistories.FirstOrDefault();
+                        SelectedOwnershipHistory = _selectedAircraft.OwnershipHistories.FirstOrDefault();
+                    }
                     RefreshCommandState();
                     RaisePropertyChanged(() => SelectedAircraft);
                 }
@@ -199,17 +204,15 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         /// <param name="sender"></param>
         public void OnAddOwnership(object sender)
         {
-            StartDisplayDate =
-                SelectedAircraft.OwnershipHistories.Select(p => p.StartDate).OrderBy(p => p).LastOrDefault();
+            StartDisplayDate = SelectedAircraft.OwnershipHistories.Select(p => p.StartDate).OrderBy(p => p).LastOrDefault();
             //新建所有权历史
-            var newOwnership = new OwnershipHistoryDTO
+            SelectedOwnershipHistory = new OwnershipHistoryDTO
             {
                 OwnershipHistoryId = Guid.NewGuid(),
                 StartDate = (StartDisplayDate == null || StartDisplayDate.Value == DateTime.MinValue) ? DateTime.Now : StartDisplayDate.Value.AddDays(1)
             };
 
-            SelectedOwnershipHistory = newOwnership;
-            SelectedAircraft.OwnershipHistories.Add(newOwnership);
+            SelectedAircraft.OwnershipHistories.Add(SelectedOwnershipHistory);
             RefreshCommandState();
         }
 
@@ -242,6 +245,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
                 MessageAlert("请选择需要删除的所有权");
             }
             SelectedAircraft.OwnershipHistories.Remove(SelectedOwnershipHistory);
+            SelectedOwnershipHistory = SelectedAircraft.OwnershipHistories.FirstOrDefault();
             RefreshCommandState();
         }
 
@@ -270,14 +274,13 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
             StartDisplayDate =
                 SelectedAircraft.AcConfigHistories.Select(p => p.StartDate).OrderBy(p => p).LastOrDefault();
             //新建所有权历史
-            var newAcConfig = new AcConfigHistoryDTO
+            SelectedAcConfigHistory = new AcConfigHistoryDTO
             {
                 Id = RandomHelper.Next(),
                 StartDate = (StartDisplayDate == null || StartDisplayDate.Value == DateTime.MinValue) ? DateTime.Now : StartDisplayDate.Value.AddDays(1)
             };
 
-            SelectedAcConfigHistory = newAcConfig;
-            SelectedAircraft.AcConfigHistories.Add(newAcConfig);
+            SelectedAircraft.AcConfigHistories.Add(SelectedAcConfigHistory);
             RefreshCommandState();
         }
 
@@ -308,6 +311,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
                 MessageAlert("请选择需要删除的飞机配置历史");
             }
             SelectedAircraft.AcConfigHistories.Remove(SelectedAcConfigHistory);
+            SelectedAcConfigHistory = SelectedAircraft.AcConfigHistories.FirstOrDefault();
             RefreshCommandState();
         }
 

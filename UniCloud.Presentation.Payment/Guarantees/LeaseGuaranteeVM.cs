@@ -33,7 +33,7 @@ using UniCloud.Presentation.SessionExtension;
 
 namespace UniCloud.Presentation.Payment.Guarantees
 {
-    [Export(typeof (LeaseGuaranteeVM))]
+    [Export(typeof(LeaseGuaranteeVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class LeaseGuaranteeVM : EditViewModelBase
     {
@@ -44,7 +44,8 @@ namespace UniCloud.Presentation.Payment.Guarantees
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public LeaseGuaranteeVM(IPaymentService service) : base(service)
+        public LeaseGuaranteeVM(IPaymentService service)
+            : base(service)
         {
             _service = service;
             _context = _service.Context;
@@ -89,15 +90,8 @@ namespace UniCloud.Presentation.Payment.Guarantees
             LeaseGuaranteesView.PageSize = 20;
             LeaseGuaranteesView.LoadedData += (sender, e) =>
             {
-                if (e.HasError)
-                {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
                 if (SelectedLeaseGuarantee == null)
-                {
                     SelectedLeaseGuarantee = e.Entities.Cast<LeaseGuaranteeDTO>().FirstOrDefault();
-                }
                 RefreshCommandState();
             };
         }
@@ -204,13 +198,27 @@ namespace UniCloud.Presentation.Payment.Guarantees
         public void OndAddGuarantee(object sender)
         {
             SelectedLeaseGuarantee = new LeaseGuaranteeDTO
+                                     {
+                                         GuaranteeId = RandomHelper.Next(),
+                                         CreateDate = DateTime.Now,
+                                         StartDate = DateTime.Now,
+                                         EndDate = DateTime.Now.AddDays(7),
+                                         OperatorName = SessionUser.UserName,
+                                     };
+            var firstOrDefault = LeaseOrdersView.FirstOrDefault();
+            if (firstOrDefault != null)
             {
-                GuaranteeId = RandomHelper.Next(),
-                CreateDate = DateTime.Now,
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddDays(7),
-                OperatorName = SessionUser.UserName,
-            };
+                SelectedLeaseGuarantee.SupplierId = firstOrDefault.SupplierId;
+                SelectedLeaseGuarantee.SupplierName = firstOrDefault.SupplierName;
+                SelectedLeaseGuarantee.OrderId = firstOrDefault.Id;
+                SelectedLeaseGuarantee.OrderName = firstOrDefault.Name;
+            }
+            var currency = CurrencysView.FirstOrDefault();
+            if (currency != null)
+            {
+                SelectedLeaseGuarantee.CurrencyId = currency.Id;
+                SelectedLeaseGuarantee.CurrencyName = currency.Name;
+            }
             LeaseGuaranteesView.AddNew(SelectedLeaseGuarantee);
         }
 
@@ -281,7 +289,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 MessageAlert("提示", "请选择需要提交审核的记录");
                 return;
             }
-            SelectedLeaseGuarantee.Status = (int) GuaranteeStatus.待审核;
+            SelectedLeaseGuarantee.Status = (int)GuaranteeStatus.待审核;
             RefreshCommandState();
         }
 
@@ -296,7 +304,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
             {
                 return false;
             }
-            return SelectedLeaseGuarantee != null && SelectedLeaseGuarantee.Status < (int) GuaranteeStatus.待审核;
+            return SelectedLeaseGuarantee != null && SelectedLeaseGuarantee.Status < (int)GuaranteeStatus.待审核;
         }
 
         #endregion
@@ -316,7 +324,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 MessageAlert("提示", "请选择需要审核的记录");
                 return;
             }
-            SelectedLeaseGuarantee.Status = (int) GuaranteeStatus.已审核;
+            SelectedLeaseGuarantee.Status = (int)GuaranteeStatus.已审核;
             SelectedLeaseGuarantee.Reviewer = SessionUser.UserName;
             RefreshCommandState();
         }
@@ -332,8 +340,8 @@ namespace UniCloud.Presentation.Payment.Guarantees
             {
                 return false;
             }
-            return SelectedLeaseGuarantee != null && SelectedLeaseGuarantee.Status < (int) GuaranteeStatus.已审核
-                   && SelectedLeaseGuarantee.Status > (int) GuaranteeStatus.草稿;
+            return SelectedLeaseGuarantee != null && SelectedLeaseGuarantee.Status < (int)GuaranteeStatus.已审核
+                   && SelectedLeaseGuarantee.Status > (int)GuaranteeStatus.草稿;
         }
 
         #endregion

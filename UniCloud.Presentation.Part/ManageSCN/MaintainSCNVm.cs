@@ -71,6 +71,11 @@ namespace UniCloud.Presentation.Part.ManageSCN
             // 创建并注册CollectionView
             Scns = _service.CreateCollection(_context.Scns, o => o.ApplicableAircrafts);
             Scns.PageSize = 6;
+            Scns.LoadedData += (o, e) =>
+                               {
+                                   if (Scn == null)
+                                       Scn = Scns.FirstOrDefault();
+                               };
             _service.RegisterCollectionView(Scns);
             ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_context, _context.ContractAircrafts);
         }
@@ -122,6 +127,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                     {
                         SubmitScnCommand.RaiseCanExecuteChanged();
                         ReviewScnCommand.RaiseCanExecuteChanged();
+                        ApplicableAircraft = _scn.ApplicableAircrafts.FirstOrDefault();
                     }
                     RaisePropertyChanged(() => Scn);
                 }

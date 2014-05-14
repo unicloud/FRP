@@ -63,6 +63,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVM()
         {
             LeaseInvoices = _service.CreateCollection(_context.LeaseInvoices, o => o.InvoiceLines);
+            LeaseInvoices.LoadedData += (o, e) =>
+                                        {
+                                            if (SelLeaseInvoice == null)
+                                                SelLeaseInvoice = LeaseInvoices.FirstOrDefault();
+                                        };
             _service.RegisterCollectionView(LeaseInvoices); //注册查询集合。
 
             AcPaymentSchedules = _service.CreateCollection(_context.AcPaymentSchedules, o => o.PaymentScheduleLines);
@@ -213,10 +218,11 @@ namespace UniCloud.Presentation.Payment.Invoice
             get { return _selLeaseInvoice; }
             set
             {
-                if (_selLeaseInvoice != value)
+                _selLeaseInvoice = value;
+                _invoiceLines.Clear();
+                if (_selLeaseInvoice != null)
                 {
-                    _selLeaseInvoice = value;
-                    _invoiceLines.Clear();
+                    SelInvoiceLine = value.InvoiceLines.FirstOrDefault();
                     foreach (var invoiceLine in value.InvoiceLines)
                     {
                         InvoiceLines.Add(invoiceLine);
@@ -236,8 +242,8 @@ namespace UniCloud.Presentation.Payment.Invoice
                         RelatedPaymentScheduleLine =
                             SelPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
                                 l => l.InvoiceId == value.LeaseInvoiceId);
-                    RaisePropertyChanged(() => SelLeaseInvoice);
                 }
+                RaisePropertyChanged(() => SelLeaseInvoice);
             }
         }
 

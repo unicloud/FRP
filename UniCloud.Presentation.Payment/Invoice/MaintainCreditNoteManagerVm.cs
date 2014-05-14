@@ -61,6 +61,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVM()
         {
             CreditNotes = _service.CreateCollection(_context.MaintainCreditNotes, o => o.InvoiceLines);
+            CreditNotes.LoadedData += (o, e) =>
+                                      {
+                                          if (SelCreditNote == null)
+                                              SelCreditNote = CreditNotes.FirstOrDefault();
+                                      };
             _service.RegisterCollectionView(CreditNotes); //注册查询集合。
 
         }
@@ -166,16 +171,17 @@ namespace UniCloud.Presentation.Payment.Invoice
             get { return _selCreditNote; }
             set
             {
-                if (value != null && _selCreditNote != value)
+                _selCreditNote = value;
+                _invoiceLines.Clear();
+                if (value != null)
                 {
-                    _selCreditNote = value;
-                    _invoiceLines.Clear();
+                    SelInvoiceLine = value.InvoiceLines.FirstOrDefault();
                     foreach (var invoiceLine in value.InvoiceLines)
                     {
                         InvoiceLines.Add(invoiceLine);
                     }
-                    RaisePropertyChanged(() => SelCreditNote);
                 }
+                RaisePropertyChanged(() => SelCreditNote);
             }
         }
 

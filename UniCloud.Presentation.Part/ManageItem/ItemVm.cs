@@ -35,7 +35,7 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.ManageItem
 {
-    [Export(typeof (ItemVm))]
+    [Export(typeof(ItemVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ItemVm : EditViewModelBase
     {
@@ -67,6 +67,11 @@ namespace UniCloud.Presentation.Part.ManageItem
         {
             Items = _service.CreateCollection(_context.Items);
             Items.PageSize = 20;
+            Items.LoadedData += (o, e) =>
+                                {
+                                    if (SelItem == null)
+                                        SelItem = Items.FirstOrDefault();
+                                };
             _service.RegisterCollectionView(Items);
 
             ItemMaintainCtrls = _service.CreateCollection(_context.ItemMaintainCtrls, o => o.MaintainCtrlLines);
@@ -123,9 +128,9 @@ namespace UniCloud.Presentation.Part.ManageItem
         {
             get
             {
-                return Enum.GetValues(typeof (ControlStrategy))
+                return Enum.GetValues(typeof(ControlStrategy))
                     .Cast<object>()
-                    .ToDictionary(value => (int) value, value => (ControlStrategy) value);
+                    .ToDictionary(value => (int)value, value => (ControlStrategy)value);
             }
         }
 
@@ -271,12 +276,11 @@ namespace UniCloud.Presentation.Part.ManageItem
 
         private void OnNew(object obj)
         {
-            var item = new ItemDTO
+            SelItem = new ItemDTO
             {
                 Id = RandomHelper.Next(),
             };
-            Items.AddNew(item);
-            SelItem = item;
+            Items.AddNew(SelItem);
             RefreshCommandState();
         }
 
@@ -349,11 +353,18 @@ namespace UniCloud.Presentation.Part.ManageItem
 
         private void OnRemove(object obj)
         {
-            if (SelItem != null)
+            if (SelItem == null)
             {
-                Items.Remove(SelItem);
+                MessageAlert("请选择一条记录！");
+                return;
             }
-            RefreshCommandState();
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                Items.Remove(SelItem);
+                                                SelItem = Items.FirstOrDefault();
+                                                RefreshCommandState();
+                                            });
         }
 
         private bool CanRemove(object obj)
@@ -412,12 +423,12 @@ namespace UniCloud.Presentation.Part.ManageItem
         {
             if (CurItemMaintainCtrl != null)
             {
-                var maintainCtrlLine = new MaintainCtrlLineDTO
+                SelCtrlLine = new MaintainCtrlLineDTO
                 {
                     Id = RandomHelper.Next(),
                     MaintainCtrlId = CurItemMaintainCtrl.Id,
                 };
-                CurItemMaintainCtrl.MaintainCtrlLines.Add(maintainCtrlLine);
+                CurItemMaintainCtrl.MaintainCtrlLines.Add(SelCtrlLine);
             }
         }
 
@@ -439,8 +450,17 @@ namespace UniCloud.Presentation.Part.ManageItem
 
         private void OnRemoveCtrlLine(object obj)
         {
-            if (SelCtrlLine != null)
-                CurItemMaintainCtrl.MaintainCtrlLines.Remove(SelCtrlLine);
+            if (SelCtrlLine == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                CurItemMaintainCtrl.MaintainCtrlLines.Remove(SelCtrlLine);
+                                                SelCtrlLine = CurItemMaintainCtrl.MaintainCtrlLines.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemoveCtrlLine(object obj)

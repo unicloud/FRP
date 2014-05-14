@@ -4,13 +4,11 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Windows;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ScheduleView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
@@ -53,6 +51,11 @@ namespace UniCloud.Presentation.Purchase.Reception
 
             AircraftPurchaseReceptions = _service.CreateCollection(_context.AircraftPurchaseReceptions.Expand(p => p.RelatedDocs),
                 o => o.ReceptionLines, o => o.ReceptionSchedules, o => o.RelatedDocs);
+            AircraftPurchaseReceptions.LoadedData += (o, e) =>
+                                                     {
+                                                         if (SelAircraftPurchaseReception == null)
+                                                             SelAircraftPurchaseReception = AircraftPurchaseReceptions.FirstOrDefault();
+                                                     };
             _service.RegisterCollectionView(AircraftPurchaseReceptions); //注册查询集合。
         }
 
@@ -79,7 +82,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         public bool CanEdit
         {
             get { return _canEdit; }
-            private set
+            set
             {
                 if (_canEdit != value)
                 {
@@ -168,22 +171,26 @@ namespace UniCloud.Presentation.Purchase.Reception
                 {
                     _selAircraftPurchaseReception = value;
                     RaisePropertyChanged(() => SelAircraftPurchaseReception);
-
-                    var viewPurchaseContractAircrafts =
-                        PurchaseContractAircrafts.Where(
-                            p => p.SupplierId == SelAircraftPurchaseReception.SupplierId && p.SerialNumber != null)
-                            .ToList();
                     ViewPurchaseContractAircrafts.Clear();
-                    foreach (var lca in viewPurchaseContractAircrafts)
-                    {
-                        ViewPurchaseContractAircrafts.Add(lca);
-                    }
-                    //刷新界面日程控件绑定到的集合
                     _appointments.Clear();
-                    foreach (var schedule in value.ReceptionSchedules)
+
+                    if (_selAircraftPurchaseReception != null)
                     {
-                        Appointment appointment = ScheduleExtension.ConvertToAppointment(schedule);
-                        _appointments.Add(appointment);
+                        SelAircraftPurchaseReceptionLine = _selAircraftPurchaseReception.ReceptionLines.FirstOrDefault();
+                        var viewPurchaseContractAircrafts =
+                            PurchaseContractAircrafts.Where(
+                                p => p.SupplierId == SelAircraftPurchaseReception.SupplierId && p.SerialNumber != null)
+                                .ToList();
+                        foreach (var lca in viewPurchaseContractAircrafts)
+                        {
+                            ViewPurchaseContractAircrafts.Add(lca);
+                        }
+                        //刷新界面日程控件绑定到的集合
+                        foreach (var schedule in value.ReceptionSchedules)
+                        {
+                            Appointment appointment = ScheduleExtension.ConvertToAppointment(schedule);
+                            _appointments.Add(appointment);
+                        }
                     }
                     RaisePropertyChanged(() => Appointments);
                     //刷新界面按钮
@@ -311,14 +318,14 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         protected override void OnNew(object obj)
         {
-            var recepiton = new AircraftPurchaseReceptionDTO
+            SelAircraftPurchaseReception = new AircraftPurchaseReceptionDTO
             {
                 AircraftPurchaseReceptionId = RandomHelper.Next(),
                 SourceId = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
                 StartDate = DateTime.Now,
             };
-            AircraftPurchaseReceptions.AddNew(recepiton);
+            AircraftPurchaseReceptions.AddNew(SelAircraftPurchaseReception);
         }
 
         protected override bool CanNew(object obj)
@@ -335,16 +342,22 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         protected override void OnRemove(object obj)
         {
-            if (SelAircraftPurchaseReception != null)
+            if (SelAircraftPurchaseReception == null)
             {
-                AircraftPurchaseReceptions.Remove(SelAircraftPurchaseReception);
+                MessageAlert("请选择一条记录！");
+                return;
             }
-            var currentAircraftPurchaseReception = AircraftPurchaseReceptions.FirstOrDefault();
-            if (currentAircraftPurchaseReception == null)
-            {
-                //删除完，若没有记录了，则也要删除界面明细
-                Appointments.Clear();
-            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                AircraftPurchaseReceptions.Remove(SelAircraftPurchaseReception);
+                                                SelAircraftPurchaseReception = AircraftPurchaseReceptions.FirstOrDefault();
+                                                if (SelAircraftPurchaseReception == null)
+                                                {
+                                                    //删除完，若没有记录了，则也要删除界面明细
+                                                    Appointments.Clear();
+                                                }
+                                            });
         }
 
         protected override bool CanRemove(object obj)
@@ -361,7 +374,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         protected override void OnAddEntity(object obj)
         {
-            var receptionLine = new AircraftPurchaseReceptionLineDTO
+            SelAircraftPurchaseReceptionLine = new AircraftPurchaseReceptionLineDTO
             {
                 AircraftPurchaseReceptionLineId = RandomHelper.Next(),
                 ReceivedAmount = 1,
@@ -369,7 +382,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                 DeliverDate = DateTime.Now,
                 ReceptionId = SelAircraftPurchaseReception.AircraftPurchaseReceptionId
             };
-            SelAircraftPurchaseReception.ReceptionLines.Add(receptionLine);
+            SelAircraftPurchaseReception.ReceptionLines.Add(SelAircraftPurchaseReceptionLine);
         }
 
         protected override bool CanAddEntity(object obj)
@@ -386,10 +399,17 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         protected override void OnRemoveEntity(object obj)
         {
-            if (_selAircraftPurchaseReceptionLine != null)
+            if (SelAircraftPurchaseReceptionLine == null)
             {
-                SelAircraftPurchaseReception.ReceptionLines.Remove(SelAircraftPurchaseReceptionLine);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SelAircraftPurchaseReception.ReceptionLines.Remove(SelAircraftPurchaseReceptionLine);
+                                                SelAircraftPurchaseReceptionLine = SelAircraftPurchaseReception.ReceptionLines.FirstOrDefault();
+                                            });
         }
 
         protected override bool CanRemoveEntity(object obj)

@@ -63,6 +63,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVM()
         {
             PrepaymentInvoices = _service.CreateCollection(_context.PurchasePrepaymentInvoices, o => o.InvoiceLines);
+            PrepaymentInvoices.LoadedData += (o, e) =>
+                                             {
+                                                 if (SelPrepaymentInvoice == null)
+                                                     SelPrepaymentInvoice = PrepaymentInvoices.FirstOrDefault();
+                                             };
             _service.RegisterCollectionView(PrepaymentInvoices); //注册查询集合。
 
             AcPaymentSchedules = _service.CreateCollection(_context.AcPaymentSchedules, o => o.PaymentScheduleLines);
@@ -222,10 +227,11 @@ namespace UniCloud.Presentation.Payment.Invoice
             get { return _selPrepaymentInvoice; }
             set
             {
-                if (_selPrepaymentInvoice != value)
+                _selPrepaymentInvoice = value;
+                _invoiceLines.Clear();
+                if (_selPrepaymentInvoice != null)
                 {
-                    _selPrepaymentInvoice = value;
-                    _invoiceLines.Clear();
+                    SelInvoiceLine = value.InvoiceLines.FirstOrDefault();
                     foreach (var invoiceLine in value.InvoiceLines)
                     {
                         InvoiceLines.Add(invoiceLine);
@@ -246,8 +252,8 @@ namespace UniCloud.Presentation.Payment.Invoice
                         RelatedPaymentScheduleLine =
                             SelPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
                                 l => l.InvoiceId == value.PrepaymentInvoiceId);
-                    RaisePropertyChanged(() => SelPrepaymentInvoice);
                 }
+                RaisePropertyChanged(() => SelPrepaymentInvoice);
             }
         }
 

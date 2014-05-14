@@ -68,6 +68,11 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             // 创建并注册CollectionView
             PaymentNotices = _service.CreateCollection(_context.PaymentNotices, o => o.PaymentNoticeLines);
             PaymentNotices.PageSize = 6;
+            PaymentNotices.LoadedData += (o, e) =>
+                                         {
+                                             if (PaymentNotice == null)
+                                                 PaymentNotice = PaymentNotices.FirstOrDefault();
+                                         };
             _service.RegisterCollectionView(PaymentNotices);
             ViewReportCommand = new DelegateCommand<object>(OnViewReport);
         }
@@ -121,6 +126,10 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 if (_paymentNotice != value)
                 {
                     _paymentNotice = value;
+                    if (_paymentNotice != null)
+                    {
+                        PaymentNoticeLine = _paymentNotice.PaymentNoticeLines.FirstOrDefault();
+                    }
                     RaisePropertyChanged(() => PaymentNotice);
                 }
             }

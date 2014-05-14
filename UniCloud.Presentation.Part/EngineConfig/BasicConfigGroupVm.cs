@@ -66,14 +66,19 @@ namespace UniCloud.Presentation.Part.EngineConfig
         private void InitializeVM()
         {
             BasicConfigGroups = _service.CreateCollection(_context.BasicConfigGroups);//TODO按机型分组
+            BasicConfigGroups.LoadedData += (o, e) =>
+                                            {
+                                                if (SelBasicConfigGroup == null)
+                                                    SelBasicConfigGroup = BasicConfigGroups.FirstOrDefault();
+                                            };
             _service.RegisterCollectionView(BasicConfigGroups);//注册查询集合
 
             BasicConfigs = _service.CreateCollection(_context.BasicConfigs);
             BasicConfigs.LoadedData += (o, e) =>
             {
-                BasicConfigs.ToList().ForEach(p=>p.SubBasicConfigs.Clear());
+                BasicConfigs.ToList().ForEach(p => p.SubBasicConfigs.Clear());
                 BasicConfigs.ToList().ForEach(GenerateBasicConfigStructure);
-                if(SelBasicConfigGroup!=null)
+                if (SelBasicConfigGroup != null)
                 {
                     ViewBasicConfigs.Clear();
                     List<BasicConfigDTO> bcs =
@@ -371,11 +376,12 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         private void OnNew(object obj)
         {
-            var basicConfigGroup = new BasicConfigGroupDTO()
+            SelBasicConfigGroup = new BasicConfigGroupDTO()
             {
                 Id = RandomHelper.Next(),
+                AircraftTypeId = AircraftTypes.FirstOrDefault().Id
             };
-            BasicConfigGroups.AddNew(basicConfigGroup);
+            BasicConfigGroups.AddNew(SelBasicConfigGroup);
         }
 
         private bool CanNew(object obj)
@@ -394,15 +400,23 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         private void OnRemove(object obj)
         {
-            if (_selbBasicConfigGroup != null)
+            if (SelBasicConfigGroup == null)
             {
-                var bcs = BasicConfigs.Where(p => p.BasicConfigGroupId == _selbBasicConfigGroup.Id).ToList();
-                foreach (var bc in bcs)
-                {
-                    BasicConfigs.Remove(bc);
-                }
-                BasicConfigGroups.Remove(_selbBasicConfigGroup);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                var bcs = BasicConfigs.Where(
+                                                        p => p.BasicConfigGroupId == _selbBasicConfigGroup.Id).ToList();
+                                                foreach (var bc in bcs)
+                                                {
+                                                    BasicConfigs.Remove(bc);
+                                                }
+                                                BasicConfigGroups.Remove(SelBasicConfigGroup);
+                                                SelBasicConfigGroup = BasicConfigGroups.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemove(object obj)
@@ -433,7 +447,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 {
                     ViewBasicConfigs.Add(bc);
                 }
-                RaisePropertyChanged(()=>ViewBasicConfigs);
+                RaisePropertyChanged(() => ViewBasicConfigs);
             }
         }
 

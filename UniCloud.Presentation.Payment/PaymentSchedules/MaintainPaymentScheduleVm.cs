@@ -103,12 +103,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             PaymentSchedulesView.PageSize = 19;
             PaymentSchedulesView.LoadedData += (sender, e) =>
             {
-                if (e.HasError)
-                {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                SelectedPaymentSchedule = e.Entities.Cast<MaintainPaymentScheduleDTO>().FirstOrDefault();
+                if (SelectedPaymentSchedule == null)
+                    SelectedPaymentSchedule = e.Entities.Cast<MaintainPaymentScheduleDTO>().FirstOrDefault();
                 RefreshCommandState(); //刷新按钮状态
             };
             PaymentSchedulesView.PropertyChanged += (s, o) => { };

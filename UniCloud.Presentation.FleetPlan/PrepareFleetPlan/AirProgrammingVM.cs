@@ -35,7 +35,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof (AirProgrammingVM))]
+    [Export(typeof(AirProgrammingVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AirProgrammingVM : EditViewModelBase
     {
@@ -64,11 +64,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            var sort = new SortDescriptor {Member = "CreateDate", SortDirection = ListSortDirection.Ascending};
-            var group = new GroupDescriptor {Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending};
+            var sort = new SortDescriptor { Member = "CreateDate", SortDirection = ListSortDirection.Ascending };
+            var group = new GroupDescriptor { Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending };
             AirProgrammings = _service.CreateCollection(_context.AirProgrammings, o => o.AirProgrammingLines);
             AirProgrammings.SortDescriptors.Add(sort);
             AirProgrammings.GroupDescriptors.Add(group);
+            AirProgrammings.LoadedData += (o, e) =>
+                                          {
+                                              if (SelAirProgramming == null)
+                                                  SelAirProgramming = AirProgrammings.FirstOrDefault();
+                                          };
             _service.RegisterCollectionView(AirProgrammings); //注册查询集合
 
             ProgrammingFiles = _service.CreateCollection(_context.ProgrammingFiles);
@@ -221,11 +226,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public AirProgrammingDTO SelAirProgramming
         {
             get { return _selAirProgramming; }
-            private set
+            set
             {
                 if (_selAirProgramming != value)
                 {
                     _selAirProgramming = value;
+                    if (_selAirProgramming != null)
+                        SelAirProgrammingLine = _selAirProgramming.AirProgrammingLines.FirstOrDefault();
                     RaisePropertyChanged(() => SelAirProgramming);
                     // 刷新按钮状态
                     RefreshCommandState();
@@ -245,7 +252,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public AirProgrammingLineDTO SelAirProgrammingLine
         {
             get { return _selAirProgrammingLine; }
-            private set
+            set
             {
                 if (_selAirProgrammingLine != value)
                 {
@@ -270,7 +277,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public ProgrammingFileDTO SelProgrammingFile
         {
             get { return _selProgrammingFile; }
-            private set
+            set
             {
                 if (_selProgrammingFile != value)
                 {
@@ -316,12 +323,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnNew(object obj)
         {
-            var airProg = new AirProgrammingDTO
+            SelAirProgramming = new AirProgrammingDTO
             {
                 Id = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
             };
-            AirProgrammings.AddNew(airProg);
+            AirProgrammings.AddNew(SelAirProgramming);
         }
 
         private bool CanNew(object obj)
@@ -340,10 +347,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnRemove(object obj)
         {
-            if (_selAirProgramming != null)
+            if (SelAirProgramming == null)
             {
-                AirProgrammings.Remove(_selAirProgramming);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                AirProgrammings.Remove(SelAirProgramming);
+                                                SelAirProgramming = AirProgrammings.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemove(object obj)
@@ -362,7 +376,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnAddEntity(object obj)
         {
-            var airProgLine = new AirProgrammingLineDTO
+            SelAirProgrammingLine = new AirProgrammingLineDTO
             {
                 Id = Guid.NewGuid(),
                 BuyNum = 1,
@@ -370,12 +384,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 LeaseNum = 1,
             };
 
-            SelAirProgramming.AirProgrammingLines.Add(airProgLine);
+            SelAirProgramming.AirProgrammingLines.Add(SelAirProgrammingLine);
         }
 
         private bool CanAddEntity(object obj)
         {
-            return _selAirProgramming != null;
+            return SelAirProgramming != null;
         }
 
         #endregion
@@ -389,10 +403,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnRemoveEntity(object obj)
         {
-            if (_selAirProgrammingLine != null)
+            if (SelAirProgrammingLine == null)
             {
-                SelAirProgramming.AirProgrammingLines.Remove(_selAirProgrammingLine);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SelAirProgramming.AirProgrammingLines.Remove(SelAirProgrammingLine);
+                                                SelAirProgrammingLine = SelAirProgramming.AirProgrammingLines.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemoveEntity(object obj)

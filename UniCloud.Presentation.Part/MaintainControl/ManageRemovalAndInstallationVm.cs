@@ -70,6 +70,11 @@ namespace UniCloud.Presentation.Part.MaintainControl
         {
             SnRemInstRecords = _service.CreateCollection(_context.SnRemInstRecords);
             SnRemInstRecords.PageSize = 20;
+            SnRemInstRecords.LoadedData += (o, e) =>
+                                           {
+                                               if (SelSnRemInstRecord == null)
+                                                   SelSnRemInstRecord = SnRemInstRecords.FirstOrDefault();
+                                           };
             _service.RegisterCollectionView(SnRemInstRecords);
 
             SnRegs = _service.CreateCollection(_context.SnRegs);
@@ -165,13 +170,13 @@ namespace UniCloud.Presentation.Part.MaintainControl
         /// </summary>
         public ObservableCollection<SnRegDTO> OnBoardSnRegs
         {
-            get { return this._onBoardSnRegs; }
+            get { return _onBoardSnRegs; }
             private set
             {
-                if (this._onBoardSnRegs != value)
+                if (_onBoardSnRegs != value)
                 {
-                    this._onBoardSnRegs = value;
-                    RaisePropertyChanged(() => this.OnBoardSnRegs);
+                    _onBoardSnRegs = value;
+                    RaisePropertyChanged(() => OnBoardSnRegs);
                 }
             }
         }
@@ -181,13 +186,13 @@ namespace UniCloud.Presentation.Part.MaintainControl
         /// </summary>
         public ObservableCollection<SnRegDTO> InStoreSnRegs
         {
-            get { return this._inStoreSnRegs; }
+            get { return _inStoreSnRegs; }
             private set
             {
-                if (this._inStoreSnRegs != value)
+                if (_inStoreSnRegs != value)
                 {
-                    this._inStoreSnRegs = value;
-                    RaisePropertyChanged(() => this.InStoreSnRegs);
+                    _inStoreSnRegs = value;
+                    RaisePropertyChanged(() => InStoreSnRegs);
                 }
             }
         }
@@ -207,12 +212,12 @@ namespace UniCloud.Presentation.Part.MaintainControl
         /// </summary>
         public SnRemInstRecordDTO SelSnRemInstRecord
         {
-            get { return this._selSnRemInstRecord; }
+            get { return _selSnRemInstRecord; }
             private set
             {
-                if (this._selSnRemInstRecord != value)
+                if (_selSnRemInstRecord != value)
                 {
-                    this._selSnRemInstRecord = value;
+                    _selSnRemInstRecord = value;
                     //获取界面拆换历史的数据集合
                     Installations = new ObservableCollection<SnHistoryDTO>();
                     Removals = new ObservableCollection<SnHistoryDTO>();
@@ -224,6 +229,8 @@ namespace UniCloud.Presentation.Part.MaintainControl
                             else if (snHistory.RemoveRecordId == value.Id) Removals.Add(snHistory);
                         }
                     }
+                    SelInstallation = Installations.FirstOrDefault();
+                    SelRemoval = Removals.FirstOrDefault();
                     //获取用于子窗体展示的件号集合
                     OnBoardSnRegs = new ObservableCollection<SnRegDTO>();
                     InStoreSnRegs = new ObservableCollection<SnRegDTO>();
@@ -232,7 +239,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                         OnBoardSnRegs.AddRange(SnRegs.Where(p => p.AircraftId == value.AircraftId));
                         InStoreSnRegs.AddRange(SnRegs.Where(p => p.AircraftId == Guid.Empty));
                     }
-                    RaisePropertyChanged(() => this.SelSnRemInstRecord);
+                    RaisePropertyChanged(() => SelSnRemInstRecord);
                     RefreshCommandState();
                 }
             }
@@ -254,13 +261,13 @@ namespace UniCloud.Presentation.Part.MaintainControl
         /// </summary>
         public SnHistoryDTO SelRemoval
         {
-            get { return this._selRemoval; }
-            private set
+            get { return _selRemoval; }
+             set
             {
-                if (this._selRemoval != value)
+                if (_selRemoval != value)
                 {
-                    this._selRemoval = value;
-                    RaisePropertyChanged(() => this.SelRemoval);
+                    _selRemoval = value;
+                    RaisePropertyChanged(() => SelRemoval);
                     RefreshCommandState();
                 }
             }
@@ -282,13 +289,13 @@ namespace UniCloud.Presentation.Part.MaintainControl
         /// </summary>
         public SnHistoryDTO SelInstallation
         {
-            get { return this._selInstallation; }
-            private set
+            get { return _selInstallation; }
+             set
             {
-                if (this._selInstallation != value)
+                if (_selInstallation != value)
                 {
-                    this._selInstallation = value;
-                    RaisePropertyChanged(() => this.SelInstallation);
+                    _selInstallation = value;
+                    RaisePropertyChanged(() => SelInstallation);
                     RefreshCommandState();
                 }
             }
@@ -327,12 +334,13 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         private void OnNew(object obj)
         {
-            var newSnRemInst = new SnRemInstRecordDTO
+            SelSnRemInstRecord = new SnRemInstRecordDTO
             {
                 Id = RandomHelper.Next(),
                 ActionDate = DateTime.Now,
+                AircraftId = Aircrafts.FirstOrDefault().Id
             };
-            SnRemInstRecords.AddNew(newSnRemInst);
+            SnRemInstRecords.AddNew(SelSnRemInstRecord);
             RefreshCommandState();
         }
 
@@ -539,13 +547,13 @@ namespace UniCloud.Presentation.Part.MaintainControl
         /// </summary>
         public string ChildViewHeader
         {
-            get { return this._childViewHeader; }
-            private set
+            get { return _childViewHeader; }
+             set
             {
-                if (this._childViewHeader != value)
+                if (_childViewHeader != value)
                 {
-                    this._childViewHeader = value;
-                    this.RaisePropertyChanged(() => this.ChildViewHeader);
+                    _childViewHeader = value;
+                    RaisePropertyChanged(() => ChildViewHeader);
                 }
             }
         }

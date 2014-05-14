@@ -202,6 +202,11 @@ namespace UniCloud.Presentation.Purchase.Contract
             _tradeDescriptor2 = new FilterDescriptor("TradeType", FilterOperator.IsEqualTo, TradeType);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor1);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor2);
+            ViewTradeDTO.LoadedData += (o, e) =>
+                                       {
+                                           if (SelTradeDTO == null)
+                                               SelTradeDTO = ViewTradeDTO.FirstOrDefault();
+                                       };
             _service.RegisterCollectionView(ViewTradeDTO);
         }
 
@@ -227,6 +232,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (_selEnginePurchaseOrderDTO != value)
                 {
                     _selEnginePurchaseOrderDTO = value;
+                    if (_selEnginePurchaseOrderDTO != null)
+                        SelEnginePurchaseOrderLineDTO =_selEnginePurchaseOrderDTO.EnginePurchaseOrderLines.FirstOrDefault();
                     RaisePropertyChanged(() => SelEnginePurchaseOrderDTO);
                     // 刷新按钮状态
                     RefreshCommandState();
@@ -244,6 +251,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                 o => o.EnginePurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
             _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
             ViewEnginePurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
+            ViewEnginePurchaseOrderDTO.LoadedData += (o, e) =>
+                                                     {
+                                                         if (SelEnginePurchaseOrderDTO == null)
+                                                             SelEnginePurchaseOrderDTO = ViewEnginePurchaseOrderDTO.FirstOrDefault();
+                                                     };
             _service.RegisterCollectionView(ViewEnginePurchaseOrderDTO);
         }
 
@@ -392,13 +404,13 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddTrade(object obj)
         {
-            var trade = new TradeDTO
+            SelTradeDTO = new TradeDTO
             {
                 Id = RandomHelper.Next(),
                 TradeType = TradeType,
                 StartDate = DateTime.Now,
             };
-            ViewTradeDTO.AddNew(trade);
+            ViewTradeDTO.AddNew(SelTradeDTO);
         }
 
         private bool CanAddTrade(object obj)
@@ -417,10 +429,17 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveTrade(object obj)
         {
-            if (_selTradeDTO != null)
+            if (SelTradeDTO == null)
             {
-                ViewTradeDTO.Remove(_selTradeDTO);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                ViewTradeDTO.Remove(SelTradeDTO);
+                                                SelTradeDTO = ViewTradeDTO.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemoveTrade(object obj)
@@ -439,9 +458,9 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddOrder(object obj)
         {
-            if (_selEnginePurchaseOrderDTO == null)
+            if (SelEnginePurchaseOrderDTO == null)
             {
-                var order = new EnginePurchaseOrderDTO
+                SelEnginePurchaseOrderDTO = new EnginePurchaseOrderDTO
                 {
                     Id = RandomHelper.Next(),
                     OrderDate = DateTime.Now,
@@ -449,7 +468,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SourceGuid = Guid.NewGuid(),
                     SupplierId = _selTradeDTO.SupplierId
                 };
-                ViewEnginePurchaseOrderDTO.AddNew(order);
+                ViewEnginePurchaseOrderDTO.AddNew(SelEnginePurchaseOrderDTO);
                 SelTradeDTO.Status = (int) TradeStatus.进行中;
             }
             else
@@ -459,7 +478,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                         .OrderBy(o => o.Version)
                         .LastOrDefault();
                 if (order == null) return;
-                var newOrder = new EnginePurchaseOrderDTO
+                SelEnginePurchaseOrderDTO = new EnginePurchaseOrderDTO
                 {
                     Id = RandomHelper.Next(),
                     OrderDate = DateTime.Now,
@@ -470,7 +489,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SourceGuid = Guid.NewGuid(),
                     SupplierId = order.SupplierId
                 };
-                ViewEnginePurchaseOrderDTO.AddNew(newOrder);
+                ViewEnginePurchaseOrderDTO.AddNew(SelEnginePurchaseOrderDTO);
                 order.EnginePurchaseOrderLines.ToList().ForEach(line =>
                 {
                     var newLine = new EnginePurchaseOrderLineDTO
@@ -487,7 +506,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                         SerialNumber = line.SerialNumber,
                         Status = line.Status
                     };
-                    newOrder.EnginePurchaseOrderLines.Add(newLine);
+                    SelEnginePurchaseOrderDTO.EnginePurchaseOrderLines.Add(newLine);
                 });
             }
         }
@@ -515,10 +534,17 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveOrder(object obj)
         {
-            if (_selEnginePurchaseOrderDTO != null)
+            if (SelEnginePurchaseOrderDTO == null)
             {
-                ViewEnginePurchaseOrderDTO.Remove(_selEnginePurchaseOrderDTO);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                ViewEnginePurchaseOrderDTO.Remove(SelEnginePurchaseOrderDTO);
+                                                SelEnginePurchaseOrderDTO = ViewEnginePurchaseOrderDTO.FirstOrDefault();
+                                            });
         }
 
         private bool CanRemoveOrder(object obj)
@@ -566,7 +592,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddOrderLine(object obj)
         {
-            var orderLine = new EnginePurchaseOrderLineDTO
+            SelEnginePurchaseOrderLineDTO = new EnginePurchaseOrderLineDTO
             {
                 Id = RandomHelper.Next(),
                 Amount = 1,
@@ -574,7 +600,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 ContractEngineId = RandomHelper.Next()
             };
 
-            SelEnginePurchaseOrderDTO.EnginePurchaseOrderLines.Add(orderLine);
+            SelEnginePurchaseOrderDTO.EnginePurchaseOrderLines.Add(SelEnginePurchaseOrderLineDTO);
         }
 
         private bool CanAddOrderLine(object obj)
@@ -593,11 +619,18 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveOrderLine(object obj)
         {
-            if (_selEnginePurchaseOrderLineDTO != null)
+            if (SelEnginePurchaseOrderLineDTO == null)
             {
-                SelEnginePurchaseOrderDTO.EnginePurchaseOrderLines.Remove(_selEnginePurchaseOrderLineDTO);
-                RemoveOrderCommand.RaiseCanExecuteChanged();
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                SelEnginePurchaseOrderDTO.EnginePurchaseOrderLines.Remove( SelEnginePurchaseOrderLineDTO);
+                                                SelEnginePurchaseOrderLineDTO = SelEnginePurchaseOrderDTO.EnginePurchaseOrderLines.FirstOrDefault();
+                                                RemoveOrderCommand.RaiseCanExecuteChanged();
+                                            });
         }
 
         private bool CanRemoveOrderLine(object obj)
@@ -616,12 +649,11 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddContent(object obj)
         {
-            var content = new ContractContentDTO
+            SelContractContentDTO = new ContractContentDTO
             {
                 Id = RandomHelper.Next(),
             };
-            SelEnginePurchaseOrderDTO.ContractContents.Add(content);
-            SelContractContentDTO = content;
+            SelEnginePurchaseOrderDTO.ContractContents.Add(SelContractContentDTO);
         }
 
         private bool CanAddContent(object obj)
@@ -640,10 +672,10 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveContent(object obj)
         {
-            if (_selContractContentDTO != null)
+            if (SelContractContentDTO != null)
             {
-                SelEnginePurchaseOrderDTO.ContractContents.Remove(_selContractContentDTO);
-                SelContractContentDTO = null;
+                SelEnginePurchaseOrderDTO.ContractContents.Remove(SelContractContentDTO);
+                SelContractContentDTO = SelEnginePurchaseOrderDTO.ContractContents.FirstOrDefault();
             }
         }
 

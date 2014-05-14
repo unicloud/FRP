@@ -20,7 +20,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.FleetPlan.Requests
 {
-    [Export(typeof (RequestVM))]
+    [Export(typeof(RequestVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class RequestVM : EditViewModelBase
     {
@@ -53,12 +53,17 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void InitializeVM()
         {
             Requests = _service.CreateCollection(_context.Requests, o => o.ApprovalHistories, o => o.RelatedDocs);
-            var cfd = new CompositeFilterDescriptor {LogicalOperator = FilterCompositionLogicalOperator.And};
+            var cfd = new CompositeFilterDescriptor { LogicalOperator = FilterCompositionLogicalOperator.And };
             var requestDescriptor = new FilterDescriptor("Note", FilterOperator.IsNotEqualTo, "指标飞机申请（系统添加）");
             cfd.FilterDescriptors.Add(requestDescriptor);
-            var statusDateDescriptor = new FilterDescriptor("Status", FilterOperator.IsLessThan, (int) RequestStatus.已审批);
+            var statusDateDescriptor = new FilterDescriptor("Status", FilterOperator.IsLessThan, (int)RequestStatus.已审批);
             cfd.FilterDescriptors.Add(statusDateDescriptor);
             Requests.FilterDescriptors.Add(cfd);
+            Requests.LoadedData += (o, e) =>
+                                   {
+                                       if (SelRequest == null)
+                                           SelRequest = Requests.FirstOrDefault();
+                                   };
             _service.RegisterCollectionView(Requests);
 
             CurAnnuals = new QueryableDataServiceCollectionView<AnnualDTO>(_context, _context.Annuals);
@@ -79,7 +84,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
             Plans = new QueryableDataServiceCollectionView<PlanDTO>(_context, _context.Plans);
             _planDescriptor = new FilterDescriptor("Year", FilterOperator.IsEqualTo, -1);
-            var sort = new SortDescriptor {Member = "VersionNumber", SortDirection = ListSortDirection.Ascending};
+            var sort = new SortDescriptor { Member = "VersionNumber", SortDirection = ListSortDirection.Ascending };
             Plans.SortDescriptors.Add(sort);
             Plans.FilterDescriptors.Add(_planDescriptor);
             Plans.LoadedData += (sender, e) =>
@@ -98,7 +103,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
             CurPlanHistories = new QueryableDataServiceCollectionView<PlanHistoryDTO>(_context, _context.PlanHistories);
             _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
-            var group = new GroupDescriptor {Member = "CanRequest", SortDirection = ListSortDirection.Descending};
+            var group = new GroupDescriptor { Member = "CanRequest", SortDirection = ListSortDirection.Descending };
             CurPlanHistories.GroupDescriptors.Add(group);
             CurPlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
         }
@@ -126,9 +131,9 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             get
             {
-                return Enum.GetValues(typeof (CanRequest))
+                return Enum.GetValues(typeof(CanRequest))
                     .Cast<object>()
-                    .ToDictionary(value => (int) value, value => (CanRequest) value);
+                    .ToDictionary(value => (int)value, value => (CanRequest)value);
             }
         }
 
@@ -161,7 +166,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         public ObservableCollection<PlanDTO> CurPlan
         {
             get { return _curPlan; }
-            private set
+            set
             {
                 if (_curPlan != value)
                 {
@@ -183,7 +188,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         public PlanHistoryDTO SelPlanHistory
         {
             get { return _selPlanHistory; }
-            private set
+            set
             {
                 if (_selPlanHistory != value)
                 {
@@ -251,7 +256,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         public ApprovalHistoryDTO SelApprovalHistory
         {
             get { return _selApprovalHistory; }
-            private set
+            set
             {
                 if (_selApprovalHistory != value)
                 {
@@ -334,7 +339,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 CreateDate = DateTime.Now,
                 SubmitDate = DateTime.Now,
                 AirlinesId = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"),
-                Status = (int) RequestStatus.草稿,
+                Status = (int)RequestStatus.草稿,
             };
             Requests.AddNew(newRequest);
             RefreshCommandState();
@@ -411,7 +416,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         private void OnCommit(object obj)
         {
-            SelRequest.Status = (int) RequestStatus.待审核;
+            SelRequest.Status = (int)RequestStatus.待审核;
             RefreshCommandState();
         }
 
@@ -430,7 +435,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 return false;
             }
             // 选中申请的状态处于草稿，且申请明细不为空时，按钮可用
-            return SelRequest.Status == (int) RequestStatus.草稿 && SelRequest.ApprovalHistories.Any();
+            return SelRequest.Status == (int)RequestStatus.草稿 && SelRequest.ApprovalHistories.Any();
         }
 
         #endregion
@@ -444,7 +449,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         private void OnCheck(object obj)
         {
-            SelRequest.Status = (int) RequestStatus.已审核;
+            SelRequest.Status = (int)RequestStatus.已审核;
             RefreshCommandState();
         }
 
@@ -463,7 +468,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 return false;
             }
             // 选中申请的状态处于审核，且申请明细不为空时，按钮可用
-            return SelRequest.Status == (int) RequestStatus.待审核 && SelRequest.ApprovalHistories.Any();
+            return SelRequest.Status == (int)RequestStatus.待审核 && SelRequest.ApprovalHistories.Any();
         }
 
         #endregion
@@ -483,9 +488,9 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 if (e.DialogResult == true)
                 {
                     // 审核、已提交状态下可以发送。如果已处于提交状态，需要重新发送的，不必改变状态。
-                    if (SelRequest != null && SelRequest.Status != (int) RequestStatus.已提交)
+                    if (SelRequest != null && SelRequest.Status != (int)RequestStatus.已提交)
                     {
-                        SelRequest.Status = (int) RequestStatus.已提交;
+                        SelRequest.Status = (int)RequestStatus.已提交;
                     }
                     SelRequest.SubmitDate = DateTime.Now;
                     //this.service.SubmitChanges(sc =>
@@ -507,8 +512,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             // 选中申请为空时，按钮不可用
             if (SelRequest == null) return false;
             // 选中申请的状态处于已审核或已提交时，按钮可用
-            return SelRequest.Status == (int) RequestStatus.已审核 ||
-                   SelRequest.Status == (int) RequestStatus.已提交;
+            return SelRequest.Status == (int)RequestStatus.已审核 ||
+                   SelRequest.Status == (int)RequestStatus.已提交;
         }
 
         #endregion
@@ -527,7 +532,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             {
                 if (e.DialogResult == true)
                 {
-                    SelRequest.Status = (int) RequestStatus.草稿;
+                    SelRequest.Status = (int)RequestStatus.草稿;
                     //this.service.SubmitChanges(sc => { }, null);
                     RefreshCommandState();
                 }
@@ -542,7 +547,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 return false;
             }
             // 选中申请的状态不是草稿时，按钮可用
-            return SelRequest.Status != (int) RequestStatus.草稿;
+            return SelRequest.Status != (int)RequestStatus.草稿;
         }
 
         #endregion

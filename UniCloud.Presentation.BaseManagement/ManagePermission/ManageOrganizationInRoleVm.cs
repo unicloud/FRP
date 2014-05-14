@@ -301,6 +301,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 var userRole = Organization.OrganizationRoles.FirstOrDefault(p => p.RoleId == OrganizationRole.Id);
                 Organization.OrganizationRoles.Remove(userRole);
                 OrganizationRoles.Remove(OrganizationRole);
+                OrganizationRole = OrganizationRoles.FirstOrDefault();
             });
         }
 
