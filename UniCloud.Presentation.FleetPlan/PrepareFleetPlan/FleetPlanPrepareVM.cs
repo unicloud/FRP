@@ -215,13 +215,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 {
                     _selAnnual = value;
                     ViewPlans=new ObservableCollection<PlanDTO>();
-                    foreach (var plan in AllPlans.ToList())
+                    if (value != null)
                     {
-                        if (plan.Year == value.Year)
-                            ViewPlans.Add(plan);
+                        foreach (var plan in AllPlans.ToList())
+                        {
+                            if (plan.Year == value.Year)
+                                ViewPlans.Add(plan);
+                        }
+                        ViewPlans.OrderBy(p => p.VersionNumber);
+                        SelPlan = ViewPlans.FirstOrDefault();
                     }
-                    ViewPlans.OrderBy(p => p.VersionNumber);
-                    SelPlan = ViewPlans.FirstOrDefault();
                     RaisePropertyChanged(() => SelAnnual);
                 }
             }

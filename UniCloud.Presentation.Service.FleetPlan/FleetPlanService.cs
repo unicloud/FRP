@@ -23,7 +23,10 @@ using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
 using System.Reflection;
+using System.ServiceModel.DomainServices.Client;
+using System.Windows;
 using System.Xml.Linq;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
@@ -488,6 +491,244 @@ namespace UniCloud.Presentation.Service.FleetPlan
 
         #endregion
 
+        #region 数据传输
+
+        /// <summary>
+        ///  发送申请
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentRequest"></param>
+        /// <param name="fleetContext"></param>
+        public void TransferRequest(Guid currentAirlines, Guid currentRequest, FleetPlanData fleetContext)
+        {
+            Uri path = new Uri(string.Format("TransferRequest?currentAirlines='{0}'&currentRequest='{1}'", currentAirlines, currentRequest),
+                UriKind.Relative);
+
+            fleetContext.BeginExecute<bool>(path,
+                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    var asynvContext = result.AsyncState as FleetPlanData;
+                    try
+                    {
+                        if (asynvContext != null)
+                        {
+                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            if (!sendSuccess)
+                            {
+                                MessageBox.Show("提交失败，请检查！");
+                            }
+                            else
+                            {
+                                MessageBox.Show("提交成功！");
+                            }
+                        }
+                    }
+                    catch (DataServiceQueryException ex)
+                    {
+                        QueryOperationResponse response = ex.Response;
+
+                        Console.WriteLine(response.Error.Message);
+                    }
+                }), Context);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentPlan"></param>
+        /// <param name="fleetContext"></param>
+        public void TransferPlan(Guid currentAirlines, Guid currentPlan, FleetPlanData fleetContext)
+        {
+            Uri path = new Uri(string.Format("TransferPlan?currentAirlines='{0}'&currentPlan='{1}'", currentAirlines, currentPlan),
+                UriKind.Relative);
+
+            fleetContext.BeginExecute<bool>(path,
+                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    var asynvContext = result.AsyncState as FleetPlanData;
+                    try
+                    {
+                        if (asynvContext != null)
+                        {
+                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            if (!sendSuccess)
+                            {
+                                MessageBox.Show("提交失败，请检查！");
+                            }
+                            else
+                            {
+                                MessageBox.Show("提交成功！");
+                            }
+                        }
+                    }
+                    catch (DataServiceQueryException ex)
+                    {
+                        QueryOperationResponse response = ex.Response;
+
+                        Console.WriteLine(response.Error.Message);
+                    }
+                }), Context);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentApprovalDoc"></param>
+        /// <param name="fleetContext"></param>
+        public void TransferApprovalDoc(Guid currentAirlines, Guid currentApprovalDoc, FleetPlanData fleetContext)
+        {
+            Uri path = new Uri(string.Format("TransferApprovalDoc?currentAirlines='{0}'&currentApprovalDoc='{1}'", currentAirlines, currentApprovalDoc),
+                UriKind.Relative);
+
+            fleetContext.BeginExecute<bool>(path,
+                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    var asynvContext = result.AsyncState as FleetPlanData;
+                    try
+                    {
+                        if (asynvContext != null)
+                        {
+                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            if (!sendSuccess)
+                            {
+                                MessageBox.Show("提交失败，请检查！");
+                            }
+                            else
+                            {
+                                MessageBox.Show("提交成功！");
+                            }
+                        }
+                    }
+                    catch (DataServiceQueryException ex)
+                    {
+                        QueryOperationResponse response = ex.Response;
+
+                        Console.WriteLine(response.Error.Message);
+                    }
+                }), Context);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentPlanHistory"></param>
+        /// <param name="fleetContext"></param>
+        public void TransferPlanHistory(Guid currentAirlines, Guid currentPlanHistory, FleetPlanData fleetContext)
+        {
+            Uri path = new Uri(string.Format("TransferPlanHistory?currentAirlines='{0}'&currentPlanHistory='{1}'", currentAirlines, currentPlanHistory),
+                UriKind.Relative);
+
+            fleetContext.BeginExecute<bool>(path,
+                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    var asynvContext = result.AsyncState as FleetPlanData;
+                    try
+                    {
+                        if (asynvContext != null)
+                        {
+                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            if (!sendSuccess)
+                            {
+                                MessageBox.Show("提交失败，请检查！");
+                            }
+                            else
+                            {
+                                MessageBox.Show("提交成功！");
+                            }
+                        }
+                    }
+                    catch (DataServiceQueryException ex)
+                    {
+                        QueryOperationResponse response = ex.Response;
+
+                        Console.WriteLine(response.Error.Message);
+                    }
+                }), Context);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentOwnershipHistory"></param>
+        /// <param name="fleetContext"></param>
+        public void TransferOwnershipHistory(Guid currentAirlines, Guid currentOwnershipHistory, FleetPlanData fleetContext)
+        {
+            Uri path = new Uri(string.Format("TransferOwnershipHistory?currentAirlines='{0}'&currentOwnershipHistory='{1}'", currentAirlines, currentOwnershipHistory),
+                UriKind.Relative);
+
+            fleetContext.BeginExecute<bool>(path,
+                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    var asynvContext = result.AsyncState as FleetPlanData;
+                    try
+                    {
+                        if (asynvContext != null)
+                        {
+                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            if (!sendSuccess)
+                            {
+                                MessageBox.Show("提交失败，请检查！");
+                            }
+                            else
+                            {
+                                MessageBox.Show("提交成功！");
+                            }
+                        }
+                    }
+                    catch (DataServiceQueryException ex)
+                    {
+                        QueryOperationResponse response = ex.Response;
+
+                        Console.WriteLine(response.Error.Message);
+                    }
+                }), Context);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentPlan"></param>
+        /// <param name="currentRequest"></param>
+        /// <param name="fleetContext"></param>
+        public void TransferPlanAndRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest, FleetPlanData fleetContext)
+        {
+            Uri path = new Uri(string.Format("TransferPlanAndRequest?currentAirlines='{0}'&currentPlan='{1}'&currentRequest='{2}'", currentAirlines, currentPlan, currentRequest),
+                UriKind.Relative);
+
+            fleetContext.BeginExecute<bool>(path,
+                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    var asynvContext = result.AsyncState as FleetPlanData;
+                    try
+                    {
+                        if (asynvContext != null)
+                        {
+                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            if (!sendSuccess)
+                            {
+                                MessageBox.Show("提交失败，请检查！");
+                            }
+                            else
+                            {
+                                MessageBox.Show("提交成功！");
+                            }
+                        }
+                    }
+                    catch (DataServiceQueryException ex)
+                    {
+                        QueryOperationResponse response = ex.Response;
+
+                        Console.WriteLine(response.Error.Message);
+                    }
+                }), Context);
+        }
+
+        #endregion
         #endregion
     }
 }

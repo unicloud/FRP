@@ -124,8 +124,12 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
             //发送
             var sm = new SendMail();
             var message = sm.GenMail(sender, receive, stream, mailSubject, attName);
-            sm.SendNormalMail(TransformMailAddress(dbSender), message);
-            return true;
+            var blSend = sm.SendNormalMail(TransformMailAddress(dbSender), message);
+            if (blSend == -1)
+            {
+                return  sm.SendNormalMail(TransformMailAddress(dbSender), message) == 0;
+            }
+            return blSend == 0;
         }
 
         public static Stream ModelObjToAttachmentStream(object obj)
