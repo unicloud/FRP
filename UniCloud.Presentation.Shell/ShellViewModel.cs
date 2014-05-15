@@ -777,8 +777,8 @@ namespace UniCloud.Presentation.Shell
             };
             var menu473 = new MenuItem
             {
-                Text = "分析付款计划执行",
-                NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.PaymentScheduleExecute"
+                Text = "起落架",
+                NavUri = "UniCloud.Presentation.Payment.MaintainCost.UndercartMaintainCostManage"
             };
             var menu474 = new MenuItem
             {

@@ -107,9 +107,11 @@
     <Compile Include="Payment\Enums\GuaranteeStatus.cs" />
     <Compile Include="Payment\Enums\InvoiceType.cs" />
     <Compile Include="Payment\Enums\ItemNameType.cs" />
+    <Compile Include="Payment\Enums\MaintainCostType.cs" />
     <Compile Include="Payment\Enums\PaymentNoticeStatus.cs" />
     <Compile Include="Payment\Enums\PaymentScheduleStatus.cs" />
     <Compile Include="Payment\Enums\RegularCheckType.cs" />
+    <Compile Include="Payment\Enums\UndercartPart.cs" />
     <Compile Include="Payment\LeaseGuaranteeDTO.cs" />
     <Compile Include="Payment\MaintainGuaranteeDTO.cs" />
     <Compile Include="Payment\MaintainInvoiceLineDTO.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Payment\Enums\MaintainItem.cs" />
     <Compile Include="Payment\RegularCheckMaintainCostDTO.cs" />
     <Compile Include="Payment\StandardPaymentScheduleDTO.cs" />
+    <Compile Include="Payment\UndercartMaintainCostDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\Payment\Reference.cs">
       <AutoGen>True</AutoGen>

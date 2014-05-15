@@ -382,6 +382,11 @@ namespace UniCloud.DistributedServices.Payment
         {
             get { return _maintainCostAppService.GetRegularCheckMaintainCosts(); }
         }
+
+        public IQueryable<UndercartMaintainCostDTO> UndercartMaintainCosts
+        {
+            get { return _maintainCostAppService.GetUndercartMaintainCosts(); }
+        }
         #endregion
     }
 }

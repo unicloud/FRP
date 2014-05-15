@@ -810,6 +810,38 @@
         <Property Name="AcutalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="MaintainInvoiceId" Type="Edm.Int32" />
       </EntityType>
+      <EntityType Name="UndercartMaintainCostDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Type" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Part" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainFeeEur" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Rate" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="MaintainFeeRmb" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="FreightFee" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="ReplaceFee" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CustomRate" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Custom" Type="Edm.String" />
+        <Property Name="AddedValueRate" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AddedValue" Type="Edm.String" />
+        <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ActionCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="InMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="OutMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="TotalDays" Type="Edm.Int32" Nullable="false" />
+        <Property Name="DepartmentDeclareAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="FinancialApprovalAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="FinancialApprovalAmountNonTax" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AcutalInMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="AcutalOutMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="AcutalTotalDays" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AcutalBudgetAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AcutalAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="MaintainInvoiceId" Type="Edm.Int32" />
+      </EntityType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Payment" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PaymentData" m:IsDefaultEntityContainer="true">
@@ -849,6 +881,7 @@
         <EntitySet Name="MaintainGuarantees" EntityType="UniCloud.Application.PaymentBC.DTO.MaintainGuaranteeDTO" />
         <EntitySet Name="MaintainContracts" EntityType="UniCloud.Application.PaymentBC.DTO.MaintainContractDTO" />
         <EntitySet Name="RegularCheckMaintainCosts" EntityType="UniCloud.Application.PaymentBC.DTO.RegularCheckMaintainCostDTO" />
+        <EntitySet Name="UndercartMaintainCosts" EntityType="UniCloud.Application.PaymentBC.DTO.UndercartMaintainCostDTO" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

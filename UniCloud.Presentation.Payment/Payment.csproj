@@ -204,6 +204,10 @@
       <DependentUpon>RegularCheckMaintainCostManage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MaintainCost\RegularCheckMaintainCostManageVm.cs" />
+    <Compile Include="MaintainCost\UndercartMaintainCostManage.xaml.cs">
+      <DependentUpon>UndercartMaintainCostManage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainCost\UndercartMaintainCostManageVm.cs" />
     <Compile Include="MaintainInvoice\APUMaintain.xaml.cs">
       <DependentUpon>APUMaintain.xaml</DependentUpon>
     </Compile>
@@ -371,6 +375,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MaintainCost\RegularCheckMaintainCostManage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainCost\UndercartMaintainCostManage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

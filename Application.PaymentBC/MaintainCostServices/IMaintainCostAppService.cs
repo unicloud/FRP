@@ -28,5 +28,11 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         /// </summary>
         /// <returns>所有定检维修成本</returns>
         IQueryable<RegularCheckMaintainCostDTO> GetRegularCheckMaintainCosts();
+
+        /// <summary>
+        ///     获取所有起落架维修成本
+        /// </summary>
+        /// <returns>所有起落架维修成本</returns>
+        IQueryable<UndercartMaintainCostDTO> GetUndercartMaintainCosts();
     }
 }

@@ -1,0 +1,331 @@
+﻿<UserControl x:Class="UniCloud.Presentation.Payment.MaintainCost.UndercartMaintainCostManage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance uc:UndercartMaintainCostManageVm}"
+             Name="RegularCheckMaintainCostView">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="EngineMaintainLayoutRoot"
+          Background="White">
+        <telerik:RadDocking  BorderThickness="0"
+                             Padding="0"
+                             HasDocumentHost="False">
+            <telerik:RadSplitContainer Orientation="Vertical">
+                <telerik:RadPaneGroup>
+                    <telerik:RadPane Header="起落架维修成本"
+                                     CanFloat="False"
+                                     CanUserClose="False"
+                                     CanUserPin="False"
+                                     FontSize="{StaticResource TextFontSize}"
+                                     ContextMenuTemplate="{x:Null}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                Margin="0 0 0 -1"
+                                                OverflowButtonVisibility="Collapsed">
+                                <telerik:RadButton Margin="4,2,2,-2"
+                                                   Command="{Binding SaveCommand}"
+                                                   CommandParameter="{Binding UndercartMaintainCosts}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="保存" />
+                                </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding AbortCommand}"
+                                                   CommandParameter="{Binding UndercartMaintainCosts}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="放弃更改" />
+                                </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding AddCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="创建起落架维修成本" />
+                                </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding DeleteCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="删除起落架维修成本" />
+                                </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
+                            </telerik:RadToolBar>
+                            <Grid Row="1">
+                                <telerik:RadGridView Name="EngineMaintainInvoiceList"
+                                                     CanUserSortColumns="True"
+                                                     CanUserFreezeColumns="False"
+                                                     IsFilteringAllowed="True"
+                                                     EditTriggers="CellClick"
+                                                     ShowGroupPanel="False"
+                                                     FontSize="{StaticResource TextFontSize}"
+                                                     ItemsSource="{Binding UndercartMaintainCosts,Mode=TwoWay}"
+                                                     IsBusy="{Binding UndercartMaintainCosts.IsBusy}"
+                                                     SelectedItem="{Binding UndercartMaintainCost,Mode=TwoWay}"
+                                                     ValidatesOnDataErrors="InEditMode">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=EngineMaintainInvoiceList, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=EngineMaintainInvoiceList, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
+                                    <telerik:RadGridView.ColumnGroups>
+                                        <telerik:GridViewColumnGroup  Name="BasicInfo"
+                                                                      Header="基本信息" />
+                                        <telerik:GridViewColumnGroup  Name="BudgetInfo"
+                                                                      Header="预算信息" />
+                                        <telerik:GridViewColumnGroup  Name="ActualInfo"
+                                                                      Header="实际执行信息" />
+                                    </telerik:RadGridView.ColumnGroups>
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <telerik:GridViewComboBoxColumn Header="飞机号"
+                                                                        ColumnGroupName="BasicInfo"
+                                                                        TextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        ItemsSource="{Binding DataContext.Aircrafts, ElementName=RegularCheckMaintainCostView,Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding AircraftId}"
+                                                                        SelectedValueMemberPath="AircraftId"
+                                                                        DisplayMemberPath="RegNumber" />
+                                        <telerik:GridViewComboBoxColumn Header="类别"
+                                                                        ColumnGroupName="BasicInfo"
+                                                                        TextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        ItemsSource="{Binding DataContext.MaintainCosts, ElementName=RegularCheckMaintainCostView,Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding Type}"
+                                                                        SelectedValueMemberPath="Key"
+                                                                        DisplayMemberPath="Value" />
+                                        <telerik:GridViewComboBoxColumn Header="性质"
+                                                                        ColumnGroupName="BasicInfo"
+                                                                        TextAlignment="Center"
+                                                                        IsReadOnly="True"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        ItemsSource="{Binding DataContext.ActionCategories, ElementName=RegularCheckMaintainCostView,Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding ActionCategoryId}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        DisplayMemberPath="ActionName" />
+                                        <telerik:GridViewComboBoxColumn Header="机型"
+                                                                        ColumnGroupName="BasicInfo"
+                                                                        TextAlignment="Center"
+                                                                        IsReadOnly="True"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        ItemsSource="{Binding DataContext.AircraftTypes, ElementName=RegularCheckMaintainCostView,Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding AircraftTypeId}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        DisplayMemberPath="Name" />
+                                        <telerik:GridViewComboBoxColumn Header="部件"
+                                                                        ColumnGroupName="BasicInfo"
+                                                                        TextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        ItemsSource="{Binding DataContext.UndercartParts, ElementName=RegularCheckMaintainCostView,Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding Part}"
+                                                                        SelectedValueMemberPath="Key"
+                                                                        DisplayMemberPath="Value" />
+                                        <telerik:GridViewDataColumn Header="进厂时间"
+                                                                    ColumnGroupName="BudgetInfo"
+                                                                    TextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding InMaintainTime,StringFormat={StaticResource DateStringFormat }}" />
+                                        <telerik:GridViewDataColumn Header="出厂时间"
+                                                                    ColumnGroupName="BudgetInfo"
+                                                                    TextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding OutMaintainTime,StringFormat={StaticResource DateStringFormat }}" />
+                                        <telerik:GridViewDataColumn Header="总周期"
+                                                                    ColumnGroupName="BudgetInfo"
+                                                                    TextAlignment="Center"
+                                                                    IsReadOnly="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding TotalDays}" />
+                                        <telerik:GridViewMaskedInputColumn Header="修理费（欧元）"
+                                                                           ColumnGroupName="BudgetInfo"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding MaintainFeeEur}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+                                        <telerik:GridViewMaskedInputColumn Header="汇率"
+                                                                           ColumnGroupName="BudgetInfo"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding Rate}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+                                        <telerik:GridViewMaskedInputColumn Header="修理费（人民币）"
+                                                                           ColumnGroupName="BudgetInfo"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding MaintainFeeRmb}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+                                        <telerik:GridViewMaskedInputColumn Header="运费（人民币）"
+                                                                           ColumnGroupName="BudgetInfo"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding FreightFee}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+                                        <telerik:GridViewMaskedInputColumn Header="更换费（人民币）"
+                                                                           ColumnGroupName="BudgetInfo"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding ReplaceFee}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+                                        <telerik:GridViewMaskedInputColumn Header="关税税率"
+                                                                           ColumnGroupName="BudgetInfo"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding CustomRate}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+                                        <telerik:GridViewDataColumn Header="关税"
+                                                                    ColumnGroupName="BudgetInfo"
+                                                                    TextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding Custom}" />
+                                        <telerik:GridViewMaskedInputColumn Header="增值税税率"
+                                                                           ColumnGroupName="BudgetInfo"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding AddedValueRate}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+                                        <telerik:GridViewDataColumn Header="增值税"
+                                                                    ColumnGroupName="BudgetInfo"
+                                                                    TextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding AddedValue}" />
+                                        <telerik:GridViewMaskedInputColumn Header="业务部门申报金额金额"
+                                                                           ColumnGroupName="BudgetInfo"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding DepartmentDeclareAmount}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+                                        <telerik:GridViewMaskedInputColumn Header="财务批复预算金额"
+                                                                           ColumnGroupName="BudgetInfo"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding FinancialApprovalAmount}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+                                        <telerik:GridViewMaskedInputColumn Header="财务批复预算金额（不含增值税）"
+                                                                           ColumnGroupName="BudgetInfo"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding FinancialApprovalAmountNonTax}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+                                        <telerik:GridViewComboBoxColumn Header="发票"
+                                                                        ColumnGroupName="ActualInfo"
+                                                                        TextAlignment="Center"
+                                                                        IsSortable="True"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        ItemsSource="{Binding DataContext.UndercartMaintainInvoices, ElementName=RegularCheckMaintainCostView,Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding MaintainInvoiceId}"
+                                                                        SelectedValueMemberPath="UndercartMaintainInvoiceId"
+                                                                        DisplayMemberPath="InvoiceNumber" />
+                                        <telerik:GridViewDataColumn Header="进厂时间"
+                                                                    ColumnGroupName="ActualInfo"
+                                                                    TextAlignment="Center"
+                                                                    IsReadOnly="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding AcutalInMaintainTime,StringFormat={StaticResource DateStringFormat }}" />
+                                        <telerik:GridViewDataColumn Header="出厂时间"
+                                                                    ColumnGroupName="ActualInfo"
+                                                                    TextAlignment="Center"
+                                                                    IsReadOnly="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding AcutalOutMaintainTime,StringFormat={StaticResource DateStringFormat }}" />
+                                        <telerik:GridViewDataColumn Header="总周期"
+                                                                    ColumnGroupName="ActualInfo"
+                                                                    TextAlignment="Center"
+                                                                    IsReadOnly="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding AcutalTotalDays}" />
+                                        <telerik:GridViewMaskedInputColumn Header="预估金额"
+                                                                           ColumnGroupName="ActualInfo"
+                                                                           IsReadOnly="True"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding AcutalBudgetAmount}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+                                        <telerik:GridViewMaskedInputColumn Header="实际结算金额"
+                                                                           ColumnGroupName="ActualInfo"
+                                                                           IsReadOnly="True"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding AcutalAmount}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <telerik:RadDataPager Name="RadPage"
+                                                      BorderThickness="1,0,1,1"
+                                                      AutoEllipsisMode="Both"
+                                                      DisplayMode="All"
+                                                      Source="{Binding UndercartMaintainCosts}" />
+                            </Grid>
+                        </Grid>
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+            </telerik:RadSplitContainer>
+        </telerik:RadDocking>
+    </Grid>
+</UserControl>
+

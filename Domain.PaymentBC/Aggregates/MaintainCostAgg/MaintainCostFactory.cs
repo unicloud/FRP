@@ -53,5 +53,46 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             maintainCost.FinancialApprovalAmountNonTax = financialApprovalAmountNonTax;
             maintainCost.MaintainInvoiceId = maintainInvoiceId;
         }
+
+        /// <summary>
+        ///     创建起落架维修成本
+        /// </summary>
+        /// <returns></returns>
+        public static UndercartMaintainCost CreateUndercartMaintainCost()
+        {
+            var maintainCost = new UndercartMaintainCost();
+            maintainCost.GenerateNewIdentity();
+
+            return maintainCost;
+        }
+
+
+        public static void SetUndercartMaintainCost(UndercartMaintainCost maintainCost, Guid aircraftId, Guid actionCategoryId, Guid aircraftTypeId, int type,
+            int part, DateTime inMaintainTime, DateTime outMaintainTime, int totalDays, decimal departmentDeclareAmount, decimal financialApprovalAmount,
+            decimal financialApprovalAmountNonTax, int? maintainInvoiceId, decimal maintainFeeEur, decimal rate, decimal maintainFeeRmb, decimal freightFee,
+            decimal replaceFee, decimal customRate, string custom, decimal addedValueRate, string addedValue)
+        {
+            maintainCost.AircraftId = aircraftId;
+            maintainCost.ActionCategoryId = actionCategoryId;
+            maintainCost.AircraftTypeId = aircraftTypeId;
+            maintainCost.Type = (MaintainCostType)type;
+            maintainCost.Part = (UndercartPart)part;
+            maintainCost.InMaintainTime = inMaintainTime;
+            maintainCost.OutMaintainTime = outMaintainTime;
+            maintainCost.TotalDays = totalDays;
+            maintainCost.DepartmentDeclareAmount = departmentDeclareAmount;
+            maintainCost.FinancialApprovalAmount = financialApprovalAmount;
+            maintainCost.FinancialApprovalAmountNonTax = financialApprovalAmountNonTax;
+            maintainCost.MaintainInvoiceId = maintainInvoiceId;
+            maintainCost.MaintainFeeEur = maintainFeeEur;
+            maintainCost.Rate = rate;
+            maintainCost.MaintainFeeRmb = maintainFeeRmb;
+            maintainCost.FreightFee = freightFee;
+            maintainCost.ReplaceFee = replaceFee;
+            maintainCost.CustomRate = customRate;
+            maintainCost.Custom = custom;
+            maintainCost.AddedValueRate = addedValueRate;
+            maintainCost.AddedValue = addedValue;
+        }
     }
 }

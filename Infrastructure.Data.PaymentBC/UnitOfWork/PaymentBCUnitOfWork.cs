@@ -340,6 +340,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
 #region MaintainCostAgg
 .Add(new MaintainCostEntityConfiguration())
 .Add(new RegularCheckMaintainCostEntityConfiguration())
+.Add(new UndercartMaintainCostEntityConfiguration())
 #endregion
 
             #region

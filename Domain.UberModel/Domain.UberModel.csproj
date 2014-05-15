@@ -181,6 +181,7 @@
     <Compile Include="Aggregates\MaintainCostAgg\MaintainCostFactory.cs" />
     <Compile Include="Aggregates\MaintainCostAgg\MaintainCostSpecification.cs" />
     <Compile Include="Aggregates\MaintainCostAgg\RegularCheckMaintainCost.cs" />
+    <Compile Include="Aggregates\MaintainCostAgg\UndercartMaintainCost.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\ItemMaintainCtrl.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrl.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrlLine.cs" />
