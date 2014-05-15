@@ -233,6 +233,8 @@
         <Property Name="InvoideCode" Type="Edm.String" />
         <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="InMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="OutMaintainTime" Type="Edm.DateTime" Nullable="false" />
         <Property Name="InvoiceValue" Type="Edm.Decimal" Nullable="false" />
         <Property Name="PaidAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
@@ -268,6 +270,8 @@
         <Property Name="InvoideCode" Type="Edm.String" />
         <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="InMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="OutMaintainTime" Type="Edm.DateTime" Nullable="false" />
         <Property Name="InvoiceValue" Type="Edm.Decimal" Nullable="false" />
         <Property Name="PaidAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
@@ -294,6 +298,8 @@
         <Property Name="InvoideCode" Type="Edm.String" />
         <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="InMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="OutMaintainTime" Type="Edm.DateTime" Nullable="false" />
         <Property Name="InvoiceValue" Type="Edm.Decimal" Nullable="false" />
         <Property Name="PaidAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
@@ -320,6 +326,8 @@
         <Property Name="InvoideCode" Type="Edm.String" />
         <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="InMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="OutMaintainTime" Type="Edm.DateTime" Nullable="false" />
         <Property Name="InvoiceValue" Type="Edm.Decimal" Nullable="false" />
         <Property Name="PaidAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
@@ -779,6 +787,29 @@
         <Property Name="Signatory" Type="Edm.String" />
         <Property Name="SignatoryId" Type="Edm.Int32" Nullable="false" />
       </EntityType>
+      <EntityType Name="RegularCheckMaintainCostDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RegularCheckType" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RegularCheckLevel" Type="Edm.String" />
+        <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ActionCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="InMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="OutMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="TotalDays" Type="Edm.Int32" Nullable="false" />
+        <Property Name="DepartmentDeclareAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="FinancialApprovalAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="FinancialApprovalAmountNonTax" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AcutalInMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="AcutalOutMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="AcutalTotalDays" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AcutalBudgetAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AcutalAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="MaintainInvoiceId" Type="Edm.Int32" />
+      </EntityType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Payment" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PaymentData" m:IsDefaultEntityContainer="true">
@@ -817,6 +848,7 @@
         <EntitySet Name="LeaseGuarantees" EntityType="UniCloud.Application.PaymentBC.DTO.LeaseGuaranteeDTO" />
         <EntitySet Name="MaintainGuarantees" EntityType="UniCloud.Application.PaymentBC.DTO.MaintainGuaranteeDTO" />
         <EntitySet Name="MaintainContracts" EntityType="UniCloud.Application.PaymentBC.DTO.MaintainContractDTO" />
+        <EntitySet Name="RegularCheckMaintainCosts" EntityType="UniCloud.Application.PaymentBC.DTO.RegularCheckMaintainCostDTO" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

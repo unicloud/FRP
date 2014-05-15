@@ -68,6 +68,8 @@
     <Compile Include="InvoiceQueries\PurchaseInvoiceQuery.cs" />
     <Compile Include="MaintainContractQueries\IMaintainContractQuery.cs" />
     <Compile Include="MaintainContractQueries\MaintainContractQuery.cs" />
+    <Compile Include="MaintainCostQueries\IMaintainCostQuery.cs" />
+    <Compile Include="MaintainCostQueries\MaintainCostQuery.cs" />
     <Compile Include="MaintainInvoiceQueries\IMaintainInvoiceQuery.cs" />
     <Compile Include="MaintainInvoiceQueries\MaintainInvoiceQuery.cs" />
     <Compile Include="OrderQueries\IOrderQuery.cs" />

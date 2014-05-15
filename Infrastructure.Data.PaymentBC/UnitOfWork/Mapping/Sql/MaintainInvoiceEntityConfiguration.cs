@@ -40,7 +40,8 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             Property(p => p.SerialNumber).HasColumnName("SerialNumber");
             Property(p => p.DocumentName).HasColumnName("DocumentName");
             Property(p => p.DocumentId).HasColumnName("DocumentId");
-
+            Property(p => p.InMaintainTime).HasColumnName("InMaintainTime").HasColumnType("datetime2");
+            Property(p => p.OutMaintainTime).HasColumnName("OutMaintainTime").HasColumnType("datetime2");
             HasMany(i => i.InvoiceLines).WithRequired().HasForeignKey(i => i.InvoiceId);
         }
     }

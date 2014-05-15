@@ -176,6 +176,11 @@
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContractFactory.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\UndercartMaintainContract.cs" />
+    <Compile Include="Aggregates\MaintainCostAgg\IMaintainCostRepository.cs" />
+    <Compile Include="Aggregates\MaintainCostAgg\MaintainCost.cs" />
+    <Compile Include="Aggregates\MaintainCostAgg\MaintainCostFactory.cs" />
+    <Compile Include="Aggregates\MaintainCostAgg\MaintainCostSpecification.cs" />
+    <Compile Include="Aggregates\MaintainCostAgg\RegularCheckMaintainCost.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\ItemMaintainCtrl.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrl.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrlLine.cs" />

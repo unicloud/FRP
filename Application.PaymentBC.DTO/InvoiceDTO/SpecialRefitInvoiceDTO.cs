@@ -1,13 +1,13 @@
 ﻿#region Version Info
 /* ========================================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2013/12/16 9:45:27
-// 文件名：MaintainInvoiceDTO
+// 作者：linxw 时间：2014/5/15 9:51:31
+// 文件名：SpecialRefitInvoiceDTO
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2013/12/16 9:45:27
+// 修改者：linxw 时间：2014/5/15 9:51:31
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -16,22 +16,30 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Services.Common;
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    ///  维修发票基类
+    ///     特修改装DTO
     /// </summary>
-    public class MaintainInvoiceDTO
+    [DataServiceKey("SpecialRefitId")]
+    public class SpecialRefitInvoiceDTO
     {
+        #region 私有字段
+
+        private List<InvoiceLineDTO> _lines;
+
+        #endregion
+
         #region 属性
 
         /// <summary>
-        ///     序列号
+        ///     主键
         /// </summary>
-        public string SerialNumber { get; set; }
+        public int SpecialRefitId { get; set; }
 
         /// <summary>
         ///     发票编号
@@ -52,15 +60,6 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///     供应商名称
         /// </summary>
         public string SupplierName { get; set; }
-
-        /// <summary>
-        /// 进厂时间
-        /// </summary>
-        public DateTime InMaintainTime { get; set; }
-        /// <summary>
-        /// 出厂时间
-        /// </summary>
-        public DateTime OutMaintainTime { get; set; }
 
         /// <summary>
         ///     发票金额
@@ -107,27 +106,9 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// </summary>
         public int Status { get; set; }
 
-        /// <summary>
-        ///  文档名称
-        /// </summary>
-        public string DocumentName { get; set; }
-
-        /// <summary>
-        ///  维修发票行集合
-        /// </summary>
-        private List<MaintainInvoiceLineDTO> _maintainInvoiceLines;
-        public List<MaintainInvoiceLineDTO> MaintainInvoiceLines
-        {
-            get { return _maintainInvoiceLines ?? new List<MaintainInvoiceLineDTO>(); }
-            set { _maintainInvoiceLines = value; }
-        }
         #endregion
 
         #region 外键属性
-        /// <summary>
-        ///  文档ID
-        /// </summary>
-        public Guid DocumentId { get; set; }
 
         /// <summary>
         ///     供应商ID
@@ -143,6 +124,20 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///     付款计划行ID
         /// </summary>
         public int? PaymentScheduleLineId { get; set; }
+
+        #endregion
+
+        #region 导航属性
+
+        /// <summary>
+        ///     发票行集合
+        /// </summary>
+        public List<InvoiceLineDTO> InvoiceLines
+        {
+            get { return _lines ?? (_lines = new List<InvoiceLineDTO>()); }
+            set { _lines = value; }
+        }
+
         #endregion
     }
 }

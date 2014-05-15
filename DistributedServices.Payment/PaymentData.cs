@@ -8,6 +8,7 @@ using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.GuaranteeServices;
 using UniCloud.Application.PaymentBC.InvoiceServices;
 using UniCloud.Application.PaymentBC.MaintainContractServices;
+using UniCloud.Application.PaymentBC.MaintainCostServices;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
 using UniCloud.Application.PaymentBC.OrderServices;
 using UniCloud.Application.PaymentBC.PaymentNoticeServices;
@@ -38,6 +39,7 @@ namespace UniCloud.DistributedServices.Payment
         private readonly IPrepaymentInvoiceAppService _prepaymentInvoiceAppService;
         private readonly IPurchaseInvoiceAppService _purchaseInvoiceAppService;
         private readonly ISupplierAppService _supplierAppService;
+        private readonly IMaintainCostAppService _maintainCostAppService;
 
         public PaymentData()
             : base("UniCloud.Application.PaymentBC.DTO")
@@ -56,6 +58,7 @@ namespace UniCloud.DistributedServices.Payment
             _guaranteeAppService = DefaultContainer.Resolve<IGuaranteeAppService>();
             _maintainContractAppService = DefaultContainer.Resolve<IMaintainContractAppService>();
             _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
+            _maintainCostAppService = DefaultContainer.Resolve<IMaintainCostAppService>();
         }
 
         #region Invoice集合
@@ -371,6 +374,14 @@ namespace UniCloud.DistributedServices.Payment
             get { return _maintainContractAppService.GetMaintainContracts(); }
         }
 
+        #endregion
+
+        #region 维修成本
+
+        public IQueryable<RegularCheckMaintainCostDTO> RegularCheckMaintainCosts
+        {
+            get { return _maintainCostAppService.GetRegularCheckMaintainCosts(); }
+        }
         #endregion
     }
 }

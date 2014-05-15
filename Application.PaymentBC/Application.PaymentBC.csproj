@@ -60,6 +60,8 @@
     <Compile Include="InvoiceServices\PurchaseInvoiceAppService.cs" />
     <Compile Include="MaintainContractServices\IMaintainContractAppService.cs" />
     <Compile Include="MaintainContractServices\MaintainContractAppService.cs" />
+    <Compile Include="MaintainCostServices\IMaintainCostAppService.cs" />
+    <Compile Include="MaintainCostServices\MaintainCostAppService.cs" />
     <Compile Include="MaintainInvoiceServices\IMaintainInvoiceAppService.cs" />
     <Compile Include="MaintainInvoiceServices\MaintainInvoiceAppService.cs" />
     <Compile Include="GuaranteeServices\IGuaranteeAppService.cs" />

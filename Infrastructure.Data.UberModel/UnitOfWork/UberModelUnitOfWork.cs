@@ -67,6 +67,7 @@ using UniCloud.Domain.UberModel.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
 using UniCloud.Domain.UberModel.Aggregates.MailAddressAgg;
 using UniCloud.Domain.UberModel.Aggregates.MaintainContractAgg;
+using UniCloud.Domain.UberModel.Aggregates.MaintainCostAgg;
 using UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg;
 using UniCloud.Domain.UberModel.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.UberModel.Aggregates.MaintainWorkAgg;
@@ -219,7 +220,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<BusinessLicense> _businessLicenses;
         private IDbSet<EngineMaintainPlan> _engineMaintainPlans;
         private IDbSet<AircraftMaintainPlan> _aircraftMaintainPlans;
+        private IDbSet<MaintainCost> _maintainCosts;
 
+        public IDbSet<MaintainCost> MaintainCosts
+        {
+            get { return _maintainCosts ?? (_maintainCosts = Set<MaintainCost>()); }
+        }
         public IDbSet<AircraftMaintainPlan> AircraftMaintainPlans
         {
             get { return _aircraftMaintainPlans ?? (_aircraftMaintainPlans = Set<AircraftMaintainPlan>()); }
@@ -1323,6 +1329,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             #region BusinessLicenseAgg
 .Add(new BusinessLicenseEntityConfiguration())
             #endregion
+
+            #region MaintainCostAgg
+.Add(new MaintainCostEntityConfiguration())
+.Add(new RegularCheckMaintainCostEntityConfiguration())
+            #endregion
+
 .Add(new AddressConfiguration());
         }
 

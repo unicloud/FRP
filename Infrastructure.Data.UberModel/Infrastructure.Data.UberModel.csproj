@@ -153,6 +153,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ContractEngineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainPlanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainPlanDetailEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\MaintainCostEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainCreditNoteInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainPrepaymentInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseCreditNoteInvoiceEntityConfiguration.cs" />
@@ -249,6 +250,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionScheduleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\RegularCheckMaintainCostEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\RelatedDocEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\RequestEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\RoleEntityConfiguration.cs" />

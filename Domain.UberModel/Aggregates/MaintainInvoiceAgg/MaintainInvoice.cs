@@ -60,7 +60,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainInvoiceAgg
         ///     文档名称
         /// </summary>
         public string DocumentName { get; set; }
-
+        /// <summary>
+        /// 进厂时间
+        /// </summary>
+        public DateTime InMaintainTime { get; internal set; }
+        /// <summary>
+        /// 出厂时间
+        /// </summary>
+        public DateTime OutMaintainTime { get; internal set; }
         #endregion
 
         #region 外键属性

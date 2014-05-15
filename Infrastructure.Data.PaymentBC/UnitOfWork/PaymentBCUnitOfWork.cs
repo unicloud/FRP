@@ -29,6 +29,7 @@ using UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainContractAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PartAgg;
@@ -65,7 +66,12 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
         private IDbSet<Supplier> _suppliers;
         private IDbSet<Trade> _trades;
         private IDbSet<SupplierRole> _supplierRoles;
+        private IDbSet<MaintainCost> _maintainCosts;
 
+        public IDbSet<MaintainCost> MaintainCosts
+        {
+            get { return _maintainCosts ?? (_maintainCosts = Set<MaintainCost>()); }
+        }
         public IDbSet<ActionCategory> ActionCategories
         {
             get { return _actionCategories ?? (_actionCategories = Set<ActionCategory>()); }
@@ -330,6 +336,11 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
 .Add(new TradeEntityConfiguration())
 
             #endregion
+
+#region MaintainCostAgg
+.Add(new MaintainCostEntityConfiguration())
+.Add(new RegularCheckMaintainCostEntityConfiguration())
+#endregion
 
             #region
 .Add(new SupplierEntityConfiguration())
