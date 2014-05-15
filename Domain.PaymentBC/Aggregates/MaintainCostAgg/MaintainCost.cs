@@ -69,26 +69,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
         /// 财务批复预算金额（不含增值税）
         /// </summary>
         public decimal FinancialApprovalAmountNonTax { get; internal set; }
-        /// <summary>
-        /// 进厂时间
-        /// </summary>
-        public DateTime AcutalInMaintainTime { get; internal set; }
-        /// <summary>
-        /// 出厂时间
-        /// </summary>
-        public DateTime AcutalOutMaintainTime { get; internal set; }
-        /// <summary>
-        /// 总周期
-        /// </summary>
-        public int AcutalTotalDays { get; internal set; }
-        /// <summary>
-        /// 预估金额
-        /// </summary>
-        public decimal AcutalBudgetAmount { get; internal set; }
-        /// <summary>
-        /// 实际结算金额
-        /// </summary>
-        public decimal AcutalAmount { get; internal set; }
         #endregion
 
         #region 外键属性

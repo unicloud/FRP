@@ -15,14 +15,18 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
+using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 #endregion
 
@@ -34,23 +38,34 @@ namespace UniCloud.Presentation.Payment.MaintainCost
     {
         private readonly IPaymentService _service;
         private readonly PaymentData _context;
-
+        private readonly IFleetPlanService _fleetPlanService;
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public RegularCheckMaintainCostManageVm(IPaymentService service)
+        public RegularCheckMaintainCostManageVm(IPaymentService service, IFleetPlanService fleetPlanService)
             : base(service)
         {
+            _fleetPlanService = fleetPlanService;
             _service = service;
             _context = _service.Context;
             InitialVm(); //初始化定检维修成本
 
         }
+        #region 飞机
+        public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; }
+        public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypes { get; set; }
+        public QueryableDataServiceCollectionView<ActionCategoryDTO> ActionCategories { get; set; }
+        #endregion
 
         #region 发票
         public QueryableDataServiceCollectionView<AirframeMaintainInvoiceDTO> AirframeMaintainInvoices { get; set; }
         #endregion
+
+        public Dictionary<int, RegularCheckType> RegularCheckTypes
+        {
+            get { return Enum.GetValues(typeof(RegularCheckType)).Cast<object>().ToDictionary(value => (int)value, value => (RegularCheckType)value); }
+        }
 
         #region 加载定检维修成本
 
@@ -93,6 +108,10 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                     RegularCheckMaintainCost = RegularCheckMaintainCosts.FirstOrDefault();
                 RefreshCommandState();
             };
+
+            Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Aircrafts);
+            AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_fleetPlanService.Context, _fleetPlanService.Context.AircraftTypes);
+            ActionCategories = new QueryableDataServiceCollectionView<ActionCategoryDTO>(_fleetPlanService.Context, _fleetPlanService.Context.ActionCategories);
         }
 
         #endregion
@@ -115,7 +134,24 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                                          InMaintainTime = DateTime.Now,
                                          OutMaintainTime = DateTime.Now,
                                      };
-
+            RegularCheckMaintainCost.TotalDays =
+                (RegularCheckMaintainCost.OutMaintainTime.Date - RegularCheckMaintainCost.InMaintainTime.Date).Days + 1;
+            var aircraft = Aircrafts.FirstOrDefault();
+            if (aircraft != null)
+            {
+                RegularCheckMaintainCost.AircraftId = aircraft.AircraftId;
+                RegularCheckMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
+                RegularCheckMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+            }
+            var invoice = AirframeMaintainInvoices.FirstOrDefault();
+            if (invoice != null)
+            {
+                RegularCheckMaintainCost.MaintainInvoiceId = invoice.AirframeMaintainInvoiceId;
+                RegularCheckMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
+                RegularCheckMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
+                RegularCheckMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                RegularCheckMaintainCost.AcutalAmount = invoice.PaidAmount;
+            }
             RegularCheckMaintainCosts.AddNew(RegularCheckMaintainCost);
         }
 
@@ -151,7 +187,6 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                                                 if (arg.DialogResult != true) return;
                                                 RegularCheckMaintainCosts.Remove(RegularCheckMaintainCost);
                                                 RegularCheckMaintainCost = RegularCheckMaintainCosts.FirstOrDefault();
-                                                RefreshCommandState();
                                             });
         }
 
@@ -177,8 +212,30 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 RegularCheckMaintainCosts.AutoLoad = true;
             RegularCheckMaintainCosts.Load(true);
             AirframeMaintainInvoices.Load(true);
+            Aircrafts.Load(true);
+            AircraftTypes.Load(true);
+            ActionCategories.Load(true);
         }
 
         #endregion
+
+        public void SelectedChanged(object sender)
+        {
+            if (sender is AircraftDTO)
+            {
+                var aircraft = sender as AircraftDTO;
+                RegularCheckMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
+                RegularCheckMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+            }
+            else if (sender is AirframeMaintainInvoiceDTO)
+            {
+                var invoice = sender as AirframeMaintainInvoiceDTO;
+                RegularCheckMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
+                RegularCheckMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
+                RegularCheckMaintainCost.AcutalTotalDays = (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
+                RegularCheckMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                RegularCheckMaintainCost.AcutalAmount = invoice.PaidAmount;
+            }
+        }
     }
 }

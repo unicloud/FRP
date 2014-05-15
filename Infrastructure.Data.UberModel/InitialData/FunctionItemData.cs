@@ -254,8 +254,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu46.SubFunctionItems.Add(menu463);
             menu4.SubFunctionItems.Add(menu46);
 
-            var menu47 = FunctionItemFactory.CreateFunctionItem("查询分析", menu4.Id, 407, false, false, string.Empty);
-            var menu471 = FunctionItemFactory.CreateFunctionItem("查询付款计划", menu47.Id, 40701, false, false, "UniCloud.Presentation.Payment.PaymentSchedules.QueryPaymentSchedule");
+            var menu47 = FunctionItemFactory.CreateFunctionItem("维修成本", menu4.Id, 407, false, false, string.Empty);
+            var menu471 = FunctionItemFactory.CreateFunctionItem("定检", menu47.Id, 40701, false, false, "UniCloud.Presentation.Payment.MaintainCost.RegularCheckMaintainCostManage");
             var menu472 = FunctionItemFactory.CreateFunctionItem("预测资金需求", menu47.Id, 40702, false, false, "UniCloud.Presentation.Payment.QueryAnalyse.FinancingDemandForecast");
             var menu473 = FunctionItemFactory.CreateFunctionItem("分析付款计划执行", menu47.Id, 40703, false, false, "UniCloud.Presentation.Payment.QueryAnalyse.PaymentScheduleExecute");
             var menu474 = FunctionItemFactory.CreateFunctionItem("分析维修成本", menu47.Id, 40704, false, false, "UniCloud.Presentation.Payment.QueryAnalyse.AnalyseMaintenanceCosts");
@@ -264,6 +264,17 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu47.SubFunctionItems.Add(menu473);
             menu47.SubFunctionItems.Add(menu474);
             menu4.SubFunctionItems.Add(menu47);
+
+            var menu48 = FunctionItemFactory.CreateFunctionItem("查询分析", menu4.Id, 408, false, false, string.Empty);
+            var menu481 = FunctionItemFactory.CreateFunctionItem("查询付款计划", menu48.Id, 40801, false, false, "UniCloud.Presentation.Payment.PaymentSchedules.QueryPaymentSchedule");
+            var menu482 = FunctionItemFactory.CreateFunctionItem("预测资金需求", menu48.Id, 40802, false, false, "UniCloud.Presentation.Payment.QueryAnalyse.FinancingDemandForecast");
+            var menu483 = FunctionItemFactory.CreateFunctionItem("分析付款计划执行", menu48.Id, 40803, false, false, "UniCloud.Presentation.Payment.QueryAnalyse.PaymentScheduleExecute");
+            var menu484 = FunctionItemFactory.CreateFunctionItem("分析维修成本", menu48.Id, 40804, false, false, "UniCloud.Presentation.Payment.QueryAnalyse.AnalyseMaintenanceCosts");
+            menu48.SubFunctionItems.Add(menu481);
+            menu48.SubFunctionItems.Add(menu482);
+            menu48.SubFunctionItems.Add(menu483);
+            menu48.SubFunctionItems.Add(menu484);
+            menu4.SubFunctionItems.Add(menu48);
 
             #endregion
 
