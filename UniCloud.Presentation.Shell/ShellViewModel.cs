@@ -763,12 +763,12 @@ namespace UniCloud.Presentation.Shell
 
             var menu47 = new MenuItem
             {
-                Text = "查询分析",
+                Text = "维修成本",
             };
             var menu471 = new MenuItem
             {
-                Text = "查询付款计划",
-                NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.QueryPaymentSchedule"
+                Text = "定检",
+                NavUri = "UniCloud.Presentation.Payment.MaintainCost.RegularCheckMaintainCostManage"
             };
             var menu472 = new MenuItem
             {
@@ -790,6 +790,36 @@ namespace UniCloud.Presentation.Shell
             menu47.Items.Add(menu473);
             menu47.Items.Add(menu474);
             menu4.Items.Add(menu47);
+
+            var menu48 = new MenuItem
+            {
+                Text = "查询分析",
+            };
+            var menu481 = new MenuItem
+            {
+                Text = "查询付款计划",
+                NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.QueryPaymentSchedule"
+            };
+            var menu482 = new MenuItem
+            {
+                Text = "预测资金需求",
+                NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.FinancingDemandForecast"
+            };
+            var menu483 = new MenuItem
+            {
+                Text = "分析付款计划执行",
+                NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.PaymentScheduleExecute"
+            };
+            var menu484 = new MenuItem
+            {
+                Text = "分析维修成本",
+                NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.AnalyseMaintenanceCosts"
+            };
+            menu47.Items.Add(menu481);
+            menu47.Items.Add(menu482);
+            menu47.Items.Add(menu483);
+            menu47.Items.Add(menu484);
+            menu4.Items.Add(menu48);
 
 
             _items.Add(menu4);

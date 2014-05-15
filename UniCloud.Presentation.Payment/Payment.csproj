@@ -200,6 +200,10 @@
       <DependentUpon>SundryInvoiceManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\SundryInvoiceManagerVm.cs" />
+    <Compile Include="MaintainCost\RegularCheckMaintainCostManage.xaml.cs">
+      <DependentUpon>RegularCheckMaintainCostManage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainCost\RegularCheckMaintainCostManageVm.cs" />
     <Compile Include="MaintainInvoice\APUMaintain.xaml.cs">
       <DependentUpon>APUMaintain.xaml</DependentUpon>
     </Compile>
@@ -358,6 +362,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Invoice\SundryInvoiceManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainCost\RegularCheckMaintainCostManage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
