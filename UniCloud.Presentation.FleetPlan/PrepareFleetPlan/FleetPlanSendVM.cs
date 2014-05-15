@@ -306,16 +306,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                          SelPlan.SubmitDate = DateTime.Now;
                          CurPlanHistories.Where(p=>p.IsSubmit &&  p.NeedRequest).ToList().ForEach(l=>l.CanRequest=(int)CanRequest.可申请);
                      }
-                     //this.service.SubmitChanges(sc =>
-                     //{
-                     //    if (sc.Error == null)
-                     //    {
-                     //        this.AttachCommand.RaiseCanExecuteChanged();
-                     //        // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
-                     //        this.service.TransferPlan(this.CurrentPlan.PlanID, tp => { }, null);
-                     //        RefreshButtonState();
-                     //    }
-                     //}, null);
+                     this._service.SubmitChanges(sc =>
+                     {
+                         if (sc.Error == null)
+                         {
+                             this.AddAttachCommand.RaiseCanExecuteChanged();
+                             // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
+                             _service.TransferPlan(SelPlan.AirlinesId, SelPlan.Id, _context);
+                             RefreshCommandState();
+                         }
+                     }, null);
                  }
              });
         }

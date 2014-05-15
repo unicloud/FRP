@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/5/14 22:21:58
+// 生成日期: 2014/5/15 10:58:35
 namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     
@@ -1251,34 +1251,31 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 ".String\" /><Parameter Name=\"planType\" Type=\"Edm.Int32\" Nullable=\"false\" /><Param" +
                 "eter Name=\"relatedGuid\" Type=\"Edm.String\" /></FunctionImport><FunctionImport Nam" +
                 "e=\"TransferRequest\" ReturnType=\"Edm.Boolean\" m:HttpMethod=\"GET\"><Parameter Name=" +
-                "\"currentAirlines\" Type=\"Edm.Guid\" Nullable=\"false\" /><Parameter Name=\"currentReq" +
-                "uest\" Type=\"Edm.Guid\" Nullable=\"false\" /></FunctionImport><FunctionImport Name=\"" +
-                "TransferPlan\" ReturnType=\"Edm.Boolean\" m:HttpMethod=\"GET\"><Parameter Name=\"curre" +
-                "ntAirlines\" Type=\"Edm.Guid\" Nullable=\"false\" /><Parameter Name=\"currentPlan\" Typ" +
-                "e=\"Edm.Guid\" Nullable=\"false\" /></FunctionImport><FunctionImport Name=\"TransferP" +
-                "lanAndRequest\" ReturnType=\"Edm.Boolean\" m:HttpMethod=\"GET\"><Parameter Name=\"curr" +
-                "entAirlines\" Type=\"Edm.Guid\" Nullable=\"false\" /><Parameter Name=\"currentPlan\" Ty" +
-                "pe=\"Edm.Guid\" Nullable=\"false\" /><Parameter Name=\"currentRequest\" Type=\"Edm.Guid" +
-                "\" Nullable=\"false\" /></FunctionImport><FunctionImport Name=\"TransferApprovalDoc\"" +
-                " ReturnType=\"Edm.Boolean\" m:HttpMethod=\"GET\"><Parameter Name=\"currentAirlines\" T" +
-                "ype=\"Edm.Guid\" Nullable=\"false\" /><Parameter Name=\"currentApprovalDoc\" Type=\"Edm" +
-                ".Guid\" Nullable=\"false\" /></FunctionImport><FunctionImport Name=\"TransferOperati" +
-                "onHistory\" ReturnType=\"Edm.Boolean\" m:HttpMethod=\"GET\"><Parameter Name=\"currentA" +
-                "irlines\" Type=\"Edm.Guid\" Nullable=\"false\" /><Parameter Name=\"currentOperationHis" +
-                "tory\" Type=\"Edm.Guid\" Nullable=\"false\" /></FunctionImport><FunctionImport Name=\"" +
-                "TransferAircraftBusiness\" ReturnType=\"Edm.Boolean\" m:HttpMethod=\"GET\"><Parameter" +
-                " Name=\"currentAirlines\" Type=\"Edm.Guid\" Nullable=\"false\" /><Parameter Name=\"curr" +
-                "entAircraftBusiness\" Type=\"Edm.Guid\" Nullable=\"false\" /></FunctionImport><Functi" +
-                "onImport Name=\"TransferOwnershipHistory\" ReturnType=\"Edm.Boolean\" m:HttpMethod=\"" +
-                "GET\"><Parameter Name=\"currentAirlines\" Type=\"Edm.Guid\" Nullable=\"false\" /><Param" +
-                "eter Name=\"currentOwnershipHistory\" Type=\"Edm.Guid\" Nullable=\"false\" /></Functio" +
-                "nImport><FunctionImport Name=\"TransferPlanHistory\" ReturnType=\"Edm.Boolean\" m:Ht" +
-                "tpMethod=\"GET\"><Parameter Name=\"currentAirlines\" Type=\"Edm.Guid\" Nullable=\"false" +
-                "\" /><Parameter Name=\"currentPlanHistory\" Type=\"Edm.Guid\" Nullable=\"false\" /></Fu" +
-                "nctionImport><AssociationSet Name=\"RequestDTO_RelatedDocs\" Association=\"UniCloud" +
-                ".Application.FleetPlanBC.DTO.RequestDTO_RelatedDocs\"><End Role=\"RequestDTO\" Enti" +
-                "tySet=\"Requests\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></Associati" +
-                "onSet></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+                "\"currentAirlines\" Type=\"Edm.String\" /><Parameter Name=\"currentRequest\" Type=\"Edm" +
+                ".String\" /></FunctionImport><FunctionImport Name=\"TransferPlan\" ReturnType=\"Edm." +
+                "Boolean\" m:HttpMethod=\"GET\"><Parameter Name=\"currentAirlines\" Type=\"Edm.String\" " +
+                "/><Parameter Name=\"currentPlan\" Type=\"Edm.String\" /></FunctionImport><FunctionIm" +
+                "port Name=\"TransferPlanAndRequest\" ReturnType=\"Edm.Boolean\" m:HttpMethod=\"GET\"><" +
+                "Parameter Name=\"currentAirlines\" Type=\"Edm.String\" /><Parameter Name=\"currentPla" +
+                "n\" Type=\"Edm.String\" /><Parameter Name=\"currentRequest\" Type=\"Edm.String\" /></Fu" +
+                "nctionImport><FunctionImport Name=\"TransferApprovalDoc\" ReturnType=\"Edm.Boolean\"" +
+                " m:HttpMethod=\"GET\"><Parameter Name=\"currentAirlines\" Type=\"Edm.String\" /><Param" +
+                "eter Name=\"currentApprovalDoc\" Type=\"Edm.String\" /></FunctionImport><FunctionImp" +
+                "ort Name=\"TransferOperationHistory\" ReturnType=\"Edm.Boolean\" m:HttpMethod=\"GET\">" +
+                "<Parameter Name=\"currentAirlines\" Type=\"Edm.String\" /><Parameter Name=\"currentOp" +
+                "erationHistory\" Type=\"Edm.String\" /></FunctionImport><FunctionImport Name=\"Trans" +
+                "ferAircraftBusiness\" ReturnType=\"Edm.Boolean\" m:HttpMethod=\"GET\"><Parameter Name" +
+                "=\"currentAirlines\" Type=\"Edm.String\" /><Parameter Name=\"currentAircraftBusiness\"" +
+                " Type=\"Edm.String\" /></FunctionImport><FunctionImport Name=\"TransferOwnershipHis" +
+                "tory\" ReturnType=\"Edm.Boolean\" m:HttpMethod=\"GET\"><Parameter Name=\"currentAirlin" +
+                "es\" Type=\"Edm.String\" /><Parameter Name=\"currentOwnershipHistory\" Type=\"Edm.Stri" +
+                "ng\" /></FunctionImport><FunctionImport Name=\"TransferPlanHistory\" ReturnType=\"Ed" +
+                "m.Boolean\" m:HttpMethod=\"GET\"><Parameter Name=\"currentAirlines\" Type=\"Edm.String" +
+                "\" /><Parameter Name=\"currentPlanHistory\" Type=\"Edm.String\" /></FunctionImport><A" +
+                "ssociationSet Name=\"RequestDTO_RelatedDocs\" Association=\"UniCloud.Application.Fl" +
+                "eetPlanBC.DTO.RequestDTO_RelatedDocs\"><End Role=\"RequestDTO\" EntitySet=\"Requests" +
+                "\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet></EntityC" +
+                "ontainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {

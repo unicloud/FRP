@@ -157,24 +157,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         #region 当前运力增减计划
 
-        private ObservableCollection<PlanDTO> _curPlan = new ObservableCollection<PlanDTO>();
         private PlanHistoryDTO _selPlanHistory;
-
-        /// <summary>
-        ///     当前运力增减计划
-        /// </summary>
-        public ObservableCollection<PlanDTO> CurPlan
-        {
-            get { return _curPlan; }
-            set
-            {
-                if (_curPlan != value)
-                {
-                    _curPlan = value;
-                    RaisePropertyChanged(() => CurPlan);
-                }
-            }
-        }
 
         /// <summary>
         ///     当前年度运力增减计划明细集合
@@ -493,15 +476,19 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                         SelRequest.Status = (int)RequestStatus.已提交;
                     }
                     SelRequest.SubmitDate = DateTime.Now;
-                    //this.service.SubmitChanges(sc =>
-                    //{
-                    //    if (sc.Error == null)
-                    //    {
-                    //        // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
-                    //        this.service.TransferPlanAndRequest(this.CurrentPlan.PlanID, this.SelRequest.RequestID, tp => { }, null);
-                    //        RefreshButtonState();
-                    //    }
-                    //}, null);
+                    this._service.SubmitChanges(sc =>
+                    {
+                        if (sc.Error == null)
+                        {
+                            PlanDTO curPlan = Plans.First();
+                            if (curPlan != null)
+                            {
+                                // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
+                                this._service.TransferPlanAndRequest(curPlan.AirlinesId, curPlan.Id, this.SelRequest.Id, _context);
+                                RefreshCommandState();
+                            }
+                        }
+                    }, null);
                 }
             });
             RefreshCommandState();

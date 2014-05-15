@@ -98,10 +98,12 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// <param name="currentAirlines"></param>
         /// <param name="currentRequest"></param>
         [WebGet]
-        public bool TransferRequest(Guid currentAirlines, Guid currentRequest)
+        public bool TransferRequest(string currentAirlines, string currentRequest)
         {
+            Guid airlinesId = Guid.Parse(currentAirlines);
+            Guid id = Guid.Parse(currentRequest);
             var transferService = DefaultContainer.Resolve<IFleetTransferService>();
-            return transferService.TransferRequest(currentAirlines, currentRequest);
+            return transferService.TransferRequest(airlinesId, id);
         }
 
         /// <summary>
@@ -110,10 +112,12 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// <param name="currentAirlines"></param>
         /// <param name="currentPlan"></param>
         [WebGet]
-        public bool TransferPlan(Guid currentAirlines, Guid currentPlan)
+        public bool TransferPlan(string currentAirlines, string currentPlan)
         {
+            Guid airlinesId = Guid.Parse(currentAirlines);
+            Guid id = Guid.Parse(currentPlan);
             var transferService = DefaultContainer.Resolve<IFleetTransferService>();
-            return transferService.TransferRequest(currentAirlines, currentPlan);
+            return transferService.TransferPlan(airlinesId, id);
 
         }
 
@@ -125,10 +129,13 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// <param name="currentRequest"></param>
         /// <returns></returns>
         [WebGet]
-        public bool TransferPlanAndRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest)
+        public bool TransferPlanAndRequest(string currentAirlines, string currentPlan, string currentRequest)
         {
+            Guid airlinesId = Guid.Parse(currentAirlines);
+            Guid planId = Guid.Parse(currentPlan);
+            Guid requestId = Guid.Parse(currentRequest);
             var transferService = DefaultContainer.Resolve<IFleetTransferService>();
-            return transferService.TransferPlanAndRequest(currentAirlines, currentPlan, currentRequest);
+            return transferService.TransferPlanAndRequest(airlinesId, planId, requestId);
         }
 
         /// <summary>
@@ -137,10 +144,12 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// <param name="currentAirlines"></param>
         /// <param name="currentApprovalDoc"></param>
         [WebGet]
-        public bool TransferApprovalDoc(Guid currentAirlines, Guid currentApprovalDoc)
+        public bool TransferApprovalDoc(string currentAirlines, string currentApprovalDoc)
         {
+            Guid airlinesId = Guid.Parse(currentAirlines);
+            Guid id = Guid.Parse(currentApprovalDoc);
             var transferService = DefaultContainer.Resolve<IFleetTransferService>();
-            return transferService.TransferApprovalDoc(currentAirlines, currentApprovalDoc);
+            return transferService.TransferApprovalDoc(airlinesId, id);
         }
 
         /// <summary>
@@ -150,10 +159,12 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// <param name="currentOperationHistory"></param>
         /// <returns></returns>
         [WebGet]
-        public bool TransferOperationHistory(Guid currentAirlines, Guid currentOperationHistory)
+        public bool TransferOperationHistory(string currentAirlines, string currentOperationHistory)
         {
+            Guid airlinesId = Guid.Parse(currentAirlines);
+            Guid id = Guid.Parse(currentOperationHistory);
             var transferService = DefaultContainer.Resolve<IFleetTransferService>();
-            return transferService.TransferOperationHistory(currentAirlines, currentOperationHistory);
+            return transferService.TransferOperationHistory(airlinesId, id);
         }
 
 
@@ -163,10 +174,12 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// <param name="currentAirlines"></param>
         /// <param name="currentAircraftBusiness"></param>
         [WebGet]
-        public bool TransferAircraftBusiness(Guid currentAirlines, Guid currentAircraftBusiness)
+        public bool TransferAircraftBusiness(string currentAirlines, string currentAircraftBusiness)
         {
+            Guid airlinesId = Guid.Parse(currentAirlines);
+            Guid id = Guid.Parse(currentAircraftBusiness);
             var transferService = DefaultContainer.Resolve<IFleetTransferService>();
-            return transferService.TransferAircraftBusiness(currentAirlines, currentAircraftBusiness);
+            return transferService.TransferAircraftBusiness(airlinesId, id);
         }
 
         /// <summary>
@@ -175,10 +188,12 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// <param name="currentAirlines"></param>
         /// <param name="currentOwnershipHistory"></param>
         [WebGet]
-        public bool TransferOwnershipHistory(Guid currentAirlines, Guid currentOwnershipHistory)
+        public bool TransferOwnershipHistory(string currentAirlines, string currentOwnershipHistory)
         {
+            Guid airlinesId = Guid.Parse(currentAirlines);
+            Guid id = Guid.Parse(currentOwnershipHistory);
             var transferService = DefaultContainer.Resolve<IFleetTransferService>();
-            return transferService.TransferOwnershipHistory(currentAirlines, currentOwnershipHistory);
+            return transferService.TransferOwnershipHistory(airlinesId, id);
         }
 
         /// <summary>
@@ -188,10 +203,12 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// <param name="currentPlanHistory"></param>
         /// <returns></returns>
         [WebGet]
-        public bool TransferPlanHistory(Guid currentAirlines, Guid currentPlanHistory)
+        public bool TransferPlanHistory(string currentAirlines, string currentPlanHistory)
         {
+            Guid airlinesId = Guid.Parse(currentAirlines);
+            Guid id = Guid.Parse(currentPlanHistory);
             var transferService = DefaultContainer.Resolve<IFleetTransferService>();
-            return transferService.TransferPlanHistory(currentAirlines, currentPlanHistory);
+            return transferService.TransferPlanHistory(airlinesId, id);
         }
 
         #endregion

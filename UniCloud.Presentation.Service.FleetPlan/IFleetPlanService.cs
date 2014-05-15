@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ServiceModel.DomainServices.Client;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
@@ -196,6 +197,60 @@ namespace UniCloud.Presentation.Service.FleetPlan
         void RemoveOwnership(OwnershipHistoryDTO ownership);
 
         #endregion
+
+        #endregion
+
+        #region 数据传输
+
+        /// <summary>
+        ///  发送申请
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentRequest"></param>
+        /// <param name="fleetContext"></param>
+        void TransferRequest(Guid currentAirlines, Guid currentRequest, FleetPlanData fleetContext);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentPlan"></param>
+        /// <param name="fleetContext"></param>
+        void TransferPlan(Guid currentAirlines, Guid currentPlan, FleetPlanData fleetContext);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentApprovalDoc"></param>
+        /// <param name="fleetContext"></param>
+        void TransferApprovalDoc(Guid currentAirlines, Guid currentApprovalDoc, FleetPlanData fleetContext);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentPlanHistory"></param>
+        /// <param name="fleetContext"></param>
+        void TransferPlanHistory(Guid currentAirlines, Guid currentPlanHistory, FleetPlanData fleetContext);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentOwnershipHistory"></param>
+        /// <param name="fleetContext"></param>
+        void TransferOwnershipHistory(Guid currentAirlines, Guid currentOwnershipHistory, FleetPlanData fleetContext);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentPlan"></param>
+        /// <param name="currentRequest"></param>
+        /// <param name="fleetContext"></param>
+        void TransferPlanAndRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest,
+            FleetPlanData fleetContext);
 
         #endregion
     }

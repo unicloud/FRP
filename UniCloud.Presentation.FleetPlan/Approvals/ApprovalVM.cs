@@ -466,15 +466,15 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                     {
                         SelApprovalDoc.Status = (int) OperationStatus.已提交;
                     }
-                    //this.service.SubmitChanges(sc =>
-                    //{
-                    //    if (sc.Error == null)
-                    //    {
-                    //        // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
-                    //        this.service.TransferApprovalDoc(this.SelApprovalDoc.ApprovalDocID, tp => { }, null);
-                    //        RefreshButtonState();
-                    //    }
-                    //}, null);
+                    this._service.SubmitChanges(sc =>
+                    {
+                        if (sc.Error == null)
+                        {
+                            // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
+                            this._service.TransferApprovalDoc(Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"), SelApprovalDoc.Id, _context);
+                            RefreshCommandState();
+                        }
+                    }, null);
                 }
             });
             RefreshCommandState();

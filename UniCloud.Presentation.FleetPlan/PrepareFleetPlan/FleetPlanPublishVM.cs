@@ -387,18 +387,18 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     if (this.SelPlan.PublishStatus != (int)PlanPublishStatus.已发布)
                     {
                         this.SelPlan.PublishStatus = (int)PlanPublishStatus.已发布;
-                        //_service.SubmitChanges(sc =>
-                        //{
-                        //    if (sc.Error == null)
-                        //    {
-                        //        // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
-                        //        _service.TransferPlan(this.SelPlan.PlanID, tp => { }, null);
-                        //    }
-                        //}, null);
+                        _service.SubmitChanges(sc =>
+                        {
+                            if (sc.Error == null)
+                            {
+                                // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
+                                _service.TransferPlan(SelPlan.AirlinesId,SelPlan.Id,_context);
+                            }
+                        }, null);
                     }
                     else
                     {
-                        //_service.TransferPlan(this.SelPlan.PlanID, tp => { }, null);
+                        _service.TransferPlan(SelPlan.AirlinesId, SelPlan.Id, _context);
                     }
                 }
             });
