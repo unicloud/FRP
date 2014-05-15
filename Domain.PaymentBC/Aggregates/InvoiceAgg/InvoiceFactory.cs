@@ -194,6 +194,30 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
             return invoice;
         }
 
+
+        /// <summary>
+        ///     创建特修改装发票
+        /// </summary>
+        /// <param name="invoiceCode">发票代码</param>
+        /// <param name="invoiceDate">发票日期</param>
+        /// <param name="operatorName">经办人</param>
+        /// <returns>特修改装发票</returns>
+        public static SpecialRefitInvoice CreateSpecialRefitInvoice(string invoiceCode, DateTime invoiceDate,
+            string operatorName)
+        {
+            var invoice = new SpecialRefitInvoice
+            {
+                InvoideCode = invoiceCode,
+                InvoiceDate = invoiceDate,
+                CreateDate = DateTime.Now
+            };
+            invoice.SetInvoiceType(InvoiceType.特修改装发票);
+            invoice.GenerateNewIdentity();
+            invoice.SetOperator(operatorName);
+
+            return invoice;
+        }
+
         /// <summary>
         ///     设置发票属性
         /// </summary>
@@ -228,11 +252,12 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         ///     设置发票行属性
         /// </summary>
         /// <param name="invoiceLine">发票行</param>
+        /// <param name="itemName">项名称</param>
         /// <param name="amount">金额</param>
         /// <param name="order">订单</param>
         /// <param name="orderLineId">订单行Id</param>
         /// <param name="note">备注</param>
-        public static void SetInvoiceLine(PurchaseInvoiceLine invoiceLine,  decimal amount, Order order,
+        public static void SetInvoiceLine(PurchaseInvoiceLine invoiceLine, int itemName, decimal amount, Order order,
             int orderLineId, string note)
         {
             if (order != null)
@@ -240,6 +265,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
                 var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == orderLineId);
                 invoiceLine.SetOrderLine(orderLine);
             }
+            invoiceLine.SetItemName((ItemNameType)itemName);
             invoiceLine.SetAmount(amount);
             invoiceLine.SetNote(note);
         }

@@ -98,11 +98,11 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                 if (order != null)
                 {
                     var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
-                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.Amount, orderLine, invoiceLine.Note);
+                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine, invoiceLine.Note);
                 }
                 else
                 {
-                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.Amount, null, invoiceLine.Note);
+                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null, invoiceLine.Note);
                 }
             }
             newCreditNoteInvoice.SetInvoiceValue();
@@ -193,7 +193,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             newCreditNoteInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
             foreach (var invoiceLine in creditNoteInvoice.InvoiceLines)
             {
-                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.Amount, null, invoiceLine.Note);
+                newCreditNoteInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null, invoiceLine.Note);
             }
             newCreditNoteInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newCreditNoteInvoice);
@@ -266,7 +266,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                     result = InvoiceFactory.CreateInvoiceLine();
                     result.ChangeCurrentIdentity(sourceInvoiceLine.InvoiceLineId);
                 }
-                InvoiceFactory.SetInvoiceLine(result, sourceInvoiceLine.Amount, order,
+                InvoiceFactory.SetInvoiceLine(result, sourceInvoiceLine.ItemName, sourceInvoiceLine.Amount, order,
                     sourceInvoiceLine.InvoiceLineId, sourceInvoiceLine.Note);
                 invoiceLines.Add(result);
             }

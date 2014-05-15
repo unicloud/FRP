@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -26,6 +27,7 @@ using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
+using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 #endregion
 
@@ -95,7 +97,13 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 数据
 
         #region 公共属性
-
+        /// <summary>
+        ///   项名称
+        /// </summary>
+        public Dictionary<int, ItemNameType> ItemNameTypes
+        {
+            get { return Enum.GetValues(typeof(ItemNameType)).Cast<object>().ToDictionary(value => (int)value, value => (ItemNameType)value); }
+        }
         #region 币种集合
 
         /// <summary>

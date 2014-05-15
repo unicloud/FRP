@@ -41,7 +41,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     项名称
         /// </summary>
-        public string ItemName { get; set; }
+        public int ItemName { get; set; }
 
         /// <summary>
         ///     单价

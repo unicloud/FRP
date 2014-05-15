@@ -98,11 +98,11 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                 if (order != null)
                 {
                     var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
-                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.Amount, orderLine, invoiceLine.Note);
+                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine, invoiceLine.Note);
                 }
                 else
                 {
-                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.Amount, null, invoiceLine.Note);
+                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null, invoiceLine.Note);
                 }
             }
             newPurchaseInvoice.SetInvoiceValue();
@@ -191,7 +191,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             newSundryInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
             foreach (var invoiceLine in sundryInvoice.InvoiceLines)
             {
-                newSundryInvoice.AddInvoiceLine(invoiceLine.Amount, null, invoiceLine.Note);
+                newSundryInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null, invoiceLine.Note);
             }
             newSundryInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newSundryInvoice);
@@ -244,6 +244,93 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
 
         #endregion
 
+        #region SpecialRefitInvoiceDTO
+
+        /// <summary>
+        ///     获取所有特修改装发票
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<SpecialRefitInvoiceDTO> GetSpecialRefitInvoices()
+        {
+            var queryBuilder =
+                new QueryBuilder<SpecialRefitInvoice>();
+            return _purchaseInvoiceQuery.SpecialRefitInvoiceDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///     新增特修改装发票。
+        /// </summary>
+        /// <param name="specialRefitInvoice">特修改装发票DTO。</param>
+        [Insert(typeof(SpecialRefitInvoiceDTO))]
+        public void InsertSpecialRefitInvoice(SpecialRefitInvoiceDTO specialRefitInvoice)
+        {
+            var supplier = _supplierRepository.GetFiltered(p => p.Id == specialRefitInvoice.SupplierId).FirstOrDefault();
+            var currency = _currencyRepository.GetFiltered(p => p.Id == specialRefitInvoice.CurrencyId).FirstOrDefault();
+
+            var newSpecialRefitInvoice = InvoiceFactory.CreateSpecialRefitInvoice(specialRefitInvoice.InvoideCode,
+                specialRefitInvoice.InvoiceDate, specialRefitInvoice.OperatorName);
+            var date = DateTime.Now.Date;
+            var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            newSpecialRefitInvoice.SetInvoiceNumber(seq);
+            newSpecialRefitInvoice.SetSupplier(supplier);
+            newSpecialRefitInvoice.SetPaidAmount(specialRefitInvoice.PaidAmount);
+            newSpecialRefitInvoice.SetCurrency(currency);
+            newSpecialRefitInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
+            foreach (var invoiceLine in specialRefitInvoice.InvoiceLines)
+            {
+                newSpecialRefitInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null, invoiceLine.Note);
+            }
+            newSpecialRefitInvoice.SetInvoiceValue();
+            _invoiceRepository.Add(newSpecialRefitInvoice);
+        }
+
+        /// <summary>
+        ///     更新特修改装发票。
+        /// </summary>
+        /// <param name="specialRefitInvoice">特修改装发票DTO。</param>
+        [Update(typeof(SpecialRefitInvoiceDTO))]
+        public void ModifySpecialRefitInvoice(SpecialRefitInvoiceDTO specialRefitInvoice)
+        {
+            var supplier = _supplierRepository.GetFiltered(p => p.Id == specialRefitInvoice.SupplierId).FirstOrDefault();
+            var currency = _currencyRepository.GetFiltered(p => p.Id == specialRefitInvoice.CurrencyId).FirstOrDefault();
+
+            var updateSpecialRefitInvoice = _invoiceRepository.GetBasePurchaseInvoice(specialRefitInvoice.SpecialRefitId);
+            //获取需要更新的对象。
+            if (updateSpecialRefitInvoice != null)
+            {
+                InvoiceFactory.SetInvoice(updateSpecialRefitInvoice, specialRefitInvoice.InvoideCode,
+                    specialRefitInvoice.InvoiceDate, specialRefitInvoice.OperatorName, specialRefitInvoice.InvoiceNumber, supplier,
+                    null,
+                    specialRefitInvoice.PaidAmount, currency, specialRefitInvoice.PaymentScheduleLineId, specialRefitInvoice.Status);
+                //更新主表。
+
+                UpdateInvoiceLines(specialRefitInvoice.InvoiceLines, updateSpecialRefitInvoice, null);
+                //更新从表。
+            }
+            _invoiceRepository.Modify(updateSpecialRefitInvoice);
+        }
+
+        /// <summary>
+        ///     删除特修改装发票。
+        /// </summary>
+        /// <param name="specialRefitInvoice">特修改装发票DTO。</param>
+        [Delete(typeof(SpecialRefitInvoiceDTO))]
+        public void DeleteSpecialRefitInvoice(SpecialRefitInvoiceDTO specialRefitInvoice)
+        {
+            if (specialRefitInvoice == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+            var delSpecialRefitInvoice = _invoiceRepository.GetBasePurchaseInvoice(specialRefitInvoice.SpecialRefitId);
+            //获取需要删除的对象。
+            if (delSpecialRefitInvoice != null)
+            {
+                _invoiceRepository.DeleteInvoice(delSpecialRefitInvoice); //删除特修改装发票。
+            }
+        }
+
+        #endregion
+
         #region 更新发票行集合
 
         /// <summary>
@@ -263,7 +350,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                     result = InvoiceFactory.CreateInvoiceLine();
                     result.ChangeCurrentIdentity(sourceInvoiceLine.InvoiceLineId);
                 }
-                InvoiceFactory.SetInvoiceLine(result, sourceInvoiceLine.Amount, order,
+                InvoiceFactory.SetInvoiceLine(result, sourceInvoiceLine.ItemName, sourceInvoiceLine.Amount, order,
                     sourceInvoiceLine.InvoiceLineId, sourceInvoiceLine.Note);
                 invoiceLines.Add(result);
             }

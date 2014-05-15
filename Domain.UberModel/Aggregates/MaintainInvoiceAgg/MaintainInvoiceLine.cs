@@ -34,11 +34,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainInvoiceAgg
         public MaintainItem MaintainItem { get; private set; }
 
         /// <summary>
-        ///     项名称
-        /// </summary>
-        public string ItemName { get; private set; }
-
-        /// <summary>
         ///     单价
         /// </summary>
         public decimal UnitPrice { get; private set; }
@@ -59,15 +54,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainInvoiceAgg
         public void SetMaintainItem(MaintainItem maintainItem)
         {
             MaintainItem = maintainItem;
-        }
-
-        /// <summary>
-        /// 设置项名称
-        /// </summary>
-        /// <param name="itemName">项名称</param>
-        public void SetItemName(string itemName)
-        {
-            ItemName = itemName;
         }
 
         /// <summary>

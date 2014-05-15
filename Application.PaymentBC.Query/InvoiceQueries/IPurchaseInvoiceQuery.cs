@@ -42,5 +42,13 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
         /// <returns>杂项发票DTO集合。</returns>
         IQueryable<SundryInvoiceDTO> SundryInvoiceDTOQuery(
             QueryBuilder<SundryInvoice> query);
+
+        /// <summary>
+        ///    特修改装发票查询
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>特修改装发票DTO集合。</returns>
+        IQueryable<SpecialRefitInvoiceDTO> SpecialRefitInvoiceDTOQuery(
+            QueryBuilder<SpecialRefitInvoice> query);
     }
 }

@@ -9,7 +9,8 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:LeaseInvoiceManagerVM}">
+             d:DataContext="{d:DesignInstance uc:LeaseInvoiceManagerVM}"
+             Name="LeaseInvoiceView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -260,9 +261,14 @@
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号"
                                                                  CellStyle="{StaticResource CellStyle}" />
-                                        <telerik:GridViewDataColumn Header="项名称"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding ItemName}" />
+                                        <telerik:GridViewComboBoxColumn Header="项名称"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        TextAlignment="Right"
+                                                                        HeaderTextAlignment="Center"
+                                                                        ItemsSource="{Binding DataContext.ItemNameTypes,ElementName=LeaseInvoiceView}"
+                                                                        DataMemberBinding="{Binding ItemName}"
+                                                                        SelectedValueMemberPath="Key"
+                                                                        DisplayMemberPath="Value" />
                                         <telerik:GridViewDataColumn Header="金额"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Amount}"

@@ -75,7 +75,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     新增租赁发票。
         /// </summary>
         /// <param name="leaseInvoice">租赁发票DTO。</param>
-        [Insert(typeof (LeaseInvoiceDTO))]
+        [Insert(typeof(LeaseInvoiceDTO))]
         public void InsertLeaseInvoice(LeaseInvoiceDTO leaseInvoice)
         {
             var supplier = _supplierRepository.GetFiltered(p => p.Id == leaseInvoice.SupplierId).FirstOrDefault();
@@ -98,11 +98,11 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                 if (order != null)
                 {
                     var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
-                    newLeaseInvoice.AddInvoiceLine( invoiceLine.Amount, orderLine, invoiceLine.Note);
+                    newLeaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine, invoiceLine.Note);
                 }
                 else
                 {
-                    newLeaseInvoice.AddInvoiceLine(invoiceLine.Amount, null, invoiceLine.Note);
+                    newLeaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null, invoiceLine.Note);
                 }
             }
             newLeaseInvoice.SetInvoiceValue();
@@ -113,7 +113,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     更新租赁发票。
         /// </summary>
         /// <param name="leaseInvoice">租赁发票DTO。</param>
-        [Update(typeof (LeaseInvoiceDTO))]
+        [Update(typeof(LeaseInvoiceDTO))]
         public void ModifyLeaseInvoice(LeaseInvoiceDTO leaseInvoice)
         {
             var supplier = _supplierRepository.GetFiltered(p => p.Id == leaseInvoice.SupplierId).FirstOrDefault();
@@ -139,7 +139,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     删除租赁发票。
         /// </summary>
         /// <param name="leaseInvoice">租赁发票DTO。</param>
-        [Delete(typeof (LeaseInvoiceDTO))]
+        [Delete(typeof(LeaseInvoiceDTO))]
         public void DeleteLeaseInvoice(LeaseInvoiceDTO leaseInvoice)
         {
             if (leaseInvoice == null)
@@ -175,7 +175,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                     result = InvoiceFactory.CreateInvoiceLine();
                     result.ChangeCurrentIdentity(sourceInvoiceLine.InvoiceLineId);
                 }
-                InvoiceFactory.SetInvoiceLine(result,  sourceInvoiceLine.Amount, order,
+                InvoiceFactory.SetInvoiceLine(result, sourceInvoiceLine.ItemName, sourceInvoiceLine.Amount, order,
                     sourceInvoiceLine.InvoiceLineId, sourceInvoiceLine.Note);
                 invoiceLines.Add(result);
             }

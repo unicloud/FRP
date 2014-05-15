@@ -85,6 +85,7 @@
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\LeaseInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoiceLine.cs" />
+    <Compile Include="Aggregates\InvoiceAgg\SpecialRefitInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\SundryInvoice.cs" />
     <Compile Include="Aggregates\LinkmanAgg\ILinkmanRepository.cs" />
     <Compile Include="Aggregates\LinkmanAgg\Linkman.cs" />
