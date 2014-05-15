@@ -12,13 +12,13 @@
 // ========================================================================*/
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
+namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
 {
     /// <summary>
     ///     发票聚合根
     ///     特修改装发票
     /// </summary>
-    public class SpecialRefitInvoice : BasePurchaseInvoice
+    public class SpecialRefitInvoice : MaintainInvoice
     {
         #region 私有字段
 

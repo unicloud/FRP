@@ -17,6 +17,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using UniCloud.Domain.UberModel.Aggregates.InvoiceAgg;
+using UniCloud.Domain.UberModel.Aggregates.MaintainInvoiceAgg;
 
 #endregion
 

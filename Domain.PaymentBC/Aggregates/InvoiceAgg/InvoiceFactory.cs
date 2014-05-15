@@ -21,6 +21,7 @@ using System;
 using System.Linq;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 
@@ -194,29 +195,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
             return invoice;
         }
 
-
-        /// <summary>
-        ///     创建特修改装发票
-        /// </summary>
-        /// <param name="invoiceCode">发票代码</param>
-        /// <param name="invoiceDate">发票日期</param>
-        /// <param name="operatorName">经办人</param>
-        /// <returns>特修改装发票</returns>
-        public static SpecialRefitInvoice CreateSpecialRefitInvoice(string invoiceCode, DateTime invoiceDate,
-            string operatorName)
-        {
-            var invoice = new SpecialRefitInvoice
-            {
-                InvoideCode = invoiceCode,
-                InvoiceDate = invoiceDate,
-                CreateDate = DateTime.Now
-            };
-            invoice.SetInvoiceType(InvoiceType.特修改装发票);
-            invoice.GenerateNewIdentity();
-            invoice.SetOperator(operatorName);
-
-            return invoice;
-        }
 
         /// <summary>
         ///     设置发票属性

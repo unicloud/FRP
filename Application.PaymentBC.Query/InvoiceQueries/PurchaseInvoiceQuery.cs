@@ -17,6 +17,7 @@
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -118,45 +119,6 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
                      });
         }
 
-        /// <summary>
-        ///    特修改装发票查询
-        /// </summary>
-        /// <param name="query">查询表达式。</param>
-        /// <returns>特修改装发票DTO集合。</returns>
-        public IQueryable<SpecialRefitInvoiceDTO> SpecialRefitInvoiceDTOQuery(
-            QueryBuilder<SpecialRefitInvoice> query)
-        {
-            return
-                query.ApplyTo(_unitOfWork.CreateSet<SpecialRefitInvoice>())
-                     .Select(p => new SpecialRefitInvoiceDTO
-                     {
-                         SpecialRefitId = p.Id,
-                         InvoiceNumber = p.InvoiceNumber,
-                         InvoideCode = p.InvoideCode,
-                         InvoiceDate = p.InvoiceDate,
-                         SupplierName = p.SupplierName,
-                         SupplierId = p.SupplierId,
-                         InvoiceValue = p.InvoiceValue,
-                         PaidAmount = p.PaidAmount,
-                         OperatorName = p.OperatorName,
-                         Reviewer = p.Reviewer,
-                         CreateDate = p.CreateDate,
-                         ReviewDate = p.ReviewDate,
-                         IsValid = p.IsValid,
-                         IsCompleted = p.IsCompleted,
-                         Status = (int)p.Status,
-                         CurrencyId = p.CurrencyId,
-                         InvoiceLines = p.InvoiceLines.Select(q => new InvoiceLineDTO
-                         {
-                             InvoiceLineId = q.Id,
-                             ItemName = (int)q.ItemName,
-                             Amount = q.Amount,
-                             InvoiceId = q.InvoiceId,
-                             OrderLineId = q.OrderLineId,
-                             Note = q.Note,
-                         }).ToList(),
-
-                     });
-        }
+       
     }
 }

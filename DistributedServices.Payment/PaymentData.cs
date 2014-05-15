@@ -116,7 +116,7 @@ namespace UniCloud.DistributedServices.Payment
         /// </summary>
         public IQueryable<SpecialRefitInvoiceDTO> SpecialRefitInvoices
         {
-            get { return _purchaseInvoiceAppService.GetSpecialRefitInvoices(); }
+            get { return _maintainInvoiceAppService.GetSpecialRefitInvoices(); }
         }
         #endregion
 

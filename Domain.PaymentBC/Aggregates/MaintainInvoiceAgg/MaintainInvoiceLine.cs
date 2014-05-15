@@ -62,6 +62,8 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         /// <param name="unitPrice">单价</param>
         public void SetUnitPrice(decimal unitPrice)
         {
+            if (unitPrice == 0)
+                unitPrice = 1;
             UnitPrice = unitPrice;
         }
         #endregion

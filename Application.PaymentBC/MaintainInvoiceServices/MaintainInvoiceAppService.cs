@@ -348,6 +348,88 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         }
         #endregion
 
+        #region SpecialRefitInvoiceDTO
+
+        /// <summary>
+        ///     获取所有特修改装发票
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<SpecialRefitInvoiceDTO> GetSpecialRefitInvoices()
+        {
+            var queryBuilder =
+                new QueryBuilder<SpecialRefitInvoice>();
+            return _maintainInvoiceQuery.SpecialRefitInvoiceDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///     新增特修改装发票。
+        /// </summary>
+        /// <param name="specialRefitInvoice">特修改装发票DTO。</param>
+        [Insert(typeof(SpecialRefitInvoiceDTO))]
+        public void InsertSpecialRefitInvoice(SpecialRefitInvoiceDTO specialRefitInvoice)
+        {
+            var newSpecialRefitInvoice = MaintainInvoiceFactory.CreateSpecialRefitInvoice();
+            newSpecialRefitInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
+            MaintainInvoiceFactory.SetMaintainInvoice(newSpecialRefitInvoice, "0",
+                specialRefitInvoice.InvoideCode, specialRefitInvoice.InvoiceDate, specialRefitInvoice.SupplierName, specialRefitInvoice.SupplierId,
+                specialRefitInvoice.InvoiceValue, specialRefitInvoice.PaidAmount, specialRefitInvoice.OperatorName,
+               specialRefitInvoice.Reviewer, specialRefitInvoice.Status, specialRefitInvoice.CurrencyId,
+               specialRefitInvoice.DocumentName, specialRefitInvoice.DocumentId, specialRefitInvoice.PaymentScheduleLineId,
+               specialRefitInvoice.InMaintainTime, specialRefitInvoice.OutMaintainTime);
+            if (specialRefitInvoice.MaintainInvoiceLines != null)
+            {
+                foreach (var maintainInvoiceLine in specialRefitInvoice.MaintainInvoiceLines)
+                {
+                    var newMaintainInvoiceLine = MaintainInvoiceFactory.CreateInvoiceLine();
+                    MaintainInvoiceFactory.SetInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem, maintainInvoiceLine.ItemName, 1, maintainInvoiceLine.Amount,
+                 maintainInvoiceLine.Note);
+                    newSpecialRefitInvoice.InvoiceLines.Add(newMaintainInvoiceLine);
+                }
+            }
+            newSpecialRefitInvoice.SetInvoiceValue();
+            _invoiceRepository.Add(newSpecialRefitInvoice);
+        }
+
+        /// <summary>
+        ///     更新特修改装发票。
+        /// </summary>
+        /// <param name="specialRefitInvoice">特修改装发票DTO。</param>
+        [Update(typeof(SpecialRefitInvoiceDTO))]
+        public void ModifySpecialRefitInvoice(SpecialRefitInvoiceDTO specialRefitInvoice)
+        {
+            var updateSpecialRefitInvoice =
+               _invoiceRepository.GetMaintainInvoice(specialRefitInvoice.SpecialRefitId);//获取需要更新的对象。
+            MaintainInvoiceFactory.SetMaintainInvoice(updateSpecialRefitInvoice, "0",
+                  specialRefitInvoice.InvoideCode, specialRefitInvoice.InvoiceDate, specialRefitInvoice.SupplierName, specialRefitInvoice.SupplierId,
+                  specialRefitInvoice.InvoiceValue, specialRefitInvoice.PaidAmount, specialRefitInvoice.OperatorName,
+                 specialRefitInvoice.Reviewer, specialRefitInvoice.Status, specialRefitInvoice.CurrencyId,
+                 specialRefitInvoice.DocumentName, specialRefitInvoice.DocumentId, specialRefitInvoice.PaymentScheduleLineId,
+                 specialRefitInvoice.InMaintainTime, specialRefitInvoice.OutMaintainTime);
+            UpdateMaintainInvoiceLines(specialRefitInvoice.MaintainInvoiceLines, updateSpecialRefitInvoice);
+            _invoiceRepository.Modify(updateSpecialRefitInvoice);
+        }
+
+        /// <summary>
+        ///     删除特修改装发票。
+        /// </summary>
+        /// <param name="specialRefitInvoice">特修改装发票DTO。</param>
+        [Delete(typeof(SpecialRefitInvoiceDTO))]
+        public void DeleteSpecialRefitInvoice(SpecialRefitInvoiceDTO specialRefitInvoice)
+        {
+            if (specialRefitInvoice == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+            var delSpecialRefitInvoice = _invoiceRepository.GetBasePurchaseInvoice(specialRefitInvoice.SpecialRefitId);
+            //获取需要删除的对象。
+            if (delSpecialRefitInvoice != null)
+            {
+                _invoiceRepository.DeleteInvoice(delSpecialRefitInvoice); //删除特修改装发票。
+            }
+        }
+
+        #endregion
+
         #region 更新发票行集合
         /// <summary>
         /// 更新发票行集合

@@ -38,7 +38,7 @@
                                 HasDocumentHost="False">
                 <telerik:RadSplitContainer Orientation="Vertical">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="维修杂项发票"
+                        <telerik:RadPane Header="维修特修改装发票"
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
@@ -71,13 +71,13 @@
                                                        Command="{Binding NewCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/New.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="新建杂项发票" />
+                                               ToolTipService.ToolTip="新建特修改装发票" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding DeleteCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="删除杂项发票" />
+                                               ToolTipService.ToolTip="删除特修改装发票" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding SubmitCommand}">

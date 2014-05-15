@@ -17,6 +17,7 @@
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 
 #endregion
 
@@ -43,12 +44,5 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
         IQueryable<SundryInvoiceDTO> SundryInvoiceDTOQuery(
             QueryBuilder<SundryInvoice> query);
 
-        /// <summary>
-        ///    特修改装发票查询
-        /// </summary>
-        /// <param name="query">查询表达式。</param>
-        /// <returns>特修改装发票DTO集合。</returns>
-        IQueryable<SpecialRefitInvoiceDTO> SpecialRefitInvoiceDTOQuery(
-            QueryBuilder<SpecialRefitInvoice> query);
     }
 }
