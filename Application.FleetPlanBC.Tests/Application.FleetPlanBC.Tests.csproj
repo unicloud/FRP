@@ -79,6 +79,7 @@
     <Compile Include="Services\ActionCategoryBCTest.cs" />
     <Compile Include="Services\AnnualBCTest.cs" />
     <Compile Include="Services\ProgrammingBCTest.cs" />
+    <Compile Include="Services\TransferMailTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -97,6 +98,10 @@
       <Project>{a9d72b6e-9889-4c74-8cc2-25b816e16dd8}</Project>
       <Name>Application.FleetPlanBC</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Domain.CommonServiceBC\Domain.CommonServiceBC.csproj">
+      <Project>{951A0799-0E74-4EFF-AF8A-D6A94FC8586F}</Project>
+      <Name>Domain.CommonServiceBC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain.FleetPlanBC\Domain.FleetPlanBC.csproj">
       <Project>{eae70e2d-1c23-45c9-a9a9-695dff09b7ab}</Project>
       <Name>Domain.FleetPlanBC</Name>
@@ -112,6 +117,10 @@
     <ProjectReference Include="..\Infrastructure.Crosscutting\Infrastructure.Crosscutting.csproj">
       <Project>{340e4cf3-f789-4ae1-bc04-96040995859c}</Project>
       <Name>Infrastructure.Crosscutting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.CommonServiceBC\Infrastructure.Data.CommonServiceBC.csproj">
+      <Project>{C28ED932-4CFA-45D2-9826-C23A2DDE7A53}</Project>
+      <Name>Infrastructure.Data.CommonServiceBC</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure.Data.FleetPlanBC\Infrastructure.Data.FleetPlanBC.csproj">
       <Project>{ea442277-80d8-4e88-823d-c75581e953d7}</Project>

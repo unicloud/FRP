@@ -644,6 +644,39 @@
           <Parameter Name="planType" Type="Edm.Int32" Nullable="false" />
           <Parameter Name="relatedGuid" Type="Edm.String" />
         </FunctionImport>
+        <FunctionImport Name="TransferRequest" ReturnType="Edm.Boolean" m:HttpMethod="GET">
+          <Parameter Name="currentAirlines" Type="Edm.Guid" Nullable="false" />
+          <Parameter Name="currentRequest" Type="Edm.Guid" Nullable="false" />
+        </FunctionImport>
+        <FunctionImport Name="TransferPlan" ReturnType="Edm.Boolean" m:HttpMethod="GET">
+          <Parameter Name="currentAirlines" Type="Edm.Guid" Nullable="false" />
+          <Parameter Name="currentPlan" Type="Edm.Guid" Nullable="false" />
+        </FunctionImport>
+        <FunctionImport Name="TransferPlanAndRequest" ReturnType="Edm.Boolean" m:HttpMethod="GET">
+          <Parameter Name="currentAirlines" Type="Edm.Guid" Nullable="false" />
+          <Parameter Name="currentPlan" Type="Edm.Guid" Nullable="false" />
+          <Parameter Name="currentRequest" Type="Edm.Guid" Nullable="false" />
+        </FunctionImport>
+        <FunctionImport Name="TransferApprovalDoc" ReturnType="Edm.Boolean" m:HttpMethod="GET">
+          <Parameter Name="currentAirlines" Type="Edm.Guid" Nullable="false" />
+          <Parameter Name="currentApprovalDoc" Type="Edm.Guid" Nullable="false" />
+        </FunctionImport>
+        <FunctionImport Name="TransferOperationHistory" ReturnType="Edm.Boolean" m:HttpMethod="GET">
+          <Parameter Name="currentAirlines" Type="Edm.Guid" Nullable="false" />
+          <Parameter Name="currentOperationHistory" Type="Edm.Guid" Nullable="false" />
+        </FunctionImport>
+        <FunctionImport Name="TransferAircraftBusiness" ReturnType="Edm.Boolean" m:HttpMethod="GET">
+          <Parameter Name="currentAirlines" Type="Edm.Guid" Nullable="false" />
+          <Parameter Name="currentAircraftBusiness" Type="Edm.Guid" Nullable="false" />
+        </FunctionImport>
+        <FunctionImport Name="TransferOwnershipHistory" ReturnType="Edm.Boolean" m:HttpMethod="GET">
+          <Parameter Name="currentAirlines" Type="Edm.Guid" Nullable="false" />
+          <Parameter Name="currentOwnershipHistory" Type="Edm.Guid" Nullable="false" />
+        </FunctionImport>
+        <FunctionImport Name="TransferPlanHistory" ReturnType="Edm.Boolean" m:HttpMethod="GET">
+          <Parameter Name="currentAirlines" Type="Edm.Guid" Nullable="false" />
+          <Parameter Name="currentPlanHistory" Type="Edm.Guid" Nullable="false" />
+        </FunctionImport>
         <AssociationSet Name="RequestDTO_RelatedDocs" Association="UniCloud.Application.FleetPlanBC.DTO.RequestDTO_RelatedDocs">
           <End Role="RequestDTO" EntitySet="Requests" />
           <End Role="RelatedDocs" EntitySet="RelatedDocs" />

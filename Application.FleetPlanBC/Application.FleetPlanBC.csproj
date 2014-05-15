@@ -42,6 +42,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UniCloud.Mail">
+      <HintPath>..\packages\UniCloud.Mail.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionCategoryServices\ActionCategoryAppService.cs" />
@@ -60,6 +63,8 @@
     <Compile Include="AircraftPlanHistoryServices\PlanHistoryAppService.cs" />
     <Compile Include="CAACAircraftTypeServices\CAACAircraftTypeAppService.cs" />
     <Compile Include="CAACAircraftTypeServices\ICAACAircraftTypeAppService.cs" />
+    <Compile Include="FleetTransferServices\FleetTransferService.cs" />
+    <Compile Include="FleetTransferServices\IFleetTransferService.cs" />
     <Compile Include="IssuedUnitServices\IIssuedUnitAppService.cs" />
     <Compile Include="IssuedUnitServices\IssuedUnitAppService.cs" />
     <Compile Include="ProgrammingFileServices\IProgrammingFileAppService.cs" />
@@ -116,6 +121,10 @@
     <ProjectReference Include="..\Application\Application.csproj">
       <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
       <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.CommonServiceBC\Domain.CommonServiceBC.csproj">
+      <Project>{951A0799-0E74-4EFF-AF8A-D6A94FC8586F}</Project>
+      <Name>Domain.CommonServiceBC</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
       <Project>{E48E84DE-5A91-4D16-84E5-CFFC4C7E7657}</Project>

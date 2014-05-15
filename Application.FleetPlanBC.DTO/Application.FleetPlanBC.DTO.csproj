@@ -67,6 +67,27 @@
     <Compile Include="AircraftCategoryDTO\AircraftCateDTO.cs" />
     <Compile Include="AircraftConfigurationDTO\AircraftConfigurationDTO.cs" />
     <Compile Include="AircraftDTO\AcConfigHistoryDTO.cs" />
+    <Compile Include="DataTransfer\ActionCategory.cs" />
+    <Compile Include="DataTransfer\Agreement.cs" />
+    <Compile Include="DataTransfer\AgreementDetail.cs" />
+    <Compile Include="DataTransfer\Aircraft.cs" />
+    <Compile Include="DataTransfer\AircraftBusiness.cs" />
+    <Compile Include="DataTransfer\AircraftCategory.cs" />
+    <Compile Include="DataTransfer\AircraftType.cs" />
+    <Compile Include="DataTransfer\Airlines.cs" />
+    <Compile Include="DataTransfer\ApprovalDoc.cs" />
+    <Compile Include="DataTransfer\ApprovalHistory.cs" />
+    <Compile Include="DataTransfer\Annual.cs" />
+    <Compile Include="DataTransfer\ChangePlan.cs" />
+    <Compile Include="DataTransfer\DeliveryRisk.cs" />
+    <Compile Include="DataTransfer\Enums.cs" />
+    <Compile Include="DataTransfer\ManaApprovalHistory.cs" />
+    <Compile Include="DataTransfer\Manager.cs" />
+    <Compile Include="DataTransfer\Manufacturer.cs" />
+    <Compile Include="DataTransfer\OperationHistory.cs" />
+    <Compile Include="DataTransfer\OperationPlan.cs" />
+    <Compile Include="DataTransfer\Owner.cs" />
+    <Compile Include="DataTransfer\OwnershipHistory.cs" />
     <Compile Include="AircraftPlanDTO\PerformPlan.cs" />
     <Compile Include="AircraftSeriesDTO\AircraftSeriesDTO.cs" />
     <Compile Include="AircraftCategoryDTO\AircraftCategoryDTO.cs" />
@@ -88,6 +109,11 @@
     <Compile Include="CAACAircraftTypeDTO\CAACAircraftTypeDTO.cs" />
     <Compile Include="CaacProgrammingDTO\CaacProgrammingDTO.cs" />
     <Compile Include="CaacProgrammingDTO\CaacProgrammingLineDTO.cs" />
+    <Compile Include="DataTransfer\Plan.cs" />
+    <Compile Include="DataTransfer\PlanAircraft.cs" />
+    <Compile Include="DataTransfer\PlanHistory.cs" />
+    <Compile Include="DataTransfer\Request.cs" />
+    <Compile Include="DataTransfer\SubOperationHistory.cs" />
     <Compile Include="EngineDTO\EngineBusinessHistoryDTO.cs" />
     <Compile Include="EngineDTO\EngineDTO.cs" />
     <Compile Include="EngineDTO\EngineOwnerShipHistoryDTO.cs" />
@@ -100,6 +126,7 @@
     <Compile Include="ManufacturerDTO\ManufacturerDTO.cs" />
     <Compile Include="PlanAircraftDTO\PlanAircraftDTO.cs" />
     <Compile Include="PlanEngineDTO\PlanEngineDTO.cs" />
+    <Compile Include="Programming.cs" />
     <Compile Include="ProgrammingDTO\ProgrammingDTO.cs" />
     <Compile Include="ProgrammingFileDTO\ProgrammingFileDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,6 +139,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

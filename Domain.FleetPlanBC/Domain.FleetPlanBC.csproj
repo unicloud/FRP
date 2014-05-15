@@ -100,6 +100,9 @@
     <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgrammingLine.cs" />
     <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgrammingSpecifications.cs" />
     <Compile Include="Aggregates\CaacProgrammingAgg\ICaacProgrammingRepository.cs" />
+    <Compile Include="Aggregates\DocumentAgg\Document.cs" />
+    <Compile Include="Aggregates\DocumentAgg\DocumentSpecifications.cs" />
+    <Compile Include="Aggregates\DocumentAgg\IDocumentRepository.cs" />
     <Compile Include="Aggregates\EngineAgg\Engine.cs" />
     <Compile Include="Aggregates\EngineAgg\EngineBusinessHistory.cs" />
     <Compile Include="Aggregates\EngineAgg\EngineFactory.cs" />

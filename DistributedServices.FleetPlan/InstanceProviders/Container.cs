@@ -22,6 +22,7 @@ using UniCloud.Application.FleetPlanBC.CaacProgrammingServices;
 using UniCloud.Application.FleetPlanBC.EnginePlanServices;
 using UniCloud.Application.FleetPlanBC.EngineServices;
 using UniCloud.Application.FleetPlanBC.EngineTypeServices;
+using UniCloud.Application.FleetPlanBC.FleetTransferServices;
 using UniCloud.Application.FleetPlanBC.IssuedUnitServices;
 using UniCloud.Application.FleetPlanBC.MailAddressServices;
 using UniCloud.Application.FleetPlanBC.ManagerServices;
@@ -77,6 +78,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg;
@@ -320,7 +322,10 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IRelatedDocQuery, RelatedDocQuery>()
                 .RegisterType<IRelatedDocAppService, RelatedDocAppService>()
                 .RegisterType<IRelatedDocRepository, RelatedDocRepository>()
+                .RegisterType<IDocumentRepository,DocumentRepository>()
                 #endregion
+                .RegisterType<IFleetTransferService, FleetTransferService>()
+
                 ;
         }
 

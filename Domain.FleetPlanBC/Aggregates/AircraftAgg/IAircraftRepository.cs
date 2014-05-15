@@ -65,5 +65,13 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// <returns></returns>
         AircraftBusiness GetAb(object id);
 
+
+        /// <summary>
+        /// 获取单个的所有权历史
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        OwnershipHistory GetOh(object id);
+
     }
 }
