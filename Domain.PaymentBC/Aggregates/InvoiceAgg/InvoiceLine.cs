@@ -19,6 +19,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 
@@ -44,6 +45,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
 
         #region 属性
         /// <summary>
+        ///     项名称
+        /// </summary>
+        public ItemNameType ItemName { get; private set; }
+
+        /// <summary>
         ///     金额/数量
         /// </summary>
         public decimal Amount { get; private set; }
@@ -65,6 +71,15 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        /// 设置项名称
+        /// </summary>
+        /// <param name="itemName">项名称</param>
+        public void SetItemName(ItemNameType itemName)
+        {
+            ItemName = itemName;
+        }
+
         /// <summary>
         /// 设置数量/金额
         /// </summary>

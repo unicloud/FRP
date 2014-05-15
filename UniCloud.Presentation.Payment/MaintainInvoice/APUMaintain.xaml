@@ -307,11 +307,14 @@
                                                                             DataMemberBinding="{Binding MaintainItem}"
                                                                             SelectedValueMemberPath="Key"
                                                                             DisplayMemberPath="Value" />
-                                            <telerik:GridViewDataColumn Header="项名称"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        TextAlignment="Right"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding ItemName}" />
+                                            <telerik:GridViewComboBoxColumn Header="项名称"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            TextAlignment="Right"
+                                                                            HeaderTextAlignment="Center"
+                                                                            ItemsSource="{Binding DataContext.ItemNameTypes,ElementName=ApuMaintainView}"
+                                                                            DataMemberBinding="{Binding ItemName}"
+                                                                            SelectedValueMemberPath="Key"
+                                                                            DisplayMemberPath="Value" />
                                             <telerik:GridViewMaskedInputColumn Header="单价"
                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                TextAlignment="Right"

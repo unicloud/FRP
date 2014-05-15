@@ -67,6 +67,7 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
                          InvoiceLines = p.InvoiceLines.Select(q => new InvoiceLineDTO
                          {
                              InvoiceLineId = q.Id,
+                             ItemName = (int)q.ItemName,
                              Amount = q.Amount,
                              InvoiceId = q.InvoiceId,
                              OrderLineId = q.OrderLineId,
@@ -107,6 +108,7 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
                          InvoiceLines = p.InvoiceLines.Select(q => new InvoiceLineDTO
                          {
                              InvoiceLineId = q.Id,
+                             ItemName = (int)q.ItemName,
                              Amount = q.Amount,
                              InvoiceId = q.InvoiceId,
                              OrderLineId = q.OrderLineId,

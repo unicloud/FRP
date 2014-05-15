@@ -668,6 +668,11 @@ namespace UniCloud.Presentation.Shell
                 Text = "维护杂项发票",
                 NavUri = "UniCloud.Presentation.Payment.Invoice.SundryInvoiceManager"
             };
+            var menu428 = new MenuItem
+            {
+                Text = "维护特修改装发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.SpecialRefitInvoiceManager"
+            };
             menu42.Items.Add(menu421);
             menu42.Items.Add(menu422);
             menu42.Items.Add(menu423);
@@ -675,6 +680,7 @@ namespace UniCloud.Presentation.Shell
             menu42.Items.Add(menu425);
             menu42.Items.Add(menu426);
             menu42.Items.Add(menu427);
+            menu42.Items.Add(menu428);
             menu4.Items.Add(menu42);
 
 

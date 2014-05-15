@@ -24,6 +24,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment.Enums
         租赁发票 = 2,
         维修发票 = 3,
         贷项单 = 4,
-        杂项发票 = 5
+        杂项发票 = 5,
+        特修改装发票 = 6,
     }
 }

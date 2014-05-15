@@ -36,6 +36,11 @@ namespace UniCloud.Application.PaymentBC.DTO
         public int InvoiceLineId { get; set; }
 
         /// <summary>
+        ///     项名称
+        /// </summary>
+        public int ItemName { get; set; }
+
+        /// <summary>
         ///     金额
         /// </summary>
         public decimal Amount { get; set; }

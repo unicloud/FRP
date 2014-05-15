@@ -212,6 +212,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var menu425 = FunctionItemFactory.CreateFunctionItem("维护采购贷项单", menu42.Id, 40205, false, false, "UniCloud.Presentation.Payment.Invoice.PurchaseCreditNoteManager");
             var menu426 = FunctionItemFactory.CreateFunctionItem("维护维修贷项单", menu42.Id, 40206, false, false, "UniCloud.Presentation.Payment.Invoice.MaintainCreditNoteManager");
             var menu427 = FunctionItemFactory.CreateFunctionItem("维护杂项发票", menu42.Id, 40207, false, false, "UniCloud.Presentation.Payment.Invoice.SundryInvoiceManager");
+            var menu428 = FunctionItemFactory.CreateFunctionItem("维护特修改装发票", menu42.Id, 40208, false, false, "UniCloud.Presentation.Payment.Invoice.SpecialRefitInvoiceManager");
             menu42.SubFunctionItems.Add(menu421);
             menu42.SubFunctionItems.Add(menu422);
             menu42.SubFunctionItems.Add(menu423);
@@ -219,6 +220,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu42.SubFunctionItems.Add(menu425);
             menu42.SubFunctionItems.Add(menu426);
             menu42.SubFunctionItems.Add(menu427);
+            menu42.SubFunctionItems.Add(menu428);
             menu4.SubFunctionItems.Add(menu42);
 
 

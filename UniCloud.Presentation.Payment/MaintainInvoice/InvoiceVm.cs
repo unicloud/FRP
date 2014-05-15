@@ -79,6 +79,13 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             get { return Enum.GetValues(typeof(MaintainItem)).Cast<object>().ToDictionary(value => (int)value, value => (MaintainItem)value); }
         }
 
+        /// <summary>
+        ///   项名称
+        /// </summary>
+        public Dictionary<int, ItemNameType> ItemNameTypes
+        {
+            get { return Enum.GetValues(typeof(ItemNameType)).Cast<object>().ToDictionary(value => (int)value, value => (ItemNameType)value); }
+        }
         #region 关联的付款计划及付款计划行
         /// <summary>
         ///     所有付款计划集合

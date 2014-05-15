@@ -3,11 +3,11 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2014/5/4 9:56:41
-// 文件名：MaintainCreditNoteManagerVm
+// 作者：linxw 时间：2014/5/15 10:08:32
+// 文件名：SpecialRefitInvoiceManagerVm
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2014/5/4 9:56:41
+// 修改者：linxw 时间：2014/5/15 10:08:32
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -33,9 +33,9 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(MaintainCreditNoteManagerVm))]
+    [Export(typeof(SpecialRefitInvoiceManagerVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class MaintainCreditNoteManagerVm : EditViewModelBase
+    public class SpecialRefitInvoiceManagerVm : EditViewModelBase
     {
         #region 声明、初始化
 
@@ -44,7 +44,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public MaintainCreditNoteManagerVm(IRegionManager regionManager, IPaymentService service)
+        public SpecialRefitInvoiceManagerVm(IRegionManager regionManager, IPaymentService service)
             : base(service)
         {
             _regionManager = regionManager;
@@ -62,13 +62,13 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         private void InitializeVM()
         {
-            CreditNotes = _service.CreateCollection(_context.MaintainCreditNotes, o => o.InvoiceLines);
-            CreditNotes.LoadedData += (o, e) =>
-                                      {
-                                          if (SelCreditNote == null)
-                                              SelCreditNote = CreditNotes.FirstOrDefault();
-                                      };
-            _service.RegisterCollectionView(CreditNotes); //注册查询集合。
+            SpecialRefitInvoices = _service.CreateCollection(_context.SpecialRefitInvoices, o => o.InvoiceLines);
+            SpecialRefitInvoices.LoadedData += (o, e) =>
+                                         {
+                                             if (SelectRefitInvoice == null)
+                                                 SelectRefitInvoice = SpecialRefitInvoices.FirstOrDefault();
+                                         };
+            _service.RegisterCollectionView(SpecialRefitInvoices); //注册查询集合。
 
         }
 
@@ -151,35 +151,35 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         public override void LoadData()
         {
-            CreditNotes.AutoLoad = true;
+            SpecialRefitInvoices.AutoLoad = true;
             Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies));
             Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
         }
 
         #region 业务
 
-        #region 贷项单集合
+        #region 特修改装发票集合
 
         /// <summary>
-        ///     贷项单集合
+        ///     特修改装发票集合
         /// </summary>
-        public QueryableDataServiceCollectionView<MaintainCreditNoteDTO> CreditNotes { get; set; }
+        public QueryableDataServiceCollectionView<SpecialRefitInvoiceDTO> SpecialRefitInvoices { get; set; }
 
         #endregion
 
-        #region 选择的贷项单
+        #region 选择的特修改装发票
 
-        private MaintainCreditNoteDTO _selCreditNote;
+        private SpecialRefitInvoiceDTO _selectRefitInvoice;
 
         /// <summary>
-        ///     选择的贷项单
+        ///     选择的特修改装发票
         /// </summary>
-        public MaintainCreditNoteDTO SelCreditNote
+        public SpecialRefitInvoiceDTO SelectRefitInvoice
         {
-            get { return _selCreditNote; }
+            get { return _selectRefitInvoice; }
             set
             {
-                _selCreditNote = value;
+                _selectRefitInvoice = value;
                 _invoiceLines.Clear();
                 if (value != null)
                 {
@@ -189,18 +189,18 @@ namespace UniCloud.Presentation.Payment.Invoice
                         InvoiceLines.Add(invoiceLine);
                     }
                 }
-                RaisePropertyChanged(() => SelCreditNote);
+                RaisePropertyChanged(() => SelectRefitInvoice);
             }
         }
 
         #endregion
 
-        #region 贷项单行
+        #region 特修改装发票行
 
         private ObservableCollection<InvoiceLineDTO> _invoiceLines = new ObservableCollection<InvoiceLineDTO>();
 
         /// <summary>
-        ///     贷项单行
+        ///     特修改装发票行
         /// </summary>
         public ObservableCollection<InvoiceLineDTO> InvoiceLines
         {
@@ -217,12 +217,12 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
-        #region 选择的贷项单行
+        #region 选择的特修改装发票行
 
         private InvoiceLineDTO _selInvoiceLine;
 
         /// <summary>
-        ///     选择的贷项单行
+        ///     选择的特修改装发票行
         /// </summary>
         public InvoiceLineDTO SelInvoiceLine
         {
@@ -247,18 +247,18 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 操作
 
-        #region 新建贷项单
+        #region 新建特修改装发票
 
         /// <summary>
-        ///     新建贷项单
+        ///     新建特修改装发票
         /// </summary>
         public DelegateCommand<object> NewCommand { get; private set; }
 
         private void OnNew(object obj)
         {
-            SelCreditNote = new MaintainCreditNoteDTO
+            SelectRefitInvoice = new SpecialRefitInvoiceDTO
             {
-                CreditNoteId = RandomHelper.Next(),
+                SpecialRefitId = RandomHelper.Next(),
                 CreateDate = DateTime.Now,
                 InvoiceDate = DateTime.Now,
                 CurrencyId = Currencies.FirstOrDefault().Id,
@@ -266,10 +266,10 @@ namespace UniCloud.Presentation.Payment.Invoice
             var supplier = Suppliers.FirstOrDefault();
             if (supplier != null)
             {
-                SelCreditNote.SupplierId = supplier.SupplierId;
-                SelCreditNote.SupplierName = supplier.Name;
+                SelectRefitInvoice.SupplierId = supplier.SupplierId;
+                SelectRefitInvoice.SupplierName = supplier.Name;
             }
-            CreditNotes.AddNew(SelCreditNote);
+            SpecialRefitInvoices.AddNew(SelectRefitInvoice);
         }
 
         private bool CanNew(object obj)
@@ -279,16 +279,16 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
-        #region 删除贷项单
+        #region 删除特修改装发票
 
         /// <summary>
-        ///     删除贷项单
+        ///     删除特修改装发票
         /// </summary>
         public DelegateCommand<object> DeleteCommand { get; private set; }
 
         private void OnDelete(object obj)
         {
-            if (SelCreditNote == null)
+            if (SelectRefitInvoice == null)
             {
                 MessageAlert("请选择一条记录！");
                 return;
@@ -296,9 +296,9 @@ namespace UniCloud.Presentation.Payment.Invoice
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
                                             {
                                                 if (arg.DialogResult != true) return;
-                                                CreditNotes.Remove(SelCreditNote);
-                                                SelCreditNote = CreditNotes.FirstOrDefault();
-                                                if (SelCreditNote == null)
+                                                SpecialRefitInvoices.Remove(SelectRefitInvoice);
+                                                SelectRefitInvoice = SpecialRefitInvoices.FirstOrDefault();
+                                                if (SelectRefitInvoice == null)
                                                 {
                                                     //删除完，若没有记录了，则也要删除界面明细
                                                     InvoiceLines.Clear();
@@ -313,16 +313,16 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
-        #region 新增贷项单行
+        #region 新增特修改装发票行
 
         /// <summary>
-        ///     新增贷项单行
+        ///     新增特修改装发票行
         /// </summary>
         public DelegateCommand<object> AddCommand { get; private set; }
 
         private void OnAdd(object obj)
         {
-            if (SelCreditNote == null)
+            if (SelectRefitInvoice == null)
             {
                 MessageAlert("请选择一条记录！");
                 return;
@@ -330,9 +330,9 @@ namespace UniCloud.Presentation.Payment.Invoice
             SelInvoiceLine = new InvoiceLineDTO
             {
                 InvoiceLineId = RandomHelper.Next(),
-                InvoiceId = SelCreditNote.CreditNoteId,
+                InvoiceId = SelectRefitInvoice.SpecialRefitId,
             };
-            SelCreditNote.InvoiceLines.Add(SelInvoiceLine);
+            SelectRefitInvoice.InvoiceLines.Add(SelInvoiceLine);
             InvoiceLines.Add(SelInvoiceLine);
         }
 
@@ -343,10 +343,10 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
-        #region 删除贷项单行
+        #region 删除特修改装发票行
 
         /// <summary>
-        ///     删除贷项单行
+        ///     删除特修改装发票行
         /// </summary>
         public DelegateCommand<object> RemoveCommand { get; private set; }
 
@@ -360,8 +360,8 @@ namespace UniCloud.Presentation.Payment.Invoice
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
                                             {
                                                 if (arg.DialogResult != true) return;
-                                                SelCreditNote.InvoiceLines.Remove(SelInvoiceLine);
-                                                SelInvoiceLine = SelCreditNote.InvoiceLines.FirstOrDefault();
+                                                SelectRefitInvoice.InvoiceLines.Remove(SelInvoiceLine);
+                                                SelInvoiceLine = SelectRefitInvoice.InvoiceLines.FirstOrDefault();
                                                 InvoiceLines.Remove(SelInvoiceLine);
                                             });
         }
@@ -401,8 +401,8 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnCheck(object obj)
         {
-            SelCreditNote.Reviewer = "HQB";
-            SelCreditNote.ReviewDate = DateTime.Now;
+            SelectRefitInvoice.Reviewer = "HQB";
+            SelectRefitInvoice.ReviewDate = DateTime.Now;
         }
 
         private bool CanCheck(object obj)
@@ -426,10 +426,10 @@ namespace UniCloud.Presentation.Payment.Invoice
             if (gridView != null)
             {
                 var cell = gridView.CurrentCell;
-                if (string.Equals(cell.Column.UniqueName, "TotalLine"))
+                if (string.Equals(cell.Column.UniqueName, "TotalLine", StringComparison.OrdinalIgnoreCase))
                 {
-                    decimal totalCount = SelCreditNote.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
-                    SelCreditNote.InvoiceValue = totalCount;
+                    decimal totalCount = SelectRefitInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
+                    SelectRefitInvoice.InvoiceValue = totalCount;
                 }
             }
         }

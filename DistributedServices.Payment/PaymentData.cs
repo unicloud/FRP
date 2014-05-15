@@ -107,6 +107,14 @@ namespace UniCloud.DistributedServices.Payment
         {
             get { return _purchaseInvoiceAppService.GetSundryInvoices(); }
         }
+
+        /// <summary>
+        ///     特修改装发票集合
+        /// </summary>
+        public IQueryable<SpecialRefitInvoiceDTO> SpecialRefitInvoices
+        {
+            get { return _purchaseInvoiceAppService.GetSpecialRefitInvoices(); }
+        }
         #endregion
 
         #region 维修发票

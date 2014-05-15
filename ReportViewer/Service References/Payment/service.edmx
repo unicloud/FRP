@@ -27,6 +27,7 @@
       </EntityType>
       <ComplexType Name="InvoiceLineDTO">
         <Property Name="InvoiceLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ItemName" Type="Edm.Int32" Nullable="false" />
         <Property Name="Amount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="InvoiceId" Type="Edm.Int32" Nullable="false" />
@@ -174,6 +175,29 @@
         <Property Name="PaymentScheduleLineId" Type="Edm.Int32" />
         <Property Name="InvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.InvoiceLineDTO)" Nullable="false" />
       </EntityType>
+      <EntityType Name="SpecialRefitInvoiceDTO">
+        <Key>
+          <PropertyRef Name="SpecialRefitId" />
+        </Key>
+        <Property Name="SpecialRefitId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="InvoiceNumber" Type="Edm.String" />
+        <Property Name="InvoideCode" Type="Edm.String" />
+        <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="InvoiceValue" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="PaidAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="OperatorName" Type="Edm.String" />
+        <Property Name="Reviewer" Type="Edm.String" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ReviewDate" Type="Edm.DateTime" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="PaymentScheduleLineId" Type="Edm.Int32" />
+        <Property Name="InvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.InvoiceLineDTO)" Nullable="false" />
+      </EntityType>
       <EntityType Name="BaseInvoiceDTO">
         <Key>
           <PropertyRef Name="InvoiceId" />
@@ -228,7 +252,7 @@
       <ComplexType Name="MaintainInvoiceLineDTO">
         <Property Name="MaintainInvoiceLineId" Type="Edm.Int32" Nullable="false" />
         <Property Name="MaintainItem" Type="Edm.Int32" Nullable="false" />
-        <Property Name="ItemName" Type="Edm.String" />
+        <Property Name="ItemName" Type="Edm.Int32" Nullable="false" />
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
@@ -765,6 +789,7 @@
         <EntitySet Name="MaintainPrepaymentInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.MaintainPrepaymentInvoiceDTO" />
         <EntitySet Name="PurchaseInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.PurchaseInvoiceDTO" />
         <EntitySet Name="SundryInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.SundryInvoiceDTO" />
+        <EntitySet Name="SpecialRefitInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.SpecialRefitInvoiceDTO" />
         <EntitySet Name="Invoices" EntityType="UniCloud.Application.PaymentBC.DTO.BaseInvoiceDTO" />
         <EntitySet Name="EngineMaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.EngineMaintainInvoiceDTO" />
         <EntitySet Name="APUMaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.APUMaintainInvoiceDTO" />

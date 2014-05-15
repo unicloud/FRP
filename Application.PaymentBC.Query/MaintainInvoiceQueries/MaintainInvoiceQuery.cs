@@ -101,7 +101,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                                                             {
                                                                                 MaintainInvoiceLineId = q.Id,
                                                                                 MaintainItem = (int)q.MaintainItem,
-                                                                                ItemName = q.ItemName,
+                                                                                ItemName = (int)q.ItemName,
                                                                                 UnitPrice = q.UnitPrice,
                                                                                 Amount = q.Amount,
                                                                                 Note = q.Note
@@ -147,7 +147,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                                                     {
                                                                         MaintainInvoiceLineId = q.Id,
                                                                         MaintainItem = (int)q.MaintainItem,
-                                                                        ItemName = q.ItemName,
+                                                                        ItemName = (int)q.ItemName,
                                                                         UnitPrice = q.UnitPrice,
                                                                         Amount = q.Amount,
                                                                         Note = q.Note
@@ -192,7 +192,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                                                     {
                                                                         MaintainInvoiceLineId = q.Id,
                                                                         MaintainItem = (int)q.MaintainItem,
-                                                                        ItemName = q.ItemName,
+                                                                        ItemName = (int)q.ItemName,
                                                                         UnitPrice = q.UnitPrice,
                                                                         Amount = q.Amount,
                                                                         Note = q.Note
@@ -238,7 +238,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                                                     {
                                                                         MaintainInvoiceLineId = q.Id,
                                                                         MaintainItem = (int)q.MaintainItem,
-                                                                        ItemName = q.ItemName,
+                                                                        ItemName = (int)q.ItemName,
                                                                         UnitPrice = q.UnitPrice,
                                                                         Amount = q.Amount,
                                                                         Note = q.Note

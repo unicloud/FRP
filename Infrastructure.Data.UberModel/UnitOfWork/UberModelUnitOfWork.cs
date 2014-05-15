@@ -937,6 +937,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new PurchaseInvoiceLineEntityConfiguration())
                 .Add(new BasePurchaseInvoiceEntityConfiguration())
                 .Add(new SundryInvoiceEntityConfiguration())
+                .Add(new SpecialRefitInvoiceEntityConfiguration())
             #endregion
 
             #region ItemAgg

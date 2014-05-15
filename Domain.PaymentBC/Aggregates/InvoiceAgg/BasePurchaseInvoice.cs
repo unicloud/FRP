@@ -16,6 +16,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 
 #endregion
@@ -76,13 +77,15 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// <summary>
         ///     添加发票行
         /// </summary>
+        /// <param name="itemName">项名称</param>
         /// <param name="amount">金额</param>
         /// <param name="orderLine">订单行</param>
         /// <param name="note">备注</param>
         /// <returns>发票行</returns>
-        public PurchaseInvoiceLine AddInvoiceLine( decimal amount, OrderLine orderLine, string note)
+        public PurchaseInvoiceLine AddInvoiceLine(int itemName, decimal amount, OrderLine orderLine, string note)
         {
             var invoiceLine = new PurchaseInvoiceLine();
+            invoiceLine.SetItemName((ItemNameType)itemName);
             invoiceLine.SetAmount(amount);
             invoiceLine.SetNote(note);
             invoiceLine.GenerateNewIdentity();

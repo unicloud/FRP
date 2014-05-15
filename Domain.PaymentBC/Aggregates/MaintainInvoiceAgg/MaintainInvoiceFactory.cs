@@ -155,10 +155,10 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         /// <param name="note">备注</param>
         /// <param name="maintainItem">维修项</param>
         /// <param name="itemName">项名称</param>
-        public static void SetInvoiceLine(MaintainInvoiceLine invoiceLine, int maintainItem, string itemName, decimal price, decimal amount, string note)
+        public static void SetInvoiceLine(MaintainInvoiceLine invoiceLine, int maintainItem, int itemName, decimal price, decimal amount, string note)
         {
             invoiceLine.SetMaintainItem((MaintainItem)maintainItem);
-            invoiceLine.SetItemName(itemName);
+            invoiceLine.SetItemName((ItemNameType)itemName);
             invoiceLine.SetUnitPrice(price);
             invoiceLine.SetAmount(amount);
             invoiceLine.SetNote(note);

@@ -9,7 +9,8 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:MaintainPrepayInvoiceManagerVm}">
+             d:DataContext="{d:DesignInstance uc:MaintainPrepayInvoiceManagerVm}"
+             Name="MaintainPrepayInvoiceView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -261,6 +262,14 @@
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号"
                                                                      CellStyle="{StaticResource CellStyle}" />
+                                            <telerik:GridViewComboBoxColumn Header="项名称"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            TextAlignment="Right"
+                                                                            HeaderTextAlignment="Center"
+                                                                            ItemsSource="{Binding DataContext.ItemNameTypes,ElementName=MaintainPrepayInvoiceView}"
+                                                                            DataMemberBinding="{Binding ItemName}"
+                                                                            SelectedValueMemberPath="Key"
+                                                                            DisplayMemberPath="Value" />
                                             <telerik:GridViewDataColumn Header="金额"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding Amount}"

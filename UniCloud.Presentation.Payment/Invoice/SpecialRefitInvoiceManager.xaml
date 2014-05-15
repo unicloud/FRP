@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UniCloud.Presentation.Payment.Invoice.MaintainCreditNoteManager"
+﻿<UserControl x:Class="UniCloud.Presentation.Payment.Invoice.SpecialRefitInvoiceManager"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,8 +9,8 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:MaintainCreditNoteManagerVm}"
-             Name="MaintainCreditNoteView">
+             d:DataContext="{d:DesignInstance uc:SpecialRefitInvoiceManagerVm}"
+             Name="SpecialRefitInvoiceView">
     <UserControl.Resources>
         <ResourceDictionary>
             <Style x:Key="EditComboBox"
@@ -31,14 +31,14 @@
     </UserControl.Resources>
 
     <telerik:RadBusyIndicator BusyContent="{Binding BusyContent,Mode=TwoWay}"
-                              IsBusy="{Binding CreditNotes.IsBusy,Mode=TwoWay}">
+                              IsBusy="{Binding SpecialRefitInvoices.IsBusy,Mode=TwoWay}">
         <Grid>
             <telerik:RadDocking BorderThickness="0"
                                 Padding="0"
                                 HasDocumentHost="False">
                 <telerik:RadSplitContainer Orientation="Vertical">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="维修贷项单发票"
+                        <telerik:RadPane Header="维修杂项发票"
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
@@ -54,14 +54,14 @@
                                                     OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding CreditNotes}">
+                                                       CommandParameter="{Binding SpecialRefitInvoices}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存发票" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding CreditNotes}">
+                                                       CommandParameter="{Binding SpecialRefitInvoices}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
@@ -71,13 +71,13 @@
                                                        Command="{Binding NewCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/New.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="新建贷项单发票" />
+                                               ToolTipService.ToolTip="新建杂项发票" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding DeleteCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="删除贷项单发票" />
+                                               ToolTipService.ToolTip="删除杂项发票" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding SubmitCommand}">
@@ -93,11 +93,11 @@
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
                                 <telerik:RadGridView Grid.Row="1"
-                                                     Name="CreditNoteList"
+                                                     Name="Invoices"
                                                      IsReadOnly="{Binding IsSubmited}"
-                                                     ItemsSource="{Binding CreditNotes,Mode=TwoWay}"
+                                                     ItemsSource="{Binding SpecialRefitInvoices,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
-                                                     SelectedItem="{Binding SelCreditNote,Mode=TwoWay}"
+                                                     SelectedItem="{Binding SelectRefitInvoice,Mode=TwoWay}"
                                                      AutoExpandGroups="True"
                                                      ShowGroupPanel="False"
                                                      CanUserSortColumns="True"
@@ -107,10 +107,10 @@
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=CreditNoteList, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=Invoices, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=CreditNoteList, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=Invoices, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
@@ -232,7 +232,6 @@
                                                      Grid.Row="1"
                                                      IsReadOnly="{Binding IsSubmited}"
                                                      ItemsSource="{Binding InvoiceLines,Mode=TwoWay}"
-                                                     IsBusy="{Binding CreditNotes.IsBusy}"
                                                      AutoGenerateColumns="False"
                                                      SelectedItem="{Binding SelInvoiceLine,Mode=TwoWay}"
                                                      AutoExpandGroups="True"
@@ -263,7 +262,7 @@
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         TextAlignment="Right"
                                                                         HeaderTextAlignment="Center"
-                                                                        ItemsSource="{Binding DataContext.ItemNameTypes,ElementName=MaintainCreditNoteView}"
+                                                                        ItemsSource="{Binding DataContext.ItemNameTypes,ElementName=SpecialRefitInvoiceView}"
                                                                         DataMemberBinding="{Binding ItemName}"
                                                                         SelectedValueMemberPath="Key"
                                                                         DisplayMemberPath="Value" />
