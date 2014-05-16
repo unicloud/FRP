@@ -782,8 +782,8 @@ namespace UniCloud.Presentation.Shell
             };
             var menu474 = new MenuItem
             {
-                Text = "分析维修成本",
-                NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.AnalyseMaintenanceCosts"
+                Text = "特修改装",
+                NavUri = "UniCloud.Presentation.Payment.MaintainCost.SpecialRefitMaintainCostManage"
             };
             menu47.Items.Add(menu471);
             menu47.Items.Add(menu472);

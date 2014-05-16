@@ -96,5 +96,32 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             maintainCost.AddedValue = addedValue;
             maintainCost.AnnualId = annualId;
         }
+
+
+        /// <summary>
+        ///     创建特修改装维修成本
+        /// </summary>
+        /// <returns></returns>
+        public static SpecialRefitMaintainCost CreateSpecialRefitMaintainCost()
+        {
+            var maintainCost = new SpecialRefitMaintainCost();
+            maintainCost.GenerateNewIdentity();
+
+            return maintainCost;
+        }
+
+
+        public static void SetSpecialRefitMaintainCost(SpecialRefitMaintainCost maintainCost, string project, string info, decimal departmentDeclareAmount, string note, decimal financialApprovalAmount,
+            decimal financialApprovalAmountNonTax, int? maintainInvoiceId, Guid annualId)
+        {
+            maintainCost.Project = project;
+            maintainCost.Info = info;
+            maintainCost.DepartmentDeclareAmount = departmentDeclareAmount;
+            maintainCost.Note = note;
+            maintainCost.FinancialApprovalAmount = financialApprovalAmount;
+            maintainCost.FinancialApprovalAmountNonTax = financialApprovalAmountNonTax;
+            maintainCost.MaintainInvoiceId = maintainInvoiceId;
+            maintainCost.AnnualId = annualId;
+        }
     }
 }

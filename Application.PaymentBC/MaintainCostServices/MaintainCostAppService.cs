@@ -142,5 +142,56 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
             _maintainCostRepository.Remove(deleteUndercartMaintainCost); //删除起落架维修成。
         }
         #endregion
+
+        #region SpecialRefitMaintainCostDTO
+        /// <summary>
+        ///     获取所有特修改装维修成。
+        /// </summary>
+        /// <returns>所有特修改装维修成。</returns>
+        public IQueryable<SpecialRefitMaintainCostDTO> GetSpecialRefitMaintainCosts()
+        {
+            var queryBuilder = new QueryBuilder<SpecialRefitMaintainCost>();
+            return _maintainCostQuery.SpecialRefitMaintainCostDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///     新增特修改装维修成。
+        /// </summary>
+        /// <param name="specialRefitMaintainCost">特修改装维修成DTO。</param>
+        [Insert(typeof(SpecialRefitMaintainCostDTO))]
+        public void InsertSpecialRefitMaintainCost(SpecialRefitMaintainCostDTO specialRefitMaintainCost)
+        {
+            var newSpecialRefitMaintainCost = MaintainCostFactory.CreateSpecialRefitMaintainCost();
+            MaintainCostFactory.SetSpecialRefitMaintainCost(newSpecialRefitMaintainCost, specialRefitMaintainCost.Project, specialRefitMaintainCost.Info, specialRefitMaintainCost.DepartmentDeclareAmount,
+                specialRefitMaintainCost.Note, specialRefitMaintainCost.FinancialApprovalAmount, specialRefitMaintainCost.FinancialApprovalAmountNonTax, specialRefitMaintainCost.MaintainInvoiceId, specialRefitMaintainCost.AnnualId);
+            _maintainCostRepository.Add(newSpecialRefitMaintainCost);
+        }
+
+
+        /// <summary>
+        ///     更新特修改装维修成。
+        /// </summary>
+        /// <param name="specialRefitMaintainCost">特修改装维修成DTO。</param>
+        [Update(typeof(SpecialRefitMaintainCostDTO))]
+        public void ModifySpecialRefitMaintainCost(SpecialRefitMaintainCostDTO specialRefitMaintainCost)
+        {
+            var updateSpecialRefitMaintainCost = _maintainCostRepository.Get(specialRefitMaintainCost.Id) as SpecialRefitMaintainCost; //获取需要更新的对象。
+            MaintainCostFactory.SetSpecialRefitMaintainCost(updateSpecialRefitMaintainCost, specialRefitMaintainCost.Project, specialRefitMaintainCost.Info, specialRefitMaintainCost.DepartmentDeclareAmount,
+                specialRefitMaintainCost.Note, specialRefitMaintainCost.FinancialApprovalAmount, specialRefitMaintainCost.FinancialApprovalAmountNonTax, specialRefitMaintainCost.MaintainInvoiceId, specialRefitMaintainCost.AnnualId);
+            _maintainCostRepository.Modify(updateSpecialRefitMaintainCost);
+        }
+
+        /// <summary>
+        ///     删除特修改装维修成。
+        /// </summary>
+        /// <param name="specialRefitMaintainCost">特修改装维修成DTO。</param>
+        [Delete(typeof(SpecialRefitMaintainCostDTO))]
+        public void DeleteSpecialRefitMaintainCost(SpecialRefitMaintainCostDTO specialRefitMaintainCost)
+        {
+            var deleteSpecialRefitMaintainCost = _maintainCostRepository.Get(specialRefitMaintainCost.Id);//获取需要删除的对象。
+            _maintainCostRepository.Remove(deleteSpecialRefitMaintainCost); //删除特修改装维修成。
+        }
+        #endregion
+
     }
 }

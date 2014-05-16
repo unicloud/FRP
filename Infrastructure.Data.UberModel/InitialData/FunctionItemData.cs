@@ -258,7 +258,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var menu471 = FunctionItemFactory.CreateFunctionItem("定检", menu47.Id, 40701, false, false, "UniCloud.Presentation.Payment.MaintainCost.RegularCheckMaintainCostManage");
             var menu472 = FunctionItemFactory.CreateFunctionItem("预测资金需求", menu47.Id, 40702, false, false, "UniCloud.Presentation.Payment.QueryAnalyse.FinancingDemandForecast");
             var menu473 = FunctionItemFactory.CreateFunctionItem("起落架", menu47.Id, 40703, false, false, "UniCloud.Presentation.Payment.MaintainCost.UndercartMaintainCostManage");
-            var menu474 = FunctionItemFactory.CreateFunctionItem("分析维修成本", menu47.Id, 40704, false, false, "UniCloud.Presentation.Payment.QueryAnalyse.AnalyseMaintenanceCosts");
+            var menu474 = FunctionItemFactory.CreateFunctionItem("特修改装", menu47.Id, 40704, false, false, "UniCloud.Presentation.Payment.MaintainCost.SpecialRefitMaintainCostManage");
             menu47.SubFunctionItems.Add(menu471);
             menu47.SubFunctionItems.Add(menu472);
             menu47.SubFunctionItems.Add(menu473);

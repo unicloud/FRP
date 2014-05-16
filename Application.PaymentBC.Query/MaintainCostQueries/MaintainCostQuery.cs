@@ -91,7 +91,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         OutMaintainTime = p.OutMaintainTime,
                         TotalDays = p.TotalDays,
                         MaintainInvoiceId = p.MaintainInvoiceId,
-                        Type=(int)p.Type,
+                        Type = (int)p.Type,
                         Part = (int)p.Part,
                         AddedValue = p.AddedValue,
                         AddedValueRate = p.AddedValueRate,
@@ -102,6 +102,32 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         MaintainFeeRmb = p.MaintainFeeRmb,
                         Rate = p.Rate,
                         ReplaceFee = p.ReplaceFee,
+                        AnnualId = p.AnnualId
+                    });
+        }
+
+        /// <summary>
+        ///      特修改装维修成本查询。
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns> 特修改装维修成本DTO集合。</returns>
+        public IQueryable<SpecialRefitMaintainCostDTO> SpecialRefitMaintainCostDTOQuery(
+           QueryBuilder<SpecialRefitMaintainCost> query)
+        {
+            return
+                query.ApplyTo(_maintainCostRepository.GetAll().OfType<SpecialRefitMaintainCost>())
+                    .Select(p => new SpecialRefitMaintainCostDTO
+                    {
+                        Id = p.Id,
+                        Project = p.Project,
+                        Info = p.Info,
+                        DepartmentDeclareAmount = p.DepartmentDeclareAmount,
+                        Note = p.Note,
+                        FinancialApprovalAmount = p.FinancialApprovalAmount,
+                        FinancialApprovalAmountNonTax = p.FinancialApprovalAmountNonTax,
+                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalAmount = p.MaintainInvoice.PaidAmount,
+                        MaintainInvoiceId = p.MaintainInvoiceId,
                         AnnualId = p.AnnualId
                     });
         }

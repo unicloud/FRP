@@ -849,6 +849,28 @@
         <Property Name="MaintainInvoiceId" Type="Edm.Int32" />
         <Property Name="AnnualId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
+      <EntityType Name="SpecialRefitMaintainCostDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Project" Type="Edm.String" />
+        <Property Name="Info" Type="Edm.String" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="InMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="OutMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="TotalDays" Type="Edm.Int32" Nullable="false" />
+        <Property Name="DepartmentDeclareAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="FinancialApprovalAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="FinancialApprovalAmountNonTax" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AcutalInMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="AcutalOutMaintainTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="AcutalTotalDays" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AcutalBudgetAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AcutalAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="MaintainInvoiceId" Type="Edm.Int32" />
+        <Property Name="AnnualId" Type="Edm.Guid" Nullable="false" />
+      </EntityType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Payment" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PaymentData" m:IsDefaultEntityContainer="true">
@@ -889,6 +911,7 @@
         <EntitySet Name="MaintainContracts" EntityType="UniCloud.Application.PaymentBC.DTO.MaintainContractDTO" />
         <EntitySet Name="RegularCheckMaintainCosts" EntityType="UniCloud.Application.PaymentBC.DTO.RegularCheckMaintainCostDTO" />
         <EntitySet Name="UndercartMaintainCosts" EntityType="UniCloud.Application.PaymentBC.DTO.UndercartMaintainCostDTO" />
+        <EntitySet Name="SpecialRefitMaintainCosts" EntityType="UniCloud.Application.PaymentBC.DTO.SpecialRefitMaintainCostDTO" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>
