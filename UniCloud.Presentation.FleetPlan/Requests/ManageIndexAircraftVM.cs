@@ -393,6 +393,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 ApprovalDocId = SelApprovalDoc.Id,
             };
             Requests.AddNew(newRequest);
+            CurRequest = newRequest;
             RefreshCommandState();
         }
 

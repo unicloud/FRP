@@ -229,6 +229,30 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
+        #region 选择的计划
+
+        private PlanHistoryDTO _selPlanHistory;
+
+        /// <summary>
+        ///     选择的计划
+        /// </summary>
+        public PlanHistoryDTO SelPlanHistory
+        {
+            get { return _selPlanHistory; }
+            private set
+            {
+                if (_selPlanHistory != value)
+                {
+                    _selPlanHistory = value;
+                    RaisePropertyChanged(() => SelPlanHistory);
+                    // 刷新发送按钮状态
+                    SendCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #endregion
@@ -299,11 +323,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                  if (e.DialogResult == true)
                  {
                      // 审核、已提交状态下可以发送。如果已处于提交状态，需要重新发送的，不必改变状态。
-                     if (SelPlan != null && SelPlan.Status != (int)PlanStatus.已提交)
+                     if (SelPlan != null)
                      {
-                         SelPlan.Status = (int)PlanStatus.已提交;
-                         SelPlan.IsFinished = true;
-                         SelPlan.SubmitDate = DateTime.Now;
+                         if (SelPlan.Status != (int) PlanStatus.已提交)
+                         {
+                             SelPlan.Status = (int)PlanStatus.已提交;
+                             SelPlan.IsFinished = true;
+                             SelPlan.SubmitDate = DateTime.Now;
+                         }
                          CurPlanHistories.Where(p=>p.IsSubmit &&  p.NeedRequest).ToList().ForEach(l=>l.CanRequest=(int)CanRequest.可申请);
                      }
                      this._service.SubmitChanges(sc =>

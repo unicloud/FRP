@@ -450,7 +450,7 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
             {
                 plan.AttachDoc = document.FileStorage;
             }
-            var planHistories = _planHistoryRepository.GetAll().Where(p => p.PlanId == dbPlan.Id).ToList();
+            var planHistories = _planHistoryRepository.GetAll().Where(p => p.PlanId == dbPlan.Id && p.IsSubmit).ToList();//只提交需要上报的计划明细
             if (planHistories.Any())
             {
                 planHistories.ForEach(p => plan.PlanHistories.Add(TransformPlanHistory(p)));

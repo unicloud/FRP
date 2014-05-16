@@ -329,7 +329,6 @@
       <DependentUpon>Request.xaml</DependentUpon>
     </Compile>
     <Compile Include="Requests\RequestInput.cs" />
-    <Compile Include="Requests\CanRequestConvert.cs" />
     <Compile Include="Requests\RequestVM.cs" />
   </ItemGroup>
   <ItemGroup>

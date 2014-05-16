@@ -524,7 +524,9 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             //将新建的实体添加到对应的注册集合中
             ViewPlanHistories.Add(EditPlanHistory);
             AllPlanHistories.AddNew(EditPlanHistory);
+            SelPlanHistory = EditPlanHistory;
             ViewPlanAircrafts.AddNew(EditPlanAircraft);
+            SelPlanAircraft = EditPlanAircraft;
         }
 
         private bool CanAddEntity(object obj)
@@ -726,12 +728,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                         if (actionCategory != null && actionCategory.NeedRequest)
                         {
                             planhistory.NeedRequest = actionCategory.NeedRequest;
+                            planhistory.IsSubmit = true;//将“是否上报”初始为“是”
                             planhistory.CanRequest = (int)CanRequest.未报计划;
                             planhistory.CanDeliver = (int)CanDeliver.未申请;
                         }
                         else if (actionCategory != null && !actionCategory.NeedRequest)
                         {
                             planhistory.NeedRequest = actionCategory.NeedRequest;
+                            planhistory.IsSubmit = false;//将“是否上报”初始为“否”
                             planhistory.CanRequest = (int)CanRequest.无需申请;
                             planhistory.CanDeliver = (int)CanDeliver.可交付;
                         }
@@ -1023,12 +1027,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 选择的活动类型
 
-        private ActionCategoryDTO _selActionCategory;
+        private ActionCateDTO _selActionCategory;
 
         /// <summary>
         /// 选择的活动类型
         /// </summary>
-        public ActionCategoryDTO SelActionCategory
+        public ActionCateDTO SelActionCategory
         {
             get { return _selActionCategory; }
             private set
@@ -1038,6 +1042,20 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     _selActionCategory = value;
                     if (value != null)
                     {
+                        if (value.NeedRequest)
+                        {
+                            EditPlanHistory.NeedRequest = value.NeedRequest;
+                            EditPlanHistory.IsSubmit = true;//将“是否上报”初始为“是”
+                            EditPlanHistory.CanRequest = (int)CanRequest.未报计划;
+                            EditPlanHistory.CanDeliver = (int)CanDeliver.未申请;
+                        }
+                        else
+                        {
+                            EditPlanHistory.NeedRequest = value.NeedRequest;
+                            EditPlanHistory.IsSubmit = false;//将“是否上报”初始为“否”
+                            EditPlanHistory.CanRequest = (int)CanRequest.无需申请;
+                            EditPlanHistory.CanDeliver = (int)CanDeliver.可交付;
+                        }
                         EditPlanHistory.ActionCategoryId = value.Id;
                         EditPlanHistory.ActionType = value.ActionType;
                         EditPlanHistory.ActionName = value.ActionName;
@@ -1053,12 +1071,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 选择的座级
 
-        private AircraftCategoryDTO _selAircraftCategory;
+        private AircraftCateDTO _selAircraftCategory;
 
         /// <summary>
         /// 选择的座级
         /// </summary>
-        public AircraftCategoryDTO SelAircraftCategory
+        public AircraftCateDTO SelAircraftCategory
         {
             get { return _selAircraftCategory; }
             set
@@ -1068,6 +1086,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     _selAircraftCategory = value;
                     if (value != null)
                     {
+                        EditPlanHistory.Regional = value.Regional;
                         EditPlanHistory.AircraftTypes = new ObservableCollection<AircraftTyDTO>();
                         EditPlanHistory.AircraftTypes.AddRange(_service.GetAircraftTypesForPlanHistory(EditPlanHistory));
                         EditPlanAircraft.Regional = value.Regional;
@@ -1082,12 +1101,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 选择的机型
 
-        private AircraftTypeDTO _selAircraftType;
+        private AircraftTyDTO _selAircraftType;
 
         /// <summary>
         /// 选择的机型
         /// </summary>
-        public AircraftTypeDTO SelAircraftType
+        public AircraftTyDTO SelAircraftType
         {
             get { return _selAircraftType; }
             set
@@ -1099,6 +1118,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     {
                         EditPlanHistory.Regional = value.Regional;
                         EditPlanHistory.AircraftTypeName = value.Name;
+                        EditPlanHistory.AircraftTypeId = value.Id;
                         EditPlanHistory.CaacAircraftTypeName = value.CaacAircraftTypeName;
                         EditPlanAircraft.AircraftTypeId = value.Id;
                         EditPlanAircraft.AircraftTypeName = value.Name;

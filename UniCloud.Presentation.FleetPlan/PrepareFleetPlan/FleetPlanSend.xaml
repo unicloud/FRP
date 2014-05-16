@@ -235,6 +235,7 @@
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
                                                      ItemsSource="{Binding CurPlanHistories,Mode=TwoWay}"
+                                                     SelectedItem="{Binding SelPlanHistory,Mode=TwoWay}"
                                                      IsBusy="{Binding CurPlanHistories.IsBusy}">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
