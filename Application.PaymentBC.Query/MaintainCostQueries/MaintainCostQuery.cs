@@ -32,10 +32,10 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
         }
 
         /// <summary>
-        ///     发票查询。
+        ///     定检维修成本查询。
         /// </summary>
         /// <param name="query">查询表达式。</param>
-        /// <returns>发票DTO集合。</returns>
+        /// <returns>定检维修成本DTO集合。</returns>
         public IQueryable<RegularCheckMaintainCostDTO> RegularCheckMaintainCostDTOQuery(
            QueryBuilder<RegularCheckMaintainCost> query)
         {
@@ -59,7 +59,50 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         TotalDays = p.TotalDays,
                         RegularCheckType = (int)p.RegularCheckType,
                         RegularCheckLevel = p.RegularCheckLevel,
-                        MaintainInvoiceId = p.MaintainInvoiceId
+                        MaintainInvoiceId = p.MaintainInvoiceId,
+                        AnnualId = p.AnnualId
+                    });
+        }
+
+        /// <summary>
+        ///     起落架维修成本查询。
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>起落架维修成本DTO集合。</returns>
+        public IQueryable<UndercartMaintainCostDTO> UndercartMaintainCostDTOQuery(
+           QueryBuilder<UndercartMaintainCost> query)
+        {
+            return
+                query.ApplyTo(_maintainCostRepository.GetAll().OfType<UndercartMaintainCost>())
+                    .Select(p => new UndercartMaintainCostDTO
+                    {
+                        Id = p.Id,
+                        ActionCategoryId = p.ActionCategoryId,
+                        AcutalAmount = p.MaintainInvoice.PaidAmount,
+                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalInMaintainTime = p.MaintainInvoice.InMaintainTime,
+                        AcutalOutMaintainTime = p.MaintainInvoice.OutMaintainTime,
+                        AircraftId = p.AircraftId,
+                        AircraftTypeId = p.AircraftTypeId,
+                        DepartmentDeclareAmount = p.DepartmentDeclareAmount,
+                        FinancialApprovalAmount = p.FinancialApprovalAmount,
+                        FinancialApprovalAmountNonTax = p.FinancialApprovalAmountNonTax,
+                        InMaintainTime = p.InMaintainTime,
+                        OutMaintainTime = p.OutMaintainTime,
+                        TotalDays = p.TotalDays,
+                        MaintainInvoiceId = p.MaintainInvoiceId,
+                        Type=(int)p.Type,
+                        Part = (int)p.Part,
+                        AddedValue = p.AddedValue,
+                        AddedValueRate = p.AddedValueRate,
+                        Custom = p.Custom,
+                        CustomRate = p.CustomRate,
+                        FreightFee = p.FreightFee,
+                        MaintainFeeEur = p.MaintainFeeEur,
+                        MaintainFeeRmb = p.MaintainFeeRmb,
+                        Rate = p.Rate,
+                        ReplaceFee = p.ReplaceFee,
+                        AnnualId = p.AnnualId
                     });
         }
     }

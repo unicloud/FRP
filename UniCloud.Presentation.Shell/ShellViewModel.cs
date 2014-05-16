@@ -777,8 +777,8 @@ namespace UniCloud.Presentation.Shell
             };
             var menu473 = new MenuItem
             {
-                Text = "分析付款计划执行",
-                NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.PaymentScheduleExecute"
+                Text = "起落架",
+                NavUri = "UniCloud.Presentation.Payment.MaintainCost.UndercartMaintainCostManage"
             };
             var menu474 = new MenuItem
             {
@@ -815,10 +815,10 @@ namespace UniCloud.Presentation.Shell
                 Text = "分析维修成本",
                 NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.AnalyseMaintenanceCosts"
             };
-            menu47.Items.Add(menu481);
-            menu47.Items.Add(menu482);
-            menu47.Items.Add(menu483);
-            menu47.Items.Add(menu484);
+            menu48.Items.Add(menu481);
+            menu48.Items.Add(menu482);
+            menu48.Items.Add(menu483);
+            menu48.Items.Add(menu484);
             menu4.Items.Add(menu48);
 
 

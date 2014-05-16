@@ -3,11 +3,11 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2014/5/15 14:21:24
-// 文件名：RegularCheckMaintainCostManageVm
+// 作者：linxw 时间：2014/5/15 16:58:43
+// 文件名：UndercartMaintainCostManage
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2014/5/15 14:21:24
+// 修改者：linxw 时间：2014/5/15 16:58:43
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -23,34 +23,35 @@ using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
-using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 #endregion
 
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
-    [Export(typeof(RegularCheckMaintainCostManageVm))]
+    [Export(typeof(UndercartMaintainCostManageVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class RegularCheckMaintainCostManageVm : EditViewModelBase
+    public class UndercartMaintainCostManageVm : EditViewModelBase
     {
         private readonly IPaymentService _service;
         private readonly PaymentData _context;
         private readonly IFleetPlanService _fleetPlanService;
         private FilterDescriptor _annualFilter;
+
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public RegularCheckMaintainCostManageVm(IPaymentService service, IFleetPlanService fleetPlanService)
+        public UndercartMaintainCostManageVm(IPaymentService service, IFleetPlanService fleetPlanService)
             : base(service)
         {
             _fleetPlanService = fleetPlanService;
             _service = service;
             _context = _service.Context;
-            InitialVm(); //初始化定检维修成本
+            InitialVm(); //初始化起落架维修成本
 
         }
         #region 年度
@@ -65,7 +66,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 if (_annual != null)
                 {
                     _annualFilter.Value = _annual.Id;
-                    RegularCheckMaintainCosts.Load(true);
+                    UndercartMaintainCosts.Load(true);
                 }
                 RaisePropertyChanged(() => Annual);
             }
@@ -79,55 +80,60 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         #endregion
 
         #region 发票
-        public QueryableDataServiceCollectionView<AirframeMaintainInvoiceDTO> AirframeMaintainInvoices { get; set; }
+        public QueryableDataServiceCollectionView<UndercartMaintainInvoiceDTO> UndercartMaintainInvoices { get; set; }
         #endregion
 
-        public Dictionary<int, RegularCheckType> RegularCheckTypes
+        public Dictionary<int, MaintainCostType> MaintainCosts
         {
-            get { return Enum.GetValues(typeof(RegularCheckType)).Cast<object>().ToDictionary(value => (int)value, value => (RegularCheckType)value); }
+            get { return Enum.GetValues(typeof(MaintainCostType)).Cast<object>().ToDictionary(value => (int)value, value => (MaintainCostType)value); }
         }
 
-        #region 加载定检维修成本
+        public Dictionary<int, UndercartPart> UndercartParts
+        {
+            get { return Enum.GetValues(typeof(UndercartPart)).Cast<object>().ToDictionary(value => (int)value, value => (UndercartPart)value); }
+        }
 
-        private RegularCheckMaintainCostDTO _regularCheckMaintainCost;
+        #region 加载起落架维修成本
+
+        private UndercartMaintainCostDTO _undercartMaintainCost;
 
         /// <summary>
-        ///     选择定检维修成本。
+        ///     选择起落架维修成本。
         /// </summary>
-        public RegularCheckMaintainCostDTO RegularCheckMaintainCost
+        public UndercartMaintainCostDTO UndercartMaintainCost
         {
-            get { return _regularCheckMaintainCost; }
+            get { return _undercartMaintainCost; }
             set
             {
-                if (_regularCheckMaintainCost != value)
+                if (_undercartMaintainCost != value)
                 {
-                    _regularCheckMaintainCost = value;
-                    RaisePropertyChanged(() => RegularCheckMaintainCost);
+                    _undercartMaintainCost = value;
+                    RaisePropertyChanged(() => UndercartMaintainCost);
                 }
             }
         }
 
         /// <summary>
-        ///     获取所有定检维修成本信息。
+        ///     获取所有起落架维修成本信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<RegularCheckMaintainCostDTO> RegularCheckMaintainCosts { get; set; }
+        public QueryableDataServiceCollectionView<UndercartMaintainCostDTO> UndercartMaintainCosts { get; set; }
 
         /// <summary>
-        ///     初始化定检维修成本信息。
+        ///     初始化起落架维修成本信息。
         /// </summary>
         private void InitialVm()
         {
             AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
             DeleteCommand = new DelegateCommand<object>(OnDelete, CanDelete);
-            AirframeMaintainInvoices = new QueryableDataServiceCollectionView<AirframeMaintainInvoiceDTO>(_context, _context.AirframeMaintainInvoices);
-            RegularCheckMaintainCosts = _service.CreateCollection(_context.RegularCheckMaintainCosts);
-            RegularCheckMaintainCosts.PageSize = 20;
+            UndercartMaintainInvoices = new QueryableDataServiceCollectionView<UndercartMaintainInvoiceDTO>(_context, _context.UndercartMaintainInvoices);
+            UndercartMaintainCosts = _service.CreateCollection(_context.UndercartMaintainCosts);
+            UndercartMaintainCosts.PageSize = 20;
             _annualFilter = new FilterDescriptor("AnnualId", FilterOperator.IsEqualTo, Guid.Empty);
-            RegularCheckMaintainCosts.FilterDescriptors.Add(_annualFilter);
-            RegularCheckMaintainCosts.LoadedData += (sender, e) =>
+            UndercartMaintainCosts.FilterDescriptors.Add(_annualFilter);
+            UndercartMaintainCosts.LoadedData += (sender, e) =>
             {
-                if (RegularCheckMaintainCost == null)
-                    RegularCheckMaintainCost = RegularCheckMaintainCosts.FirstOrDefault();
+                if (UndercartMaintainCost == null)
+                    UndercartMaintainCost = UndercartMaintainCosts.FirstOrDefault();
                 RefreshCommandState();
             };
 
@@ -136,10 +142,10 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             ActionCategories = new QueryableDataServiceCollectionView<ActionCategoryDTO>(_fleetPlanService.Context, _fleetPlanService.Context.ActionCategories);
             Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
             Annuals.LoadedData += (o, e) =>
-                                  {
-                                      if (Annual == null)
-                                          Annual = Annuals.FirstOrDefault();
-                                  };
+            {
+                if (Annual == null)
+                    Annual = Annuals.FirstOrDefault();
+            };
         }
 
         #endregion
@@ -156,32 +162,32 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         /// <param name="sender"></param>
         public void OnAdd(object sender)
         {
-            RegularCheckMaintainCost = new RegularCheckMaintainCostDTO
+            UndercartMaintainCost = new UndercartMaintainCostDTO
                                      {
                                          Id = RandomHelper.Next(),
                                          InMaintainTime = DateTime.Now,
                                          OutMaintainTime = DateTime.Now,
                                          AnnualId = Annual.Id
                                      };
-            RegularCheckMaintainCost.TotalDays =
-                (RegularCheckMaintainCost.OutMaintainTime.Date - RegularCheckMaintainCost.InMaintainTime.Date).Days + 1;
+            UndercartMaintainCost.TotalDays =
+                (UndercartMaintainCost.OutMaintainTime.Date - UndercartMaintainCost.InMaintainTime.Date).Days + 1;
             var aircraft = Aircrafts.FirstOrDefault();
             if (aircraft != null)
             {
-                RegularCheckMaintainCost.AircraftId = aircraft.AircraftId;
-                RegularCheckMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
-                RegularCheckMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+                UndercartMaintainCost.AircraftId = aircraft.AircraftId;
+                UndercartMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
+                UndercartMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
             }
-            var invoice = AirframeMaintainInvoices.FirstOrDefault();
+            var invoice = UndercartMaintainInvoices.FirstOrDefault();
             if (invoice != null)
             {
-                RegularCheckMaintainCost.MaintainInvoiceId = invoice.AirframeMaintainInvoiceId;
-                RegularCheckMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
-                RegularCheckMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
-                RegularCheckMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                RegularCheckMaintainCost.AcutalAmount = invoice.PaidAmount;
+                UndercartMaintainCost.MaintainInvoiceId = invoice.UndercartMaintainInvoiceId;
+                UndercartMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
+                UndercartMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
+                UndercartMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                UndercartMaintainCost.AcutalAmount = invoice.PaidAmount;
             }
-            RegularCheckMaintainCosts.AddNew(RegularCheckMaintainCost);
+            UndercartMaintainCosts.AddNew(UndercartMaintainCost);
         }
 
         /// <summary>
@@ -206,7 +212,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         /// <param name="sender"></param>
         public void OnDelete(object sender)
         {
-            if (RegularCheckMaintainCost == null)
+            if (UndercartMaintainCost == null)
             {
                 MessageAlert("提示", "请选择需要删除的记录");
                 return;
@@ -214,8 +220,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
                                             {
                                                 if (arg.DialogResult != true) return;
-                                                RegularCheckMaintainCosts.Remove(RegularCheckMaintainCost);
-                                                RegularCheckMaintainCost = RegularCheckMaintainCosts.FirstOrDefault();
+                                                UndercartMaintainCosts.Remove(UndercartMaintainCost);
+                                                UndercartMaintainCost = UndercartMaintainCosts.FirstOrDefault();
                                             });
         }
 
@@ -239,9 +245,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         {
             if (!Annuals.AutoLoad)
                 Annuals.AutoLoad = true;
-            if (!RegularCheckMaintainCosts.AutoLoad)
-                RegularCheckMaintainCosts.AutoLoad = true;
-            AirframeMaintainInvoices.Load(true);
+            if (!UndercartMaintainCosts.AutoLoad)
+                UndercartMaintainCosts.AutoLoad = true;
+            UndercartMaintainInvoices.Load(true);
             Aircrafts.Load(true);
             AircraftTypes.Load(true);
             ActionCategories.Load(true);
@@ -254,18 +260,19 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (sender is AircraftDTO)
             {
                 var aircraft = sender as AircraftDTO;
-                RegularCheckMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
-                RegularCheckMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+                UndercartMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
+                UndercartMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
             }
-            else if (sender is AirframeMaintainInvoiceDTO)
+            else if (sender is UndercartMaintainInvoiceDTO)
             {
-                var invoice = sender as AirframeMaintainInvoiceDTO;
-                RegularCheckMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
-                RegularCheckMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
-                RegularCheckMaintainCost.AcutalTotalDays = (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
-                RegularCheckMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                RegularCheckMaintainCost.AcutalAmount = invoice.PaidAmount;
+                var invoice = sender as UndercartMaintainInvoiceDTO;
+                UndercartMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
+                UndercartMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
+                UndercartMaintainCost.AcutalTotalDays = (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
+                UndercartMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                UndercartMaintainCost.AcutalAmount = invoice.PaidAmount;
             }
         }
     }
 }
+

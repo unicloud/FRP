@@ -276,6 +276,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ThrustEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\TradeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainCostEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UserEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UserRoleEntityConfiguration.cs" />

@@ -160,7 +160,7 @@
     <Compile Include="Aggregates\InvoiceAgg\PurchasePrepaymentInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoiceLine.cs" />
-    <Compile Include="Aggregates\InvoiceAgg\SpecialRefitInvoice.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\SpecialRefitInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\SundryInvoice.cs" />
     <Compile Include="Aggregates\IssuedUnitAgg\IssuedUnit.cs" />
     <Compile Include="Aggregates\IssuedUnitAgg\IssuedUnitFactory.cs" />
@@ -181,6 +181,7 @@
     <Compile Include="Aggregates\MaintainCostAgg\MaintainCostFactory.cs" />
     <Compile Include="Aggregates\MaintainCostAgg\MaintainCostSpecification.cs" />
     <Compile Include="Aggregates\MaintainCostAgg\RegularCheckMaintainCost.cs" />
+    <Compile Include="Aggregates\MaintainCostAgg\UndercartMaintainCost.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\ItemMaintainCtrl.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrl.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrlLine.cs" />

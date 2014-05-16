@@ -96,6 +96,22 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         }
 
         /// <summary>
+        ///     创建特修改装发票
+        /// </summary>
+        /// <returns>特修改装发票</returns>
+        public static SpecialRefitInvoice CreateSpecialRefitInvoice()
+        {
+            var invoice = new SpecialRefitInvoice
+                          {
+                              CreateDate = DateTime.Now
+                          };
+            invoice.SetInvoiceType(InvoiceType.特修改装发票);
+            invoice.GenerateNewIdentity();
+
+            return invoice;
+        }
+
+        /// <summary>
         ///     设置维修发票属性
         /// </summary>
         /// <param name="maintainInvoice">维修发票</param>
@@ -133,7 +149,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             maintainInvoice.DocumentId = documentId;
             maintainInvoice.InMaintainTime = inMaintainTime;
             maintainInvoice.OutMaintainTime = outMaintainTime;
-            if (!string.IsNullOrEmpty(reviewer))
+            if (!String.IsNullOrEmpty(reviewer))
             {
                 maintainInvoice.Review(reviewer);
             }

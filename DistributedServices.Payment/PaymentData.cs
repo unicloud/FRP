@@ -116,7 +116,7 @@ namespace UniCloud.DistributedServices.Payment
         /// </summary>
         public IQueryable<SpecialRefitInvoiceDTO> SpecialRefitInvoices
         {
-            get { return _purchaseInvoiceAppService.GetSpecialRefitInvoices(); }
+            get { return _maintainInvoiceAppService.GetSpecialRefitInvoices(); }
         }
         #endregion
 
@@ -381,6 +381,11 @@ namespace UniCloud.DistributedServices.Payment
         public IQueryable<RegularCheckMaintainCostDTO> RegularCheckMaintainCosts
         {
             get { return _maintainCostAppService.GetRegularCheckMaintainCosts(); }
+        }
+
+        public IQueryable<UndercartMaintainCostDTO> UndercartMaintainCosts
+        {
+            get { return _maintainCostAppService.GetUndercartMaintainCosts(); }
         }
         #endregion
     }

@@ -31,5 +31,13 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
         /// <returns>定检维修成本DTO集合</returns>
         IQueryable<RegularCheckMaintainCostDTO> RegularCheckMaintainCostDTOQuery(
             QueryBuilder<RegularCheckMaintainCost> query);
+
+        /// <summary>
+        ///     起落架维修成本查询
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>起落架维修成本DTO集合</returns>
+        IQueryable<UndercartMaintainCostDTO> UndercartMaintainCostDTOQuery(
+            QueryBuilder<UndercartMaintainCost> query);
     }
 }

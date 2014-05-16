@@ -73,11 +73,12 @@
     <Compile Include="InvoiceDTO\InvoiceLineDTO.cs" />
     <Compile Include="InvoiceDTO\PurchasePrepaymentInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\PurchaseInvoiceDTO.cs" />
-    <Compile Include="InvoiceDTO\SpecialRefitInvoiceDTO.cs" />
+    <Compile Include="MaintainInvoiceDTO\SpecialRefitInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\SundryInvoiceDTO.cs" />
     <Compile Include="MaintainContractDTO\MaintainContractDTO.cs" />
     <Compile Include="MaintainCostDTO\MaintainCostDTO.cs" />
     <Compile Include="MaintainCostDTO\RegularCheckMaintainCostDTO.cs" />
+    <Compile Include="MaintainCostDTO\UndercartMaintainCostDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\AirframeMaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\APUMaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\EngineMaintainInvoiceDTO.cs" />

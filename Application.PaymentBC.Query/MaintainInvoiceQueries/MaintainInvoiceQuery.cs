@@ -85,6 +85,8 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      InvoiceValue = p.InvoiceValue,
                                      PaidAmount = p.PaidAmount,
                                      OperatorName = p.OperatorName,
+                                     InMaintainTime = p.InMaintainTime,
+                                     OutMaintainTime = p.OutMaintainTime,
                                      Reviewer = p.Reviewer,
                                      CreateDate = p.CreateDate,
                                      ReviewDate = p.ReviewDate,
@@ -131,6 +133,8 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      InvoiceValue = p.InvoiceValue,
                                      PaidAmount = p.PaidAmount,
                                      OperatorName = p.OperatorName,
+                                     InMaintainTime = p.InMaintainTime,
+                                     OutMaintainTime = p.OutMaintainTime,
                                      Reviewer = p.Reviewer,
                                      CreateDate = p.CreateDate,
                                      ReviewDate = p.ReviewDate,
@@ -174,6 +178,8 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      InvoiceDate = p.InvoiceDate,
                                      SupplierName = p.SupplierName,
                                      InvoiceValue = p.InvoiceValue,
+                                     InMaintainTime = p.InMaintainTime,
+                                     OutMaintainTime = p.OutMaintainTime,
                                      PaidAmount = p.PaidAmount,
                                      OperatorName = p.OperatorName,
                                      Reviewer = p.Reviewer,
@@ -221,6 +227,8 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      SupplierName = p.SupplierName,
                                      InvoiceValue = p.InvoiceValue,
                                      PaidAmount = p.PaidAmount,
+                                     InMaintainTime = p.InMaintainTime,
+                                     OutMaintainTime = p.OutMaintainTime,
                                      OperatorName = p.OperatorName,
                                      Reviewer = p.Reviewer,
                                      CreateDate = p.CreateDate,
@@ -244,6 +252,46 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                                                         Note = q.Note
                                                                     }).ToList(),
                                  });
+        }
+
+        /// <summary>
+        ///    特修改装发票查询
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>特修改装发票DTO集合。</returns>
+        public IQueryable<SpecialRefitInvoiceDTO> SpecialRefitInvoiceDTOQuery(
+            QueryBuilder<SpecialRefitInvoice> query)
+        {
+            return
+                query.ApplyTo(_invoiceRepository.GetAll().OfType<SpecialRefitInvoice>())
+                     .Select(p => new SpecialRefitInvoiceDTO
+                     {
+                         SpecialRefitId = p.Id,
+                         InvoiceNumber = p.InvoiceNumber,
+                         InvoideCode = p.InvoideCode,
+                         InvoiceDate = p.InvoiceDate,
+                         SupplierName = p.SupplierName,
+                         SupplierId = p.SupplierId,
+                         InvoiceValue = p.InvoiceValue,
+                         PaidAmount = p.PaidAmount,
+                         OperatorName = p.OperatorName,
+                         Reviewer = p.Reviewer,
+                         CreateDate = p.CreateDate,
+                         ReviewDate = p.ReviewDate,
+                         IsValid = p.IsValid,
+                         IsCompleted = p.IsCompleted,
+                         Status = (int)p.Status,
+                         CurrencyId = p.CurrencyId,
+                         MaintainInvoiceLines = p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
+                         {
+                             MaintainInvoiceLineId = q.Id,
+                             ItemName = (int)q.ItemName,
+                             Amount = q.Amount,
+                             InvoiceId = q.InvoiceId,
+                             Note = q.Note,
+                         }).ToList(),
+
+                     });
         }
     }
 }

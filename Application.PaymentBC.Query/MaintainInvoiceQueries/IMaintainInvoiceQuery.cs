@@ -64,5 +64,13 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
         /// <returns>起落架维修发票DTO集合</returns>
         IQueryable<UndercartMaintainInvoiceDTO> UndercartMaintainInvoiceDTOQuery(
             QueryBuilder<MaintainInvoice> query);
+
+        /// <summary>
+        ///    特修改装发票查询
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>特修改装发票DTO集合。</returns>
+        IQueryable<SpecialRefitInvoiceDTO> SpecialRefitInvoiceDTOQuery(
+            QueryBuilder<SpecialRefitInvoice> query);
     }
 }

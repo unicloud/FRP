@@ -204,6 +204,10 @@
       <DependentUpon>RegularCheckMaintainCostManage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MaintainCost\RegularCheckMaintainCostManageVm.cs" />
+    <Compile Include="MaintainCost\UndercartMaintainCostManage.xaml.cs">
+      <DependentUpon>UndercartMaintainCostManage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainCost\UndercartMaintainCostManageVm.cs" />
     <Compile Include="MaintainInvoice\APUMaintain.xaml.cs">
       <DependentUpon>APUMaintain.xaml</DependentUpon>
     </Compile>
@@ -327,6 +331,11 @@
       <Name>Service.CommonService</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.FleetPlan\Service.FleetPlan.csproj">
+      <Project>{b2d2a463-a571-4467-b552-338d89d322f8}</Project>
+      <Name>Service.FleetPlan</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service.Payment\Service.Payment.csproj">
       <Project>{8a34eaf1-0a35-4b80-bc53-f8bf11b626dc}</Project>
       <Name>Service.Payment</Name>
@@ -366,6 +375,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MaintainCost\RegularCheckMaintainCostManage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainCost\UndercartMaintainCostManage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

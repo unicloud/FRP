@@ -8,11 +8,11 @@ using Telerik.Windows.Controls;
 
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
-    [Export(typeof(RegularCheckMaintainCostManage))]
+    [Export(typeof(UndercartMaintainCostManage))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class RegularCheckMaintainCostManage
+    public partial class UndercartMaintainCostManage 
     {
-        public RegularCheckMaintainCostManage()
+        public UndercartMaintainCostManage()
         {
             InitializeComponent();
             this.AddHandler(Selector.SelectionChangedEvent, new SelectionChangedEventHandler(OnSelectionChanged), true);
@@ -27,9 +27,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         }
 
         [Import]
-        public RegularCheckMaintainCostManageVm ViewModel
+        public UndercartMaintainCostManageVm ViewModel
         {
-            get { return DataContext as RegularCheckMaintainCostManageVm; }
+            get { return DataContext as UndercartMaintainCostManageVm; }
             set { DataContext = value; }
         }
     }

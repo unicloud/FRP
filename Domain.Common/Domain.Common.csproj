@@ -63,6 +63,7 @@
     <Compile Include="Enums\InvoiceType.cs" />
     <Compile Include="Enums\ItemNameType.cs" />
     <Compile Include="Enums\LicenseStatus.cs" />
+    <Compile Include="Enums\MaintainCostType.cs" />
     <Compile Include="Enums\MaintainItem.cs" />
     <Compile Include="Enums\ManageStatus.cs">
       <SubType>Code</SubType>
@@ -95,6 +96,7 @@
     <Compile Include="Enums\TaskStatus.cs" />
     <Compile Include="Enums\TaskType.cs" />
     <Compile Include="Enums\TradeStatus.cs" />
+    <Compile Include="Enums\UndercartPart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\ScheduleBase.cs" />
     <Compile Include="ValueObjects\Address.cs" />

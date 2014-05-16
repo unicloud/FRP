@@ -169,6 +169,18 @@
                                                                                    DataMemberBinding="{Binding PaidAmount,StringFormat={StaticResource CurrencyStringFormat}}"
                                                                                    MaskType="Numeric"
                                                                                    Mask="###,###,###.##" />
+                                                <telerik:GridViewDataColumn Header="进厂时间"
+                                                                            ColumnGroupName="BudgetInfo"
+                                                                            TextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding InMaintainTime,StringFormat={StaticResource DateStringFormat }}" />
+                                                <telerik:GridViewDataColumn Header="出厂时间"
+                                                                            ColumnGroupName="BudgetInfo"
+                                                                            TextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            DataMemberBinding="{Binding OutMaintainTime,StringFormat={StaticResource DateStringFormat }}" />
                                                 <telerik:GridViewDataColumn Header="经办人"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             TextAlignment="Right"

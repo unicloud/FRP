@@ -62,7 +62,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         private void InitializeVM()
         {
-            SpecialRefitInvoices = _service.CreateCollection(_context.SpecialRefitInvoices, o => o.InvoiceLines);
+            SpecialRefitInvoices = _service.CreateCollection(_context.SpecialRefitInvoices, o => o.MaintainInvoiceLines);
             SpecialRefitInvoices.LoadedData += (o, e) =>
                                          {
                                              if (SelectRefitInvoice == null)
@@ -183,8 +183,8 @@ namespace UniCloud.Presentation.Payment.Invoice
                 _invoiceLines.Clear();
                 if (value != null)
                 {
-                    SelInvoiceLine = value.InvoiceLines.FirstOrDefault();
-                    foreach (var invoiceLine in value.InvoiceLines)
+                    SelInvoiceLine = value.MaintainInvoiceLines.FirstOrDefault();
+                    foreach (var invoiceLine in value.MaintainInvoiceLines)
                     {
                         InvoiceLines.Add(invoiceLine);
                     }
@@ -197,12 +197,12 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 特修改装发票行
 
-        private ObservableCollection<InvoiceLineDTO> _invoiceLines = new ObservableCollection<InvoiceLineDTO>();
+        private ObservableCollection<MaintainInvoiceLineDTO> _invoiceLines = new ObservableCollection<MaintainInvoiceLineDTO>();
 
         /// <summary>
         ///     特修改装发票行
         /// </summary>
-        public ObservableCollection<InvoiceLineDTO> InvoiceLines
+        public ObservableCollection<MaintainInvoiceLineDTO> InvoiceLines
         {
             get { return _invoiceLines; }
             set
@@ -219,12 +219,12 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 选择的特修改装发票行
 
-        private InvoiceLineDTO _selInvoiceLine;
+        private MaintainInvoiceLineDTO _selInvoiceLine;
 
         /// <summary>
         ///     选择的特修改装发票行
         /// </summary>
-        public InvoiceLineDTO SelInvoiceLine
+        public MaintainInvoiceLineDTO SelInvoiceLine
         {
             get { return _selInvoiceLine; }
             set
@@ -327,12 +327,12 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            SelInvoiceLine = new InvoiceLineDTO
+            SelInvoiceLine = new MaintainInvoiceLineDTO
             {
-                InvoiceLineId = RandomHelper.Next(),
+                MaintainInvoiceLineId = RandomHelper.Next(),
                 InvoiceId = SelectRefitInvoice.SpecialRefitId,
             };
-            SelectRefitInvoice.InvoiceLines.Add(SelInvoiceLine);
+            SelectRefitInvoice.MaintainInvoiceLines.Add(SelInvoiceLine);
             InvoiceLines.Add(SelInvoiceLine);
         }
 
@@ -360,8 +360,8 @@ namespace UniCloud.Presentation.Payment.Invoice
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
                                             {
                                                 if (arg.DialogResult != true) return;
-                                                SelectRefitInvoice.InvoiceLines.Remove(SelInvoiceLine);
-                                                SelInvoiceLine = SelectRefitInvoice.InvoiceLines.FirstOrDefault();
+                                                SelectRefitInvoice.MaintainInvoiceLines.Remove(SelInvoiceLine);
+                                                SelInvoiceLine = SelectRefitInvoice.MaintainInvoiceLines.FirstOrDefault();
                                                 InvoiceLines.Remove(SelInvoiceLine);
                                             });
         }
@@ -428,7 +428,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "TotalLine", StringComparison.OrdinalIgnoreCase))
                 {
-                    decimal totalCount = SelectRefitInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
+                    decimal totalCount = SelectRefitInvoice.MaintainInvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
                     SelectRefitInvoice.InvoiceValue = totalCount;
                 }
             }
