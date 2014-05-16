@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/5/15 18:13:06
+// 生成日期: 2014/5/16 9:03:11
 namespace UniCloud.Presentation.Service.Payment.Payment
 {
     
@@ -1530,85 +1530,86 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "alse\" /><Property Name=\"AcutalTotalDays\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
                 "operty Name=\"AcutalBudgetAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property" +
                 " Name=\"AcutalAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Maint" +
-                "ainInvoiceId\" Type=\"Edm.Int32\" /></EntityType><EntityType Name=\"UndercartMaintai" +
-                "nCostDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int3" +
-                "2\" Nullable=\"false\" /><Property Name=\"Type\" Type=\"Edm.Int32\" Nullable=\"false\" />" +
-                "<Property Name=\"Part\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Mainta" +
-                "inFeeEur\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Rate\" Type=\"Edm." +
-                "Decimal\" Nullable=\"false\" /><Property Name=\"MaintainFeeRmb\" Type=\"Edm.Decimal\" N" +
-                "ullable=\"false\" /><Property Name=\"FreightFee\" Type=\"Edm.Decimal\" Nullable=\"false" +
-                "\" /><Property Name=\"ReplaceFee\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property " +
-                "Name=\"CustomRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Custom\" " +
-                "Type=\"Edm.String\" /><Property Name=\"AddedValueRate\" Type=\"Edm.Decimal\" Nullable=" +
-                "\"false\" /><Property Name=\"AddedValue\" Type=\"Edm.String\" /><Property Name=\"Aircra" +
-                "ftId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ActionCategoryId\" Type=" +
-                "\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nu" +
-                "llable=\"false\" /><Property Name=\"InMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"f" +
-                "alse\" /><Property Name=\"OutMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" />" +
-                "<Property Name=\"TotalDays\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"D" +
-                "epartmentDeclareAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Fi" +
-                "nancialApprovalAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Fin" +
-                "ancialApprovalAmountNonTax\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name" +
-                "=\"AcutalInMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"A" +
-                "cutalOutMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Acu" +
-                "talTotalDays\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AcutalBudgetAm" +
-                "ount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalAmount\" Type=\"" +
-                "Edm.Decimal\" Nullable=\"false\" /><Property Name=\"MaintainInvoiceId\" Type=\"Edm.Int" +
-                "32\" /></EntityType></Schema><Schema Namespace=\"UniCloud.DistributedServices.Paym" +
-                "ent\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=" +
-                "\"PaymentData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"PurchaseCreditN" +
-                "otes\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PurchaseCreditNoteDTO\" /><E" +
-                "ntitySet Name=\"MaintainCreditNotes\" EntityType=\"UniCloud.Application.PaymentBC.D" +
-                "TO.MaintainCreditNoteDTO\" /><EntitySet Name=\"LeaseInvoices\"";
+                "ainInvoiceId\" Type=\"Edm.Int32\" /><Property Name=\"AnnualId\" Type=\"Edm.Guid\" Nulla" +
+                "ble=\"false\" /></EntityType><EntityType Name=\"UndercartMaintainCostDTO\"><Key><Pro" +
+                "pertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\"" +
+                " /><Property Name=\"Type\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Par" +
+                "t\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"MaintainFeeEur\" Type=\"Edm" +
+                ".Decimal\" Nullable=\"false\" /><Property Name=\"Rate\" Type=\"Edm.Decimal\" Nullable=\"" +
+                "false\" /><Property Name=\"MaintainFeeRmb\" Type=\"Edm.Decimal\" Nullable=\"false\" /><" +
+                "Property Name=\"FreightFee\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=" +
+                "\"ReplaceFee\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"CustomRate\" T" +
+                "ype=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Custom\" Type=\"Edm.String\" /" +
+                "><Property Name=\"AddedValueRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property" +
+                " Name=\"AddedValue\" Type=\"Edm.String\" /><Property Name=\"AircraftId\" Type=\"Edm.Gui" +
+                "d\" Nullable=\"false\" /><Property Name=\"ActionCategoryId\" Type=\"Edm.Guid\" Nullable" +
+                "=\"false\" /><Property Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><P" +
+                "roperty Name=\"InMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property N" +
+                "ame=\"OutMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Tot" +
+                "alDays\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"DepartmentDeclareAmo" +
+                "unt\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FinancialApprovalAmou" +
+                "nt\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FinancialApprovalAmoun" +
+                "tNonTax\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalInMaintainT" +
+                "ime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalOutMaintainTim" +
+                "e\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalTotalDays\" Type=" +
+                "\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AcutalBudgetAmount\" Type=\"Edm.Dec" +
+                "imal\" Nullable=\"false\" /><Property Name=\"AcutalAmount\" Type=\"Edm.Decimal\" Nullab" +
+                "le=\"false\" /><Property Name=\"MaintainInvoiceId\" Type=\"Edm.Int32\" /><Property Nam" +
+                "e=\"AnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType></Schema><Schema Na" +
+                "mespace=\"UniCloud.DistributedServices.Payment\" xmlns=\"http://schemas.microsoft.c" +
+                "om/ado/2009/11/edm\"><EntityContainer Name=\"PaymentData\" m:IsDefaultEntityContain" +
+                "er=\"true\"><EntitySet Name=\"PurchaseCreditNotes\" EntityType=\"UniCloud.Application" +
+                ".PaymentBC.DTO.PurchaseCreditNoteDTO\" /><EntitySet Name=\"Ma";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart6 = " EntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO\" /><EntitySet Nam" +
-                "e=\"PurchasePrepaymentInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Pu" +
-                "rchasePrepaymentInvoiceDTO\" /><EntitySet Name=\"MaintainPrepaymentInvoices\" Entit" +
-                "yType=\"UniCloud.Application.PaymentBC.DTO.MaintainPrepaymentInvoiceDTO\" /><Entit" +
-                "ySet Name=\"PurchaseInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Purc" +
-                "haseInvoiceDTO\" /><EntitySet Name=\"SundryInvoices\" EntityType=\"UniCloud.Applicat" +
-                "ion.PaymentBC.DTO.SundryInvoiceDTO\" /><EntitySet Name=\"SpecialRefitInvoices\" Ent" +
-                "ityType=\"UniCloud.Application.PaymentBC.DTO.SpecialRefitInvoiceDTO\" /><EntitySet" +
-                " Name=\"Invoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.BaseInvoiceDTO\" " +
-                "/><EntitySet Name=\"EngineMaintainInvoices\" EntityType=\"UniCloud.Application.Paym" +
-                "entBC.DTO.EngineMaintainInvoiceDTO\" /><EntitySet Name=\"APUMaintainInvoices\" Enti" +
-                "tyType=\"UniCloud.Application.PaymentBC.DTO.APUMaintainInvoiceDTO\" /><EntitySet N" +
-                "ame=\"AirframeMaintainInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Ai" +
-                "rframeMaintainInvoiceDTO\" /><EntitySet Name=\"UndercartMaintainInvoices\" EntityTy" +
-                "pe=\"UniCloud.Application.PaymentBC.DTO.UndercartMaintainInvoiceDTO\" /><EntitySet" +
-                " Name=\"ContractAircrafts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Contrac" +
-                "tAircraftDTO\" /><EntitySet Name=\"ContractEngines\" EntityType=\"UniCloud.Applicati" +
-                "on.PaymentBC.DTO.ContractEngineDTO\" /><EntitySet Name=\"Currencies\" EntityType=\"U" +
-                "niCloud.Application.PaymentBC.DTO.CurrencyDTO\" /><EntitySet Name=\"PaymentSchedul" +
-                "es\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PaymentScheduleDTO\" /><Entity" +
-                "Set Name=\"AcPaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AcP" +
-                "aymentScheduleDTO\" /><EntitySet Name=\"EnginePaymentSchedules\" EntityType=\"UniClo" +
-                "ud.Application.PaymentBC.DTO.EnginePaymentScheduleDTO\" /><EntitySet Name=\"Standa" +
-                "rdPaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO.StandardPayme" +
-                "ntScheduleDTO\" /><EntitySet Name=\"MaintainPaymentSchedules\" EntityType=\"UniCloud" +
-                ".Application.PaymentBC.DTO.MaintainPaymentScheduleDTO\" /><EntitySet Name=\"Paymen" +
-                "tNotices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PaymentNoticeDTO\" /><En" +
-                "titySet Name=\"Suppliers\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Supplier" +
-                "DTO\" /><EntitySet Name=\"Orders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.O" +
-                "rderDTO\" /><EntitySet Name=\"PurchaseOrders\" EntityType=\"UniCloud.Application.Pay" +
-                "mentBC.DTO.PurchaseOrderDTO\" /><EntitySet Name=\"LeaseOrders\" EntityType=\"UniClou" +
-                "d.Application.PaymentBC.DTO.LeaseOrderDTO\" /><EntitySet Name=\"AircraftPurchaseOr" +
-                "ders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AircraftPurchaseOrderDTO\" /" +
-                "><EntitySet Name=\"AircraftLeaseOrders\" EntityType=\"UniCloud.Application.PaymentB" +
-                "C.DTO.AircraftLeaseOrderDTO\" /><EntitySet Name=\"EnginePurchaseOrders\" EntityType" +
-                "=\"UniCloud.Application.PaymentBC.DTO.EnginePurchaseOrderDTO\" /><EntitySet Name=\"" +
-                "EngineLeaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EngineLeaseOrd" +
-                "erDTO\" /><EntitySet Name=\"BFEPurchaseOrders\" EntityType=\"UniCloud.Application.Pa" +
-                "ymentBC.DTO.BFEPurchaseOrderDTO\" /><EntitySet Name=\"StandardOrders\" EntityType=\"" +
-                "UniCloud.Application.PaymentBC.DTO.StandardOrderDTO\" /><EntitySet Name=\"LeaseGua" +
-                "rantees\" EntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseGuaranteeDTO\" /><En" +
-                "titySet Name=\"MaintainGuarantees\" EntityType=\"UniCloud.Application.PaymentBC.DTO" +
-                ".MaintainGuaranteeDTO\" /><EntitySet Name=\"MaintainContracts\" EntityType=\"UniClou" +
-                "d.Application.PaymentBC.DTO.MaintainContractDTO\" /><EntitySet Name=\"RegularCheck" +
-                "MaintainCosts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.RegularCheckMainta" +
-                "inCostDTO\" /><EntitySet Name=\"UndercartMaintainCosts\" EntityType=\"UniCloud.Appli" +
-                "cation.PaymentBC.DTO.UndercartMaintainCostDTO\" /></EntityContainer></Schema></ed" +
-                "mx:DataServices></edmx:Edmx>";
+            private const string ModelPart6 = "intainCreditNotes\" EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainCreditN" +
+                "oteDTO\" /><EntitySet Name=\"LeaseInvoices\" EntityType=\"UniCloud.Application.Payme" +
+                "ntBC.DTO.LeaseInvoiceDTO\" /><EntitySet Name=\"PurchasePrepaymentInvoices\" EntityT" +
+                "ype=\"UniCloud.Application.PaymentBC.DTO.PurchasePrepaymentInvoiceDTO\" /><EntityS" +
+                "et Name=\"MaintainPrepaymentInvoices\" EntityType=\"UniCloud.Application.PaymentBC." +
+                "DTO.MaintainPrepaymentInvoiceDTO\" /><EntitySet Name=\"PurchaseInvoices\" EntityTyp" +
+                "e=\"UniCloud.Application.PaymentBC.DTO.PurchaseInvoiceDTO\" /><EntitySet Name=\"Sun" +
+                "dryInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.SundryInvoiceDTO\" />" +
+                "<EntitySet Name=\"SpecialRefitInvoices\" EntityType=\"UniCloud.Application.PaymentB" +
+                "C.DTO.SpecialRefitInvoiceDTO\" /><EntitySet Name=\"Invoices\" EntityType=\"UniCloud." +
+                "Application.PaymentBC.DTO.BaseInvoiceDTO\" /><EntitySet Name=\"EngineMaintainInvoi" +
+                "ces\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EngineMaintainInvoiceDTO\" />" +
+                "<EntitySet Name=\"APUMaintainInvoices\" EntityType=\"UniCloud.Application.PaymentBC" +
+                ".DTO.APUMaintainInvoiceDTO\" /><EntitySet Name=\"AirframeMaintainInvoices\" EntityT" +
+                "ype=\"UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceDTO\" /><EntitySet" +
+                " Name=\"UndercartMaintainInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO" +
+                ".UndercartMaintainInvoiceDTO\" /><EntitySet Name=\"ContractAircrafts\" EntityType=\"" +
+                "UniCloud.Application.PaymentBC.DTO.ContractAircraftDTO\" /><EntitySet Name=\"Contr" +
+                "actEngines\" EntityType=\"UniCloud.Application.PaymentBC.DTO.ContractEngineDTO\" />" +
+                "<EntitySet Name=\"Currencies\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Curr" +
+                "encyDTO\" /><EntitySet Name=\"PaymentSchedules\" EntityType=\"UniCloud.Application.P" +
+                "aymentBC.DTO.PaymentScheduleDTO\" /><EntitySet Name=\"AcPaymentSchedules\" EntityTy" +
+                "pe=\"UniCloud.Application.PaymentBC.DTO.AcPaymentScheduleDTO\" /><EntitySet Name=\"" +
+                "EnginePaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EnginePay" +
+                "mentScheduleDTO\" /><EntitySet Name=\"StandardPaymentSchedules\" EntityType=\"UniClo" +
+                "ud.Application.PaymentBC.DTO.StandardPaymentScheduleDTO\" /><EntitySet Name=\"Main" +
+                "tainPaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainPay" +
+                "mentScheduleDTO\" /><EntitySet Name=\"PaymentNotices\" EntityType=\"UniCloud.Applica" +
+                "tion.PaymentBC.DTO.PaymentNoticeDTO\" /><EntitySet Name=\"Suppliers\" EntityType=\"U" +
+                "niCloud.Application.PaymentBC.DTO.SupplierDTO\" /><EntitySet Name=\"Orders\" Entity" +
+                "Type=\"UniCloud.Application.PaymentBC.DTO.OrderDTO\" /><EntitySet Name=\"PurchaseOr" +
+                "ders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PurchaseOrderDTO\" /><Entity" +
+                "Set Name=\"LeaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseOrder" +
+                "DTO\" /><EntitySet Name=\"AircraftPurchaseOrders\" EntityType=\"UniCloud.Application" +
+                ".PaymentBC.DTO.AircraftPurchaseOrderDTO\" /><EntitySet Name=\"AircraftLeaseOrders\"" +
+                " EntityType=\"UniCloud.Application.PaymentBC.DTO.AircraftLeaseOrderDTO\" /><Entity" +
+                "Set Name=\"EnginePurchaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.E" +
+                "nginePurchaseOrderDTO\" /><EntitySet Name=\"EngineLeaseOrders\" EntityType=\"UniClou" +
+                "d.Application.PaymentBC.DTO.EngineLeaseOrderDTO\" /><EntitySet Name=\"BFEPurchaseO" +
+                "rders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.BFEPurchaseOrderDTO\" /><En" +
+                "titySet Name=\"StandardOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Sta" +
+                "ndardOrderDTO\" /><EntitySet Name=\"LeaseGuarantees\" EntityType=\"UniCloud.Applicat" +
+                "ion.PaymentBC.DTO.LeaseGuaranteeDTO\" /><EntitySet Name=\"MaintainGuarantees\" Enti" +
+                "tyType=\"UniCloud.Application.PaymentBC.DTO.MaintainGuaranteeDTO\" /><EntitySet Na" +
+                "me=\"MaintainContracts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainCo" +
+                "ntractDTO\" /><EntitySet Name=\"RegularCheckMaintainCosts\" EntityType=\"UniCloud.Ap" +
+                "plication.PaymentBC.DTO.RegularCheckMaintainCostDTO\" /><EntitySet Name=\"Undercar" +
+                "tMaintainCosts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.UndercartMaintain" +
+                "CostDTO\" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -16926,6 +16927,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="acutalTotalDays">AcutalTotalDays 的初始值。</param>
         /// <param name="acutalBudgetAmount">AcutalBudgetAmount 的初始值。</param>
         /// <param name="acutalAmount">AcutalAmount 的初始值。</param>
+        /// <param name="annualId">AnnualId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public static RegularCheckMaintainCostDTO CreateRegularCheckMaintainCostDTO(
                     int ID, 
@@ -16943,7 +16945,8 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     global::System.DateTime acutalOutMaintainTime, 
                     int acutalTotalDays, 
                     decimal acutalBudgetAmount, 
-                    decimal acutalAmount)
+                    decimal acutalAmount, 
+                    global::System.Guid annualId)
         {
             RegularCheckMaintainCostDTO regularCheckMaintainCostDTO = new RegularCheckMaintainCostDTO();
             regularCheckMaintainCostDTO.Id = ID;
@@ -16962,6 +16965,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             regularCheckMaintainCostDTO.AcutalTotalDays = acutalTotalDays;
             regularCheckMaintainCostDTO.AcutalBudgetAmount = acutalBudgetAmount;
             regularCheckMaintainCostDTO.AcutalAmount = acutalAmount;
+            regularCheckMaintainCostDTO.AnnualId = annualId;
             return regularCheckMaintainCostDTO;
         }
         /// <summary>
@@ -17360,6 +17364,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private global::System.Nullable<int> _MaintainInvoiceId;
         partial void OnMaintainInvoiceIdChanging(global::System.Nullable<int> value);
         partial void OnMaintainInvoiceIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AnnualId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AnnualId
+        {
+            get
+            {
+                return this._AnnualId;
+            }
+            set
+            {
+                this.OnAnnualIdChanging(value);
+                this._AnnualId = value;
+                this.OnAnnualIdChanged();
+                this.OnPropertyChanged("AnnualId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AnnualId;
+        partial void OnAnnualIdChanging(global::System.Guid value);
+        partial void OnAnnualIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -17408,6 +17434,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="acutalTotalDays">AcutalTotalDays 的初始值。</param>
         /// <param name="acutalBudgetAmount">AcutalBudgetAmount 的初始值。</param>
         /// <param name="acutalAmount">AcutalAmount 的初始值。</param>
+        /// <param name="annualId">AnnualId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public static UndercartMaintainCostDTO CreateUndercartMaintainCostDTO(
                     int ID, 
@@ -17433,7 +17460,8 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     global::System.DateTime acutalOutMaintainTime, 
                     int acutalTotalDays, 
                     decimal acutalBudgetAmount, 
-                    decimal acutalAmount)
+                    decimal acutalAmount, 
+                    global::System.Guid annualId)
         {
             UndercartMaintainCostDTO undercartMaintainCostDTO = new UndercartMaintainCostDTO();
             undercartMaintainCostDTO.Id = ID;
@@ -17460,6 +17488,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             undercartMaintainCostDTO.AcutalTotalDays = acutalTotalDays;
             undercartMaintainCostDTO.AcutalBudgetAmount = acutalBudgetAmount;
             undercartMaintainCostDTO.AcutalAmount = acutalAmount;
+            undercartMaintainCostDTO.AnnualId = annualId;
             return undercartMaintainCostDTO;
         }
         /// <summary>
@@ -18056,6 +18085,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private global::System.Nullable<int> _MaintainInvoiceId;
         partial void OnMaintainInvoiceIdChanging(global::System.Nullable<int> value);
         partial void OnMaintainInvoiceIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AnnualId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AnnualId
+        {
+            get
+            {
+                return this._AnnualId;
+            }
+            set
+            {
+                this.OnAnnualIdChanging(value);
+                this._AnnualId = value;
+                this.OnAnnualIdChanged();
+                this.OnPropertyChanged("AnnualId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AnnualId;
+        partial void OnAnnualIdChanging(global::System.Guid value);
+        partial void OnAnnualIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

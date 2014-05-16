@@ -56,7 +56,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
             var newRegularCheckMaintainCost = MaintainCostFactory.CreateRegularCheckMaintainCost();
             MaintainCostFactory.SetRegularCheckMaintainCost(newRegularCheckMaintainCost, regularCheckMaintainCost.AircraftId, regularCheckMaintainCost.ActionCategoryId, regularCheckMaintainCost.AircraftTypeId,
                 regularCheckMaintainCost.RegularCheckType, regularCheckMaintainCost.RegularCheckLevel, regularCheckMaintainCost.InMaintainTime, regularCheckMaintainCost.OutMaintainTime, regularCheckMaintainCost.TotalDays,
-                regularCheckMaintainCost.DepartmentDeclareAmount, regularCheckMaintainCost.FinancialApprovalAmount, regularCheckMaintainCost.FinancialApprovalAmountNonTax, regularCheckMaintainCost.MaintainInvoiceId);
+                regularCheckMaintainCost.DepartmentDeclareAmount, regularCheckMaintainCost.FinancialApprovalAmount, regularCheckMaintainCost.FinancialApprovalAmountNonTax, regularCheckMaintainCost.MaintainInvoiceId, regularCheckMaintainCost.AnnualId);
             _maintainCostRepository.Add(newRegularCheckMaintainCost);
         }
 
@@ -71,7 +71,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
             var updateRegularCheckMaintainCost = _maintainCostRepository.Get(regularCheckMaintainCost.Id) as RegularCheckMaintainCost; //获取需要更新的对象。
             MaintainCostFactory.SetRegularCheckMaintainCost(updateRegularCheckMaintainCost, regularCheckMaintainCost.AircraftId, regularCheckMaintainCost.ActionCategoryId, regularCheckMaintainCost.AircraftTypeId,
                 regularCheckMaintainCost.RegularCheckType, regularCheckMaintainCost.RegularCheckLevel, regularCheckMaintainCost.InMaintainTime, regularCheckMaintainCost.OutMaintainTime, regularCheckMaintainCost.TotalDays,
-                regularCheckMaintainCost.DepartmentDeclareAmount, regularCheckMaintainCost.FinancialApprovalAmount, regularCheckMaintainCost.FinancialApprovalAmountNonTax, regularCheckMaintainCost.MaintainInvoiceId);
+                regularCheckMaintainCost.DepartmentDeclareAmount, regularCheckMaintainCost.FinancialApprovalAmount, regularCheckMaintainCost.FinancialApprovalAmountNonTax, regularCheckMaintainCost.MaintainInvoiceId, regularCheckMaintainCost.AnnualId);
             _maintainCostRepository.Modify(updateRegularCheckMaintainCost);
         }
 
@@ -110,7 +110,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
                 undercartMaintainCost.Type, undercartMaintainCost.Part, undercartMaintainCost.InMaintainTime, undercartMaintainCost.OutMaintainTime, undercartMaintainCost.TotalDays,
                 undercartMaintainCost.DepartmentDeclareAmount, undercartMaintainCost.FinancialApprovalAmount, undercartMaintainCost.FinancialApprovalAmountNonTax, undercartMaintainCost.MaintainInvoiceId,
                 undercartMaintainCost.MaintainFeeEur, undercartMaintainCost.Rate, undercartMaintainCost.MaintainFeeRmb, undercartMaintainCost.FreightFee, undercartMaintainCost.ReplaceFee, undercartMaintainCost.CustomRate,
-                undercartMaintainCost.Custom, undercartMaintainCost.AddedValueRate, undercartMaintainCost.AddedValue);
+                undercartMaintainCost.Custom, undercartMaintainCost.AddedValueRate, undercartMaintainCost.AddedValue, undercartMaintainCost.AnnualId);
             _maintainCostRepository.Add(newUndercartMaintainCost);
         }
 
@@ -127,7 +127,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
                 undercartMaintainCost.Type, undercartMaintainCost.Part, undercartMaintainCost.InMaintainTime, undercartMaintainCost.OutMaintainTime, undercartMaintainCost.TotalDays,
                 undercartMaintainCost.DepartmentDeclareAmount, undercartMaintainCost.FinancialApprovalAmount, undercartMaintainCost.FinancialApprovalAmountNonTax, undercartMaintainCost.MaintainInvoiceId,
                 undercartMaintainCost.MaintainFeeEur, undercartMaintainCost.Rate, undercartMaintainCost.MaintainFeeRmb, undercartMaintainCost.FreightFee, undercartMaintainCost.ReplaceFee, undercartMaintainCost.CustomRate,
-                undercartMaintainCost.Custom, undercartMaintainCost.AddedValueRate, undercartMaintainCost.AddedValue);
+                undercartMaintainCost.Custom, undercartMaintainCost.AddedValueRate, undercartMaintainCost.AddedValue, undercartMaintainCost.AnnualId);
             _maintainCostRepository.Modify(updateUndercartMaintainCost);
         }
 

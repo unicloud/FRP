@@ -39,6 +39,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         private readonly IPaymentService _service;
         private readonly PaymentData _context;
         private readonly IFleetPlanService _fleetPlanService;
+        private FilterDescriptor _annualFilter;
+
         /// <summary>
         ///     构造函数。
         /// </summary>
@@ -52,6 +54,25 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             InitialVm(); //初始化起落架维修成本
 
         }
+        #region 年度
+        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+        private AnnualDTO _annual;
+        public AnnualDTO Annual
+        {
+            get { return _annual; }
+            set
+            {
+                _annual = value;
+                if (_annual != null)
+                {
+                    _annualFilter.Value = _annual.Id;
+                    UndercartMaintainCosts.Load(true);
+                }
+                RaisePropertyChanged(() => Annual);
+            }
+        }
+        #endregion
+
         #region 飞机
         public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; }
         public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypes { get; set; }
@@ -107,6 +128,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             UndercartMaintainInvoices = new QueryableDataServiceCollectionView<UndercartMaintainInvoiceDTO>(_context, _context.UndercartMaintainInvoices);
             UndercartMaintainCosts = _service.CreateCollection(_context.UndercartMaintainCosts);
             UndercartMaintainCosts.PageSize = 20;
+            _annualFilter = new FilterDescriptor("AnnualId", FilterOperator.IsEqualTo, Guid.Empty);
+            UndercartMaintainCosts.FilterDescriptors.Add(_annualFilter);
             UndercartMaintainCosts.LoadedData += (sender, e) =>
             {
                 if (UndercartMaintainCost == null)
@@ -117,6 +140,12 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Aircrafts);
             AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_fleetPlanService.Context, _fleetPlanService.Context.AircraftTypes);
             ActionCategories = new QueryableDataServiceCollectionView<ActionCategoryDTO>(_fleetPlanService.Context, _fleetPlanService.Context.ActionCategories);
+            Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
+            Annuals.LoadedData += (o, e) =>
+            {
+                if (Annual == null)
+                    Annual = Annuals.FirstOrDefault();
+            };
         }
 
         #endregion
@@ -138,6 +167,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                                          Id = RandomHelper.Next(),
                                          InMaintainTime = DateTime.Now,
                                          OutMaintainTime = DateTime.Now,
+                                         AnnualId = Annual.Id
                                      };
             UndercartMaintainCost.TotalDays =
                 (UndercartMaintainCost.OutMaintainTime.Date - UndercartMaintainCost.InMaintainTime.Date).Days + 1;
@@ -213,9 +243,10 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         public override void LoadData()
         {
+            if (!Annuals.AutoLoad)
+                Annuals.AutoLoad = true;
             if (!UndercartMaintainCosts.AutoLoad)
                 UndercartMaintainCosts.AutoLoad = true;
-            UndercartMaintainCosts.Load(true);
             UndercartMaintainInvoices.Load(true);
             Aircrafts.Load(true);
             AircraftTypes.Load(true);

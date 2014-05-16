@@ -76,6 +76,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCostAgg
 
         #region 外键属性
         public int? MaintainInvoiceId { get; internal set; }
+        public Guid AnnualId { get; internal set; }
         #endregion
 
         #region 导航属性

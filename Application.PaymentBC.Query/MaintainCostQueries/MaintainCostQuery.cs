@@ -59,7 +59,8 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         TotalDays = p.TotalDays,
                         RegularCheckType = (int)p.RegularCheckType,
                         RegularCheckLevel = p.RegularCheckLevel,
-                        MaintainInvoiceId = p.MaintainInvoiceId
+                        MaintainInvoiceId = p.MaintainInvoiceId,
+                        AnnualId = p.AnnualId
                     });
         }
 
@@ -101,6 +102,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         MaintainFeeRmb = p.MaintainFeeRmb,
                         Rate = p.Rate,
                         ReplaceFee = p.ReplaceFee,
+                        AnnualId = p.AnnualId
                     });
         }
     }

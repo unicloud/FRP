@@ -814,6 +814,7 @@
         <Property Name="AcutalBudgetAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="AcutalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="MaintainInvoiceId" Type="Edm.Int32" />
+        <Property Name="AnnualId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
       <EntityType Name="UndercartMaintainCostDTO">
         <Key>
@@ -846,6 +847,7 @@
         <Property Name="AcutalBudgetAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="AcutalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="MaintainInvoiceId" Type="Edm.Int32" />
+        <Property Name="AnnualId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Payment" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
