@@ -118,7 +118,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
             CurPlanHistories = _service.CreateCollection(_context.PlanHistories);
             _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
-            var group = new GroupDescriptor { Member = "CanRequest", SortDirection = ListSortDirection.Descending };
+            var group = new GroupDescriptor { Member = "CanRequest", SortDirection = ListSortDirection.Ascending };
             CurPlanHistories.GroupDescriptors.Add(group);
             CurPlanHistories.FilterDescriptors.Add(_planHistoryDescriptor);
             _service.RegisterCollectionView(CurPlanHistories);
@@ -158,6 +158,21 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         ///     所有计划年度
         /// </summary>
         public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
+        #endregion
+
+                #region 执行月份集合
+
+        /// <summary>
+        ///     执行月份集合
+        /// </summary>
+        public List<int> Months
+        {
+            get
+            {
+                return new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+            }
+        }
 
         #endregion
 
@@ -442,7 +457,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 AircraftType = planHistory.AircraftTypeName,
                 AircraftRegional = planHistory.Regional,
                 AirlineName = planHistory.AirlinesName,
-                ImportCategoryName = planHistory.ActionType + planHistory.ActionName,
+                ImportCategoryName = planHistory.ActionType + ":" + planHistory.ActionName,
             };
             var annual = Annuals.SourceCollection.Cast<AnnualDTO>().FirstOrDefault(p => p.Id == requestDetail.RequestDeliverAnnualId);
             if (annual != null) requestDetail.RequestDeliverAnnualName = annual.Year;
