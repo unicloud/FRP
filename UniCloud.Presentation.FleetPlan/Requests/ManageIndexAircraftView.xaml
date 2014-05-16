@@ -113,7 +113,7 @@
                                             <telerik:GridViewDataColumn Header="状态"
                                                                         IsReadOnly="True"
                                                                         IsVisible="True"
-                                                                        DataMemberBinding="{Binding Status}" />
+                                                                        DataMemberBinding="{Binding ApprovalStatus}" />
                                         </telerik:RadGridView.Columns>
                                     </telerik:RadGridView>
                                 </Grid>
