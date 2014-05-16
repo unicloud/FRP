@@ -142,5 +142,167 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
             _maintainCostRepository.Remove(deleteUndercartMaintainCost); //删除起落架维修成。
         }
         #endregion
+
+        #region SpecialRefitMaintainCostDTO
+        /// <summary>
+        ///     获取所有特修改装维修成。
+        /// </summary>
+        /// <returns>所有特修改装维修成。</returns>
+        public IQueryable<SpecialRefitMaintainCostDTO> GetSpecialRefitMaintainCosts()
+        {
+            var queryBuilder = new QueryBuilder<SpecialRefitMaintainCost>();
+            return _maintainCostQuery.SpecialRefitMaintainCostDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///     新增特修改装维修成。
+        /// </summary>
+        /// <param name="specialRefitMaintainCost">特修改装维修成DTO。</param>
+        [Insert(typeof(SpecialRefitMaintainCostDTO))]
+        public void InsertSpecialRefitMaintainCost(SpecialRefitMaintainCostDTO specialRefitMaintainCost)
+        {
+            var newSpecialRefitMaintainCost = MaintainCostFactory.CreateSpecialRefitMaintainCost();
+            MaintainCostFactory.SetSpecialRefitMaintainCost(newSpecialRefitMaintainCost, specialRefitMaintainCost.Project, specialRefitMaintainCost.Info, specialRefitMaintainCost.DepartmentDeclareAmount,
+                specialRefitMaintainCost.Note, specialRefitMaintainCost.FinancialApprovalAmount, specialRefitMaintainCost.FinancialApprovalAmountNonTax, specialRefitMaintainCost.MaintainInvoiceId, specialRefitMaintainCost.AnnualId);
+            _maintainCostRepository.Add(newSpecialRefitMaintainCost);
+        }
+
+
+        /// <summary>
+        ///     更新特修改装维修成。
+        /// </summary>
+        /// <param name="specialRefitMaintainCost">特修改装维修成DTO。</param>
+        [Update(typeof(SpecialRefitMaintainCostDTO))]
+        public void ModifySpecialRefitMaintainCost(SpecialRefitMaintainCostDTO specialRefitMaintainCost)
+        {
+            var updateSpecialRefitMaintainCost = _maintainCostRepository.Get(specialRefitMaintainCost.Id) as SpecialRefitMaintainCost; //获取需要更新的对象。
+            MaintainCostFactory.SetSpecialRefitMaintainCost(updateSpecialRefitMaintainCost, specialRefitMaintainCost.Project, specialRefitMaintainCost.Info, specialRefitMaintainCost.DepartmentDeclareAmount,
+                specialRefitMaintainCost.Note, specialRefitMaintainCost.FinancialApprovalAmount, specialRefitMaintainCost.FinancialApprovalAmountNonTax, specialRefitMaintainCost.MaintainInvoiceId, specialRefitMaintainCost.AnnualId);
+            _maintainCostRepository.Modify(updateSpecialRefitMaintainCost);
+        }
+
+        /// <summary>
+        ///     删除特修改装维修成。
+        /// </summary>
+        /// <param name="specialRefitMaintainCost">特修改装维修成DTO。</param>
+        [Delete(typeof(SpecialRefitMaintainCostDTO))]
+        public void DeleteSpecialRefitMaintainCost(SpecialRefitMaintainCostDTO specialRefitMaintainCost)
+        {
+            var deleteSpecialRefitMaintainCost = _maintainCostRepository.Get(specialRefitMaintainCost.Id);//获取需要删除的对象。
+            _maintainCostRepository.Remove(deleteSpecialRefitMaintainCost); //删除特修改装维修成。
+        }
+        #endregion
+
+        #region NonFhaMaintainCostDTO
+        /// <summary>
+        ///     获取所有非FHA.超包修维修成。
+        /// </summary>
+        /// <returns>所有非FHA.超包修维修成。</returns>
+        public IQueryable<NonFhaMaintainCostDTO> GetNonFhaMaintainCosts()
+        {
+            var queryBuilder = new QueryBuilder<NonFhaMaintainCost>();
+            return _maintainCostQuery.NonFhaMaintainCostDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///     新增非FHA.超包修维修成。
+        /// </summary>
+        /// <param name="nonFhaMaintainCost">非FHA.超包修维修成DTO。</param>
+        [Insert(typeof(NonFhaMaintainCostDTO))]
+        public void InsertNonFhaMaintainCost(NonFhaMaintainCostDTO nonFhaMaintainCost)
+        {
+            var newNonFhaMaintainCost = MaintainCostFactory.CreateNonFhaMaintainCost();
+            MaintainCostFactory.SetNonFhaMaintainCost(newNonFhaMaintainCost, nonFhaMaintainCost.EngineNumber, nonFhaMaintainCost.ContractRepairt, nonFhaMaintainCost.Type, nonFhaMaintainCost.AircraftId,
+                nonFhaMaintainCost.ActionCategoryId, nonFhaMaintainCost.AircraftTypeId, nonFhaMaintainCost.SupplierId, nonFhaMaintainCost.InMaintainTime, nonFhaMaintainCost.OutMaintainTime, nonFhaMaintainCost.MaintainLevel,
+                nonFhaMaintainCost.ChangeLlpNumber, nonFhaMaintainCost.Tsr, nonFhaMaintainCost.Csr, nonFhaMaintainCost.NonFhaFee, nonFhaMaintainCost.PartFee, nonFhaMaintainCost.ChangeLlpFee, nonFhaMaintainCost.FeeLittleSum,
+                nonFhaMaintainCost.Rate, nonFhaMaintainCost.FeeTotalSum, nonFhaMaintainCost.CustomRate, nonFhaMaintainCost.Custom, nonFhaMaintainCost.AddedValueRate, nonFhaMaintainCost.AddedValue, nonFhaMaintainCost.CustomsTax,
+                nonFhaMaintainCost.FreightFee, nonFhaMaintainCost.DepartmentDeclareAmount, nonFhaMaintainCost.FinancialApprovalAmount, nonFhaMaintainCost.FinancialApprovalAmountNonTax, nonFhaMaintainCost.Note, nonFhaMaintainCost.ActualMaintainLevel,
+                nonFhaMaintainCost.ActualChangeLlpNumber, nonFhaMaintainCost.ActualTsr, nonFhaMaintainCost.ActualCsr, nonFhaMaintainCost.MaintainInvoiceId, nonFhaMaintainCost.AnnualId);
+            _maintainCostRepository.Add(newNonFhaMaintainCost);
+        }
+
+
+        /// <summary>
+        ///     更新非FHA.超包修维修成。
+        /// </summary>
+        /// <param name="nonFhaMaintainCost">非FHA.超包修维修成DTO。</param>
+        [Update(typeof(NonFhaMaintainCostDTO))]
+        public void ModifyNonFhaMaintainCost(NonFhaMaintainCostDTO nonFhaMaintainCost)
+        {
+            var updateNonFhaMaintainCost = _maintainCostRepository.Get(nonFhaMaintainCost.Id) as NonFhaMaintainCost; //获取需要更新的对象。
+            MaintainCostFactory.SetNonFhaMaintainCost(updateNonFhaMaintainCost, nonFhaMaintainCost.EngineNumber, nonFhaMaintainCost.ContractRepairt, nonFhaMaintainCost.Type, nonFhaMaintainCost.AircraftId,
+                nonFhaMaintainCost.ActionCategoryId, nonFhaMaintainCost.AircraftTypeId, nonFhaMaintainCost.SupplierId, nonFhaMaintainCost.InMaintainTime, nonFhaMaintainCost.OutMaintainTime, nonFhaMaintainCost.MaintainLevel,
+                nonFhaMaintainCost.ChangeLlpNumber, nonFhaMaintainCost.Tsr, nonFhaMaintainCost.Csr, nonFhaMaintainCost.NonFhaFee, nonFhaMaintainCost.PartFee, nonFhaMaintainCost.ChangeLlpFee, nonFhaMaintainCost.FeeLittleSum,
+                nonFhaMaintainCost.Rate, nonFhaMaintainCost.FeeTotalSum, nonFhaMaintainCost.CustomRate, nonFhaMaintainCost.Custom, nonFhaMaintainCost.AddedValueRate, nonFhaMaintainCost.AddedValue, nonFhaMaintainCost.CustomsTax,
+                nonFhaMaintainCost.FreightFee, nonFhaMaintainCost.DepartmentDeclareAmount, nonFhaMaintainCost.FinancialApprovalAmount, nonFhaMaintainCost.FinancialApprovalAmountNonTax, nonFhaMaintainCost.Note, nonFhaMaintainCost.ActualMaintainLevel,
+                nonFhaMaintainCost.ActualChangeLlpNumber, nonFhaMaintainCost.ActualTsr, nonFhaMaintainCost.ActualCsr, nonFhaMaintainCost.MaintainInvoiceId, nonFhaMaintainCost.AnnualId);
+            _maintainCostRepository.Modify(updateNonFhaMaintainCost);
+        }
+
+        /// <summary>
+        ///     删除非FHA.超包修维修成。
+        /// </summary>
+        /// <param name="nonFhaMaintainCost">非FHA.超包修维修成DTO。</param>
+        [Delete(typeof(NonFhaMaintainCostDTO))]
+        public void DeleteNonFhaMaintainCost(NonFhaMaintainCostDTO nonFhaMaintainCost)
+        {
+            var deleteNonFhaMaintainCost = _maintainCostRepository.Get(nonFhaMaintainCost.Id);//获取需要删除的对象。
+            _maintainCostRepository.Remove(deleteNonFhaMaintainCost); //删除非FHA.超包修维修成。
+        }
+        #endregion
+
+        #region ApuMaintainCostDTO
+        /// <summary>
+        ///     获取所有APU维修成。
+        /// </summary>
+        /// <returns>所有APU维修成。</returns>
+        public IQueryable<ApuMaintainCostDTO> GetApuMaintainCosts()
+        {
+            var queryBuilder = new QueryBuilder<ApuMaintainCost>();
+            return _maintainCostQuery.ApuMaintainCostDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///     新增APU维修成。
+        /// </summary>
+        /// <param name="apuMaintainCost">APU维修成DTO。</param>
+        [Insert(typeof(ApuMaintainCostDTO))]
+        public void InsertApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
+        {
+            var newApuMaintainCost = MaintainCostFactory.CreateApuMaintainCost();
+            MaintainCostFactory.SetApuMaintainCost(newApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type, apuMaintainCost.LastYearRate, apuMaintainCost.YearAddedRate,
+                apuMaintainCost.YearBudgetRate, apuMaintainCost.Rate, apuMaintainCost.BudgetHour, apuMaintainCost.HourPercent, apuMaintainCost.Hour, apuMaintainCost.ContractRepairFeeUsd,
+                apuMaintainCost.ContractRepairFeeRmb, apuMaintainCost.CustomRate, apuMaintainCost.TotalTax, apuMaintainCost.AddedValueRate, apuMaintainCost.AddedValue,
+                apuMaintainCost.IncludeAddedValue, apuMaintainCost.MaintainInvoiceId, apuMaintainCost.AnnualId);
+            _maintainCostRepository.Add(newApuMaintainCost);
+        }
+
+
+        /// <summary>
+        ///     更新APU维修成。
+        /// </summary>
+        /// <param name="apuMaintainCost">APU维修成DTO。</param>
+        [Update(typeof(ApuMaintainCostDTO))]
+        public void ModifyApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
+        {
+            var updateApuMaintainCost = _maintainCostRepository.Get(apuMaintainCost.Id) as ApuMaintainCost; //获取需要更新的对象。
+            MaintainCostFactory.SetApuMaintainCost(updateApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type, apuMaintainCost.LastYearRate, apuMaintainCost.YearAddedRate,
+                apuMaintainCost.YearBudgetRate, apuMaintainCost.Rate, apuMaintainCost.BudgetHour, apuMaintainCost.HourPercent, apuMaintainCost.Hour, apuMaintainCost.ContractRepairFeeUsd,
+                apuMaintainCost.ContractRepairFeeRmb, apuMaintainCost.CustomRate, apuMaintainCost.TotalTax, apuMaintainCost.AddedValueRate, apuMaintainCost.AddedValue,
+                apuMaintainCost.IncludeAddedValue, apuMaintainCost.MaintainInvoiceId, apuMaintainCost.AnnualId);
+            _maintainCostRepository.Modify(updateApuMaintainCost);
+        }
+
+        /// <summary>
+        ///     删除APU维修成。
+        /// </summary>
+        /// <param name="apuMaintainCost">APU维修成DTO。</param>
+        [Delete(typeof(ApuMaintainCostDTO))]
+        public void DeleteApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
+        {
+            var deleteApuMaintainCost = _maintainCostRepository.Get(apuMaintainCost.Id);//获取需要删除的对象。
+            _maintainCostRepository.Remove(deleteApuMaintainCost); //删除APU维修成。
+        }
+        #endregion
     }
 }

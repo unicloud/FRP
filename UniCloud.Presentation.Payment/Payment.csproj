@@ -200,10 +200,22 @@
       <DependentUpon>SundryInvoiceManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\SundryInvoiceManagerVm.cs" />
+    <Compile Include="MaintainCost\ApuMaintainCostManage.xaml.cs">
+      <DependentUpon>ApuMaintainCostManage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainCost\ApuMaintainCostManageVm.cs" />
+    <Compile Include="MaintainCost\NonFhaMaintainCostManage.xaml.cs">
+      <DependentUpon>NonFhaMaintainCostManage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainCost\NonFhaMaintainCostManageVm.cs" />
     <Compile Include="MaintainCost\RegularCheckMaintainCostManage.xaml.cs">
       <DependentUpon>RegularCheckMaintainCostManage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MaintainCost\RegularCheckMaintainCostManageVm.cs" />
+    <Compile Include="MaintainCost\SpecialRefitMaintainCostManage.xaml.cs">
+      <DependentUpon>SpecialRefitMaintainCostManage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainCost\SpecialRefitMaintainCostManageVm.cs" />
     <Compile Include="MaintainCost\UndercartMaintainCostManage.xaml.cs">
       <DependentUpon>UndercartMaintainCostManage.xaml</DependentUpon>
     </Compile>
@@ -374,7 +386,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MaintainCost\ApuMaintainCostManage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainCost\NonFhaMaintainCostManage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MaintainCost\RegularCheckMaintainCostManage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainCost\SpecialRefitMaintainCostManage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

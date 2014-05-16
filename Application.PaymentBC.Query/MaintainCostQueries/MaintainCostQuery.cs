@@ -91,7 +91,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         OutMaintainTime = p.OutMaintainTime,
                         TotalDays = p.TotalDays,
                         MaintainInvoiceId = p.MaintainInvoiceId,
-                        Type=(int)p.Type,
+                        Type = (int)p.Type,
                         Part = (int)p.Part,
                         AddedValue = p.AddedValue,
                         AddedValueRate = p.AddedValueRate,
@@ -103,6 +103,123 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         Rate = p.Rate,
                         ReplaceFee = p.ReplaceFee,
                         AnnualId = p.AnnualId
+                    });
+        }
+
+        /// <summary>
+        ///      特修改装维修成本查询。
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns> 特修改装维修成本DTO集合。</returns>
+        public IQueryable<SpecialRefitMaintainCostDTO> SpecialRefitMaintainCostDTOQuery(
+           QueryBuilder<SpecialRefitMaintainCost> query)
+        {
+            return
+                query.ApplyTo(_maintainCostRepository.GetAll().OfType<SpecialRefitMaintainCost>())
+                    .Select(p => new SpecialRefitMaintainCostDTO
+                    {
+                        Id = p.Id,
+                        Project = p.Project,
+                        Info = p.Info,
+                        DepartmentDeclareAmount = p.DepartmentDeclareAmount,
+                        Note = p.Note,
+                        FinancialApprovalAmount = p.FinancialApprovalAmount,
+                        FinancialApprovalAmountNonTax = p.FinancialApprovalAmountNonTax,
+                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalAmount = p.MaintainInvoice.PaidAmount,
+                        MaintainInvoiceId = p.MaintainInvoiceId,
+                        AnnualId = p.AnnualId
+                    });
+        }
+
+        /// <summary>
+        ///      非FHA.超包修维修成本查询。
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns> 非FHA.超包修维修成本DTO集合。</returns>
+        public IQueryable<NonFhaMaintainCostDTO> NonFhaMaintainCostDTOQuery(
+           QueryBuilder<NonFhaMaintainCost> query)
+        {
+            return
+                query.ApplyTo(_maintainCostRepository.GetAll().OfType<NonFhaMaintainCost>())
+                    .Select(p => new NonFhaMaintainCostDTO
+                    {
+                        Id = p.Id,
+                        EngineNumber = p.EngineNumber,
+                        ContractRepairt = (int)p.ContractRepairt,
+                        Type = (int)p.Type,
+                        AircraftId = p.AircraftId,
+                        ActionCategoryId = p.ActionCategoryId,
+                        AircraftTypeId = p.AircraftTypeId,
+                        SupplierId = p.SupplierId,
+                        InMaintainTime = p.InMaintainTime,
+                        OutMaintainTime = p.OutMaintainTime,
+                        MaintainLevel = p.MaintainLevel,
+                        ChangeLlpNumber = p.ChangeLlpNumber,
+                        Tsr = p.Tsr,
+                        Csr = p.Csr,
+                        NonFhaFee = p.NonFhaFee,
+                        PartFee = p.PartFee,
+                        ChangeLlpFee = p.ChangeLlpFee,
+                        FeeLittleSum = p.FeeLittleSum,
+                        Rate = p.Rate,
+                        FeeTotalSum = p.FeeTotalSum,
+                        CustomRate = p.CustomRate,
+                        Custom = p.Custom,
+                        AddedValueRate = p.AddedValueRate,
+                        AddedValue = p.AddedValue,
+                        CustomsTax = p.CustomsTax,
+                        FreightFee = p.FreightFee,
+                        DepartmentDeclareAmount = p.DepartmentDeclareAmount,
+                        Note = p.Note,
+                        FinancialApprovalAmount = p.FinancialApprovalAmount,
+                        FinancialApprovalAmountNonTax = p.FinancialApprovalAmountNonTax,
+                        ActualMaintainLevel = p.ActualMaintainLevel,
+                        ActualChangeLlpNumber = p.ActualChangeLlpNumber,
+                        ActualCsr = p.ActualCsr,
+                        ActualTsr = p.ActualTsr,
+                        AcutalInMaintainTime = p.MaintainInvoice.InMaintainTime,
+                        AcutalOutMaintainTime = p.MaintainInvoice.OutMaintainTime,
+                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalAmount = p.MaintainInvoice.PaidAmount,
+                        MaintainInvoiceId = p.MaintainInvoiceId,
+                        AnnualId = p.AnnualId
+                    });
+        }
+
+        /// <summary>
+        ///   APU维修成本查询。
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns> APU维修成本DTO集合。</returns>
+        public IQueryable<ApuMaintainCostDTO> ApuMaintainCostDTOQuery(
+           QueryBuilder<ApuMaintainCost> query)
+        {
+            return
+                query.ApplyTo(_maintainCostRepository.GetAll().OfType<ApuMaintainCost>())
+                    .Select(p => new ApuMaintainCostDTO
+                    {
+                        Id = p.Id,
+                        NameType = p.NameType,
+                        Type = p.Type,
+                        LastYearRate = p.LastYearRate,
+                        YearAddedRate = p.YearAddedRate,
+                        YearBudgetRate = p.YearBudgetRate,
+                        Rate = p.Rate,
+                        BudgetHour = p.BudgetHour,
+                        HourPercent = p.HourPercent,
+                        Hour = p.Hour,
+                        ContractRepairFeeUsd = p.ContractRepairFeeUsd,
+                        ContractRepairFeeRmb = p.ContractRepairFeeRmb,
+                        CustomRate = p.CustomRate,
+                        TotalTax = p.TotalTax,
+                        AddedValueRate = p.AddedValueRate,
+                        AddedValue = p.AddedValue,
+                        IncludeAddedValue = p.IncludeAddedValue,
+                        MaintainInvoiceId = p.MaintainInvoiceId,
+                        AnnualId = p.AnnualId,
+                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalAmount = p.MaintainInvoice.PaidAmount
                     });
         }
     }

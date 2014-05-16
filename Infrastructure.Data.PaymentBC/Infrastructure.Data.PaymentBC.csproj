@@ -78,6 +78,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirframeMaintainInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ApuMaintainCostEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BankAccountEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BasePurchaseInvoiceEntityConfiguration.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainCostEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainCreditNoteInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainPrepaymentInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\NonFhaMaintainCostEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseCreditNoteInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CurrencyEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineLeaseOrderEntityConfiguration.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseInvoiceLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\RegularCheckMaintainCostEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SpecialRefitInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\SpecialRefitMaintainCostEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\StandardPaymentScheduleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SundryInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyEntityConfiguration.cs" />

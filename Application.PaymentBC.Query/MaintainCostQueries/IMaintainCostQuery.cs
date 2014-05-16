@@ -39,5 +39,29 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
         /// <returns>起落架维修成本DTO集合</returns>
         IQueryable<UndercartMaintainCostDTO> UndercartMaintainCostDTOQuery(
             QueryBuilder<UndercartMaintainCost> query);
+
+        /// <summary>
+        ///     特修改装维修成本查询
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>特修改装维修成本DTO集合</returns>
+        IQueryable<SpecialRefitMaintainCostDTO> SpecialRefitMaintainCostDTOQuery(
+            QueryBuilder<SpecialRefitMaintainCost> query);
+
+        /// <summary>
+        ///     非FHA.超包修维修成本查询
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>非FHA.超包修维修成本DTO集合</returns>
+        IQueryable<NonFhaMaintainCostDTO> NonFhaMaintainCostDTOQuery(
+            QueryBuilder<NonFhaMaintainCost> query);
+
+        /// <summary>
+        ///     APU维修成本查询
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>APU维修成本DTO集合</returns>
+        IQueryable<ApuMaintainCostDTO> ApuMaintainCostDTOQuery(
+            QueryBuilder<ApuMaintainCost> query);
     }
 }

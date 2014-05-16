@@ -85,6 +85,9 @@
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\LeaseInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoiceLine.cs" />
+    <Compile Include="Aggregates\MaintainCostAgg\ApuMaintainCost.cs" />
+    <Compile Include="Aggregates\MaintainCostAgg\NonFhaMaintainCost.cs" />
+    <Compile Include="Aggregates\MaintainCostAgg\SpecialRefitMaintainCost.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\SpecialRefitInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\SundryInvoice.cs" />
     <Compile Include="Aggregates\LinkmanAgg\ILinkmanRepository.cs" />

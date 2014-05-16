@@ -341,6 +341,9 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
 .Add(new MaintainCostEntityConfiguration())
 .Add(new RegularCheckMaintainCostEntityConfiguration())
 .Add(new UndercartMaintainCostEntityConfiguration())
+.Add(new SpecialRefitMaintainCostEntityConfiguration())
+.Add(new NonFhaMaintainCostEntityConfiguration())
+.Add(new ApuMaintainCostEntityConfiguration())
 #endregion
 
             #region

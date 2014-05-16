@@ -772,8 +772,8 @@ namespace UniCloud.Presentation.Shell
             };
             var menu472 = new MenuItem
             {
-                Text = "预测资金需求",
-                NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.FinancingDemandForecast"
+                Text = "非FHA.超包修",
+                NavUri = "UniCloud.Presentation.Payment.MaintainCost.NonFhaMaintainCostManage"
             };
             var menu473 = new MenuItem
             {
@@ -782,13 +782,19 @@ namespace UniCloud.Presentation.Shell
             };
             var menu474 = new MenuItem
             {
-                Text = "分析维修成本",
-                NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.AnalyseMaintenanceCosts"
+                Text = "特修改装",
+                NavUri = "UniCloud.Presentation.Payment.MaintainCost.SpecialRefitMaintainCostManage"
+            };
+            var menu475 = new MenuItem
+            {
+                Text = "APU",
+                NavUri = "UniCloud.Presentation.Payment.MaintainCost.ApuMaintainCostManage"
             };
             menu47.Items.Add(menu471);
             menu47.Items.Add(menu472);
             menu47.Items.Add(menu473);
             menu47.Items.Add(menu474);
+            menu47.Items.Add(menu475);
             menu4.Items.Add(menu47);
 
             var menu48 = new MenuItem

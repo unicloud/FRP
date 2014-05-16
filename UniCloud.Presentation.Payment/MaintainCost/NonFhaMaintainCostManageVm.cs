@@ -3,11 +3,11 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2014/5/15 14:21:24
-// 文件名：RegularCheckMaintainCostManageVm
+// 作者：linxw 时间：2014/5/16 13:39:48
+// 文件名：NonFhaMaintainCostManageVm
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2014/5/15 14:21:24
+// 修改者：linxw 时间：2014/5/16 13:39:48
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -27,30 +27,32 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
+using SupplierDTO = UniCloud.Presentation.Service.FleetPlan.FleetPlan.SupplierDTO;
 
 #endregion
 
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
-    [Export(typeof(RegularCheckMaintainCostManageVm))]
+    [Export(typeof(NonFhaMaintainCostManageVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class RegularCheckMaintainCostManageVm : EditViewModelBase
+    public class NonFhaMaintainCostManageVm : EditViewModelBase
     {
         private readonly IPaymentService _service;
         private readonly PaymentData _context;
         private readonly IFleetPlanService _fleetPlanService;
         private FilterDescriptor _annualFilter;
+
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public RegularCheckMaintainCostManageVm(IPaymentService service, IFleetPlanService fleetPlanService)
+        public NonFhaMaintainCostManageVm(IPaymentService service, IFleetPlanService fleetPlanService)
             : base(service)
         {
             _fleetPlanService = fleetPlanService;
             _service = service;
             _context = _service.Context;
-            InitialVm(); //初始化定检维修成本
+            InitialVm(); //初始化非FHA.超包修维修成本
 
         }
         #region 年度
@@ -65,7 +67,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 if (_annual != null)
                 {
                     _annualFilter.Value = _annual.Id;
-                    RegularCheckMaintainCosts.Load(true);
+                    NonFhaMaintainCosts.Load(true);
                 }
                 RaisePropertyChanged(() => Annual);
             }
@@ -76,70 +78,78 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; }
         public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypes { get; set; }
         public QueryableDataServiceCollectionView<ActionCategoryDTO> ActionCategories { get; set; }
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
         #endregion
 
         #region 发票
-        public QueryableDataServiceCollectionView<AirframeMaintainInvoiceDTO> AirframeMaintainInvoices { get; set; }
+        public QueryableDataServiceCollectionView<EngineMaintainInvoiceDTO> EngineMaintainInvoices { get; set; }
         #endregion
 
-        public Dictionary<int, RegularCheckType> RegularCheckTypes
+        public Dictionary<int, MaintainCostType> MaintainCostTypes
         {
-            get { return Enum.GetValues(typeof(RegularCheckType)).Cast<object>().ToDictionary(value => (int)value, value => (RegularCheckType)value); }
+            get { return Enum.GetValues(typeof(MaintainCostType)).Cast<object>().ToDictionary(value => (int)value, value => (MaintainCostType)value); }
         }
 
-        #region 加载定检维修成本
+        public Dictionary<int, ContractRepairtType> ContractRepairtTypes
+        {
+            get { return Enum.GetValues(typeof(ContractRepairtType)).Cast<object>().ToDictionary(value => (int)value, value => (ContractRepairtType)value); }
+        }
 
-        private RegularCheckMaintainCostDTO _regularCheckMaintainCost;
+        #region 加载非FHA.超包修维修成本
+
+        private NonFhaMaintainCostDTO _nonFhaMaintainCost;
 
         /// <summary>
-        ///     选择定检维修成本。
+        ///     选择非FHA.超包修维修成本。
         /// </summary>
-        public RegularCheckMaintainCostDTO RegularCheckMaintainCost
+        public NonFhaMaintainCostDTO NonFhaMaintainCost
         {
-            get { return _regularCheckMaintainCost; }
+            get { return _nonFhaMaintainCost; }
             set
             {
-                if (_regularCheckMaintainCost != value)
+                if (_nonFhaMaintainCost != value)
                 {
-                    _regularCheckMaintainCost = value;
-                    RaisePropertyChanged(() => RegularCheckMaintainCost);
+                    _nonFhaMaintainCost = value;
+                    RaisePropertyChanged(() => NonFhaMaintainCost);
                 }
             }
         }
 
         /// <summary>
-        ///     获取所有定检维修成本信息。
+        ///     获取所有非FHA.超包修维修成本信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<RegularCheckMaintainCostDTO> RegularCheckMaintainCosts { get; set; }
+        public QueryableDataServiceCollectionView<NonFhaMaintainCostDTO> NonFhaMaintainCosts { get; set; }
 
         /// <summary>
-        ///     初始化定检维修成本信息。
+        ///     初始化非FHA.超包修维修成本信息。
         /// </summary>
         private void InitialVm()
         {
+            CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
             AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
             DeleteCommand = new DelegateCommand<object>(OnDelete, CanDelete);
-            AirframeMaintainInvoices = new QueryableDataServiceCollectionView<AirframeMaintainInvoiceDTO>(_context, _context.AirframeMaintainInvoices);
-            RegularCheckMaintainCosts = _service.CreateCollection(_context.RegularCheckMaintainCosts);
-            RegularCheckMaintainCosts.PageSize = 20;
+            EngineMaintainInvoices = new QueryableDataServiceCollectionView<EngineMaintainInvoiceDTO>(_context, _context.EngineMaintainInvoices);
+            NonFhaMaintainCosts = _service.CreateCollection(_context.NonFhaMaintainCosts);
+            NonFhaMaintainCosts.PageSize = 20;
             _annualFilter = new FilterDescriptor("AnnualId", FilterOperator.IsEqualTo, Guid.Empty);
-            RegularCheckMaintainCosts.FilterDescriptors.Add(_annualFilter);
-            RegularCheckMaintainCosts.LoadedData += (sender, e) =>
+            NonFhaMaintainCosts.FilterDescriptors.Add(_annualFilter);
+            NonFhaMaintainCosts.LoadedData += (sender, e) =>
             {
-                if (RegularCheckMaintainCost == null)
-                    RegularCheckMaintainCost = RegularCheckMaintainCosts.FirstOrDefault();
+                if (NonFhaMaintainCost == null)
+                    NonFhaMaintainCost = NonFhaMaintainCosts.FirstOrDefault();
                 RefreshCommandState();
             };
 
             Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Aircrafts);
             AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_fleetPlanService.Context, _fleetPlanService.Context.AircraftTypes);
             ActionCategories = new QueryableDataServiceCollectionView<ActionCategoryDTO>(_fleetPlanService.Context, _fleetPlanService.Context.ActionCategories);
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Suppliers);
             Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
             Annuals.LoadedData += (o, e) =>
-                                  {
-                                      if (Annual == null)
-                                          Annual = Annuals.FirstOrDefault();
-                                  };
+            {
+                if (Annual == null)
+                    Annual = Annuals.FirstOrDefault();
+            };
         }
 
         #endregion
@@ -156,32 +166,33 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         /// <param name="sender"></param>
         public void OnAdd(object sender)
         {
-            RegularCheckMaintainCost = new RegularCheckMaintainCostDTO
+            NonFhaMaintainCost = new NonFhaMaintainCostDTO
                                      {
                                          Id = RandomHelper.Next(),
                                          InMaintainTime = DateTime.Now,
                                          OutMaintainTime = DateTime.Now,
                                          AnnualId = Annual.Id
                                      };
-            RegularCheckMaintainCost.TotalDays =
-                (RegularCheckMaintainCost.OutMaintainTime.Date - RegularCheckMaintainCost.InMaintainTime.Date).Days + 1;
             var aircraft = Aircrafts.FirstOrDefault();
             if (aircraft != null)
             {
-                RegularCheckMaintainCost.AircraftId = aircraft.AircraftId;
-                RegularCheckMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
-                RegularCheckMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+                NonFhaMaintainCost.AircraftId = aircraft.AircraftId;
+                NonFhaMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
+                NonFhaMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
             }
-            var invoice = AirframeMaintainInvoices.FirstOrDefault();
+            var supplier = Suppliers.FirstOrDefault();
+            if (supplier != null)
+                NonFhaMaintainCost.SupplierId = supplier.Id;
+            var invoice = EngineMaintainInvoices.FirstOrDefault();
             if (invoice != null)
             {
-                RegularCheckMaintainCost.MaintainInvoiceId = invoice.AirframeMaintainInvoiceId;
-                RegularCheckMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
-                RegularCheckMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
-                RegularCheckMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                RegularCheckMaintainCost.AcutalAmount = invoice.PaidAmount;
+                NonFhaMaintainCost.MaintainInvoiceId = invoice.EngineMaintainInvoiceId;
+                NonFhaMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
+                NonFhaMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
+                NonFhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                NonFhaMaintainCost.AcutalAmount = invoice.PaidAmount;
             }
-            RegularCheckMaintainCosts.AddNew(RegularCheckMaintainCost);
+            NonFhaMaintainCosts.AddNew(NonFhaMaintainCost);
         }
 
         /// <summary>
@@ -206,7 +217,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         /// <param name="sender"></param>
         public void OnDelete(object sender)
         {
-            if (RegularCheckMaintainCost == null)
+            if (NonFhaMaintainCost == null)
             {
                 MessageAlert("提示", "请选择需要删除的记录");
                 return;
@@ -214,8 +225,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
                                             {
                                                 if (arg.DialogResult != true) return;
-                                                RegularCheckMaintainCosts.Remove(RegularCheckMaintainCost);
-                                                RegularCheckMaintainCost = RegularCheckMaintainCosts.FirstOrDefault();
+                                                NonFhaMaintainCosts.Remove(NonFhaMaintainCost);
+                                                NonFhaMaintainCost = NonFhaMaintainCosts.FirstOrDefault();
                                             });
         }
 
@@ -239,12 +250,13 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         {
             if (!Annuals.AutoLoad)
                 Annuals.AutoLoad = true;
-            if (!RegularCheckMaintainCosts.AutoLoad)
-                RegularCheckMaintainCosts.AutoLoad = true;
-            AirframeMaintainInvoices.Load(true);
+            if (!NonFhaMaintainCosts.AutoLoad)
+                NonFhaMaintainCosts.AutoLoad = true;
+            EngineMaintainInvoices.Load(true);
             Aircrafts.Load(true);
             AircraftTypes.Load(true);
             ActionCategories.Load(true);
+            Suppliers.Load(true);
         }
 
         #endregion
@@ -254,18 +266,30 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (sender is AircraftDTO)
             {
                 var aircraft = sender as AircraftDTO;
-                RegularCheckMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
-                RegularCheckMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+                NonFhaMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
+                NonFhaMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
             }
-            else if (sender is AirframeMaintainInvoiceDTO)
+            else if (sender is EngineMaintainInvoiceDTO)
             {
-                var invoice = sender as AirframeMaintainInvoiceDTO;
-                RegularCheckMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
-                RegularCheckMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
-                RegularCheckMaintainCost.AcutalTotalDays = (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
-                RegularCheckMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                RegularCheckMaintainCost.AcutalAmount = invoice.PaidAmount;
+                var invoice = sender as EngineMaintainInvoiceDTO;
+                NonFhaMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
+                NonFhaMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
+                NonFhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                NonFhaMaintainCost.AcutalAmount = invoice.PaidAmount;
             }
         }
+
+        #region 单元格编辑事件
+        public DelegateCommand<object> CellEditEndCommand { get; set; }
+
+        private void CellEditEnd(object sender)
+        {
+            NonFhaMaintainCost.FeeLittleSum = NonFhaMaintainCost.NonFhaFee +
+                                                    NonFhaMaintainCost.PartFee +
+                                                    NonFhaMaintainCost.ChangeLlpFee;
+            NonFhaMaintainCost.FeeTotalSum = NonFhaMaintainCost.FeeLittleSum * NonFhaMaintainCost.Rate;
+        }
+        #endregion
     }
 }
+
