@@ -1335,6 +1335,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 .Add(new RegularCheckMaintainCostEntityConfiguration())
 .Add(new UndercartMaintainCostEntityConfiguration())
 .Add(new SpecialRefitMaintainCostEntityConfiguration())
+.Add(new NonFhaMaintainCostEntityConfiguration())
             #endregion
 
 .Add(new AddressConfiguration());

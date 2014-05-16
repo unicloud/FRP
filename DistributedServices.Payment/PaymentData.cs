@@ -392,6 +392,11 @@ namespace UniCloud.DistributedServices.Payment
         {
             get { return _maintainCostAppService.GetSpecialRefitMaintainCosts(); }
         }
+
+        public IQueryable<NonFhaMaintainCostDTO> NonFhaMaintainCosts
+        {
+            get { return _maintainCostAppService.GetNonFhaMaintainCosts(); }
+        }
         #endregion
     }
 }

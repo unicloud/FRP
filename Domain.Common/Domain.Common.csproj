@@ -48,6 +48,7 @@
     <Compile Include="Enums\CanRequest.cs" />
     <Compile Include="Enums\ContractAircraftStatus.cs" />
     <Compile Include="Enums\ContractEngineStatus.cs" />
+    <Compile Include="Enums\ContractRepairtType.cs" />
     <Compile Include="Enums\ControlStatus.cs" />
     <Compile Include="Enums\ControlStrategy.cs" />
     <Compile Include="Enums\DependencyType.cs" />

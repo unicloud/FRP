@@ -110,7 +110,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             return maintainCost;
         }
 
-
         public static void SetSpecialRefitMaintainCost(SpecialRefitMaintainCost maintainCost, string project, string info, decimal departmentDeclareAmount, string note, decimal financialApprovalAmount,
             decimal financialApprovalAmountNonTax, int? maintainInvoiceId, Guid annualId)
         {
@@ -120,6 +119,62 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             maintainCost.Note = note;
             maintainCost.FinancialApprovalAmount = financialApprovalAmount;
             maintainCost.FinancialApprovalAmountNonTax = financialApprovalAmountNonTax;
+            maintainCost.MaintainInvoiceId = maintainInvoiceId;
+            maintainCost.AnnualId = annualId;
+        }
+
+        /// <summary>
+        ///     创建非FHA.超包修维修成本
+        /// </summary>
+        /// <returns></returns>
+        public static NonFhaMaintainCost CreateNonFhaMaintainCost()
+        {
+            var maintainCost = new NonFhaMaintainCost();
+            maintainCost.GenerateNewIdentity();
+
+            return maintainCost;
+        }
+
+
+        public static void SetNonFhaMaintainCost(NonFhaMaintainCost maintainCost, string engineNumber, int contractRepairt, int type, Guid aircraftId, Guid actionCategoryId,
+            Guid aircraftTypeId, int supplierId, DateTime inMaintainTime, DateTime outMaintainTime, int maintainLevel, int changeLlpNumber, decimal tsr, decimal csr, decimal nonFhaFee,
+            decimal partFee, decimal changeLlpFee, decimal feeLittleSum, decimal rate, decimal feeTotalSum, decimal customRate, string custom, decimal addedValueRate, string addedValue,
+        decimal customsTax, decimal freightFee, decimal departmentDeclareAmount, decimal financialApprovalAmount, decimal financialApprovalAmountNonTax, string note, int actualMaintainLevel,
+            int actualChangeLlpNumber, decimal actualTsr, decimal actualCsr, int? maintainInvoiceId, Guid annualId)
+        {
+            maintainCost.EngineNumber = engineNumber;
+            maintainCost.ContractRepairt = (ContractRepairtType)contractRepairt;
+            maintainCost.Type = (MaintainCostType)type;
+            maintainCost.AircraftId = aircraftId;
+            maintainCost.ActionCategoryId = actionCategoryId;
+            maintainCost.AircraftTypeId = aircraftTypeId;
+            maintainCost.SupplierId = supplierId;
+            maintainCost.InMaintainTime = inMaintainTime;
+            maintainCost.OutMaintainTime = outMaintainTime;
+            maintainCost.MaintainLevel = maintainLevel;
+            maintainCost.ChangeLlpNumber = changeLlpNumber;
+            maintainCost.Tsr = tsr;
+            maintainCost.Csr = csr;
+            maintainCost.NonFhaFee = nonFhaFee;
+            maintainCost.PartFee = partFee;
+            maintainCost.ChangeLlpFee = changeLlpFee;
+            maintainCost.FeeLittleSum = feeLittleSum;
+            maintainCost.Rate = rate;
+            maintainCost.FeeTotalSum = feeTotalSum;
+            maintainCost.CustomRate = customRate;
+            maintainCost.Custom = custom;
+            maintainCost.AddedValueRate = addedValueRate;
+            maintainCost.AddedValue = addedValue;
+            maintainCost.CustomsTax = customsTax;
+            maintainCost.FreightFee = freightFee;
+            maintainCost.DepartmentDeclareAmount = departmentDeclareAmount;
+            maintainCost.FinancialApprovalAmount = financialApprovalAmount;
+            maintainCost.FinancialApprovalAmountNonTax = financialApprovalAmountNonTax;
+            maintainCost.Note = note;
+            maintainCost.ActualMaintainLevel = actualMaintainLevel;
+            maintainCost.ActualChangeLlpNumber = actualChangeLlpNumber;
+            maintainCost.ActualCsr = actualCsr;
+            maintainCost.ActualTsr = actualTsr;
             maintainCost.MaintainInvoiceId = maintainInvoiceId;
             maintainCost.AnnualId = annualId;
         }

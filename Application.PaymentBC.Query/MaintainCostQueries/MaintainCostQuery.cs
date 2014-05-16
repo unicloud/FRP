@@ -131,5 +131,59 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         AnnualId = p.AnnualId
                     });
         }
+        /// <summary>
+        ///      非FHA.超包修维修成本查询。
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns> 非FHA.超包修维修成本DTO集合。</returns>
+        public IQueryable<NonFhaMaintainCostDTO> NonFhaMaintainCostDTOQuery(
+           QueryBuilder<NonFhaMaintainCost> query)
+        {
+            return
+                query.ApplyTo(_maintainCostRepository.GetAll().OfType<NonFhaMaintainCost>())
+                    .Select(p => new NonFhaMaintainCostDTO
+                    {
+                        Id = p.Id,
+                        EngineNumber = p.EngineNumber,
+                        ContractRepairt = (int)p.ContractRepairt,
+                        Type = (int)p.Type,
+                        AircraftId = p.AircraftId,
+                        ActionCategoryId = p.ActionCategoryId,
+                        AircraftTypeId = p.AircraftTypeId,
+                        SupplierId = p.SupplierId,
+                        InMaintainTime = p.InMaintainTime,
+                        OutMaintainTime = p.OutMaintainTime,
+                        MaintainLevel = p.MaintainLevel,
+                        ChangeLlpNumber = p.ChangeLlpNumber,
+                        Tsr = p.Tsr,
+                        Csr = p.Csr,
+                        NonFhaFee = p.NonFhaFee,
+                        PartFee = p.PartFee,
+                        ChangeLlpFee = p.ChangeLlpFee,
+                        FeeLittleSum = p.FeeLittleSum,
+                        Rate = p.Rate,
+                        FeeTotalSum = p.FeeTotalSum,
+                        CustomRate = p.CustomRate,
+                        Custom = p.Custom,
+                        AddedValueRate = p.AddedValueRate,
+                        AddedValue = p.AddedValue,
+                        CustomsTax = p.CustomsTax,
+                        FreightFee = p.FreightFee,
+                        DepartmentDeclareAmount = p.DepartmentDeclareAmount,
+                        Note = p.Note,
+                        FinancialApprovalAmount = p.FinancialApprovalAmount,
+                        FinancialApprovalAmountNonTax = p.FinancialApprovalAmountNonTax,
+                        ActualMaintainLevel = p.ActualMaintainLevel,
+                        ActualChangeLlpNumber = p.ActualChangeLlpNumber,
+                        ActualCsr = p.ActualCsr,
+                        ActualTsr = p.ActualTsr,
+                        AcutalInMaintainTime = p.MaintainInvoice.InMaintainTime,
+                        AcutalOutMaintainTime = p.MaintainInvoice.OutMaintainTime,
+                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalAmount = p.MaintainInvoice.PaidAmount,
+                        MaintainInvoiceId = p.MaintainInvoiceId,
+                        AnnualId = p.AnnualId
+                    });
+        }
     }
 }

@@ -772,8 +772,8 @@ namespace UniCloud.Presentation.Shell
             };
             var menu472 = new MenuItem
             {
-                Text = "预测资金需求",
-                NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.FinancingDemandForecast"
+                Text = "非FHA.超包修",
+                NavUri = "UniCloud.Presentation.Payment.MaintainCost.NonFhaMaintainCostManage"
             };
             var menu473 = new MenuItem
             {

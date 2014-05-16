@@ -193,5 +193,62 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         }
         #endregion
 
+        #region NonFhaMaintainCostDTO
+        /// <summary>
+        ///     获取所有非FHA.超包修维修成。
+        /// </summary>
+        /// <returns>所有非FHA.超包修维修成。</returns>
+        public IQueryable<NonFhaMaintainCostDTO> GetNonFhaMaintainCosts()
+        {
+            var queryBuilder = new QueryBuilder<NonFhaMaintainCost>();
+            return _maintainCostQuery.NonFhaMaintainCostDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///     新增非FHA.超包修维修成。
+        /// </summary>
+        /// <param name="nonFhaMaintainCost">非FHA.超包修维修成DTO。</param>
+        [Insert(typeof(NonFhaMaintainCostDTO))]
+        public void InsertNonFhaMaintainCost(NonFhaMaintainCostDTO nonFhaMaintainCost)
+        {
+            var newNonFhaMaintainCost = MaintainCostFactory.CreateNonFhaMaintainCost();
+            MaintainCostFactory.SetNonFhaMaintainCost(newNonFhaMaintainCost, nonFhaMaintainCost.EngineNumber, nonFhaMaintainCost.ContractRepairt, nonFhaMaintainCost.Type, nonFhaMaintainCost.AircraftId,
+                nonFhaMaintainCost.ActionCategoryId, nonFhaMaintainCost.AircraftTypeId, nonFhaMaintainCost.SupplierId, nonFhaMaintainCost.InMaintainTime, nonFhaMaintainCost.OutMaintainTime, nonFhaMaintainCost.MaintainLevel,
+                nonFhaMaintainCost.ChangeLlpNumber, nonFhaMaintainCost.Tsr, nonFhaMaintainCost.Csr, nonFhaMaintainCost.NonFhaFee, nonFhaMaintainCost.PartFee, nonFhaMaintainCost.ChangeLlpFee, nonFhaMaintainCost.FeeLittleSum,
+                nonFhaMaintainCost.Rate, nonFhaMaintainCost.FeeTotalSum, nonFhaMaintainCost.CustomRate, nonFhaMaintainCost.Custom, nonFhaMaintainCost.AddedValueRate, nonFhaMaintainCost.AddedValue, nonFhaMaintainCost.CustomsTax,
+                nonFhaMaintainCost.FreightFee, nonFhaMaintainCost.DepartmentDeclareAmount, nonFhaMaintainCost.FinancialApprovalAmount, nonFhaMaintainCost.FinancialApprovalAmountNonTax, nonFhaMaintainCost.Note, nonFhaMaintainCost.ActualMaintainLevel,
+                nonFhaMaintainCost.ActualChangeLlpNumber, nonFhaMaintainCost.ActualTsr, nonFhaMaintainCost.ActualCsr, nonFhaMaintainCost.MaintainInvoiceId, nonFhaMaintainCost.AnnualId);
+            _maintainCostRepository.Add(newNonFhaMaintainCost);
+        }
+
+
+        /// <summary>
+        ///     更新非FHA.超包修维修成。
+        /// </summary>
+        /// <param name="nonFhaMaintainCost">非FHA.超包修维修成DTO。</param>
+        [Update(typeof(NonFhaMaintainCostDTO))]
+        public void ModifyNonFhaMaintainCost(NonFhaMaintainCostDTO nonFhaMaintainCost)
+        {
+            var updateNonFhaMaintainCost = _maintainCostRepository.Get(nonFhaMaintainCost.Id) as NonFhaMaintainCost; //获取需要更新的对象。
+            MaintainCostFactory.SetNonFhaMaintainCost(updateNonFhaMaintainCost, nonFhaMaintainCost.EngineNumber, nonFhaMaintainCost.ContractRepairt, nonFhaMaintainCost.Type, nonFhaMaintainCost.AircraftId,
+                nonFhaMaintainCost.ActionCategoryId, nonFhaMaintainCost.AircraftTypeId, nonFhaMaintainCost.SupplierId, nonFhaMaintainCost.InMaintainTime, nonFhaMaintainCost.OutMaintainTime, nonFhaMaintainCost.MaintainLevel,
+                nonFhaMaintainCost.ChangeLlpNumber, nonFhaMaintainCost.Tsr, nonFhaMaintainCost.Csr, nonFhaMaintainCost.NonFhaFee, nonFhaMaintainCost.PartFee, nonFhaMaintainCost.ChangeLlpFee, nonFhaMaintainCost.FeeLittleSum,
+                nonFhaMaintainCost.Rate, nonFhaMaintainCost.FeeTotalSum, nonFhaMaintainCost.CustomRate, nonFhaMaintainCost.Custom, nonFhaMaintainCost.AddedValueRate, nonFhaMaintainCost.AddedValue, nonFhaMaintainCost.CustomsTax,
+                nonFhaMaintainCost.FreightFee, nonFhaMaintainCost.DepartmentDeclareAmount, nonFhaMaintainCost.FinancialApprovalAmount, nonFhaMaintainCost.FinancialApprovalAmountNonTax, nonFhaMaintainCost.Note, nonFhaMaintainCost.ActualMaintainLevel,
+                nonFhaMaintainCost.ActualChangeLlpNumber, nonFhaMaintainCost.ActualTsr, nonFhaMaintainCost.ActualCsr, nonFhaMaintainCost.MaintainInvoiceId, nonFhaMaintainCost.AnnualId);
+            _maintainCostRepository.Modify(updateNonFhaMaintainCost);
+        }
+
+        /// <summary>
+        ///     删除非FHA.超包修维修成。
+        /// </summary>
+        /// <param name="nonFhaMaintainCost">非FHA.超包修维修成DTO。</param>
+        [Delete(typeof(NonFhaMaintainCostDTO))]
+        public void DeleteNonFhaMaintainCost(NonFhaMaintainCostDTO nonFhaMaintainCost)
+        {
+            var deleteNonFhaMaintainCost = _maintainCostRepository.Get(nonFhaMaintainCost.Id);//获取需要删除的对象。
+            _maintainCostRepository.Remove(deleteNonFhaMaintainCost); //删除非FHA.超包修维修成。
+        }
+        #endregion
     }
 }

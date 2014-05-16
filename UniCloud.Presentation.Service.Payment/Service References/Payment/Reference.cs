@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/5/16 10:18:49
+// 生成日期: 2014/5/16 11:46:14
 namespace UniCloud.Presentation.Service.Payment.Payment
 {
     
@@ -707,6 +707,23 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<SpecialRefitMaintainCostDTO> _SpecialRefitMaintainCosts;
         /// <summary>
+        /// 架构中不存在 NonFhaMaintainCosts 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<NonFhaMaintainCostDTO> NonFhaMaintainCosts
+        {
+            get
+            {
+                if ((this._NonFhaMaintainCosts == null))
+                {
+                    this._NonFhaMaintainCosts = base.CreateQuery<NonFhaMaintainCostDTO>("NonFhaMaintainCosts");
+                }
+                return this._NonFhaMaintainCosts;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<NonFhaMaintainCostDTO> _NonFhaMaintainCosts;
+        /// <summary>
         /// 架构中不存在 PurchaseCreditNotes 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -1009,6 +1026,14 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         public void AddToSpecialRefitMaintainCosts(SpecialRefitMaintainCostDTO specialRefitMaintainCostDTO)
         {
             base.AddObject("SpecialRefitMaintainCosts", specialRefitMaintainCostDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 NonFhaMaintainCosts 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToNonFhaMaintainCosts(NonFhaMaintainCostDTO nonFhaMaintainCostDTO)
+        {
+            base.AddObject("NonFhaMaintainCosts", nonFhaMaintainCostDTO);
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private abstract class GeneratedEdmModel
@@ -1597,65 +1622,95 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "utalBudgetAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalAm" +
                 "ount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"MaintainInvoiceId\" T" +
                 "ype=\"Edm.Int32\" /><Property Name=\"AnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /><" +
-                "/EntityType></Schema><Schema Namespace=\"UniCloud.DistributedServices.Payment\" xm" +
-                "lns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"Paymen" +
-                "tData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"PurchaseCreditNotes\" E" +
-                "ntityType=\"UniCloud.Application.PaymentBC.DTO.PurchaseCreditNoteDTO\" /><EntitySe" +
-                "t Name=\"MaintainCreditNotes\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Main" +
-                "tainCreditNoteDTO\" /><EntitySet Name=\"LeaseInvoices\" EntityType=\"UniCloud.Applic" +
-                "ation.PaymentBC.DTO.LeaseInvoiceDTO\" /><EntitySet Name=\"PurchasePrepaymentInvoic" +
-                "es\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PurchasePrepaymentInvoiceDTO\"" +
-                " /><EntitySet Name=\"MaintainPrepaymentInvoices\" EntityType=\"UniCloud.Application" +
-                ".PaymentBC.DTO.MaintainPrepaymentInvoiceDTO\" /><EntitySet Name=\"PurchaseInvoices" +
-                "\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PurchaseInvoiceDTO\" /><EntitySe" +
-                "t Name=\"SundryInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.SundryInv" +
-                "oiceDTO\" /><EntitySet Name=\"SpecialRefitInvoices\" EntityType=\"UniCloud.Applicati" +
-                "on.PaymentBC.DTO.SpecialRefitInvoiceDTO\" /><EntitySet Name=\"Invoices\" EntityType" +
-                "=\"UniCloud.Application.PaymentBC.DTO.BaseInvoiceDTO\" /><EntitySet Name=\"EngineMa" +
-                "intainInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EngineMaintainInv" +
-                "oiceDTO\" /><EntitySet Name=\"APUMaintainInvoices\" EntityType=\"UniCloud.Applicatio" +
-                "n.PaymentBC.DTO.APUMaintainInvoiceDTO\" /><EntitySet Name=\"AirframeMaintainInvoic" +
-                "es\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceDTO\" /" +
-                "><EntitySet Name=\"UndercartMaintainInvoices\" EntityType=\"UniCloud.Application.Pa" +
-                "ymentBC.DTO.UndercartMaintainInvoiceDTO\" /><EntitySet Name=\"ContractAircrafts\" E" +
-                "ntityType=\"UniCloud.Application.PaymentBC.DTO.ContractAircraftDTO\" /><EntitySet " +
-                "Name=\"ContractEngines\" EntityType=\"UniCloud.Application.PaymentBC.DTO.ContractEn" +
-                "gineDTO\" /><EntitySet Name=\"Currencies\" EntityType=\"UniCloud.Application.Payment" +
-                "BC.DTO.CurrencyDTO\" /><EntitySet Name=\"PaymentSchedules\" EntityType=\"UniCloud.Ap" +
-                "plication.PaymentBC.DTO.PaymentScheduleDTO\" /><EntitySet Name=\"AcPaymentSchedule" +
-                "s\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AcPaymentScheduleDTO\" /><Entit" +
-                "ySet Name=\"EnginePaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DT" +
-                "O.EnginePaymentScheduleDTO\" /><EntitySet Name=\"StandardPaymentSchedules\" EntityT" +
-                "ype=\"UniCloud.Application.PaymentBC.DTO.StandardPaymentScheduleDTO\" /><EntitySet" +
-                " Name=\"MaintainPaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO." +
-                "MaintainPaymentScheduleDTO\" /><EntitySet Name=\"PaymentNotices\" EntityType=\"UniCl" +
-                "oud.Application.PaymentBC.DTO.PaymentNoticeDTO\" /><EntitySet Name=\"Suppliers\" En" +
-                "tityType=\"UniCloud.Application.PaymentBC.DTO.SupplierDTO\" /><EntitySet Name=\"Ord" +
-                "ers\" EntityType=\"UniCloud.Application.PaymentBC.DTO.OrderDTO\" /><EntitySet Name=" +
-                "\"PurchaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PurchaseOrderDTO" +
-                "\" /><EntitySet Name=\"LeaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO" +
-                ".LeaseOrderDTO\" /><EntitySet Name=\"AircraftPurchaseOrders\" EntityType=\"UniCloud." +
-                "Application.PaymentBC.DTO.AircraftPurchaseOrderDTO\" /><EntitySet Name=\"AircraftL" +
-                "easeOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AircraftLeaseOrderDTO" +
-                "\" /><EntitySet Name=\"EnginePurchaseOrders\" EntityType=\"UniCloud.Application.Paym" +
-                "entBC.DTO.EnginePurchaseOrderDTO\" /><EntitySet Name=\"EngineLeaseOrders\" EntityTy" +
-                "pe=\"UniCloud.Application.PaymentBC.DTO.EngineLeaseOrderDTO\" /><EntitySet Name=\"B" +
-                "FEPurchaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.BFEPurchaseOrde" +
-                "rDTO\" /><EntitySet Name=\"StandardOrders\" EntityType=\"UniCloud.Application.Paymen" +
-                "tBC.DTO.StandardOrderDTO\" /><EntitySet Name=\"LeaseGuarantees\" EntityType=\"UniClo" +
-                "ud.Application.PaymentBC.DTO.LeaseGuaranteeDTO\" /><EntitySet Name=\"MaintainGuara" +
-                "ntees\" EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainGuaranteeDTO\" /><E" +
-                "ntitySet Name=\"MaintainContracts\" EntityType=\"UniCloud.Application.PaymentBC.DTO" +
-                ".MaintainContractDTO\" /><EntitySet Name=\"RegularCheckMaintainCosts\" EntityType=\"" +
-                "UniCloud.Application.PaymentBC.DTO.RegularCheckMaintainCostDTO\" /><EntitySet Nam" +
-                "e=\"UndercartMaintainCosts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Underc" +
-                "artMaintainCostDTO\" /><EntitySet Name=\"SpecialRefitMaintainCosts\" EntityType=\"Un" +
-                "iCloud.Application.PaymentBC.DTO.SpecialRefitMaintainCostDTO\" /></EntityContaine" +
-                "r></Schema></edmx:DataServices></edmx:Edmx>";
+                "/EntityType><EntityType Name=\"NonFhaMaintainCostDTO\"><Key><PropertyRef Name=\"Id\"" +
+                " /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=" +
+                "\"EngineNumber\" Type=\"Edm.String\" /><Property Name=\"Type\" Type=\"Edm.Int32\" Nullab" +
+                "le=\"false\" /><Property Name=\"ContractRepairt\" Type=\"Edm.Int32\" Nullable=\"false\" " +
+                "/><Property Name=\"MaintainLevel\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
+                "ame=\"ChangeLlpNumber\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Tsr\" T" +
+                "ype=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Csr\" Type=\"Edm.Decimal\" Nul" +
+                "lable=\"false\" /><Property Name=\"NonFhaFee\" Type=\"Edm.Decimal\" Nullable=\"false\" /" +
+                "><Property Name=\"PartFee\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"" +
+                "ChangeLlpFee\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FeeLittleSum" +
+                "\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Rate\" Type=\"Edm.Decimal\"" +
+                " Nullable=\"false\" /><Property Name=\"FeeTotalSum\" Type=\"Edm.Decimal\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"CustomRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Proper" +
+                "ty Name=\"Custom\" Type=\"Edm.String\" /><Property Name=\"AddedValueRate\" Type=\"Edm.D" +
+                "ecimal\" Nullable=\"false\" /><Property Name=\"AddedValue\" Type=\"Edm.String\" /><Prop" +
+                "erty Name=\"CustomsTax\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Fre" +
+                "ightFee\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.S" +
+                "tring\" /><Property Name=\"ActualMaintainLevel\" Type=\"Edm.Int32\" Nullable=\"false\" " +
+                "/><Property Name=\"ActualChangeLlpNumber\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"ActualTsr\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Ac" +
+                "tualCsr\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AircraftId\" Type=" +
+                "\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ActionCategoryId\" Type=\"Edm.Guid\" " +
+                "Nullable=\"false\" /><Property Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"fal" +
+                "se\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property " +
+                "Name=\"InMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Out" +
+                "MaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"TotalDays\" " +
+                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"DepartmentDeclareAmount\" Typ" +
+                "e=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FinancialApprovalAmount\" Type" +
+                "=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FinancialApprovalAmountNonTax\"" +
+                " Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalInMaintainTime\" Typ" +
+                "e=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalOutMaintainTime\" Type=" +
+                "\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalTotalDays\" Type=\"Edm.Int" +
+                "32\" Nullable=\"false\" /><Property Name=\"AcutalBudgetAmount\" Type=\"Edm.Decimal\" Nu" +
+                "llable=\"false\" /><Property Name=\"AcutalAmount\" Type=\"Edm.Decimal\" Nullable=\"fals" +
+                "e\" /><Property Name=\"MaintainInvoiceId\" Type=\"Edm.Int32\" /><Property Name=\"Annua" +
+                "lId\" Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType></Schema><Schema Namespace=" +
+                "\"UniCloud.DistributedServices.Payment\" xmlns=\"http://schemas.microsoft.com/ado/2" +
+                "009/11/edm\"><EntityContainer Name=\"PaymentData\" m:IsDefaultEntityContainer=\"true" +
+                "\"><EntitySet Name=\"PurchaseCreditNotes\" EntityType=\"UniCloud.Application.Payment" +
+                "BC.DTO.PurchaseCreditNoteDTO\" /><EntitySet Name=\"MaintainCreditNotes\" EntityType" +
+                "=\"UniCloud.Application.PaymentBC.DTO.MaintainCreditNoteDTO\" /><EntitySet Name=\"L" +
+                "easeInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO\" />" +
+                "<EntitySet Name=\"PurchasePrepaymentInvoices\" EntityType=\"UniCloud.Application.Pa" +
+                "ymentBC.DTO.PurchasePrepaymentInvoiceDTO\" /><EntitySet Name=\"MaintainPrepaymentI" +
+                "nvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainPrepaymentInvoic" +
+                "eDTO\" /><EntitySet Name=\"PurchaseInvoices\" EntityType=\"UniCloud.Application.Paym" +
+                "entBC.DTO.PurchaseInvoiceDTO\" /><EntitySet Name=\"SundryInvoices\" EntityType=\"Uni" +
+                "Cloud.Application.PaymentBC.DTO.SundryInvoiceDTO\" /><EntitySet Name=\"SpecialRefi" +
+                "tInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.SpecialRefitInvoiceDTO" +
+                "\" /><EntitySet Name=\"Invoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Ba" +
+                "seInvoiceDTO\" /><EntitySet Name=\"EngineMaintainInvoices\" EntityType=\"UniCloud.Ap" +
+                "plication.PaymentBC.DTO.EngineMaintainInvoiceDTO\" /><EntitySet Name=\"APUMaintain" +
+                "Invoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.APUMaintainInvoiceDTO\" " +
+                "/><EntitySet Name=\"AirframeMaintainInvoices\" EntityType=\"UniCloud.Application.Pa" +
+                "ymentBC.DTO.AirframeMaintainInvoiceDTO\" /><EntitySet Name=\"UndercartMaintainInvo" +
+                "ices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.UndercartMaintainInvoiceDTO" +
+                "\" /><EntitySet Name=\"ContractAircrafts\" EntityType=\"UniCloud.Application.Payment" +
+                "BC.DTO.ContractAircraftDTO\" /><EntitySet Name=\"ContractEngines\" EntityType=\"UniC" +
+                "loud.Application.PaymentBC.DTO.ContractEngineDTO\" /><EntitySet Name=\"Currencies\"" +
+                " EntityType=\"UniCloud.Application.PaymentBC.DTO.CurrencyDTO\" /><EntitySet Name=\"" +
+                "PaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PaymentSchedule" +
+                "DTO\" /><EntitySet Name=\"AcPaymentSchedules\" EntityType=\"UniCloud.Application.Pay" +
+                "mentBC.DTO.AcPaymentScheduleDTO\" /><EntitySet Name=\"EnginePaymentSchedules\" Enti" +
+                "tyType=\"UniCloud.Application.PaymentBC.DTO.EnginePaymentScheduleDTO\" /><EntitySe" +
+                "t Name=\"StandardPaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO" +
+                ".StandardPaymentScheduleDTO\" /><EntitySet Name=\"MaintainPaymentSchedules\" Entity" +
+                "Type=\"UniCloud.Application.PaymentBC.DTO.MaintainPaymentScheduleDTO\" /><EntitySe" +
+                "t Name=\"PaymentNotices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PaymentNo" +
+                "ticeDTO\" /><EntitySet Name=\"Suppliers\" EntityType=\"UniCloud.Application.PaymentB" +
+                "C.DTO.SupplierDTO\" /><EntitySet Name=\"Orders\" EntityType=\"UniCloud.Application.P" +
+                "aymentBC.DTO.OrderDTO\" /><EntitySet Name=\"PurchaseOrders\" EntityType=\"UniCloud.A" +
+                "pplication.PaymentBC.DTO.PurchaseOrderDTO\" /><EntitySet Name=\"LeaseOrders\" Entit" +
+                "yType=\"UniCloud.Application.PaymentBC.DTO.LeaseOrderDTO\" /><EntitySet Name=\"Airc" +
+                "raftPurchaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AircraftPurch" +
+                "aseOrderDTO\" /><EntitySet Name=\"AircraftLeaseOrders\" EntityType=\"UniCloud.Applic" +
+                "ation.PaymentBC.DTO.AircraftLeaseOrderDTO\" /><EntitySet Name=\"EnginePurchaseOrde" +
+                "rs\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EnginePurchaseOrderDTO\" /><En" +
+                "titySet Name=\"EngineLeaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO." +
+                "EngineLeaseOrderDTO\" /><EntitySet Name=\"BFEPurchaseOrders\" EntityType=\"UniCloud." +
+                "Application.PaymentBC.DTO.BFEPurchaseOrderDTO\" /><EntitySet Name=\"StandardOrders" +
+                "\" EntityType=\"UniCloud.Application.PaymentBC.DTO.StandardOrderDTO\" /><EntitySet " +
+                "Name=\"LeaseGuarantees\" EntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseGuara" +
+                "nteeDTO\" /><EntitySet Name=\"MaintainGuarantees\" EntityType=";
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+            private const string ModelPart7 = @"""UniCloud.Application.PaymentBC.DTO.MaintainGuaranteeDTO"" /><EntitySet Name=""MaintainContracts"" EntityType=""UniCloud.Application.PaymentBC.DTO.MaintainContractDTO"" /><EntitySet Name=""RegularCheckMaintainCosts"" EntityType=""UniCloud.Application.PaymentBC.DTO.RegularCheckMaintainCostDTO"" /><EntitySet Name=""UndercartMaintainCosts"" EntityType=""UniCloud.Application.PaymentBC.DTO.UndercartMaintainCostDTO"" /><EntitySet Name=""SpecialRefitMaintainCosts"" EntityType=""UniCloud.Application.PaymentBC.DTO.SpecialRefitMaintainCostDTO"" /><EntitySet Name=""NonFhaMaintainCosts"" EntityType=""UniCloud.Application.PaymentBC.DTO.NonFhaMaintainCostDTO"" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
-                return string.Concat(ModelPart0, ModelPart1, ModelPart2, ModelPart3, ModelPart4, ModelPart5, ModelPart6);
+                return string.Concat(ModelPart0, ModelPart1, ModelPart2, ModelPart3, ModelPart4, ModelPart5, ModelPart6, ModelPart7);
             }
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             public static global::Microsoft.Data.Edm.IEdmModel GetInstance()
@@ -18293,6 +18348,1071 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private string _Note;
         partial void OnNoteChanging(string value);
         partial void OnNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 InMaintainTime 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime InMaintainTime
+        {
+            get
+            {
+                return this._InMaintainTime;
+            }
+            set
+            {
+                this.OnInMaintainTimeChanging(value);
+                this._InMaintainTime = value;
+                this.OnInMaintainTimeChanged();
+                this.OnPropertyChanged("InMaintainTime");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _InMaintainTime;
+        partial void OnInMaintainTimeChanging(global::System.DateTime value);
+        partial void OnInMaintainTimeChanged();
+        /// <summary>
+        /// 架构中不存在属性 OutMaintainTime 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime OutMaintainTime
+        {
+            get
+            {
+                return this._OutMaintainTime;
+            }
+            set
+            {
+                this.OnOutMaintainTimeChanging(value);
+                this._OutMaintainTime = value;
+                this.OnOutMaintainTimeChanged();
+                this.OnPropertyChanged("OutMaintainTime");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _OutMaintainTime;
+        partial void OnOutMaintainTimeChanging(global::System.DateTime value);
+        partial void OnOutMaintainTimeChanged();
+        /// <summary>
+        /// 架构中不存在属性 TotalDays 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int TotalDays
+        {
+            get
+            {
+                return this._TotalDays;
+            }
+            set
+            {
+                this.OnTotalDaysChanging(value);
+                this._TotalDays = value;
+                this.OnTotalDaysChanged();
+                this.OnPropertyChanged("TotalDays");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _TotalDays;
+        partial void OnTotalDaysChanging(int value);
+        partial void OnTotalDaysChanged();
+        /// <summary>
+        /// 架构中不存在属性 DepartmentDeclareAmount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal DepartmentDeclareAmount
+        {
+            get
+            {
+                return this._DepartmentDeclareAmount;
+            }
+            set
+            {
+                this.OnDepartmentDeclareAmountChanging(value);
+                this._DepartmentDeclareAmount = value;
+                this.OnDepartmentDeclareAmountChanged();
+                this.OnPropertyChanged("DepartmentDeclareAmount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _DepartmentDeclareAmount;
+        partial void OnDepartmentDeclareAmountChanging(decimal value);
+        partial void OnDepartmentDeclareAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 FinancialApprovalAmount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal FinancialApprovalAmount
+        {
+            get
+            {
+                return this._FinancialApprovalAmount;
+            }
+            set
+            {
+                this.OnFinancialApprovalAmountChanging(value);
+                this._FinancialApprovalAmount = value;
+                this.OnFinancialApprovalAmountChanged();
+                this.OnPropertyChanged("FinancialApprovalAmount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _FinancialApprovalAmount;
+        partial void OnFinancialApprovalAmountChanging(decimal value);
+        partial void OnFinancialApprovalAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 FinancialApprovalAmountNonTax 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal FinancialApprovalAmountNonTax
+        {
+            get
+            {
+                return this._FinancialApprovalAmountNonTax;
+            }
+            set
+            {
+                this.OnFinancialApprovalAmountNonTaxChanging(value);
+                this._FinancialApprovalAmountNonTax = value;
+                this.OnFinancialApprovalAmountNonTaxChanged();
+                this.OnPropertyChanged("FinancialApprovalAmountNonTax");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _FinancialApprovalAmountNonTax;
+        partial void OnFinancialApprovalAmountNonTaxChanging(decimal value);
+        partial void OnFinancialApprovalAmountNonTaxChanged();
+        /// <summary>
+        /// 架构中不存在属性 AcutalInMaintainTime 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime AcutalInMaintainTime
+        {
+            get
+            {
+                return this._AcutalInMaintainTime;
+            }
+            set
+            {
+                this.OnAcutalInMaintainTimeChanging(value);
+                this._AcutalInMaintainTime = value;
+                this.OnAcutalInMaintainTimeChanged();
+                this.OnPropertyChanged("AcutalInMaintainTime");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _AcutalInMaintainTime;
+        partial void OnAcutalInMaintainTimeChanging(global::System.DateTime value);
+        partial void OnAcutalInMaintainTimeChanged();
+        /// <summary>
+        /// 架构中不存在属性 AcutalOutMaintainTime 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime AcutalOutMaintainTime
+        {
+            get
+            {
+                return this._AcutalOutMaintainTime;
+            }
+            set
+            {
+                this.OnAcutalOutMaintainTimeChanging(value);
+                this._AcutalOutMaintainTime = value;
+                this.OnAcutalOutMaintainTimeChanged();
+                this.OnPropertyChanged("AcutalOutMaintainTime");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _AcutalOutMaintainTime;
+        partial void OnAcutalOutMaintainTimeChanging(global::System.DateTime value);
+        partial void OnAcutalOutMaintainTimeChanged();
+        /// <summary>
+        /// 架构中不存在属性 AcutalTotalDays 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int AcutalTotalDays
+        {
+            get
+            {
+                return this._AcutalTotalDays;
+            }
+            set
+            {
+                this.OnAcutalTotalDaysChanging(value);
+                this._AcutalTotalDays = value;
+                this.OnAcutalTotalDaysChanged();
+                this.OnPropertyChanged("AcutalTotalDays");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _AcutalTotalDays;
+        partial void OnAcutalTotalDaysChanging(int value);
+        partial void OnAcutalTotalDaysChanged();
+        /// <summary>
+        /// 架构中不存在属性 AcutalBudgetAmount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal AcutalBudgetAmount
+        {
+            get
+            {
+                return this._AcutalBudgetAmount;
+            }
+            set
+            {
+                this.OnAcutalBudgetAmountChanging(value);
+                this._AcutalBudgetAmount = value;
+                this.OnAcutalBudgetAmountChanged();
+                this.OnPropertyChanged("AcutalBudgetAmount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _AcutalBudgetAmount;
+        partial void OnAcutalBudgetAmountChanging(decimal value);
+        partial void OnAcutalBudgetAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 AcutalAmount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal AcutalAmount
+        {
+            get
+            {
+                return this._AcutalAmount;
+            }
+            set
+            {
+                this.OnAcutalAmountChanging(value);
+                this._AcutalAmount = value;
+                this.OnAcutalAmountChanged();
+                this.OnPropertyChanged("AcutalAmount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _AcutalAmount;
+        partial void OnAcutalAmountChanging(decimal value);
+        partial void OnAcutalAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainInvoiceId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<int> MaintainInvoiceId
+        {
+            get
+            {
+                return this._MaintainInvoiceId;
+            }
+            set
+            {
+                this.OnMaintainInvoiceIdChanging(value);
+                this._MaintainInvoiceId = value;
+                this.OnMaintainInvoiceIdChanged();
+                this.OnPropertyChanged("MaintainInvoiceId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<int> _MaintainInvoiceId;
+        partial void OnMaintainInvoiceIdChanging(global::System.Nullable<int> value);
+        partial void OnMaintainInvoiceIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AnnualId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AnnualId
+        {
+            get
+            {
+                return this._AnnualId;
+            }
+            set
+            {
+                this.OnAnnualIdChanging(value);
+                this._AnnualId = value;
+                this.OnAnnualIdChanged();
+                this.OnPropertyChanged("AnnualId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AnnualId;
+        partial void OnAnnualIdChanging(global::System.Guid value);
+        partial void OnAnnualIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.NonFhaMaintainCostDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("NonFhaMaintainCosts")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class NonFhaMaintainCostDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 NonFhaMaintainCostDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="type">Type 的初始值。</param>
+        /// <param name="contractRepairt">ContractRepairt 的初始值。</param>
+        /// <param name="maintainLevel">MaintainLevel 的初始值。</param>
+        /// <param name="changeLlpNumber">ChangeLlpNumber 的初始值。</param>
+        /// <param name="tsr">Tsr 的初始值。</param>
+        /// <param name="csr">Csr 的初始值。</param>
+        /// <param name="nonFhaFee">NonFhaFee 的初始值。</param>
+        /// <param name="partFee">PartFee 的初始值。</param>
+        /// <param name="changeLlpFee">ChangeLlpFee 的初始值。</param>
+        /// <param name="feeLittleSum">FeeLittleSum 的初始值。</param>
+        /// <param name="rate">Rate 的初始值。</param>
+        /// <param name="feeTotalSum">FeeTotalSum 的初始值。</param>
+        /// <param name="customRate">CustomRate 的初始值。</param>
+        /// <param name="addedValueRate">AddedValueRate 的初始值。</param>
+        /// <param name="customsTax">CustomsTax 的初始值。</param>
+        /// <param name="freightFee">FreightFee 的初始值。</param>
+        /// <param name="actualMaintainLevel">ActualMaintainLevel 的初始值。</param>
+        /// <param name="actualChangeLlpNumber">ActualChangeLlpNumber 的初始值。</param>
+        /// <param name="actualTsr">ActualTsr 的初始值。</param>
+        /// <param name="actualCsr">ActualCsr 的初始值。</param>
+        /// <param name="aircraftId">AircraftId 的初始值。</param>
+        /// <param name="actionCategoryId">ActionCategoryId 的初始值。</param>
+        /// <param name="aircraftTypeId">AircraftTypeId 的初始值。</param>
+        /// <param name="supplierId">SupplierId 的初始值。</param>
+        /// <param name="inMaintainTime">InMaintainTime 的初始值。</param>
+        /// <param name="outMaintainTime">OutMaintainTime 的初始值。</param>
+        /// <param name="totalDays">TotalDays 的初始值。</param>
+        /// <param name="departmentDeclareAmount">DepartmentDeclareAmount 的初始值。</param>
+        /// <param name="financialApprovalAmount">FinancialApprovalAmount 的初始值。</param>
+        /// <param name="financialApprovalAmountNonTax">FinancialApprovalAmountNonTax 的初始值。</param>
+        /// <param name="acutalInMaintainTime">AcutalInMaintainTime 的初始值。</param>
+        /// <param name="acutalOutMaintainTime">AcutalOutMaintainTime 的初始值。</param>
+        /// <param name="acutalTotalDays">AcutalTotalDays 的初始值。</param>
+        /// <param name="acutalBudgetAmount">AcutalBudgetAmount 的初始值。</param>
+        /// <param name="acutalAmount">AcutalAmount 的初始值。</param>
+        /// <param name="annualId">AnnualId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static NonFhaMaintainCostDTO CreateNonFhaMaintainCostDTO(
+                    int ID, 
+                    int type, 
+                    int contractRepairt, 
+                    int maintainLevel, 
+                    int changeLlpNumber, 
+                    decimal tsr, 
+                    decimal csr, 
+                    decimal nonFhaFee, 
+                    decimal partFee, 
+                    decimal changeLlpFee, 
+                    decimal feeLittleSum, 
+                    decimal rate, 
+                    decimal feeTotalSum, 
+                    decimal customRate, 
+                    decimal addedValueRate, 
+                    decimal customsTax, 
+                    decimal freightFee, 
+                    int actualMaintainLevel, 
+                    int actualChangeLlpNumber, 
+                    decimal actualTsr, 
+                    decimal actualCsr, 
+                    global::System.Guid aircraftId, 
+                    global::System.Guid actionCategoryId, 
+                    global::System.Guid aircraftTypeId, 
+                    int supplierId, 
+                    global::System.DateTime inMaintainTime, 
+                    global::System.DateTime outMaintainTime, 
+                    int totalDays, 
+                    decimal departmentDeclareAmount, 
+                    decimal financialApprovalAmount, 
+                    decimal financialApprovalAmountNonTax, 
+                    global::System.DateTime acutalInMaintainTime, 
+                    global::System.DateTime acutalOutMaintainTime, 
+                    int acutalTotalDays, 
+                    decimal acutalBudgetAmount, 
+                    decimal acutalAmount, 
+                    global::System.Guid annualId)
+        {
+            NonFhaMaintainCostDTO nonFhaMaintainCostDTO = new NonFhaMaintainCostDTO();
+            nonFhaMaintainCostDTO.Id = ID;
+            nonFhaMaintainCostDTO.Type = type;
+            nonFhaMaintainCostDTO.ContractRepairt = contractRepairt;
+            nonFhaMaintainCostDTO.MaintainLevel = maintainLevel;
+            nonFhaMaintainCostDTO.ChangeLlpNumber = changeLlpNumber;
+            nonFhaMaintainCostDTO.Tsr = tsr;
+            nonFhaMaintainCostDTO.Csr = csr;
+            nonFhaMaintainCostDTO.NonFhaFee = nonFhaFee;
+            nonFhaMaintainCostDTO.PartFee = partFee;
+            nonFhaMaintainCostDTO.ChangeLlpFee = changeLlpFee;
+            nonFhaMaintainCostDTO.FeeLittleSum = feeLittleSum;
+            nonFhaMaintainCostDTO.Rate = rate;
+            nonFhaMaintainCostDTO.FeeTotalSum = feeTotalSum;
+            nonFhaMaintainCostDTO.CustomRate = customRate;
+            nonFhaMaintainCostDTO.AddedValueRate = addedValueRate;
+            nonFhaMaintainCostDTO.CustomsTax = customsTax;
+            nonFhaMaintainCostDTO.FreightFee = freightFee;
+            nonFhaMaintainCostDTO.ActualMaintainLevel = actualMaintainLevel;
+            nonFhaMaintainCostDTO.ActualChangeLlpNumber = actualChangeLlpNumber;
+            nonFhaMaintainCostDTO.ActualTsr = actualTsr;
+            nonFhaMaintainCostDTO.ActualCsr = actualCsr;
+            nonFhaMaintainCostDTO.AircraftId = aircraftId;
+            nonFhaMaintainCostDTO.ActionCategoryId = actionCategoryId;
+            nonFhaMaintainCostDTO.AircraftTypeId = aircraftTypeId;
+            nonFhaMaintainCostDTO.SupplierId = supplierId;
+            nonFhaMaintainCostDTO.InMaintainTime = inMaintainTime;
+            nonFhaMaintainCostDTO.OutMaintainTime = outMaintainTime;
+            nonFhaMaintainCostDTO.TotalDays = totalDays;
+            nonFhaMaintainCostDTO.DepartmentDeclareAmount = departmentDeclareAmount;
+            nonFhaMaintainCostDTO.FinancialApprovalAmount = financialApprovalAmount;
+            nonFhaMaintainCostDTO.FinancialApprovalAmountNonTax = financialApprovalAmountNonTax;
+            nonFhaMaintainCostDTO.AcutalInMaintainTime = acutalInMaintainTime;
+            nonFhaMaintainCostDTO.AcutalOutMaintainTime = acutalOutMaintainTime;
+            nonFhaMaintainCostDTO.AcutalTotalDays = acutalTotalDays;
+            nonFhaMaintainCostDTO.AcutalBudgetAmount = acutalBudgetAmount;
+            nonFhaMaintainCostDTO.AcutalAmount = acutalAmount;
+            nonFhaMaintainCostDTO.AnnualId = annualId;
+            return nonFhaMaintainCostDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 EngineNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string EngineNumber
+        {
+            get
+            {
+                return this._EngineNumber;
+            }
+            set
+            {
+                this.OnEngineNumberChanging(value);
+                this._EngineNumber = value;
+                this.OnEngineNumberChanged();
+                this.OnPropertyChanged("EngineNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _EngineNumber;
+        partial void OnEngineNumberChanging(string value);
+        partial void OnEngineNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 Type 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Type
+        {
+            get
+            {
+                return this._Type;
+            }
+            set
+            {
+                this.OnTypeChanging(value);
+                this._Type = value;
+                this.OnTypeChanged();
+                this.OnPropertyChanged("Type");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Type;
+        partial void OnTypeChanging(int value);
+        partial void OnTypeChanged();
+        /// <summary>
+        /// 架构中不存在属性 ContractRepairt 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int ContractRepairt
+        {
+            get
+            {
+                return this._ContractRepairt;
+            }
+            set
+            {
+                this.OnContractRepairtChanging(value);
+                this._ContractRepairt = value;
+                this.OnContractRepairtChanged();
+                this.OnPropertyChanged("ContractRepairt");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _ContractRepairt;
+        partial void OnContractRepairtChanging(int value);
+        partial void OnContractRepairtChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainLevel 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int MaintainLevel
+        {
+            get
+            {
+                return this._MaintainLevel;
+            }
+            set
+            {
+                this.OnMaintainLevelChanging(value);
+                this._MaintainLevel = value;
+                this.OnMaintainLevelChanged();
+                this.OnPropertyChanged("MaintainLevel");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _MaintainLevel;
+        partial void OnMaintainLevelChanging(int value);
+        partial void OnMaintainLevelChanged();
+        /// <summary>
+        /// 架构中不存在属性 ChangeLlpNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int ChangeLlpNumber
+        {
+            get
+            {
+                return this._ChangeLlpNumber;
+            }
+            set
+            {
+                this.OnChangeLlpNumberChanging(value);
+                this._ChangeLlpNumber = value;
+                this.OnChangeLlpNumberChanged();
+                this.OnPropertyChanged("ChangeLlpNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _ChangeLlpNumber;
+        partial void OnChangeLlpNumberChanging(int value);
+        partial void OnChangeLlpNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 Tsr 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal Tsr
+        {
+            get
+            {
+                return this._Tsr;
+            }
+            set
+            {
+                this.OnTsrChanging(value);
+                this._Tsr = value;
+                this.OnTsrChanged();
+                this.OnPropertyChanged("Tsr");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _Tsr;
+        partial void OnTsrChanging(decimal value);
+        partial void OnTsrChanged();
+        /// <summary>
+        /// 架构中不存在属性 Csr 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal Csr
+        {
+            get
+            {
+                return this._Csr;
+            }
+            set
+            {
+                this.OnCsrChanging(value);
+                this._Csr = value;
+                this.OnCsrChanged();
+                this.OnPropertyChanged("Csr");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _Csr;
+        partial void OnCsrChanging(decimal value);
+        partial void OnCsrChanged();
+        /// <summary>
+        /// 架构中不存在属性 NonFhaFee 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal NonFhaFee
+        {
+            get
+            {
+                return this._NonFhaFee;
+            }
+            set
+            {
+                this.OnNonFhaFeeChanging(value);
+                this._NonFhaFee = value;
+                this.OnNonFhaFeeChanged();
+                this.OnPropertyChanged("NonFhaFee");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _NonFhaFee;
+        partial void OnNonFhaFeeChanging(decimal value);
+        partial void OnNonFhaFeeChanged();
+        /// <summary>
+        /// 架构中不存在属性 PartFee 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal PartFee
+        {
+            get
+            {
+                return this._PartFee;
+            }
+            set
+            {
+                this.OnPartFeeChanging(value);
+                this._PartFee = value;
+                this.OnPartFeeChanged();
+                this.OnPropertyChanged("PartFee");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _PartFee;
+        partial void OnPartFeeChanging(decimal value);
+        partial void OnPartFeeChanged();
+        /// <summary>
+        /// 架构中不存在属性 ChangeLlpFee 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal ChangeLlpFee
+        {
+            get
+            {
+                return this._ChangeLlpFee;
+            }
+            set
+            {
+                this.OnChangeLlpFeeChanging(value);
+                this._ChangeLlpFee = value;
+                this.OnChangeLlpFeeChanged();
+                this.OnPropertyChanged("ChangeLlpFee");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _ChangeLlpFee;
+        partial void OnChangeLlpFeeChanging(decimal value);
+        partial void OnChangeLlpFeeChanged();
+        /// <summary>
+        /// 架构中不存在属性 FeeLittleSum 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal FeeLittleSum
+        {
+            get
+            {
+                return this._FeeLittleSum;
+            }
+            set
+            {
+                this.OnFeeLittleSumChanging(value);
+                this._FeeLittleSum = value;
+                this.OnFeeLittleSumChanged();
+                this.OnPropertyChanged("FeeLittleSum");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _FeeLittleSum;
+        partial void OnFeeLittleSumChanging(decimal value);
+        partial void OnFeeLittleSumChanged();
+        /// <summary>
+        /// 架构中不存在属性 Rate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal Rate
+        {
+            get
+            {
+                return this._Rate;
+            }
+            set
+            {
+                this.OnRateChanging(value);
+                this._Rate = value;
+                this.OnRateChanged();
+                this.OnPropertyChanged("Rate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _Rate;
+        partial void OnRateChanging(decimal value);
+        partial void OnRateChanged();
+        /// <summary>
+        /// 架构中不存在属性 FeeTotalSum 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal FeeTotalSum
+        {
+            get
+            {
+                return this._FeeTotalSum;
+            }
+            set
+            {
+                this.OnFeeTotalSumChanging(value);
+                this._FeeTotalSum = value;
+                this.OnFeeTotalSumChanged();
+                this.OnPropertyChanged("FeeTotalSum");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _FeeTotalSum;
+        partial void OnFeeTotalSumChanging(decimal value);
+        partial void OnFeeTotalSumChanged();
+        /// <summary>
+        /// 架构中不存在属性 CustomRate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal CustomRate
+        {
+            get
+            {
+                return this._CustomRate;
+            }
+            set
+            {
+                this.OnCustomRateChanging(value);
+                this._CustomRate = value;
+                this.OnCustomRateChanged();
+                this.OnPropertyChanged("CustomRate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _CustomRate;
+        partial void OnCustomRateChanging(decimal value);
+        partial void OnCustomRateChanged();
+        /// <summary>
+        /// 架构中不存在属性 Custom 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Custom
+        {
+            get
+            {
+                return this._Custom;
+            }
+            set
+            {
+                this.OnCustomChanging(value);
+                this._Custom = value;
+                this.OnCustomChanged();
+                this.OnPropertyChanged("Custom");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Custom;
+        partial void OnCustomChanging(string value);
+        partial void OnCustomChanged();
+        /// <summary>
+        /// 架构中不存在属性 AddedValueRate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal AddedValueRate
+        {
+            get
+            {
+                return this._AddedValueRate;
+            }
+            set
+            {
+                this.OnAddedValueRateChanging(value);
+                this._AddedValueRate = value;
+                this.OnAddedValueRateChanged();
+                this.OnPropertyChanged("AddedValueRate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _AddedValueRate;
+        partial void OnAddedValueRateChanging(decimal value);
+        partial void OnAddedValueRateChanged();
+        /// <summary>
+        /// 架构中不存在属性 AddedValue 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string AddedValue
+        {
+            get
+            {
+                return this._AddedValue;
+            }
+            set
+            {
+                this.OnAddedValueChanging(value);
+                this._AddedValue = value;
+                this.OnAddedValueChanged();
+                this.OnPropertyChanged("AddedValue");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _AddedValue;
+        partial void OnAddedValueChanging(string value);
+        partial void OnAddedValueChanged();
+        /// <summary>
+        /// 架构中不存在属性 CustomsTax 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal CustomsTax
+        {
+            get
+            {
+                return this._CustomsTax;
+            }
+            set
+            {
+                this.OnCustomsTaxChanging(value);
+                this._CustomsTax = value;
+                this.OnCustomsTaxChanged();
+                this.OnPropertyChanged("CustomsTax");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _CustomsTax;
+        partial void OnCustomsTaxChanging(decimal value);
+        partial void OnCustomsTaxChanged();
+        /// <summary>
+        /// 架构中不存在属性 FreightFee 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal FreightFee
+        {
+            get
+            {
+                return this._FreightFee;
+            }
+            set
+            {
+                this.OnFreightFeeChanging(value);
+                this._FreightFee = value;
+                this.OnFreightFeeChanged();
+                this.OnPropertyChanged("FreightFee");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _FreightFee;
+        partial void OnFreightFeeChanging(decimal value);
+        partial void OnFreightFeeChanged();
+        /// <summary>
+        /// 架构中不存在属性 Note 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Note
+        {
+            get
+            {
+                return this._Note;
+            }
+            set
+            {
+                this.OnNoteChanging(value);
+                this._Note = value;
+                this.OnNoteChanged();
+                this.OnPropertyChanged("Note");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Note;
+        partial void OnNoteChanging(string value);
+        partial void OnNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 ActualMaintainLevel 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int ActualMaintainLevel
+        {
+            get
+            {
+                return this._ActualMaintainLevel;
+            }
+            set
+            {
+                this.OnActualMaintainLevelChanging(value);
+                this._ActualMaintainLevel = value;
+                this.OnActualMaintainLevelChanged();
+                this.OnPropertyChanged("ActualMaintainLevel");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _ActualMaintainLevel;
+        partial void OnActualMaintainLevelChanging(int value);
+        partial void OnActualMaintainLevelChanged();
+        /// <summary>
+        /// 架构中不存在属性 ActualChangeLlpNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int ActualChangeLlpNumber
+        {
+            get
+            {
+                return this._ActualChangeLlpNumber;
+            }
+            set
+            {
+                this.OnActualChangeLlpNumberChanging(value);
+                this._ActualChangeLlpNumber = value;
+                this.OnActualChangeLlpNumberChanged();
+                this.OnPropertyChanged("ActualChangeLlpNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _ActualChangeLlpNumber;
+        partial void OnActualChangeLlpNumberChanging(int value);
+        partial void OnActualChangeLlpNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 ActualTsr 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal ActualTsr
+        {
+            get
+            {
+                return this._ActualTsr;
+            }
+            set
+            {
+                this.OnActualTsrChanging(value);
+                this._ActualTsr = value;
+                this.OnActualTsrChanged();
+                this.OnPropertyChanged("ActualTsr");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _ActualTsr;
+        partial void OnActualTsrChanging(decimal value);
+        partial void OnActualTsrChanged();
+        /// <summary>
+        /// 架构中不存在属性 ActualCsr 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal ActualCsr
+        {
+            get
+            {
+                return this._ActualCsr;
+            }
+            set
+            {
+                this.OnActualCsrChanging(value);
+                this._ActualCsr = value;
+                this.OnActualCsrChanged();
+                this.OnPropertyChanged("ActualCsr");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _ActualCsr;
+        partial void OnActualCsrChanging(decimal value);
+        partial void OnActualCsrChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AircraftId
+        {
+            get
+            {
+                return this._AircraftId;
+            }
+            set
+            {
+                this.OnAircraftIdChanging(value);
+                this._AircraftId = value;
+                this.OnAircraftIdChanged();
+                this.OnPropertyChanged("AircraftId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AircraftId;
+        partial void OnAircraftIdChanging(global::System.Guid value);
+        partial void OnAircraftIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 ActionCategoryId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid ActionCategoryId
+        {
+            get
+            {
+                return this._ActionCategoryId;
+            }
+            set
+            {
+                this.OnActionCategoryIdChanging(value);
+                this._ActionCategoryId = value;
+                this.OnActionCategoryIdChanged();
+                this.OnPropertyChanged("ActionCategoryId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _ActionCategoryId;
+        partial void OnActionCategoryIdChanging(global::System.Guid value);
+        partial void OnActionCategoryIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftTypeId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AircraftTypeId
+        {
+            get
+            {
+                return this._AircraftTypeId;
+            }
+            set
+            {
+                this.OnAircraftTypeIdChanging(value);
+                this._AircraftTypeId = value;
+                this.OnAircraftTypeIdChanged();
+                this.OnPropertyChanged("AircraftTypeId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AircraftTypeId;
+        partial void OnAircraftTypeIdChanging(global::System.Guid value);
+        partial void OnAircraftTypeIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SupplierId;
+        partial void OnSupplierIdChanging(int value);
+        partial void OnSupplierIdChanged();
         /// <summary>
         /// 架构中不存在属性 InMaintainTime 的注释。
         /// </summary>
