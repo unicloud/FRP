@@ -458,6 +458,32 @@ namespace UniCloud.Presentation.Service.FleetPlan
 
         #region 批文管理
 
+        /// <summary>
+        /// 创建运力增减计划明细
+        /// </summary>
+        /// <param name="curReq">计划</param>
+        /// <param name="planHistory"></param>
+        /// <returns></returns>
+        public ApprovalHistoryDTO CreateNewRequestDetail(RequestDTO curReq,PlanHistoryDTO planHistory)
+        {
+            using (var pb = new FleetPlanServiceHelper())
+            {
+                return pb.CreateNewRequestDetail(curReq, planHistory);
+            }
+        }
+
+        /// <summary>
+        ///  移除运力增减计划明细
+        /// </summary>
+        /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
+        public void RemoveRequestDetail(PlanHistoryDTO planDetail)
+        {
+            using (var pb = new FleetPlanServiceHelper())
+            {
+                //pb.RemovePlanDetail(planDetail, this);
+            }
+        }
+
         #endregion
 
         #region 运营管理
@@ -698,6 +724,39 @@ namespace UniCloud.Presentation.Service.FleetPlan
         public void TransferPlanAndRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest, FleetPlanData fleetContext)
         {
             Uri path = new Uri(string.Format("TransferPlanAndRequest?currentAirlines='{0}'&currentPlan='{1}'&currentRequest='{2}'", currentAirlines, currentPlan, currentRequest),
+                UriKind.Relative);
+
+            fleetContext.BeginExecute<bool>(path,
+                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    var asynvContext = result.AsyncState as FleetPlanData;
+                    try
+                    {
+                        if (asynvContext != null)
+                        {
+                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            if (!sendSuccess)
+                            {
+                                MessageBox.Show("提交失败，请检查！");
+                            }
+                            else
+                            {
+                                MessageBox.Show("提交成功！");
+                            }
+                        }
+                    }
+                    catch (DataServiceQueryException ex)
+                    {
+                        QueryOperationResponse response = ex.Response;
+
+                        Console.WriteLine(response.Error.Message);
+                    }
+                }), Context);
+        }
+
+        public void TransferApprovalRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest, Guid currentApprovalDoc, FleetPlanData fleetContext)
+        {
+            Uri path = new Uri(string.Format("TransferApprovalRequest?currentAirlines='{0}'&currentPlan='{1}'&currentRequest='{2}'&currentApprovalDoc='{3}'", currentAirlines, currentPlan, currentRequest, currentApprovalDoc),
                 UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,

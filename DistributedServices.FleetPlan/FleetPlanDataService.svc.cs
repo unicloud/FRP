@@ -43,6 +43,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             config.SetServiceOperationAccessRule("TransferAircraftBusiness", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("TransferOwnershipHistory", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("TransferPlanHistory", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("TransferApprovalRequest", ServiceOperationRights.All);
 
             #endregion
 
@@ -136,6 +137,26 @@ namespace UniCloud.DistributedServices.FleetPlan
             Guid requestId = Guid.Parse(currentRequest);
             var transferService = DefaultContainer.Resolve<IFleetTransferService>();
             return transferService.TransferPlanAndRequest(airlinesId, planId, requestId);
+        }
+        
+        /// <summary>
+        /// 传输计划申请批文（针对指标飞机数据）
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentPlan"></param>
+        /// <param name="currentRequest"></param>
+        /// <param name="currentApprovalDoc"></param>
+        /// <returns></returns>
+        [WebGet]
+        public bool TransferApprovalRequest(string currentAirlines, string currentPlan, string currentRequest,
+            string currentApprovalDoc)
+        {
+            Guid airlinesId = Guid.Parse(currentAirlines);
+            Guid planId = Guid.Parse(currentPlan);
+            Guid requestId = Guid.Parse(currentRequest);
+            Guid approvalDocId = Guid.Parse(currentApprovalDoc);
+            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            return transferService.TransferApprovalRequest(airlinesId, planId, requestId, approvalDocId);
         }
 
         /// <summary>

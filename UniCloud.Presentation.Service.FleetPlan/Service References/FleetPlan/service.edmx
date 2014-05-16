@@ -657,6 +657,12 @@
           <Parameter Name="currentPlan" Type="Edm.String" />
           <Parameter Name="currentRequest" Type="Edm.String" />
         </FunctionImport>
+        <FunctionImport Name="TransferApprovalRequest" ReturnType="Edm.Boolean" m:HttpMethod="GET">
+          <Parameter Name="currentAirlines" Type="Edm.String" />
+          <Parameter Name="currentPlan" Type="Edm.String" />
+          <Parameter Name="currentRequest" Type="Edm.String" />
+          <Parameter Name="currentApprovalDoc" Type="Edm.String" />
+        </FunctionImport>
         <FunctionImport Name="TransferApprovalDoc" ReturnType="Edm.Boolean" m:HttpMethod="GET">
           <Parameter Name="currentAirlines" Type="Edm.String" />
           <Parameter Name="currentApprovalDoc" Type="Edm.String" />

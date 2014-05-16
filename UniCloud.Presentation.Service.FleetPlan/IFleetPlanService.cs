@@ -252,6 +252,16 @@ namespace UniCloud.Presentation.Service.FleetPlan
         void TransferPlanAndRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest,
             FleetPlanData fleetContext);
 
+        /// <summary>
+        /// 传输计划申请批文（针对指标飞机数据）
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentPlan"></param>
+        /// <param name="currentRequest"></param>
+        /// <param name="currentApprovalDoc"></param>
+        /// <returns></returns>
+        void TransferApprovalRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest, Guid currentApprovalDoc, FleetPlanData fleetContext);
+
         #endregion
     }
 }

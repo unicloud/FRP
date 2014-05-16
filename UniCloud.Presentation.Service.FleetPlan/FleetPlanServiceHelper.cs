@@ -605,6 +605,53 @@ namespace UniCloud.Presentation.Service.FleetPlan
         #endregion
 
         #region 批文管理
+        /// <summary>
+        /// 创建新申请明细
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="planHistory"></param>
+        /// <returns></returns>
+        internal ApprovalHistoryDTO CreateNewRequestDetail(RequestDTO request, PlanHistoryDTO planHistory)
+        {
+            // 创建新的申请明细
+            var requestDetail = new ApprovalHistoryDTO
+            {
+                Id = Guid.NewGuid(),
+                RequestId = request.Id,
+                ImportCategoryId = planHistory.TargetCategoryId,
+                AirlinesId = planHistory.AirlinesId,
+                RequestDeliverAnnualId = planHistory.PerformAnnualId,
+                RequestDeliverMonth = planHistory.PerformMonth,
+                SeatingCapacity = planHistory.SeatingCapacity,
+                CarryingCapacity = planHistory.CarryingCapacity,
+            };
+            if (planHistory.PlanAircraftId != null)
+                requestDetail.PlanAircraftId = Guid.Parse(planHistory.PlanAircraftId.ToString());
+            // 把申请明细赋给关联的计划明细
+            planHistory.ApprovalHistoryId = requestDetail.Id;
+            // 计划飞机管理状态修改为申请:TODO
+            //requestDetail.PlanAircraftId.Status = (int)ManageStatus.Request;
+            return requestDetail;
+        }
+
+        /// <summary>
+        /// 移除申请明细
+        /// </summary>
+        /// <param name="requestDetail"></param>
+        /// <returns></returns>
+        internal void RemoveRequestDetail(ApprovalHistoryDTO requestDetail)
+        {
+            //// 获取相关的计划明细
+            //var planHistories =
+            //    service.EntityContainer.GetEntitySet<PlanHistoryDTO>()
+            //           .Where(ph => ph.ApprovalHistoryID == requestDetail.ApprovalHistoryID).ToList();
+            //// 相关计划明细的申请明细置为空
+            //planHistories.ForEach(ph => ph.ApprovalHistory = null);
+            //// 相关计划飞机的管理状态改为计划
+            //requestDetail.PlanAircraft.Status = (int)ManageStatus.Plan;
+            //// 移除申请明细
+            //service.EntityContainer.GetEntitySet<ApprovalHistory>().Remove(requestDetail);
+        }
 
         #endregion
 

@@ -86,6 +86,13 @@
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="审核" />
                                         </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding SendCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Mail.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="发送" />
+                                        </telerik:RadButton>
                                     </telerik:RadToolBar>
                                     <telerik:RadGridView x:Name="ApprovalDoc"
                                                          Grid.Row="1"
@@ -129,7 +136,7 @@
                                              CanUserPin="False"
                                              ContextMenuTemplate="{x:Null}">
                                 <telerik:RadGridView x:Name="ApprovalDetail"
-                                                     ItemsSource="{Binding CurRequest.ApprovalHistories}"
+                                                     ItemsSource="{Binding CurRequest.ApprovalHistories,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelApprovalHistory,Mode=TwoWay}"
                                                      CanUserFreezeColumns="False"
                                                      ShowGroupPanel="False"
@@ -207,7 +214,7 @@
                                 <telerik:RadGridView x:Name="PlanDetail"
                                                      AllowDrop="True"
                                                      uc:GridViewDragAndDropBehavior.IsEnabled="True"
-                                                     ItemsSource="{Binding CurPlanHistories}"
+                                                     ItemsSource="{Binding CurPlanHistories,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelPlanHistory,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
                                                      ShowGroupPanel="False"

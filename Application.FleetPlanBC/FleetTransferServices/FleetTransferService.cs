@@ -186,6 +186,20 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
         }
 
         /// <summary>
+        /// 传输计划申请批文（针对指标飞机数据）
+        /// </summary>
+        /// <param name="currentAirlines"></param>
+        /// <param name="currentPlan"></param>
+        /// <param name="currentRequest"></param>
+        /// <param name="currentApproval"></param>
+        /// <returns></returns>
+        public bool TransferApprovalRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest, Guid currentApproval)
+        {
+            // 获取需要发送的对象
+            return TransferPlan(currentAirlines, currentPlan) && TransferRequest(currentAirlines, currentRequest) &&TransferApprovalDoc(currentAirlines,currentApproval);
+        }
+
+        /// <summary>
         /// 传输批文
         /// </summary>
         /// <param name="currentAirlines"></param>
