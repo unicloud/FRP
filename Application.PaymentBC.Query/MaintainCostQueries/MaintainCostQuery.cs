@@ -131,6 +131,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         AnnualId = p.AnnualId
                     });
         }
+
         /// <summary>
         ///      非FHA.超包修维修成本查询。
         /// </summary>
@@ -183,6 +184,42 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         AcutalAmount = p.MaintainInvoice.PaidAmount,
                         MaintainInvoiceId = p.MaintainInvoiceId,
                         AnnualId = p.AnnualId
+                    });
+        }
+
+        /// <summary>
+        ///   APU维修成本查询。
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns> APU维修成本DTO集合。</returns>
+        public IQueryable<ApuMaintainCostDTO> ApuMaintainCostDTOQuery(
+           QueryBuilder<ApuMaintainCost> query)
+        {
+            return
+                query.ApplyTo(_maintainCostRepository.GetAll().OfType<ApuMaintainCost>())
+                    .Select(p => new ApuMaintainCostDTO
+                    {
+                        Id = p.Id,
+                        NameType = p.NameType,
+                        Type = p.Type,
+                        LastYearRate = p.LastYearRate,
+                        YearAddedRate = p.YearAddedRate,
+                        YearBudgetRate = p.YearBudgetRate,
+                        Rate = p.Rate,
+                        BudgetHour = p.BudgetHour,
+                        HourPercent = p.HourPercent,
+                        Hour = p.Hour,
+                        ContractRepairFeeUsd = p.ContractRepairFeeUsd,
+                        ContractRepairFeeRmb = p.ContractRepairFeeRmb,
+                        CustomRate = p.CustomRate,
+                        TotalTax = p.TotalTax,
+                        AddedValueRate = p.AddedValueRate,
+                        AddedValue = p.AddedValue,
+                        IncludeAddedValue = p.IncludeAddedValue,
+                        MaintainInvoiceId = p.MaintainInvoiceId,
+                        AnnualId = p.AnnualId,
+                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalAmount = p.MaintainInvoice.PaidAmount
                     });
         }
     }

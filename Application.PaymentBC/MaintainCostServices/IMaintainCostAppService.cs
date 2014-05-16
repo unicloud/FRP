@@ -46,5 +46,11 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         /// </summary>
         /// <returns>所有非FHA.超包修维修成本</returns>
         IQueryable<NonFhaMaintainCostDTO> GetNonFhaMaintainCosts();
+
+        /// <summary>
+        ///     获取所有APU维修成本
+        /// </summary>
+        /// <returns>所有APU维修成本</returns>
+        IQueryable<ApuMaintainCostDTO> GetApuMaintainCosts();
     }
 }

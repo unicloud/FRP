@@ -785,10 +785,16 @@ namespace UniCloud.Presentation.Shell
                 Text = "特修改装",
                 NavUri = "UniCloud.Presentation.Payment.MaintainCost.SpecialRefitMaintainCostManage"
             };
+            var menu475 = new MenuItem
+            {
+                Text = "APU",
+                NavUri = "UniCloud.Presentation.Payment.MaintainCost.ApuMaintainCostManage"
+            };
             menu47.Items.Add(menu471);
             menu47.Items.Add(menu472);
             menu47.Items.Add(menu473);
             menu47.Items.Add(menu474);
+            menu47.Items.Add(menu475);
             menu4.Items.Add(menu47);
 
             var menu48 = new MenuItem

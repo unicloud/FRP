@@ -250,5 +250,59 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
             _maintainCostRepository.Remove(deleteNonFhaMaintainCost); //删除非FHA.超包修维修成。
         }
         #endregion
+
+        #region ApuMaintainCostDTO
+        /// <summary>
+        ///     获取所有APU维修成。
+        /// </summary>
+        /// <returns>所有APU维修成。</returns>
+        public IQueryable<ApuMaintainCostDTO> GetApuMaintainCosts()
+        {
+            var queryBuilder = new QueryBuilder<ApuMaintainCost>();
+            return _maintainCostQuery.ApuMaintainCostDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///     新增APU维修成。
+        /// </summary>
+        /// <param name="apuMaintainCost">APU维修成DTO。</param>
+        [Insert(typeof(ApuMaintainCostDTO))]
+        public void InsertApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
+        {
+            var newApuMaintainCost = MaintainCostFactory.CreateApuMaintainCost();
+            MaintainCostFactory.SetApuMaintainCost(newApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type, apuMaintainCost.LastYearRate, apuMaintainCost.YearAddedRate,
+                apuMaintainCost.YearBudgetRate, apuMaintainCost.Rate, apuMaintainCost.BudgetHour, apuMaintainCost.HourPercent, apuMaintainCost.Hour, apuMaintainCost.ContractRepairFeeUsd,
+                apuMaintainCost.ContractRepairFeeRmb, apuMaintainCost.CustomRate, apuMaintainCost.TotalTax, apuMaintainCost.AddedValueRate, apuMaintainCost.AddedValue,
+                apuMaintainCost.IncludeAddedValue, apuMaintainCost.MaintainInvoiceId, apuMaintainCost.AnnualId);
+            _maintainCostRepository.Add(newApuMaintainCost);
+        }
+
+
+        /// <summary>
+        ///     更新APU维修成。
+        /// </summary>
+        /// <param name="apuMaintainCost">APU维修成DTO。</param>
+        [Update(typeof(ApuMaintainCostDTO))]
+        public void ModifyApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
+        {
+            var updateApuMaintainCost = _maintainCostRepository.Get(apuMaintainCost.Id) as ApuMaintainCost; //获取需要更新的对象。
+            MaintainCostFactory.SetApuMaintainCost(updateApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type, apuMaintainCost.LastYearRate, apuMaintainCost.YearAddedRate,
+                apuMaintainCost.YearBudgetRate, apuMaintainCost.Rate, apuMaintainCost.BudgetHour, apuMaintainCost.HourPercent, apuMaintainCost.Hour, apuMaintainCost.ContractRepairFeeUsd,
+                apuMaintainCost.ContractRepairFeeRmb, apuMaintainCost.CustomRate, apuMaintainCost.TotalTax, apuMaintainCost.AddedValueRate, apuMaintainCost.AddedValue,
+                apuMaintainCost.IncludeAddedValue, apuMaintainCost.MaintainInvoiceId, apuMaintainCost.AnnualId);
+            _maintainCostRepository.Modify(updateApuMaintainCost);
+        }
+
+        /// <summary>
+        ///     删除APU维修成。
+        /// </summary>
+        /// <param name="apuMaintainCost">APU维修成DTO。</param>
+        [Delete(typeof(ApuMaintainCostDTO))]
+        public void DeleteApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
+        {
+            var deleteApuMaintainCost = _maintainCostRepository.Get(apuMaintainCost.Id);//获取需要删除的对象。
+            _maintainCostRepository.Remove(deleteApuMaintainCost); //删除APU维修成。
+        }
+        #endregion
     }
 }

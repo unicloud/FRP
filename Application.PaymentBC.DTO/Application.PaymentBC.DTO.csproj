@@ -73,6 +73,7 @@
     <Compile Include="InvoiceDTO\InvoiceLineDTO.cs" />
     <Compile Include="InvoiceDTO\PurchasePrepaymentInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\PurchaseInvoiceDTO.cs" />
+    <Compile Include="MaintainCostDTO\ApuMaintainCostDTO.cs" />
     <Compile Include="MaintainCostDTO\NonFhaMaintainCostDTO.cs" />
     <Compile Include="MaintainCostDTO\SpecialRefitMaintainCostDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\SpecialRefitInvoiceDTO.cs" />

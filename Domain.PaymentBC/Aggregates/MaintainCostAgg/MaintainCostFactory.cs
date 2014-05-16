@@ -178,5 +178,41 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             maintainCost.MaintainInvoiceId = maintainInvoiceId;
             maintainCost.AnnualId = annualId;
         }
+
+        /// <summary>
+        ///     创建APU维修成本
+        /// </summary>
+        /// <returns></returns>
+        public static ApuMaintainCost CreateApuMaintainCost()
+        {
+            var maintainCost = new ApuMaintainCost();
+            maintainCost.GenerateNewIdentity();
+
+            return maintainCost;
+        }
+
+        public static void SetApuMaintainCost(ApuMaintainCost maintainCost, string nameType, string type, decimal lastYearRate, decimal yearAddedRate, decimal yearBudgetRate,
+            decimal rate, decimal budgetHour, decimal hourPercent, decimal hour, decimal contractRepairFeeUsd, decimal contractRepairFeeRmb, decimal customRate, decimal totalTax,
+            decimal addedValueRate, decimal addedValue, decimal includeAddedValue, int? maintainInvoiceId, Guid annualId)
+        {
+            maintainCost.NameType = nameType;
+            maintainCost.Type = type;
+            maintainCost.LastYearRate = lastYearRate;
+            maintainCost.YearAddedRate = yearAddedRate;
+            maintainCost.YearBudgetRate = yearBudgetRate;
+            maintainCost.Rate = rate;
+            maintainCost.BudgetHour = budgetHour;
+            maintainCost.HourPercent = hourPercent;
+            maintainCost.Hour = hour;
+            maintainCost.ContractRepairFeeUsd = contractRepairFeeUsd;
+            maintainCost.ContractRepairFeeRmb = contractRepairFeeRmb;
+            maintainCost.CustomRate = customRate;
+            maintainCost.TotalTax = totalTax;
+            maintainCost.AddedValueRate = addedValueRate;
+            maintainCost.AddedValue = addedValue;
+            maintainCost.IncludeAddedValue = includeAddedValue;
+            maintainCost.MaintainInvoiceId = maintainInvoiceId;
+            maintainCost.AnnualId = annualId;
+        }
     }
 }
