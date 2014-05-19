@@ -94,6 +94,20 @@
                                                        Stretch="Fill"
                                                        ToolTipService.ToolTip="审核" />
                                             </telerik:RadButton>
+                                            <telerik:RadToolBarSeparator />
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding SendCommand}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Mail.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="发送申请" />
+                                            </telerik:RadButton>
+                                            <telerik:RadToolBarSeparator />
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding EditCommand}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Edit.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="修改申请" />
+                                            </telerik:RadButton>
                                         </telerik:RadToolBar>
                                         <Grid Row="1">
                                             <telerik:RadGridView CanUserSortColumns="True"

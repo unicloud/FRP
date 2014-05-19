@@ -67,7 +67,7 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             }
             //新申请
             var newRequest = RequestFactory.CreateRequest(request.SubmitDate, request.Title, 
-                request.CaacDocNumber, request.Status, request.Note,request.CaacDocumentName,
+                request.CaacDocNumber, request.Status, request.LogWriter,request.CaacDocumentName,
                 request.CaacDocumentId, Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"));
             if(request.ApprovalDocId!=null) newRequest.SetApprovalDoc(request.ApprovalDocId);
             request.ApprovalHistories.ToList().ForEach(p => newRequest.AddNewApprovalHistory(p.Id,p.SeatingCapacity,
@@ -111,9 +111,9 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             {
                 pesistRequest.SetRequestStatus((RequestStatus) request.Status);
             }
-            if (pesistRequest.Note != request.Note)
+            if (!string.IsNullOrWhiteSpace(request.LogWriter))
             {
-                pesistRequest.SetNote(request.Note);
+                pesistRequest.SetNote(request.LogWriter);
             }
             if (pesistRequest.CaacDocumentId != request.CaacDocumentId)
             {

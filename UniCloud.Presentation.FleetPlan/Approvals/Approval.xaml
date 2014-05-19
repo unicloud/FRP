@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -105,13 +106,12 @@
                                         </telerik:RadButton>
                                     </telerik:RadToolBar>
                                     <Grid Row="1">
-                                        <telerik:RadGridView x:Name="ViewApprovalDocs"
-                                                             CanUserSortColumns="True"
+                                        <telerik:RadGridView CanUserSortColumns="True"
                                                              CanUserFreezeColumns="False"
                                                              IsFilteringAllowed="True"
                                                              EditTriggers="CellClick"
                                                              FontSize="{StaticResource TextFontSize}"
-                                                             ItemsSource="{Binding ViewApprovalDocs}"
+                                                             ItemsSource="{Binding ViewApprovalDocs,Mode=TwoWay}"
                                                              SelectedItem="{Binding SelApprovalDoc,Mode=TwoWay}"
                                                              ShowGroupPanel="False"
                                                              ValidatesOnDataErrors="InEditMode">
@@ -163,9 +163,9 @@
                                              FontSize="{StaticResource TextFontSize}"
                                              ContextMenuTemplate="{x:Null}">
                                 <telerik:RadGridView x:Name="EnRouteRequests"
-                                                     ItemsSource="{Binding EnRouteRequests}"
+                                                     ItemsSource="{Binding EnRouteRequests,Mode=TwoWay}"
                                                      AllowDrop="True"
-                                                     uc:GridViewDragAndDropBehavior.IsEnabled="True"
+                                                     uc:GridViewDragAndDropBehavior.IsEnabled="{Binding }"
                                                      ShowGroupPanel="False"
                                                      CanUserFreezeColumns="False"
                                                      AutoExpandGroups="True"
@@ -238,7 +238,7 @@
                                              FontSize="{StaticResource TextFontSize}"
                                              ContextMenuTemplate="{x:Null}">
                                 <telerik:RadGridView x:Name="ApprovalRequests"
-                                                     ItemsSource="{Binding ApprovalRequests}"
+                                                     ItemsSource="{Binding ApprovalRequests,Mode=TwoWay}"
                                                      AllowDrop="True"
                                                      uc:GridViewDragAndDropBehavior.IsEnabled="True"
                                                      ShowGroupPanel="False"
@@ -304,17 +304,19 @@
                                              CanUserPin="False"
                                              FontSize="{StaticResource TextFontSize}"
                                              ContextMenuTemplate="{x:Null}">
-                                <telerik:RadGridView x:Name="ApprovalHistory"
-                                                     ItemsSource="{Binding SelApprovalRequest.ApprovalHistories}"
+                                <telerik:RadGridView x:Name="ApprovalHistories"
+                                                     ItemsSource="{Binding SelApprovalRequest.ApprovalHistories,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelApprovalHistory,Mode=TwoWay}"
                                                      CanUserFreezeColumns="False"
+                                                     IsReadOnly="{Binding IsChecked,Mode=TwoWay}"
                                                      ShowGroupPanel="False"
                                                      Margin="3,-4,-3,4">
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
                                         <telerik:GridViewDataColumn Header="是否批准"
                                                                     EditTriggers="CellClick"
-                                                                    DataMemberBinding="{Binding IsApproved}" />
+                                                                    DataMemberBinding="{Binding IsApproved}"
+                                                                    UniqueName="IsApproved"/>
                                         <telerik:GridViewDataColumn Header="座级"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"

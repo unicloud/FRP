@@ -8,6 +8,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls.ChartView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -367,7 +368,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         #endregion
 
-        #region 创建指标飞机申请明细
+        #region 创建申请明细
 
         internal void AddNewRequestDetail(PlanHistoryDTO planHistory)
         {
@@ -390,6 +391,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             if (annual != null) requestDetail.RequestDeliverAnnualName = annual.Year;
             if (planHistory.PlanAircraftId != null)
                 requestDetail.PlanAircraftId = Guid.Parse(planHistory.PlanAircraftId.ToString());
+
             // 把申请明细赋给关联的计划明细
             if (planHistory.CanRequest == (int)CanRequest.可再次申请 && planHistory.ApprovalHistoryId != null && _approvalHistoryCaches != null)
             {
@@ -408,6 +410,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             if (planAircraft != null) planAircraft.Status = (int)ManageStatus.申请;
 
             planHistory.CanRequest = (int)CanRequest.已申请;
+            planHistory.CanDeliver = (int)CanDeliver.未批准;
 
             SelRequest.ApprovalHistories.Add(requestDetail);
             RefreshCommandState();
@@ -415,7 +418,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         #endregion
 
-        #region 移除指标飞机申请明细
+        #region 移除申请明细
 
         internal void RemoveRequestDetail(ApprovalHistoryDTO requestDetail)
         {
@@ -431,6 +434,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 {
                     planHistory.ApprovalHistoryId = approvalHistoryCache.ApprovalHistoryId;
                     planHistory.CanRequest = (int)CanRequest.可再次申请;
+                    planHistory.CanDeliver = (int) CanDeliver.未批复;
                     planAircraft.Status = (int)ManageStatus.申请;
                 }
                 //如果远计划明细状态为“可申请”，则删除申请明细前将ApprovalHistoryId置为null，并将计划飞机状态置为“计划”状态
@@ -438,6 +442,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 {
                     planHistory.ApprovalHistoryId = null;
                     planHistory.CanDeliver = (int)CanRequest.可申请;
+                    planHistory.CanDeliver = (int)CanDeliver.未申请;
                     planAircraft.Status = (int)ManageStatus.计划;
                 }
             }

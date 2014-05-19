@@ -458,32 +458,6 @@ namespace UniCloud.Presentation.Service.FleetPlan
 
         #region 批文管理
 
-        /// <summary>
-        /// 创建运力增减计划明细
-        /// </summary>
-        /// <param name="curReq">计划</param>
-        /// <param name="planHistory"></param>
-        /// <returns></returns>
-        public ApprovalHistoryDTO CreateNewRequestDetail(RequestDTO curReq,PlanHistoryDTO planHistory)
-        {
-            using (var pb = new FleetPlanServiceHelper())
-            {
-                return pb.CreateNewRequestDetail(curReq, planHistory);
-            }
-        }
-
-        /// <summary>
-        ///  移除运力增减计划明细
-        /// </summary>
-        /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
-        public void RemoveRequestDetail(PlanHistoryDTO planDetail)
-        {
-            using (var pb = new FleetPlanServiceHelper())
-            {
-                //pb.RemovePlanDetail(planDetail, this);
-            }
-        }
-
         #endregion
 
         #region 运营管理

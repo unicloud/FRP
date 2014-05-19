@@ -3,11 +3,14 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.FleetPlan.Requests;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -18,7 +21,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.FleetPlan.Approvals
 {
-    [Export(typeof (ApprovalVM))]
+    [Export(typeof(ApprovalVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ApprovalVM : EditViewModelBase
     {
@@ -48,6 +51,8 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         private void InitializeVM()
         {
             ApprovalDocs = _service.CreateCollection(_context.ApprovalDocs);
+            var approvalDocDescriptor = new FilterDescriptor("Note", FilterOperator.IsNotEqualTo, "指标飞机批文");
+            ApprovalDocs.FilterDescriptors.Add(approvalDocDescriptor);
             ApprovalDocs.LoadedData += (s, e) =>
             {
                 _viewApprovalDocs = new ObservableCollection<ApprovalDocDTO>();
@@ -55,13 +60,15 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 {
                     List<RequestDTO> requests =
                         Requests.SourceCollection.Cast<RequestDTO>().Where(p => p.ApprovalDocId == appDoc.Id).ToList();
-                    if (appDoc.Status < (int) OperationStatus.已提交 || requests.Any() || requests.Any(r => !r.IsFinished))
+                    if (appDoc.Status < (int)OperationStatus.已提交 || requests.Any() || requests.Any(r => !r.IsFinished))
                     {
                         ViewApprovalDocs.Add(appDoc);
                     }
                     SelApprovalDoc = ViewApprovalDocs.FirstOrDefault();
                     RaisePropertyChanged(() => ViewApprovalDocs);
+                    SelApprovalDoc = ViewApprovalDocs.FirstOrDefault();
                 }
+                RefreshCommandState();
             };
             _service.RegisterCollectionView(ApprovalDocs);
 
@@ -76,14 +83,21 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 _enRouteRequests = new ObservableCollection<RequestDTO>();
                 foreach (RequestDTO req in Requests.SourceCollection.Cast<RequestDTO>())
                 {
-                    if (req.Note != "指标飞机申请（系统添加）" && req.Status <= (int) RequestStatus.已审批)
+                    if (req.Note != "指标飞机申请（系统添加）" && req.Status <= (int)RequestStatus.已审批)
                     {
                         EnRouteRequests.Add(req);
                     }
                     RaisePropertyChanged(() => EnRouteRequests);
                 }
+                RefreshCommandState();
             };
             _service.RegisterCollectionView(Requests);
+
+            PlanHistories = _service.CreateCollection(_context.PlanHistories);
+            _service.RegisterCollectionView(PlanHistories);
+
+            PlanAircrafts = _service.CreateCollection(_context.PlanAircrafts);
+            _service.RegisterCollectionView(PlanAircrafts);
         }
 
         /// <summary>
@@ -104,6 +118,27 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
 
         #region 公共属性
 
+        #region 批文是否可修改
+
+        private bool _isChecked = false;
+
+        /// <summary>
+        /// 批文是否可修改
+        /// </summary>
+        public bool IsChecked
+        {
+            get { return this._isChecked; }
+            private set
+            {
+                if (this._isChecked != value)
+                {
+                    this._isChecked = value;
+                    this.RaisePropertyChanged(() => this.IsChecked);
+                }
+            }
+        }
+
+        #endregion
         #endregion
 
         #region 加载数据
@@ -121,6 +156,16 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 Requests.AutoLoad = true;
             else
                 Requests.Load(true);
+
+            if (!PlanAircrafts.AutoLoad)
+                PlanAircrafts.AutoLoad = true;
+            else
+                PlanAircrafts.Load(true);
+
+            if (!PlanHistories.AutoLoad)
+                PlanHistories.AutoLoad = true;
+            else
+                PlanHistories.Load(true);
         }
 
         #region 业务
@@ -162,7 +207,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 if (_selApprovalDoc != value)
                 {
                     _selApprovalDoc = value;
-                    ApprovalRequests=new ObservableCollection<RequestDTO>();
+                    ApprovalRequests = new ObservableCollection<RequestDTO>();
                     if (value != null)
                     {
                         foreach (RequestDTO req in Requests.SourceCollection.Cast<RequestDTO>())
@@ -171,6 +216,8 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                                 ApprovalRequests.Add(req);
                         }
                         if (ApprovalRequests.Count != 0) SelApprovalRequest = ApprovalRequests.First();
+
+                        if (SelApprovalDoc.Status >= (int)OperationStatus.已审核) IsChecked = true;
                     }
                     RaisePropertyChanged(() => SelApprovalDoc);
                     RefreshCommandState();
@@ -223,6 +270,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 {
                     _enRouteRequests = value;
                     RaisePropertyChanged(() => EnRouteRequests);
+                    RefreshCommandState();
                 }
             }
         }
@@ -277,6 +325,22 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
 
         #endregion
 
+        #region 所有计划飞机的集合
+        /// <summary>
+        ///     所有计划飞机的集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanAircraftDTO> PlanAircrafts { get; set; }
+
+
+        #endregion
+
+        #region 所有计划明细的集合
+        /// <summary>
+        ///     所有计划明细的集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanHistoryDTO> PlanHistories { get; set; }
+        #endregion
+
         #endregion
 
         #endregion
@@ -298,7 +362,6 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         }
 
         #endregion
-
         protected override bool CanAddAttach(object obj)
         {
             return _selApprovalDoc != null;
@@ -337,18 +400,23 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
 
         private void OnNew(object obj)
         {
-            SelApprovalDoc = new ApprovalDocDTO
+            var newApprovalDoc = new ApprovalDocDTO
             {
                 Id = Guid.NewGuid(),
-                Status = (int) OperationStatus.草稿,
+                Status = (int)OperationStatus.草稿,
             };
-            ApprovalDocs.AddNew(SelApprovalDoc);
+            ViewApprovalDocs.Add(newApprovalDoc);
+            RaisePropertyChanged(() => ViewApprovalDocs);
+            ApprovalDocs.AddNew(newApprovalDoc);
+            SelApprovalDoc = newApprovalDoc;
             RefreshCommandState();
         }
 
         private bool CanNew(object obj)
         {
-            return true;
+            // 存在已提交的申请，且没有未保存内容时，按钮可用
+            return this.EnRouteRequests.Any(r => r.Status == (int)RequestStatus.已提交) &&
+                   !this._service.HasChanges;
         }
 
         #endregion
@@ -357,12 +425,23 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
 
         internal void AddRequestToApprovalDoc(RequestDTO request)
         {
-            //var req = this.service.AddRequestToApprovalDoc(this.SelApprovalDoc, request);
-            //this._needReFreshViewEnRouteRequest = true;
-            //this.RaiseViewEnRouteRequest();
-            //this._needReFreshViewRequest = true;
-            //this.RaiseViewRequest();
-            //this.SelRequest = req;
+            // 把申请赋给相关批文
+            request.ApprovalDocId = SelApprovalDoc.Id;
+            // 申请状态改为已审批
+            request.Status = (int)RequestStatus.已审批;
+            // 相关申请明细对应计划飞机置为批准，其管理状态置为批文
+            request.ApprovalHistories.ToList().ForEach(ah =>
+            {
+                ah.IsApproved = true;
+                var planAircraft = PlanAircrafts.FirstOrDefault(p => p.Id == ah.PlanAircraftId);
+                var planHistory = PlanHistories.FirstOrDefault(p => p.ApprovalHistoryId == ah.Id);
+                if (planAircraft != null) planAircraft.Status = (int)ManageStatus.批文;
+                if (planHistory != null) planHistory.CanDeliver = (int)CanDeliver.可交付;
+            });
+            EnRouteRequests.Remove(request);
+            ApprovalRequests.Add(request);
+            SelApprovalRequest = request;
+            RefreshCommandState();
         }
 
         #endregion
@@ -371,12 +450,22 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
 
         internal void RemoveRequest(RequestDTO request)
         {
-            //this.service.RemoveRequest(request);
-            //this._needReFreshViewEnRouteRequest = true;
-            //this.RaiseViewEnRouteRequest();
-            //this._needReFreshViewRequest = true;
-            //this.RaiseViewRequest();
-            //this.SelRequest = ViewRequest.LastOrDefault();
+            // 从相关批文移除申请
+            request.ApprovalDocId = null;
+            // 申请状态改为已提交
+            request.Status = (int)RequestStatus.已提交;
+            // 相关申请明细对应计划飞机置为未批准，其管理状态置为申请
+            request.ApprovalHistories.ToList().ForEach(ah =>
+            {
+                ah.IsApproved = false;
+                var planAircraft = PlanAircrafts.FirstOrDefault(p => p.Id == ah.PlanAircraftId);
+                var planHistory = PlanHistories.FirstOrDefault(p => p.ApprovalHistoryId == ah.Id);
+                if (planAircraft != null) planAircraft.Status = (int)ManageStatus.申请;
+                if (planHistory != null) planHistory.CanDeliver = (int)CanDeliver.未批准;
+            });
+            EnRouteRequests.Add(request);
+            ApprovalRequests.Remove(request);
+            RefreshCommandState();
         }
 
         #endregion
@@ -390,7 +479,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
 
         private void OnCommit(object obj)
         {
-            SelApprovalDoc.Status = (int) OperationStatus.待审核;
+            SelApprovalDoc.Status = (int)OperationStatus.待审核;
             RefreshCommandState();
         }
 
@@ -409,7 +498,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 return false;
             }
             // 选中批文的状态处于草稿，且批文申请明细不为空时，按钮可用
-            return SelApprovalDoc.Status == (int) OperationStatus.草稿 && ApprovalRequests.Any();
+            return SelApprovalDoc.Status == (int)OperationStatus.草稿 && ApprovalRequests.Any();
         }
 
         #endregion
@@ -423,7 +512,25 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
 
         private void OnCheck(object obj)
         {
-            SelApprovalDoc.Status = (int) OperationStatus.已审核;
+            SelApprovalDoc.Status = (int)OperationStatus.已审核;
+            //在批文审核时，修改对应的计划明细的CanRequest、CanDeliver状态
+            Requests.SourceCollection.Cast<RequestDTO>().Where(p => p.ApprovalDocId == SelApprovalDoc.Id).ToList().ForEach(
+                req => req.ApprovalHistories.ToList().ForEach(ahDto =>
+                {
+                    var planHistory = PlanHistories.FirstOrDefault(p => p.ApprovalHistoryId == ahDto.Id);
+                    if (!ahDto.IsApproved && planHistory != null)
+                    {
+                        planHistory.CanRequest = (int)CanRequest.可再次申请;
+                        planHistory.CanDeliver = (int)CanDeliver.未批复;
+                    }
+                    else if (ahDto.IsApproved && planHistory != null)
+                    {
+                        planHistory.CanRequest = (int)CanRequest.已申请;
+                        planHistory.CanDeliver = (int)CanDeliver.可交付;
+                    }
+                }));
+            //修改IsChecked属性，控制界面数据是否可修改
+            IsChecked = true;
             RefreshCommandState();
         }
 
@@ -442,7 +549,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 return false;
             }
             // 选中批文的状态处于审核，且批文申请明细不为空时，按钮可用
-            return SelApprovalDoc.Status == (int) OperationStatus.待审核 && ApprovalRequests.Any();
+            return SelApprovalDoc.Status == (int)OperationStatus.待审核 && ApprovalRequests.Any();
         }
 
         #endregion
@@ -462,9 +569,9 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 if (e.DialogResult == true)
                 {
                     // 审核、已提交状态下可以发送。如果已处于提交状态，需要重新发送的，不必改变状态。
-                    if (SelApprovalDoc != null && SelApprovalDoc.Status != (int) OperationStatus.已提交)
+                    if (SelApprovalDoc != null && SelApprovalDoc.Status != (int)OperationStatus.已提交)
                     {
-                        SelApprovalDoc.Status = (int) OperationStatus.已提交;
+                        SelApprovalDoc.Status = (int)OperationStatus.已提交;
                     }
                     this._service.SubmitChanges(sc =>
                     {
@@ -485,8 +592,8 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
             // 选中批文为空时，按钮不可用
             if (SelApprovalDoc == null) return false;
             // 选中批文的状态处于已审核或已提交时，按钮可用
-            return SelApprovalDoc.Status == (int) OperationStatus.已审核 ||
-                   SelApprovalDoc.Status == (int) OperationStatus.已提交;
+            return SelApprovalDoc.Status == (int)OperationStatus.已审核 ||
+                   SelApprovalDoc.Status == (int)OperationStatus.已提交;
         }
 
         #endregion
@@ -505,8 +612,8 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
             {
                 if (e.DialogResult == true)
                 {
-                    SelApprovalDoc.Status = (int) OperationStatus.草稿;
-                    //this.service.SubmitChanges(sc => { }, null);
+                    SelApprovalDoc.Status = (int)OperationStatus.草稿;
+                    this._service.SubmitChanges(sc => { }, null);
                     RefreshCommandState();
                 }
             });
@@ -517,11 +624,10 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
             // 选中批文为空时，按钮不可用
             if (SelApprovalDoc == null) return false;
             // 选中批文的状态不是草稿时，按钮可用
-            return SelApprovalDoc.Status != (int) OperationStatus.草稿;
+            return SelApprovalDoc.Status != (int)OperationStatus.草稿;
         }
 
         #endregion
-
         #endregion
     }
 }
