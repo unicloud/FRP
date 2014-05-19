@@ -142,6 +142,15 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             }
         }
 
+        public Dictionary<int, RequestStatus> RequestStatuses
+        {
+            get
+            {
+                return Enum.GetValues(typeof(RequestStatus))
+                    .Cast<object>()
+                    .ToDictionary(value => (int)value, value => (RequestStatus)value);
+            }
+        }
         #region 所有计划年度
 
         /// <summary>

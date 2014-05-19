@@ -184,6 +184,14 @@
                                             </StackPanel>
                                         </DataTemplate>
                                     </telerik:RadGridView.Resources>
+                                    <telerik:RadGridView.GroupDescriptors>
+                                        <telerik:GroupDescriptor Member="Status"
+                                                                 SortDirection="Ascending">
+                                            <telerik:GroupDescriptor.AggregateFunctions>
+                                                <telerik:CountFunction ResultFormatString="小计：{0}项" />
+                                            </telerik:GroupDescriptor.AggregateFunctions>
+                                        </telerik:GroupDescriptor>
+                                    </telerik:RadGridView.GroupDescriptors>
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
                                         <telerik:GridViewDataColumn Header="申请标题"
@@ -213,11 +221,15 @@
                                                                     DataMemberBinding="{Binding SubmitDate,Mode=TwoWay}"
                                                                     DataFormatString="{StaticResource DateStringFormat}"
                                                                     IsReadOnly="True" />
-                                        <telerik:GridViewDataColumn Header="状态"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    HeaderTextAlignment="Center"
-                                                                    DataMemberBinding="{Binding RequestStatus}"
-                                                                    IsReadOnly="True" />
+                                        <telerik:GridViewComboBoxColumn Header="状态"
+                                                                        IsReadOnly="True"
+                                                                        IsVisible="False"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.RequestStatuses,ElementName=ApprovalUserControl,Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding Status}"
+                                                                        SelectedValueMemberPath="Key"
+                                                                        DisplayMemberPath="Value" />
                                         <telerik:GridViewDataColumn Header="创建日期"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     HeaderTextAlignment="Center"

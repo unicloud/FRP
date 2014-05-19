@@ -83,7 +83,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 _enRouteRequests = new ObservableCollection<RequestDTO>();
                 foreach (RequestDTO req in Requests.SourceCollection.Cast<RequestDTO>())
                 {
-                    if (req.Note != "指标飞机申请（系统添加）" && req.Status <= (int)RequestStatus.已审批)
+                    if (req.Note != "指标飞机申请（系统添加）" && req.Status >= (int)RequestStatus.已提交)
                     {
                         EnRouteRequests.Add(req);
                     }
@@ -139,6 +139,16 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         }
 
         #endregion
+
+        public Dictionary<int, RequestStatus> RequestStatuses
+        {
+            get
+            {
+                return Enum.GetValues(typeof(RequestStatus))
+                    .Cast<object>()
+                    .ToDictionary(value => (int)value, value => (RequestStatus)value);
+            }
+        }
         #endregion
 
         #region 加载数据

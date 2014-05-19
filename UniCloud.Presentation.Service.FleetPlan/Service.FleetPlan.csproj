@@ -129,7 +129,6 @@
     <Compile Include="FleetPlan\MailAddressDTO.cs" />
     <Compile Include="FleetPlan\OwnershipHistoryDTO.cs" />
     <Compile Include="FleetPlan\PlanHistoryDTO.cs" />
-    <Compile Include="FleetPlan\RequestDTO.cs" />
     <Compile Include="FleetPlan\Enums\RequestStatus.cs" />
     <Compile Include="FleetPlan\AnnualDTO.cs" />
     <Compile Include="FleetPlan\PlanAircraftDTO.cs" />
