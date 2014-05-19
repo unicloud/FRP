@@ -790,11 +790,17 @@ namespace UniCloud.Presentation.Shell
                 Text = "APU",
                 NavUri = "UniCloud.Presentation.Payment.MaintainCost.ApuMaintainCostManage"
             };
+            var menu476 = new MenuItem
+            {
+                Text = "FHA",
+                NavUri = "UniCloud.Presentation.Payment.MaintainCost.FhaMaintainCostManage"
+            };
             menu47.Items.Add(menu471);
             menu47.Items.Add(menu472);
             menu47.Items.Add(menu473);
             menu47.Items.Add(menu474);
             menu47.Items.Add(menu475);
+            menu47.Items.Add(menu476);
             menu4.Items.Add(menu47);
 
             var menu48 = new MenuItem

@@ -214,5 +214,44 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             maintainCost.MaintainInvoiceId = maintainInvoiceId;
             maintainCost.AnnualId = annualId;
         }
+
+        /// <summary>
+        ///     创建Fha维修成本
+        /// </summary>
+        /// <returns></returns>
+        public static FhaMaintainCost CreateFhaMaintainCost()
+        {
+            var maintainCost = new FhaMaintainCost();
+            maintainCost.GenerateNewIdentity();
+
+            return maintainCost;
+        }
+
+        public static void SetFhaMaintainCost(FhaMaintainCost maintainCost,Guid aircraftTypeId, string engineProperty, string jx, decimal lastYearRate, decimal yearAddedRate, decimal yearBudgetRate,
+            decimal rate, decimal airHour, decimal hourPercent, decimal hour, decimal fhaFeeUsd, decimal fhaFeeRmb, decimal custom, decimal customAddedRmb, decimal totalTax,
+            decimal addedValueRate, decimal addedValue, decimal includeAddedValue, decimal customAdded, int? maintainInvoiceId, Guid annualId)
+        {
+            maintainCost.AircraftTypeId = aircraftTypeId;
+            maintainCost.EngineProperty = engineProperty;
+            maintainCost.Jx = jx;
+            maintainCost.LastYearRate = lastYearRate;
+            maintainCost.YearAddedRate = yearAddedRate;
+            maintainCost.YearBudgetRate = yearBudgetRate;
+            maintainCost.Rate = rate;
+            maintainCost.AirHour = airHour;
+            maintainCost.HourPercent = hourPercent;
+            maintainCost.Hour = hour;
+            maintainCost.FhaFeeUsd = fhaFeeUsd;
+            maintainCost.FhaFeeRmb = fhaFeeRmb;
+            maintainCost.Custom = custom;
+            maintainCost.CustomAddedRmb = customAddedRmb;
+            maintainCost.TotalTax = totalTax;
+            maintainCost.AddedValueRate = addedValueRate;
+            maintainCost.AddedValue = addedValue;
+            maintainCost.IncludeAddedValue = includeAddedValue;
+            maintainCost.CustomAdded = customAdded;
+            maintainCost.MaintainInvoiceId = maintainInvoiceId;
+            maintainCost.AnnualId = annualId;
+        }
     }
 }

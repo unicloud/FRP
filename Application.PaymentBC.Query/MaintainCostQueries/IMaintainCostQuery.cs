@@ -63,5 +63,13 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
         /// <returns>APU维修成本DTO集合</returns>
         IQueryable<ApuMaintainCostDTO> ApuMaintainCostDTOQuery(
             QueryBuilder<ApuMaintainCost> query);
+
+        /// <summary>
+        ///     FHA维修成本查询
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>FHA维修成本DTO集合</returns>
+        IQueryable<FhaMaintainCostDTO> FhaMaintainCostDTOQuery(
+            QueryBuilder<FhaMaintainCost> query);
     }
 }

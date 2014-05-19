@@ -304,5 +304,59 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
             _maintainCostRepository.Remove(deleteApuMaintainCost); //删除APU维修成。
         }
         #endregion
+
+        #region FhaMaintainCostDTO
+        /// <summary>
+        ///     获取所有Fha维修成。
+        /// </summary>
+        /// <returns>所有Fha维修成。</returns>
+        public IQueryable<FhaMaintainCostDTO> GetFhaMaintainCosts()
+        {
+            var queryBuilder = new QueryBuilder<FhaMaintainCost>();
+            return _maintainCostQuery.FhaMaintainCostDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///     新增Fha维修成。
+        /// </summary>
+        /// <param name="fhaMaintainCost">Fha维修成DTO。</param>
+        [Insert(typeof(FhaMaintainCostDTO))]
+        public void InsertFhaMaintainCost(FhaMaintainCostDTO fhaMaintainCost)
+        {
+            var newFhaMaintainCost = MaintainCostFactory.CreateFhaMaintainCost();
+            MaintainCostFactory.SetFhaMaintainCost(newFhaMaintainCost, fhaMaintainCost.AircraftTypeId, fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx, fhaMaintainCost.LastYearRate, fhaMaintainCost.YearAddedRate,
+                fhaMaintainCost.YearBudgetRate, fhaMaintainCost.Rate, fhaMaintainCost.AirHour, fhaMaintainCost.HourPercent, fhaMaintainCost.Hour, fhaMaintainCost.FhaFeeUsd,
+                fhaMaintainCost.FhaFeeRmb, fhaMaintainCost.Custom, fhaMaintainCost.CustomAddedRmb, fhaMaintainCost.TotalTax, fhaMaintainCost.AddedValueRate, fhaMaintainCost.AddedValue,
+                fhaMaintainCost.IncludeAddedValue, fhaMaintainCost.CustomAdded, fhaMaintainCost.MaintainInvoiceId, fhaMaintainCost.AnnualId);
+            _maintainCostRepository.Add(newFhaMaintainCost);
+        }
+
+
+        /// <summary>
+        ///     更新Fha维修成。
+        /// </summary>
+        /// <param name="fhaMaintainCost">Fha维修成DTO。</param>
+        [Update(typeof(FhaMaintainCostDTO))]
+        public void ModifyFhaMaintainCost(FhaMaintainCostDTO fhaMaintainCost)
+        {
+            var updateFhaMaintainCost = _maintainCostRepository.Get(fhaMaintainCost.Id) as FhaMaintainCost; //获取需要更新的对象。
+            MaintainCostFactory.SetFhaMaintainCost(updateFhaMaintainCost, fhaMaintainCost.AircraftTypeId, fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx, fhaMaintainCost.LastYearRate, fhaMaintainCost.YearAddedRate,
+                fhaMaintainCost.YearBudgetRate, fhaMaintainCost.Rate, fhaMaintainCost.AirHour, fhaMaintainCost.HourPercent, fhaMaintainCost.Hour, fhaMaintainCost.FhaFeeUsd,
+                fhaMaintainCost.FhaFeeRmb, fhaMaintainCost.Custom, fhaMaintainCost.CustomAddedRmb, fhaMaintainCost.TotalTax, fhaMaintainCost.AddedValueRate, fhaMaintainCost.AddedValue,
+                fhaMaintainCost.IncludeAddedValue, fhaMaintainCost.CustomAdded, fhaMaintainCost.MaintainInvoiceId, fhaMaintainCost.AnnualId);
+            _maintainCostRepository.Modify(updateFhaMaintainCost);
+        }
+
+        /// <summary>
+        ///     删除Fha维修成。
+        /// </summary>
+        /// <param name="fhaMaintainCost">Fha维修成DTO。</param>
+        [Delete(typeof(FhaMaintainCostDTO))]
+        public void DeleteFhaMaintainCost(FhaMaintainCostDTO fhaMaintainCost)
+        {
+            var deleteFhaMaintainCost = _maintainCostRepository.Get(fhaMaintainCost.Id);//获取需要删除的对象。
+            _maintainCostRepository.Remove(deleteFhaMaintainCost); //删除Fha维修成。
+        }
+        #endregion
     }
 }
