@@ -76,9 +76,11 @@ namespace UniCloud.Presentation.Part.EngineConfig
                                                 if (SelContractAircraft == null)
                                                     SelContractAircraft = ContractAircrafts.FirstOrDefault();
                                             };
+
             BasicConfigGroups = new QueryableDataServiceCollectionView<BasicConfigGroupDTO>(_context, _context.BasicConfigGroups);
             _bcGroupDescriptor = new FilterDescriptor("AircraftTypeId", FilterOperator.IsEqualTo, Guid.Empty);
             BasicConfigGroups.FilterDescriptors.Add(_bcGroupDescriptor);
+            BasicConfigGroups.LoadedData += (o, e) => RaisePropertyChanged(()=>BasicConfigGroups);
 
             BasicConfigHistories = _service.CreateCollection(_context.BasicConfigHistories);
             _service.RegisterCollectionView(BasicConfigHistories);

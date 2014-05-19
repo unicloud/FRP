@@ -69,6 +69,8 @@ namespace UniCloud.Application.PartBC.Query.AcConfigQueries
         {
             var result = new List<AcConfigDTO>();
 
+            date = date.AddDays(-1);
+
             //1、依据合同飞机编号查找、日期对应的基本构型历史;再找到基本构型组
             var basicConfigHistories = _unitOfWork.CreateSet<BasicConfigHistory>().ToList();
             basicConfigHistories.ForEach(p =>

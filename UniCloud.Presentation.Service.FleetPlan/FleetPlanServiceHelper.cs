@@ -65,6 +65,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 IsOperation = true,
                 SeatingCapacity = planDetail.SeatingCapacity,
                 CarryingCapacity = planDetail.CarryingCapacity,
+                ImportCategoryId = planDetail.ActionCategoryId,
+                ImportCategoryName = planDetail.ActionType+"-"+planDetail.ActionName,
             };
             planDetail.AircraftId = aircraft.AircraftId;
             CreateOperationHistory(planDetail, ref aircraft, service);
@@ -113,6 +115,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 SeatingCapacity = aircraft.SeatingCapacity,
                 CarryingCapacity = aircraft.CarryingCapacity,
                 Status = (int)OperationStatus.草稿,
+                Regional = planDetail.Regional,
+                StartDate = DateTime.Now,
             };
 
             if (planDetail.PlanType == 2) planDetail.RelatedGuid = aircraftBusiness.AircraftBusinessId;

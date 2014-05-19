@@ -47,7 +47,7 @@ namespace UniCloud.Application.PartBC.Query.BasicConfigHistoryQueries
                 Id = p.Id,
                 StartDate = p.StartDate,
                 EndDate = p.EndDate,
-                BasicConfigGroupId = p.Id,
+                BasicConfigGroupId = p.BasicConfigGroupId,
                 ContractAircraftId = p.ContractAircraftId,
             });
         }

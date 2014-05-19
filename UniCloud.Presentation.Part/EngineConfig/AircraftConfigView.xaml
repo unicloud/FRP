@@ -141,6 +141,10 @@
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding SerialNumber}" />
+                                            <telerik:GridViewDataColumn Header="机型"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding AircraftTypeName}" />
                                         </telerik:RadGridView.Columns>
                                     </telerik:RadGridView>
                                 </Grid>

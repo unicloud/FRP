@@ -96,9 +96,12 @@
                        Grid.Row="1"
                        Grid.Column="2"
                        VerticalAlignment="Center" />
-            <TextBox Grid.Row="1"
-                     Grid.Column="3"
-                     Text="{Binding SelAircraft.ImportCategoryName,Mode=TwoWay}" />
+            <telerik:RadComboBox  Grid.Row="1"
+                                  Grid.Column="3"
+                                  ItemsSource="{Binding ActionCategories}"
+                                  DisplayMemberPath="ActionName"
+                                  SelectedValuePath="Id"
+                                  SelectedValue="{Binding SelAircraft.ImportCategoryId,Mode=TwoWay}" />
 
             <TextBlock Text="出厂日期"
                        Grid.Row="2"
@@ -253,7 +256,7 @@
                        VerticalAlignment="Center" />
             <telerik:RadComboBox Grid.Row="0"
                                  Grid.Column="1"
-                                 ItemsSource="{Binding AircraftCategories}"
+                                 ItemsSource="{Binding AircraftCategories,Mode=TwoWay}"
                                  DisplayMemberPath="Regional"
                                  SelectedValuePath="Regional"
                                  SelectedValue="{Binding SelAircraftBusiness.Regional,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" />
@@ -264,7 +267,7 @@
                        VerticalAlignment="Center" />
             <telerik:RadComboBox  Grid.Row="0"
                                   Grid.Column="3"
-                                  ItemsSource="{Binding AircraftTypes}"
+                                  ItemsSource="{Binding AircraftTypes,Mode=TwoWay}"
                                   DisplayMemberPath="Name"
                                   SelectedValuePath="Id"
                                   SelectedValue="{Binding SelAircraftBusiness.AircraftTypeId, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
@@ -275,9 +278,9 @@
                        VerticalAlignment="Center" />
             <telerik:RadComboBox  Grid.Row="1"
                                   Grid.Column="1"
-                                  ItemsSource="{Binding ActionCategories}"
+                                  ItemsSource="{Binding ActionCategories,Mode=TwoWay}"
                                   DisplayMemberPath="ActionName"
-                                  SelectedValuePath="ActionCategoryID"
+                                  SelectedValuePath="Id"
                                   SelectedValue="{Binding SelAircraftBusiness.ImportCategoryId,Mode=TwoWay}" />
 
             <TextBlock Text="座位"

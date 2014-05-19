@@ -99,7 +99,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
             RemoveRemovalCommand = new DelegateCommand<object>(OnRemoveRemoval, CanRemoveRemoval);
             AddInstallationCommand = new DelegateCommand<object>(OnAddInstallation, CanAddInstallation);
             RemoveInstallationCommand = new DelegateCommand<object>(OnRemoveInstallation, CanRemoveInstallation);
-            CellEditEndCommand=new DelegateCommand<object>(OnCellEditEnd);
+            CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
             CommitCommand = new DelegateCommand<object>(OnCommitExecute, CanCommitExecute);
             CancelCommand = new DelegateCommand<object>(OnCancelExecute, CanCancelExecute);
         }
@@ -262,7 +262,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         public SnHistoryDTO SelRemoval
         {
             get { return _selRemoval; }
-             set
+            set
             {
                 if (_selRemoval != value)
                 {
@@ -290,7 +290,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         public SnHistoryDTO SelInstallation
         {
             get { return _selInstallation; }
-             set
+            set
             {
                 if (_selInstallation != value)
                 {
@@ -334,19 +334,23 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         private void OnNew(object obj)
         {
-            SelSnRemInstRecord = new SnRemInstRecordDTO
+            if (Aircrafts.SourceCollection.Cast<AircraftDTO>().Count() != 0)
             {
-                Id = RandomHelper.Next(),
-                ActionDate = DateTime.Now,
-                AircraftId = Aircrafts.FirstOrDefault().Id
-            };
-            SnRemInstRecords.AddNew(SelSnRemInstRecord);
+                var newSnRemInstRecord = new SnRemInstRecordDTO
+                {
+                    Id = RandomHelper.Next(),
+                    ActionDate = DateTime.Now,
+                    AircraftId = Aircrafts.First().Id
+                };
+                SnRemInstRecords.AddNew(newSnRemInstRecord);
+                SelSnRemInstRecord = newSnRemInstRecord;
+            }
             RefreshCommandState();
         }
 
         private bool CanNew(object obj)
         {
-            return true;
+            return Aircrafts.SourceCollection.Cast<AircraftDTO>().Count() != 0;
         }
 
         #endregion
@@ -360,12 +364,20 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         private void OnRemove(object obj)
         {
+            SnHistories.Where(p => p.RemoveRecordId == SelSnRemInstRecord.Id).ToList().ForEach(p =>
+            {
+                p.RemoveRecordId = null;
+                p.RemoveReason = null;
+                p.RemoveReason = null;
+            });
+            SnHistories.Where(p => p.InstallRecordId == SelSnRemInstRecord.Id && p.RemoveRecordId == null).ToList().ForEach(p => SnHistories.Remove(p));
+
             RefreshCommandState();
         }
 
         private bool CanRemove(object obj)
         {
-            return false;
+            return SelSnRemInstRecord != null;
         }
 
         #endregion
@@ -548,7 +560,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         public string ChildViewHeader
         {
             get { return _childViewHeader; }
-             set
+            set
             {
                 if (_childViewHeader != value)
                 {
