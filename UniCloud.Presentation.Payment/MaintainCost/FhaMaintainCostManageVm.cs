@@ -3,11 +3,11 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2014/5/16 10:00:39
-// 文件名：SpecialRefitMaintainCostManageVm
+// 作者：linxw 时间：2014/5/19 9:28:58
+// 文件名：FhaMaintainCostManageVm
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2014/5/16 10:00:39
+// 修改者：linxw 时间：2014/5/19 9:28:58
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -30,25 +30,26 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
-    [Export(typeof(SpecialRefitMaintainCostManageVm))]
+    [Export(typeof(FhaMaintainCostManageVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class SpecialRefitMaintainCostManageVm : EditViewModelBase
+    public class FhaMaintainCostManageVm : EditViewModelBase
     {
         private readonly IPaymentService _service;
         private readonly PaymentData _context;
         private readonly IFleetPlanService _fleetPlanService;
         private FilterDescriptor _annualFilter;
+
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public SpecialRefitMaintainCostManageVm(IPaymentService service, IFleetPlanService fleetPlanService)
+        public FhaMaintainCostManageVm(IPaymentService service, IFleetPlanService fleetPlanService)
             : base(service)
         {
             _fleetPlanService = fleetPlanService;
             _service = service;
             _context = _service.Context;
-            InitialVm(); //初始化特修改装维修成本
+            InitialVm(); //初始化Fha维修成本
 
         }
         #region 年度
@@ -63,67 +64,71 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 if (_annual != null)
                 {
                     _annualFilter.Value = _annual.Id;
-                    SpecialRefitMaintainCosts.Load(true);
+                    FhaMaintainCosts.Load(true);
                 }
                 RaisePropertyChanged(() => Annual);
             }
         }
         #endregion
 
+        public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypes { get; set; }
+
         #region 发票
-        public QueryableDataServiceCollectionView<SpecialRefitInvoiceDTO> SpecialRefitInvoices { get; set; }
+        public QueryableDataServiceCollectionView<EngineMaintainInvoiceDTO> EngineMaintainInvoices { get; set; }
         #endregion
 
-        #region 加载特修改装维修成本
+        #region 加载Fha维修成本
 
-        private SpecialRefitMaintainCostDTO _specialRefitMaintainCost;
+        private FhaMaintainCostDTO _fhaMaintainCost;
 
         /// <summary>
-        ///     选择特修改装维修成本。
+        ///     选择Fha维修成本。
         /// </summary>
-        public SpecialRefitMaintainCostDTO SpecialRefitMaintainCost
+        public FhaMaintainCostDTO FhaMaintainCost
         {
-            get { return _specialRefitMaintainCost; }
+            get { return _fhaMaintainCost; }
             set
             {
-                if (_specialRefitMaintainCost != value)
+                if (_fhaMaintainCost != value)
                 {
-                    _specialRefitMaintainCost = value;
-                    RaisePropertyChanged(() => SpecialRefitMaintainCost);
+                    _fhaMaintainCost = value;
+                    RaisePropertyChanged(() => FhaMaintainCost);
                 }
             }
         }
 
         /// <summary>
-        ///     获取所有特修改装维修成本信息。
+        ///     获取所有Fha维修成本信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<SpecialRefitMaintainCostDTO> SpecialRefitMaintainCosts { get; set; }
+        public QueryableDataServiceCollectionView<FhaMaintainCostDTO> FhaMaintainCosts { get; set; }
 
         /// <summary>
-        ///     初始化特修改装维修成本信息。
+        ///     初始化Fha维修成本信息。
         /// </summary>
         private void InitialVm()
         {
+            CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
             AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
             DeleteCommand = new DelegateCommand<object>(OnDelete, CanDelete);
-            SpecialRefitInvoices = new QueryableDataServiceCollectionView<SpecialRefitInvoiceDTO>(_context, _context.SpecialRefitInvoices);
-            SpecialRefitMaintainCosts = _service.CreateCollection(_context.SpecialRefitMaintainCosts);
-            SpecialRefitMaintainCosts.PageSize = 20;
+            EngineMaintainInvoices = new QueryableDataServiceCollectionView<EngineMaintainInvoiceDTO>(_context, _context.EngineMaintainInvoices);
+            FhaMaintainCosts = _service.CreateCollection(_context.FhaMaintainCosts);
+            FhaMaintainCosts.PageSize = 20;
             _annualFilter = new FilterDescriptor("AnnualId", FilterOperator.IsEqualTo, Guid.Empty);
-            SpecialRefitMaintainCosts.FilterDescriptors.Add(_annualFilter);
-            SpecialRefitMaintainCosts.LoadedData += (sender, e) =>
+            FhaMaintainCosts.FilterDescriptors.Add(_annualFilter);
+            FhaMaintainCosts.LoadedData += (sender, e) =>
             {
-                if (SpecialRefitMaintainCost == null)
-                    SpecialRefitMaintainCost = SpecialRefitMaintainCosts.FirstOrDefault();
+                if (FhaMaintainCost == null)
+                    FhaMaintainCost = FhaMaintainCosts.FirstOrDefault();
                 RefreshCommandState();
             };
 
             Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
             Annuals.LoadedData += (o, e) =>
-                                  {
-                                      if (Annual == null)
-                                          Annual = Annuals.FirstOrDefault();
-                                  };
+            {
+                if (Annual == null)
+                    Annual = Annuals.FirstOrDefault();
+            };
+            AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_fleetPlanService.Context, _fleetPlanService.Context.AircraftTypes);
         }
 
         #endregion
@@ -140,20 +145,19 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         /// <param name="sender"></param>
         public void OnAdd(object sender)
         {
-            SpecialRefitMaintainCost = new SpecialRefitMaintainCostDTO
+            FhaMaintainCost = new FhaMaintainCostDTO
                                      {
                                          Id = RandomHelper.Next(),
                                          AnnualId = Annual.Id
                                      };
-
-            var invoice = SpecialRefitInvoices.FirstOrDefault();
+            var invoice = EngineMaintainInvoices.FirstOrDefault();
             if (invoice != null)
             {
-                SpecialRefitMaintainCost.MaintainInvoiceId = invoice.SpecialRefitId;
-                SpecialRefitMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                SpecialRefitMaintainCost.AcutalAmount = invoice.PaidAmount;
+                FhaMaintainCost.MaintainInvoiceId = invoice.EngineMaintainInvoiceId;
+                FhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                FhaMaintainCost.AcutalAmount = invoice.PaidAmount;
             }
-            SpecialRefitMaintainCosts.AddNew(SpecialRefitMaintainCost);
+            FhaMaintainCosts.AddNew(FhaMaintainCost);
         }
 
         /// <summary>
@@ -178,7 +182,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         /// <param name="sender"></param>
         public void OnDelete(object sender)
         {
-            if (SpecialRefitMaintainCost == null)
+            if (FhaMaintainCost == null)
             {
                 MessageAlert("提示", "请选择需要删除的记录");
                 return;
@@ -186,8 +190,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
                                             {
                                                 if (arg.DialogResult != true) return;
-                                                SpecialRefitMaintainCosts.Remove(SpecialRefitMaintainCost);
-                                                SpecialRefitMaintainCost = SpecialRefitMaintainCosts.FirstOrDefault();
+                                                FhaMaintainCosts.Remove(FhaMaintainCost);
+                                                FhaMaintainCost = FhaMaintainCosts.FirstOrDefault();
                                             });
         }
 
@@ -211,25 +215,42 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         {
             if (!Annuals.AutoLoad)
                 Annuals.AutoLoad = true;
-            if (!SpecialRefitMaintainCosts.AutoLoad)
-                SpecialRefitMaintainCosts.AutoLoad = true;
-            SpecialRefitInvoices.Load(true);
+            if (!FhaMaintainCosts.AutoLoad)
+                FhaMaintainCosts.AutoLoad = true;
+            EngineMaintainInvoices.Load(true);
+            AircraftTypes.Load(true);
         }
 
         #endregion
 
         public void SelectedChanged(object sender)
         {
-            if (sender is SpecialRefitInvoiceDTO)
+            if (sender is EngineMaintainInvoiceDTO)
             {
-                var invoice = sender as SpecialRefitInvoiceDTO;
-                if (SpecialRefitMaintainCost.MaintainInvoiceId != invoice.SpecialRefitId)
+                var invoice = sender as EngineMaintainInvoiceDTO;
+                if (FhaMaintainCost.MaintainInvoiceId != invoice.EngineMaintainInvoiceId)
                 {
-                    SpecialRefitMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                    SpecialRefitMaintainCost.AcutalAmount = invoice.PaidAmount;
+                    FhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                    FhaMaintainCost.AcutalAmount = invoice.PaidAmount;
                 }
             }
         }
+
+        #region 单元格编辑事件
+        public DelegateCommand<object> CellEditEndCommand { get; set; }
+
+        private void CellEditEnd(object sender)
+        {
+            FhaMaintainCost.YearBudgetRate = FhaMaintainCost.LastYearRate * (1 + FhaMaintainCost.YearAddedRate);
+            FhaMaintainCost.Hour = FhaMaintainCost.AirHour * FhaMaintainCost.HourPercent * 2;
+            FhaMaintainCost.FhaFeeUsd = FhaMaintainCost.Hour * FhaMaintainCost.YearBudgetRate;
+            FhaMaintainCost.FhaFeeRmb = FhaMaintainCost.FhaFeeUsd * FhaMaintainCost.Rate;
+            FhaMaintainCost.CustomAddedRmb = FhaMaintainCost.FhaFeeRmb * FhaMaintainCost.Custom;
+            FhaMaintainCost.TotalTax = FhaMaintainCost.FhaFeeRmb + FhaMaintainCost.CustomAddedRmb;
+            FhaMaintainCost.AddedValue = FhaMaintainCost.AddedValueRate * FhaMaintainCost.TotalTax;
+            FhaMaintainCost.IncludeAddedValue = FhaMaintainCost.AddedValue + FhaMaintainCost.TotalTax;
+            FhaMaintainCost.CustomAdded = FhaMaintainCost.CustomAddedRmb + FhaMaintainCost.AddedValue;
+        }
+        #endregion
     }
 }
-

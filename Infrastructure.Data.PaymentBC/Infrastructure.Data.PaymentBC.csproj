@@ -87,6 +87,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseSupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ContractAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ContractEngineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\FhaMaintainCostEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainCostEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainCreditNoteInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainPrepaymentInvoiceEntityConfiguration.cs" />

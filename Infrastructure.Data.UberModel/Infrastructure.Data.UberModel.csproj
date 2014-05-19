@@ -154,6 +154,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ContractEngineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainPlanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainPlanDetailEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\FhaMaintainCostEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainCostEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainCreditNoteInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainPrepaymentInvoiceEntityConfiguration.cs" />

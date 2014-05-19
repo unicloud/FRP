@@ -266,16 +266,22 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (sender is AircraftDTO)
             {
                 var aircraft = sender as AircraftDTO;
-                NonFhaMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
-                NonFhaMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+                if (NonFhaMaintainCost.AircraftId != aircraft.AircraftId)
+                {
+                    NonFhaMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
+                    NonFhaMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+                }
             }
             else if (sender is EngineMaintainInvoiceDTO)
             {
                 var invoice = sender as EngineMaintainInvoiceDTO;
-                NonFhaMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
-                NonFhaMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
-                NonFhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                NonFhaMaintainCost.AcutalAmount = invoice.PaidAmount;
+                if (NonFhaMaintainCost.MaintainInvoiceId != invoice.EngineMaintainInvoiceId)
+                {
+                    NonFhaMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
+                    NonFhaMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
+                    NonFhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                    NonFhaMaintainCost.AcutalAmount = invoice.PaidAmount;
+                }
             }
         }
 

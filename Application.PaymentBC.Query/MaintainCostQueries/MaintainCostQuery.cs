@@ -222,5 +222,44 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         AcutalAmount = p.MaintainInvoice.PaidAmount
                     });
         }
+
+        /// <summary>
+        ///   FHA维修成本查询。
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns> FHA维修成本DTO集合。</returns>
+        public IQueryable<FhaMaintainCostDTO> FhaMaintainCostDTOQuery(
+           QueryBuilder<FhaMaintainCost> query)
+        {
+            return
+                query.ApplyTo(_maintainCostRepository.GetAll().OfType<FhaMaintainCost>())
+                    .Select(p => new FhaMaintainCostDTO
+                    {
+                        Id = p.Id,
+                        EngineProperty = p.EngineProperty,
+                        Jx = p.Jx,
+                        LastYearRate = p.LastYearRate,
+                        YearAddedRate = p.YearAddedRate,
+                        YearBudgetRate = p.YearBudgetRate,
+                        Rate = p.Rate,
+                        AirHour = p.AirHour,
+                        HourPercent = p.HourPercent,
+                        Hour = p.Hour,
+                        FhaFeeUsd = p.FhaFeeUsd,
+                        FhaFeeRmb = p.FhaFeeRmb,
+                        Custom = p.Custom,
+                        CustomAddedRmb = p.CustomAddedRmb,
+                        TotalTax = p.TotalTax,
+                        AddedValueRate = p.AddedValueRate,
+                        AddedValue = p.AddedValue,
+                        IncludeAddedValue = p.IncludeAddedValue,
+                        CustomAdded = p.CustomAdded,
+                        AircraftTypeId = p.AircraftTypeId,
+                        MaintainInvoiceId = p.MaintainInvoiceId,
+                        AnnualId = p.AnnualId,
+                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalAmount = p.MaintainInvoice.PaidAmount
+                    });
+        }
     }
 }
