@@ -441,7 +441,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 else if (approvalHistoryCache == null && planAircraft != null)
                 {
                     planHistory.ApprovalHistoryId = null;
-                    planHistory.CanDeliver = (int)CanRequest.可申请;
+                    planHistory.CanRequest = (int)CanRequest.可申请;
                     planHistory.CanDeliver = (int)CanDeliver.未申请;
                     planAircraft.Status = (int)ManageStatus.计划;
                 }

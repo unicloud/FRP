@@ -222,7 +222,7 @@
                                                           BorderThickness="0"
                                                           HorizontalScrollBarVisibility="Disabled"
                                                           telerik:StyleManager.Theme="Windows8">
-                                                <TextBlock Text="{Binding SelReqeust.Note }"
+                                                <TextBlock Text="{Binding SelRequest.Note }"
                                                            TextWrapping="Wrap" />
                                             </ScrollViewer>
                                         </telerik:GroupBox>

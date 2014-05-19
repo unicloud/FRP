@@ -58,7 +58,7 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
         ///     新增申请
         /// </summary>
         /// <param name="request">申请</param>
-        [Insert(typeof (RequestDTO))]
+        [Insert(typeof(RequestDTO))]
         public void InsertRequest(RequestDTO request)
         {
             if (request == null)
@@ -66,15 +66,18 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
                 throw new Exception("申请不能为空");
             }
             //新申请
-            var newRequest = RequestFactory.CreateRequest(request.SubmitDate, request.Title, 
-                request.CaacDocNumber, request.Status, request.LogWriter,request.CaacDocumentName,
+            var newRequest = RequestFactory.CreateRequest(request.SubmitDate, request.Title,
+                request.CaacDocNumber, request.Status, request.LogWriter, request.CaacDocumentName,
                 request.CaacDocumentId, Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"));
-            if(request.ApprovalDocId!=null) newRequest.SetApprovalDoc(request.ApprovalDocId);
-            request.ApprovalHistories.ToList().ForEach(p => newRequest.AddNewApprovalHistory(p.Id,p.SeatingCapacity,
+            if (request.ApprovalDocId != null) newRequest.SetApprovalDoc(request.ApprovalDocId);
+            newRequest.ChangeCurrentIdentity(request.Id);
+            request.ApprovalHistories.ToList().ForEach(p => newRequest.AddNewApprovalHistory(p.Id, p.SeatingCapacity,
                 p.CarryingCapacity,
                 p.RequestDeliverMonth, p.Note, p.RequestId,
                 p.PlanAircraftId, p.ImportCategoryId, p.RequestDeliverAnnualId,
                 Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F")));
+            string log = "创建申请" + request.Title + ",包含" + request.ApprovalHistories.Count + "条申请明细";
+            newRequest.SetNote(log);
             _requestRepository.Add(newRequest);
         }
 
@@ -82,7 +85,7 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
         ///     修改申请
         /// </summary>
         /// <param name="request"></param>
-        [Update(typeof (RequestDTO))]
+        [Update(typeof(RequestDTO))]
         public void ModifyRequest(RequestDTO request)
         {
             if (request == null)
@@ -107,9 +110,9 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             {
                 pesistRequest.SetCaacDocNumber(request.CaacDocNumber);
             }
-            if (pesistRequest.Status != (RequestStatus) request.Status)
+            if (pesistRequest.Status != (RequestStatus)request.Status)
             {
-                pesistRequest.SetRequestStatus((RequestStatus) request.Status);
+                pesistRequest.SetRequestStatus((RequestStatus)request.Status);
             }
             if (!string.IsNullOrWhiteSpace(request.LogWriter))
             {
@@ -126,6 +129,11 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             DataHelper.DetailHandle(request.ApprovalHistories.ToArray(), pesistRequest.ApprovalHistories.ToArray(),
                 c => c.Id, c => c.Id, c => InsertApprovalHistory(pesistRequest, c), ModifyApprovalHistory,
                 DeleteApprovalHistory);
+
+            DataHelper.DetailHandle(request.ApprovalHistories.ToArray(), pesistRequest.ApprovalHistories.ToArray(),
+                c => c.Id, c => c.Id, c => InsertLog(pesistRequest, c),(c,p)=> ModifyLog(pesistRequest,c),
+                c=>DeleteLog(pesistRequest,c));
+
             _requestRepository.Modify(pesistRequest);
         }
 
@@ -133,7 +141,7 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
         ///     删除申请
         /// </summary>
         /// <param name="request"></param>
-        [Delete(typeof (RequestDTO))]
+        [Delete(typeof(RequestDTO))]
         public void DeleteRequest(RequestDTO request)
         {
             if (request == null)
@@ -212,8 +220,8 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             var persistPlanAircraft = _planAircraftRepository.Get(approvalHistory.PlanAircraftId);
             if (persistPlanAircraft.Status != (ManageStatus)approvalHistory.PlanAircraftStatus)
             {
-                if (pesistApprovalHistory.PlanAircraft.Status==ManageStatus.申请
-                    &&approvalHistory.PlanAircraftStatus==(int)ManageStatus.批文)
+                if (pesistApprovalHistory.PlanAircraft.Status == ManageStatus.申请
+                    && approvalHistory.PlanAircraftStatus == (int)ManageStatus.批文)
                 {
                     pesistApprovalHistory.PlanAircraft.SetManageStatus(ManageStatus.批文);//修改计划飞机为批文状态
                 }
@@ -222,10 +230,7 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
                 {
                     pesistApprovalHistory.PlanAircraft.SetManageStatus(ManageStatus.申请);
                 }
-             
             }
-           
-         
         }
 
         /// <summary>
@@ -235,6 +240,40 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
         private void DeleteApprovalHistory(ApprovalHistory approvalHistory)
         {
             _requestRepository.DelApprovalHistory(approvalHistory);
+        }
+
+
+        /// <summary>
+        ///     新增申请明细时的记录
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="approvalHistory"></param>
+        private void InsertLog(Request request, ApprovalHistoryDTO approvalHistory)
+        {
+            string log = "新增申请明细:" + approvalHistory.RequestDeliverAnnualName + "/" + approvalHistory.RequestDeliverMonth + "|" + approvalHistory.ImportCategoryName + "|" + approvalHistory.AircraftType;
+            request.SetNote(log);
+        }
+
+        /// <summary>
+        ///     修改申请明细时的记录
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="approvalHistory"></param>
+        private void ModifyLog(Request request, ApprovalHistoryDTO approvalHistory)
+        {
+            string log = "修改申请明细:" + approvalHistory.RequestDeliverAnnualName + "/" + approvalHistory.RequestDeliverMonth + "|" + approvalHistory.ImportCategoryName + "|" + approvalHistory.AircraftType;
+            request.SetNote(log);
+        }
+
+        /// <summary>
+        ///     删除申请明细时的记录
+        /// </summary>
+        /// <param name="request">申请明细</param>
+        /// <param name="approvalHistory">申请明细</param>
+        private void DeleteLog(Request request, ApprovalHistory approvalHistory)
+        {
+            string log = "删除申请明细:" + approvalHistory.RequestDeliverAnnual.Year + "/" + approvalHistory.RequestDeliverMonth + "|" + approvalHistory.ImportCategory.ActionType + ":" + approvalHistory.ImportCategory.ActionName + "|" + approvalHistory.PlanAircraft.AircraftType.Name;
+            request.SetNote(log);
         }
     }
 }
