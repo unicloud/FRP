@@ -18,22 +18,18 @@ namespace UniCloud.Presentation.Service.Payment.Payment
     {
         partial void OnInMaintainTimeChanged()
         {
-            TotalDays = (OutMaintainTime.Date - InMaintainTime.Date).Days + 1;
         }
 
         partial void OnOutMaintainTimeChanged()
         {
-            TotalDays = (OutMaintainTime.Date - InMaintainTime.Date).Days + 1;
         }
 
         partial void OnAcutalOutMaintainTimeChanged()
         {
-            AcutalTotalDays = (AcutalOutMaintainTime.Date - AcutalInMaintainTime.Date).Days + 1;
         }
 
         partial void OnAcutalInMaintainTimeChanged()
         {
-            AcutalTotalDays = (AcutalOutMaintainTime.Date - AcutalInMaintainTime.Date).Days + 1;
         }
     }
 }

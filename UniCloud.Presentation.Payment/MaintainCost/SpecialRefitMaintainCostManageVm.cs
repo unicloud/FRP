@@ -32,7 +32,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 {
     [Export(typeof(SpecialRefitMaintainCostManageVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class SpecialRefitMaintainCostManageVm: EditViewModelBase
+    public class SpecialRefitMaintainCostManageVm : EditViewModelBase
     {
         private readonly IPaymentService _service;
         private readonly PaymentData _context;
@@ -145,7 +145,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                                          Id = RandomHelper.Next(),
                                          AnnualId = Annual.Id
                                      };
-           
+
             var invoice = SpecialRefitInvoices.FirstOrDefault();
             if (invoice != null)
             {
@@ -223,8 +223,11 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (sender is SpecialRefitInvoiceDTO)
             {
                 var invoice = sender as SpecialRefitInvoiceDTO;
-                SpecialRefitMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                SpecialRefitMaintainCost.AcutalAmount = invoice.PaidAmount;
+                if (SpecialRefitMaintainCost.MaintainInvoiceId != invoice.SpecialRefitId)
+                {
+                    SpecialRefitMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                    SpecialRefitMaintainCost.AcutalAmount = invoice.PaidAmount;
+                }
             }
         }
     }

@@ -236,8 +236,11 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (sender is APUMaintainInvoiceDTO)
             {
                 var invoice = sender as APUMaintainInvoiceDTO;
-                ApuMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                ApuMaintainCost.AcutalAmount = invoice.PaidAmount;
+                if (ApuMaintainCost.MaintainInvoiceId != invoice.APUMaintainInvoiceId)
+                {
+                    ApuMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                    ApuMaintainCost.AcutalAmount = invoice.PaidAmount;
+                }
             }
         }
 

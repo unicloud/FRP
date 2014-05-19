@@ -117,6 +117,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         /// </summary>
         private void InitialVm()
         {
+            CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
             AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
             DeleteCommand = new DelegateCommand<object>(OnDelete, CanDelete);
             AirframeMaintainInvoices = new QueryableDataServiceCollectionView<AirframeMaintainInvoiceDTO>(_context, _context.AirframeMaintainInvoices);
@@ -254,18 +255,35 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (sender is AircraftDTO)
             {
                 var aircraft = sender as AircraftDTO;
-                RegularCheckMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
-                RegularCheckMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+                if (RegularCheckMaintainCost.AircraftId != aircraft.AircraftId)
+                {
+                    RegularCheckMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
+                    RegularCheckMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+                }
             }
             else if (sender is AirframeMaintainInvoiceDTO)
             {
                 var invoice = sender as AirframeMaintainInvoiceDTO;
-                RegularCheckMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
-                RegularCheckMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
-                RegularCheckMaintainCost.AcutalTotalDays = (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
-                RegularCheckMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                RegularCheckMaintainCost.AcutalAmount = invoice.PaidAmount;
+                if (RegularCheckMaintainCost.MaintainInvoiceId != invoice.AirframeMaintainInvoiceId)
+                {
+                    RegularCheckMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
+                    RegularCheckMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
+                    RegularCheckMaintainCost.AcutalTotalDays =
+                        (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
+                    RegularCheckMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                    RegularCheckMaintainCost.AcutalAmount = invoice.PaidAmount;
+                }
             }
         }
+
+        #region 单元格编辑事件
+        public DelegateCommand<object> CellEditEndCommand { get; set; }
+
+        private void CellEditEnd(object sender)
+        {
+            RegularCheckMaintainCost.TotalDays = (RegularCheckMaintainCost.OutMaintainTime.Date - RegularCheckMaintainCost.InMaintainTime.Date).Days + 1;
+            RegularCheckMaintainCost.AcutalTotalDays = (RegularCheckMaintainCost.AcutalOutMaintainTime.Date - RegularCheckMaintainCost.AcutalInMaintainTime.Date).Days + 1;
+        }
+        #endregion
     }
 }

@@ -123,6 +123,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         /// </summary>
         private void InitialVm()
         {
+            CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
             AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
             DeleteCommand = new DelegateCommand<object>(OnDelete, CanDelete);
             UndercartMaintainInvoices = new QueryableDataServiceCollectionView<UndercartMaintainInvoiceDTO>(_context, _context.UndercartMaintainInvoices);
@@ -260,19 +261,36 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (sender is AircraftDTO)
             {
                 var aircraft = sender as AircraftDTO;
-                UndercartMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
-                UndercartMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+                if (UndercartMaintainCost.AircraftId != aircraft.AircraftId)
+                {
+                    UndercartMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
+                    UndercartMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+                }
             }
             else if (sender is UndercartMaintainInvoiceDTO)
             {
                 var invoice = sender as UndercartMaintainInvoiceDTO;
-                UndercartMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
-                UndercartMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
-                UndercartMaintainCost.AcutalTotalDays = (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
-                UndercartMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                UndercartMaintainCost.AcutalAmount = invoice.PaidAmount;
+                if (UndercartMaintainCost.MaintainInvoiceId != invoice.UndercartMaintainInvoiceId)
+                {
+                    UndercartMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
+                    UndercartMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
+                    UndercartMaintainCost.AcutalTotalDays =
+                        (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
+                    UndercartMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                    UndercartMaintainCost.AcutalAmount = invoice.PaidAmount;
+                }
             }
         }
+
+        #region 单元格编辑事件
+        public DelegateCommand<object> CellEditEndCommand { get; set; }
+
+        private void CellEditEnd(object sender)
+        {
+            UndercartMaintainCost.TotalDays = (UndercartMaintainCost.OutMaintainTime.Date - UndercartMaintainCost.InMaintainTime.Date).Days + 1;
+            UndercartMaintainCost.AcutalTotalDays = (UndercartMaintainCost.AcutalOutMaintainTime.Date - UndercartMaintainCost.AcutalInMaintainTime.Date).Days + 1;
+        }
+        #endregion
     }
 }
 

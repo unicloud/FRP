@@ -228,8 +228,11 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (sender is EngineMaintainInvoiceDTO)
             {
                 var invoice = sender as EngineMaintainInvoiceDTO;
-                FhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                FhaMaintainCost.AcutalAmount = invoice.PaidAmount;
+                if (FhaMaintainCost.MaintainInvoiceId != invoice.EngineMaintainInvoiceId)
+                {
+                    FhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                    FhaMaintainCost.AcutalAmount = invoice.PaidAmount;
+                }
             }
         }
 
@@ -238,11 +241,11 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         private void CellEditEnd(object sender)
         {
-            FhaMaintainCost.YearBudgetRate = FhaMaintainCost.LastYearRate * (1+FhaMaintainCost.YearAddedRate);
-            FhaMaintainCost.Hour = FhaMaintainCost.AirHour * FhaMaintainCost.HourPercent*2;
+            FhaMaintainCost.YearBudgetRate = FhaMaintainCost.LastYearRate * (1 + FhaMaintainCost.YearAddedRate);
+            FhaMaintainCost.Hour = FhaMaintainCost.AirHour * FhaMaintainCost.HourPercent * 2;
             FhaMaintainCost.FhaFeeUsd = FhaMaintainCost.Hour * FhaMaintainCost.YearBudgetRate;
             FhaMaintainCost.FhaFeeRmb = FhaMaintainCost.FhaFeeUsd * FhaMaintainCost.Rate;
-            FhaMaintainCost.CustomAddedRmb = FhaMaintainCost.FhaFeeRmb*FhaMaintainCost.Custom;
+            FhaMaintainCost.CustomAddedRmb = FhaMaintainCost.FhaFeeRmb * FhaMaintainCost.Custom;
             FhaMaintainCost.TotalTax = FhaMaintainCost.FhaFeeRmb + FhaMaintainCost.CustomAddedRmb;
             FhaMaintainCost.AddedValue = FhaMaintainCost.AddedValueRate * FhaMaintainCost.TotalTax;
             FhaMaintainCost.IncludeAddedValue = FhaMaintainCost.AddedValue + FhaMaintainCost.TotalTax;
