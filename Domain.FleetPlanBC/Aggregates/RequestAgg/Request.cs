@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
@@ -191,7 +192,18 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <param name="note"></param>
         public void SetNote(string note)
         {
-            Note = note;
+            if (string.IsNullOrWhiteSpace(note))
+            {
+                throw new ArgumentException("民航局申请说明参数为空！");
+            }
+
+            var sb = new StringBuilder();
+            sb.AppendLine(DateTime.Now.Date.ToShortDateString());
+            sb.AppendLine(note);
+            sb.AppendLine();
+            sb.Append(Note);
+
+            Note = sb.ToString();
         }
 
         /// <summary>

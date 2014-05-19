@@ -185,16 +185,22 @@
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding CarryingCapacity}"
                                                                     IsReadOnly="True" />
-                                        <telerik:GridViewDataColumn Header="执行年度"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    HeaderTextAlignment="Center"
-                                                                    DataMemberBinding="{Binding RequestDeliverAnnualName}"
-                                                                    IsReadOnly="True" />
-                                        <telerik:GridViewDataColumn Header="执行月份"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    HeaderTextAlignment="Center"
-                                                                    DataMemberBinding="{Binding RequestDeliverMonth}"
-                                                                    IsReadOnly="True" />
+                                        <telerik:GridViewComboBoxColumn Header="执行年度"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        IsFilterable="True"
+                                                                        ItemsSource="{Binding DataContext.Annuals,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                        DisplayMemberPath="Year"
+                                                                        DataMemberBinding="{Binding RequestDeliverAnnualId}"
+                                                                        SelectedValueMemberPath="ID"
+                                                                        EditTriggers="CellClick" />
+                                        <telerik:GridViewComboBoxColumn Header="执行月份"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        EditTriggers="CellClick"
+                                                                        UniqueName="PerformMonth"
+                                                                        ItemsSource="{Binding DataContext.Months,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                        DataMemberBinding="{Binding RequestDeliverMonth}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </telerik:RadPane>

@@ -94,6 +94,20 @@
                                                        Stretch="Fill"
                                                        ToolTipService.ToolTip="审核" />
                                             </telerik:RadButton>
+                                            <telerik:RadToolBarSeparator />
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding SendCommand}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Mail.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="发送申请" />
+                                            </telerik:RadButton>
+                                            <telerik:RadToolBarSeparator />
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding EditCommand}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Edit.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="修改申请" />
+                                            </telerik:RadButton>
                                         </telerik:RadToolBar>
                                         <Grid Row="1">
                                             <telerik:RadGridView CanUserSortColumns="True"
@@ -229,7 +243,7 @@
                                              CanUserPin="False"
                                              ContextMenuTemplate="{x:Null}">
                                 <telerik:RadGridView x:Name="PlanDetail"
-                                                     ItemsSource="{Binding CurPlanHistories}"
+                                                     ItemsSource="{Binding CurPlanHistories,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelPlanHistory,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
                                                      ShowGroupPanel="False"
@@ -376,25 +390,21 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
                                                                     DataMemberBinding="{Binding AircraftRegional}" />
-                                        <telerik:GridViewComboBoxColumn Header="机型"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        IsReadOnly="True"
-                                                                        DataMemberBinding="{Binding AircraftType}" />
-                                        <telerik:GridViewComboBoxColumn Header="引进方式"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        IsFilterable="True"
-                                                                        ItemsSource="{Binding DataContext.ActionCategoriesView,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
-                                                                        DisplayMemberPath="ActionName"
-                                                                        DataMemberBinding="{Binding ImportCategoryId,Mode=TwoWay}"
-                                                                        SelectedValueMemberPath="ID"
-                                                                        EditTriggers="CellClick" />
+                                        <telerik:GridViewDataColumn Header="机型"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding AircraftType}" />
+                                        <telerik:GridViewDataColumn Header="引进方式"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding ImportCategoryName}" />
                                         <telerik:GridViewComboBoxColumn Header="执行年度"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         IsFilterable="True"
-                                                                        ItemsSource="{Binding DataContext.AnnualsView,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                        ItemsSource="{Binding DataContext.Annuals,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
                                                                         DisplayMemberPath="Year"
                                                                         DataMemberBinding="{Binding RequestDeliverAnnualId}"
                                                                         SelectedValueMemberPath="ID"
