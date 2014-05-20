@@ -30,7 +30,7 @@
         <Grid>
             <telerik:RadGridView Grid.Row="0"
                                  Name="ChildViewSnRegs"
-                                 ItemsSource="{Binding InStoreSnRegs}"
+                                 ItemsSource="{Binding DataContext.ViewSnRegs,ElementName=LayoutRoot}"
                                  IsBusy="{Binding SnRegs.IsBusy}"
                                  AutoGenerateColumns="False"
                                  ShowGroupPanel="True"
@@ -65,7 +65,7 @@
                                Width="100"
                                Margin="5,2"
                                Command="{Binding CommitCommand}"
-                               CommandParameter="{Binding ElementName=ChildViewPnRegs}" />
+                               CommandParameter="{Binding ElementName=ChildViewSnRegs}" />
             <telerik:RadButton Content="取消"
                                Height="30"
                                Width="100"

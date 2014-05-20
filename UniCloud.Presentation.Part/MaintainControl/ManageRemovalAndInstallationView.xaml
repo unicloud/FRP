@@ -11,7 +11,8 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:ManageRemovalAndInstallationVm}">
+             d:DataContext="{d:DesignInstance uc:ManageRemovalAndInstallationVm}"
+             Name="ReInstallUserControl">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -227,13 +228,13 @@
                                                                     IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding Pn}" />
+                                                                    DataMemberBinding="{Binding Sn}" />
                                         <telerik:GridViewDataColumn Header="当前件号"
+                                                                    IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding Sn}" />
+                                                                    DataMemberBinding="{Binding Pn}" />
                                         <telerik:GridViewDataColumn Header="拆下日期"
-                                                                    IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding RemoveDate}"
@@ -247,7 +248,6 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding CSR}" />
                                         <telerik:GridViewDataColumn Header="TSN"
-                                                                    IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding TSN}" />
@@ -312,6 +312,12 @@
                                                                  CommandParameter="{Binding ElementName=Installations, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="CellEditEnded">
+                                            <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
+                                                                   CommandParameter="{Binding ElementName=Installations}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadGridView.Columns>
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
@@ -319,13 +325,16 @@
                                                                     IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding Pn}" />
-                                        <telerik:GridViewDataColumn Header="装机件号"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Sn}" />
+                                        <telerik:GridViewComboBoxColumn Header="装机件号"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        FilterMemberPath="Pn"
+                                                                        ItemsSource="{Binding DataContext.PnRegs,ElementName=ReInstallUserControl,Mode=TwoWay}"
+                                                                        DisplayMemberPath="Pn"
+                                                                        DataMemberBinding="{Binding PnRegId}"
+                                                                        SelectedValueMemberPath="Id" 
+                                                                        UniqueName="PnReg"/>
                                         <telerik:GridViewDataColumn Header="装上日期"
-                                                                    IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding InstallDate}" 
