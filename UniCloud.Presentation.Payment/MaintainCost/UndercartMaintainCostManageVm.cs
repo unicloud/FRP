@@ -153,7 +153,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         #region 命令
 
-        #region 新增保证金命令
+        #region 新增起落架命令
 
         public DelegateCommand<object> AddCommand { get; set; }
 
@@ -185,6 +185,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 UndercartMaintainCost.MaintainInvoiceId = invoice.UndercartMaintainInvoiceId;
                 UndercartMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
                 UndercartMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
+                UndercartMaintainCost.AcutalTotalDays =
+                   (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
                 UndercartMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
                 UndercartMaintainCost.AcutalAmount = invoice.PaidAmount;
             }
@@ -192,7 +194,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         }
 
         /// <summary>
-        ///     判断新增保证金命令是否可用。
+        ///     判断新增起落架命令是否可用。
         /// </summary>
         /// <param name="sender"></param>
         /// <returns>新增命令是否可用。</returns>
@@ -203,12 +205,12 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         #endregion
 
-        #region 删除保证金命令
+        #region 删除起落架命令
 
         public DelegateCommand<object> DeleteCommand { get; set; }
 
         /// <summary>
-        ///     执行删除保证金命令。
+        ///     执行删除起落架命令。
         /// </summary>
         /// <param name="sender"></param>
         public void OnDelete(object sender)
@@ -227,7 +229,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         }
 
         /// <summary>
-        ///     判断删除保证金命令是否可用。
+        ///     判断删除起落架命令是否可用。
         /// </summary>
         /// <param name="sender"></param>
         /// <returns>删除命令是否可用。</returns>
