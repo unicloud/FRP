@@ -14,8 +14,11 @@
 #endregion
 
 #region 命名空间
+
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
+using UniCloud.Domain.PartBC.Aggregates.InstallControllerAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Infrastructure.Data;
@@ -49,6 +52,35 @@ namespace UniCloud.Application.PartBC.Query.PnRegQueries
                 ItemId = p.ItemId,
                 Description = p.Description,
             });
+        }
+
+        /// <summary>
+        /// 获取某个项下所带的附件集合（去重）
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
+        public List<PnRegDTO> GetPnRegsByItem(int itemId)
+        {
+            var result = new List<PnRegDTO>();
+            var installControllers = _unitOfWork.CreateSet<InstallController>().Where(p => p.ItemId == itemId).ToList();
+            var pnRegs = _unitOfWork.CreateSet<PnReg>().ToList();
+            installControllers.ForEach(p =>
+            {
+                if (result.Any(l => l.Id == p.PnRegId))
+                {
+                    var pnReg = pnRegs.FirstOrDefault(l => l.Id == p.PnRegId);
+                    if (pnReg != null)
+                        result.Add(new PnRegDTO
+                        {
+                            Id = pnReg.Id,
+                            Description = pnReg.Description,
+                            IsLife = pnReg.IsLife,
+                            Pn = pnReg.Pn,
+                            ItemId = pnReg.ItemId,
+                        });
+                }
+            });
+            return result;
         }
     }
 }

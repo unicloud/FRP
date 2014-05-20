@@ -14,6 +14,8 @@
 #endregion
 
 #region 命名空间
+
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 #endregion
@@ -29,5 +31,12 @@ namespace UniCloud.Application.PartBC.PnRegServices
         /// 获取所有PnReg。
         /// </summary>
         IQueryable<PnRegDTO> GetPnRegs();
+
+        /// <summary>
+        /// 获取某个项下所带的附件集合(去重)
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
+        List<PnRegDTO> GetPnRegsByItem(int itemId);
     }
 }

@@ -321,9 +321,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="obj\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="BaseConfigurations\BaseConfiguration.xaml">
       <SubType>Designer</SubType>

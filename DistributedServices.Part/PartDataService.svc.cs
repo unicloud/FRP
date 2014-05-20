@@ -12,7 +12,9 @@ using System.Web;
 using UniCloud.Application.PartBC.AcConfigServices;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.ItemServices;
+using UniCloud.Application.PartBC.PnRegServices;
 using UniCloud.Domain.PartBC.Aggregates;
+using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Infrastructure.Utilities.Container;
 
 namespace UniCloud.DistributedServices.Part
@@ -39,6 +41,8 @@ namespace UniCloud.DistributedServices.Part
 
             config.SetServiceOperationAccessRule("GetItemsByAircraftType", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("QueryAcConfigs", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("GetPnRegsByItem", ServiceOperationRights.All);
+
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
@@ -90,7 +94,7 @@ namespace UniCloud.DistributedServices.Part
         #region 飞机对应的某时刻的功能构型集合查询
 
         [WebGet]
-        public List<AcConfigDTO> QueryAcConfigs(int contractAircraftId,string date)
+        public List<AcConfigDTO> QueryAcConfigs(int contractAircraftId, string date)
         {
             var dateTime = DateTime.Parse(date);
             var acConfigService = DefaultContainer.Resolve<IAcConfigAppService>();
@@ -98,6 +102,17 @@ namespace UniCloud.DistributedServices.Part
             return result;
         }
 
+        #endregion
+
+        #region 获取某个项下所带的附件集合(去重)
+
+        [WebGet]
+        public List<PnRegDTO> GetPnRegsByItem(int itemId)
+        {
+            var pnRegService = DefaultContainer.Resolve<IPnRegAppService>();
+            List<PnRegDTO> result = pnRegService.GetPnRegsByItem(itemId);
+            return result;
+        }
         #endregion
     }
 }

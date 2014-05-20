@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
@@ -62,6 +63,16 @@ namespace UniCloud.Application.PartBC.PnRegServices
         }
 
         /// <summary>
+        /// 获取某个项下所带的附件集合(去重)
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
+        public List<PnRegDTO> GetPnRegsByItem(int itemId)
+        {
+            return _pnRegQuery.GetPnRegsByItem(itemId);
+        }
+
+            /// <summary>
         ///     新增PnReg。
         /// </summary>
         /// <param name="dto">PnRegDTO。</param>
