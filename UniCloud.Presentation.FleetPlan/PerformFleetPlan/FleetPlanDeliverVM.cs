@@ -133,6 +133,10 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             var group = new GroupDescriptor { Member = "OperateStatus", SortDirection = ListSortDirection.Ascending };
             Aircrafts.GroupDescriptors.Add(group);
             _service.RegisterCollectionView(Aircrafts);//注册查询集合
+
+            ActionCategories=new QueryableDataServiceCollectionView<ActionCategoryDTO>(_context,_context.ActionCategories);
+            AircraftCategories = new QueryableDataServiceCollectionView<AircraftCategoryDTO>(_context, _context.AircraftCategories);
+            AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_context, _context.AircraftTypes);
         }
 
         /// <summary>
@@ -161,6 +165,16 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 return Enum.GetValues(typeof(CanDeliver))
                     .Cast<object>()
                     .ToDictionary(value => (int)value, value => (CanDeliver)value);
+            }
+        }
+
+        public Dictionary<int, OperationStatus> OperationStatuses
+        {
+            get
+            {
+                return Enum.GetValues(typeof(OperationStatus))
+                    .Cast<object>()
+                    .ToDictionary(value => (int)value, value => (OperationStatus)value);
             }
         }
 
@@ -339,7 +353,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 
                     if (this._selPlanHistory != null)
                     {
-                        if (Aircrafts.Any(pa => pa.AircraftId == value.AircraftId))
+                        if (Aircrafts.SourceCollection.Cast<AircraftDTO>().Any(pa => pa.AircraftId == value.AircraftId))
                             SelAircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == value.AircraftId);
                         else SelAircraft = null;
                     }
@@ -872,6 +886,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         }
 
         #endregion
+
         #endregion
 
         #region 子窗体相关
