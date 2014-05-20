@@ -267,6 +267,12 @@
                                                                         DisplayMemberPath="ActionCategoryOperation"
                                                                         DataMemberBinding="{Binding ImportCategoryId}"
                                                                         SelectedValueMemberPath="Id" />
+                                        <telerik:GridViewComboBoxColumn Header="供应商"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.Suppliers,ElementName=DeliverUserControl,Mode=TwoWay}"
+                                                                        DisplayMemberPath="CnName"
+                                                                        DataMemberBinding="{Binding SupplierId}"
+                                                                        SelectedValueMemberPath="Id" />
                                         <telerik:GridViewDataColumn Header="创建日期"
                                                                     IsReadOnly="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"

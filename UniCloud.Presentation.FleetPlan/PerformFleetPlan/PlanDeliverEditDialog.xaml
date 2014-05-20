@@ -110,6 +110,16 @@
             <telerik:RadDatePicker Grid.Row="2"
                                    Grid.Column="1"
                                    SelectedDate="{Binding SelAircraft.FactoryDate,Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}" />
+            <TextBlock Text="供应商"
+                       Grid.Row="2"
+                       Grid.Column="2"
+                       VerticalAlignment="Center" />
+            <telerik:RadComboBox  Grid.Row="2"
+                                  Grid.Column="3"
+                                  ItemsSource="{Binding Suppliers}"
+                                  DisplayMemberPath="CnName"
+                                  SelectedValuePath="Id"
+                                  SelectedValue="{Binding SelAircraft.SupplierId,Mode=TwoWay}" />
         </Grid>
 
         <Grid Margin="20,10"

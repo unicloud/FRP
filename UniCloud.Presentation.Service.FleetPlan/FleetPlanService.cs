@@ -23,10 +23,8 @@ using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
 using System.Reflection;
-using System.ServiceModel.DomainServices.Client;
 using System.Windows;
 using System.Xml.Linq;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
@@ -209,12 +207,12 @@ namespace UniCloud.Presentation.Service.FleetPlan
         {
             List<ActionCategoryDTO> actioncategories;
             if (ph.PlanType == 1 && ph.ActionType == "引进")
-                actioncategories = this.ActionCategories.Where(p => p.ActionType == "引进").ToList();
+                actioncategories = ActionCategories.Where(p => p.ActionType == "引进").ToList();
             else if (ph.PlanType == 1 && ph.ActionType == "退出")
-                actioncategories = this.ActionCategories.Where(p => p.ActionType == "退出").ToList();
+                actioncategories = ActionCategories.Where(p => p.ActionType == "退出").ToList();
             else if (ph.PlanType == 2 && ph.ActionType == "变更")
-                actioncategories = this.ActionCategories.Where(p => p.ActionType == "变更").ToList();
-            else actioncategories = this.ActionCategories.ToList();
+                actioncategories = ActionCategories.Where(p => p.ActionType == "变更").ToList();
+            else actioncategories = ActionCategories.ToList();
             var actionCates = new ObservableCollection<ActionCateDTO>();
             actioncategories.ForEach(p => actionCates.Add(new ActionCateDTO
             {
@@ -234,10 +232,10 @@ namespace UniCloud.Presentation.Service.FleetPlan
         {
             List<AircraftCategoryDTO> aircraftCategories;
             if (ph.ActionName == "客改货")
-                aircraftCategories = this.AircraftCategories.Where(p => p.Category == "货机").ToList();
+                aircraftCategories = AircraftCategories.Where(p => p.Category == "货机").ToList();
             else if (ph.ActionName == "货改客")
-                aircraftCategories = this.AircraftCategories.Where(p => p.Category == "客机").ToList();
-            else aircraftCategories = this.AircraftCategories.ToList();
+                aircraftCategories = AircraftCategories.Where(p => p.Category == "客机").ToList();
+            else aircraftCategories = AircraftCategories.ToList();
             var aircraftCates = new ObservableCollection<AircraftCateDTO>();
             aircraftCategories.ForEach(p => aircraftCates.Add(new AircraftCateDTO
             {
@@ -255,10 +253,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <returns></returns>
         public ObservableCollection<AircraftTyDTO> GetAircraftTypesForPlanHistory(PlanHistoryDTO ph)
         {
-            List<AircraftTypeDTO> aircraftTypes;
-            if (ph.Regional != null)
-                aircraftTypes = this.AircraftTypes.Where(p => p.Regional == ph.Regional).ToList();
-            else aircraftTypes = this.AircraftTypes.ToList();
+            List<AircraftTypeDTO> aircraftTypes = ph.Regional != null ? AircraftTypes.Where(p => p.Regional == ph.Regional).ToList() : AircraftTypes.ToList();
             var aircraftTys = new ObservableCollection<AircraftTyDTO>();
             aircraftTypes.ForEach(p => aircraftTys.Add(new AircraftTyDTO
             {
@@ -277,7 +272,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="ph"></param>
         public void OnChangedActionCategory(PlanHistoryDTO ph)
         {
-            var actionCategory = this.ActionCategories.FirstOrDefault(ac => ac.Id == ph.ActionCategoryId);
+            var actionCategory = ActionCategories.FirstOrDefault(ac => ac.Id == ph.ActionCategoryId);
             if (actionCategory != null)
             {
                 if (actionCategory.ActionType == "退出")
@@ -298,7 +293,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 }
                 else
                 {
-                    ActionCategoryDTO actionCategoryDTO;
+                    ActionCategoryDTO actionCategoryDto;
                     // 改变目标引进方式
                     switch (actionCategory.ActionName)
                     {
@@ -336,31 +331,31 @@ namespace UniCloud.Presentation.Service.FleetPlan
                             }
                             break;
                         case "售后融资租赁":
-                            actionCategoryDTO = this.ActionCategories.FirstOrDefault(a => a.ActionName == "融资租赁");
-                            if (actionCategoryDTO != null)
+                            actionCategoryDto = ActionCategories.FirstOrDefault(a => a.ActionName == "融资租赁");
+                            if (actionCategoryDto != null)
                             {
-                                if (ph.TargetCategoryId == actionCategoryDTO.Id) return;
+                                if (ph.TargetCategoryId == actionCategoryDto.Id) return;
                                 else
-                                    ph.TargetCategoryId = actionCategoryDTO.Id;
+                                    ph.TargetCategoryId = actionCategoryDto.Id;
                             }
 
                             break;
                         case "售后经营租赁":
-                            actionCategoryDTO = this.ActionCategories.FirstOrDefault(a => a.ActionName == "经营租赁");
-                            if (actionCategoryDTO != null)
+                            actionCategoryDto = ActionCategories.FirstOrDefault(a => a.ActionName == "经营租赁");
+                            if (actionCategoryDto != null)
                             {
-                                if (ph.TargetCategoryId == actionCategoryDTO.Id) return;
+                                if (ph.TargetCategoryId == actionCategoryDto.Id) return;
                                 else
-                                    ph.TargetCategoryId = actionCategoryDTO.Id;
+                                    ph.TargetCategoryId = actionCategoryDto.Id;
                             }
                             break;
                         case "租转购":
-                            actionCategoryDTO = this.ActionCategories.FirstOrDefault(a => a.ActionName == "购买");
-                            if (actionCategoryDTO != null)
+                            actionCategoryDto = ActionCategories.FirstOrDefault(a => a.ActionName == "购买");
+                            if (actionCategoryDto != null)
                             {
-                                if (ph.TargetCategoryId == actionCategoryDTO.Id) return;
+                                if (ph.TargetCategoryId == actionCategoryDto.Id) return;
                                 else
-                                    ph.TargetCategoryId = actionCategoryDTO.Id;
+                                    ph.TargetCategoryId = actionCategoryDto.Id;
                             }
                             break;
                     }
@@ -438,7 +433,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                pb.CompletePlan(planDetail, aircraft, ref editAircraft, this);
+                pb.CompletePlan(planDetail, aircraft, ref  editAircraft, this);
             }
         }
 
@@ -501,7 +496,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="fleetContext"></param>
         public void TransferRequest(Guid currentAirlines, Guid currentRequest, FleetPlanData fleetContext)
         {
-            Uri path = new Uri(string.Format("TransferRequest?currentAirlines='{0}'&currentRequest='{1}'", currentAirlines, currentRequest),
+            var path = new Uri(string.Format("TransferRequest?currentAirlines='{0}'&currentRequest='{1}'", currentAirlines, currentRequest),
                 UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
@@ -513,14 +508,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            if (!sendSuccess)
-                            {
-                                MessageBox.Show("提交失败，请检查！");
-                            }
-                            else
-                            {
-                                MessageBox.Show("提交成功！");
-                            }
+                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -540,7 +528,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="fleetContext"></param>
         public void TransferPlan(Guid currentAirlines, Guid currentPlan, FleetPlanData fleetContext)
         {
-            Uri path = new Uri(string.Format("TransferPlan?currentAirlines='{0}'&currentPlan='{1}'", currentAirlines, currentPlan),
+            var path = new Uri(string.Format("TransferPlan?currentAirlines='{0}'&currentPlan='{1}'", currentAirlines, currentPlan),
                 UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
@@ -552,14 +540,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            if (!sendSuccess)
-                            {
-                                MessageBox.Show("提交失败，请检查！");
-                            }
-                            else
-                            {
-                                MessageBox.Show("提交成功！");
-                            }
+                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -579,7 +560,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="fleetContext"></param>
         public void TransferApprovalDoc(Guid currentAirlines, Guid currentApprovalDoc, FleetPlanData fleetContext)
         {
-            Uri path = new Uri(string.Format("TransferApprovalDoc?currentAirlines='{0}'&currentApprovalDoc='{1}'", currentAirlines, currentApprovalDoc),
+            var path = new Uri(string.Format("TransferApprovalDoc?currentAirlines='{0}'&currentApprovalDoc='{1}'", currentAirlines, currentApprovalDoc),
                 UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
@@ -591,14 +572,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            if (!sendSuccess)
-                            {
-                                MessageBox.Show("提交失败，请检查！");
-                            }
-                            else
-                            {
-                                MessageBox.Show("提交成功！");
-                            }
+                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -618,7 +592,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="fleetContext"></param>
         public void TransferPlanHistory(Guid currentAirlines, Guid currentPlanHistory, FleetPlanData fleetContext)
         {
-            Uri path = new Uri(string.Format("TransferPlanHistory?currentAirlines='{0}'&currentPlanHistory='{1}'", currentAirlines, currentPlanHistory),
+            var path = new Uri(string.Format("TransferPlanHistory?currentAirlines='{0}'&currentPlanHistory='{1}'", currentAirlines, currentPlanHistory),
                 UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
@@ -630,14 +604,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            if (!sendSuccess)
-                            {
-                                MessageBox.Show("提交失败，请检查！");
-                            }
-                            else
-                            {
-                                MessageBox.Show("提交成功！");
-                            }
+                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -657,7 +624,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="fleetContext"></param>
         public void TransferOwnershipHistory(Guid currentAirlines, Guid currentOwnershipHistory, FleetPlanData fleetContext)
         {
-            Uri path = new Uri(string.Format("TransferOwnershipHistory?currentAirlines='{0}'&currentOwnershipHistory='{1}'", currentAirlines, currentOwnershipHistory),
+            var path = new Uri(string.Format("TransferOwnershipHistory?currentAirlines='{0}'&currentOwnershipHistory='{1}'", currentAirlines, currentOwnershipHistory),
                 UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
@@ -669,14 +636,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            if (!sendSuccess)
-                            {
-                                MessageBox.Show("提交失败，请检查！");
-                            }
-                            else
-                            {
-                                MessageBox.Show("提交成功！");
-                            }
+                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -697,7 +657,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="fleetContext"></param>
         public void TransferPlanAndRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest, FleetPlanData fleetContext)
         {
-            Uri path = new Uri(string.Format("TransferPlanAndRequest?currentAirlines='{0}'&currentPlan='{1}'&currentRequest='{2}'", currentAirlines, currentPlan, currentRequest),
+            var path = new Uri(string.Format("TransferPlanAndRequest?currentAirlines='{0}'&currentPlan='{1}'&currentRequest='{2}'", currentAirlines, currentPlan, currentRequest),
                 UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
@@ -709,14 +669,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            if (!sendSuccess)
-                            {
-                                MessageBox.Show("提交失败，请检查！");
-                            }
-                            else
-                            {
-                                MessageBox.Show("提交成功！");
-                            }
+                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -730,7 +683,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
 
         public void TransferApprovalRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest, Guid currentApprovalDoc, FleetPlanData fleetContext)
         {
-            Uri path = new Uri(string.Format("TransferApprovalRequest?currentAirlines='{0}'&currentPlan='{1}'&currentRequest='{2}'&currentApprovalDoc='{3}'", currentAirlines, currentPlan, currentRequest, currentApprovalDoc),
+            var path = new Uri(string.Format("TransferApprovalRequest?currentAirlines='{0}'&currentPlan='{1}'&currentRequest='{2}'&currentApprovalDoc='{3}'", currentAirlines, currentPlan, currentRequest, currentApprovalDoc),
                 UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
@@ -742,14 +695,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            if (!sendSuccess)
-                            {
-                                MessageBox.Show("提交失败，请检查！");
-                            }
-                            else
-                            {
-                                MessageBox.Show("提交成功！");
-                            }
+                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
