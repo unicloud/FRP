@@ -105,6 +105,7 @@ using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.UberModel.Aggregates.TaskStandardAgg;
+using UniCloud.Domain.UberModel.Aggregates.ThresholdAgg;
 using UniCloud.Domain.UberModel.Aggregates.ThrustAgg;
 using UniCloud.Domain.UberModel.Aggregates.TradeAgg;
 using UniCloud.Domain.UberModel.Aggregates.UserAgg;
@@ -202,6 +203,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<SupplierRole> _supplierRoles;
         private IDbSet<Supplier> _suppliers;
         private IDbSet<TaskStandard> _taskStandards;
+        private IDbSet<Threshold> _thresholds; 
         private IDbSet<Thrust> _thrusts;
         private IDbSet<Trade> _trades;
         private IDbSet<User> _users;
@@ -642,6 +644,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<TaskStandard> TaskStandards
         {
             get { return _taskStandards ?? (_taskStandards = Set<TaskStandard>()); }
+        }
+
+        public IDbSet<Threshold> Thresholds
+        {
+            get { return _thresholds ?? (_thresholds = Set<Threshold>()); }
         }
 
         public IDbSet<Thrust> Thrusts
@@ -1206,6 +1213,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             #region TradeAgg
 
 .Add(new TradeEntityConfiguration())
+
+            #endregion
+
+            #region ThresholdAgg
+
+            .Add(new ThresholdEntityConfiguration())
 
             #endregion
 

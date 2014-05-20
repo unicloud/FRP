@@ -61,11 +61,13 @@ using UniCloud.Application.PartBC.Query.SnHistoryQueries;
 using UniCloud.Application.PartBC.Query.SnRegQueries;
 using UniCloud.Application.PartBC.Query.SnRemInstRecordQueries;
 using UniCloud.Application.PartBC.Query.SpecialConfigQueries;
+using UniCloud.Application.PartBC.Query.ThresholdQueries;
 using UniCloud.Application.PartBC.ScnServices;
 using UniCloud.Application.PartBC.SnHistoryServices;
 using UniCloud.Application.PartBC.SnRegServices;
 using UniCloud.Application.PartBC.SnRemInstRecordServices;
 using UniCloud.Application.PartBC.SpecialConfigServices;
+using UniCloud.Application.PartBC.ThresholdServices;
 using UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg;
 using UniCloud.Domain.PartBC.Aggregates.AdSbAgg;
 using UniCloud.Domain.PartBC.Aggregates.AirBusScnAgg;
@@ -91,6 +93,7 @@ using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
+using UniCloud.Domain.PartBC.Aggregates.ThresholdAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
@@ -288,6 +291,13 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
 .RegisterType<IAnnualMaintainPlanQuery, AnnualMaintainPlanQuery>()
                 .RegisterType<IAnnualMaintainPlanAppService, AnnualMaintainPlanAppService>()
                 .RegisterType<IAnnualMaintainPlanRepository, AnnualMaintainPlanRepository>()
+            #endregion
+
+            #region 阀值相关配置，包括查询，应用服务，仓储注册
+
+.RegisterType<IThresholdQuery, ThresholdQuery>()
+                .RegisterType<IThresholdAppService, ThresholdAppService>()
+                .RegisterType<IThresholdRepository, ThresholdRepository>()
             #endregion
 ;
         }

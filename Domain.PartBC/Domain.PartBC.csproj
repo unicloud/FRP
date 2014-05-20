@@ -159,6 +159,10 @@
     <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfigFactory.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfigSpecifications.cs" />
     <Compile Include="Aggregates\InstallControllerAgg\Dependency.cs" />
+    <Compile Include="Aggregates\ThresholdAgg\IThresholdRepository.cs" />
+    <Compile Include="Aggregates\ThresholdAgg\Threshold.cs" />
+    <Compile Include="Aggregates\ThresholdAgg\ThresholdFactory.cs" />
+    <Compile Include="Aggregates\ThresholdAgg\ThresholdSpecifications.cs" />
     <Compile Include="Aggregates\ThrustAgg\IThrustRepository.cs" />
     <Compile Include="Aggregates\ThrustAgg\Thrust.cs" />
     <Compile Include="Aggregates\ThrustAgg\ThrustFactory.cs" />

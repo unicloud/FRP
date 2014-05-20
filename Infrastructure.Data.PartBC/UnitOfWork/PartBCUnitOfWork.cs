@@ -44,6 +44,7 @@ using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
+using UniCloud.Domain.PartBC.Aggregates.ThresholdAgg;
 using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql;
 
@@ -80,6 +81,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<SnHistory> _snHistories;
         private IDbSet<SnRemInstRecord> _snRemInstRecords;
         private IDbSet<SpecialConfig> _specialConfigs;
+        private IDbSet<Threshold> _thresholds; 
         private IDbSet<Thrust> _thrusts;
         private IDbSet<EngineMaintainPlan> _engineMaintainPlans;
         private IDbSet<AircraftMaintainPlan> _aircraftMaintainPlans;
@@ -224,6 +226,10 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
             get { return _thrusts ?? (_thrusts = Set<Thrust>()); }
         }
 
+        public IDbSet<Threshold> Thresholds
+        {
+            get { return _thresholds ?? (_thresholds = Set<Threshold>()); }
+        }
         #endregion
 
         #region DbContext 重载
@@ -392,6 +398,12 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
             #region ThrustAgg
 
 .Add(new ThrustEntityConfiguration())
+
+            #endregion
+
+            #region ThresholdAgg
+
+            .Add(new ThresholdEntityConfiguration())
 
             #endregion
 

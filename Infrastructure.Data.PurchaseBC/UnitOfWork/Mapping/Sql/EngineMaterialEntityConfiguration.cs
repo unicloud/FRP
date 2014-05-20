@@ -37,6 +37,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            Property(p => p.ListPrice).HasColumnName("ListPrice");
             Property(p => p.PartID).HasColumnName("PartID");
 
             HasRequired(e => e.Part).WithMany().HasForeignKey(e => e.PartID);

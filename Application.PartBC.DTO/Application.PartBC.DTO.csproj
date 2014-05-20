@@ -96,6 +96,7 @@
     <Compile Include="SnRemInstRecordDTO\SnRemInstRecordDTO.cs" />
     <Compile Include="SpecialConfigDTO\SpecialConfigDTO.cs" />
     <Compile Include="InstallControllerDTO\DependencyDTO.cs" />
+    <Compile Include="ThresholdDTO\ThresholdDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

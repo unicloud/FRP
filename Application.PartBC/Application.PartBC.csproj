@@ -89,6 +89,8 @@
     <Compile Include="SnRemInstRecordServices\SnRemInstRecordAppService.cs" />
     <Compile Include="SpecialConfigServices\ISpecialConfigAppService.cs" />
     <Compile Include="SpecialConfigServices\SpecialConfigAppService.cs" />
+    <Compile Include="ThresholdServices\IThresholdAppService.cs" />
+    <Compile Include="ThresholdServices\ThresholdAppService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application.PartBC.DTO\Application.PartBC.DTO.csproj">
