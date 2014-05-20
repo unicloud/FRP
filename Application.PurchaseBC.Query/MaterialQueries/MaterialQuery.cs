@@ -54,7 +54,7 @@ namespace UniCloud.Application.PurchaseBC.Query.MaterialQueries
                         AcMaterialId = p.Id,
                         Name = p.Name,
                         Description = p.Description,
-                        AircraftTypeId = p.AircraftTypeId
+                        AircraftTypeId = p.AircraftTypeId,
                     }
                     );
         }
@@ -75,7 +75,8 @@ namespace UniCloud.Application.PurchaseBC.Query.MaterialQueries
                         EngineMaterialId = p.Id,
                         Name = p.Name,
                         Description = p.Description,
-                        PartId = p.PartID
+                        PartId = p.PartID,
+                        ListPrice = p.ListPrice,
                     }
                     );
         }

@@ -73,6 +73,7 @@
     <Compile Include="Repositories\SnRegRepository.cs" />
     <Compile Include="Repositories\SnRemInstRecordRepository.cs" />
     <Compile Include="Repositories\SpecialConfigRepository.cs" />
+    <Compile Include="Repositories\ThresholdRepository.cs" />
     <Compile Include="Repositories\ThrustRepository.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcDailyUtilizationEntityConfiguration.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\SnRegEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SnRemInstRecordEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SpecialConfigEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ThresholdEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ThrustEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\PartBCUnitOfWork.cs" />
   </ItemGroup>

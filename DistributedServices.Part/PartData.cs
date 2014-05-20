@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System.Linq;
+using System.ServiceModel.Channels;
 using UniCloud.Application.PartBC.AcConfigServices;
 using UniCloud.Application.PartBC.AcDailyUtilizationServices;
 using UniCloud.Application.PartBC.AdSbServices;
@@ -43,6 +44,7 @@ using UniCloud.Application.PartBC.SnHistoryServices;
 using UniCloud.Application.PartBC.SnRegServices;
 using UniCloud.Application.PartBC.SnRemInstRecordServices;
 using UniCloud.Application.PartBC.SpecialConfigServices;
+using UniCloud.Application.PartBC.ThresholdServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -78,6 +80,7 @@ namespace UniCloud.DistributedServices.Part
         private readonly ISnRegAppService _snRegAppService;
         private readonly ISpecialConfigAppService _specialConfigAppService;
         private readonly IAnnualMaintainPlanAppService _annualMaintainPlanAppService;
+        private readonly IThresholdAppService _thresholdAppService;
 
         public PartData()
             : base("UniCloud.Application.PartBC.DTO")
@@ -106,6 +109,7 @@ namespace UniCloud.DistributedServices.Part
             _airStructureDamageAppService = DefaultContainer.Resolve<IAirStructureDamageAppService>();
             _adSbAppService = DefaultContainer.Resolve<IAdSbAppService>();
             _annualMaintainPlanAppService = DefaultContainer.Resolve<IAnnualMaintainPlanAppService>();
+            _thresholdAppService = DefaultContainer.Resolve<IThresholdAppService>();
         }
 
         #region 飞机日利用率集合
@@ -463,5 +467,15 @@ namespace UniCloud.DistributedServices.Part
         {
             get { return null; }
         }
+
+        #region 阀值集合
+        public IQueryable<ThresholdDTO> Thresholds
+        {
+            get
+            {
+                return _thresholdAppService.GetThresholds();
+            }
+        }
+        #endregion
     }
 }

@@ -95,6 +95,8 @@
     <Compile Include="SnRemInstRecordQueries\SnRemInstRecordQuery.cs" />
     <Compile Include="SpecialConfigQueries\ISpecialConfigQuery.cs" />
     <Compile Include="SpecialConfigQueries\SpecialConfigQuery.cs" />
+    <Compile Include="ThresholdQueries\IThresholdQuery.cs" />
+    <Compile Include="ThresholdQueries\ThresholdQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

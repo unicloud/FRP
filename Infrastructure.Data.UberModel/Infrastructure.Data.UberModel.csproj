@@ -277,6 +277,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\TaskEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\TaskStandardEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\TaskTempEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ThresholdEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ThrustEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\TradeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainContractEntityConfiguration.cs" />

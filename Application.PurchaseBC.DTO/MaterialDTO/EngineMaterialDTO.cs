@@ -58,5 +58,10 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// </summary>
         public int SupplierCompanyId { get; set; }
 
+        /// <summary>
+        /// 发动机目录价
+        /// </summary>
+        public decimal ListPrice { get; set; }
+
     }
 }

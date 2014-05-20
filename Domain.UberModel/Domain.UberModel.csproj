@@ -300,6 +300,7 @@
     <Compile Include="Aggregates\TaskStandardAgg\TaskStandard.cs" />
     <Compile Include="Aggregates\TaskStandardAgg\TaskStandardFactory.cs" />
     <Compile Include="Aggregates\InstallControllerAgg\Dependency.cs" />
+    <Compile Include="Aggregates\ThresholdAgg\Threshold.cs" />
     <Compile Include="Aggregates\ThrustAgg\Thrust.cs" />
     <Compile Include="Aggregates\ThrustAgg\ThrustFactory.cs" />
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />

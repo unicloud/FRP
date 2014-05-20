@@ -31,6 +31,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaterialAgg
     {
         #region 属性
 
+        /// <summary>
+        /// 发动机目录价
+        /// </summary>
+        public decimal ListPrice { get; set; }
+
         #endregion
 
         #region 外键属性
