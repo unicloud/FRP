@@ -66,7 +66,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 SeatingCapacity = planDetail.SeatingCapacity,
                 CarryingCapacity = planDetail.CarryingCapacity,
                 ImportCategoryId = planDetail.ActionCategoryId,
-                ImportCategoryName = planDetail.ActionType+"-"+planDetail.ActionName,
+                ImportCategoryName = planDetail.ActionType + "-" + planDetail.ActionName,
             };
             planDetail.AircraftId = aircraft.AircraftId;
             CreateOperationHistory(planDetail, ref aircraft, service);
@@ -86,6 +86,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
             var operationHistory = new OperationHistoryDTO
             {
                 OperationHistoryId = id,
+                
                 AirlinesId = planDetail.AirlinesId,
                 AirlinesName = planDetail.AirlinesName,
                 AircraftId = aircraft.AircraftId,
@@ -102,6 +103,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 创建新的商业数据历史
         /// </summary>
+        /// <param name="planDetail"></param>
         /// <param name="aircraft">飞机</param>
         /// <param name="service"></param>
         private static void CreateAircraftBusiness(PlanHistoryDTO planDetail, ref AircraftDTO aircraft, IFleetPlanService service)
@@ -379,7 +381,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         planDetail.AircraftId = aircraft.AircraftId;
                         planDetail.CanRequest = (int)CanRequest.无需申请;
                         planDetail.CanDeliver = (int)CanDeliver.可交付;
-                        planDetail.ManageStatus = (int) ManageStatus.运营;
+                        planDetail.ManageStatus = (int)ManageStatus.运营;
                     }
                     else if (planType == 2) //为变更计划
                     {

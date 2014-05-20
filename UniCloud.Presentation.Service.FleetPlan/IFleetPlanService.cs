@@ -173,7 +173,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="aircraft">飞机</param>
         /// <param name="editAircraft">飞机</param>
         /// <returns>飞机</returns>
-        void CompletePlan(PlanHistoryDTO planDetail, AircraftDTO aircraft, ref AircraftDTO editAircraft);
+        void CompletePlan(PlanHistoryDTO planDetail, AircraftDTO aircraft, ref  AircraftDTO editAircraft);
 
         #endregion
 

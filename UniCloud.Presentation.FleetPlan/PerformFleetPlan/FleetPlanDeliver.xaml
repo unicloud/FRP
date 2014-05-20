@@ -48,7 +48,7 @@
                                                     OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding }">
+                                                       CommandParameter="{Binding Aircrafts}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
@@ -266,6 +266,12 @@
                                                                         ItemsSource="{Binding DataContext.ActionCategories,ElementName=DeliverUserControl,Mode=TwoWay}"
                                                                         DisplayMemberPath="ActionCategoryOperation"
                                                                         DataMemberBinding="{Binding ImportCategoryId}"
+                                                                        SelectedValueMemberPath="Id" />
+                                        <telerik:GridViewComboBoxColumn Header="供应商"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.Suppliers,ElementName=DeliverUserControl,Mode=TwoWay}"
+                                                                        DisplayMemberPath="CnName"
+                                                                        DataMemberBinding="{Binding SupplierId}"
                                                                         SelectedValueMemberPath="Id" />
                                         <telerik:GridViewDataColumn Header="创建日期"
                                                                     IsReadOnly="True"
