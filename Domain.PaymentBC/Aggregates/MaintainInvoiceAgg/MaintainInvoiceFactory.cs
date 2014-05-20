@@ -149,6 +149,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             maintainInvoice.DocumentId = documentId;
             maintainInvoice.InMaintainTime = inMaintainTime;
             maintainInvoice.OutMaintainTime = outMaintainTime;
+            maintainInvoice.TotalDays = (maintainInvoice.OutMaintainTime.Date - maintainInvoice.InMaintainTime.Date).Days + 1;
             if (!String.IsNullOrEmpty(reviewer))
             {
                 maintainInvoice.Review(reviewer);

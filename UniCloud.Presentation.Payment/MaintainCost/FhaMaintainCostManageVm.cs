@@ -227,12 +227,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         {
             if (sender is EngineMaintainInvoiceDTO)
             {
-                var invoice = sender as EngineMaintainInvoiceDTO;
-                if (FhaMaintainCost.MaintainInvoiceId != invoice.EngineMaintainInvoiceId)
-                {
-                    FhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                    FhaMaintainCost.AcutalAmount = invoice.PaidAmount;
-                }
+
             }
         }
 
@@ -241,6 +236,12 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         private void CellEditEnd(object sender)
         {
+            var invoice = EngineMaintainInvoices.FirstOrDefault(p => p.EngineMaintainInvoiceId == FhaMaintainCost.MaintainInvoiceId);
+            if (invoice != null)
+            {
+                FhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                FhaMaintainCost.AcutalAmount = invoice.PaidAmount;
+            }
             FhaMaintainCost.YearBudgetRate = FhaMaintainCost.LastYearRate * (1 + FhaMaintainCost.YearAddedRate);
             FhaMaintainCost.Hour = FhaMaintainCost.AirHour * FhaMaintainCost.HourPercent * 2;
             FhaMaintainCost.FhaFeeUsd = FhaMaintainCost.Hour * FhaMaintainCost.YearBudgetRate;

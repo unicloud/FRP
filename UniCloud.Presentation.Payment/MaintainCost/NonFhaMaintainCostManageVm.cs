@@ -290,6 +290,20 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         private void CellEditEnd(object sender)
         {
+            var aircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == NonFhaMaintainCost.AircraftId);
+            if (aircraft != null)
+            {
+                NonFhaMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
+                NonFhaMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+            }
+            var invoice = EngineMaintainInvoices.FirstOrDefault(p => p.EngineMaintainInvoiceId == NonFhaMaintainCost.MaintainInvoiceId);
+            if (invoice != null)
+            {
+                NonFhaMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
+                NonFhaMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
+                NonFhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                NonFhaMaintainCost.AcutalAmount = invoice.PaidAmount;
+            }
             NonFhaMaintainCost.FeeLittleSum = NonFhaMaintainCost.NonFhaFee +
                                                     NonFhaMaintainCost.PartFee +
                                                     NonFhaMaintainCost.ChangeLlpFee;

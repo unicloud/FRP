@@ -287,6 +287,22 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         private void CellEditEnd(object sender)
         {
+            var aircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == UndercartMaintainCost.AircraftId);
+            if (aircraft != null)
+            {
+                UndercartMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
+                UndercartMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
+            }
+            var invoice = UndercartMaintainInvoices.FirstOrDefault(p => p.UndercartMaintainInvoiceId == UndercartMaintainCost.MaintainInvoiceId);
+            if (invoice != null)
+            {
+                UndercartMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
+                UndercartMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
+                UndercartMaintainCost.AcutalTotalDays =
+                    (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
+                UndercartMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                UndercartMaintainCost.AcutalAmount = invoice.PaidAmount;
+            }
             UndercartMaintainCost.TotalDays = (UndercartMaintainCost.OutMaintainTime.Date - UndercartMaintainCost.InMaintainTime.Date).Days + 1;
             UndercartMaintainCost.AcutalTotalDays = (UndercartMaintainCost.AcutalOutMaintainTime.Date - UndercartMaintainCost.AcutalInMaintainTime.Date).Days + 1;
         }

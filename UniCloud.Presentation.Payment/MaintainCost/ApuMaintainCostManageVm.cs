@@ -231,24 +231,17 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         #endregion
 
-        public void SelectedChanged(object sender)
-        {
-            if (sender is APUMaintainInvoiceDTO)
-            {
-                var invoice = sender as APUMaintainInvoiceDTO;
-                if (ApuMaintainCost.MaintainInvoiceId != invoice.APUMaintainInvoiceId)
-                {
-                    ApuMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                    ApuMaintainCost.AcutalAmount = invoice.PaidAmount;
-                }
-            }
-        }
-
         #region 单元格编辑事件
         public DelegateCommand<object> CellEditEndCommand { get; set; }
 
         private void CellEditEnd(object sender)
         {
+            var invoice = ApuMaintainInvoices.FirstOrDefault(p => p.APUMaintainInvoiceId == ApuMaintainCost.MaintainInvoiceId);
+            if (invoice != null)
+            {
+                ApuMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                ApuMaintainCost.AcutalAmount = invoice.PaidAmount;
+            }
             ApuMaintainCost.YearBudgetRate = ApuMaintainCost.LastYearRate * ApuMaintainCost.YearAddedRate;
             ApuMaintainCost.Hour = ApuMaintainCost.BudgetHour * ApuMaintainCost.HourPercent;
             ApuMaintainCost.ContractRepairFeeUsd = ApuMaintainCost.Hour * ApuMaintainCost.YearBudgetRate;
