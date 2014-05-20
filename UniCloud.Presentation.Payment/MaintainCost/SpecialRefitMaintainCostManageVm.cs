@@ -104,6 +104,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         /// </summary>
         private void InitialVm()
         {
+            CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
             AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
             DeleteCommand = new DelegateCommand<object>(OnDelete, CanDelete);
             SpecialRefitInvoices = new QueryableDataServiceCollectionView<SpecialRefitInvoiceDTO>(_context, _context.SpecialRefitInvoices);
@@ -218,18 +219,19 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         #endregion
 
-        public void SelectedChanged(object sender)
+        #region 单元格编辑事件
+        public DelegateCommand<object> CellEditEndCommand { get; set; }
+
+        private void CellEditEnd(object sender)
         {
-            if (sender is SpecialRefitInvoiceDTO)
+            var invoice = SpecialRefitInvoices.FirstOrDefault(p => p.SpecialRefitId == SpecialRefitMaintainCost.MaintainInvoiceId);
+            if (invoice != null)
             {
-                var invoice = sender as SpecialRefitInvoiceDTO;
-                if (SpecialRefitMaintainCost.MaintainInvoiceId != invoice.SpecialRefitId)
-                {
-                    SpecialRefitMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                    SpecialRefitMaintainCost.AcutalAmount = invoice.PaidAmount;
-                }
+                SpecialRefitMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
+                SpecialRefitMaintainCost.AcutalAmount = invoice.PaidAmount;
             }
         }
+        #endregion
     }
 }
 

@@ -68,6 +68,10 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         /// 出厂时间
         /// </summary>
         public DateTime OutMaintainTime { get; internal set; }
+        /// <summary>
+        /// 总周期
+        /// </summary>
+        public int TotalDays { get; internal set; }
         #endregion
 
         #region 外键属性
