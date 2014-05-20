@@ -144,7 +144,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         #region 命令
 
-        #region 新增保证金命令
+        #region 新增APU命令
 
         public DelegateCommand<object> AddCommand { get; set; }
 
@@ -170,7 +170,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         }
 
         /// <summary>
-        ///     判断新增保证金命令是否可用。
+        ///     判断新增APU命令是否可用。
         /// </summary>
         /// <param name="sender"></param>
         /// <returns>新增命令是否可用。</returns>
@@ -181,12 +181,12 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         #endregion
 
-        #region 删除保证金命令
+        #region 删除APU命令
 
         public DelegateCommand<object> DeleteCommand { get; set; }
 
         /// <summary>
-        ///     执行删除保证金命令。
+        ///     执行删除APU命令。
         /// </summary>
         /// <param name="sender"></param>
         public void OnDelete(object sender)
@@ -205,7 +205,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         }
 
         /// <summary>
-        ///     判断删除保证金命令是否可用。
+        ///     判断删除APU命令是否可用。
         /// </summary>
         /// <param name="sender"></param>
         /// <returns>删除命令是否可用。</returns>
