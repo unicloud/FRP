@@ -297,13 +297,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// <param name="exportCategory">实际退出方式</param>
         public void SetExportCategoryID(ActionCategory exportCategory)
         {
-            if (exportCategory == null || exportCategory.IsTransient())
+            if (exportCategory != null)
             {
-                throw new ArgumentException("退出方式参数为空！");
+                ExportCategory = exportCategory;
+                ExportCategoryId = exportCategory.Id;
             }
-
-            ExportCategory = exportCategory;
-            ExportCategoryId = exportCategory.Id;
         }
 
         #endregion
