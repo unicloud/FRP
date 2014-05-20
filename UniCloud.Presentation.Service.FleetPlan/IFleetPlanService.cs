@@ -19,7 +19,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ServiceModel.DomainServices.Client;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
@@ -163,6 +162,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="planAircraft">计划飞机</param>
         /// <param name="aircraft">运营飞机</param>
         /// <param name="actionType">活动类型</param>
+        /// <param name="planType"></param>
         /// <returns>计划明细</returns>
         PlanHistoryDTO CreatePlanHistory(PlanDTO plan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, ref PlanAircraftDTO planAircraft, AircraftDTO aircraft, string actionType, int planType);
 
@@ -259,6 +259,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="currentPlan"></param>
         /// <param name="currentRequest"></param>
         /// <param name="currentApprovalDoc"></param>
+        /// <param name="fleetContext"></param>
         /// <returns></returns>
         void TransferApprovalRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest, Guid currentApprovalDoc, FleetPlanData fleetContext);
 

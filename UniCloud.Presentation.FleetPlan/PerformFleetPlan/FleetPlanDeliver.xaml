@@ -48,7 +48,7 @@
                                                     OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding Aircrafts}">
+                                                       CommandParameter="{Binding }">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />

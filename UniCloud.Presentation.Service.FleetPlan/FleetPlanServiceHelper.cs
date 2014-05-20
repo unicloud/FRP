@@ -17,21 +17,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.ComponentModel.Composition.ReflectionModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Telerik.Windows.Data;
-using Telerik.Windows.Controls;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
@@ -51,8 +38,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// 创建新飞机
         /// </summary>
         /// <param name="planDetail">计划明细</param>
-        /// <param name="service"></param>
-        private static AircraftDTO CreateAircraft(PlanHistoryDTO planDetail, IFleetPlanService service)
+        private static AircraftDTO CreateAircraft(PlanHistoryDTO planDetail)
         {
             var aircraft = new AircraftDTO
             {
@@ -69,8 +55,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 ImportCategoryName = planDetail.ActionType + "-" + planDetail.ActionName,
             };
             planDetail.AircraftId = aircraft.AircraftId;
-            CreateOperationHistory(planDetail, ref aircraft, service);
-            CreateAircraftBusiness(planDetail, ref aircraft, service);
+            CreateOperationHistory(planDetail, ref aircraft);
+            CreateAircraftBusiness(planDetail, ref aircraft);
             return aircraft;
         }
 
@@ -79,8 +65,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// </summary>
         /// <param name="planDetail">计划明细</param>
         /// <param name="aircraft">飞机</param>
-        /// <param name="service"></param>
-        private static void CreateOperationHistory(PlanHistoryDTO planDetail, ref AircraftDTO aircraft, IFleetPlanService service)
+        private static void CreateOperationHistory(PlanHistoryDTO planDetail, ref AircraftDTO aircraft)
         {
             var id = planDetail.ApprovalHistoryId == null ? Guid.Empty : Guid.Parse(planDetail.ActionCategoryId.ToString());
             var operationHistory = new OperationHistoryDTO
@@ -105,8 +90,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// </summary>
         /// <param name="planDetail"></param>
         /// <param name="aircraft">飞机</param>
-        /// <param name="service"></param>
-        private static void CreateAircraftBusiness(PlanHistoryDTO planDetail, ref AircraftDTO aircraft, IFleetPlanService service)
+        private static void CreateAircraftBusiness(PlanHistoryDTO planDetail, ref AircraftDTO aircraft)
         {
             var aircraftBusiness = new AircraftBusinessDTO
             {
@@ -201,6 +185,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// 创建当前新版本计划
         /// </summary>
         /// <param name="lastPlan"></param>
+        /// <param name="allPlanHistories"></param>
         /// <returns></returns>
         internal PlanDTO CreateNewVersionPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories)
         {
@@ -223,38 +208,37 @@ namespace UniCloud.Presentation.Service.FleetPlan
             };
             // 从当前计划往新版本计划复制计划明细
             var lastPhs = allPlanHistories.Where(p => p.PlanId == lastPlan.Id).ToList();
-            var resultphs = new List<PlanHistoryDTO>();
-            resultphs = lastPhs.Select(q => new PlanHistoryDTO
-            {
-                PlanId = newPlan.Id,
-                Id = Guid.NewGuid(),
-                ActionCategoryId = q.ActionCategoryId,
-                AircraftTypeId = q.AircraftTypeId,
-                AirlinesId = q.AirlinesId,
-                CarryingCapacity = q.CarryingCapacity,
-                SeatingCapacity = q.SeatingCapacity,
-                RelatedGuid = q.RelatedGuid,
-                RelatedEndDate = q.RelatedEndDate,
-                IsSubmit = q.IsSubmit,
-                IsValid = q.IsValid,
-                Note = q.Note,
-                PerformAnnualId = q.PerformAnnualId,
-                PerformMonth = q.PerformMonth,
-                PlanAircraftId = q.PlanAircraftId,
-                PlanType = q.PlanType,
-                TargetCategoryId = q.TargetCategoryId,
-                AirlinesName = q.AirlinesName,
-                CaacAircraftTypeName = q.CaacAircraftTypeName,
-                Regional = q.Regional,
-                AircraftTypeName = q.AircraftTypeName,
-                ActionType = q.ActionType,
-                ActionName = q.ActionName,
-                TargetType = q.TargetType,
-                Year = q.Year,
-                ManageStatus = q.ManageStatus,
-                CanRequest = q.CanRequest,
-                CanDeliver = q.CanDeliver,
-            }).ToList();
+            List<PlanHistoryDTO> resultphs = lastPhs.Select(q => new PlanHistoryDTO
+                                                 {
+                                                     PlanId = newPlan.Id,
+                                                     Id = Guid.NewGuid(),
+                                                     ActionCategoryId = q.ActionCategoryId,
+                                                     AircraftTypeId = q.AircraftTypeId,
+                                                     AirlinesId = q.AirlinesId,
+                                                     CarryingCapacity = q.CarryingCapacity,
+                                                     SeatingCapacity = q.SeatingCapacity,
+                                                     RelatedGuid = q.RelatedGuid,
+                                                     RelatedEndDate = q.RelatedEndDate,
+                                                     IsSubmit = q.IsSubmit,
+                                                     IsValid = q.IsValid,
+                                                     Note = q.Note,
+                                                     PerformAnnualId = q.PerformAnnualId,
+                                                     PerformMonth = q.PerformMonth,
+                                                     PlanAircraftId = q.PlanAircraftId,
+                                                     PlanType = q.PlanType,
+                                                     TargetCategoryId = q.TargetCategoryId,
+                                                     AirlinesName = q.AirlinesName,
+                                                     CaacAircraftTypeName = q.CaacAircraftTypeName,
+                                                     Regional = q.Regional,
+                                                     AircraftTypeName = q.AircraftTypeName,
+                                                     ActionType = q.ActionType,
+                                                     ActionName = q.ActionName,
+                                                     TargetType = q.TargetType,
+                                                     Year = q.Year,
+                                                     ManageStatus = q.ManageStatus,
+                                                     CanRequest = q.CanRequest,
+                                                     CanDeliver = q.CanDeliver,
+                                                 }).ToList();
 
             resultphs.ForEach(allPlanHistories.AddNew);
             return newPlan;
@@ -265,6 +249,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// 同一架计划飞机在一份计划中的明细项不得超过两条，且两条不得为同种操作类型（含运营计划与变更计划）
         /// </summary>
         /// <param name="plan"></param>
+        /// <param name="allPlanHistories"></param>
         /// <param name="planAircraft"></param>
         /// <param name="aircraft"></param>
         /// <param name="actionType"></param>
@@ -433,26 +418,26 @@ namespace UniCloud.Presentation.Service.FleetPlan
             {
                 case "购买":
                     // 创建新飞机
-                    editAircraft = CreateAircraft(planDetail, service);
+                    editAircraft = CreateAircraft(planDetail);
                     break;
                 case "融资租赁":
                     // 创建新飞机
-                    editAircraft = CreateAircraft(planDetail, service);
+                    editAircraft = CreateAircraft(planDetail);
                     break;
                 case "经营租赁":
                     // 创建新飞机
-                    editAircraft = CreateAircraft(planDetail, service);
+                    editAircraft = CreateAircraft(planDetail);
                     break;
                 case "湿租":
                     // 创建新飞机
-                    editAircraft = CreateAircraft(planDetail, service);
+                    editAircraft = CreateAircraft(planDetail);
                     break;
                 case "经营租赁续租":
                     // 创建新运营历史
                     if (aircraft != null)
                     {
                         editAircraft = aircraft;
-                        CreateOperationHistory(planDetail, ref editAircraft, service);
+                        CreateOperationHistory(planDetail, ref editAircraft);
                     }
                     break;
                 case "湿租续租":
@@ -460,7 +445,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     if (aircraft != null)
                     {
                         editAircraft = aircraft;
-                        CreateOperationHistory(planDetail, ref editAircraft, service);
+                        CreateOperationHistory(planDetail, ref editAircraft);
                     }
                     break;
                 case "出售":
@@ -472,12 +457,12 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (operationHistory != null)
                         {
                             operationHistory.Status = (int)OperationStatus.草稿;
-                            var actionCategoryDTO =
+                            var actionCategoryDto =
                                 service.GetActionCategories(null)
                                     .SourceCollection.Cast<ActionCategoryDTO>()
                                     .FirstOrDefault(ac => ac.ActionName == "出售");
-                            if (actionCategoryDTO != null)
-                                operationHistory.ExportCategoryId = actionCategoryDTO.Id;
+                            if (actionCategoryDto != null)
+                                operationHistory.ExportCategoryId = actionCategoryDto.Id;
 
                             if (planDetail.PlanType == 1) planDetail.RelatedGuid = operationHistory.OperationHistoryId;
                         }
@@ -492,12 +477,12 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (operationHistory != null)
                         {
                             operationHistory.Status = (int)OperationStatus.草稿;
-                            var actionCategoryDTO =
+                            var actionCategoryDto =
                                 service.GetActionCategories(null)
                                     .SourceCollection.Cast<ActionCategoryDTO>()
                                     .FirstOrDefault(ac => ac.ActionName == "出租");
-                            if (actionCategoryDTO != null)
-                                operationHistory.ExportCategoryId = actionCategoryDTO.Id;
+                            if (actionCategoryDto != null)
+                                operationHistory.ExportCategoryId = actionCategoryDto.Id;
 
                             if (planDetail.PlanType == 1) planDetail.RelatedGuid = operationHistory.OperationHistoryId;
                         }
@@ -512,12 +497,12 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (operationHistory != null)
                         {
                             operationHistory.Status = (int)OperationStatus.草稿;
-                            var actionCategoryDTO =
+                            var actionCategoryDto =
                                 service.GetActionCategories(null)
                                     .SourceCollection.Cast<ActionCategoryDTO>()
                                     .FirstOrDefault(ac => ac.ActionName == "退租");
-                            if (actionCategoryDTO != null)
-                                operationHistory.ExportCategoryId = actionCategoryDTO.Id;
+                            if (actionCategoryDto != null)
+                                operationHistory.ExportCategoryId = actionCategoryDto.Id;
 
                             if (planDetail.PlanType == 1) planDetail.RelatedGuid = operationHistory.OperationHistoryId;
                         }
@@ -532,12 +517,12 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (operationHistory != null)
                         {
                             operationHistory.Status = (int)OperationStatus.草稿;
-                            var actionCategoryDTO =
+                            var actionCategoryDto =
                                 service.GetActionCategories(null)
                                     .SourceCollection.Cast<ActionCategoryDTO>()
                                     .FirstOrDefault(ac => ac.ActionName == "退役");
-                            if (actionCategoryDTO != null)
-                                operationHistory.ExportCategoryId = actionCategoryDTO.Id;
+                            if (actionCategoryDto != null)
+                                operationHistory.ExportCategoryId = actionCategoryDto.Id;
 
                             if (planDetail.PlanType == 1) planDetail.RelatedGuid = operationHistory.OperationHistoryId;
                         }
@@ -548,7 +533,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     if (aircraft != null)
                     {
                         editAircraft = aircraft;
-                        CreateAircraftBusiness(planDetail, ref editAircraft, service);
+                        CreateAircraftBusiness(planDetail, ref editAircraft);
                     }
                     break;
                 case "客改货":
@@ -556,7 +541,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     if (aircraft != null)
                     {
                         editAircraft = aircraft;
-                        CreateAircraftBusiness(planDetail, ref editAircraft, service);
+                        CreateAircraftBusiness(planDetail, ref editAircraft);
                     }
                     break;
                 case "售后经营租赁":
@@ -564,7 +549,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     if (aircraft != null)
                     {
                         editAircraft = aircraft;
-                        CreateAircraftBusiness(planDetail, ref editAircraft, service);
+                        CreateAircraftBusiness(planDetail, ref editAircraft);
                     }
                     break;
                 case "售后融资租赁":
@@ -572,7 +557,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     if (aircraft != null)
                     {
                         editAircraft = aircraft;
-                        CreateAircraftBusiness(planDetail, ref editAircraft, service);
+                        CreateAircraftBusiness(planDetail, ref editAircraft);
                     }
                     break;
                 case "一般改装":
@@ -580,7 +565,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     if (aircraft != null)
                     {
                         editAircraft = aircraft;
-                        CreateAircraftBusiness(planDetail, ref editAircraft, service);
+                        CreateAircraftBusiness(planDetail, ref editAircraft);
                     }
                     break;
                 case "租转购":
@@ -588,7 +573,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     if (aircraft != null)
                     {
                         editAircraft = aircraft;
-                        CreateAircraftBusiness(planDetail, ref editAircraft, service);
+                        CreateAircraftBusiness(planDetail, ref editAircraft);
                     }
                     break;
             }

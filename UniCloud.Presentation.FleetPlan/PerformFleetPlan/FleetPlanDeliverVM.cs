@@ -48,7 +48,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
         private AnnualDTO _curAnnual = new AnnualDTO();
-        private AircraftDTO EditAircraft;
+        private AircraftDTO _editAircraft;
         private FilterDescriptor _annualDescriptor;
         private FilterDescriptor _planDescriptor;
         private FilterDescriptor _planHistoryDescriptor;
@@ -354,9 +354,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 
                     if (_selPlanHistory != null)
                     {
-                        if (Aircrafts.SourceCollection.Cast<AircraftDTO>().Any(pa => pa.AircraftId == value.AircraftId))
-                            SelAircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == value.AircraftId);
-                        else SelAircraft = null;
+                        SelAircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().Any(pa => pa.AircraftId == value.AircraftId) ? Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == value.AircraftId) : null;
                     }
                     RefreshCommandState();
                 }
@@ -393,18 +391,14 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                             AircraftBusinesses.Add(ab);
                         }
                         //选择相关的计划明细
-                        if (CurPlanHistories.Any(pa => pa.AircraftId == value.AircraftId))
-                            SelPlanHistory = CurPlanHistories.FirstOrDefault(p => p.AircraftId == value.AircraftId);
-                        else SelPlanHistory = null;
+                        SelPlanHistory = CurPlanHistories.Any(pa => pa.AircraftId == value.AircraftId) ? CurPlanHistories.FirstOrDefault(p => p.AircraftId == value.AircraftId) : null;
                     }
-                    SelOperationHistory = OperationHistories.LastOrDefault(p => p.Status < (int)OperationStatus.已提交);
+                    SelOperationHistory = OperationHistories.LastOrDefault(p => p.Status < (int)OperationStatus.已提交) ??
+                                          OperationHistories.LastOrDefault();
                     //如果为变更计划，则这个时候取到的SelOperationHistory为空，重新取集合中的最后一条来展示在子窗体中
-                    if (SelOperationHistory == null)
-                        SelOperationHistory = OperationHistories.LastOrDefault();
-                    SelAircraftBusiness = AircraftBusinesses.LastOrDefault(p => p.Status < (int)OperationStatus.已提交);
+                    SelAircraftBusiness = AircraftBusinesses.LastOrDefault(p => p.Status < (int)OperationStatus.已提交) ??
+                                          AircraftBusinesses.LastOrDefault();
                     //如果为退出计划，则这个时候取到的SelAircraftBusiness为空，重新取集合中的最后一条来展示在子窗体中
-                    if (SelAircraftBusiness == null)
-                        SelAircraftBusiness = AircraftBusinesses.LastOrDefault();
 
                     RaisePropertyChanged(() => SelAircraft);
                     RaisePropertyChanged(() => OhTitle);
@@ -575,24 +569,22 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 
         private void OnComplete(object obj)
         {
-            EditAircraft = new AircraftDTO();
+            _editAircraft = new AircraftDTO();
             var aircraft = new AircraftDTO();
             //获取计划明细对应的飞机，可能为空
             if (SelPlanHistory != null)
             {
-                if (Aircrafts.Any(pa => pa.AircraftId == SelPlanHistory.AircraftId))
-                    aircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
-                else aircraft = null;
+                aircraft = Aircrafts.Any(pa => pa.AircraftId == SelPlanHistory.AircraftId) ? Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId) : null;
             }
             // 调用完成计划的操作
-            _service.CompletePlan(SelPlanHistory, aircraft, ref  EditAircraft);
+            _service.CompletePlan(SelPlanHistory, aircraft, ref  _editAircraft);
 
-            if (EditAircraft == null) return;
-            Aircrafts.AddNew(EditAircraft);
+            if (_editAircraft == null) return;
+            Aircrafts.AddNew(_editAircraft);
             // 定位选中的飞机，并确保运营历史、商业数据历史刷新
-            if (SelAircraft != EditAircraft)
+            if (SelAircraft != _editAircraft)
             {
-                SelAircraft = EditAircraft;
+                SelAircraft = _editAircraft;
             }
             OpenEditDialog(SelPlanHistory);
         }
@@ -624,7 +616,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 
         private void OnCommit(object obj)
         {
-            var aircraft = new AircraftDTO();
+            AircraftDTO aircraft;
             //如果是引进计划，则需要同时修改其商业数据历史的状态
             if (SelPlanHistory.ActionType == "引进")
             {
@@ -694,7 +686,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 
         private void OnCheck(object obj)
         {
-            var aircraft = new AircraftDTO();
+            AircraftDTO aircraft;
             //如果是引进计划，则需要同时修改其商业数据历史的状态
             if (SelPlanHistory.ActionType == "引进")
             {
@@ -767,7 +759,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
              {
                  if (e.DialogResult == true)
                  {
-                     var aircraft = new AircraftDTO();
+                     AircraftDTO aircraft;
                      //如果是引进计划，则需要同时修改其商业数据历史的状态
                      if (SelPlanHistory.ActionType == "引进")
                      {
@@ -929,14 +921,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 if (_isAircraft != value)
                 {
                     _isAircraft = value;
-                    if (value == true)
-                    {
-                        IsAircraftVisibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        IsAircraftVisibility = Visibility.Collapsed;
-                    }
+                    IsAircraftVisibility = value ? Visibility.Visible : Visibility.Collapsed;
                     RaisePropertyChanged(() => IsAircraft);
                 }
             }
@@ -959,14 +944,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 if (_isOperationHistory != value)
                 {
                     _isOperationHistory = value;
-                    if (value == true)
-                    {
-                        IsOperationHistoryVisibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        IsOperationHistoryVisibility = Visibility.Collapsed;
-                    }
+                    IsOperationHistoryVisibility = value ? Visibility.Visible : Visibility.Collapsed;
                     RaisePropertyChanged(() => IsOperationHistory);
                 }
             }
@@ -989,14 +967,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 if (_isAircraftBusiness != value)
                 {
                     _isAircraftBusiness = value;
-                    if (value == true)
-                    {
-                        IsAircraftBusinessVisibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        IsAircraftBusinessVisibility = Visibility.Collapsed;
-                    }
+                    IsAircraftBusinessVisibility = value ? Visibility.Visible : Visibility.Collapsed;
                     RaisePropertyChanged(() => IsAircraftBusiness);
                 }
             }
@@ -1098,6 +1069,21 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 
         #endregion
 
+        #region 重写保存前操作
+
+        protected override bool OnSaveExecuting(object sender)
+        {
+            var ph = CurPlanHistories.ToList();
+            ph.ForEach(p =>
+            {
+                p.ActionCategories = new ObservableCollection<ActionCateDTO>();
+                p.AircraftTypes = new ObservableCollection<AircraftTyDTO>();
+                p.AircraftCategories = new ObservableCollection<AircraftCateDTO>();
+            });
+            return true;
+        }
+
+        #endregion
         #endregion
     }
 }

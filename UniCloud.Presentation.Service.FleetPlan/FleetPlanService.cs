@@ -253,10 +253,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <returns></returns>
         public ObservableCollection<AircraftTyDTO> GetAircraftTypesForPlanHistory(PlanHistoryDTO ph)
         {
-            List<AircraftTypeDTO> aircraftTypes;
-            if (ph.Regional != null)
-                aircraftTypes = AircraftTypes.Where(p => p.Regional == ph.Regional).ToList();
-            else aircraftTypes = AircraftTypes.ToList();
+            List<AircraftTypeDTO> aircraftTypes = ph.Regional != null ? AircraftTypes.Where(p => p.Regional == ph.Regional).ToList() : AircraftTypes.ToList();
             var aircraftTys = new ObservableCollection<AircraftTyDTO>();
             aircraftTypes.ForEach(p => aircraftTys.Add(new AircraftTyDTO
             {
@@ -296,7 +293,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 }
                 else
                 {
-                    ActionCategoryDTO actionCategoryDTO;
+                    ActionCategoryDTO actionCategoryDto;
                     // 改变目标引进方式
                     switch (actionCategory.ActionName)
                     {
@@ -334,31 +331,31 @@ namespace UniCloud.Presentation.Service.FleetPlan
                             }
                             break;
                         case "售后融资租赁":
-                            actionCategoryDTO = ActionCategories.FirstOrDefault(a => a.ActionName == "融资租赁");
-                            if (actionCategoryDTO != null)
+                            actionCategoryDto = ActionCategories.FirstOrDefault(a => a.ActionName == "融资租赁");
+                            if (actionCategoryDto != null)
                             {
-                                if (ph.TargetCategoryId == actionCategoryDTO.Id) return;
+                                if (ph.TargetCategoryId == actionCategoryDto.Id) return;
                                 else
-                                    ph.TargetCategoryId = actionCategoryDTO.Id;
+                                    ph.TargetCategoryId = actionCategoryDto.Id;
                             }
 
                             break;
                         case "售后经营租赁":
-                            actionCategoryDTO = ActionCategories.FirstOrDefault(a => a.ActionName == "经营租赁");
-                            if (actionCategoryDTO != null)
+                            actionCategoryDto = ActionCategories.FirstOrDefault(a => a.ActionName == "经营租赁");
+                            if (actionCategoryDto != null)
                             {
-                                if (ph.TargetCategoryId == actionCategoryDTO.Id) return;
+                                if (ph.TargetCategoryId == actionCategoryDto.Id) return;
                                 else
-                                    ph.TargetCategoryId = actionCategoryDTO.Id;
+                                    ph.TargetCategoryId = actionCategoryDto.Id;
                             }
                             break;
                         case "租转购":
-                            actionCategoryDTO = ActionCategories.FirstOrDefault(a => a.ActionName == "购买");
-                            if (actionCategoryDTO != null)
+                            actionCategoryDto = ActionCategories.FirstOrDefault(a => a.ActionName == "购买");
+                            if (actionCategoryDto != null)
                             {
-                                if (ph.TargetCategoryId == actionCategoryDTO.Id) return;
+                                if (ph.TargetCategoryId == actionCategoryDto.Id) return;
                                 else
-                                    ph.TargetCategoryId = actionCategoryDTO.Id;
+                                    ph.TargetCategoryId = actionCategoryDto.Id;
                             }
                             break;
                     }
