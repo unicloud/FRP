@@ -316,6 +316,11 @@
       <DependentUpon>PassengerAircraftTrend.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\PassengerAircraftTrendVm.cs" />
+    <Compile Include="QueryPlans\PlanHistoryStyleRule.cs" />
+    <Compile Include="QueryPlans\QueryPlan.xaml.cs">
+      <DependentUpon>QueryPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryPlans\QueryPlanVM.cs" />
     <Compile Include="Requests\ApprovalHistoryCache.cs" />
     <Compile Include="Requests\IndexAircraftInput.cs" />
     <Compile Include="Requests\ManageIndexAircraftView.xaml.cs">
@@ -449,6 +454,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="QueryAnalyse\PassengerAircraftTrend.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="QueryPlans\QueryPlan.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
