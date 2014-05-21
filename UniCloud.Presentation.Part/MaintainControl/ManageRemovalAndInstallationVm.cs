@@ -248,6 +248,8 @@ namespace UniCloud.Presentation.Part.MaintainControl
                         RaisePropertyChanged(() => InStoreSnRegs);
                     }
                     RaisePropertyChanged(() => SelSnRemInstRecord);
+                    RaisePropertyChanged(()=>Installations);
+                    RaisePropertyChanged(() => Removals);
                     RefreshCommandState();
                 }
             }
@@ -545,10 +547,11 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         private void OnRemoveInstallation(object obj)
         {
-            Installations.Remove(SelInstallation);
-            var snReg = SnRegs.FirstOrDefault(p => p.Id == SelRemoval.SnRegId);
+            var snReg = SnRegs.FirstOrDefault(p => p.Id == SelInstallation.SnRegId);
             if (snReg != null) snReg.AircraftId = null;
-            SnHistories.Remove(SelInstallation);
+            Installations.Remove(SelInstallation);
+            var snHistory = SnHistories.FirstOrDefault(p => p.Id == SelInstallation.Id);
+            if (snHistory != null) SnHistories.Remove(snHistory);
         }
 
         private bool CanRemoveInstallation(object obj)

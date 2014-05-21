@@ -53,7 +53,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         private void InitializeVM()
         {
-            Requests = _service.CreateCollection(_context.Requests, o => o.ApprovalHistories, o => o.RelatedDocs);
+            Requests = _service.CreateCollection(_context.Requests.Expand(p => p.RelatedDocs), o => o.ApprovalHistories, o => o.RelatedDocs);
             var cfd = new CompositeFilterDescriptor { LogicalOperator = FilterCompositionLogicalOperator.And };
             var requestDescriptor = new FilterDescriptor("Note", FilterOperator.IsNotEqualTo, "指标飞机申请（系统添加）");
             cfd.FilterDescriptors.Add(requestDescriptor);
