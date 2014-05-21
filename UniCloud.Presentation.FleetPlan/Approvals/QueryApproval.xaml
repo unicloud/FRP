@@ -25,7 +25,7 @@
                 <telerik:RadSplitContainer>
                     <telerik:RadSplitContainer Orientation="Vertical">
                         <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="申请"
+                            <telerik:RadPane Header="批文信息"
                                              CanFloat="False"
                                              CanUserClose="False"
                                              CanUserPin="False"
@@ -51,12 +51,6 @@
                                                                          SortDirection="Ascending">
                                                     <telerik:GroupDescriptor.AggregateFunctions>
                                                         <telerik:CountFunction ResultFormatString="总计：{0}" />
-                                                    </telerik:GroupDescriptor.AggregateFunctions>
-                                                </telerik:GroupDescriptor>
-                                                <telerik:GroupDescriptor Member="CaacApprovalNumber"
-                                                                         SortDirection="Ascending">
-                                                    <telerik:GroupDescriptor.AggregateFunctions>
-                                                        <telerik:CountFunction ResultFormatString="小计：{0}" />
                                                     </telerik:GroupDescriptor.AggregateFunctions>
                                                 </telerik:GroupDescriptor>
                                             </telerik:RadGridView.GroupDescriptors>
@@ -94,47 +88,6 @@
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
                                                                             DataMemberBinding="{Binding Title,Mode=TwoWay}" />
-                                                <telerik:GridViewDataColumn Header="地方局申请文号"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            HeaderTextAlignment="Center"
-                                                                            DataMemberBinding="{Binding RaDocNumber,Mode=TwoWay}" />
-                                                <telerik:GridViewColumn Header="地方局申请文档"
-                                                                        HeaderTextAlignment="Center"
-                                                                        IsReadOnly="True">
-                                                    <telerik:GridViewColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <HyperlinkButton Content="{Binding RaDocumentName}"
-                                                                             Name="HyperlinkButton"
-                                                                             Command="{Binding DataContext.ViewAttachCommand, 
-                                                        RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
-                                                                             CommandParameter="{Binding RaDocumentId}" />
-                                                        </DataTemplate>
-                                                    </telerik:GridViewColumn.CellTemplate>
-                                                </telerik:GridViewColumn>
-                                                <telerik:GridViewDataColumn Header="地方管理局审批意见"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            HeaderTextAlignment="Center"
-                                                                            DataMemberBinding="{Binding RaNote,Mode=TwoWay}" />
-                                                <telerik:GridViewDataColumn Header="监管局申请文号"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            HeaderTextAlignment="Center"
-                                                                            DataMemberBinding="{Binding SawsDocNumber,Mode=TwoWay}" />
-                                                <telerik:GridViewColumn Header="监管局申请文档"
-                                                                        HeaderTextAlignment="Center"
-                                                                        IsReadOnly="True">
-                                                    <telerik:GridViewColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <HyperlinkButton Content="{Binding SawsDocumentName}"
-                                                                             Command="{Binding DataContext.ViewAttachCommand, 
-                                                        RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
-                                                                             CommandParameter="{Binding SawsDocumentId}" />
-                                                        </DataTemplate>
-                                                    </telerik:GridViewColumn.CellTemplate>
-                                                </telerik:GridViewColumn>
-                                                <telerik:GridViewDataColumn Header="监管局审批意见"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            HeaderTextAlignment="Center"
-                                                                            DataMemberBinding="{Binding SawsNote,Mode=TwoWay}" />
                                                 <telerik:GridViewDataColumn Header="民航局申请文号"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
@@ -169,7 +122,7 @@
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>
                         <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="申请明细"
+                            <telerik:RadPane Header="审批明细"
                                              FontSize="{StaticResource TextFontSize}"
                                              IsPinned="True"
                                              CanFloat="False"
@@ -188,6 +141,11 @@
                                                      ShowColumnFooters="True">
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
+                                        <telerik:GridViewDataColumn Header="是否批准"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding IsApproved}" />
                                         <telerik:GridViewDataColumn Header="座级"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"

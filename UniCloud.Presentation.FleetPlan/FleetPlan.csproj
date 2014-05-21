@@ -234,6 +234,10 @@
     </Compile>
     <Compile Include="Approvals\ApprovalInput.cs" />
     <Compile Include="Approvals\ApprovalVM.cs" />
+    <Compile Include="Approvals\QueryApproval.xaml.cs">
+      <DependentUpon>QueryApproval.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Approvals\QueryApprovalVM.cs" />
     <Compile Include="Converts\OperationStatusConvert.cs" />
     <Compile Include="PerformFleetPlan\FleetPlanDeliver.xaml.cs">
       <DependentUpon>FleetPlanDeliver.xaml</DependentUpon>
@@ -316,6 +320,11 @@
       <DependentUpon>PassengerAircraftTrend.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\PassengerAircraftTrendVm.cs" />
+    <Compile Include="QueryPlans\PlanHistoryStyleRule.cs" />
+    <Compile Include="QueryPlans\QueryPlan.xaml.cs">
+      <DependentUpon>QueryPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryPlans\QueryPlanVM.cs" />
     <Compile Include="Requests\ApprovalHistoryCache.cs" />
     <Compile Include="Requests\IndexAircraftInput.cs" />
     <Compile Include="Requests\ManageIndexAircraftView.xaml.cs">
@@ -369,6 +378,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Approvals\Approval.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Approvals\QueryApproval.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -449,6 +462,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="QueryAnalyse\PassengerAircraftTrend.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="QueryPlans\QueryPlan.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -141,7 +141,7 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 formatter.Serialize(ms, obj);
                 ms.Position = 0;
                 //加密
-                //UniCloud.Cryptography.DESCryptography.EncryptStream(ref ms);
+                Cryptography.DESCryptography.EncryptStream(ref ms);
                 return ms;
             }
             return null;

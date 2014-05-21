@@ -247,6 +247,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
 
             //添加运营权历史
             var newOh = aircraft.AddNewOperationHistory();
+            newOh.ChangeCurrentIdentity(operationHistoryDto.OperationHistoryId);
             newOh.SetAirlines(airlines);
             newOh.SetEndDate(operationHistoryDto.EndDate);
             newOh.SetExportCategoryID(exportCategory);

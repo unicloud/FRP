@@ -526,6 +526,19 @@
         <Property Name="ForthValue" Type="Edm.String" />
         <Property Name="FifthValue" Type="Edm.String" />
       </ComplexType>
+      <EntityType Name="ThresholdDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TotalThreshold" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="IntervalThreshold" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="DeltaIntervalThreshold" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Average3Threshold" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Average7Threshold" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
       <Association Name="AcConfigDTO_SubAcConfigs">
         <End Type="UniCloud.Application.PartBC.DTO.AcConfigDTO" Role="SubAcConfigs" Multiplicity="*" />
         <End Type="UniCloud.Application.PartBC.DTO.AcConfigDTO" Role="AcConfigDTO" Multiplicity="*" />
@@ -582,6 +595,7 @@
         <EntitySet Name="EngineMaintainPlans" EntityType="UniCloud.Application.PartBC.DTO.EngineMaintainPlanDTO" />
         <EntitySet Name="AircraftMaintainPlans" EntityType="UniCloud.Application.PartBC.DTO.AircraftMaintainPlanDTO" />
         <EntitySet Name="UtilizationReports" EntityType="UniCloud.Application.PartBC.DTO.UtilizationReportDTO" />
+        <EntitySet Name="Thresholds" EntityType="UniCloud.Application.PartBC.DTO.ThresholdDTO" />
         <FunctionImport Name="GetItemsByAircraftType" ReturnType="Collection(UniCloud.Application.PartBC.DTO.ItemDTO)" EntitySet="Items" m:HttpMethod="GET">
           <Parameter Name="aircraftTypeId" Type="Edm.String" />
         </FunctionImport>

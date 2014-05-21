@@ -14,7 +14,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.FleetPlan.QueryPlans
 {
-    [Export(typeof (QueryPlanVM))]
+    [Export(typeof(QueryPlanVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class QueryPlanVM : ViewModelBase
     {
@@ -30,10 +30,39 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
         {
             _service = service;
             _context = _service.Context;
+            InitialPlanHistory(); //加载计划
             InitialPlan(); //加载计划
             InitialComparePlan(); //加载比较计划
             InitialCommand(); //初始化命令
         }
+
+        #region 加载计划明细
+
+        /// <summary>
+        ///     获取所有计划明细信息。
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanHistoryDTO> AllPlanHistories { get; set; }
+
+        /// <summary>
+        ///     初始化计划明细信息。
+        /// </summary>
+        private void InitialPlanHistory()
+        {
+            AllPlanHistories = new QueryableDataServiceCollectionView<PlanHistoryDTO>(_context, _context.PlanHistories);
+            SetIsBusy();
+            AllPlanHistories.LoadedData += (sender, e) =>
+            {
+                SetIsBusy();
+                if (e.HasError)
+                {
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                GetInitialPlanHistory();
+            };
+        }
+
+        #endregion
 
         #region 加载计划
 
@@ -84,8 +113,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
         /// </summary>
         private void InitialPlan()
         {
-            PlansView = _service.CreateCollection(_context.Plans);
-            _service.RegisterCollectionView(PlansView);
+            PlansView = new QueryableDataServiceCollectionView<PlanDTO>(_context, _context.Plans);
             PlansView.PageSize = 20;
             SetIsBusy();
             PlansView.LoadedData += (sender, e) =>
@@ -155,7 +183,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
         /// </summary>
         private void InitialComparePlan()
         {
-            ComparePlansView = _service.CreateCollection(_context.Plans);
+            ComparePlansView = new QueryableDataServiceCollectionView<PlanDTO>(_context, _context.Plans);
             ComparePlansView.PageSize = 20;
             SetIsBusy();
             ComparePlansView.LoadedData += (sender, e) =>
@@ -188,12 +216,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
             var planHistories = new List<PlanHistoryDTO>();
             var comparePlanHistories = new List<PlanHistoryDTO>();
             //遍历原始计划，用原始计划与对比的计划进行对比
-            SelectedPlan.PlanHistories.OrderBy(p=>p.Year).ThenBy(p=>p.PerformMonth).ToList().ForEach(p =>
+            PlanHistories.OrderBy(p => p.Year).ThenBy(p => p.PerformMonth).ToList().ForEach(p =>
             {
-                if (SelectedComparePlan.PlanHistories.Any(c => c.PlanAircraftId == p.PlanAircraftId))
+                if (ComparePlanHistories.Any(c => c.PlanAircraftId == p.PlanAircraftId && c.ActionCategoryId == p.ActionCategoryId))
                 {
                     var comparedPlanHistory =
-                        SelectedComparePlan.PlanHistories.First(c => c.PlanAircraftId == p.PlanAircraftId);
+                        ComparePlanHistories.First(c => c.PlanAircraftId == p.PlanAircraftId && c.ActionCategoryId == p.ActionCategoryId);
                     var clonePlanHistory = p.Clone(); //克隆出一份新的计划历史，用于处理颜色的改变，而不会影响到原有的值
                     var cloneComparedPlanHistory = comparedPlanHistory.Clone(); //克隆出一份新的计划历史，用于处理颜色的改变，而不会影响到原有的值
                     //判断是否发生变更
@@ -215,9 +243,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
             });
 
             //遍历对比计划，用对比的计划与原始的计划进行对比
-            SelectedComparePlan.PlanHistories.OrderBy(p => p.Year).ThenBy(p => p.PerformMonth).ToList().ForEach(p =>
+            ComparePlanHistories.OrderBy(p => p.Year).ThenBy(p => p.PerformMonth).ToList().ForEach(p =>
             {
-                if (SelectedPlan.PlanHistories.All(c => c.PlanAircraftId != p.PlanAircraftId))
+                if (PlanHistories.All(c => c.PlanAircraftId != p.PlanAircraftId || c.ActionCategoryId != p.ActionCategoryId))
                 {
                     var removedPlanHistory = new PlanHistoryDTO
                     {
@@ -315,13 +343,13 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
         /// </summary>
         private void GetInitialPlanHistory()
         {
-            if (SelectedComparePlan!=null)
+            if (SelectedComparePlan != null)
             {
-                ComparePlanHistories = SelectedComparePlan.PlanHistories;
+                ComparePlanHistories = AllPlanHistories.Where(p => p.PlanId == SelectedComparePlan.Id);
             }
-            if (SelectedPlan!=null)
+            if (SelectedPlan != null)
             {
-                PlanHistories = SelectedPlan.PlanHistories;
+                PlanHistories = AllPlanHistories.Where(p => p.PlanId == SelectedPlan.Id);
             }
         }
 
@@ -350,17 +378,26 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
             {
                 PlansView.Load(true);
             }
+
+            //加载计划计划明细
+            if (!AllPlanHistories.AutoLoad)
+            {
+                AllPlanHistories.AutoLoad = true;
+            }
+            else
+            {
+                AllPlanHistories.Load(true);
+            }
         }
 
         protected override void SetIsBusy()
         {
-            if (PlansView == null || ComparePlansView==null)
+            if (PlansView == null || ComparePlansView == null || AllPlanHistories == null)
             {
                 IsBusy = true;
                 return;
-                
             }
-            IsBusy = PlansView.IsBusy || ComparePlansView.IsBusy;
+            IsBusy = PlansView.IsBusy || ComparePlansView.IsBusy || AllPlanHistories.IsBusy;
         }
 
         #endregion

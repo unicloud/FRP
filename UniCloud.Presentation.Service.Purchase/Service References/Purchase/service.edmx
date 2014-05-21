@@ -294,6 +294,7 @@
         <Property Name="Description" Type="Edm.String" />
         <Property Name="PartId" Type="Edm.Int32" Nullable="false" />
         <Property Name="SupplierCompanyId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ListPrice" Type="Edm.Decimal" Nullable="false" />
       </EntityType>
       <EntityType Name="PartDTO">
         <Key>

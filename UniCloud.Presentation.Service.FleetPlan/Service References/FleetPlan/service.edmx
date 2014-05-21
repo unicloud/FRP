@@ -544,18 +544,10 @@
         <Property Name="CaacDocumentId" Type="Edm.Guid" />
         <Property Name="NdrcDocumentId" Type="Edm.Guid" />
         <Property Name="Title" Type="Edm.String" />
-        <Property Name="RaDocNumber" Type="Edm.String" />
-        <Property Name="SawsDocNumber" Type="Edm.String" />
         <Property Name="CaacDocNumber" Type="Edm.String" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="CaacNote" Type="Edm.String" />
-        <Property Name="RaNote" Type="Edm.String" />
-        <Property Name="SawsNote" Type="Edm.String" />
         <Property Name="ApprovalDocId" Type="Edm.Guid" />
-        <Property Name="RaDocumentId" Type="Edm.Guid" />
-        <Property Name="RaDocumentName" Type="Edm.String" />
-        <Property Name="SawsDocumentId" Type="Edm.Guid" />
-        <Property Name="SawsDocumentName" Type="Edm.String" />
         <Property Name="CaacRequestDocumentId" Type="Edm.Guid" />
         <Property Name="CaacRequestDocumentName" Type="Edm.String" />
         <Property Name="ApprovalHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO)" Nullable="false" />

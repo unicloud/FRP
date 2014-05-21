@@ -25,7 +25,7 @@ namespace UniCloud.DataService.Connection
 {
     public class SqlServerConn : IDisposable, IDbConn
     {
-        // private string strConn = @"DataSource=172.18.8.117; Database=UniClod.FRP;UserId=UniCloud;Password=fleet@XMZZ;";
+        // private string strConn = @"DataSource=172.18.8.117; Database=UniClod.FRP;UserId=UniCloud;Password=26344DB3960DD7C73A93F6EDFA95BEC0;";
 
         private SqlConnection _conn;
         private string _connString;

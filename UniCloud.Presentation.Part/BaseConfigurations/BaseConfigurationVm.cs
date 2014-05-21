@@ -1,7 +1,12 @@
 ﻿#region NameSpace
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
+using System.Linq;
+using System.Windows;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -81,6 +86,16 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
                     CanSelectCtrlUnit = !CtrlUnits.HasChanges;
                 }
             };
+
+            //创建并注册CollectionView
+            Thresholds = _service.CreateCollection(_context.Thresholds);
+            _service.RegisterCollectionView(Thresholds);
+
+            Items = new QueryableDataServiceCollectionView<ItemDTO>(_context, _context.Items);
+
+            //初始化按钮
+            NewCommand = new DelegateCommand<object>(OnNew, CanNew);
+            RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
         }
 
         #endregion
@@ -89,6 +104,80 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
 
         #region 公共属性
 
+        #region 附件项集合
+
+        private ItemDTO _selItem;
+
+        /// <summary>
+        ///     附件项集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ItemDTO> Items { get; set; }
+
+        /// <summary>
+        ///     选中的附件项
+        /// </summary>
+        public ItemDTO SelItem
+        {
+            get { return _selItem; }
+            set
+            {
+                if (_selItem != value)
+                {
+                    _selItem = value;
+                    if (_selItem != null)
+                    {
+                        var path = CreatePnRegQueryPath(value.Id);
+                        LoadPnRegs(path);
+                    }
+                    RaisePropertyChanged(() => SelItem);
+                }
+            }
+        }
+        #endregion
+
+        #region 附件集合
+
+        private List<PnRegDTO> _pnRegs = new List<PnRegDTO>();
+        private PnRegDTO _selPnReg;
+
+        /// <summary>
+        ///     附件集合
+        /// </summary>
+        public List<PnRegDTO> PnRegs
+        {
+            get { return _pnRegs; }
+            private set
+            {
+                if (_pnRegs != value)
+                {
+                    _pnRegs = value;
+                    RaisePropertyChanged(() => PnRegs);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     选择的附件
+        /// </summary>
+        public PnRegDTO SelPnReg
+        {
+            get { return _selPnReg; }
+            private set
+            {
+                if (_selPnReg != value)
+                {
+                    _selPnReg = value;
+                    if (value != null)
+                    {
+                        var threshold = Thresholds.FirstOrDefault(p => p.PnRegId == value.Id);
+                        SelThreshold = threshold;
+                    }
+                    RaisePropertyChanged(() => SelPnReg);
+                    RefreshCommandState();
+                }
+            }
+        }
+        #endregion
         #endregion
 
         #region 加载数据
@@ -111,6 +200,13 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
             if (!CtrlUnits.AutoLoad)
                 CtrlUnits.AutoLoad = true;
             CtrlUnits.Load(true);
+
+            //// 将CollectionView的AutoLoad属性设为True
+            if (!Thresholds.AutoLoad)
+                Thresholds.AutoLoad = true;
+            Thresholds.Load(true);
+
+            Items.Load(true);
         }
 
         #region 工作代码
@@ -197,6 +293,32 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
 
         #endregion
 
+        #region 阀值
+
+        private ThresholdDTO _selThreshold;
+
+        /// <summary>
+        ///     阀值集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ThresholdDTO> Thresholds { get; set; }
+
+        /// <summary>
+        ///     选中的阀值
+        /// </summary>
+        public ThresholdDTO SelThreshold
+        {
+            get { return _selThreshold; }
+            set
+            {
+                if (_selThreshold != value)
+                {
+                    _selThreshold = value;
+                    RaisePropertyChanged(() => SelThreshold);
+                }
+            }
+        }
+        #endregion
+
         #endregion
 
         #endregion
@@ -207,6 +329,117 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
 
         #endregion
 
+        #region 创建查询路径
+        /// <summary>
+        ///     创建查询路径
+        /// </summary>
+        /// <param name="itemId"></param>
+        /// <returns></returns>
+        private Uri CreatePnRegQueryPath(int itemId)
+        {
+            return new Uri(string.Format("GetPnRegsByItem?itemId={0}", itemId),
+                UriKind.Relative);
+        }
+
+        private void LoadPnRegs(Uri path)
+        {
+            //查询
+            _context.BeginExecute<PnRegDTO>(path,
+                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    var context = result.AsyncState as PartData;
+                    try
+                    {
+                        if (context != null)
+                        {
+                            _pnRegs = new List<PnRegDTO>();
+                            _pnRegs = context.EndExecute<PnRegDTO>(result).ToList();
+                            SelPnReg = PnRegs.FirstOrDefault();
+                            RaisePropertyChanged(() => PnRegs);
+                            RefreshCommandState();
+                        }
+                    }
+                    catch (DataServiceQueryException ex)
+                    {
+                        QueryOperationResponse response = ex.Response;
+
+                        Console.WriteLine(response.Error.Message);
+                    }
+                }), _context);
+        }
+
+        #endregion
+
+        #region 刷新按钮状态
+
+        protected override void RefreshCommandState()
+        {
+            NewCommand.RaiseCanExecuteChanged();
+            RemoveCommand.RaiseCanExecuteChanged();
+        }
+
+        #endregion
+
+        #region 创建阀值配置
+
+        /// <summary>
+        ///     创建阀值配置
+        /// </summary>
+        public DelegateCommand<object> NewCommand { get; private set; }
+
+        private void OnNew(object obj)
+        {
+            var newThreshold = new ThresholdDTO
+            {
+                Id = RandomHelper.Next(),
+                PnRegId = SelPnReg.Id,
+                Pn = SelPnReg.Pn,
+            };
+            Thresholds.AddNew(newThreshold);
+            SelThreshold = newThreshold;
+            RefreshCommandState();
+        }
+
+        private bool CanNew(object obj)
+        {
+            if (SelPnReg != null)
+            {
+                var threshold = Thresholds.FirstOrDefault(p => p.PnRegId == SelPnReg.Id);
+                return PnRegs.Count != 0 && threshold == null;
+            }
+            return false;
+        }
+
+        #endregion
+
+        #region 删除规划
+
+        /// <summary>
+        ///     删除规划
+        /// </summary>
+        public DelegateCommand<object> RemoveCommand { get; private set; }
+
+        private void OnRemove(object obj)
+        {
+            if (SelThreshold == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+            {
+                if (arg.DialogResult != true) return;
+                Thresholds.Remove(SelThreshold);
+                SelThreshold = Thresholds.FirstOrDefault();
+            });
+        }
+
+        private bool CanRemove(object obj)
+        {
+            return _selThreshold != null;
+        }
+
+        #endregion
         #endregion
     }
 }

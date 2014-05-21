@@ -67,7 +67,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="aircraft">飞机</param>
         private static void CreateOperationHistory(PlanHistoryDTO planDetail, ref AircraftDTO aircraft)
         {
-            var id = planDetail.ApprovalHistoryId == null ? Guid.Empty : Guid.Parse(planDetail.ActionCategoryId.ToString());
+            var id = planDetail.ApprovalHistoryId == null ? Guid.Empty : Guid.Parse(planDetail.ApprovalHistoryId.ToString());
             var operationHistory = new OperationHistoryDTO
             {
                 OperationHistoryId = id,

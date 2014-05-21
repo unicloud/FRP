@@ -134,6 +134,9 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             Aircrafts.GroupDescriptors.Add(group);
             _service.RegisterCollectionView(Aircrafts);//注册查询集合
 
+            PlanAircrafts = _service.CreateCollection(_context.PlanAircrafts);
+            _service.RegisterCollectionView(PlanAircrafts);
+
             ActionCategories = new QueryableDataServiceCollectionView<ActionCategoryDTO>(_context, _context.ActionCategories);
             AircraftCategories = new QueryableDataServiceCollectionView<AircraftCategoryDTO>(_context, _context.AircraftCategories);
             AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_context, _context.AircraftTypes);
@@ -225,6 +228,15 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 
         #endregion
 
+        #region 计划飞机集合
+
+        /// <summary>
+        ///     计划飞机集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanAircraftDTO> PlanAircrafts { get; set; }
+
+        #endregion
+
         #region 现役飞机集合
 
         /// <summary>
@@ -284,6 +296,11 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 Aircrafts.AutoLoad = true;
             else
                 Aircrafts.Load(true);
+
+            if (!PlanAircrafts.AutoLoad)
+                PlanAircrafts.AutoLoad = true;
+            else
+                PlanAircrafts.Load(true);
         }
 
         #region 业务
@@ -575,6 +592,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             if (SelPlanHistory != null)
             {
                 aircraft = Aircrafts.Any(pa => pa.AircraftId == SelPlanHistory.AircraftId) ? Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId) : null;
+                SelPlanHistory.CanDeliver = (int)CanDeliver.交付中;
             }
             // 调用完成计划的操作
             _service.CompletePlan(SelPlanHistory, aircraft, ref  _editAircraft);
@@ -800,15 +818,15 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                              }
                          }
                      }
-                     //_service.SubmitChanges(sc =>
-                     //{
-                     //    if (sc.Error == null)
-                     //    {
-                     //        // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
-                     //        this.service.TransferPlanHistory(this.SelPlanHistory.PlanHistoryID, tp => { }, null);
-                     //        RefreshView();
-                     //    }
-                     //}, null);
+                     _service.SubmitChanges(sc =>
+                     {
+                         if (sc.Error == null)
+                         {
+                             // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
+                             this._service.TransferPlanHistory(SelPlanHistory.AirlinesId, SelPlanHistory.Id, _context);
+                             RefreshCommandState();
+                         }
+                     }, null);
                  }
              });
         }

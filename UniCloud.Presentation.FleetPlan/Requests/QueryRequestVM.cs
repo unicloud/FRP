@@ -31,9 +31,9 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.Requests
 {
-    [Export(typeof (QueryRequestVM))]
+    [Export(typeof(QueryRequestVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class QueryRequestVM : UniCloud.Presentation.MVVM.ViewModelBase
+    public class QueryRequestVM : MVVM.ViewModelBase
     {
         private readonly FleetPlanData _context;
         private readonly IFleetPlanService _service;
@@ -80,8 +80,9 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         private void InitialRequest()
         {
-            RequestsView = _service.CreateCollection(_context.Requests);
-            _service.RegisterCollectionView(RequestsView);
+            RequestsView = new QueryableDataServiceCollectionView<RequestDTO>(_context, _context.Requests);
+            var requestDescriptor = new FilterDescriptor("Note", FilterOperator.IsNotEqualTo, "指标飞机申请（系统添加）");
+            RequestsView.FilterDescriptors.Add(requestDescriptor);
             RequestsView.PageSize = 20;
             RequestsView.LoadedData += (sender, e) =>
             {
