@@ -69,16 +69,6 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public string Title { get; set; }
 
         /// <summary>
-        ///     地方局申请文号
-        /// </summary>
-        public string RaDocNumber { get; set; }
-
-        /// <summary>
-        ///     监管局申请文号
-        /// </summary>
-        public string SawsDocNumber { get; set; }
-
-        /// <summary>
         ///     民航局申请文号
         /// </summary>
         public string CaacDocNumber { get; set; }
@@ -94,39 +84,9 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public string CaacNote { get; set; }
 
         /// <summary>
-        ///     地方局审批意见
-        /// </summary>
-        public string RaNote { get; set; }
-
-        /// <summary>
-        ///     监管局审批意见
-        /// </summary>
-        public string SawsNote { get; set; }
-
-        /// <summary>
-        ///     民航局批文文档外键
+        ///     民航局批文外键
         /// </summary>
         public Guid? ApprovalDocId { get; set; }
-
-        /// <summary>
-        ///     地方局申请文档Id
-        /// </summary>
-        public Guid? RaDocumentId { get; set; }
-
-        /// <summary>
-        ///     地方局批文文档名称
-        /// </summary>
-        public string RaDocumentName { get; set; }
-
-        /// <summary>
-        ///     监管局申请文档Id
-        /// </summary>
-        public Guid? SawsDocumentId { get; set; }
-
-        /// <summary>
-        ///     监管局申请文档名称
-        /// </summary>
-        public string SawsDocumentName { get; set; }
 
         /// <summary>
         ///     民航局申请文档Id

@@ -458,6 +458,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 AircraftRegional = planHistory.Regional,
                 AirlineName = planHistory.AirlinesName,
                 ImportCategoryName = planHistory.ActionType + ":" + planHistory.ActionName,
+                IsApproved = true,
             };
             var annual = Annuals.SourceCollection.Cast<AnnualDTO>().FirstOrDefault(p => p.Id == requestDetail.RequestDeliverAnnualId);
             if (annual != null) requestDetail.RequestDeliverAnnualName = annual.Year;
