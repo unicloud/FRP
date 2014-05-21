@@ -20,6 +20,7 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using UniCloud.Cryptography;
 
 #endregion
 
@@ -27,13 +28,15 @@ namespace UniCloud.Infrastructure.Data
 {
     public class BaseContext<TContext> : DbContext, IQueryableUnitOfWork where TContext : DbContext
     {
+        static string connectStr = ConnectionStringCryptography.DecryptConnectionString(System.Configuration.ConfigurationManager.ConnectionStrings[DbConfig.DbUniCloud].ToString());
+
         static BaseContext()
         {
             Database.SetInitializer<TContext>(null);
         }
 
         protected BaseContext()
-            : base(DbConfig.DbUniCloud)
+            : base(connectStr)
         {
         }
 

@@ -146,6 +146,10 @@
       <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
       <Name>Infrastructure.Utilities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Cryptography\UniCloud.Cryptography.csproj">
+      <Project>{f63c4b93-d765-4d1d-bfac-7d74c6c6dfc4}</Project>
+      <Name>UniCloud.Cryptography</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup />

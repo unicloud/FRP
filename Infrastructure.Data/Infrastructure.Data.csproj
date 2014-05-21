@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
@@ -73,6 +74,10 @@
     <ProjectReference Include="..\Infrastructure.Crosscutting\Infrastructure.Crosscutting.csproj">
       <Project>{340e4cf3-f789-4ae1-bc04-96040995859c}</Project>
       <Name>Infrastructure.Crosscutting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Cryptography\UniCloud.Cryptography.csproj">
+      <Project>{f63c4b93-d765-4d1d-bfac-7d74c6c6dfc4}</Project>
+      <Name>UniCloud.Cryptography</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
