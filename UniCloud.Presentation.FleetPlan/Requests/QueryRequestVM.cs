@@ -80,7 +80,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         private void InitialRequest()
         {
-            RequestsView = new QueryableDataServiceCollectionView<RequestDTO>(_context, _context.Requests);
+            RequestsView = new QueryableDataServiceCollectionView<RequestDTO>(_context, _context.Requests.Expand(p => p.RelatedDocs));
             var requestDescriptor = new FilterDescriptor("Note", FilterOperator.IsNotEqualTo, "指标飞机申请（系统添加）");
             RequestsView.FilterDescriptors.Add(requestDescriptor);
             RequestsView.PageSize = 20;

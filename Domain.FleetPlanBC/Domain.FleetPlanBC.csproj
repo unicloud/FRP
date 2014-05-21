@@ -159,6 +159,7 @@
     <Compile Include="Aggregates\SupplierAgg\SupplierSpecifications.cs" />
     <Compile Include="Aggregates\XmlConfigAgg\IXmlConfigRepository.cs" />
     <Compile Include="Aggregates\XmlConfigAgg\XmlConfig.cs" />
+    <Compile Include="Aggregates\XmlConfigAgg\XmlConfigFactory.cs" />
     <Compile Include="Aggregates\XmlConfigAgg\XmlConfigSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

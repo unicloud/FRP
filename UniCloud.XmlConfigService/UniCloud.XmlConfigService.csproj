@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4FE02CB4-D48F-4566-A2B5-6045FB0CD8F4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniCloud.XmlConfigService</RootNamespace>
+    <AssemblyName>UniCloud.XmlConfigService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlConfig\AirCraftTypeXml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XmlConfig\BaseXml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XmlConfig\FleetAgeXml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XmlConfig\FleetRegisteredXml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XmlConfig\FleetTrendAllXml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XmlConfig\ImportTypeXml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XmlConfig\ManufacturerXml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XmlConfig\PlanPerformXml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XmlConfig\SupplierXml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XmlConfig\XmlConfigsService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XmlConfig\XmlNode\BaseNode.cs" />
+    <Compile Include="XmlConfig\XmlNode\BaseNodeList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.FleetPlanBC\Domain.FleetPlanBC.csproj">
+      <Project>{eae70e2d-1c23-45c9-a9a9-695dff09b7ab}</Project>
+      <Name>Domain.FleetPlanBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.FleetPlanBC\Infrastructure.Data.FleetPlanBC.csproj">
+      <Project>{ea442277-80d8-4e88-823d-c75581e953d7}</Project>
+      <Name>Infrastructure.Data.FleetPlanBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{CAD91A38-6B90-4A18-83CA-0215CE512F4D}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
