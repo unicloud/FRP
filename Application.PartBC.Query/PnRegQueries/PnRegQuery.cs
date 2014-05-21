@@ -66,7 +66,7 @@ namespace UniCloud.Application.PartBC.Query.PnRegQueries
             var pnRegs = _unitOfWork.CreateSet<PnReg>().ToList();
             installControllers.ForEach(p =>
             {
-                if (result.Any(l => l.Id == p.PnRegId))
+                if (result.All(l => l.Id != p.PnRegId))
                 {
                     var pnReg = pnRegs.FirstOrDefault(l => l.Id == p.PnRegId);
                     if (pnReg != null)

@@ -307,7 +307,6 @@
                                                              CanUserSortColumns="True"
                                                              CanUserFreezeColumns="False"
                                                              IsFilteringAllowed="True"
-                                                             IsReadOnly="True"
                                                              ItemsSource="{Binding Thresholds}"
                                                              IsBusy="{Binding Thresholds.IsBusy}"
                                                              SelectedItem="{Binding SelThreshold,Mode=TwoWay}"
@@ -317,6 +316,7 @@
                                             <telerik:RadGridView.Columns>
                                                 <input:DataPageSerialColumn  Header="序号" />
                                                 <telerik:GridViewDataColumn Header="附件件号"
+                                                                            IsReadOnly="True"
                                                                             IsSortable="True"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"

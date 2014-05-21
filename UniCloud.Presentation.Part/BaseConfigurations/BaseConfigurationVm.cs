@@ -170,10 +170,10 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
                     if (value != null)
                     {
                         var threshold = Thresholds.FirstOrDefault(p => p.PnRegId == value.Id);
-                        if (threshold != null)
-                            SelThreshold = threshold;
+                        SelThreshold = threshold;
                     }
                     RaisePropertyChanged(() => SelPnReg);
+                    RefreshCommandState();
                 }
             }
         }
@@ -356,6 +356,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
                             _pnRegs = context.EndExecute<PnRegDTO>(result).ToList();
                             SelPnReg = PnRegs.FirstOrDefault();
                             RaisePropertyChanged(() => PnRegs);
+                            RefreshCommandState();
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -401,7 +402,12 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
 
         private bool CanNew(object obj)
         {
-            return PnRegs.Count != 0 && _selPnReg != null;
+            if (SelPnReg != null)
+            {
+                var threshold = Thresholds.FirstOrDefault(p => p.PnRegId == SelPnReg.Id);
+                return PnRegs.Count != 0 && threshold == null;
+            }
+            return false;
         }
 
         #endregion
