@@ -208,6 +208,10 @@
       <DependentUpon>FhaMaintainCostManage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MaintainCost\FhaMaintainCostManageVm.cs" />
+    <Compile Include="MaintainCost\MaintainCostReport.xaml.cs">
+      <DependentUpon>MaintainCostReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainCost\MaintainCostReportVm.cs" />
     <Compile Include="MaintainCost\NonFhaMaintainCostManage.xaml.cs">
       <DependentUpon>NonFhaMaintainCostManage.xaml</DependentUpon>
     </Compile>
@@ -395,6 +399,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MaintainCost\FhaMaintainCostManage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainCost\MaintainCostReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

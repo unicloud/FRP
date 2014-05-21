@@ -795,12 +795,18 @@ namespace UniCloud.Presentation.Shell
                 Text = "FHA",
                 NavUri = "UniCloud.Presentation.Payment.MaintainCost.FhaMaintainCostManage"
             };
+            var menu477 = new MenuItem
+            {
+                Text = "图表",
+                NavUri = "UniCloud.Presentation.Payment.MaintainCost.MaintainCostReport"
+            };
             menu47.Items.Add(menu471);
             menu47.Items.Add(menu472);
             menu47.Items.Add(menu473);
             menu47.Items.Add(menu474);
             menu47.Items.Add(menu475);
             menu47.Items.Add(menu476);
+            menu47.Items.Add(menu477);
             menu4.Items.Add(menu47);
 
             var menu48 = new MenuItem

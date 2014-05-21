@@ -1,0 +1,260 @@
+﻿<UserControl x:Class="UniCloud.Presentation.Payment.MaintainCost.MaintainCostReport"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             d:DataContext="{d:DesignInstance uc:MaintainCostReportVm}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <RectangleGeometry x:Key="LineSeriesLegendGeometry"
+                               Rect="0 5 12 2" />
+            <RectangleGeometry x:Key="SolidRectLegendGeometry"
+                               Rect="0 0 12 12" />
+            <SolidColorBrush x:Key="ActualBrush"
+                             Color="#FFCCCCCC" />
+            <SolidColorBrush x:Key="TargetBrush"
+                             Color="#FF1B9DDE" />
+            <Style x:Key="TextBlockCountryStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontSize"
+                        Value="12" />
+                <Setter Property="Foreground"
+                        Value="Black" />
+                <Setter Property="Margin"
+                        Value="0 0 14 0" />
+            </Style>
+            <Style x:Key="ActualTextBlocktyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontSize"
+                        Value="12" />
+                <Setter Property="Foreground"
+                        Value="{StaticResource ActualBrush}" />
+                <Setter Property="Margin"
+                        Value="0 0 14 0" />
+            </Style>
+            <Style x:Key="TargetTextBlockStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontSize"
+                        Value="12" />
+                <Setter Property="Foreground"
+                        Value="{StaticResource TargetBrush}" />
+                <Setter Property="Margin"
+                        Value="0 0 14 0" />
+            </Style>
+            <telerik:ChartPalette x:Key="ActualTargetChartPalette">
+                <telerik:ChartPalette.GlobalEntries>
+                    <telerik:PaletteEntry Fill="{StaticResource ActualBrush}" />
+                    <telerik:PaletteEntry Fill="{StaticResource TargetBrush}" />
+                </telerik:ChartPalette.GlobalEntries>
+            </telerik:ChartPalette>
+            <Style x:Key="TransparentTickStyle"
+                   TargetType="Rectangle" />
+            <uc:RightAlignedLabelStrategy x:Key="RightAlignedLabelStrategy"
+                                             Offset="35" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <telerik:RadSplitContainer Orientation="Vertical">
+        <telerik:RadSplitContainer InitialPosition="DockedTop"
+                                   Orientation="Horizontal"
+                                   telerik:ProportionalStackPanel.RelativeSize="800, 700">
+            <telerik:RadPaneGroup>
+                <telerik:RadPane Header="维修成本趋势"
+                                 FontSize="{StaticResource TextFontSize}"
+                                 IsPinned="True"
+                                 CanFloat="False"
+                                 CanDockInDocumentHost="False"
+                                 CanUserClose="False"
+                                 CanUserPin="False"
+                                 ContextMenuTemplate="{x:Null}">
+                    <Grid x:Name="LayoutRoot"
+                          Background="White">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <telerik:RadCartesianChart Name="MaintainCostBarChart"
+                                                   EmptyContent="维修成本趋势"
+                                                   Foreground="Black">
+                            <telerik:RadCartesianChart.Behaviors>
+                                <telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" />
+                                <telerik:ChartSelectionBehavior>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="ChartSelectionBehaviorSelectionChanged"></ei:CallMethodAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </telerik:ChartSelectionBehavior>
+                            </telerik:RadCartesianChart.Behaviors>
+                            <telerik:BarSeries ItemsSource="{Binding RegularCheckMaintainCostReports}"
+                                               CategoryBinding="Annual"
+                                               ValueBinding="Actual">
+                                <telerik:BarSeries.LegendSettings>
+                                    <telerik:SeriesLegendSettings Title="年度定检" />
+                                </telerik:BarSeries.LegendSettings>
+                            </telerik:BarSeries>
+                            <telerik:BarSeries ItemsSource="{Binding NonFhaMaintainCostReports}"
+                                               CategoryBinding="Annual"
+                                               ValueBinding="Actual">
+                                <telerik:BarSeries.LegendSettings>
+                                    <telerik:SeriesLegendSettings Title="非FHA.超包修" />
+                                </telerik:BarSeries.LegendSettings>
+                            </telerik:BarSeries>
+                            <telerik:BarSeries ItemsSource="{Binding UndercartMaintainCostReports}"
+                                               CategoryBinding="Annual"
+                                               ValueBinding="Actual">
+                                <telerik:BarSeries.LegendSettings>
+                                    <telerik:SeriesLegendSettings Title="起落架" />
+                                </telerik:BarSeries.LegendSettings>
+                            </telerik:BarSeries>
+                            <telerik:BarSeries ItemsSource="{Binding SpecialRefitMaintainCostReports}"
+                                               CategoryBinding="Annual"
+                                               ValueBinding="Actual">
+                                <telerik:BarSeries.LegendSettings>
+                                    <telerik:SeriesLegendSettings Title="特修改装" />
+                                </telerik:BarSeries.LegendSettings>
+                            </telerik:BarSeries>
+                            <telerik:BarSeries ItemsSource="{Binding FhaMaintainCostReports}"
+                                               CategoryBinding="Annual"
+                                               ValueBinding="Actual">
+                                <telerik:BarSeries.LegendSettings>
+                                    <telerik:SeriesLegendSettings Title="FHA" />
+                                </telerik:BarSeries.LegendSettings>
+                            </telerik:BarSeries>
+                            <telerik:BarSeries ItemsSource="{Binding ApuMaintainCostReports}"
+                                               CategoryBinding="Annual"
+                                               ValueBinding="Actual">
+                                <telerik:BarSeries.LegendSettings>
+                                    <telerik:SeriesLegendSettings Title="APU" />
+                                </telerik:BarSeries.LegendSettings>
+                            </telerik:BarSeries>
+                            <telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:DateTimeContinuousAxis MajorStep="12"
+                                                                MajorStepUnit="Month"
+                                                                LabelInterval="1"
+                                                                GapLength="0.4"
+                                                                PlotMode="OnTicksPadded"
+                                                                LabelFormat="yyyy" />
+                            </telerik:RadCartesianChart.HorizontalAxis>
+                            <telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:LinearAxis Foreground="Black"
+                                                    LabelFormat="0,,"
+                                                    MajorStep="4000000"
+                                                    Minimum="1000000"
+                                                    Maximum="100000000" />
+                            </telerik:RadCartesianChart.VerticalAxis>
+                            <telerik:RadCartesianChart.Grid>
+                                <telerik:CartesianChartGrid StripLinesVisibility="Y"
+                                                            MajorLinesVisibility="Y">
+                                    <telerik:CartesianChartGrid.YStripeBrushes>
+                                        <SolidColorBrush Color="#FFD7D7D7"
+                                                         Opacity="0.3" />
+                                        <SolidColorBrush Color="Transparent" />
+                                    </telerik:CartesianChartGrid.YStripeBrushes>
+                                </telerik:CartesianChartGrid>
+                            </telerik:RadCartesianChart.Grid>
+                        </telerik:RadCartesianChart>
+                        <telerik:RadLegend Name="PieLegend"
+                                           Margin="0,0,10,0"
+                                           Items="{Binding LegendItems, ElementName=MaintainCostBarChart}"
+                                           Grid.Column="1">
+                        </telerik:RadLegend>
+                    </Grid>
+                </telerik:RadPane>
+            </telerik:RadPaneGroup>
+        </telerik:RadSplitContainer>
+        <telerik:RadSplitContainer InitialPosition="DockedBottom"
+                                   telerik:ProportionalStackPanel.RelativeSize="800, 400">
+            <telerik:RadPaneGroup>
+                <telerik:RadPane Header="{Binding SelectTitle}"
+                                 FontSize="{StaticResource TextFontSize}"
+                                 IsPinned="True"
+                                 CanFloat="False"
+                                 CanDockInDocumentHost="False"
+                                 CanUserClose="False"
+                                 CanUserPin="False"
+                                 ContextMenuTemplate="{x:Null}">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <telerik:RadCartesianChart x:Name="Chart"
+                                                   EmptyContent="维修成本明细"
+                                                   Palette="{StaticResource ActualTargetChartPalette}"
+                                                   MinHeight="20"
+                                                   MaxHeight="200"
+                                                   Margin="10 0 20 0"
+                                                   ClipToBounds="False">
+                            <telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:CategoricalAxis IsInverse="True"
+                                                         MajorTickStyle="{StaticResource TransparentTickStyle}"
+                                                         LineStroke="Transparent"
+                                                         LabelStyle="{StaticResource TextBlockCountryStyle}" />
+                            </telerik:RadCartesianChart.VerticalAxis>
+                            <telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:LinearAxis ShowLabels="False"
+                                                    ElementBrush="Transparent" />
+                            </telerik:RadCartesianChart.HorizontalAxis>
+                            <telerik:RadCartesianChart.Series>
+                                <telerik:BarSeries CategoryBinding="Name"
+                                                   ValueBinding="Actual"
+                                                   ItemsSource="{Binding MaintainCostDetails}"
+                                                   CombineMode="None"
+                                                   ShowLabels="True"
+                                                   ClipToPlotArea="False">
+                                    <telerik:BarSeries.PointTemplate>
+                                        <DataTemplate>
+                                            <Rectangle Fill="{StaticResource ActualBrush}"
+                                                       Margin="0 0 0 3" />
+                                        </DataTemplate>
+                                    </telerik:BarSeries.PointTemplate>
+                                    <telerik:BarSeries.LegendSettings>
+                                        <telerik:SeriesLegendSettings Title="实际成本"
+                                                                      MarkerGeometry="{StaticResource SolidRectLegendGeometry}" />
+                                    </telerik:BarSeries.LegendSettings>
+                                    <telerik:BarSeries.LabelDefinitions>
+                                        <telerik:ChartSeriesLabelDefinition Binding="Actual"
+                                                                            Format="{StaticResource CurrencyStringFormat}"
+                                                                            DefaultVisualStyle="{StaticResource TextBlockCountryStyle}"
+                                                                            Strategy="{StaticResource RightAlignedLabelStrategy}" />
+                                    </telerik:BarSeries.LabelDefinitions>
+                                </telerik:BarSeries>
+                                <telerik:BarSeries CategoryBinding="Name"
+                                                   ValueBinding="Budget"
+                                                   ItemsSource="{Binding MaintainCostDetails}"
+                                                   CombineMode="None">
+                                    <telerik:BarSeries.PointTemplate>
+                                        <DataTemplate>
+                                            <Rectangle Fill="{StaticResource TargetBrush}"
+                                                       Height="2"
+                                                       VerticalAlignment="Bottom" />
+                                        </DataTemplate>
+                                    </telerik:BarSeries.PointTemplate>
+                                    <telerik:BarSeries.LegendSettings>
+                                        <telerik:SeriesLegendSettings Title="预算成本"
+                                                                      MarkerGeometry="{StaticResource LineSeriesLegendGeometry}" />
+                                    </telerik:BarSeries.LegendSettings>
+                                </telerik:BarSeries>
+                            </telerik:RadCartesianChart.Series>
+                        </telerik:RadCartesianChart>
+                        <telerik:RadLegend Grid.Column="1"
+                                           Margin="24,4,0,0"
+                                           MinWidth="76"
+                                           Items="{Binding LegendItems, ElementName=Chart}" />
+                    </Grid>
+                </telerik:RadPane>
+            </telerik:RadPaneGroup>
+        </telerik:RadSplitContainer>
+    </telerik:RadSplitContainer>
+</UserControl>
