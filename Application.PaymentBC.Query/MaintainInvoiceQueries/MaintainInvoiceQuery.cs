@@ -70,13 +70,14 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
         /// <param name="query">查询表达式。</param>
         /// <returns>发动机维修发票DTO集合。</returns>
         public IQueryable<EngineMaintainInvoiceDTO> EngineMaintainInvoiceDTOQuery(
-            QueryBuilder<MaintainInvoice> query)
+            QueryBuilder<EngineMaintainInvoice> query)
         {
             return
                 query.ApplyTo(_invoiceRepository.GetAll().OfType<EngineMaintainInvoice>())
                     .Select(p => new EngineMaintainInvoiceDTO
                                  {
                                      EngineMaintainInvoiceId = p.Id,
+                                     Type = (int)p.Type,
                                      SerialNumber = p.SerialNumber,
                                      InvoiceNumber = p.InvoiceNumber,
                                      InvoideCode = p.InvoideCode,

@@ -152,7 +152,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             {
                 SpecialRefitMaintainCost.MaintainInvoiceId = invoice.SpecialRefitId;
                 SpecialRefitMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                SpecialRefitMaintainCost.AcutalAmount = invoice.PaidAmount;
+                SpecialRefitMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
             SpecialRefitMaintainCosts.AddNew(SpecialRefitMaintainCost);
         }
@@ -228,7 +228,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (invoice != null)
             {
                 SpecialRefitMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                SpecialRefitMaintainCost.AcutalAmount = invoice.PaidAmount;
+                SpecialRefitMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
         }
         #endregion

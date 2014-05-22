@@ -190,7 +190,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 NonFhaMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
                 NonFhaMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
                 NonFhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                NonFhaMaintainCost.AcutalAmount = invoice.PaidAmount;
+                NonFhaMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
             NonFhaMaintainCosts.AddNew(NonFhaMaintainCost);
         }
@@ -302,7 +302,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 NonFhaMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
                 NonFhaMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
                 NonFhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                NonFhaMaintainCost.AcutalAmount = invoice.PaidAmount;
+                NonFhaMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
             NonFhaMaintainCost.FeeLittleSum = NonFhaMaintainCost.NonFhaFee +
                                                     NonFhaMaintainCost.PartFee +

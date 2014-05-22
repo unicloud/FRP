@@ -34,7 +34,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///     发动机维修发票主键
         /// </summary>
         public int EngineMaintainInvoiceId { get; set; }
-
+        public int Type { get; set; }
         #endregion
 
         #region 外键属性

@@ -17,9 +17,11 @@
 
 #region 命名空间
 
-
+using UniCloud.Domain.Common.Enums;
 
 #endregion
+
+
 
 namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
 {
@@ -41,7 +43,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         #endregion
 
         #region 属性
-
+        public EngineMaintainInvoiceType Type { get; internal set; }
         #endregion
 
         #region 外键属性
@@ -54,6 +56,10 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
 
         #region 操作
 
+        public void SetType(int type)
+        {
+            Type = (EngineMaintainInvoiceType) type;
+        }
         #endregion
     }
 }

@@ -105,6 +105,7 @@
     <Compile Include="PaymentServiceHelper.cs" />
     <Compile Include="Payment\EnginePaymentScheduleDTO.cs" />
     <Compile Include="Payment\Enums\ContractRepairtType.cs" />
+    <Compile Include="Payment\Enums\EngineMaintainInvoiceType.cs" />
     <Compile Include="Payment\Enums\GuaranteeStatus.cs" />
     <Compile Include="Payment\Enums\InvoiceType.cs" />
     <Compile Include="Payment\Enums\ItemNameType.cs" />

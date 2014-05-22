@@ -17,6 +17,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Regions;
@@ -79,7 +80,10 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         #region 数据
 
         #region 公共属性
-
+        public Dictionary<int, EngineMaintainInvoiceType> Types
+        {
+            get { return Enum.GetValues(typeof(EngineMaintainInvoiceType)).Cast<object>().ToDictionary(value => (int)value, value => (EngineMaintainInvoiceType)value); }
+        }
         #endregion
 
         #region 加载数据

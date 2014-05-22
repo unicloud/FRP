@@ -117,6 +117,14 @@
                                             </telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号" />
+                                                <telerik:GridViewComboBoxColumn Header="类型"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                TextAlignment="Right"
+                                                                                HeaderTextAlignment="Center"
+                                                                                ItemsSource="{Binding DataContext.Types,Mode=TwoWay,ElementName=EngineMaintainView}"
+                                                                                DataMemberBinding="{Binding Type}"
+                                                                                SelectedValueMemberPath="Key"
+                                                                                DisplayMemberPath="Value" />
                                                 <telerik:GridViewDataColumn Header="序列号"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             TextAlignment="Right"

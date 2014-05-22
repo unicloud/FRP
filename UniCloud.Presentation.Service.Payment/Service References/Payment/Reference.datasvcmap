@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="fea10436-63a2-4691-a947-c5a8477ad260" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1aaeac4b-f3e2-49ff-92c8-153fc3c8d842" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
   <MetadataSources>
     <MetadataSource Address="http://localhost:20119/PaymentDataService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="055c8649-6e58-4893-bf59-7dcae7344c8c" SourceId="1" SourceUrl="http://localhost:20119/PaymentDataService.svc" />
+    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="f5ef6925-c604-4340-a276-cd6fd5232a87" SourceId="1" SourceUrl="http://localhost:20119/PaymentDataService.svc" />
   </Metadata>
   <Extensions />
   <Parameters>

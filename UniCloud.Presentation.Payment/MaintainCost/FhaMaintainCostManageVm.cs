@@ -155,7 +155,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             {
                 FhaMaintainCost.MaintainInvoiceId = invoice.EngineMaintainInvoiceId;
                 FhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                FhaMaintainCost.AcutalAmount = invoice.PaidAmount;
+                FhaMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
             FhaMaintainCosts.AddNew(FhaMaintainCost);
         }
@@ -240,7 +240,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (invoice != null)
             {
                 FhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                FhaMaintainCost.AcutalAmount = invoice.PaidAmount;
+                FhaMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
             FhaMaintainCost.YearBudgetRate = FhaMaintainCost.LastYearRate * (1 + FhaMaintainCost.YearAddedRate);
             FhaMaintainCost.Hour = FhaMaintainCost.AirHour * FhaMaintainCost.HourPercent * 2;

@@ -242,6 +242,7 @@
           <PropertyRef Name="EngineMaintainInvoiceId" />
         </Key>
         <Property Name="EngineMaintainInvoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Type" Type="Edm.Int32" Nullable="false" />
         <Property Name="SerialNumber" Type="Edm.String" />
         <Property Name="InvoiceNumber" Type="Edm.String" />
         <Property Name="InvoideCode" Type="Edm.String" />

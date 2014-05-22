@@ -164,7 +164,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             {
                 ApuMaintainCost.MaintainInvoiceId = invoice.APUMaintainInvoiceId;
                 ApuMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                ApuMaintainCost.AcutalAmount = invoice.PaidAmount;
+                ApuMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
             ApuMaintainCosts.AddNew(ApuMaintainCost);
         }
@@ -240,7 +240,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (invoice != null)
             {
                 ApuMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                ApuMaintainCost.AcutalAmount = invoice.PaidAmount;
+                ApuMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
             ApuMaintainCost.YearBudgetRate = ApuMaintainCost.LastYearRate * ApuMaintainCost.YearAddedRate;
             ApuMaintainCost.Hour = ApuMaintainCost.BudgetHour * ApuMaintainCost.HourPercent;
