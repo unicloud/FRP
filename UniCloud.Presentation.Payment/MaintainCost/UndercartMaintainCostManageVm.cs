@@ -279,7 +279,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                     UndercartMaintainCost.AcutalTotalDays =
                         (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
                     UndercartMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                    UndercartMaintainCost.AcutalAmount = invoice.PaidAmount;
+                    UndercartMaintainCost.AcutalAmount = invoice.InvoiceValue;
                 }
             }
         }
@@ -303,7 +303,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 UndercartMaintainCost.AcutalTotalDays =
                     (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
                 UndercartMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                UndercartMaintainCost.AcutalAmount = invoice.PaidAmount;
+                UndercartMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
             UndercartMaintainCost.TotalDays = (UndercartMaintainCost.OutMaintainTime.Date - UndercartMaintainCost.InMaintainTime.Date).Days + 1;
             UndercartMaintainCost.AcutalTotalDays = (UndercartMaintainCost.AcutalOutMaintainTime.Date - UndercartMaintainCost.AcutalInMaintainTime.Date).Days + 1;

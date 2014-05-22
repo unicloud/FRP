@@ -61,7 +61,7 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         /// <returns>所有发动机维修发票。</returns>
         public IQueryable<EngineMaintainInvoiceDTO> GetEngineMaintainInvoices()
         {
-            var queryBuilder = new QueryBuilder<MaintainInvoice>();
+            var queryBuilder = new QueryBuilder<EngineMaintainInvoice>();
             return _maintainInvoiceQuery.EngineMaintainInvoiceDTOQuery(queryBuilder);
         }
 
@@ -80,6 +80,7 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
                 engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId,
                 engineMaintainInvoice.DocumentName, engineMaintainInvoice.DocumentId, engineMaintainInvoice.PaymentScheduleLineId,
                 engineMaintainInvoice.InMaintainTime, engineMaintainInvoice.OutMaintainTime);
+            newEngineMaintainInvoice.SetType(engineMaintainInvoice.Type);
             if (engineMaintainInvoice.MaintainInvoiceLines != null)
             {
                 foreach (var maintainInvoiceLine in engineMaintainInvoice.MaintainInvoiceLines)
@@ -103,13 +104,14 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         public void ModifyEngineMaintainInvoice(EngineMaintainInvoiceDTO engineMaintainInvoice)
         {
             var updateEngineMaintainInvoice =
-                _invoiceRepository.Get(engineMaintainInvoice.EngineMaintainInvoiceId) as MaintainInvoice; //获取需要更新的对象。
+                _invoiceRepository.Get(engineMaintainInvoice.EngineMaintainInvoiceId) as EngineMaintainInvoice; //获取需要更新的对象。
             MaintainInvoiceFactory.SetMaintainInvoice(updateEngineMaintainInvoice, engineMaintainInvoice.SerialNumber,
                 engineMaintainInvoice.InvoideCode, engineMaintainInvoice.InvoiceDate, engineMaintainInvoice.SupplierName, engineMaintainInvoice.SupplierId,
                 engineMaintainInvoice.InvoiceValue, engineMaintainInvoice.PaidAmount, engineMaintainInvoice.OperatorName,
                engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId,
                engineMaintainInvoice.DocumentName, engineMaintainInvoice.DocumentId, engineMaintainInvoice.PaymentScheduleLineId,
                engineMaintainInvoice.InMaintainTime, engineMaintainInvoice.OutMaintainTime);
+            updateEngineMaintainInvoice.SetType(engineMaintainInvoice.Type);
             UpdateMaintainInvoiceLines(engineMaintainInvoice.MaintainInvoiceLines, updateEngineMaintainInvoice);
             _invoiceRepository.Modify(updateEngineMaintainInvoice);
         }

@@ -98,26 +98,37 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         ///     获取所有Apu维修成本信息。
         /// </summary>
         public QueryableDataServiceCollectionView<ApuMaintainCostDTO> ApuMaintainCosts { get; set; }
+        private bool _loadedApu;
+
         /// <summary>
         ///     获取所有Fha维修成本信息。
         /// </summary>
         public QueryableDataServiceCollectionView<FhaMaintainCostDTO> FhaMaintainCosts { get; set; }
+        private bool _loadedFha;
+
         /// <summary>
         ///     获取所有非FHA.超包修维修成本信息。
         /// </summary>
         public QueryableDataServiceCollectionView<NonFhaMaintainCostDTO> NonFhaMaintainCosts { get; set; }
+        private bool _loadedNonFha;
+
         /// <summary>
         ///     获取所有定检维修成本信息。
         /// </summary>
         public QueryableDataServiceCollectionView<RegularCheckMaintainCostDTO> RegularCheckMaintainCosts { get; set; }
+        private bool _loadedRegularCheck;
+
         /// <summary>
         ///     获取所有特修改装维修成本信息。
         /// </summary>
         public QueryableDataServiceCollectionView<SpecialRefitMaintainCostDTO> SpecialRefitMaintainCosts { get; set; }
+        private bool _loadedSpecialRefit;
+
         /// <summary>
         ///     获取所有起落架维修成本信息。
         /// </summary>
         public QueryableDataServiceCollectionView<UndercartMaintainCostDTO> UndercartMaintainCosts { get; set; }
+        private bool _loadedUndercart;
 
         /// <summary>
         ///     初始化维修成本信息。
@@ -142,7 +153,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                         maintainCostReport.TotalActual += maintainCostReport.ApuActual;
                         if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
                             MaintainCostReports.Add(maintainCostReport);
-                    }); RaisePropertyChanged(() => MaintainCostReports);
+                    });
+                _loadedApu = true;
+                LoadComplete();
             };
             FhaMaintainCosts = _service.CreateCollection(_context.FhaMaintainCosts);
             FhaMaintainCosts.LoadedData += (sender, e) =>
@@ -162,7 +175,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                         maintainCostReport.TotalActual += maintainCostReport.FhaActual;
                         if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
                             MaintainCostReports.Add(maintainCostReport);
-                    }); RaisePropertyChanged(() => MaintainCostReports);
+                    });
+                _loadedFha = true;
+                LoadComplete();
             };
 
             NonFhaMaintainCosts = _service.CreateCollection(_context.NonFhaMaintainCosts);
@@ -183,7 +198,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                         maintainCostReport.TotalActual += maintainCostReport.NonFhaActual;
                         if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
                             MaintainCostReports.Add(maintainCostReport);
-                    }); RaisePropertyChanged(() => MaintainCostReports);
+                    });
+                _loadedNonFha = true;
+                LoadComplete();
             };
 
             RegularCheckMaintainCosts = _service.CreateCollection(_context.RegularCheckMaintainCosts);
@@ -204,7 +221,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                         maintainCostReport.TotalActual += maintainCostReport.RegularCheckActual;
                         if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
                             MaintainCostReports.Add(maintainCostReport);
-                    }); RaisePropertyChanged(() => MaintainCostReports);
+                    });
+                _loadedRegularCheck = true;
+                LoadComplete();
             };
 
             SpecialRefitMaintainCosts = _service.CreateCollection(_context.SpecialRefitMaintainCosts);
@@ -225,7 +244,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                         maintainCostReport.TotalActual += maintainCostReport.SpecialRefitActual;
                         if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
                             MaintainCostReports.Add(maintainCostReport);
-                    }); RaisePropertyChanged(() => MaintainCostReports);
+                    });
+                _loadedSpecialRefit = true;
+                LoadComplete();
             };
 
             UndercartMaintainCosts = _service.CreateCollection(_context.UndercartMaintainCosts);
@@ -246,22 +267,41 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                         maintainCostReport.TotalActual += maintainCostReport.UndercartActual;
                         if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
                             MaintainCostReports.Add(maintainCostReport);
-                    }); RaisePropertyChanged(() => MaintainCostReports);
+                    });
+                _loadedUndercart = true;
+                LoadComplete();
             };
 
             Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
             Annuals.LoadedData += (o, e) =>
                                   {
                                       _maintainCostReports = new ObservableCollection<MaintainCost>();
+                                      _loadedApu = false;
                                       ApuMaintainCosts.Load(true);
+                                      _loadedFha = false;
                                       FhaMaintainCosts.Load(true);
+                                      _loadedNonFha = false;
                                       NonFhaMaintainCosts.Load(true);
+                                      _loadedRegularCheck = false;
                                       RegularCheckMaintainCosts.Load(true);
+                                      _loadedSpecialRefit = false;
                                       SpecialRefitMaintainCosts.Load(true);
+                                      _loadedUndercart = false;
                                       UndercartMaintainCosts.Load(true);
                                   };
         }
 
+        private void LoadComplete()
+        {
+            if (_loadedApu && _loadedFha && _loadedNonFha && _loadedRegularCheck && _loadedSpecialRefit &&
+                _loadedUndercart)
+            {
+                IsBusy = false;
+                RaisePropertyChanged(() => MaintainCostReports);
+                var maintainCost = MaintainCostReports.LastOrDefault();
+                GenerateDetail(maintainCost);
+            }
+        }
         #endregion
 
         #region 命令
@@ -272,6 +312,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         public override void LoadData()
         {
+            IsBusy = true;
             Annuals.Load(true);
         }
 
@@ -293,52 +334,84 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                     var maintainCostItem = selectedPoint.DataItem as MaintainCost;
                     if (maintainCostItem != null)
                     {
-                        SelectTitle = maintainCostItem.Annual.Year + "年维修成本明细";
                         var maintainCost = MaintainCostReports.FirstOrDefault(p => p.Annual.Year == maintainCostItem.Annual.Year);
-                        if (maintainCost != null)
-                        {
-                            MaintainCostDetails = new ObservableCollection<MaintainCostDetail>
+                        GenerateDetail(maintainCost);
+                    }
+                }
+            }
+        }
+
+        private void GenerateDetail(MaintainCost maintainCost)
+        {
+            if (maintainCost != null)
+            {
+                SelectTitle = maintainCost.Annual.Year + "年维修成本明细";
+                MaintainCostDetails = new ObservableCollection<MaintainCostDetail>
                                                   {
                                                       new MaintainCostDetail
                                                       {
                                                           Name = "年度定检",
                                                           Actual = maintainCost.RegularCheckActual,
-                                                          Budget = maintainCost.RegularCheckBudget
+                                                          Budget = maintainCost.RegularCheckBudget,
+                                                          Color =
+                                                              maintainCost.RegularCheckActual >
+                                                              maintainCost.RegularCheckBudget
+                                                                  ? "#FFF90202"
+                                                                  : "#FFCCCCCC"
                                                       },
                                                       new MaintainCostDetail
                                                       {
                                                           Name = "非FHA.超包修",
                                                           Actual = maintainCost.NonFhaActual,
-                                                          Budget = maintainCost.NonFhaBudget
+                                                          Budget = maintainCost.NonFhaBudget,
+                                                          Color =
+                                                              maintainCost.NonFhaActual > maintainCost.NonFhaBudget
+                                                                  ? "#FFF90202"
+                                                                  : "#FFCCCCCC"
                                                       },
                                                       new MaintainCostDetail
                                                       {
                                                           Name = "起落架",
                                                           Actual = maintainCost.UndercartActual,
-                                                          Budget = maintainCost.UndercartBudget
+                                                          Budget = maintainCost.UndercartBudget,
+                                                          Color =
+                                                              maintainCost.UndercartActual >
+                                                              maintainCost.UndercartBudget
+                                                                  ? "#FFF90202"
+                                                                  : "#FFCCCCCC"
                                                       },
                                                       new MaintainCostDetail
                                                       {
                                                           Name = "特修改装",
                                                           Actual = maintainCost.SpecialRefitActual,
-                                                          Budget = maintainCost.SpecialRefitBudget
+                                                          Budget = maintainCost.SpecialRefitBudget,
+                                                          Color =
+                                                              maintainCost.SpecialRefitActual >
+                                                              maintainCost.SpecialRefitBudget
+                                                                  ? "#FFF90202"
+                                                                  : "#FFCCCCCC"
                                                       },
                                                       new MaintainCostDetail
                                                       {
                                                           Name = "FHA",
                                                           Actual = maintainCost.FhaActual,
-                                                          Budget = maintainCost.FhaBudget
+                                                          Budget = maintainCost.FhaBudget,
+                                                          Color =
+                                                              maintainCost.FhaActual > maintainCost.FhaBudget
+                                                                  ? "#FFF90202"
+                                                                  : "#FFCCCCCC"
                                                       },
                                                       new MaintainCostDetail
                                                       {
                                                           Name = "APU",
                                                           Actual = maintainCost.ApuActual,
-                                                          Budget = maintainCost.ApuBudget
+                                                          Budget = maintainCost.ApuBudget,
+                                                          Color =
+                                                              maintainCost.ApuActual > maintainCost.ApuBudget
+                                                                  ? "#FFF90202"
+                                                                  : "#FFCCCCCC"
                                                       },
                                                   };
-                        }
-                    }
-                }
             }
         }
     }
@@ -377,7 +450,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         }
 
         public decimal NonFhaBudget { get; set; }
-        private decimal _nonFhaActual ;
+        private decimal _nonFhaActual;
         public decimal NonFhaActual
         {
             get
@@ -440,7 +513,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         private void OnPropertyChanged(string propertyName)
         {
-            PropertyChangedEventHandler handler = this.PropertyChanged;
+            PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
@@ -453,5 +526,6 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         public string Name { get; set; }
         public decimal Actual { get; set; }
         public decimal Budget { get; set; }
+        public string Color { get; set; }
     }
 }

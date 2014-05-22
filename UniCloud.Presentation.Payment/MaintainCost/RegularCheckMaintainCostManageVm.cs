@@ -182,7 +182,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 RegularCheckMaintainCost.AcutalTotalDays =
                    (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
                 RegularCheckMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                RegularCheckMaintainCost.AcutalAmount = invoice.PaidAmount;
+                RegularCheckMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
             RegularCheckMaintainCosts.AddNew(RegularCheckMaintainCost);
         }
@@ -272,7 +272,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 RegularCheckMaintainCost.AcutalTotalDays =
                     (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
                 RegularCheckMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                RegularCheckMaintainCost.AcutalAmount = invoice.PaidAmount;
+                RegularCheckMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
             RegularCheckMaintainCost.TotalDays = (RegularCheckMaintainCost.OutMaintainTime.Date - RegularCheckMaintainCost.InMaintainTime.Date).Days + 1;
             RegularCheckMaintainCost.AcutalTotalDays = (RegularCheckMaintainCost.AcutalOutMaintainTime.Date - RegularCheckMaintainCost.AcutalInMaintainTime.Date).Days + 1;
