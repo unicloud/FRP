@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Telerik.Charting;
@@ -68,70 +69,14 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         #endregion
 
         #region 维修成本报告
-
-        private ObservableCollection<MaintainCost> _apuMaintainCostReports;
-        public ObservableCollection<MaintainCost> ApuMaintainCostReports
+        private ObservableCollection<MaintainCost> _maintainCostReports;
+        public ObservableCollection<MaintainCost> MaintainCostReports
         {
-            get { return _apuMaintainCostReports; }
+            get { return _maintainCostReports; }
             set
             {
-                _apuMaintainCostReports = value;
-                RaisePropertyChanged(() => ApuMaintainCostReports);
-            }
-        }
-
-        private ObservableCollection<MaintainCost> _fhaMaintainCostReports;
-        public ObservableCollection<MaintainCost> FhaMaintainCostReports
-        {
-            get { return _fhaMaintainCostReports; }
-            set
-            {
-                _fhaMaintainCostReports = value;
-                RaisePropertyChanged(() => FhaMaintainCostReports);
-            }
-        }
-
-        private ObservableCollection<MaintainCost> _nonFhaMaintainCostReports;
-        public ObservableCollection<MaintainCost> NonFhaMaintainCostReports
-        {
-            get { return _nonFhaMaintainCostReports; }
-            set
-            {
-                _nonFhaMaintainCostReports = value;
-                RaisePropertyChanged(() => NonFhaMaintainCostReports);
-            }
-        }
-
-        private ObservableCollection<MaintainCost> _regularCheckMaintainCostReports;
-        public ObservableCollection<MaintainCost> RegularCheckMaintainCostReports
-        {
-            get { return _regularCheckMaintainCostReports; }
-            set
-            {
-                _regularCheckMaintainCostReports = value;
-                RaisePropertyChanged(() => RegularCheckMaintainCostReports);
-            }
-        }
-
-        private ObservableCollection<MaintainCost> _specialRefitMaintainCostReports;
-        public ObservableCollection<MaintainCost> SpecialRefitMaintainCostReports
-        {
-            get { return _specialRefitMaintainCostReports; }
-            set
-            {
-                _specialRefitMaintainCostReports = value;
-                RaisePropertyChanged(() => SpecialRefitMaintainCostReports);
-            }
-        }
-
-        private ObservableCollection<MaintainCost> _undercartMaintainCostReports;
-        public ObservableCollection<MaintainCost> UndercartMaintainCostReports
-        {
-            get { return _undercartMaintainCostReports; }
-            set
-            {
-                _undercartMaintainCostReports = value;
-                RaisePropertyChanged(() => UndercartMaintainCostReports);
+                _maintainCostReports = value;
+                RaisePropertyChanged(() => MaintainCostReports);
             }
         }
 
@@ -182,132 +127,132 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             ApuMaintainCosts = _service.CreateCollection(_context.ApuMaintainCosts);
             ApuMaintainCosts.LoadedData += (sender, e) =>
             {
-                var maintainCostReports = new ObservableCollection<MaintainCost>();
                 Annuals.ToList().ForEach(p =>
-                                         {
-                                             var maintainCostReport = new MaintainCost
-                                                                         {
-                                                                             Annual = new DateTime(p.Year, 1, 1),
-                                                                             Budget = ApuMaintainCosts.Where(
-                                                                                     q => q.AnnualId == p.Id)
-                                                                                 .Sum(t => t.IncludeAddedValue),
-                                                                             Actual = ApuMaintainCosts.Where(
-                                                                                 q => q.AnnualId == p.Id)
-                                                                             .Sum(t => t.AcutalAmount)
-                                                                         };
-                                             if (maintainCostReport.Budget != 0 && maintainCostReport.Actual != 0)
-                                                 maintainCostReports.Add(maintainCostReport);
-                                         });
-                ApuMaintainCostReports = maintainCostReports;
+                    {
+                        var maintainCostReport = MaintainCostReports.FirstOrDefault(q => q.Annual.Year == p.Year);
+                        bool exist = true;
+                        if (maintainCostReport == null)
+                        {
+                            exist = false;
+                            maintainCostReport = new MaintainCost { Annual = new DateTime(p.Year, 1, 1) };
+                        }
+                        maintainCostReport.ApuBudget = ApuMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.IncludeAddedValue);
+                        maintainCostReport.TotalBudget += maintainCostReport.ApuBudget;
+                        maintainCostReport.ApuActual = ApuMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.AcutalAmount);
+                        maintainCostReport.TotalActual += maintainCostReport.ApuActual;
+                        if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
+                            MaintainCostReports.Add(maintainCostReport);
+                    }); RaisePropertyChanged(() => MaintainCostReports);
             };
             FhaMaintainCosts = _service.CreateCollection(_context.FhaMaintainCosts);
             FhaMaintainCosts.LoadedData += (sender, e) =>
             {
-                var maintainCostReports = new ObservableCollection<MaintainCost>();
                 Annuals.ToList().ForEach(p =>
-                {
-                    var maintainCostReport = new MaintainCost
                     {
-                        Annual = new DateTime(p.Year, 1, 1),
-                        Budget = FhaMaintainCosts.Where(
-                                q => q.AnnualId == p.Id)
-                            .Sum(t => t.CustomAdded),
-                        Actual = FhaMaintainCosts.Where(
-                            q => q.AnnualId == p.Id)
-                        .Sum(t => t.AcutalAmount)
-                    };
-                    if (maintainCostReport.Budget != 0 && maintainCostReport.Actual != 0)
-                        maintainCostReports.Add(maintainCostReport);
-                });
-                FhaMaintainCostReports = maintainCostReports;
+                        var maintainCostReport = MaintainCostReports.FirstOrDefault(q => q.Annual.Year == p.Year);
+                        bool exist = true;
+                        if (maintainCostReport == null)
+                        {
+                            exist = false;
+                            maintainCostReport = new MaintainCost { Annual = new DateTime(p.Year, 1, 1) };
+                        }
+                        maintainCostReport.FhaBudget = FhaMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.CustomAdded);
+                        maintainCostReport.TotalBudget += maintainCostReport.FhaBudget;
+                        maintainCostReport.FhaActual = FhaMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.AcutalAmount);
+                        maintainCostReport.TotalActual += maintainCostReport.FhaActual;
+                        if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
+                            MaintainCostReports.Add(maintainCostReport);
+                    }); RaisePropertyChanged(() => MaintainCostReports);
             };
+
             NonFhaMaintainCosts = _service.CreateCollection(_context.NonFhaMaintainCosts);
             NonFhaMaintainCosts.LoadedData += (sender, e) =>
             {
-                var maintainCostReports = new ObservableCollection<MaintainCost>();
                 Annuals.ToList().ForEach(p =>
-                {
-                    var maintainCostReport = new MaintainCost
                     {
-                        Annual = new DateTime(p.Year, 1, 1),
-                        Budget = NonFhaMaintainCosts.Where(
-                                q => q.AnnualId == p.Id)
-                            .Sum(t => t.FinancialApprovalAmount),
-                        Actual = NonFhaMaintainCosts.Where(
-                            q => q.AnnualId == p.Id)
-                        .Sum(t => t.AcutalAmount)
-                    };
-                    if (maintainCostReport.Budget != 0 && maintainCostReport.Actual != 0)
-                        maintainCostReports.Add(maintainCostReport);
-                });
-                NonFhaMaintainCostReports = maintainCostReports;
+                        var maintainCostReport = MaintainCostReports.FirstOrDefault(q => q.Annual.Year == p.Year);
+                        bool exist = true;
+                        if (maintainCostReport == null)
+                        {
+                            exist = false;
+                            maintainCostReport = new MaintainCost { Annual = new DateTime(p.Year, 1, 1) };
+                        }
+                        maintainCostReport.NonFhaBudget = NonFhaMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.FinancialApprovalAmount);
+                        maintainCostReport.TotalBudget += maintainCostReport.NonFhaBudget;
+                        maintainCostReport.NonFhaActual = NonFhaMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.AcutalAmount);
+                        maintainCostReport.TotalActual += maintainCostReport.NonFhaActual;
+                        if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
+                            MaintainCostReports.Add(maintainCostReport);
+                    }); RaisePropertyChanged(() => MaintainCostReports);
             };
+
             RegularCheckMaintainCosts = _service.CreateCollection(_context.RegularCheckMaintainCosts);
             RegularCheckMaintainCosts.LoadedData += (sender, e) =>
             {
-                var maintainCostReports = new ObservableCollection<MaintainCost>();
                 Annuals.ToList().ForEach(p =>
-                {
-                    var maintainCostReport = new MaintainCost
                     {
-                        Annual = new DateTime(p.Year, 1, 1),
-                        Budget = RegularCheckMaintainCosts.Where(
-                                q => q.AnnualId == p.Id)
-                            .Sum(t => t.FinancialApprovalAmount),
-                        Actual = RegularCheckMaintainCosts.Where(
-                            q => q.AnnualId == p.Id)
-                        .Sum(t => t.AcutalAmount)
-                    };
-                    if (maintainCostReport.Budget != 0 && maintainCostReport.Actual != 0)
-                        maintainCostReports.Add(maintainCostReport);
-                });
-                RegularCheckMaintainCostReports = maintainCostReports;
+                        var maintainCostReport = MaintainCostReports.FirstOrDefault(q => q.Annual.Year == p.Year);
+                        bool exist = true;
+                        if (maintainCostReport == null)
+                        {
+                            exist = false;
+                            maintainCostReport = new MaintainCost { Annual = new DateTime(p.Year, 1, 1) };
+                        }
+                        maintainCostReport.RegularCheckBudget = RegularCheckMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.FinancialApprovalAmount);
+                        maintainCostReport.TotalBudget += maintainCostReport.RegularCheckBudget;
+                        maintainCostReport.RegularCheckActual = RegularCheckMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.AcutalAmount);
+                        maintainCostReport.TotalActual += maintainCostReport.RegularCheckActual;
+                        if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
+                            MaintainCostReports.Add(maintainCostReport);
+                    }); RaisePropertyChanged(() => MaintainCostReports);
             };
+
             SpecialRefitMaintainCosts = _service.CreateCollection(_context.SpecialRefitMaintainCosts);
             SpecialRefitMaintainCosts.LoadedData += (sender, e) =>
             {
-                var maintainCostReports = new ObservableCollection<MaintainCost>();
                 Annuals.ToList().ForEach(p =>
-                {
-                    var maintainCostReport = new MaintainCost
                     {
-                        Annual = new DateTime(p.Year, 1, 1),
-                        Budget = SpecialRefitMaintainCosts.Where(
-                                q => q.AnnualId == p.Id)
-                            .Sum(t => t.FinancialApprovalAmount),
-                        Actual = SpecialRefitMaintainCosts.Where(
-                            q => q.AnnualId == p.Id)
-                        .Sum(t => t.AcutalAmount)
-                    };
-                    if (maintainCostReport.Budget != 0 && maintainCostReport.Actual != 0)
-                        maintainCostReports.Add(maintainCostReport);
-                });
-                SpecialRefitMaintainCostReports = maintainCostReports;
+                        var maintainCostReport = MaintainCostReports.FirstOrDefault(q => q.Annual.Year == p.Year);
+                        bool exist = true;
+                        if (maintainCostReport == null)
+                        {
+                            exist = false;
+                            maintainCostReport = new MaintainCost { Annual = new DateTime(p.Year, 1, 1) };
+                        }
+                        maintainCostReport.SpecialRefitBudget = SpecialRefitMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.FinancialApprovalAmount);
+                        maintainCostReport.TotalBudget += maintainCostReport.SpecialRefitBudget;
+                        maintainCostReport.SpecialRefitActual = SpecialRefitMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.AcutalAmount);
+                        maintainCostReport.TotalActual += maintainCostReport.SpecialRefitActual;
+                        if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
+                            MaintainCostReports.Add(maintainCostReport);
+                    }); RaisePropertyChanged(() => MaintainCostReports);
             };
+
             UndercartMaintainCosts = _service.CreateCollection(_context.UndercartMaintainCosts);
             UndercartMaintainCosts.LoadedData += (sender, e) =>
             {
-                var maintainCostReports = new ObservableCollection<MaintainCost>();
                 Annuals.ToList().ForEach(p =>
-                {
-                    var maintainCostReport = new MaintainCost
                     {
-                        Annual = new DateTime(p.Year, 1, 1),
-                        Budget = UndercartMaintainCosts.Where(
-                                q => q.AnnualId == p.Id)
-                            .Sum(t => t.FinancialApprovalAmount),
-                        Actual = UndercartMaintainCosts.Where(
-                            q => q.AnnualId == p.Id)
-                        .Sum(t => t.AcutalAmount)
-                    };
-                    if (maintainCostReport.Budget != 0 && maintainCostReport.Actual != 0)
-                        maintainCostReports.Add(maintainCostReport);
-                });
-                UndercartMaintainCostReports = maintainCostReports;
+                        var maintainCostReport = MaintainCostReports.FirstOrDefault(q => q.Annual.Year == p.Year);
+                        bool exist = true;
+                        if (maintainCostReport == null)
+                        {
+                            exist = false;
+                            maintainCostReport = new MaintainCost { Annual = new DateTime(p.Year, 1, 1) };
+                        }
+                        maintainCostReport.UndercartBudget = UndercartMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.FinancialApprovalAmount);
+                        maintainCostReport.TotalBudget += maintainCostReport.UndercartBudget;
+                        maintainCostReport.UndercartActual = UndercartMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.AcutalAmount);
+                        maintainCostReport.TotalActual += maintainCostReport.UndercartActual;
+                        if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
+                            MaintainCostReports.Add(maintainCostReport);
+                    }); RaisePropertyChanged(() => MaintainCostReports);
             };
+
             Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
             Annuals.LoadedData += (o, e) =>
                                   {
+                                      _maintainCostReports = new ObservableCollection<MaintainCost>();
                                       ApuMaintainCosts.Load(true);
                                       FhaMaintainCosts.Load(true);
                                       NonFhaMaintainCosts.Load(true);
@@ -345,89 +290,162 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 DataPoint selectedPoint = chartSelectionBehavior.Chart.SelectedPoints.FirstOrDefault();
                 if (selectedPoint != null)
                 {
-                    var maintainCost = selectedPoint.DataItem as MaintainCost;
-                    if (maintainCost != null)
+                    var maintainCostItem = selectedPoint.DataItem as MaintainCost;
+                    if (maintainCostItem != null)
                     {
-                        SelectTitle = maintainCost.Annual.Year + "年维修成本明细";
-                        var maintainCostDetails = new ObservableCollection<MaintainCostDetail>();
-                        var regularCheckMaintainCost = RegularCheckMaintainCostReports.FirstOrDefault(p => p.Annual.Year == maintainCost.Annual.Year);
-                        if (regularCheckMaintainCost != null)
+                        SelectTitle = maintainCostItem.Annual.Year + "年维修成本明细";
+                        var maintainCost = MaintainCostReports.FirstOrDefault(p => p.Annual.Year == maintainCostItem.Annual.Year);
+                        if (maintainCost != null)
                         {
-                            var maintainCostDetail = new MaintainCostDetail
-                                                     {
-                                                         Name = "年度定检",
-                                                         Actual = regularCheckMaintainCost.Actual,
-                                                         Budget = regularCheckMaintainCost.Budget
-                                                     };
-                            maintainCostDetails.Add(maintainCostDetail);
+                            MaintainCostDetails = new ObservableCollection<MaintainCostDetail>
+                                                  {
+                                                      new MaintainCostDetail
+                                                      {
+                                                          Name = "年度定检",
+                                                          Actual = maintainCost.RegularCheckActual,
+                                                          Budget = maintainCost.RegularCheckBudget
+                                                      },
+                                                      new MaintainCostDetail
+                                                      {
+                                                          Name = "非FHA.超包修",
+                                                          Actual = maintainCost.NonFhaActual,
+                                                          Budget = maintainCost.NonFhaBudget
+                                                      },
+                                                      new MaintainCostDetail
+                                                      {
+                                                          Name = "起落架",
+                                                          Actual = maintainCost.UndercartActual,
+                                                          Budget = maintainCost.UndercartBudget
+                                                      },
+                                                      new MaintainCostDetail
+                                                      {
+                                                          Name = "特修改装",
+                                                          Actual = maintainCost.SpecialRefitActual,
+                                                          Budget = maintainCost.SpecialRefitBudget
+                                                      },
+                                                      new MaintainCostDetail
+                                                      {
+                                                          Name = "FHA",
+                                                          Actual = maintainCost.FhaActual,
+                                                          Budget = maintainCost.FhaBudget
+                                                      },
+                                                      new MaintainCostDetail
+                                                      {
+                                                          Name = "APU",
+                                                          Actual = maintainCost.ApuActual,
+                                                          Budget = maintainCost.ApuBudget
+                                                      },
+                                                  };
                         }
-                        var nonFhaMaintainCost = NonFhaMaintainCostReports.FirstOrDefault(p => p.Annual.Year == maintainCost.Annual.Year);
-                        if (nonFhaMaintainCost != null)
-                        {
-                            var maintainCostDetail = new MaintainCostDetail
-                                                     {
-                                                         Name = "非FHA.超包修",
-                                                         Actual = nonFhaMaintainCost.Actual,
-                                                         Budget = nonFhaMaintainCost.Budget
-                                                     };
-                            maintainCostDetails.Add(maintainCostDetail);
-                        }
-                        var undercartMaintainCost = UndercartMaintainCostReports.FirstOrDefault(p => p.Annual.Year == maintainCost.Annual.Year);
-                        if (undercartMaintainCost != null)
-                        {
-                            var maintainCostDetail = new MaintainCostDetail
-                                                     {
-                                                         Name = "起落架",
-                                                         Actual = undercartMaintainCost.Actual,
-                                                         Budget = undercartMaintainCost.Budget
-                                                     };
-                            maintainCostDetails.Add(maintainCostDetail);
-                        }
-                        var specialRefitMaintainCost = SpecialRefitMaintainCostReports.FirstOrDefault(p => p.Annual.Year == maintainCost.Annual.Year);
-                        if (specialRefitMaintainCost != null)
-                        {
-                            var maintainCostDetail = new MaintainCostDetail
-                                                     {
-                                                         Name = "特修改装",
-                                                         Actual = specialRefitMaintainCost.Actual,
-                                                         Budget = specialRefitMaintainCost.Budget
-                                                     };
-                            maintainCostDetails.Add(maintainCostDetail);
-                        }
-                        var fhaMaintainCost = FhaMaintainCostReports.FirstOrDefault(p => p.Annual.Year == maintainCost.Annual.Year);
-                        if (fhaMaintainCost != null)
-                        {
-                            var maintainCostDetail = new MaintainCostDetail
-                                                     {
-                                                         Name = "FHA",
-                                                         Actual = fhaMaintainCost.Actual,
-                                                         Budget = fhaMaintainCost.Budget
-                                                     };
-                            maintainCostDetails.Add(maintainCostDetail);
-                        }
-                        var apuMaintainCost = ApuMaintainCostReports.FirstOrDefault(p => p.Annual.Year == maintainCost.Annual.Year);
-                        if (apuMaintainCost != null)
-                        {
-                            var maintainCostDetail = new MaintainCostDetail
-                                                     {
-                                                         Name = "APU",
-                                                         Actual = apuMaintainCost.Actual,
-                                                         Budget = apuMaintainCost.Budget
-                                                     };
-                            maintainCostDetails.Add(maintainCostDetail);
-                        }
-                        MaintainCostDetails = maintainCostDetails;
                     }
                 }
             }
         }
     }
 
-    public class MaintainCost
+    public class MaintainCost : INotifyPropertyChanged
     {
         public DateTime Annual { get; set; }
-        public decimal Budget { get; set; }
-        public decimal Actual { get; set; }
+        public decimal ApuBudget { get; set; }
+        private decimal _apuActual;
+        public decimal ApuActual
+        {
+            get
+            {
+                return _apuActual;
+            }
+            set
+            {
+                _apuActual = value;
+                OnPropertyChanged("ApuActual");
+            }
+        }
+
+        public decimal FhaBudget { get; set; }
+        private decimal _fhaActual;
+        public decimal FhaActual
+        {
+            get
+            {
+                return _fhaActual;
+            }
+            set
+            {
+                _fhaActual = value;
+                OnPropertyChanged("FhaActual");
+            }
+        }
+
+        public decimal NonFhaBudget { get; set; }
+        private decimal _nonFhaActual ;
+        public decimal NonFhaActual
+        {
+            get
+            {
+                return _nonFhaActual;
+            }
+            set
+            {
+                _nonFhaActual = value;
+                OnPropertyChanged("NonFhaActual");
+            }
+        }
+
+        public decimal RegularCheckBudget { get; set; }
+        private decimal _regularCheckActual;
+        public decimal RegularCheckActual
+        {
+            get
+            {
+                return _regularCheckActual;
+            }
+            set
+            {
+                _regularCheckActual = value;
+                OnPropertyChanged("RegularCheckActual");
+            }
+        }
+
+        public decimal SpecialRefitBudget { get; set; }
+        private decimal _specialRefitActual;
+        public decimal SpecialRefitActual
+        {
+            get { return _specialRefitActual; }
+            set
+            {
+                _specialRefitActual = value;
+                OnPropertyChanged("SpecialRefitActual");
+            }
+        }
+
+        public decimal UndercartBudget { get; set; }
+        private decimal _undercartActual;
+        public decimal UndercartActual
+        {
+            get
+            {
+                return _undercartActual;
+            }
+            set
+            {
+                _undercartActual = value;
+                OnPropertyChanged("UndercartActual");
+            }
+        }
+
+        public decimal TotalBudget { get; set; }
+        public decimal TotalActual { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = this.PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 
     public class MaintainCostDetail

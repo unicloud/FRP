@@ -60,7 +60,7 @@
             <Style x:Key="TransparentTickStyle"
                    TargetType="Rectangle" />
             <uc:RightAlignedLabelStrategy x:Key="RightAlignedLabelStrategy"
-                                             Offset="35" />
+                                          Offset="35" />
         </ResourceDictionary>
     </UserControl.Resources>
     <telerik:RadSplitContainer Orientation="Vertical">
@@ -86,6 +86,8 @@
                                                    EmptyContent="维修成本趋势"
                                                    Foreground="Black">
                             <telerik:RadCartesianChart.Behaviors>
+                                <telerik:ChartTooltipBehavior HorizontalOffset="-6"
+                                                              VerticalOffset="-49" />
                                 <telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" />
                                 <telerik:ChartSelectionBehavior>
                                     <i:Interaction.Triggers>
@@ -96,44 +98,92 @@
                                     </i:Interaction.Triggers>
                                 </telerik:ChartSelectionBehavior>
                             </telerik:RadCartesianChart.Behaviors>
-                            <telerik:BarSeries ItemsSource="{Binding RegularCheckMaintainCostReports}"
+                            <telerik:RadCartesianChart.TooltipTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
+                                              Stretch="Fill"
+                                              Fill="White"
+                                              Stroke="Gray"
+                                              StrokeThickness="1" />
+                                        <StackPanel Background="Transparent">
+                                            <TextBlock Text="{Binding Value, StringFormat='\{0:N\}'}"
+                                                       Margin="4,3,4,9"
+                                                       FontFamily="Segoe UI" />
+                                            <!--<TextBlock Text="{Binding DataItem.RegularCheckActual, StringFormat='年度定检 \{0:N\}'}"
+                                                       Margin="4,3,4,9"
+                                                       FontFamily="Segoe UI" />
+                                            <TextBlock Text="{Binding DataItem.NonFhaActual, StringFormat='非FHA.超包修 \{0:N\}'}"
+                                                       Margin="4,3,4,9"
+                                                       FontFamily="Segoe UI" />
+                                            <TextBlock Text="{Binding DataItem.UndercartActual, StringFormat='起落架 \{0:N\}'}"
+                                                       Margin="4,3,4,9"
+                                                       FontFamily="Segoe UI" />
+                                            <TextBlock Text="{Binding DataItem.SpecialRefitActual, StringFormat='特修改装 \{0:N\}'}"
+                                                       Margin="4,3,4,9"
+                                                       FontFamily="Segoe UI" />
+                                            <TextBlock Text="{Binding DataItem.FhaActual, StringFormat='FHA \{0:N\}'}"
+                                                       Margin="4,3,4,9"
+                                                       FontFamily="Segoe UI" />
+                                            <TextBlock Text="{Binding DataItem.ApuActual, StringFormat='APU \{0:N\}'}"
+                                                       Margin="4,3,4,9"
+                                                       FontFamily="Segoe UI" />-->
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </telerik:RadCartesianChart.TooltipTemplate>
+                            <telerik:LineSeries ItemsSource="{Binding MaintainCostReports}"
+                                                ValueBinding="TotalActual"
+                                                CategoryBinding="Annual">
+                                <telerik:LineSeries.PointTemplate>
+                                    <DataTemplate>
+                                        <Rectangle Fill="#FF5B5B5B"
+                                                   Width="4"
+                                                   Height="4" />
+                                    </DataTemplate>
+                                </telerik:LineSeries.PointTemplate>
+                                <telerik:LineSeries.LegendSettings>
+                                    <telerik:SeriesLegendSettings Title="维修成本" />
+                                </telerik:LineSeries.LegendSettings>
+                            </telerik:LineSeries>
+                            <telerik:BarSeries ItemsSource="{Binding MaintainCostReports}"
                                                CategoryBinding="Annual"
-                                               ValueBinding="Actual">
+                                               ValueBinding="RegularCheckActual">
                                 <telerik:BarSeries.LegendSettings>
                                     <telerik:SeriesLegendSettings Title="年度定检" />
                                 </telerik:BarSeries.LegendSettings>
                             </telerik:BarSeries>
-                            <telerik:BarSeries ItemsSource="{Binding NonFhaMaintainCostReports}"
+                            <telerik:BarSeries ItemsSource="{Binding MaintainCostReports}"
                                                CategoryBinding="Annual"
-                                               ValueBinding="Actual">
+                                               ValueBinding="NonFhaActual">
                                 <telerik:BarSeries.LegendSettings>
                                     <telerik:SeriesLegendSettings Title="非FHA.超包修" />
                                 </telerik:BarSeries.LegendSettings>
                             </telerik:BarSeries>
-                            <telerik:BarSeries ItemsSource="{Binding UndercartMaintainCostReports}"
+                            <telerik:BarSeries ItemsSource="{Binding MaintainCostReports}"
                                                CategoryBinding="Annual"
-                                               ValueBinding="Actual">
+                                               ValueBinding="UndercartActual">
                                 <telerik:BarSeries.LegendSettings>
                                     <telerik:SeriesLegendSettings Title="起落架" />
                                 </telerik:BarSeries.LegendSettings>
                             </telerik:BarSeries>
-                            <telerik:BarSeries ItemsSource="{Binding SpecialRefitMaintainCostReports}"
+                            <telerik:BarSeries ItemsSource="{Binding MaintainCostReports}"
                                                CategoryBinding="Annual"
-                                               ValueBinding="Actual">
+                                               ValueBinding="SpecialRefitActual">
                                 <telerik:BarSeries.LegendSettings>
                                     <telerik:SeriesLegendSettings Title="特修改装" />
                                 </telerik:BarSeries.LegendSettings>
                             </telerik:BarSeries>
-                            <telerik:BarSeries ItemsSource="{Binding FhaMaintainCostReports}"
+                            <telerik:BarSeries ItemsSource="{Binding MaintainCostReports}"
                                                CategoryBinding="Annual"
-                                               ValueBinding="Actual">
+                                               ValueBinding="FhaActual">
                                 <telerik:BarSeries.LegendSettings>
                                     <telerik:SeriesLegendSettings Title="FHA" />
                                 </telerik:BarSeries.LegendSettings>
                             </telerik:BarSeries>
-                            <telerik:BarSeries ItemsSource="{Binding ApuMaintainCostReports}"
+                            <telerik:BarSeries ItemsSource="{Binding MaintainCostReports}"
                                                CategoryBinding="Annual"
-                                               ValueBinding="Actual">
+                                               ValueBinding="ApuActual">
                                 <telerik:BarSeries.LegendSettings>
                                     <telerik:SeriesLegendSettings Title="APU" />
                                 </telerik:BarSeries.LegendSettings>
@@ -184,7 +234,7 @@
                                  CanUserClose="False"
                                  CanUserPin="False"
                                  ContextMenuTemplate="{x:Null}">
-                    <Grid >
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
