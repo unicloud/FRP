@@ -60,11 +60,21 @@ namespace UniCloud.Application.PartBC.DTO
         ///     拆下原因
         /// </summary>
         public string RemoveReason { get; set; }
+        
+        /// <summary>
+        ///     拆下指令号
+        /// </summary>
+        public string RemoveActionNo { get; set; }
 
         /// <summary>
         ///     装上原因
         /// </summary>
         public string InstallReason { get; set; }
+
+        /// <summary>
+        ///     装上指令号
+        /// </summary>
+        public string InstallActionNo { get; set; }
 
         /// <summary>
         ///     CSN，自装机以来使用循环

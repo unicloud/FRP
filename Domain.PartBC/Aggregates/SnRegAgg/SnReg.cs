@@ -261,7 +261,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
             //当件号发生改变的时候，将原来的件号记录起来
             if (Pn != pnReg.Pn)
             {
-                AllPnName += (Pn + ";");
+                AllPnName += (pnReg.Pn + ";");
             }
             Pn = pnReg.Pn;
             PnRegId = pnReg.Id;
