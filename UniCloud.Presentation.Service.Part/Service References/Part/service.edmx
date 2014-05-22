@@ -603,6 +603,9 @@
           <Parameter Name="contractAircraftId" Type="Edm.Int32" Nullable="false" />
           <Parameter Name="date" Type="Edm.String" />
         </FunctionImport>
+        <FunctionImport Name="GetPnRegsByItem" ReturnType="Collection(UniCloud.Application.PartBC.DTO.PnRegDTO)" EntitySet="PnRegs" m:HttpMethod="GET">
+          <Parameter Name="itemId" Type="Edm.Int32" Nullable="false" />
+        </FunctionImport>
         <AssociationSet Name="AcConfigDTO_SubAcConfigs" Association="UniCloud.Application.PartBC.DTO.AcConfigDTO_SubAcConfigs">
           <End Role="AcConfigDTO" EntitySet="AcConfigs" />
           <End Role="SubAcConfigs" EntitySet="AcConfigs" />

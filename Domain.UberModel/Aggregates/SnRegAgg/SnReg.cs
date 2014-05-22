@@ -258,7 +258,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
             {
                 throw new ArgumentException("附件参数为空！");
             }
-
+            //当件号发生改变的时候，将原来的件号记录起来
+            if (Pn != pnReg.Pn)
+            {
+                AllPnName += (Pn + ";");
+            }
             Pn = pnReg.Pn;
             PnRegId = pnReg.Id;
         }
@@ -273,6 +277,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
             {
                 AircraftId = aircraft.Id;
                 RegNumber = aircraft.RegNumber;
+            }
+            else
+            {
+                AircraftId = null;
+                RegNumber = null;
             }
         }
 

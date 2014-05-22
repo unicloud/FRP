@@ -49,6 +49,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.TSR).HasColumnName("TSR");
             Property(p => p.AircraftId).HasColumnName("AircraftId");
             Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
+
+            HasRequired(o => o.InstallRecord).WithMany().HasForeignKey(o => o.InstallRecordId);
+            HasOptional(o => o.RemoveRecord).WithMany().HasForeignKey(o => o.RemoveRecordId);
+
         }
     }
 }

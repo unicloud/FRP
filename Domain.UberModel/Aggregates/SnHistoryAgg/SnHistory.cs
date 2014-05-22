@@ -124,7 +124,9 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnHistoryAgg
         #endregion
 
         #region 导航属性
+        public SnRemInstRecord InstallRecord { get; private set; }
 
+        public SnRemInstRecord RemoveRecord { get; private set; }
         #endregion
 
         #region 操作
@@ -256,10 +258,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnHistoryAgg
         {
             if (installRecord == null || installRecord.IsTransient())
             {
-                throw new ArgumentException("飞机参数为空！");
+                throw new ArgumentException("装上指令为空！");
             }
 
             InstallRecordId = installRecord.Id;
+            InstallRecord = installRecord;
         }
 
         /// <summary>
@@ -269,7 +272,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnHistoryAgg
         public void SetRemoveRecord(SnRemInstRecord removeRecord)
         {
             if (removeRecord != null)
+            {
                 RemoveRecordId = removeRecord.Id;
+                RemoveRecord = removeRecord;
+            }
+            else
+            {
+                RemoveRecordId = null;
+                RemoveRecord = null;
+            }
         }
         #endregion
 
