@@ -362,7 +362,9 @@
         <Property Name="InstallDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="RemoveDate" Type="Edm.DateTime" />
         <Property Name="RemoveReason" Type="Edm.String" />
+        <Property Name="RemoveActionNo" Type="Edm.String" />
         <Property Name="InstallReason" Type="Edm.String" />
+        <Property Name="InstallActionNo" Type="Edm.String" />
         <Property Name="CSN" Type="Edm.Int32" Nullable="false" />
         <Property Name="CSR" Type="Edm.Int32" Nullable="false" />
         <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />

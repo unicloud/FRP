@@ -74,7 +74,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             {
                 if (SelSnReg != null)
                 {
-                    ViewSnHistories=new ObservableCollection<SnHistoryDTO>();
+                    ViewSnHistories = new ObservableCollection<SnHistoryDTO>();
                     var snHistories =
                         SnHistories.SourceCollection.Cast<SnHistoryDTO>()
                             .Where(p => p.SnRegId == SelSnReg.Id)
@@ -140,8 +140,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         {
             SnRegs.Load(true);
 
-            if (!SnHistories.AutoLoad)
-                SnHistories.AutoLoad = true;
+            SnHistories.Load(true);
         }
 
         #region 业务
@@ -149,7 +148,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         #region 序号件拆换记录集合
 
         private SnHistoryDTO _selSnHistory;
-        private ObservableCollection<SnHistoryDTO> _viewSnHistories=new ObservableCollection<SnHistoryDTO>(); 
+        private ObservableCollection<SnHistoryDTO> _viewSnHistories = new ObservableCollection<SnHistoryDTO>();
 
         /// <summary>
         ///     件装机历史集合

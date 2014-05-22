@@ -201,7 +201,7 @@
                                         <telerik:GridViewDataColumn Header="装机指令"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding InstallRecordId}" />
+                                                                    DataMemberBinding="{Binding InstallActionNo}" />
                                         <telerik:GridViewDataColumn Header="拆下日期"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -214,7 +214,7 @@
                                         <telerik:GridViewDataColumn Header="拆下指令"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding InstallRecordId}" />
+                                                                    DataMemberBinding="{Binding RemoveActionNo}" />
                                         <telerik:GridViewDataColumn Header="CSN"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"

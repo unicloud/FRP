@@ -63,6 +63,8 @@ namespace UniCloud.Application.PartBC.Query.SnHistoryQueries
                 RemoveDate = p.RemoveDate,
                 InstallReason = dbSnRemInstRecords.FirstOrDefault(l=>l.Id==p.InstallRecordId).Reason,
                 RemoveReason = dbSnRemInstRecords.FirstOrDefault(l => l.Id == p.RemoveRecordId).Reason,
+                InstallActionNo = dbSnRemInstRecords.FirstOrDefault(l=>l.Id==p.InstallRecordId).ActionNo,
+                RemoveActionNo = dbSnRemInstRecords.FirstOrDefault(l => l.Id == p.RemoveRecordId).ActionNo,
                 InstallRecordId = p.InstallRecordId,
                 RemoveRecordId = p.RemoveRecordId,
                 RegNumber = dbAircrafts.FirstOrDefault(c => c.Id == p.AircraftId).RegNumber,
