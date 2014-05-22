@@ -59,21 +59,6 @@
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="放弃更改" />
                                         </telerik:RadButton>
-                                        <telerik:RadToolBarSeparator />
-                                        <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding AddCommand}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/New.png"
-                                                   Stretch="Fill"
-                                                   ToolTipService.ToolTip="创建非FHA.超包修维修成本" />
-                                        </telerik:RadButton>
-                                        <telerik:RadToolBarSeparator />
-                                        <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding DeleteCommand}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
-                                                   Stretch="Fill"
-                                                   ToolTipService.ToolTip="删除非FHA.超包修维修成本" />
-                                        </telerik:RadButton>
-                                        <telerik:RadToolBarSeparator />
                                     </telerik:RadToolBar>
                                     <telerik:RadGridView x:Name="Annuals"
                                                          Grid.Row="1"
@@ -377,7 +362,7 @@
                                                 <telerik:GridViewComboBoxColumn Header="发票"
                                                                                 ColumnGroupName="ActualInfo"
                                                                                 TextAlignment="Center"
-                                                                                IsSortable="True"
+                                                                                IsReadOnly="True"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 HeaderTextAlignment="Center"
                                                                                 ItemsSource="{Binding DataContext.EngineMaintainInvoices, ElementName=NonFhaMaintainCostView,Mode=TwoWay}"

@@ -19,7 +19,6 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
@@ -62,7 +61,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 _annual = value;
                 if (_annual != null)
                 {
-                    _annualFilter.Value = _annual.Id;
+                    _annualFilter.Value = _annual.Year;
                     SpecialRefitMaintainCosts.Load(true);
                 }
                 RaisePropertyChanged(() => Annual);
@@ -105,12 +104,10 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         private void InitialVm()
         {
             CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
-            AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
-            DeleteCommand = new DelegateCommand<object>(OnDelete, CanDelete);
             SpecialRefitInvoices = new QueryableDataServiceCollectionView<SpecialRefitInvoiceDTO>(_context, _context.SpecialRefitInvoices);
             SpecialRefitMaintainCosts = _service.CreateCollection(_context.SpecialRefitMaintainCosts);
             SpecialRefitMaintainCosts.PageSize = 20;
-            _annualFilter = new FilterDescriptor("AnnualId", FilterOperator.IsEqualTo, Guid.Empty);
+            _annualFilter = new FilterDescriptor("Year", FilterOperator.IsEqualTo, 0);
             SpecialRefitMaintainCosts.FilterDescriptors.Add(_annualFilter);
             SpecialRefitMaintainCosts.LoadedData += (sender, e) =>
             {
@@ -123,86 +120,13 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             Annuals.LoadedData += (o, e) =>
                                   {
                                       if (Annual == null)
-                                          Annual = Annuals.FirstOrDefault();
+                                          Annual = Annuals.FirstOrDefault(p => p.Year == DateTime.Now.Year);
                                   };
         }
 
         #endregion
 
         #region 命令
-
-        #region 新增特修改转命令
-
-        public DelegateCommand<object> AddCommand { get; set; }
-
-        /// <summary>
-        ///     执行新增命令。
-        /// </summary>
-        /// <param name="sender"></param>
-        public void OnAdd(object sender)
-        {
-            SpecialRefitMaintainCost = new SpecialRefitMaintainCostDTO
-                                     {
-                                         Id = RandomHelper.Next(),
-                                         AnnualId = Annual.Id
-                                     };
-
-            var invoice = SpecialRefitInvoices.FirstOrDefault();
-            if (invoice != null)
-            {
-                SpecialRefitMaintainCost.MaintainInvoiceId = invoice.SpecialRefitId;
-                SpecialRefitMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                SpecialRefitMaintainCost.AcutalAmount = invoice.InvoiceValue;
-            }
-            SpecialRefitMaintainCosts.AddNew(SpecialRefitMaintainCost);
-        }
-
-        /// <summary>
-        ///     判断新增特修改转命令是否可用。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>新增命令是否可用。</returns>
-        public bool CanAdd(object sender)
-        {
-            return true;
-        }
-
-        #endregion
-
-        #region 删除特修改转命令
-
-        public DelegateCommand<object> DeleteCommand { get; set; }
-
-        /// <summary>
-        ///     执行删除特修改转命令。
-        /// </summary>
-        /// <param name="sender"></param>
-        public void OnDelete(object sender)
-        {
-            if (SpecialRefitMaintainCost == null)
-            {
-                MessageAlert("提示", "请选择需要删除的记录");
-                return;
-            }
-            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SpecialRefitMaintainCosts.Remove(SpecialRefitMaintainCost);
-                                                SpecialRefitMaintainCost = SpecialRefitMaintainCosts.FirstOrDefault();
-                                            });
-        }
-
-        /// <summary>
-        ///     判断删除特修改转命令是否可用。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>删除命令是否可用。</returns>
-        public bool CanDelete(object sender)
-        {
-            return true;
-        }
-
-        #endregion
 
         #endregion
 
@@ -224,12 +148,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         private void CellEditEnd(object sender)
         {
-            var invoice = SpecialRefitInvoices.FirstOrDefault(p => p.SpecialRefitId == SpecialRefitMaintainCost.MaintainInvoiceId);
-            if (invoice != null)
-            {
-                SpecialRefitMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                SpecialRefitMaintainCost.AcutalAmount = invoice.InvoiceValue;
-            }
+            
         }
         #endregion
     }

@@ -20,7 +20,6 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
@@ -64,7 +63,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 _annual = value;
                 if (_annual != null)
                 {
-                    _annualFilter.Value = _annual.Id;
+                    _annualFilter.Value = _annual.Year;
                     RegularCheckMaintainCosts.Load(true);
                 }
                 RaisePropertyChanged(() => Annual);
@@ -118,12 +117,10 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         private void InitialVm()
         {
             CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
-            AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
-            DeleteCommand = new DelegateCommand<object>(OnDelete, CanDelete);
             AirframeMaintainInvoices = new QueryableDataServiceCollectionView<AirframeMaintainInvoiceDTO>(_context, _context.AirframeMaintainInvoices);
             RegularCheckMaintainCosts = _service.CreateCollection(_context.RegularCheckMaintainCosts);
             RegularCheckMaintainCosts.PageSize = 20;
-            _annualFilter = new FilterDescriptor("AnnualId", FilterOperator.IsEqualTo, Guid.Empty);
+            _annualFilter = new FilterDescriptor("Year", FilterOperator.IsEqualTo, 0);
             RegularCheckMaintainCosts.FilterDescriptors.Add(_annualFilter);
             RegularCheckMaintainCosts.LoadedData += (sender, e) =>
             {
@@ -139,100 +136,13 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             Annuals.LoadedData += (o, e) =>
                                   {
                                       if (Annual == null)
-                                          Annual = Annuals.FirstOrDefault();
+                                          Annual = Annuals.FirstOrDefault(p => p.Year == DateTime.Now.Year);
                                   };
         }
 
         #endregion
 
         #region 命令
-
-        #region 新增定检命令
-
-        public DelegateCommand<object> AddCommand { get; set; }
-
-        /// <summary>
-        ///     执行新增命令。
-        /// </summary>
-        /// <param name="sender"></param>
-        public void OnAdd(object sender)
-        {
-            RegularCheckMaintainCost = new RegularCheckMaintainCostDTO
-                                     {
-                                         Id = RandomHelper.Next(),
-                                         InMaintainTime = DateTime.Now,
-                                         OutMaintainTime = DateTime.Now,
-                                         AnnualId = Annual.Id
-                                     };
-            RegularCheckMaintainCost.TotalDays =
-                (RegularCheckMaintainCost.OutMaintainTime.Date - RegularCheckMaintainCost.InMaintainTime.Date).Days + 1;
-            var aircraft = Aircrafts.FirstOrDefault();
-            if (aircraft != null)
-            {
-                RegularCheckMaintainCost.AircraftId = aircraft.AircraftId;
-                RegularCheckMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
-                RegularCheckMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
-            }
-            var invoice = AirframeMaintainInvoices.FirstOrDefault();
-            if (invoice != null)
-            {
-                RegularCheckMaintainCost.MaintainInvoiceId = invoice.AirframeMaintainInvoiceId;
-                RegularCheckMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
-                RegularCheckMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
-                RegularCheckMaintainCost.AcutalTotalDays =
-                   (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
-                RegularCheckMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                RegularCheckMaintainCost.AcutalAmount = invoice.InvoiceValue;
-            }
-            RegularCheckMaintainCosts.AddNew(RegularCheckMaintainCost);
-        }
-
-        /// <summary>
-        ///     判断新增定检命令是否可用。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>新增命令是否可用。</returns>
-        public bool CanAdd(object sender)
-        {
-            return true;
-        }
-
-        #endregion
-
-        #region 删除定检命令
-
-        public DelegateCommand<object> DeleteCommand { get; set; }
-
-        /// <summary>
-        ///     执行删除定检命令。
-        /// </summary>
-        /// <param name="sender"></param>
-        public void OnDelete(object sender)
-        {
-            if (RegularCheckMaintainCost == null)
-            {
-                MessageAlert("提示", "请选择需要删除的记录");
-                return;
-            }
-            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                RegularCheckMaintainCosts.Remove(RegularCheckMaintainCost);
-                                                RegularCheckMaintainCost = RegularCheckMaintainCosts.FirstOrDefault();
-                                            });
-        }
-
-        /// <summary>
-        ///     判断删除定检命令是否可用。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>删除命令是否可用。</returns>
-        public bool CanDelete(object sender)
-        {
-            return true;
-        }
-
-        #endregion
 
         #endregion
 
@@ -263,16 +173,6 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             {
                 RegularCheckMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
                 RegularCheckMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
-            }
-            var invoice = AirframeMaintainInvoices.FirstOrDefault(p => p.AirframeMaintainInvoiceId == RegularCheckMaintainCost.MaintainInvoiceId);
-            if (invoice != null)
-            {
-                RegularCheckMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
-                RegularCheckMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
-                RegularCheckMaintainCost.AcutalTotalDays =
-                    (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
-                RegularCheckMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                RegularCheckMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
             RegularCheckMaintainCost.TotalDays = (RegularCheckMaintainCost.OutMaintainTime.Date - RegularCheckMaintainCost.InMaintainTime.Date).Days + 1;
             RegularCheckMaintainCost.AcutalTotalDays = (RegularCheckMaintainCost.AcutalOutMaintainTime.Date - RegularCheckMaintainCost.AcutalInMaintainTime.Date).Days + 1;

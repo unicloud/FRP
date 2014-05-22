@@ -147,9 +147,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                             exist = false;
                             maintainCostReport = new MaintainCost { Annual = new DateTime(p.Year, 1, 1) };
                         }
-                        maintainCostReport.ApuBudget = ApuMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.IncludeAddedValue);
+                        maintainCostReport.ApuBudget = ApuMaintainCosts.Where(q => q.Year == p.Year).Sum(t => t.IncludeAddedValue);
                         maintainCostReport.TotalBudget += maintainCostReport.ApuBudget;
-                        maintainCostReport.ApuActual = ApuMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.AcutalAmount);
+                        maintainCostReport.ApuActual = ApuMaintainCosts.Where(q => q.Year == p.Year).Sum(t => t.AcutalAmount);
                         maintainCostReport.TotalActual += maintainCostReport.ApuActual;
                         if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
                             MaintainCostReports.Add(maintainCostReport);
@@ -169,9 +169,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                             exist = false;
                             maintainCostReport = new MaintainCost { Annual = new DateTime(p.Year, 1, 1) };
                         }
-                        maintainCostReport.FhaBudget = FhaMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.CustomAdded);
+                        maintainCostReport.FhaBudget = FhaMaintainCosts.Where(q => q.Year == p.Year).Sum(t => t.CustomAdded);
                         maintainCostReport.TotalBudget += maintainCostReport.FhaBudget;
-                        maintainCostReport.FhaActual = FhaMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.AcutalAmount);
+                        maintainCostReport.FhaActual = FhaMaintainCosts.Where(q => q.Year == p.Year).Sum(t => t.AcutalAmount);
                         maintainCostReport.TotalActual += maintainCostReport.FhaActual;
                         if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
                             MaintainCostReports.Add(maintainCostReport);
@@ -192,9 +192,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                             exist = false;
                             maintainCostReport = new MaintainCost { Annual = new DateTime(p.Year, 1, 1) };
                         }
-                        maintainCostReport.NonFhaBudget = NonFhaMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.FinancialApprovalAmount);
+                        maintainCostReport.NonFhaBudget = NonFhaMaintainCosts.Where(q => q.Year == p.Year).Sum(t => t.FinancialApprovalAmount);
                         maintainCostReport.TotalBudget += maintainCostReport.NonFhaBudget;
-                        maintainCostReport.NonFhaActual = NonFhaMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.AcutalAmount);
+                        maintainCostReport.NonFhaActual = NonFhaMaintainCosts.Where(q => q.Year == p.Year).Sum(t => t.AcutalAmount);
                         maintainCostReport.TotalActual += maintainCostReport.NonFhaActual;
                         if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
                             MaintainCostReports.Add(maintainCostReport);
@@ -215,9 +215,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                             exist = false;
                             maintainCostReport = new MaintainCost { Annual = new DateTime(p.Year, 1, 1) };
                         }
-                        maintainCostReport.RegularCheckBudget = RegularCheckMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.FinancialApprovalAmount);
+                        maintainCostReport.RegularCheckBudget = RegularCheckMaintainCosts.Where(q => q.Year == p.Year).Sum(t => t.FinancialApprovalAmount);
                         maintainCostReport.TotalBudget += maintainCostReport.RegularCheckBudget;
-                        maintainCostReport.RegularCheckActual = RegularCheckMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.AcutalAmount);
+                        maintainCostReport.RegularCheckActual = RegularCheckMaintainCosts.Where(q => q.Year == p.Year).Sum(t => t.AcutalAmount);
                         maintainCostReport.TotalActual += maintainCostReport.RegularCheckActual;
                         if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
                             MaintainCostReports.Add(maintainCostReport);
@@ -238,9 +238,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                             exist = false;
                             maintainCostReport = new MaintainCost { Annual = new DateTime(p.Year, 1, 1) };
                         }
-                        maintainCostReport.SpecialRefitBudget = SpecialRefitMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.FinancialApprovalAmount);
+                        maintainCostReport.SpecialRefitBudget = SpecialRefitMaintainCosts.Where(q => q.Year == p.Year).Sum(t => t.FinancialApprovalAmount);
                         maintainCostReport.TotalBudget += maintainCostReport.SpecialRefitBudget;
-                        maintainCostReport.SpecialRefitActual = SpecialRefitMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.AcutalAmount);
+                        maintainCostReport.SpecialRefitActual = SpecialRefitMaintainCosts.Where(q => q.Year == p.Year).Sum(t => t.AcutalAmount);
                         maintainCostReport.TotalActual += maintainCostReport.SpecialRefitActual;
                         if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
                             MaintainCostReports.Add(maintainCostReport);
@@ -261,9 +261,9 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                             exist = false;
                             maintainCostReport = new MaintainCost { Annual = new DateTime(p.Year, 1, 1) };
                         }
-                        maintainCostReport.UndercartBudget = UndercartMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.FinancialApprovalAmount);
+                        maintainCostReport.UndercartBudget = UndercartMaintainCosts.Where(q => q.Year == p.Year).Sum(t => t.FinancialApprovalAmount);
                         maintainCostReport.TotalBudget += maintainCostReport.UndercartBudget;
-                        maintainCostReport.UndercartActual = UndercartMaintainCosts.Where(q => q.AnnualId == p.Id).Sum(t => t.AcutalAmount);
+                        maintainCostReport.UndercartActual = UndercartMaintainCosts.Where(q => q.Year == p.Year).Sum(t => t.AcutalAmount);
                         maintainCostReport.TotalActual += maintainCostReport.UndercartActual;
                         if (!exist && maintainCostReport.TotalBudget != 0 && maintainCostReport.TotalActual != 0)
                             MaintainCostReports.Add(maintainCostReport);

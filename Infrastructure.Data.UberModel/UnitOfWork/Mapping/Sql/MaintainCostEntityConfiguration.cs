@@ -41,7 +41,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.FinancialApprovalAmount).HasColumnName("FinancialApprovalAmount");
             Property(p => p.FinancialApprovalAmountNonTax).HasColumnName("FinancialApprovalAmountNonTax");
             Property(p => p.MaintainInvoiceId).HasColumnName("MaintainInvoiceId");
-            Property(p => p.AnnualId).HasColumnName("AnnualId");
+            Property(p => p.Year).HasColumnName("Year");
             HasRequired(o => o.MaintainInvoice).WithMany().HasForeignKey(o => o.MaintainInvoiceId);
         }
     }

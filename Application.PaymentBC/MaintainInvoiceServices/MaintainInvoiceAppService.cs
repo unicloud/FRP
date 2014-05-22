@@ -20,8 +20,12 @@ using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
+using UniCloud.Application.PaymentBC.MaintainCostServices;
+using UniCloud.Application.PaymentBC.Query.MaintainCostQueries;
 using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 
 #endregion
@@ -37,11 +41,14 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
     {
         private readonly IMaintainInvoiceQuery _maintainInvoiceQuery;
         private readonly IInvoiceRepository _invoiceRepository;
+        private readonly MaintainCostAppService _maintainCostAppService;
 
-        public MaintainInvoiceAppService(IMaintainInvoiceQuery maintainInvoiceQuery, IInvoiceRepository invoiceRepository)
+        public MaintainInvoiceAppService(IMaintainInvoiceQuery maintainInvoiceQuery, IInvoiceRepository invoiceRepository,
+            IMaintainCostQuery maintainCostQuery, IMaintainCostRepository maintainCostRepository)
         {
             _maintainInvoiceQuery = maintainInvoiceQuery;
             _invoiceRepository = invoiceRepository;
+            _maintainCostAppService = new MaintainCostAppService(maintainCostQuery, maintainCostRepository);
         }
 
         /// <summary>
@@ -93,6 +100,17 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             }
             newEngineMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newEngineMaintainInvoice);
+            if (newEngineMaintainInvoice.Type == EngineMaintainInvoiceType.非FHA超包修)
+            {
+                var maintainCost = new NonFhaMaintainCostDTO { MaintainInvoiceId = newEngineMaintainInvoice.Id, Year = newEngineMaintainInvoice.InvoiceDate.Year, SupplierId = newEngineMaintainInvoice.SupplierId };
+                _maintainCostAppService.InsertNonFhaMaintainCost(maintainCost);
+
+            }
+            else
+            {
+                var maintainCost = new FhaMaintainCostDTO { MaintainInvoiceId = newEngineMaintainInvoice.Id, Year = newEngineMaintainInvoice.InvoiceDate.Year };
+                _maintainCostAppService.InsertFhaMaintainCost(maintainCost);
+            }
         }
 
 
@@ -168,6 +186,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             }
             newApuMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newApuMaintainInvoice);
+            var maintainCost = new ApuMaintainCostDTO { MaintainInvoiceId = newApuMaintainInvoice.Id, Year = newApuMaintainInvoice.InvoiceDate.Year };
+            _maintainCostAppService.InsertApuMaintainCost(maintainCost);
         }
 
         /// <summary>
@@ -242,6 +262,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             }
             newAirframeMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newAirframeMaintainInvoice);
+            var maintainCost = new RegularCheckMaintainCostDTO { MaintainInvoiceId = newAirframeMaintainInvoice.Id, Year = newAirframeMaintainInvoice.InvoiceDate.Year };
+            _maintainCostAppService.InsertRegularCheckMaintainCost(maintainCost);
         }
 
         /// <summary>
@@ -314,6 +336,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             }
             newUndercartMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newUndercartMaintainInvoice);
+            var maintainCost = new UndercartMaintainCostDTO { MaintainInvoiceId = newUndercartMaintainInvoice.Id, Year = newUndercartMaintainInvoice.InvoiceDate.Year };
+            _maintainCostAppService.InsertUndercartMaintainCost(maintainCost);
         }
 
         /// <summary>
@@ -390,6 +414,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             }
             newSpecialRefitInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newSpecialRefitInvoice);
+            var maintainCost = new SpecialRefitMaintainCostDTO { MaintainInvoiceId = newSpecialRefitInvoice.Id, Year = newSpecialRefitInvoice.InvoiceDate.Year };
+            _maintainCostAppService.InsertSpecialRefitMaintainCost(maintainCost);
         }
 
         /// <summary>

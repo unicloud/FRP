@@ -38,7 +38,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
 
         public static void SetRegularCheckMaintainCost(RegularCheckMaintainCost maintainCost, Guid aircraftId, Guid actionCategoryId, Guid aircraftTypeId, int regularCheckType,
             string regularCheckLevel, DateTime inMaintainTime, DateTime outMaintainTime, int totalDays, decimal departmentDeclareAmount, decimal financialApprovalAmount,
-            decimal financialApprovalAmountNonTax, int? maintainInvoiceId, Guid annualId)
+            decimal financialApprovalAmountNonTax, int? maintainInvoiceId, int year)
         {
             maintainCost.AircraftId = aircraftId;
             maintainCost.ActionCategoryId = actionCategoryId;
@@ -52,7 +52,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             maintainCost.FinancialApprovalAmount = financialApprovalAmount;
             maintainCost.FinancialApprovalAmountNonTax = financialApprovalAmountNonTax;
             maintainCost.MaintainInvoiceId = maintainInvoiceId;
-            maintainCost.AnnualId = annualId;
+            maintainCost.Year = year;
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
         public static void SetUndercartMaintainCost(UndercartMaintainCost maintainCost, Guid aircraftId, Guid actionCategoryId, Guid aircraftTypeId, int type,
             int part, DateTime inMaintainTime, DateTime outMaintainTime, int totalDays, decimal departmentDeclareAmount, decimal financialApprovalAmount,
             decimal financialApprovalAmountNonTax, int? maintainInvoiceId, decimal maintainFeeEur, decimal rate, decimal maintainFeeRmb, decimal freightFee,
-            decimal replaceFee, decimal customRate, string custom, decimal addedValueRate, string addedValue, Guid annualId)
+            decimal replaceFee, decimal customRate, string custom, decimal addedValueRate, string addedValue, int year)
         {
             maintainCost.AircraftId = aircraftId;
             maintainCost.ActionCategoryId = actionCategoryId;
@@ -94,7 +94,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             maintainCost.Custom = custom;
             maintainCost.AddedValueRate = addedValueRate;
             maintainCost.AddedValue = addedValue;
-            maintainCost.AnnualId = annualId;
+            maintainCost.Year = year;
         }
 
 
@@ -111,7 +111,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
         }
 
         public static void SetSpecialRefitMaintainCost(SpecialRefitMaintainCost maintainCost, string project, string info, decimal departmentDeclareAmount, string note, decimal financialApprovalAmount,
-            decimal financialApprovalAmountNonTax, int? maintainInvoiceId, Guid annualId)
+            decimal financialApprovalAmountNonTax, int? maintainInvoiceId, int year)
         {
             maintainCost.Project = project;
             maintainCost.Info = info;
@@ -120,7 +120,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             maintainCost.FinancialApprovalAmount = financialApprovalAmount;
             maintainCost.FinancialApprovalAmountNonTax = financialApprovalAmountNonTax;
             maintainCost.MaintainInvoiceId = maintainInvoiceId;
-            maintainCost.AnnualId = annualId;
+            maintainCost.Year = year;
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             Guid aircraftTypeId, int supplierId, DateTime inMaintainTime, DateTime outMaintainTime, int maintainLevel, int changeLlpNumber, decimal tsr, decimal csr, decimal nonFhaFee,
             decimal partFee, decimal changeLlpFee, decimal feeLittleSum, decimal rate, decimal feeTotalSum, decimal customRate, string custom, decimal addedValueRate, string addedValue,
         decimal customsTax, decimal freightFee, decimal departmentDeclareAmount, decimal financialApprovalAmount, decimal financialApprovalAmountNonTax, string note, int actualMaintainLevel,
-            int actualChangeLlpNumber, decimal actualTsr, decimal actualCsr, int? maintainInvoiceId, Guid annualId)
+            int actualChangeLlpNumber, decimal actualTsr, decimal actualCsr, int? maintainInvoiceId, int year)
         {
             maintainCost.EngineNumber = engineNumber;
             maintainCost.ContractRepairt = (ContractRepairtType)contractRepairt;
@@ -176,7 +176,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             maintainCost.ActualCsr = actualCsr;
             maintainCost.ActualTsr = actualTsr;
             maintainCost.MaintainInvoiceId = maintainInvoiceId;
-            maintainCost.AnnualId = annualId;
+            maintainCost.Year = year;
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
 
         public static void SetApuMaintainCost(ApuMaintainCost maintainCost, string nameType, string type, decimal lastYearRate, decimal yearAddedRate, decimal yearBudgetRate,
             decimal rate, decimal budgetHour, decimal hourPercent, decimal hour, decimal contractRepairFeeUsd, decimal contractRepairFeeRmb, decimal customRate, decimal totalTax,
-            decimal addedValueRate, decimal addedValue, decimal includeAddedValue, int? maintainInvoiceId, Guid annualId)
+            decimal addedValueRate, decimal addedValue, decimal includeAddedValue, int? maintainInvoiceId, int year)
         {
             maintainCost.NameType = nameType;
             maintainCost.Type = type;
@@ -212,7 +212,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             maintainCost.AddedValue = addedValue;
             maintainCost.IncludeAddedValue = includeAddedValue;
             maintainCost.MaintainInvoiceId = maintainInvoiceId;
-            maintainCost.AnnualId = annualId;
+            maintainCost.Year = year;
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
 
         public static void SetFhaMaintainCost(FhaMaintainCost maintainCost,Guid aircraftTypeId, string engineProperty, string jx, decimal lastYearRate, decimal yearAddedRate, decimal yearBudgetRate,
             decimal rate, decimal airHour, decimal hourPercent, decimal hour, decimal fhaFeeUsd, decimal fhaFeeRmb, decimal custom, decimal customAddedRmb, decimal totalTax,
-            decimal addedValueRate, decimal addedValue, decimal includeAddedValue, decimal customAdded, int? maintainInvoiceId, Guid annualId)
+            decimal addedValueRate, decimal addedValue, decimal includeAddedValue, decimal customAdded, int? maintainInvoiceId, int year)
         {
             maintainCost.AircraftTypeId = aircraftTypeId;
             maintainCost.EngineProperty = engineProperty;
@@ -251,7 +251,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             maintainCost.IncludeAddedValue = includeAddedValue;
             maintainCost.CustomAdded = customAdded;
             maintainCost.MaintainInvoiceId = maintainInvoiceId;
-            maintainCost.AnnualId = annualId;
+            maintainCost.Year = year;
         }
     }
 }

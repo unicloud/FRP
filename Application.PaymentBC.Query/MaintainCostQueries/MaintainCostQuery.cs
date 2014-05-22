@@ -61,7 +61,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         RegularCheckType = (int)p.RegularCheckType,
                         RegularCheckLevel = p.RegularCheckLevel,
                         MaintainInvoiceId = p.MaintainInvoiceId,
-                        AnnualId = p.AnnualId
+                        Year = p.Year
                     });
         }
 
@@ -104,7 +104,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         MaintainFeeRmb = p.MaintainFeeRmb,
                         Rate = p.Rate,
                         ReplaceFee = p.ReplaceFee,
-                        AnnualId = p.AnnualId
+                        Year = p.Year
                     });
         }
 
@@ -130,7 +130,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
                         AcutalAmount = p.MaintainInvoice.InvoiceValue,
                         MaintainInvoiceId = p.MaintainInvoiceId,
-                        AnnualId = p.AnnualId
+                        Year = p.Year
                     });
         }
 
@@ -186,7 +186,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
                         AcutalAmount = p.MaintainInvoice.InvoiceValue,
                         MaintainInvoiceId = p.MaintainInvoiceId,
-                        AnnualId = p.AnnualId
+                        Year = p.Year
                     });
         }
 
@@ -220,7 +220,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         AddedValue = p.AddedValue,
                         IncludeAddedValue = p.IncludeAddedValue,
                         MaintainInvoiceId = p.MaintainInvoiceId,
-                        AnnualId = p.AnnualId,
+                        Year = p.Year,
                         AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
                         AcutalAmount = p.MaintainInvoice.InvoiceValue
                     });
@@ -259,7 +259,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         CustomAdded = p.CustomAdded,
                         AircraftTypeId = p.AircraftTypeId,
                         MaintainInvoiceId = p.MaintainInvoiceId,
-                        AnnualId = p.AnnualId,
+                        Year = p.Year,
                         AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
                         AcutalAmount = p.MaintainInvoice.InvoiceValue
                     });
