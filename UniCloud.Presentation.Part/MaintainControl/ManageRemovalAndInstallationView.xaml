@@ -121,7 +121,7 @@
                                         <telerik:GridViewDataColumn Header="拆装指令"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding ActionNo}" />
+                                                                    DataMemberBinding="{Binding ActionNo}"/>
                                         <telerik:GridViewComboBoxColumn Header="拆装类型"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         ItemsSource="{Binding DataContext.ActionTypes, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"

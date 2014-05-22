@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/5/20 17:03:36
+// 生成日期: 2014/5/22 15:01:39
 namespace UniCloud.Presentation.Service.Part.Part
 {
     
@@ -1290,13 +1290,13 @@ namespace UniCloud.Presentation.Service.Part.Part
                 "ng\" /></FunctionImport><FunctionImport Name=\"QueryAcConfigs\" ReturnType=\"Collect" +
                 "ion(UniCloud.Application.PartBC.DTO.AcConfigDTO)\" EntitySet=\"AcConfigs\" m:HttpMe" +
                 "thod=\"GET\"><Parameter Name=\"contractAircraftId\" Type=\"Edm.Int32\" Nullable=\"false" +
-                "\" /><Parameter Name=\"date\" Type=\"Edm.String\" /></FunctionImport><AssociationSet " +
-                "Name=\"AcConfigDTO_SubAcConfigs\" Association=\"UniCloud.Application.PartBC.DTO.AcC" +
-                "onfigDTO_SubAcConfigs\"><End Role=\"AcConfigDTO\" EntitySet=\"AcConfigs\" /><End Role" +
-                "=\"SubAcConfigs\" EntitySet=\"AcConfigs\" /></AssociationSet><AssociationSet Name=\"B" +
-                "asicConfigDTO_SubBasicConfigs\" Association=\"UniCloud.Applic";
+                "\" /><Parameter Name=\"date\" Type=\"Edm.String\" /></FunctionImport><FunctionImport " +
+                "Name=\"GetPnRegsByItem\" ReturnType=\"Collection(UniCloud.Application.PartBC.DTO.Pn" +
+                "RegDTO)\" EntitySet=\"PnRegs\" m:HttpMethod=\"GET\"><Parameter Name=\"itemId\" Type=\"Ed" +
+                "m.Int32\" Nullable=\"false\" /></FunctionImport><AssociationSet Name=\"AcConfigDTO_S" +
+                "ubAcConfigs\" Association=\"UniCloud.Application.PartBC.DTO.A";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart4 = @"ation.PartBC.DTO.BasicConfigDTO_SubBasicConfigs""><End Role=""BasicConfigDTO"" EntitySet=""BasicConfigs"" /><End Role=""SubBasicConfigs"" EntitySet=""BasicConfigs"" /></AssociationSet><AssociationSet Name=""SnRegDTO_SnHistories"" Association=""UniCloud.Application.PartBC.DTO.SnRegDTO_SnHistories""><End Role=""SnRegDTO"" EntitySet=""SnRegs"" /><End Role=""SnHistories"" EntitySet=""SnHistories"" /></AssociationSet><AssociationSet Name=""ApuEngineSnRegDTO_SnHistories"" Association=""UniCloud.Application.PartBC.DTO.ApuEngineSnRegDTO_SnHistories""><End Role=""ApuEngineSnRegDTO"" EntitySet=""ApuEngineSnRegs"" /><End Role=""SnHistories"" EntitySet=""SnHistories"" /></AssociationSet><AssociationSet Name=""SpecialConfigDTO_SubSpecialConfigs"" Association=""UniCloud.Application.PartBC.DTO.SpecialConfigDTO_SubSpecialConfigs""><End Role=""SpecialConfigDTO"" EntitySet=""SpecialConfigs"" /><End Role=""SubSpecialConfigs"" EntitySet=""SpecialConfigs"" /></AssociationSet></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+            private const string ModelPart4 = @"cConfigDTO_SubAcConfigs""><End Role=""AcConfigDTO"" EntitySet=""AcConfigs"" /><End Role=""SubAcConfigs"" EntitySet=""AcConfigs"" /></AssociationSet><AssociationSet Name=""BasicConfigDTO_SubBasicConfigs"" Association=""UniCloud.Application.PartBC.DTO.BasicConfigDTO_SubBasicConfigs""><End Role=""BasicConfigDTO"" EntitySet=""BasicConfigs"" /><End Role=""SubBasicConfigs"" EntitySet=""BasicConfigs"" /></AssociationSet><AssociationSet Name=""SnRegDTO_SnHistories"" Association=""UniCloud.Application.PartBC.DTO.SnRegDTO_SnHistories""><End Role=""SnRegDTO"" EntitySet=""SnRegs"" /><End Role=""SnHistories"" EntitySet=""SnHistories"" /></AssociationSet><AssociationSet Name=""ApuEngineSnRegDTO_SnHistories"" Association=""UniCloud.Application.PartBC.DTO.ApuEngineSnRegDTO_SnHistories""><End Role=""ApuEngineSnRegDTO"" EntitySet=""ApuEngineSnRegs"" /><End Role=""SnHistories"" EntitySet=""SnHistories"" /></AssociationSet><AssociationSet Name=""SpecialConfigDTO_SubSpecialConfigs"" Association=""UniCloud.Application.PartBC.DTO.SpecialConfigDTO_SubSpecialConfigs""><End Role=""SpecialConfigDTO"" EntitySet=""SpecialConfigs"" /><End Role=""SubSpecialConfigs"" EntitySet=""SpecialConfigs"" /></AssociationSet></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {

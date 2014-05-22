@@ -118,7 +118,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         ///     当前装机机号
         /// </summary>
         public string RegNumber { get; private set; }
-        
+
         /// <summary>
         ///     序号件状态
         /// </summary>
@@ -258,7 +258,11 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
             {
                 throw new ArgumentException("附件参数为空！");
             }
-
+            //当件号发生改变的时候，将原来的件号记录起来
+            if (Pn != pnReg.Pn)
+            {
+                AllPnName += (Pn + ";");
+            }
             Pn = pnReg.Pn;
             PnRegId = pnReg.Id;
         }
@@ -273,6 +277,11 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
             {
                 AircraftId = aircraft.Id;
                 RegNumber = aircraft.RegNumber;
+            }
+            else
+            {
+                AircraftId = null;
+                RegNumber = null;
             }
         }
 

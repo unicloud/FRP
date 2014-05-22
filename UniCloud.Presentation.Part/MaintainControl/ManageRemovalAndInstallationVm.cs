@@ -248,7 +248,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                         RaisePropertyChanged(() => InStoreSnRegs);
                     }
                     RaisePropertyChanged(() => SelSnRemInstRecord);
-                    RaisePropertyChanged(()=>Installations);
+                    RaisePropertyChanged(() => Installations);
                     RaisePropertyChanged(() => Removals);
                     RefreshCommandState();
                 }
@@ -483,6 +483,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
             var snReg = SnRegs.FirstOrDefault(p => p.Id == SelRemoval.SnRegId);
             if (snReg != null) snReg.AircraftId = SelRemoval.AircraftId;
             Removals.Remove(SelRemoval);
+            SelRemoval = Removals.FirstOrDefault();
             RefreshCommandState();
         }
 
@@ -549,9 +550,11 @@ namespace UniCloud.Presentation.Part.MaintainControl
         {
             var snReg = SnRegs.FirstOrDefault(p => p.Id == SelInstallation.SnRegId);
             if (snReg != null) snReg.AircraftId = null;
-            Installations.Remove(SelInstallation);
             var snHistory = SnHistories.FirstOrDefault(p => p.Id == SelInstallation.Id);
+            Installations.Remove(SelInstallation);
             if (snHistory != null) SnHistories.Remove(snHistory);
+            SelInstallation = Installations.FirstOrDefault();
+            RefreshCommandState();
         }
 
         private bool CanRemoveInstallation(object obj)
@@ -586,6 +589,17 @@ namespace UniCloud.Presentation.Part.MaintainControl
                         OnBoardSnRegs.AddRange(SnRegs.Where(p => p.AircraftId == value));
                         InStoreSnRegs.AddRange(SnRegs.Where(p => p.AircraftId == Guid.Empty));
                     }
+                    RefreshCommandState();
+                }
+                else if (string.Equals(cell.Column.UniqueName, "ActionType"))
+                {
+                    //if (SelSnRemInstRecord.ActionType == (int) ActionType.拆下 && Installations.Count != 0)
+                    //{
+                    //    MessageConfirm("已有装上记录，是否修改成拆下类型！（如果是，则会自动删除装上记录）", (s, arg) =>
+                    //    {
+                    //        if (arg.DialogResult != true) SelSnRemInstRecord.ActionType=(int)ActionType.装上;
+                    //    });
+                    //}
                     RefreshCommandState();
                 }
                 else if (string.Equals(cell.Column.UniqueName, "PnReg"))
@@ -697,7 +711,6 @@ namespace UniCloud.Presentation.Part.MaintainControl
                             Removals.Add(snHis);
                             var snReg = SnRegs.FirstOrDefault(sn => sn.Id == snHis.SnRegId);
                             if (snReg != null) snReg.AircraftId = null;
-                            RefreshCommandState();
                         }
                         else if (snHis.RemoveRecordId != null)
                         {
@@ -705,6 +718,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                         }
                     }
                 });
+                SelRemoval = Removals.FirstOrDefault();
                 _addChildView = false;
                 _removeChildView = false;
             }
@@ -741,11 +755,11 @@ namespace UniCloud.Presentation.Part.MaintainControl
                         }
                     }
                 });
-                RefreshCommandState();
-                RaisePropertyChanged(() => Installations);
+                SelInstallation = Installations.FirstOrDefault();
                 _addChildView = false;
                 _removeChildView = false;
             }
+            RefreshCommandState();
             SnRegsChildView.Close();
         }
 

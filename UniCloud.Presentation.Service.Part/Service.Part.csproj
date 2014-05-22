@@ -127,6 +127,13 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniCloud.Presentation.Service\Service.csproj">
+      <Project>{5f45eae5-2f35-4ad1-bf0e-f5fd5539fd32}</Project>
+      <Name>Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ServiceReferenceMetadataStorage Include="Service References\Part\">
       <Type>datasvcmap</Type>
     </ServiceReferenceMetadataStorage>
@@ -136,13 +143,6 @@
       <Generator>DataServicesCoreClientGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UniCloud.Presentation.Service\Service.csproj">
-      <Project>{5f45eae5-2f35-4ad1-bf0e-f5fd5539fd32}</Project>
-      <Name>Service</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>
