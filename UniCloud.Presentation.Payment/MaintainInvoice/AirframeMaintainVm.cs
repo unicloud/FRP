@@ -19,7 +19,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
@@ -352,19 +351,6 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         }
 
         #endregion
-
-        #region Combobox SelectedChanged
-
-        public void SelectedChanged(object comboboxSelectedItem)
-        {
-            if (comboboxSelectedItem is SupplierDTO)
-            {
-                AirframeMaintainInvoice.SupplierName = (comboboxSelectedItem as SupplierDTO).Name;
-            }
-        }
-
-        #endregion
-
 
         #region GridView单元格变更处理
 

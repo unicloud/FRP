@@ -353,18 +353,6 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         #endregion
 
-        #region Combobox SelectedChanged
-
-        public void SelectedChanged(object comboboxSelectedItem)
-        {
-            if (comboboxSelectedItem is SupplierDTO)
-            {
-                ApuMaintainInvoice.SupplierName = (comboboxSelectedItem as SupplierDTO).Name;
-            }
-        }
-
-        #endregion
-
         #region GridView单元格变更处理
 
         /// <summary>
