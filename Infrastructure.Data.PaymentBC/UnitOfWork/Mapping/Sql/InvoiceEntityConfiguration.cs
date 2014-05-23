@@ -59,6 +59,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
 
             HasRequired(i => i.Supplier).WithMany().HasForeignKey(i => i.SupplierId);
             HasRequired(i => i.Currency).WithMany().HasForeignKey(i => i.CurrencyId);
+            HasOptional(i => i.PaymentScheduleLine).WithMany().HasForeignKey(i => i.PaymentScheduleLineId);
         }
     }
 }

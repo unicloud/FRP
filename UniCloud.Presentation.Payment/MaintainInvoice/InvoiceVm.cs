@@ -55,6 +55,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             RemoveInvoiceLineCommand = new DelegateCommand<object>(OnRemoveInvoiceLine, CanRemoveInvoiceLine);
             SubmitInvoiceCommand = new DelegateCommand<object>(OnSubmitInvoice, CanSubmitInvoice);
             ReviewInvoiceCommand = new DelegateCommand<object>(OnReviewInvoice, CanReviewInvoice);
+            CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
         }
 
         #endregion
@@ -275,6 +276,19 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             return true;
         }
 
+        #endregion
+
+        #region GridView单元格变更处理
+
+        public DelegateCommand<object> CellEditEndCommand { set; get; }
+
+        /// <summary>
+        ///     GridView单元格变更处理
+        /// </summary>
+        /// <param name="sender"></param>
+        protected virtual void OnCellEditEnd(object sender)
+        {
+        }
         #endregion
 
         public override void LoadData()

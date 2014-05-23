@@ -20,9 +20,14 @@ using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
+using UniCloud.Application.PaymentBC.MaintainCostServices;
+using UniCloud.Application.PaymentBC.Query.MaintainCostQueries;
 using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 
 #endregion
 
@@ -37,11 +42,16 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
     {
         private readonly IMaintainInvoiceQuery _maintainInvoiceQuery;
         private readonly IInvoiceRepository _invoiceRepository;
-
-        public MaintainInvoiceAppService(IMaintainInvoiceQuery maintainInvoiceQuery, IInvoiceRepository invoiceRepository)
+        private readonly MaintainCostAppService _maintainCostAppService;
+        private readonly ISupplierRepository _supplierRepository;
+ 
+        public MaintainInvoiceAppService(IMaintainInvoiceQuery maintainInvoiceQuery, IInvoiceRepository invoiceRepository,
+           ISupplierRepository supplierRepository, IMaintainCostQuery maintainCostQuery, IMaintainCostRepository maintainCostRepository)
         {
             _maintainInvoiceQuery = maintainInvoiceQuery;
             _invoiceRepository = invoiceRepository;
+            _supplierRepository = supplierRepository;
+            _maintainCostAppService = new MaintainCostAppService(maintainCostQuery, maintainCostRepository);
         }
 
         /// <summary>
@@ -72,6 +82,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         [Insert(typeof(EngineMaintainInvoiceDTO))]
         public void InsertEngineMaintainInvoice(EngineMaintainInvoiceDTO engineMaintainInvoice)
         {
+            var supplier = _supplierRepository.Get(engineMaintainInvoice.SupplierId);
+            engineMaintainInvoice.SupplierName = supplier.CnName;
             var newEngineMaintainInvoice = MaintainInvoiceFactory.CreateEngineMaintainInvoice();
             newEngineMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
             MaintainInvoiceFactory.SetMaintainInvoice(newEngineMaintainInvoice, engineMaintainInvoice.SerialNumber,
@@ -93,6 +105,17 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             }
             newEngineMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newEngineMaintainInvoice);
+            if (newEngineMaintainInvoice.Type == EngineMaintainInvoiceType.非FHA超包修)
+            {
+                var maintainCost = new NonFhaMaintainCostDTO { MaintainInvoiceId = newEngineMaintainInvoice.Id, Year = newEngineMaintainInvoice.InvoiceDate.Year, SupplierId = newEngineMaintainInvoice.SupplierId };
+                _maintainCostAppService.InsertNonFhaMaintainCost(maintainCost);
+
+            }
+            else
+            {
+                var maintainCost = new FhaMaintainCostDTO { MaintainInvoiceId = newEngineMaintainInvoice.Id, Year = newEngineMaintainInvoice.InvoiceDate.Year };
+                _maintainCostAppService.InsertFhaMaintainCost(maintainCost);
+            }
         }
 
 
@@ -103,6 +126,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         [Update(typeof(EngineMaintainInvoiceDTO))]
         public void ModifyEngineMaintainInvoice(EngineMaintainInvoiceDTO engineMaintainInvoice)
         {
+            var supplier = _supplierRepository.Get(engineMaintainInvoice.SupplierId);
+            engineMaintainInvoice.SupplierName = supplier.CnName;
             var updateEngineMaintainInvoice =
                 _invoiceRepository.Get(engineMaintainInvoice.EngineMaintainInvoiceId) as EngineMaintainInvoice; //获取需要更新的对象。
             MaintainInvoiceFactory.SetMaintainInvoice(updateEngineMaintainInvoice, engineMaintainInvoice.SerialNumber,
@@ -148,6 +173,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         [Insert(typeof(APUMaintainInvoiceDTO))]
         public void InsertApuMaintainInvoice(APUMaintainInvoiceDTO apuMaintainInvoice)
         {
+            var supplier = _supplierRepository.Get(apuMaintainInvoice.SupplierId);
+            apuMaintainInvoice.SupplierName = supplier.CnName;
             var newApuMaintainInvoice = MaintainInvoiceFactory.CreateApuMaintainInvoice();
             newApuMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
             MaintainInvoiceFactory.SetMaintainInvoice(newApuMaintainInvoice, apuMaintainInvoice.SerialNumber,
@@ -168,6 +195,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             }
             newApuMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newApuMaintainInvoice);
+            var maintainCost = new ApuMaintainCostDTO { MaintainInvoiceId = newApuMaintainInvoice.Id, Year = newApuMaintainInvoice.InvoiceDate.Year };
+            _maintainCostAppService.InsertApuMaintainCost(maintainCost);
         }
 
         /// <summary>
@@ -177,6 +206,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         [Update(typeof(APUMaintainInvoiceDTO))]
         public void ModifyApuMaintainInvoice(APUMaintainInvoiceDTO apuMaintainInvoice)
         {
+            var supplier = _supplierRepository.Get(apuMaintainInvoice.SupplierId);
+            apuMaintainInvoice.SupplierName = supplier.CnName;
             var updateApuMaintainInvoice = _invoiceRepository.GetMaintainInvoice(apuMaintainInvoice.APUMaintainInvoiceId);//获取需要更新的对象。
             MaintainInvoiceFactory.SetMaintainInvoice(updateApuMaintainInvoice, apuMaintainInvoice.SerialNumber,
                 apuMaintainInvoice.InvoideCode, apuMaintainInvoice.InvoiceDate, apuMaintainInvoice.SupplierName, apuMaintainInvoice.SupplierId,
@@ -222,6 +253,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         [Insert(typeof(AirframeMaintainInvoiceDTO))]
         public void InsertAirframeMaintainInvoice(AirframeMaintainInvoiceDTO airframeMaintainInvoice)
         {
+            var supplier = _supplierRepository.Get(airframeMaintainInvoice.SupplierId);
+            airframeMaintainInvoice.SupplierName = supplier.CnName;
             var newAirframeMaintainInvoice = MaintainInvoiceFactory.CreateAirframeMaintainInvoice();
             newAirframeMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
             MaintainInvoiceFactory.SetMaintainInvoice(newAirframeMaintainInvoice, airframeMaintainInvoice.SerialNumber,
@@ -242,6 +275,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             }
             newAirframeMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newAirframeMaintainInvoice);
+            var maintainCost = new RegularCheckMaintainCostDTO { MaintainInvoiceId = newAirframeMaintainInvoice.Id, Year = newAirframeMaintainInvoice.InvoiceDate.Year };
+            _maintainCostAppService.InsertRegularCheckMaintainCost(maintainCost);
         }
 
         /// <summary>
@@ -251,6 +286,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         [Update(typeof(AirframeMaintainInvoiceDTO))]
         public void ModifyAirframeMaintainInvoice(AirframeMaintainInvoiceDTO airframeMaintainInvoice)
         {
+            var supplier = _supplierRepository.Get(airframeMaintainInvoice.SupplierId);
+            airframeMaintainInvoice.SupplierName = supplier.CnName;
             var updateAirframeMaintainInvoice = _invoiceRepository.GetMaintainInvoice(airframeMaintainInvoice.AirframeMaintainInvoiceId);//获取需要更新的对象。
             MaintainInvoiceFactory.SetMaintainInvoice(updateAirframeMaintainInvoice, airframeMaintainInvoice.SerialNumber,
                  airframeMaintainInvoice.InvoideCode, airframeMaintainInvoice.InvoiceDate, airframeMaintainInvoice.SupplierName, airframeMaintainInvoice.SupplierId,
@@ -294,6 +331,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         [Insert(typeof(UndercartMaintainInvoiceDTO))]
         public void InsertUndercartMaintainInvoice(UndercartMaintainInvoiceDTO undercartMaintainInvoice)
         {
+            var supplier = _supplierRepository.Get(undercartMaintainInvoice.SupplierId);
+            undercartMaintainInvoice.SupplierName = supplier.CnName;
             var newUndercartMaintainInvoice = MaintainInvoiceFactory.CreateUndercartMaintainInvoice();
             newUndercartMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
             MaintainInvoiceFactory.SetMaintainInvoice(newUndercartMaintainInvoice, undercartMaintainInvoice.SerialNumber,
@@ -314,6 +353,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             }
             newUndercartMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newUndercartMaintainInvoice);
+            var maintainCost = new UndercartMaintainCostDTO { MaintainInvoiceId = newUndercartMaintainInvoice.Id, Year = newUndercartMaintainInvoice.InvoiceDate.Year };
+            _maintainCostAppService.InsertUndercartMaintainCost(maintainCost);
         }
 
         /// <summary>
@@ -323,6 +364,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         [Update(typeof(UndercartMaintainInvoiceDTO))]
         public void ModifyUndercartMaintainInvoice(UndercartMaintainInvoiceDTO undercartMaintainInvoice)
         {
+            var supplier = _supplierRepository.Get(undercartMaintainInvoice.SupplierId);
+            undercartMaintainInvoice.SupplierName = supplier.CnName;
             var updateUndercartMaintainInvoice =
                 _invoiceRepository.GetMaintainInvoice(undercartMaintainInvoice.UndercartMaintainInvoiceId);//获取需要更新的对象。
             MaintainInvoiceFactory.SetMaintainInvoice(updateUndercartMaintainInvoice, undercartMaintainInvoice.SerialNumber,
@@ -370,6 +413,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         [Insert(typeof(SpecialRefitInvoiceDTO))]
         public void InsertSpecialRefitInvoice(SpecialRefitInvoiceDTO specialRefitInvoice)
         {
+            var supplier = _supplierRepository.Get(specialRefitInvoice.SupplierId);
+            specialRefitInvoice.SupplierName = supplier.CnName;
             var newSpecialRefitInvoice = MaintainInvoiceFactory.CreateSpecialRefitInvoice();
             newSpecialRefitInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
             MaintainInvoiceFactory.SetMaintainInvoice(newSpecialRefitInvoice, "0",
@@ -390,6 +435,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             }
             newSpecialRefitInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newSpecialRefitInvoice);
+            var maintainCost = new SpecialRefitMaintainCostDTO { MaintainInvoiceId = newSpecialRefitInvoice.Id, Year = newSpecialRefitInvoice.InvoiceDate.Year };
+            _maintainCostAppService.InsertSpecialRefitMaintainCost(maintainCost);
         }
 
         /// <summary>
@@ -399,6 +446,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         [Update(typeof(SpecialRefitInvoiceDTO))]
         public void ModifySpecialRefitInvoice(SpecialRefitInvoiceDTO specialRefitInvoice)
         {
+            var supplier = _supplierRepository.Get(specialRefitInvoice.SupplierId);
+            specialRefitInvoice.SupplierName = supplier.CnName;
             var updateSpecialRefitInvoice =
                _invoiceRepository.GetMaintainInvoice(specialRefitInvoice.SpecialRefitId);//获取需要更新的对象。
             MaintainInvoiceFactory.SetMaintainInvoice(updateSpecialRefitInvoice, "0",

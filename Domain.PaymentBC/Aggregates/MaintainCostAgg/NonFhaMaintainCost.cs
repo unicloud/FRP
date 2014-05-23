@@ -96,7 +96,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
         /// <summary>
         /// 关税
         /// </summary>
-        public string Custom { get; internal set; }
+        public decimal Custom { get; internal set; }
         /// <summary>
         /// 增值税税率
         /// </summary>
@@ -104,7 +104,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
         /// <summary>
         /// 增值税
         /// </summary>
-        public string AddedValue { get; internal set; }
+        public decimal AddedValue { get; internal set; }
         /// <summary>
         /// 关增税
         /// </summary>

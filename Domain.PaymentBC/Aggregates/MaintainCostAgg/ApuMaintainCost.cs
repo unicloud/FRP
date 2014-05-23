@@ -45,14 +45,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
         /// </summary>
         public string Type { get; internal set; }
         /// <summary>
-        /// 上一年实际费率（美元）
-        /// </summary>
-        public decimal LastYearRate { get; internal set; }
-        /// <summary>
-        /// 费率增幅
-        /// </summary>
-        public decimal YearAddedRate { get; internal set; }
-        /// <summary>
         /// 预算费率(美元)
         /// </summary>
         public decimal YearBudgetRate { get; internal set; }

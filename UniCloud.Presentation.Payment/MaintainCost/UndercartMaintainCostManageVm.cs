@@ -20,7 +20,6 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
@@ -65,7 +64,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 _annual = value;
                 if (_annual != null)
                 {
-                    _annualFilter.Value = _annual.Id;
+                    _annualFilter.Value = _annual.Year;
                     UndercartMaintainCosts.Load(true);
                 }
                 RaisePropertyChanged(() => Annual);
@@ -124,12 +123,10 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         private void InitialVm()
         {
             CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
-            AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
-            DeleteCommand = new DelegateCommand<object>(OnDelete, CanDelete);
             UndercartMaintainInvoices = new QueryableDataServiceCollectionView<UndercartMaintainInvoiceDTO>(_context, _context.UndercartMaintainInvoices);
             UndercartMaintainCosts = _service.CreateCollection(_context.UndercartMaintainCosts);
             UndercartMaintainCosts.PageSize = 20;
-            _annualFilter = new FilterDescriptor("AnnualId", FilterOperator.IsEqualTo, Guid.Empty);
+            _annualFilter = new FilterDescriptor("Year", FilterOperator.IsEqualTo, 0);
             UndercartMaintainCosts.FilterDescriptors.Add(_annualFilter);
             UndercartMaintainCosts.LoadedData += (sender, e) =>
             {
@@ -145,100 +142,13 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             Annuals.LoadedData += (o, e) =>
             {
                 if (Annual == null)
-                    Annual = Annuals.FirstOrDefault();
+                    Annual = Annuals.FirstOrDefault(p => p.Year == DateTime.Now.Year);
             };
         }
 
         #endregion
 
         #region 命令
-
-        #region 新增起落架命令
-
-        public DelegateCommand<object> AddCommand { get; set; }
-
-        /// <summary>
-        ///     执行新增命令。
-        /// </summary>
-        /// <param name="sender"></param>
-        public void OnAdd(object sender)
-        {
-            UndercartMaintainCost = new UndercartMaintainCostDTO
-                                     {
-                                         Id = RandomHelper.Next(),
-                                         InMaintainTime = DateTime.Now,
-                                         OutMaintainTime = DateTime.Now,
-                                         AnnualId = Annual.Id
-                                     };
-            UndercartMaintainCost.TotalDays =
-                (UndercartMaintainCost.OutMaintainTime.Date - UndercartMaintainCost.InMaintainTime.Date).Days + 1;
-            var aircraft = Aircrafts.FirstOrDefault();
-            if (aircraft != null)
-            {
-                UndercartMaintainCost.AircraftId = aircraft.AircraftId;
-                UndercartMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
-                UndercartMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
-            }
-            var invoice = UndercartMaintainInvoices.FirstOrDefault();
-            if (invoice != null)
-            {
-                UndercartMaintainCost.MaintainInvoiceId = invoice.UndercartMaintainInvoiceId;
-                UndercartMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
-                UndercartMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
-                UndercartMaintainCost.AcutalTotalDays =
-                   (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
-                UndercartMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                UndercartMaintainCost.AcutalAmount = invoice.PaidAmount;
-            }
-            UndercartMaintainCosts.AddNew(UndercartMaintainCost);
-        }
-
-        /// <summary>
-        ///     判断新增起落架命令是否可用。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>新增命令是否可用。</returns>
-        public bool CanAdd(object sender)
-        {
-            return true;
-        }
-
-        #endregion
-
-        #region 删除起落架命令
-
-        public DelegateCommand<object> DeleteCommand { get; set; }
-
-        /// <summary>
-        ///     执行删除起落架命令。
-        /// </summary>
-        /// <param name="sender"></param>
-        public void OnDelete(object sender)
-        {
-            if (UndercartMaintainCost == null)
-            {
-                MessageAlert("提示", "请选择需要删除的记录");
-                return;
-            }
-            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                UndercartMaintainCosts.Remove(UndercartMaintainCost);
-                                                UndercartMaintainCost = UndercartMaintainCosts.FirstOrDefault();
-                                            });
-        }
-
-        /// <summary>
-        ///     判断删除起落架命令是否可用。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>删除命令是否可用。</returns>
-        public bool CanDelete(object sender)
-        {
-            return true;
-        }
-
-        #endregion
 
         #endregion
 
@@ -294,16 +204,6 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             {
                 UndercartMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
                 UndercartMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
-            }
-            var invoice = UndercartMaintainInvoices.FirstOrDefault(p => p.UndercartMaintainInvoiceId == UndercartMaintainCost.MaintainInvoiceId);
-            if (invoice != null)
-            {
-                UndercartMaintainCost.AcutalInMaintainTime = invoice.InMaintainTime;
-                UndercartMaintainCost.AcutalOutMaintainTime = invoice.OutMaintainTime;
-                UndercartMaintainCost.AcutalTotalDays =
-                    (invoice.OutMaintainTime.Date - invoice.InMaintainTime.Date).Days + 1;
-                UndercartMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                UndercartMaintainCost.AcutalAmount = invoice.InvoiceValue;
             }
             UndercartMaintainCost.TotalDays = (UndercartMaintainCost.OutMaintainTime.Date - UndercartMaintainCost.InMaintainTime.Date).Days + 1;
             UndercartMaintainCost.AcutalTotalDays = (UndercartMaintainCost.AcutalOutMaintainTime.Date - UndercartMaintainCost.AcutalInMaintainTime.Date).Days + 1;

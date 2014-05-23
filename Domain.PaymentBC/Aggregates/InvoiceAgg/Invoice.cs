@@ -23,6 +23,7 @@ using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 
 #endregion
@@ -160,6 +161,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// </summary>
         public virtual Currency Currency { get; private set; }
 
+        public virtual PaymentScheduleLine PaymentScheduleLine { get; set; }
         #endregion
 
         #region 操作

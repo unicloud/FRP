@@ -56,7 +56,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
             var newRegularCheckMaintainCost = MaintainCostFactory.CreateRegularCheckMaintainCost();
             MaintainCostFactory.SetRegularCheckMaintainCost(newRegularCheckMaintainCost, regularCheckMaintainCost.AircraftId, regularCheckMaintainCost.ActionCategoryId, regularCheckMaintainCost.AircraftTypeId,
                 regularCheckMaintainCost.RegularCheckType, regularCheckMaintainCost.RegularCheckLevel, regularCheckMaintainCost.InMaintainTime, regularCheckMaintainCost.OutMaintainTime, regularCheckMaintainCost.TotalDays,
-                regularCheckMaintainCost.DepartmentDeclareAmount, regularCheckMaintainCost.FinancialApprovalAmount, regularCheckMaintainCost.FinancialApprovalAmountNonTax, regularCheckMaintainCost.MaintainInvoiceId, regularCheckMaintainCost.AnnualId);
+                regularCheckMaintainCost.DepartmentDeclareAmount, regularCheckMaintainCost.FinancialApprovalAmount, regularCheckMaintainCost.FinancialApprovalAmountNonTax, regularCheckMaintainCost.MaintainInvoiceId, regularCheckMaintainCost.Year);
             _maintainCostRepository.Add(newRegularCheckMaintainCost);
         }
 
@@ -71,7 +71,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
             var updateRegularCheckMaintainCost = _maintainCostRepository.Get(regularCheckMaintainCost.Id) as RegularCheckMaintainCost; //获取需要更新的对象。
             MaintainCostFactory.SetRegularCheckMaintainCost(updateRegularCheckMaintainCost, regularCheckMaintainCost.AircraftId, regularCheckMaintainCost.ActionCategoryId, regularCheckMaintainCost.AircraftTypeId,
                 regularCheckMaintainCost.RegularCheckType, regularCheckMaintainCost.RegularCheckLevel, regularCheckMaintainCost.InMaintainTime, regularCheckMaintainCost.OutMaintainTime, regularCheckMaintainCost.TotalDays,
-                regularCheckMaintainCost.DepartmentDeclareAmount, regularCheckMaintainCost.FinancialApprovalAmount, regularCheckMaintainCost.FinancialApprovalAmountNonTax, regularCheckMaintainCost.MaintainInvoiceId, regularCheckMaintainCost.AnnualId);
+                regularCheckMaintainCost.DepartmentDeclareAmount, regularCheckMaintainCost.FinancialApprovalAmount, regularCheckMaintainCost.FinancialApprovalAmountNonTax, regularCheckMaintainCost.MaintainInvoiceId, regularCheckMaintainCost.Year);
             _maintainCostRepository.Modify(updateRegularCheckMaintainCost);
         }
 
@@ -110,7 +110,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
                 undercartMaintainCost.Type, undercartMaintainCost.Part, undercartMaintainCost.InMaintainTime, undercartMaintainCost.OutMaintainTime, undercartMaintainCost.TotalDays,
                 undercartMaintainCost.DepartmentDeclareAmount, undercartMaintainCost.FinancialApprovalAmount, undercartMaintainCost.FinancialApprovalAmountNonTax, undercartMaintainCost.MaintainInvoiceId,
                 undercartMaintainCost.MaintainFeeEur, undercartMaintainCost.Rate, undercartMaintainCost.MaintainFeeRmb, undercartMaintainCost.FreightFee, undercartMaintainCost.ReplaceFee, undercartMaintainCost.CustomRate,
-                undercartMaintainCost.Custom, undercartMaintainCost.AddedValueRate, undercartMaintainCost.AddedValue, undercartMaintainCost.AnnualId);
+                undercartMaintainCost.Custom, undercartMaintainCost.AddedValueRate, undercartMaintainCost.AddedValue, undercartMaintainCost.Year);
             _maintainCostRepository.Add(newUndercartMaintainCost);
         }
 
@@ -127,7 +127,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
                 undercartMaintainCost.Type, undercartMaintainCost.Part, undercartMaintainCost.InMaintainTime, undercartMaintainCost.OutMaintainTime, undercartMaintainCost.TotalDays,
                 undercartMaintainCost.DepartmentDeclareAmount, undercartMaintainCost.FinancialApprovalAmount, undercartMaintainCost.FinancialApprovalAmountNonTax, undercartMaintainCost.MaintainInvoiceId,
                 undercartMaintainCost.MaintainFeeEur, undercartMaintainCost.Rate, undercartMaintainCost.MaintainFeeRmb, undercartMaintainCost.FreightFee, undercartMaintainCost.ReplaceFee, undercartMaintainCost.CustomRate,
-                undercartMaintainCost.Custom, undercartMaintainCost.AddedValueRate, undercartMaintainCost.AddedValue, undercartMaintainCost.AnnualId);
+                undercartMaintainCost.Custom, undercartMaintainCost.AddedValueRate, undercartMaintainCost.AddedValue, undercartMaintainCost.Year);
             _maintainCostRepository.Modify(updateUndercartMaintainCost);
         }
 
@@ -163,7 +163,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         {
             var newSpecialRefitMaintainCost = MaintainCostFactory.CreateSpecialRefitMaintainCost();
             MaintainCostFactory.SetSpecialRefitMaintainCost(newSpecialRefitMaintainCost, specialRefitMaintainCost.Project, specialRefitMaintainCost.Info, specialRefitMaintainCost.DepartmentDeclareAmount,
-                specialRefitMaintainCost.Note, specialRefitMaintainCost.FinancialApprovalAmount, specialRefitMaintainCost.FinancialApprovalAmountNonTax, specialRefitMaintainCost.MaintainInvoiceId, specialRefitMaintainCost.AnnualId);
+                specialRefitMaintainCost.Note, specialRefitMaintainCost.FinancialApprovalAmount, specialRefitMaintainCost.FinancialApprovalAmountNonTax, specialRefitMaintainCost.MaintainInvoiceId, specialRefitMaintainCost.Year);
             _maintainCostRepository.Add(newSpecialRefitMaintainCost);
         }
 
@@ -177,7 +177,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         {
             var updateSpecialRefitMaintainCost = _maintainCostRepository.Get(specialRefitMaintainCost.Id) as SpecialRefitMaintainCost; //获取需要更新的对象。
             MaintainCostFactory.SetSpecialRefitMaintainCost(updateSpecialRefitMaintainCost, specialRefitMaintainCost.Project, specialRefitMaintainCost.Info, specialRefitMaintainCost.DepartmentDeclareAmount,
-                specialRefitMaintainCost.Note, specialRefitMaintainCost.FinancialApprovalAmount, specialRefitMaintainCost.FinancialApprovalAmountNonTax, specialRefitMaintainCost.MaintainInvoiceId, specialRefitMaintainCost.AnnualId);
+                specialRefitMaintainCost.Note, specialRefitMaintainCost.FinancialApprovalAmount, specialRefitMaintainCost.FinancialApprovalAmountNonTax, specialRefitMaintainCost.MaintainInvoiceId, specialRefitMaintainCost.Year);
             _maintainCostRepository.Modify(updateSpecialRefitMaintainCost);
         }
 
@@ -217,7 +217,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
                 nonFhaMaintainCost.ChangeLlpNumber, nonFhaMaintainCost.Tsr, nonFhaMaintainCost.Csr, nonFhaMaintainCost.NonFhaFee, nonFhaMaintainCost.PartFee, nonFhaMaintainCost.ChangeLlpFee, nonFhaMaintainCost.FeeLittleSum,
                 nonFhaMaintainCost.Rate, nonFhaMaintainCost.FeeTotalSum, nonFhaMaintainCost.CustomRate, nonFhaMaintainCost.Custom, nonFhaMaintainCost.AddedValueRate, nonFhaMaintainCost.AddedValue, nonFhaMaintainCost.CustomsTax,
                 nonFhaMaintainCost.FreightFee, nonFhaMaintainCost.DepartmentDeclareAmount, nonFhaMaintainCost.FinancialApprovalAmount, nonFhaMaintainCost.FinancialApprovalAmountNonTax, nonFhaMaintainCost.Note, nonFhaMaintainCost.ActualMaintainLevel,
-                nonFhaMaintainCost.ActualChangeLlpNumber, nonFhaMaintainCost.ActualTsr, nonFhaMaintainCost.ActualCsr, nonFhaMaintainCost.MaintainInvoiceId, nonFhaMaintainCost.AnnualId);
+                nonFhaMaintainCost.ActualChangeLlpNumber, nonFhaMaintainCost.ActualTsr, nonFhaMaintainCost.ActualCsr, nonFhaMaintainCost.MaintainInvoiceId, nonFhaMaintainCost.Year);
             _maintainCostRepository.Add(newNonFhaMaintainCost);
         }
 
@@ -235,7 +235,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
                 nonFhaMaintainCost.ChangeLlpNumber, nonFhaMaintainCost.Tsr, nonFhaMaintainCost.Csr, nonFhaMaintainCost.NonFhaFee, nonFhaMaintainCost.PartFee, nonFhaMaintainCost.ChangeLlpFee, nonFhaMaintainCost.FeeLittleSum,
                 nonFhaMaintainCost.Rate, nonFhaMaintainCost.FeeTotalSum, nonFhaMaintainCost.CustomRate, nonFhaMaintainCost.Custom, nonFhaMaintainCost.AddedValueRate, nonFhaMaintainCost.AddedValue, nonFhaMaintainCost.CustomsTax,
                 nonFhaMaintainCost.FreightFee, nonFhaMaintainCost.DepartmentDeclareAmount, nonFhaMaintainCost.FinancialApprovalAmount, nonFhaMaintainCost.FinancialApprovalAmountNonTax, nonFhaMaintainCost.Note, nonFhaMaintainCost.ActualMaintainLevel,
-                nonFhaMaintainCost.ActualChangeLlpNumber, nonFhaMaintainCost.ActualTsr, nonFhaMaintainCost.ActualCsr, nonFhaMaintainCost.MaintainInvoiceId, nonFhaMaintainCost.AnnualId);
+                nonFhaMaintainCost.ActualChangeLlpNumber, nonFhaMaintainCost.ActualTsr, nonFhaMaintainCost.ActualCsr, nonFhaMaintainCost.MaintainInvoiceId, nonFhaMaintainCost.Year);
             _maintainCostRepository.Modify(updateNonFhaMaintainCost);
         }
 
@@ -270,10 +270,10 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         public void InsertApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
         {
             var newApuMaintainCost = MaintainCostFactory.CreateApuMaintainCost();
-            MaintainCostFactory.SetApuMaintainCost(newApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type, apuMaintainCost.LastYearRate, apuMaintainCost.YearAddedRate,
+            MaintainCostFactory.SetApuMaintainCost(newApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type,
                 apuMaintainCost.YearBudgetRate, apuMaintainCost.Rate, apuMaintainCost.BudgetHour, apuMaintainCost.HourPercent, apuMaintainCost.Hour, apuMaintainCost.ContractRepairFeeUsd,
                 apuMaintainCost.ContractRepairFeeRmb, apuMaintainCost.CustomRate, apuMaintainCost.TotalTax, apuMaintainCost.AddedValueRate, apuMaintainCost.AddedValue,
-                apuMaintainCost.IncludeAddedValue, apuMaintainCost.MaintainInvoiceId, apuMaintainCost.AnnualId);
+                apuMaintainCost.IncludeAddedValue, apuMaintainCost.MaintainInvoiceId, apuMaintainCost.Year);
             _maintainCostRepository.Add(newApuMaintainCost);
         }
 
@@ -286,10 +286,10 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         public void ModifyApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
         {
             var updateApuMaintainCost = _maintainCostRepository.Get(apuMaintainCost.Id) as ApuMaintainCost; //获取需要更新的对象。
-            MaintainCostFactory.SetApuMaintainCost(updateApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type, apuMaintainCost.LastYearRate, apuMaintainCost.YearAddedRate,
+            MaintainCostFactory.SetApuMaintainCost(updateApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type, 
                 apuMaintainCost.YearBudgetRate, apuMaintainCost.Rate, apuMaintainCost.BudgetHour, apuMaintainCost.HourPercent, apuMaintainCost.Hour, apuMaintainCost.ContractRepairFeeUsd,
                 apuMaintainCost.ContractRepairFeeRmb, apuMaintainCost.CustomRate, apuMaintainCost.TotalTax, apuMaintainCost.AddedValueRate, apuMaintainCost.AddedValue,
-                apuMaintainCost.IncludeAddedValue, apuMaintainCost.MaintainInvoiceId, apuMaintainCost.AnnualId);
+                apuMaintainCost.IncludeAddedValue, apuMaintainCost.MaintainInvoiceId, apuMaintainCost.Year);
             _maintainCostRepository.Modify(updateApuMaintainCost);
         }
 
@@ -324,10 +324,10 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         public void InsertFhaMaintainCost(FhaMaintainCostDTO fhaMaintainCost)
         {
             var newFhaMaintainCost = MaintainCostFactory.CreateFhaMaintainCost();
-            MaintainCostFactory.SetFhaMaintainCost(newFhaMaintainCost, fhaMaintainCost.AircraftTypeId, fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx, fhaMaintainCost.LastYearRate, fhaMaintainCost.YearAddedRate,
+            MaintainCostFactory.SetFhaMaintainCost(newFhaMaintainCost, fhaMaintainCost.AircraftTypeId, fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx,
                 fhaMaintainCost.YearBudgetRate, fhaMaintainCost.Rate, fhaMaintainCost.AirHour, fhaMaintainCost.HourPercent, fhaMaintainCost.Hour, fhaMaintainCost.FhaFeeUsd,
                 fhaMaintainCost.FhaFeeRmb, fhaMaintainCost.Custom, fhaMaintainCost.CustomAddedRmb, fhaMaintainCost.TotalTax, fhaMaintainCost.AddedValueRate, fhaMaintainCost.AddedValue,
-                fhaMaintainCost.IncludeAddedValue, fhaMaintainCost.CustomAdded, fhaMaintainCost.MaintainInvoiceId, fhaMaintainCost.AnnualId);
+                fhaMaintainCost.IncludeAddedValue, fhaMaintainCost.CustomAdded, fhaMaintainCost.MaintainInvoiceId, fhaMaintainCost.Year);
             _maintainCostRepository.Add(newFhaMaintainCost);
         }
 
@@ -340,10 +340,10 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         public void ModifyFhaMaintainCost(FhaMaintainCostDTO fhaMaintainCost)
         {
             var updateFhaMaintainCost = _maintainCostRepository.Get(fhaMaintainCost.Id) as FhaMaintainCost; //获取需要更新的对象。
-            MaintainCostFactory.SetFhaMaintainCost(updateFhaMaintainCost, fhaMaintainCost.AircraftTypeId, fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx, fhaMaintainCost.LastYearRate, fhaMaintainCost.YearAddedRate,
+            MaintainCostFactory.SetFhaMaintainCost(updateFhaMaintainCost, fhaMaintainCost.AircraftTypeId, fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx, 
                 fhaMaintainCost.YearBudgetRate, fhaMaintainCost.Rate, fhaMaintainCost.AirHour, fhaMaintainCost.HourPercent, fhaMaintainCost.Hour, fhaMaintainCost.FhaFeeUsd,
                 fhaMaintainCost.FhaFeeRmb, fhaMaintainCost.Custom, fhaMaintainCost.CustomAddedRmb, fhaMaintainCost.TotalTax, fhaMaintainCost.AddedValueRate, fhaMaintainCost.AddedValue,
-                fhaMaintainCost.IncludeAddedValue, fhaMaintainCost.CustomAdded, fhaMaintainCost.MaintainInvoiceId, fhaMaintainCost.AnnualId);
+                fhaMaintainCost.IncludeAddedValue, fhaMaintainCost.CustomAdded, fhaMaintainCost.MaintainInvoiceId, fhaMaintainCost.Year);
             _maintainCostRepository.Modify(updateFhaMaintainCost);
         }
 

@@ -26,6 +26,7 @@ namespace UniCloud.Application.PaymentBC.DTO
     public class MaintainCostDTO
     {
         #region 属性
+        public int Year { get;  set; }
         /// <summary>
         /// 进厂时间
         /// </summary>
@@ -74,7 +75,6 @@ namespace UniCloud.Application.PaymentBC.DTO
 
         #region 外键属性
         public int? MaintainInvoiceId { get; set; }
-        public Guid AnnualId { get;  set; }
         #endregion
     }
 }

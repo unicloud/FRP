@@ -43,12 +43,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.Hour).HasColumnName("Hour");
             Property(p => p.HourPercent).HasColumnName("HourPercent");
             Property(p => p.IncludeAddedValue).HasColumnName("IncludeAddedValue");
-            Property(p => p.LastYearRate).HasColumnName("LastYearRate");
             Property(p => p.NameType).HasColumnName("NameType");
             Property(p => p.Rate).HasColumnName("Rate");
             Property(p => p.TotalTax).HasColumnName("TotalTax");
             Property(p => p.Type).HasColumnName("Type");
-            Property(p => p.YearAddedRate).HasColumnName("YearAddedRate");
             Property(p => p.YearBudgetRate).HasColumnName("YearBudgetRate");
         }
     }

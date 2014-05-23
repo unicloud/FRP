@@ -130,15 +130,16 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 if (value != null)
                 {
                     UndercartMaintainInvoiceLine = value.MaintainInvoiceLines.FirstOrDefault();
-                    RelatedPaymentSchedule.Add(
-                        PaymentSchedules.FirstOrDefault(p =>
+                    var relate = PaymentSchedules.FirstOrDefault(p =>
                         {
                             var paymentScheduleLine =
                                 p.PaymentScheduleLines.FirstOrDefault(
                                     l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
                             return paymentScheduleLine != null &&
                                    paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
-                        }));
+                        });
+                    if (relate != null)
+                        RelatedPaymentSchedule.Add(relate);
                     SelPaymentSchedule = RelatedPaymentSchedule.FirstOrDefault();
                     if (SelPaymentSchedule != null)
                         RelatedPaymentScheduleLine =
@@ -177,8 +178,36 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         protected override void OnAddInvoice(object obj)
         {
-            PrepayPayscheduleChildView.ViewModel.InitData(typeof(UndercartMaintainInvoiceDTO), PrepayPayscheduleChildViewClosed);
-            PrepayPayscheduleChildView.ShowDialog();
+            MessageConfirm("是否根据付款计划创建?", (s, arg) =>
+                                          {
+                                              if (arg.DialogResult != true)
+                                              {
+                                                  UndercartMaintainInvoice = new UndercartMaintainInvoiceDTO
+                                                                       {
+                                                                           UndercartMaintainInvoiceId =
+                                                                               RandomHelper.Next(),
+                                                                           CreateDate = DateTime.Now,
+                                                                           InvoiceDate = DateTime.Now,
+                                                                           InMaintainTime = DateTime.Now,
+                                                                           OutMaintainTime = DateTime.Now,
+                                                                       };
+                                                  var currency = Currencies.FirstOrDefault();
+                                                  if (currency != null)
+                                                      UndercartMaintainInvoice.CurrencyId = currency.Id;
+                                                  var supplier = Suppliers.FirstOrDefault();
+                                                  if (supplier != null)
+                                                  {
+                                                      UndercartMaintainInvoice.SupplierId = supplier.SupplierId;
+                                                      UndercartMaintainInvoice.SupplierName = supplier.Name;
+                                                  }
+                                                  UndercartMaintainInvoices.AddNew(UndercartMaintainInvoice);
+                                                  return;
+                                              }
+                                              PrepayPayscheduleChildView.ViewModel.InitData(
+                                                  typeof(UndercartMaintainInvoiceDTO),
+                                                  PrepayPayscheduleChildViewClosed);
+                                              PrepayPayscheduleChildView.ShowDialog();
+                                          });
         }
 
         protected override bool CanAddInvoice(object obj)
@@ -328,18 +357,18 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         #endregion
 
-        #region Combobox SelectedChanged
+        #region GridView单元格变更处理
 
-        public void SelectedChanged(object comboboxSelectedItem)
+        /// <summary>
+        ///     GridView单元格变更处理
+        /// </summary>
+        /// <param name="sender"></param>
+        protected override void OnCellEditEnd(object sender)
         {
-            if (comboboxSelectedItem is SupplierDTO)
-            {
-                UndercartMaintainInvoice.SupplierName = (comboboxSelectedItem as SupplierDTO).Name;
-            }
+            UndercartMaintainInvoice.InvoiceValue = UndercartMaintainInvoice.MaintainInvoiceLines.Sum(invoiceLine => invoiceLine.Amount * invoiceLine.UnitPrice);
         }
 
         #endregion
-
         #endregion
     }
 }

@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/5/22 17:01:19
+// 生成日期: 2014/5/22 18:57:45
 namespace UniCloud.Presentation.Service.Payment.Payment
 {
     
@@ -1620,109 +1620,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "alse\" /><Property Name=\"RegularCheckLevel\" Type=\"Edm.String\" /><Property Name=\"A" +
                 "ircraftId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ActionCategoryId\" " +
                 "Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AircraftTypeId\" Type=\"Edm.Gui" +
-                "d\" Nullable=\"false\" /><Property Name=\"InMaintainTime\" Type=\"Edm.DateTime\" Nullab" +
-                "le=\"false\" /><Property Name=\"OutMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"fals" +
-                "e\" /><Property Name=\"TotalDays\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Na" +
-                "me=\"DepartmentDeclareAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Nam" +
-                "e=\"FinancialApprovalAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name" +
-                "=\"FinancialApprovalAmountNonTax\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property" +
-                " Name=\"AcutalInMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Na" +
-                "me=\"AcutalOutMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name" +
-                "=\"AcutalTotalDays\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AcutalBud" +
-                "getAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalAmount\" T" +
-                "ype=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"MaintainInvoiceId\" Type=\"Ed" +
-                "m.Int32\" /><Property Name=\"AnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /></Entity" +
-                "Type><EntityType Name=\"UndercartMaintainCostDTO\"><Key><PropertyRef Name=\"Id\" /><" +
-                "/Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Typ" +
-                "e\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Part\" Type=\"Edm.Int32\" Nu" +
-                "llable=\"false\" /><Property Name=\"MaintainFeeEur\" Type=\"Edm.Decimal\" Nullable=\"fa" +
-                "lse\" /><Property Name=\"Rate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Nam" +
-                "e=\"MaintainFeeRmb\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Freight" +
-                "Fee\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"ReplaceFee\" Type=\"Edm" +
-                ".Decimal\" Nullable=\"false\" /><Property Name=\"CustomRate\" Type=\"Edm.Decimal\" Null" +
-                "able=\"false\" /><Property Name=\"Custom\" Type=\"Edm.String\" /><Property Name=\"Added" +
-                "ValueRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AddedValue\" Typ" +
-                "e=\"Edm.String\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nullable=\"false\" />" +
-                "<Property Name=\"ActionCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property N" +
-                "ame=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"InMainta" +
-                "inTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"OutMaintainTime\" " +
-                "Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"TotalDays\" Type=\"Edm.Int3" +
-                "2\" Nullable=\"false\" /><Property Name=\"DepartmentDeclareAmount\" Type=\"Edm.Decimal" +
-                "\" Nullable=\"false\" /><Property Name=\"FinancialApprovalAmount\" Type=\"Edm.Decimal\"" +
-                " Nullable=\"false\" /><Property Name=\"FinancialApprovalAmountNonTax\" Type=\"Edm.Dec" +
-                "imal\" Nullable=\"false\" /><Property Name=\"AcutalInMaintainTime\" Type=\"Edm.DateTim" +
-                "e\" Nullable=\"false\" /><Property Name=\"AcutalOutMaintainTime\" Type=\"Edm.DateTime\"" +
-                " Nullable=\"false\" /><Property Name=\"AcutalTotalDays\" Type=\"Edm.Int32\" Nullable=\"" +
-                "false\" /><Property Name=\"AcutalBudgetAmount\" Type=\"Edm.Decimal\" Nullable=\"false\"" +
-                " /><Property Name=\"AcutalAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property" +
-                " Name=\"MaintainInvoiceId\" Type=\"Edm.Int32\" /><Property Name=\"AnnualId\" Type=\"Edm" +
-                ".Guid\" Nullable=\"false\" /></EntityType><EntityType Name=\"SpecialRefitMaintainCos" +
-                "tDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" N" +
-                "ullable=\"false\" /><Property Name=\"Project\" Type=\"Edm.String\" /><Property Name=\"I" +
-                "nfo\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.St";
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart6 = "ring\" /><Property Name=\"InMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><P" +
-                "roperty Name=\"OutMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property " +
-                "Name=\"TotalDays\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"DepartmentD" +
-                "eclareAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FinancialApp" +
-                "rovalAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FinancialAppr" +
-                "ovalAmountNonTax\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalIn" +
-                "MaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalOutMa" +
-                "intainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalTotalDa" +
-                "ys\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AcutalBudgetAmount\" Type" +
-                "=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalAmount\" Type=\"Edm.Decima" +
-                "l\" Nullable=\"false\" /><Property Name=\"MaintainInvoiceId\" Type=\"Edm.Int32\" /><Pro" +
-                "perty Name=\"AnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType><EntityTyp" +
-                "e Name=\"NonFhaMaintainCostDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Nam" +
-                "e=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"EngineNumber\" Type=\"E" +
-                "dm.String\" /><Property Name=\"Type\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property" +
-                " Name=\"ContractRepairt\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Main" +
-                "tainLevel\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ChangeLlpNumber\" " +
-                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Tsr\" Type=\"Edm.Decimal\" Null" +
-                "able=\"false\" /><Property Name=\"Csr\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Prope" +
-                "rty Name=\"NonFhaFee\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"PartF" +
-                "ee\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"ChangeLlpFee\" Type=\"Ed" +
-                "m.Decimal\" Nullable=\"false\" /><Property Name=\"FeeLittleSum\" Type=\"Edm.Decimal\" N" +
-                "ullable=\"false\" /><Property Name=\"Rate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><P" +
-                "roperty Name=\"FeeTotalSum\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=" +
-                "\"CustomRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Custom\" Type=" +
-                "\"Edm.String\" /><Property Name=\"AddedValueRate\" Type=\"Edm.Decimal\" Nullable=\"fals" +
-                "e\" /><Property Name=\"AddedValue\" Type=\"Edm.String\" /><Property Name=\"CustomsTax\"" +
-                " Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FreightFee\" Type=\"Edm.Dec" +
-                "imal\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Nam" +
-                "e=\"ActualMaintainLevel\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Actu" +
-                "alChangeLlpNumber\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ActualTsr" +
-                "\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"ActualCsr\" Type=\"Edm.Dec" +
-                "imal\" Nullable=\"false\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nullable=\"f" +
-                "alse\" /><Property Name=\"ActionCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Pr" +
-                "operty Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"" +
-                "SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"InMaintainTime\" " +
-                "Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"OutMaintainTime\" Type=\"Ed" +
-                "m.DateTime\" Nullable=\"false\" /><Property Name=\"TotalDays\" Type=\"Edm.Int32\" Nulla" +
-                "ble=\"false\" /><Property Name=\"DepartmentDeclareAmount\" Type=\"Edm.Decimal\" Nullab" +
-                "le=\"false\" /><Property Name=\"FinancialApprovalAmount\" Type=\"Edm.Decimal\" Nullabl" +
-                "e=\"false\" /><Property Name=\"FinancialApprovalAmountNonTax\" Type=\"Edm.Decimal\" Nu" +
-                "llable=\"false\" /><Property Name=\"AcutalInMaintainTime\" Type=\"Edm.DateTime\" Nulla" +
-                "ble=\"false\" /><Property Name=\"AcutalOutMaintainTime\" Type=\"Edm.DateTime\" Nullabl" +
-                "e=\"false\" /><Property Name=\"AcutalTotalDays\" Type=\"Edm.Int32\" Nullable=\"false\" /" +
-                "><Property Name=\"AcutalBudgetAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Prop" +
-                "erty Name=\"AcutalAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"M" +
-                "aintainInvoiceId\" Type=\"Edm.Int32\" /><Property Name=\"AnnualId\" Type=\"Edm.Guid\" N" +
-                "ullable=\"false\" /></EntityType><EntityType Name=\"ApuMaintainCostDTO\"><Key><Prope" +
-                "rtyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /" +
-                "><Property Name=\"NameType\" Type=\"Edm.String\" /><Property Name=\"Type\" Type=\"Edm.S" +
-                "tring\" /><Property Name=\"LastYearRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Pr" +
-                "operty Name=\"YearAddedRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name" +
-                "=\"YearBudgetRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Rate\" Ty" +
-                "pe=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"BudgetHour\" Type=\"Edm.Decima" +
-                "l\" Nullable=\"false\" /><Property Name=\"HourPercent\" Type=\"Edm.Decimal\" Nullable=\"" +
-                "false\" /><Property Name=\"Hour\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property N" +
-                "ame=\"ContractRepairFeeUsd\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=" +
-                "\"ContractRepairFeeRmb\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Cus" +
-                "tomRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"TotalTax\" Type=\"E" +
-                "dm.Decimal\" Nullable=\"false\" /><Property Name=\"AddedValueRate\" Type=\"Edm.Decimal" +
-                "\" Nullable=\"false\" /><Property Name=\"AddedValue\" Type=\"Edm.Decimal\" Nullable=\"fa" +
-                "lse\" /><Property Name=\"IncludeAddedValue\" Type=\"Edm.Decimal\" Nullable=\"false\" />" +
+                "d\" Nullable=\"false\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"false\" />" +
                 "<Property Name=\"InMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property" +
                 " Name=\"OutMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"T" +
                 "otalDays\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"DepartmentDeclareA" +
@@ -1733,97 +1631,196 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "ime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalTotalDays\" Typ" +
                 "e=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AcutalBudgetAmount\" Type=\"Edm.D" +
                 "ecimal\" Nullable=\"false\" /><Property Name=\"AcutalAmount\" Type=\"Edm.Decimal\" Null" +
-                "able=\"false\" /><Property Name=\"MaintainInvoiceId\" Type=\"Edm.Int32\" /><Property N" +
-                "ame=\"AnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType><EntityType Name=" +
+                "able=\"false\" /><Property Name=\"MaintainInvoiceId\" Type=\"Edm.Int32\" /></EntityTyp" +
+                "e><EntityType Name=\"UndercartMaintainCostDTO\"><Key><PropertyRef Name=\"Id\" /></Ke" +
+                "y><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Type\" " +
+                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Part\" Type=\"Edm.Int32\" Nulla" +
+                "ble=\"false\" /><Property Name=\"MaintainFeeEur\" Type=\"Edm.Decimal\" Nullable=\"false" +
+                "\" /><Property Name=\"Rate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"" +
+                "MaintainFeeRmb\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FreightFee" +
+                "\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"ReplaceFee\" Type=\"Edm.De" +
+                "cimal\" Nullable=\"false\" /><Property Name=\"CustomRate\" Type=\"Edm.Decimal\" Nullabl" +
+                "e=\"false\" /><Property Name=\"Custom\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"AddedValueRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"" +
+                "AddedValue\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AircraftId\" Ty" +
+                "pe=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ActionCategoryId\" Type=\"Edm.Gui" +
+                "d\" Nullable=\"false\" /><Property Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"" +
+                "false\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Nam" +
+                "e=\"InMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"OutMai" +
+                "ntainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"TotalDays\" Typ" +
+                "e=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"DepartmentDeclareAmount\" Type=\"" +
+                "Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FinancialApprovalAmount\" Type=\"E" +
+                "dm.Decimal\" Nullable=\"false\" /><Property Name=\"FinancialApprovalAmountNonTax\" Ty" +
+                "pe=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalInMaintainTime\" Type=\"" +
+                "Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalOutMaintainTime\" Type=\"Ed" +
+                "m.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalTotalDays\" Type=\"Edm.Int32\"" +
+                " Nullable=\"false\" /><Property Name=\"AcutalBudgetAmount\" Type=\"Edm.Decimal\" Nulla" +
+                "ble=\"false\" /><Property Name=\"AcutalAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" " +
+                "/><Property Name=\"MaintainInvoiceId\" Type=\"Edm.Int32\" /></EntityType><EntityType" +
+                " Name=\"SpecialRefitMaintainCostDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Propert" +
+                "y Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Project\" Type=\"E" +
+                "dm.String\" /><Property Name=\"Info\" Type=\"Edm.String\" /><Pro";
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+            private const string ModelPart6 = "perty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Null" +
+                "able=\"false\" /><Property Name=\"InMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"fal" +
+                "se\" /><Property Name=\"OutMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><P" +
+                "roperty Name=\"TotalDays\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Dep" +
+                "artmentDeclareAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Fina" +
+                "ncialApprovalAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Finan" +
+                "cialApprovalAmountNonTax\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"" +
+                "AcutalInMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Acu" +
+                "talOutMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Acuta" +
+                "lTotalDays\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AcutalBudgetAmou" +
+                "nt\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalAmount\" Type=\"Ed" +
+                "m.Decimal\" Nullable=\"false\" /><Property Name=\"MaintainInvoiceId\" Type=\"Edm.Int32" +
+                "\" /></EntityType><EntityType Name=\"NonFhaMaintainCostDTO\"><Key><PropertyRef Name" +
+                "=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property " +
+                "Name=\"EngineNumber\" Type=\"Edm.String\" /><Property Name=\"Type\" Type=\"Edm.Int32\" N" +
+                "ullable=\"false\" /><Property Name=\"ContractRepairt\" Type=\"Edm.Int32\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"MaintainLevel\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"ChangeLlpNumber\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"T" +
+                "sr\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Csr\" Type=\"Edm.Decimal" +
+                "\" Nullable=\"false\" /><Property Name=\"NonFhaFee\" Type=\"Edm.Decimal\" Nullable=\"fal" +
+                "se\" /><Property Name=\"PartFee\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property N" +
+                "ame=\"ChangeLlpFee\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FeeLitt" +
+                "leSum\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Rate\" Type=\"Edm.Dec" +
+                "imal\" Nullable=\"false\" /><Property Name=\"FeeTotalSum\" Type=\"Edm.Decimal\" Nullabl" +
+                "e=\"false\" /><Property Name=\"CustomRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><P" +
+                "roperty Name=\"Custom\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Adde" +
+                "dValueRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AddedValue\" Ty" +
+                "pe=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"CustomsTax\" Type=\"Edm.Decima" +
+                "l\" Nullable=\"false\" /><Property Name=\"FreightFee\" Type=\"Edm.Decimal\" Nullable=\"f" +
+                "alse\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"ActualMaintain" +
+                "Level\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ActualChangeLlpNumber" +
+                "\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ActualTsr\" Type=\"Edm.Decim" +
+                "al\" Nullable=\"false\" /><Property Name=\"ActualCsr\" Type=\"Edm.Decimal\" Nullable=\"f" +
+                "alse\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property" +
+                " Name=\"ActionCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Airc" +
+                "raftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=" +
+                "\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"" +
+                "false\" /><Property Name=\"InMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" />" +
+                "<Property Name=\"OutMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Propert" +
+                "y Name=\"TotalDays\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Departmen" +
+                "tDeclareAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FinancialA" +
+                "pprovalAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FinancialAp" +
+                "provalAmountNonTax\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Acutal" +
+                "InMaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalOut" +
+                "MaintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalTotal" +
+                "Days\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AcutalBudgetAmount\" Ty" +
+                "pe=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalAmount\" Type=\"Edm.Deci" +
+                "mal\" Nullable=\"false\" /><Property Name=\"MaintainInvoiceId\" Type=\"Edm.Int32\" /></" +
+                "EntityType><EntityType Name=\"ApuMaintainCostDTO\"><Key><PropertyRef Name=\"Id\" /><" +
+                "/Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Nam" +
+                "eType\" Type=\"Edm.String\" /><Property Name=\"Type\" Type=\"Edm.String\" /><Property N" +
+                "ame=\"YearBudgetRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Rate\"" +
+                " Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"BudgetHour\" Type=\"Edm.Dec" +
+                "imal\" Nullable=\"false\" /><Property Name=\"HourPercent\" Type=\"Edm.Decimal\" Nullabl" +
+                "e=\"false\" /><Property Name=\"Hour\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Propert" +
+                "y Name=\"ContractRepairFeeUsd\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Na" +
+                "me=\"ContractRepairFeeRmb\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"" +
+                "CustomRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"TotalTax\" Type" +
+                "=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AddedValueRate\" Type=\"Edm.Deci" +
+                "mal\" Nullable=\"false\" /><Property Name=\"AddedValue\" Type=\"Edm.Decimal\" Nullable=" +
+                "\"false\" /><Property Name=\"IncludeAddedValue\" Type=\"Edm.Decimal\" Nullable=\"false\"" +
+                " /><Property Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"InM" +
+                "aintainTime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"OutMaintainT" +
+                "ime\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"TotalDays\" Type=\"Edm" +
+                ".Int32\" Nullable=\"false\" /><Property Name=\"DepartmentDeclareAmount\" Type=\"Edm.De" +
+                "cimal\" Nullable=\"false\" /><Property Name=\"FinancialApprovalAmount\" Type=\"Edm.Dec" +
+                "imal\" Nullable=\"false\" /><Property Name=\"FinancialApprovalAmountNonTax\" Type=\"Ed" +
+                "m.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalInMaintainTime\" Type=\"Edm.Da" +
+                "teTime\" Nullable=\"false\" /><Property Name=\"AcutalOutMaintainTime\" Type=\"Edm.Date" +
+                "Time\" Nullable=\"false\" /><Property Name=\"AcutalTotalDays\" Type=\"Edm.Int32\" Nulla" +
+                "ble=\"false\" /><Property Name=\"AcutalBudgetAmount\" Type=\"Edm.Decimal\" Nullable=\"f" +
+                "alse\" /><Property Name=\"AcutalAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Pro" +
+                "perty Name=\"MaintainInvoiceId\" Type=\"Edm.Int32\" /></EntityType><EntityType Name=" +
                 "\"FhaMaintainCostDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Typ" +
                 "e=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"EngineProperty\" Type=\"Edm.Strin" +
-                "g\" /><Property Name=\"Jx\" Type=\"Edm.String\" /><Property Name=\"LastYearRate\" Type=" +
-                "\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"YearAddedRate\" Type=\"Edm.Decima" +
-                "l\" Nullable=\"false\" /><Property Name=\"YearBudgetRate\" Type=\"Edm.Decimal\" Nullabl" +
-                "e=\"false\" /><Property Name=\"Rate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Propert" +
-                "y Name=\"AirHour\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"HourPerce" +
-                "nt\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Hour\" Type=\"Edm.Decima" +
-                "l\" Nullable=\"false\" /><Property Name=\"FhaFeeUsd\" Type=\"Edm.Decimal\" Nullable=\"fa" +
-                "lse\" /><Property Name=\"FhaFeeRmb\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Propert" +
-                "y Name=\"Custom\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"CustomAdde" +
-                "dRmb\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"TotalTax\" Type=\"Edm." +
-                "Decimal\" Nullable=\"false\" /><Property Name=\"AddedValueRate\" Type=\"Edm.Decimal\" N" +
-                "ullable=\"false\" /><Property Name=\"AddedValue\" Type=\"Edm.Decimal\" Nullable=\"false" +
-                "\" /><Property Name=\"IncludeAddedValue\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Pr" +
-                "operty Name=\"CustomAdded\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"" +
-                "AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"InMaintainTim" +
-                "e\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"OutMaintainTime\" Type=" +
-                "\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"TotalDays\" Type=\"Edm.Int32\" Nu" +
-                "llable=\"false\" /><Property Name=\"DepartmentDeclareAmount\" T";
+                "g\" /><Property Name=\"Jx\" Type=\"Edm.String\" /><Property Name=\"YearBudgetRate\" Typ" +
+                "e=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Rate\" Type=\"Edm.Decimal\" Null" +
+                "able=\"false\" /><Property Name=\"AirHour\" Type=\"Edm.Decimal\" Nullable=\"false\" /><P" +
+                "roperty Name=\"HourPercent\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=" +
+                "\"Hour\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FhaFeeUsd\" Type=\"Ed" +
+                "m.Decimal\" Nullable=\"false\" /><Property Name=\"FhaFeeRmb\" Type=\"Edm.Decimal\" Null" +
+                "able=\"false\" /><Property Name=\"Custom\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"CustomAddedRmb\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Nam" +
+                "e=\"TotalTax\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AddedValueRat" +
+                "e\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AddedValue\" Type=\"Edm.D" +
+                "ecimal\" Nullable=\"false\" /><Property Name=\"IncludeAddedValue\" Type=\"Edm.Decimal\"" +
+                " Nullable=\"false\" /><Property Name=\"CustomAdded\" Type=\"Edm.Decimal\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"InMaintainTi" +
+                "me\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"OutMaintainTime\" Type" +
+                "=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"TotalDays\" Type=\"Edm.Int32\" N" +
+                "ullable=\"false\" /><Property Name=\"DepartmentDeclareAmount\" Type=\"Edm.Decimal\" Nu" +
+                "llable=\"false\" /><Property Name=\"FinancialApprovalAmount\" Type=\"Edm.Decimal\" Nul" +
+                "lable=\"false\" /><Property Name=\"FinancialApprovalAmountNonT";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart7 = "ype=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FinancialApprovalAmount\" Typ" +
-                "e=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"FinancialApprovalAmountNonTax" +
-                "\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalInMaintainTime\" Ty" +
-                "pe=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalOutMaintainTime\" Type" +
-                "=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalTotalDays\" Type=\"Edm.In" +
-                "t32\" Nullable=\"false\" /><Property Name=\"AcutalBudgetAmount\" Type=\"Edm.Decimal\" N" +
-                "ullable=\"false\" /><Property Name=\"AcutalAmount\" Type=\"Edm.Decimal\" Nullable=\"fal" +
-                "se\" /><Property Name=\"MaintainInvoiceId\" Type=\"Edm.Int32\" /><Property Name=\"Annu" +
-                "alId\" Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType></Schema><Schema Namespace" +
-                "=\"UniCloud.DistributedServices.Payment\" xmlns=\"http://schemas.microsoft.com/ado/" +
-                "2009/11/edm\"><EntityContainer Name=\"PaymentData\" m:IsDefaultEntityContainer=\"tru" +
-                "e\"><EntitySet Name=\"PurchaseCreditNotes\" EntityType=\"UniCloud.Application.Paymen" +
-                "tBC.DTO.PurchaseCreditNoteDTO\" /><EntitySet Name=\"MaintainCreditNotes\" EntityTyp" +
-                "e=\"UniCloud.Application.PaymentBC.DTO.MaintainCreditNoteDTO\" /><EntitySet Name=\"" +
-                "LeaseInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO\" /" +
-                "><EntitySet Name=\"PurchasePrepaymentInvoices\" EntityType=\"UniCloud.Application.P" +
-                "aymentBC.DTO.PurchasePrepaymentInvoiceDTO\" /><EntitySet Name=\"MaintainPrepayment" +
-                "Invoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainPrepaymentInvoi" +
-                "ceDTO\" /><EntitySet Name=\"PurchaseInvoices\" EntityType=\"UniCloud.Application.Pay" +
-                "mentBC.DTO.PurchaseInvoiceDTO\" /><EntitySet Name=\"SundryInvoices\" EntityType=\"Un" +
-                "iCloud.Application.PaymentBC.DTO.SundryInvoiceDTO\" /><EntitySet Name=\"SpecialRef" +
-                "itInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.SpecialRefitInvoiceDT" +
-                "O\" /><EntitySet Name=\"Invoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.B" +
-                "aseInvoiceDTO\" /><EntitySet Name=\"EngineMaintainInvoices\" EntityType=\"UniCloud.A" +
-                "pplication.PaymentBC.DTO.EngineMaintainInvoiceDTO\" /><EntitySet Name=\"APUMaintai" +
-                "nInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.APUMaintainInvoiceDTO\"" +
-                " /><EntitySet Name=\"AirframeMaintainInvoices\" EntityType=\"UniCloud.Application.P" +
-                "aymentBC.DTO.AirframeMaintainInvoiceDTO\" /><EntitySet Name=\"UndercartMaintainInv" +
-                "oices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.UndercartMaintainInvoiceDT" +
-                "O\" /><EntitySet Name=\"ContractAircrafts\" EntityType=\"UniCloud.Application.Paymen" +
-                "tBC.DTO.ContractAircraftDTO\" /><EntitySet Name=\"ContractEngines\" EntityType=\"Uni" +
-                "Cloud.Application.PaymentBC.DTO.ContractEngineDTO\" /><EntitySet Name=\"Currencies" +
-                "\" EntityType=\"UniCloud.Application.PaymentBC.DTO.CurrencyDTO\" /><EntitySet Name=" +
-                "\"PaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PaymentSchedul" +
-                "eDTO\" /><EntitySet Name=\"AcPaymentSchedules\" EntityType=\"UniCloud.Application.Pa" +
-                "ymentBC.DTO.AcPaymentScheduleDTO\" /><EntitySet Name=\"EnginePaymentSchedules\" Ent" +
-                "ityType=\"UniCloud.Application.PaymentBC.DTO.EnginePaymentScheduleDTO\" /><EntityS" +
-                "et Name=\"StandardPaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DT" +
-                "O.StandardPaymentScheduleDTO\" /><EntitySet Name=\"MaintainPaymentSchedules\" Entit" +
-                "yType=\"UniCloud.Application.PaymentBC.DTO.MaintainPaymentScheduleDTO\" /><EntityS" +
-                "et Name=\"PaymentNotices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PaymentN" +
-                "oticeDTO\" /><EntitySet Name=\"Suppliers\" EntityType=\"UniCloud.Application.Payment" +
-                "BC.DTO.SupplierDTO\" /><EntitySet Name=\"Orders\" EntityType=\"UniCloud.Application." +
-                "PaymentBC.DTO.OrderDTO\" /><EntitySet Name=\"PurchaseOrders\" EntityType=\"UniCloud." +
-                "Application.PaymentBC.DTO.PurchaseOrderDTO\" /><EntitySet Name=\"LeaseOrders\" Enti" +
-                "tyType=\"UniCloud.Application.PaymentBC.DTO.LeaseOrderDTO\" /><EntitySet Name=\"Air" +
-                "craftPurchaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AircraftPurc" +
-                "haseOrderDTO\" /><EntitySet Name=\"AircraftLeaseOrders\" EntityType=\"UniCloud.Appli" +
-                "cation.PaymentBC.DTO.AircraftLeaseOrderDTO\" /><EntitySet Name=\"EnginePurchaseOrd" +
-                "ers\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EnginePurchaseOrderDTO\" /><E" +
-                "ntitySet Name=\"EngineLeaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO" +
-                ".EngineLeaseOrderDTO\" /><EntitySet Name=\"BFEPurchaseOrders\" EntityType=\"UniCloud" +
-                ".Application.PaymentBC.DTO.BFEPurchaseOrderDTO\" /><EntitySet Name=\"StandardOrder" +
-                "s\" EntityType=\"UniCloud.Application.PaymentBC.DTO.StandardOrderDTO\" /><EntitySet" +
-                " Name=\"LeaseGuarantees\" EntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseGuar" +
-                "anteeDTO\" /><EntitySet Name=\"MaintainGuarantees\" EntityType=\"UniCloud.Applicatio" +
-                "n.PaymentBC.DTO.MaintainGuaranteeDTO\" /><EntitySet Name=\"MaintainContracts\" Enti" +
-                "tyType=\"UniCloud.Application.PaymentBC.DTO.MaintainContractDTO\" /><EntitySet Nam" +
-                "e=\"RegularCheckMaintainCosts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Reg" +
-                "ularCheckMaintainCostDTO\" /><EntitySet Name=\"UndercartMaintainCosts\" EntityType=" +
-                "\"UniCloud.Application.PaymentBC.DTO.UndercartMaintainCostDTO\" /><EntitySet Name=" +
-                "\"SpecialRefitMaintainCosts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Speci" +
-                "alRefitMaintainCostDTO\" /><EntitySet Name=\"NonFhaMaintainCosts\" EntityType=\"UniC" +
-                "loud.Application.PaymentBC.DTO.NonFhaMaintainCostDTO\" /><EntitySet Name=\"ApuMain" +
-                "tainCosts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.ApuMaintainCostDTO\" />" +
-                "<EntitySet Name=\"FhaMaintainCosts\" EntityType=\"UniCloud.Application.PaymentBC.DT" +
-                "O.FhaMaintainCostDTO\" /></EntityContainer></Schema></edmx:DataServices></edmx:Ed" +
-                "mx>";
+            private const string ModelPart7 = "ax\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AcutalInMaintainTime\" T" +
+                "ype=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalOutMaintainTime\" Typ" +
+                "e=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"AcutalTotalDays\" Type=\"Edm.I" +
+                "nt32\" Nullable=\"false\" /><Property Name=\"AcutalBudgetAmount\" Type=\"Edm.Decimal\" " +
+                "Nullable=\"false\" /><Property Name=\"AcutalAmount\" Type=\"Edm.Decimal\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"MaintainInvoiceId\" Type=\"Edm.Int32\" /></EntityType></Sche" +
+                "ma><Schema Namespace=\"UniCloud.DistributedServices.Payment\" xmlns=\"http://schema" +
+                "s.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"PaymentData\" m:IsDefault" +
+                "EntityContainer=\"true\"><EntitySet Name=\"PurchaseCreditNotes\" EntityType=\"UniClou" +
+                "d.Application.PaymentBC.DTO.PurchaseCreditNoteDTO\" /><EntitySet Name=\"MaintainCr" +
+                "editNotes\" EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainCreditNoteDTO\"" +
+                " /><EntitySet Name=\"LeaseInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DT" +
+                "O.LeaseInvoiceDTO\" /><EntitySet Name=\"PurchasePrepaymentInvoices\" EntityType=\"Un" +
+                "iCloud.Application.PaymentBC.DTO.PurchasePrepaymentInvoiceDTO\" /><EntitySet Name" +
+                "=\"MaintainPrepaymentInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Mai" +
+                "ntainPrepaymentInvoiceDTO\" /><EntitySet Name=\"PurchaseInvoices\" EntityType=\"UniC" +
+                "loud.Application.PaymentBC.DTO.PurchaseInvoiceDTO\" /><EntitySet Name=\"SundryInvo" +
+                "ices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.SundryInvoiceDTO\" /><Entity" +
+                "Set Name=\"SpecialRefitInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.S" +
+                "pecialRefitInvoiceDTO\" /><EntitySet Name=\"Invoices\" EntityType=\"UniCloud.Applica" +
+                "tion.PaymentBC.DTO.BaseInvoiceDTO\" /><EntitySet Name=\"EngineMaintainInvoices\" En" +
+                "tityType=\"UniCloud.Application.PaymentBC.DTO.EngineMaintainInvoiceDTO\" /><Entity" +
+                "Set Name=\"APUMaintainInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AP" +
+                "UMaintainInvoiceDTO\" /><EntitySet Name=\"AirframeMaintainInvoices\" EntityType=\"Un" +
+                "iCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceDTO\" /><EntitySet Name=\"" +
+                "UndercartMaintainInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Underc" +
+                "artMaintainInvoiceDTO\" /><EntitySet Name=\"ContractAircrafts\" EntityType=\"UniClou" +
+                "d.Application.PaymentBC.DTO.ContractAircraftDTO\" /><EntitySet Name=\"ContractEngi" +
+                "nes\" EntityType=\"UniCloud.Application.PaymentBC.DTO.ContractEngineDTO\" /><Entity" +
+                "Set Name=\"Currencies\" EntityType=\"UniCloud.Application.PaymentBC.DTO.CurrencyDTO" +
+                "\" /><EntitySet Name=\"PaymentSchedules\" EntityType=\"UniCloud.Application.PaymentB" +
+                "C.DTO.PaymentScheduleDTO\" /><EntitySet Name=\"AcPaymentSchedules\" EntityType=\"Uni" +
+                "Cloud.Application.PaymentBC.DTO.AcPaymentScheduleDTO\" /><EntitySet Name=\"EngineP" +
+                "aymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EnginePaymentSch" +
+                "eduleDTO\" /><EntitySet Name=\"StandardPaymentSchedules\" EntityType=\"UniCloud.Appl" +
+                "ication.PaymentBC.DTO.StandardPaymentScheduleDTO\" /><EntitySet Name=\"MaintainPay" +
+                "mentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainPaymentSch" +
+                "eduleDTO\" /><EntitySet Name=\"PaymentNotices\" EntityType=\"UniCloud.Application.Pa" +
+                "ymentBC.DTO.PaymentNoticeDTO\" /><EntitySet Name=\"Suppliers\" EntityType=\"UniCloud" +
+                ".Application.PaymentBC.DTO.SupplierDTO\" /><EntitySet Name=\"Orders\" EntityType=\"U" +
+                "niCloud.Application.PaymentBC.DTO.OrderDTO\" /><EntitySet Name=\"PurchaseOrders\" E" +
+                "ntityType=\"UniCloud.Application.PaymentBC.DTO.PurchaseOrderDTO\" /><EntitySet Nam" +
+                "e=\"LeaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseOrderDTO\" />" +
+                "<EntitySet Name=\"AircraftPurchaseOrders\" EntityType=\"UniCloud.Application.Paymen" +
+                "tBC.DTO.AircraftPurchaseOrderDTO\" /><EntitySet Name=\"AircraftLeaseOrders\" Entity" +
+                "Type=\"UniCloud.Application.PaymentBC.DTO.AircraftLeaseOrderDTO\" /><EntitySet Nam" +
+                "e=\"EnginePurchaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EnginePu" +
+                "rchaseOrderDTO\" /><EntitySet Name=\"EngineLeaseOrders\" EntityType=\"UniCloud.Appli" +
+                "cation.PaymentBC.DTO.EngineLeaseOrderDTO\" /><EntitySet Name=\"BFEPurchaseOrders\" " +
+                "EntityType=\"UniCloud.Application.PaymentBC.DTO.BFEPurchaseOrderDTO\" /><EntitySet" +
+                " Name=\"StandardOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.StandardOr" +
+                "derDTO\" /><EntitySet Name=\"LeaseGuarantees\" EntityType=\"UniCloud.Application.Pay" +
+                "mentBC.DTO.LeaseGuaranteeDTO\" /><EntitySet Name=\"MaintainGuarantees\" EntityType=" +
+                "\"UniCloud.Application.PaymentBC.DTO.MaintainGuaranteeDTO\" /><EntitySet Name=\"Mai" +
+                "ntainContracts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.MaintainContractD" +
+                "TO\" /><EntitySet Name=\"RegularCheckMaintainCosts\" EntityType=\"UniCloud.Applicati" +
+                "on.PaymentBC.DTO.RegularCheckMaintainCostDTO\" /><EntitySet Name=\"UndercartMainta" +
+                "inCosts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.UndercartMaintainCostDTO" +
+                "\" /><EntitySet Name=\"SpecialRefitMaintainCosts\" EntityType=\"UniCloud.Application" +
+                ".PaymentBC.DTO.SpecialRefitMaintainCostDTO\" /><EntitySet Name=\"NonFhaMaintainCos" +
+                "ts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.NonFhaMaintainCostDTO\" /><Ent" +
+                "itySet Name=\"ApuMaintainCosts\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Ap" +
+                "uMaintainCostDTO\" /><EntitySet Name=\"FhaMaintainCosts\" EntityType=\"UniCloud.Appl" +
+                "ication.PaymentBC.DTO.FhaMaintainCostDTO\" /></EntityContainer></Schema></edmx:Da" +
+                "taServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -17154,6 +17151,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="aircraftId">AircraftId 的初始值。</param>
         /// <param name="actionCategoryId">ActionCategoryId 的初始值。</param>
         /// <param name="aircraftTypeId">AircraftTypeId 的初始值。</param>
+        /// <param name="year">Year 的初始值。</param>
         /// <param name="inMaintainTime">InMaintainTime 的初始值。</param>
         /// <param name="outMaintainTime">OutMaintainTime 的初始值。</param>
         /// <param name="totalDays">TotalDays 的初始值。</param>
@@ -17165,7 +17163,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="acutalTotalDays">AcutalTotalDays 的初始值。</param>
         /// <param name="acutalBudgetAmount">AcutalBudgetAmount 的初始值。</param>
         /// <param name="acutalAmount">AcutalAmount 的初始值。</param>
-        /// <param name="annualId">AnnualId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public static RegularCheckMaintainCostDTO CreateRegularCheckMaintainCostDTO(
                     int ID, 
@@ -17173,6 +17170,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     global::System.Guid aircraftId, 
                     global::System.Guid actionCategoryId, 
                     global::System.Guid aircraftTypeId, 
+                    int year, 
                     global::System.DateTime inMaintainTime, 
                     global::System.DateTime outMaintainTime, 
                     int totalDays, 
@@ -17183,8 +17181,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     global::System.DateTime acutalOutMaintainTime, 
                     int acutalTotalDays, 
                     decimal acutalBudgetAmount, 
-                    decimal acutalAmount, 
-                    global::System.Guid annualId)
+                    decimal acutalAmount)
         {
             RegularCheckMaintainCostDTO regularCheckMaintainCostDTO = new RegularCheckMaintainCostDTO();
             regularCheckMaintainCostDTO.Id = ID;
@@ -17192,6 +17189,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             regularCheckMaintainCostDTO.AircraftId = aircraftId;
             regularCheckMaintainCostDTO.ActionCategoryId = actionCategoryId;
             regularCheckMaintainCostDTO.AircraftTypeId = aircraftTypeId;
+            regularCheckMaintainCostDTO.Year = year;
             regularCheckMaintainCostDTO.InMaintainTime = inMaintainTime;
             regularCheckMaintainCostDTO.OutMaintainTime = outMaintainTime;
             regularCheckMaintainCostDTO.TotalDays = totalDays;
@@ -17203,7 +17201,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             regularCheckMaintainCostDTO.AcutalTotalDays = acutalTotalDays;
             regularCheckMaintainCostDTO.AcutalBudgetAmount = acutalBudgetAmount;
             regularCheckMaintainCostDTO.AcutalAmount = acutalAmount;
-            regularCheckMaintainCostDTO.AnnualId = annualId;
             return regularCheckMaintainCostDTO;
         }
         /// <summary>
@@ -17338,6 +17335,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private global::System.Guid _AircraftTypeId;
         partial void OnAircraftTypeIdChanging(global::System.Guid value);
         partial void OnAircraftTypeIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Year 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Year
+        {
+            get
+            {
+                return this._Year;
+            }
+            set
+            {
+                this.OnYearChanging(value);
+                this._Year = value;
+                this.OnYearChanged();
+                this.OnPropertyChanged("Year");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Year;
+        partial void OnYearChanging(int value);
+        partial void OnYearChanged();
         /// <summary>
         /// 架构中不存在属性 InMaintainTime 的注释。
         /// </summary>
@@ -17602,28 +17621,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private global::System.Nullable<int> _MaintainInvoiceId;
         partial void OnMaintainInvoiceIdChanging(global::System.Nullable<int> value);
         partial void OnMaintainInvoiceIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 AnnualId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid AnnualId
-        {
-            get
-            {
-                return this._AnnualId;
-            }
-            set
-            {
-                this.OnAnnualIdChanging(value);
-                this._AnnualId = value;
-                this.OnAnnualIdChanged();
-                this.OnPropertyChanged("AnnualId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _AnnualId;
-        partial void OnAnnualIdChanging(global::System.Guid value);
-        partial void OnAnnualIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -17657,10 +17654,13 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="freightFee">FreightFee 的初始值。</param>
         /// <param name="replaceFee">ReplaceFee 的初始值。</param>
         /// <param name="customRate">CustomRate 的初始值。</param>
+        /// <param name="custom">Custom 的初始值。</param>
         /// <param name="addedValueRate">AddedValueRate 的初始值。</param>
+        /// <param name="addedValue">AddedValue 的初始值。</param>
         /// <param name="aircraftId">AircraftId 的初始值。</param>
         /// <param name="actionCategoryId">ActionCategoryId 的初始值。</param>
         /// <param name="aircraftTypeId">AircraftTypeId 的初始值。</param>
+        /// <param name="year">Year 的初始值。</param>
         /// <param name="inMaintainTime">InMaintainTime 的初始值。</param>
         /// <param name="outMaintainTime">OutMaintainTime 的初始值。</param>
         /// <param name="totalDays">TotalDays 的初始值。</param>
@@ -17672,7 +17672,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="acutalTotalDays">AcutalTotalDays 的初始值。</param>
         /// <param name="acutalBudgetAmount">AcutalBudgetAmount 的初始值。</param>
         /// <param name="acutalAmount">AcutalAmount 的初始值。</param>
-        /// <param name="annualId">AnnualId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public static UndercartMaintainCostDTO CreateUndercartMaintainCostDTO(
                     int ID, 
@@ -17684,10 +17683,13 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     decimal freightFee, 
                     decimal replaceFee, 
                     decimal customRate, 
+                    decimal custom, 
                     decimal addedValueRate, 
+                    decimal addedValue, 
                     global::System.Guid aircraftId, 
                     global::System.Guid actionCategoryId, 
                     global::System.Guid aircraftTypeId, 
+                    int year, 
                     global::System.DateTime inMaintainTime, 
                     global::System.DateTime outMaintainTime, 
                     int totalDays, 
@@ -17698,8 +17700,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     global::System.DateTime acutalOutMaintainTime, 
                     int acutalTotalDays, 
                     decimal acutalBudgetAmount, 
-                    decimal acutalAmount, 
-                    global::System.Guid annualId)
+                    decimal acutalAmount)
         {
             UndercartMaintainCostDTO undercartMaintainCostDTO = new UndercartMaintainCostDTO();
             undercartMaintainCostDTO.Id = ID;
@@ -17711,10 +17712,13 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             undercartMaintainCostDTO.FreightFee = freightFee;
             undercartMaintainCostDTO.ReplaceFee = replaceFee;
             undercartMaintainCostDTO.CustomRate = customRate;
+            undercartMaintainCostDTO.Custom = custom;
             undercartMaintainCostDTO.AddedValueRate = addedValueRate;
+            undercartMaintainCostDTO.AddedValue = addedValue;
             undercartMaintainCostDTO.AircraftId = aircraftId;
             undercartMaintainCostDTO.ActionCategoryId = actionCategoryId;
             undercartMaintainCostDTO.AircraftTypeId = aircraftTypeId;
+            undercartMaintainCostDTO.Year = year;
             undercartMaintainCostDTO.InMaintainTime = inMaintainTime;
             undercartMaintainCostDTO.OutMaintainTime = outMaintainTime;
             undercartMaintainCostDTO.TotalDays = totalDays;
@@ -17726,7 +17730,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             undercartMaintainCostDTO.AcutalTotalDays = acutalTotalDays;
             undercartMaintainCostDTO.AcutalBudgetAmount = acutalBudgetAmount;
             undercartMaintainCostDTO.AcutalAmount = acutalAmount;
-            undercartMaintainCostDTO.AnnualId = annualId;
             return undercartMaintainCostDTO;
         }
         /// <summary>
@@ -17931,7 +17934,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 架构中不存在属性 Custom 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Custom
+        public decimal Custom
         {
             get
             {
@@ -17946,8 +17949,8 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Custom;
-        partial void OnCustomChanging(string value);
+        private decimal _Custom;
+        partial void OnCustomChanging(decimal value);
         partial void OnCustomChanged();
         /// <summary>
         /// 架构中不存在属性 AddedValueRate 的注释。
@@ -17975,7 +17978,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 架构中不存在属性 AddedValue 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string AddedValue
+        public decimal AddedValue
         {
             get
             {
@@ -17990,8 +17993,8 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _AddedValue;
-        partial void OnAddedValueChanging(string value);
+        private decimal _AddedValue;
+        partial void OnAddedValueChanging(decimal value);
         partial void OnAddedValueChanged();
         /// <summary>
         /// 架构中不存在属性 AircraftId 的注释。
@@ -18059,6 +18062,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private global::System.Guid _AircraftTypeId;
         partial void OnAircraftTypeIdChanging(global::System.Guid value);
         partial void OnAircraftTypeIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Year 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Year
+        {
+            get
+            {
+                return this._Year;
+            }
+            set
+            {
+                this.OnYearChanging(value);
+                this._Year = value;
+                this.OnYearChanged();
+                this.OnPropertyChanged("Year");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Year;
+        partial void OnYearChanging(int value);
+        partial void OnYearChanged();
         /// <summary>
         /// 架构中不存在属性 InMaintainTime 的注释。
         /// </summary>
@@ -18323,28 +18348,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private global::System.Nullable<int> _MaintainInvoiceId;
         partial void OnMaintainInvoiceIdChanging(global::System.Nullable<int> value);
         partial void OnMaintainInvoiceIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 AnnualId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid AnnualId
-        {
-            get
-            {
-                return this._AnnualId;
-            }
-            set
-            {
-                this.OnAnnualIdChanging(value);
-                this._AnnualId = value;
-                this.OnAnnualIdChanged();
-                this.OnPropertyChanged("AnnualId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _AnnualId;
-        partial void OnAnnualIdChanging(global::System.Guid value);
-        partial void OnAnnualIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -18370,6 +18373,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 创建新的 SpecialRefitMaintainCostDTO 对象。
         /// </summary>
         /// <param name="ID">Id 的初始值。</param>
+        /// <param name="year">Year 的初始值。</param>
         /// <param name="inMaintainTime">InMaintainTime 的初始值。</param>
         /// <param name="outMaintainTime">OutMaintainTime 的初始值。</param>
         /// <param name="totalDays">TotalDays 的初始值。</param>
@@ -18381,12 +18385,12 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="acutalTotalDays">AcutalTotalDays 的初始值。</param>
         /// <param name="acutalBudgetAmount">AcutalBudgetAmount 的初始值。</param>
         /// <param name="acutalAmount">AcutalAmount 的初始值。</param>
-        /// <param name="annualId">AnnualId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static SpecialRefitMaintainCostDTO CreateSpecialRefitMaintainCostDTO(int ID, global::System.DateTime inMaintainTime, global::System.DateTime outMaintainTime, int totalDays, decimal departmentDeclareAmount, decimal financialApprovalAmount, decimal financialApprovalAmountNonTax, global::System.DateTime acutalInMaintainTime, global::System.DateTime acutalOutMaintainTime, int acutalTotalDays, decimal acutalBudgetAmount, decimal acutalAmount, global::System.Guid annualId)
+        public static SpecialRefitMaintainCostDTO CreateSpecialRefitMaintainCostDTO(int ID, int year, global::System.DateTime inMaintainTime, global::System.DateTime outMaintainTime, int totalDays, decimal departmentDeclareAmount, decimal financialApprovalAmount, decimal financialApprovalAmountNonTax, global::System.DateTime acutalInMaintainTime, global::System.DateTime acutalOutMaintainTime, int acutalTotalDays, decimal acutalBudgetAmount, decimal acutalAmount)
         {
             SpecialRefitMaintainCostDTO specialRefitMaintainCostDTO = new SpecialRefitMaintainCostDTO();
             specialRefitMaintainCostDTO.Id = ID;
+            specialRefitMaintainCostDTO.Year = year;
             specialRefitMaintainCostDTO.InMaintainTime = inMaintainTime;
             specialRefitMaintainCostDTO.OutMaintainTime = outMaintainTime;
             specialRefitMaintainCostDTO.TotalDays = totalDays;
@@ -18398,7 +18402,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             specialRefitMaintainCostDTO.AcutalTotalDays = acutalTotalDays;
             specialRefitMaintainCostDTO.AcutalBudgetAmount = acutalBudgetAmount;
             specialRefitMaintainCostDTO.AcutalAmount = acutalAmount;
-            specialRefitMaintainCostDTO.AnnualId = annualId;
             return specialRefitMaintainCostDTO;
         }
         /// <summary>
@@ -18490,6 +18493,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         partial void OnNoteChanging(string value);
         partial void OnNoteChanged();
         /// <summary>
+        /// 架构中不存在属性 Year 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Year
+        {
+            get
+            {
+                return this._Year;
+            }
+            set
+            {
+                this.OnYearChanging(value);
+                this._Year = value;
+                this.OnYearChanged();
+                this.OnPropertyChanged("Year");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Year;
+        partial void OnYearChanging(int value);
+        partial void OnYearChanged();
+        /// <summary>
         /// 架构中不存在属性 InMaintainTime 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -18753,28 +18778,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private global::System.Nullable<int> _MaintainInvoiceId;
         partial void OnMaintainInvoiceIdChanging(global::System.Nullable<int> value);
         partial void OnMaintainInvoiceIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 AnnualId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid AnnualId
-        {
-            get
-            {
-                return this._AnnualId;
-            }
-            set
-            {
-                this.OnAnnualIdChanging(value);
-                this._AnnualId = value;
-                this.OnAnnualIdChanged();
-                this.OnPropertyChanged("AnnualId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _AnnualId;
-        partial void OnAnnualIdChanging(global::System.Guid value);
-        partial void OnAnnualIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -18813,7 +18816,9 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="rate">Rate 的初始值。</param>
         /// <param name="feeTotalSum">FeeTotalSum 的初始值。</param>
         /// <param name="customRate">CustomRate 的初始值。</param>
+        /// <param name="custom">Custom 的初始值。</param>
         /// <param name="addedValueRate">AddedValueRate 的初始值。</param>
+        /// <param name="addedValue">AddedValue 的初始值。</param>
         /// <param name="customsTax">CustomsTax 的初始值。</param>
         /// <param name="freightFee">FreightFee 的初始值。</param>
         /// <param name="actualMaintainLevel">ActualMaintainLevel 的初始值。</param>
@@ -18824,6 +18829,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="actionCategoryId">ActionCategoryId 的初始值。</param>
         /// <param name="aircraftTypeId">AircraftTypeId 的初始值。</param>
         /// <param name="supplierId">SupplierId 的初始值。</param>
+        /// <param name="year">Year 的初始值。</param>
         /// <param name="inMaintainTime">InMaintainTime 的初始值。</param>
         /// <param name="outMaintainTime">OutMaintainTime 的初始值。</param>
         /// <param name="totalDays">TotalDays 的初始值。</param>
@@ -18835,7 +18841,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="acutalTotalDays">AcutalTotalDays 的初始值。</param>
         /// <param name="acutalBudgetAmount">AcutalBudgetAmount 的初始值。</param>
         /// <param name="acutalAmount">AcutalAmount 的初始值。</param>
-        /// <param name="annualId">AnnualId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public static NonFhaMaintainCostDTO CreateNonFhaMaintainCostDTO(
                     int ID, 
@@ -18852,7 +18857,9 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     decimal rate, 
                     decimal feeTotalSum, 
                     decimal customRate, 
+                    decimal custom, 
                     decimal addedValueRate, 
+                    decimal addedValue, 
                     decimal customsTax, 
                     decimal freightFee, 
                     int actualMaintainLevel, 
@@ -18863,6 +18870,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     global::System.Guid actionCategoryId, 
                     global::System.Guid aircraftTypeId, 
                     int supplierId, 
+                    int year, 
                     global::System.DateTime inMaintainTime, 
                     global::System.DateTime outMaintainTime, 
                     int totalDays, 
@@ -18873,8 +18881,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     global::System.DateTime acutalOutMaintainTime, 
                     int acutalTotalDays, 
                     decimal acutalBudgetAmount, 
-                    decimal acutalAmount, 
-                    global::System.Guid annualId)
+                    decimal acutalAmount)
         {
             NonFhaMaintainCostDTO nonFhaMaintainCostDTO = new NonFhaMaintainCostDTO();
             nonFhaMaintainCostDTO.Id = ID;
@@ -18891,7 +18898,9 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             nonFhaMaintainCostDTO.Rate = rate;
             nonFhaMaintainCostDTO.FeeTotalSum = feeTotalSum;
             nonFhaMaintainCostDTO.CustomRate = customRate;
+            nonFhaMaintainCostDTO.Custom = custom;
             nonFhaMaintainCostDTO.AddedValueRate = addedValueRate;
+            nonFhaMaintainCostDTO.AddedValue = addedValue;
             nonFhaMaintainCostDTO.CustomsTax = customsTax;
             nonFhaMaintainCostDTO.FreightFee = freightFee;
             nonFhaMaintainCostDTO.ActualMaintainLevel = actualMaintainLevel;
@@ -18902,6 +18911,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             nonFhaMaintainCostDTO.ActionCategoryId = actionCategoryId;
             nonFhaMaintainCostDTO.AircraftTypeId = aircraftTypeId;
             nonFhaMaintainCostDTO.SupplierId = supplierId;
+            nonFhaMaintainCostDTO.Year = year;
             nonFhaMaintainCostDTO.InMaintainTime = inMaintainTime;
             nonFhaMaintainCostDTO.OutMaintainTime = outMaintainTime;
             nonFhaMaintainCostDTO.TotalDays = totalDays;
@@ -18913,7 +18923,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             nonFhaMaintainCostDTO.AcutalTotalDays = acutalTotalDays;
             nonFhaMaintainCostDTO.AcutalBudgetAmount = acutalBudgetAmount;
             nonFhaMaintainCostDTO.AcutalAmount = acutalAmount;
-            nonFhaMaintainCostDTO.AnnualId = annualId;
             return nonFhaMaintainCostDTO;
         }
         /// <summary>
@@ -19250,7 +19259,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 架构中不存在属性 Custom 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Custom
+        public decimal Custom
         {
             get
             {
@@ -19265,8 +19274,8 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Custom;
-        partial void OnCustomChanging(string value);
+        private decimal _Custom;
+        partial void OnCustomChanging(decimal value);
         partial void OnCustomChanged();
         /// <summary>
         /// 架构中不存在属性 AddedValueRate 的注释。
@@ -19294,7 +19303,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 架构中不存在属性 AddedValue 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string AddedValue
+        public decimal AddedValue
         {
             get
             {
@@ -19309,8 +19318,8 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _AddedValue;
-        partial void OnAddedValueChanging(string value);
+        private decimal _AddedValue;
+        partial void OnAddedValueChanging(decimal value);
         partial void OnAddedValueChanged();
         /// <summary>
         /// 架构中不存在属性 CustomsTax 的注释。
@@ -19554,6 +19563,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private int _SupplierId;
         partial void OnSupplierIdChanging(int value);
         partial void OnSupplierIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Year 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Year
+        {
+            get
+            {
+                return this._Year;
+            }
+            set
+            {
+                this.OnYearChanging(value);
+                this._Year = value;
+                this.OnYearChanged();
+                this.OnPropertyChanged("Year");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Year;
+        partial void OnYearChanging(int value);
+        partial void OnYearChanged();
         /// <summary>
         /// 架构中不存在属性 InMaintainTime 的注释。
         /// </summary>
@@ -19818,28 +19849,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private global::System.Nullable<int> _MaintainInvoiceId;
         partial void OnMaintainInvoiceIdChanging(global::System.Nullable<int> value);
         partial void OnMaintainInvoiceIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 AnnualId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid AnnualId
-        {
-            get
-            {
-                return this._AnnualId;
-            }
-            set
-            {
-                this.OnAnnualIdChanging(value);
-                this._AnnualId = value;
-                this.OnAnnualIdChanged();
-                this.OnPropertyChanged("AnnualId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _AnnualId;
-        partial void OnAnnualIdChanging(global::System.Guid value);
-        partial void OnAnnualIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -19865,8 +19874,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 创建新的 ApuMaintainCostDTO 对象。
         /// </summary>
         /// <param name="ID">Id 的初始值。</param>
-        /// <param name="lastYearRate">LastYearRate 的初始值。</param>
-        /// <param name="yearAddedRate">YearAddedRate 的初始值。</param>
         /// <param name="yearBudgetRate">YearBudgetRate 的初始值。</param>
         /// <param name="rate">Rate 的初始值。</param>
         /// <param name="budgetHour">BudgetHour 的初始值。</param>
@@ -19879,6 +19886,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="addedValueRate">AddedValueRate 的初始值。</param>
         /// <param name="addedValue">AddedValue 的初始值。</param>
         /// <param name="includeAddedValue">IncludeAddedValue 的初始值。</param>
+        /// <param name="year">Year 的初始值。</param>
         /// <param name="inMaintainTime">InMaintainTime 的初始值。</param>
         /// <param name="outMaintainTime">OutMaintainTime 的初始值。</param>
         /// <param name="totalDays">TotalDays 的初始值。</param>
@@ -19890,12 +19898,9 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="acutalTotalDays">AcutalTotalDays 的初始值。</param>
         /// <param name="acutalBudgetAmount">AcutalBudgetAmount 的初始值。</param>
         /// <param name="acutalAmount">AcutalAmount 的初始值。</param>
-        /// <param name="annualId">AnnualId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public static ApuMaintainCostDTO CreateApuMaintainCostDTO(
                     int ID, 
-                    decimal lastYearRate, 
-                    decimal yearAddedRate, 
                     decimal yearBudgetRate, 
                     decimal rate, 
                     decimal budgetHour, 
@@ -19908,6 +19913,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     decimal addedValueRate, 
                     decimal addedValue, 
                     decimal includeAddedValue, 
+                    int year, 
                     global::System.DateTime inMaintainTime, 
                     global::System.DateTime outMaintainTime, 
                     int totalDays, 
@@ -19918,13 +19924,10 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     global::System.DateTime acutalOutMaintainTime, 
                     int acutalTotalDays, 
                     decimal acutalBudgetAmount, 
-                    decimal acutalAmount, 
-                    global::System.Guid annualId)
+                    decimal acutalAmount)
         {
             ApuMaintainCostDTO apuMaintainCostDTO = new ApuMaintainCostDTO();
             apuMaintainCostDTO.Id = ID;
-            apuMaintainCostDTO.LastYearRate = lastYearRate;
-            apuMaintainCostDTO.YearAddedRate = yearAddedRate;
             apuMaintainCostDTO.YearBudgetRate = yearBudgetRate;
             apuMaintainCostDTO.Rate = rate;
             apuMaintainCostDTO.BudgetHour = budgetHour;
@@ -19937,6 +19940,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             apuMaintainCostDTO.AddedValueRate = addedValueRate;
             apuMaintainCostDTO.AddedValue = addedValue;
             apuMaintainCostDTO.IncludeAddedValue = includeAddedValue;
+            apuMaintainCostDTO.Year = year;
             apuMaintainCostDTO.InMaintainTime = inMaintainTime;
             apuMaintainCostDTO.OutMaintainTime = outMaintainTime;
             apuMaintainCostDTO.TotalDays = totalDays;
@@ -19948,7 +19952,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             apuMaintainCostDTO.AcutalTotalDays = acutalTotalDays;
             apuMaintainCostDTO.AcutalBudgetAmount = acutalBudgetAmount;
             apuMaintainCostDTO.AcutalAmount = acutalAmount;
-            apuMaintainCostDTO.AnnualId = annualId;
             return apuMaintainCostDTO;
         }
         /// <summary>
@@ -20017,50 +20020,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private string _Type;
         partial void OnTypeChanging(string value);
         partial void OnTypeChanged();
-        /// <summary>
-        /// 架构中不存在属性 LastYearRate 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal LastYearRate
-        {
-            get
-            {
-                return this._LastYearRate;
-            }
-            set
-            {
-                this.OnLastYearRateChanging(value);
-                this._LastYearRate = value;
-                this.OnLastYearRateChanged();
-                this.OnPropertyChanged("LastYearRate");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _LastYearRate;
-        partial void OnLastYearRateChanging(decimal value);
-        partial void OnLastYearRateChanged();
-        /// <summary>
-        /// 架构中不存在属性 YearAddedRate 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal YearAddedRate
-        {
-            get
-            {
-                return this._YearAddedRate;
-            }
-            set
-            {
-                this.OnYearAddedRateChanging(value);
-                this._YearAddedRate = value;
-                this.OnYearAddedRateChanged();
-                this.OnPropertyChanged("YearAddedRate");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _YearAddedRate;
-        partial void OnYearAddedRateChanging(decimal value);
-        partial void OnYearAddedRateChanged();
         /// <summary>
         /// 架构中不存在属性 YearBudgetRate 的注释。
         /// </summary>
@@ -20326,6 +20285,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         partial void OnIncludeAddedValueChanging(decimal value);
         partial void OnIncludeAddedValueChanged();
         /// <summary>
+        /// 架构中不存在属性 Year 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Year
+        {
+            get
+            {
+                return this._Year;
+            }
+            set
+            {
+                this.OnYearChanging(value);
+                this._Year = value;
+                this.OnYearChanged();
+                this.OnPropertyChanged("Year");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Year;
+        partial void OnYearChanging(int value);
+        partial void OnYearChanged();
+        /// <summary>
         /// 架构中不存在属性 InMaintainTime 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -20589,28 +20570,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private global::System.Nullable<int> _MaintainInvoiceId;
         partial void OnMaintainInvoiceIdChanging(global::System.Nullable<int> value);
         partial void OnMaintainInvoiceIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 AnnualId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid AnnualId
-        {
-            get
-            {
-                return this._AnnualId;
-            }
-            set
-            {
-                this.OnAnnualIdChanging(value);
-                this._AnnualId = value;
-                this.OnAnnualIdChanged();
-                this.OnPropertyChanged("AnnualId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _AnnualId;
-        partial void OnAnnualIdChanging(global::System.Guid value);
-        partial void OnAnnualIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -20636,8 +20595,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 创建新的 FhaMaintainCostDTO 对象。
         /// </summary>
         /// <param name="ID">Id 的初始值。</param>
-        /// <param name="lastYearRate">LastYearRate 的初始值。</param>
-        /// <param name="yearAddedRate">YearAddedRate 的初始值。</param>
         /// <param name="yearBudgetRate">YearBudgetRate 的初始值。</param>
         /// <param name="rate">Rate 的初始值。</param>
         /// <param name="airHour">AirHour 的初始值。</param>
@@ -20653,6 +20610,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="includeAddedValue">IncludeAddedValue 的初始值。</param>
         /// <param name="customAdded">CustomAdded 的初始值。</param>
         /// <param name="aircraftTypeId">AircraftTypeId 的初始值。</param>
+        /// <param name="year">Year 的初始值。</param>
         /// <param name="inMaintainTime">InMaintainTime 的初始值。</param>
         /// <param name="outMaintainTime">OutMaintainTime 的初始值。</param>
         /// <param name="totalDays">TotalDays 的初始值。</param>
@@ -20664,12 +20622,9 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="acutalTotalDays">AcutalTotalDays 的初始值。</param>
         /// <param name="acutalBudgetAmount">AcutalBudgetAmount 的初始值。</param>
         /// <param name="acutalAmount">AcutalAmount 的初始值。</param>
-        /// <param name="annualId">AnnualId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public static FhaMaintainCostDTO CreateFhaMaintainCostDTO(
                     int ID, 
-                    decimal lastYearRate, 
-                    decimal yearAddedRate, 
                     decimal yearBudgetRate, 
                     decimal rate, 
                     decimal airHour, 
@@ -20685,6 +20640,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     decimal includeAddedValue, 
                     decimal customAdded, 
                     global::System.Guid aircraftTypeId, 
+                    int year, 
                     global::System.DateTime inMaintainTime, 
                     global::System.DateTime outMaintainTime, 
                     int totalDays, 
@@ -20695,13 +20651,10 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                     global::System.DateTime acutalOutMaintainTime, 
                     int acutalTotalDays, 
                     decimal acutalBudgetAmount, 
-                    decimal acutalAmount, 
-                    global::System.Guid annualId)
+                    decimal acutalAmount)
         {
             FhaMaintainCostDTO fhaMaintainCostDTO = new FhaMaintainCostDTO();
             fhaMaintainCostDTO.Id = ID;
-            fhaMaintainCostDTO.LastYearRate = lastYearRate;
-            fhaMaintainCostDTO.YearAddedRate = yearAddedRate;
             fhaMaintainCostDTO.YearBudgetRate = yearBudgetRate;
             fhaMaintainCostDTO.Rate = rate;
             fhaMaintainCostDTO.AirHour = airHour;
@@ -20717,6 +20670,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             fhaMaintainCostDTO.IncludeAddedValue = includeAddedValue;
             fhaMaintainCostDTO.CustomAdded = customAdded;
             fhaMaintainCostDTO.AircraftTypeId = aircraftTypeId;
+            fhaMaintainCostDTO.Year = year;
             fhaMaintainCostDTO.InMaintainTime = inMaintainTime;
             fhaMaintainCostDTO.OutMaintainTime = outMaintainTime;
             fhaMaintainCostDTO.TotalDays = totalDays;
@@ -20728,7 +20682,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             fhaMaintainCostDTO.AcutalTotalDays = acutalTotalDays;
             fhaMaintainCostDTO.AcutalBudgetAmount = acutalBudgetAmount;
             fhaMaintainCostDTO.AcutalAmount = acutalAmount;
-            fhaMaintainCostDTO.AnnualId = annualId;
             return fhaMaintainCostDTO;
         }
         /// <summary>
@@ -20797,50 +20750,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private string _Jx;
         partial void OnJxChanging(string value);
         partial void OnJxChanged();
-        /// <summary>
-        /// 架构中不存在属性 LastYearRate 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal LastYearRate
-        {
-            get
-            {
-                return this._LastYearRate;
-            }
-            set
-            {
-                this.OnLastYearRateChanging(value);
-                this._LastYearRate = value;
-                this.OnLastYearRateChanged();
-                this.OnPropertyChanged("LastYearRate");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _LastYearRate;
-        partial void OnLastYearRateChanging(decimal value);
-        partial void OnLastYearRateChanged();
-        /// <summary>
-        /// 架构中不存在属性 YearAddedRate 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal YearAddedRate
-        {
-            get
-            {
-                return this._YearAddedRate;
-            }
-            set
-            {
-                this.OnYearAddedRateChanging(value);
-                this._YearAddedRate = value;
-                this.OnYearAddedRateChanged();
-                this.OnPropertyChanged("YearAddedRate");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _YearAddedRate;
-        partial void OnYearAddedRateChanging(decimal value);
-        partial void OnYearAddedRateChanged();
         /// <summary>
         /// 架构中不存在属性 YearBudgetRate 的注释。
         /// </summary>
@@ -21172,6 +21081,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         partial void OnAircraftTypeIdChanging(global::System.Guid value);
         partial void OnAircraftTypeIdChanged();
         /// <summary>
+        /// 架构中不存在属性 Year 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Year
+        {
+            get
+            {
+                return this._Year;
+            }
+            set
+            {
+                this.OnYearChanging(value);
+                this._Year = value;
+                this.OnYearChanged();
+                this.OnPropertyChanged("Year");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Year;
+        partial void OnYearChanging(int value);
+        partial void OnYearChanged();
+        /// <summary>
         /// 架构中不存在属性 InMaintainTime 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -21435,28 +21366,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private global::System.Nullable<int> _MaintainInvoiceId;
         partial void OnMaintainInvoiceIdChanging(global::System.Nullable<int> value);
         partial void OnMaintainInvoiceIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 AnnualId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid AnnualId
-        {
-            get
-            {
-                return this._AnnualId;
-            }
-            set
-            {
-                this.OnAnnualIdChanging(value);
-                this._AnnualId = value;
-                this.OnAnnualIdChanged();
-                this.OnPropertyChanged("AnnualId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _AnnualId;
-        partial void OnAnnualIdChanging(global::System.Guid value);
-        partial void OnAnnualIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

@@ -6,6 +6,7 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
              xmlns:maintainInvoice="clr-namespace:UniCloud.Presentation.Payment.MaintainInvoice"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -156,6 +157,7 @@
                                                                                 SelectedValueMemberPath="Id"
                                                                                 DisplayMemberPath="Name" />
                                                 <telerik:GridViewMaskedInputColumn Header="发票金额"
+                                                                                   IsReadOnly="True"
                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                    TextAlignment="Right"
                                                                                    HeaderTextAlignment="Center"
@@ -310,6 +312,12 @@
                                                                      CommandParameter="{Binding ElementName=MaintainInvoiceLine, Mode=OneWay}" />
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="CellEditEnded">
+                                                <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
+                                                                       CommandParameter="{Binding }" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号" />
                                             <telerik:GridViewComboBoxColumn Header="维修项"

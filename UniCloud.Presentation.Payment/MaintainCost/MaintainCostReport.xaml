@@ -90,7 +90,7 @@
                                 <telerik:RadCartesianChart.Behaviors>
                                     <telerik:ChartTooltipBehavior HorizontalOffset="-6"
                                                                   VerticalOffset="-49" />
-                                    <telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" />
+                                    <!--<telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" />-->
                                     <telerik:ChartSelectionBehavior>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">

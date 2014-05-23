@@ -156,6 +156,7 @@
                                                                                 SelectedValueMemberPath="Id"
                                                                                 DisplayMemberPath="Name" />
                                                 <telerik:GridViewMaskedInputColumn Header="发票金额"
+                                                                                   IsReadOnly="True"
                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                    TextAlignment="Right"
                                                                                    HeaderTextAlignment="Center"
@@ -311,6 +312,12 @@
                                                                      CommandParameter="{Binding ElementName=MaintainInvoiceLine, Mode=OneWay}" />
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="CellEditEnded">
+                                                <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
+                                                                       CommandParameter="{Binding }" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号" />
                                             <telerik:GridViewComboBoxColumn Header="维修项"

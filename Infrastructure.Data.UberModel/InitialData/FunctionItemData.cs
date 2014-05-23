@@ -212,7 +212,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var menu425 = FunctionItemFactory.CreateFunctionItem("维护采购贷项单", menu42.Id, 40205, false, false, "UniCloud.Presentation.Payment.Invoice.PurchaseCreditNoteManager");
             var menu426 = FunctionItemFactory.CreateFunctionItem("维护维修贷项单", menu42.Id, 40206, false, false, "UniCloud.Presentation.Payment.Invoice.MaintainCreditNoteManager");
             var menu427 = FunctionItemFactory.CreateFunctionItem("维护杂项发票", menu42.Id, 40207, false, false, "UniCloud.Presentation.Payment.Invoice.SundryInvoiceManager");
-            var menu428 = FunctionItemFactory.CreateFunctionItem("维护特修改装发票", menu42.Id, 40208, false, false, "UniCloud.Presentation.Payment.Invoice.SpecialRefitInvoiceManager");
+
             menu42.SubFunctionItems.Add(menu421);
             menu42.SubFunctionItems.Add(menu422);
             menu42.SubFunctionItems.Add(menu423);
@@ -220,7 +220,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu42.SubFunctionItems.Add(menu425);
             menu42.SubFunctionItems.Add(menu426);
             menu42.SubFunctionItems.Add(menu427);
-            menu42.SubFunctionItems.Add(menu428);
             menu4.SubFunctionItems.Add(menu42);
 
 
@@ -229,10 +228,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var menu432 = FunctionItemFactory.CreateFunctionItem("维护APU维修发票", menu43.Id, 40302, false, false, "UniCloud.Presentation.Payment.MaintainInvoice.APUMaintain");
             var menu433 = FunctionItemFactory.CreateFunctionItem("维护起落架维修发票", menu43.Id, 40303, false, false, "UniCloud.Presentation.Payment.MaintainInvoice.UndercartMaintain");
             var menu434 = FunctionItemFactory.CreateFunctionItem("维护机身维修发票", menu43.Id, 40304, false, false, "UniCloud.Presentation.Payment.MaintainInvoice.AirframeMaintain");
+            var menu435 = FunctionItemFactory.CreateFunctionItem("维护特修改装发票", menu43.Id, 40305, false, false, "UniCloud.Presentation.Payment.MaintainInvoice.SpecialRefitInvoiceManager");
             menu43.SubFunctionItems.Add(menu431);
             menu43.SubFunctionItems.Add(menu432);
             menu43.SubFunctionItems.Add(menu433);
             menu43.SubFunctionItems.Add(menu434);
+            menu43.SubFunctionItems.Add(menu435);
             menu4.SubFunctionItems.Add(menu43);
 
             var menu44 = FunctionItemFactory.CreateFunctionItem("维护付款通知", menu4.Id, 404, false, false, "UniCloud.Presentation.Payment.PaymentNotice.PaymentNotice");

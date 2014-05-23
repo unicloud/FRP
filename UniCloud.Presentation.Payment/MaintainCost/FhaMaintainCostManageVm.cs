@@ -19,7 +19,6 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
@@ -63,7 +62,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 _annual = value;
                 if (_annual != null)
                 {
-                    _annualFilter.Value = _annual.Id;
+                    _annualFilter.Value = _annual.Year;
                     FhaMaintainCosts.Load(true);
                 }
                 RaisePropertyChanged(() => Annual);
@@ -108,12 +107,10 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         private void InitialVm()
         {
             CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
-            AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
-            DeleteCommand = new DelegateCommand<object>(OnDelete, CanDelete);
             EngineMaintainInvoices = new QueryableDataServiceCollectionView<EngineMaintainInvoiceDTO>(_context, _context.EngineMaintainInvoices);
             FhaMaintainCosts = _service.CreateCollection(_context.FhaMaintainCosts);
             FhaMaintainCosts.PageSize = 20;
-            _annualFilter = new FilterDescriptor("AnnualId", FilterOperator.IsEqualTo, Guid.Empty);
+            _annualFilter = new FilterDescriptor("Year", FilterOperator.IsEqualTo, 0);
             FhaMaintainCosts.FilterDescriptors.Add(_annualFilter);
             FhaMaintainCosts.LoadedData += (sender, e) =>
             {
@@ -126,7 +123,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             Annuals.LoadedData += (o, e) =>
             {
                 if (Annual == null)
-                    Annual = Annuals.FirstOrDefault();
+                    Annual = Annuals.FirstOrDefault(p => p.Year == DateTime.Now.Year);
             };
             AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_fleetPlanService.Context, _fleetPlanService.Context.AircraftTypes);
         }
@@ -134,78 +131,6 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         #endregion
 
         #region 命令
-
-        #region 新增FHA命令
-
-        public DelegateCommand<object> AddCommand { get; set; }
-
-        /// <summary>
-        ///     执行新增命令。
-        /// </summary>
-        /// <param name="sender"></param>
-        public void OnAdd(object sender)
-        {
-            FhaMaintainCost = new FhaMaintainCostDTO
-                                     {
-                                         Id = RandomHelper.Next(),
-                                         AnnualId = Annual.Id
-                                     };
-            var invoice = EngineMaintainInvoices.FirstOrDefault();
-            if (invoice != null)
-            {
-                FhaMaintainCost.MaintainInvoiceId = invoice.EngineMaintainInvoiceId;
-                FhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                FhaMaintainCost.AcutalAmount = invoice.InvoiceValue;
-            }
-            FhaMaintainCosts.AddNew(FhaMaintainCost);
-        }
-
-        /// <summary>
-        ///     判断新增FHA命令是否可用。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>新增命令是否可用。</returns>
-        public bool CanAdd(object sender)
-        {
-            return true;
-        }
-
-        #endregion
-
-        #region 删除FHA命令
-
-        public DelegateCommand<object> DeleteCommand { get; set; }
-
-        /// <summary>
-        ///     执行删除FHA命令。
-        /// </summary>
-        /// <param name="sender"></param>
-        public void OnDelete(object sender)
-        {
-            if (FhaMaintainCost == null)
-            {
-                MessageAlert("提示", "请选择需要删除的记录");
-                return;
-            }
-            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                FhaMaintainCosts.Remove(FhaMaintainCost);
-                                                FhaMaintainCost = FhaMaintainCosts.FirstOrDefault();
-                                            });
-        }
-
-        /// <summary>
-        ///     判断删除FHA命令是否可用。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>删除命令是否可用。</returns>
-        public bool CanDelete(object sender)
-        {
-            return true;
-        }
-
-        #endregion
 
         #endregion
 
@@ -236,13 +161,6 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         private void CellEditEnd(object sender)
         {
-            var invoice = EngineMaintainInvoices.FirstOrDefault(p => p.EngineMaintainInvoiceId == FhaMaintainCost.MaintainInvoiceId);
-            if (invoice != null)
-            {
-                FhaMaintainCost.AcutalBudgetAmount = invoice.InvoiceValue;
-                FhaMaintainCost.AcutalAmount = invoice.InvoiceValue;
-            }
-            FhaMaintainCost.YearBudgetRate = FhaMaintainCost.LastYearRate * (1 + FhaMaintainCost.YearAddedRate);
             FhaMaintainCost.Hour = FhaMaintainCost.AirHour * FhaMaintainCost.HourPercent * 2;
             FhaMaintainCost.FhaFeeUsd = FhaMaintainCost.Hour * FhaMaintainCost.YearBudgetRate;
             FhaMaintainCost.FhaFeeRmb = FhaMaintainCost.FhaFeeUsd * FhaMaintainCost.Rate;
