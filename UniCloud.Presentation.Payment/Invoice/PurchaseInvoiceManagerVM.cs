@@ -481,8 +481,8 @@ namespace UniCloud.Presentation.Payment.Invoice
                                             {
                                                 if (arg.DialogResult != true) return;
                                                 SelPurchaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
-                                                SelInvoiceLine = SelPurchaseInvoice.InvoiceLines.FirstOrDefault();
                                                 InvoiceLines.Remove(SelInvoiceLine);
+                                                SelInvoiceLine = SelPurchaseInvoice.InvoiceLines.FirstOrDefault();
                                             });
         }
 

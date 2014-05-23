@@ -469,8 +469,8 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                                             {
                                                 if (arg.DialogResult != true) return;
                                                 SelectRefitInvoice.MaintainInvoiceLines.Remove(SelInvoiceLine);
-                                                SelInvoiceLine = SelectRefitInvoice.MaintainInvoiceLines.FirstOrDefault();
                                                 InvoiceLines.Remove(SelInvoiceLine);
+                                                SelInvoiceLine = SelectRefitInvoice.MaintainInvoiceLines.FirstOrDefault();
                                             });
         }
 
