@@ -157,6 +157,7 @@
                                                                                 SelectedValueMemberPath="Id"
                                                                                 DisplayMemberPath="Name" />
                                                 <telerik:GridViewMaskedInputColumn Header="发票金额"
+                                                                                   IsReadOnly="True"
                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                    TextAlignment="Right"
                                                                                    HeaderTextAlignment="Center"

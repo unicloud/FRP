@@ -23,6 +23,7 @@ using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
 using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
+using UniCloud.Domain.UberModel.Aggregates.PaymentScheduleAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 
 #endregion
@@ -158,7 +159,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         ///     币种
         /// </summary>
         public virtual Currency Currency { get; private set; }
-
+        public virtual PaymentScheduleLine PaymentScheduleLine { get; set; }
         #endregion
 
         #region 操作

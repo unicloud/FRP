@@ -46,7 +46,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         Id = p.Id,
                         ActionCategoryId = p.ActionCategoryId,
                         AcutalAmount = p.MaintainInvoice.InvoiceValue,
-                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalBudgetAmount = p.MaintainInvoice.PaymentScheduleLineId == null ? 0 : p.MaintainInvoice.PaymentScheduleLine.Amount,
                         AcutalInMaintainTime = p.MaintainInvoice.InMaintainTime,
                         AcutalOutMaintainTime = p.MaintainInvoice.OutMaintainTime,
                         AcutalTotalDays = p.MaintainInvoice.TotalDays,
@@ -80,7 +80,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         Id = p.Id,
                         ActionCategoryId = p.ActionCategoryId,
                         AcutalAmount = p.MaintainInvoice.InvoiceValue,
-                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalBudgetAmount = p.MaintainInvoice.PaymentScheduleLineId == null ? 0 : p.MaintainInvoice.PaymentScheduleLine.Amount,
                         AcutalInMaintainTime = p.MaintainInvoice.InMaintainTime,
                         AcutalOutMaintainTime = p.MaintainInvoice.OutMaintainTime,
                         AcutalTotalDays = p.MaintainInvoice.TotalDays,
@@ -127,7 +127,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         Note = p.Note,
                         FinancialApprovalAmount = p.FinancialApprovalAmount,
                         FinancialApprovalAmountNonTax = p.FinancialApprovalAmountNonTax,
-                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalBudgetAmount = p.MaintainInvoice.PaymentScheduleLineId == null ? 0 : p.MaintainInvoice.PaymentScheduleLine.Amount,
                         AcutalAmount = p.MaintainInvoice.InvoiceValue,
                         MaintainInvoiceId = p.MaintainInvoiceId,
                         Year = p.Year
@@ -183,7 +183,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         AcutalInMaintainTime = p.MaintainInvoice.InMaintainTime,
                         AcutalOutMaintainTime = p.MaintainInvoice.OutMaintainTime,
                         AcutalTotalDays = p.MaintainInvoice.TotalDays,
-                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalBudgetAmount = p.MaintainInvoice.PaymentScheduleLineId == null ? 0 : p.MaintainInvoice.PaymentScheduleLine.Amount,
                         AcutalAmount = p.MaintainInvoice.InvoiceValue,
                         MaintainInvoiceId = p.MaintainInvoiceId,
                         Year = p.Year
@@ -219,7 +219,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         IncludeAddedValue = p.IncludeAddedValue,
                         MaintainInvoiceId = p.MaintainInvoiceId,
                         Year = p.Year,
-                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalBudgetAmount = p.MaintainInvoice.PaymentScheduleLineId == null ? 0 : p.MaintainInvoice.PaymentScheduleLine.Amount,
                         AcutalAmount = p.MaintainInvoice.InvoiceValue
                     });
         }
@@ -256,7 +256,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainCostQueries
                         AircraftTypeId = p.AircraftTypeId,
                         MaintainInvoiceId = p.MaintainInvoiceId,
                         Year = p.Year,
-                        AcutalBudgetAmount = p.MaintainInvoice.InvoiceValue,
+                        AcutalBudgetAmount = p.MaintainInvoice.PaymentScheduleLineId == null ? 0 : p.MaintainInvoice.PaymentScheduleLine.Amount,
                         AcutalAmount = p.MaintainInvoice.InvoiceValue
                     });
         }
