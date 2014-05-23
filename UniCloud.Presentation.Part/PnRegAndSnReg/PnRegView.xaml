@@ -119,11 +119,14 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Description}" />
-                                        <telerik:GridViewDataColumn Header="对应项号"
-                                                                    IsReadOnly="True"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding ItemId}" />
+                                        <telerik:GridViewComboBoxColumn Header="对应项号"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.Items, ElementName=ManageItemView}"
+                                                                        DisplayMemberPath="ItemNo"
+                                                                        DataMemberBinding="{Binding ItemId,Mode=TwoWay}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        IsComboBoxEditable="True"
+                                                                        EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewCheckBoxColumn Header="是否寿控件"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -265,7 +268,7 @@
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewComboBoxColumn Header="控制单位"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.ViewCtrlUnits, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.ViewCtrlUnits, ElementName=ManageItemView}"
                                                                         DisplayMemberPath="Name"
                                                                         DataMemberBinding="{Binding CtrlUnitId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
@@ -273,7 +276,7 @@
                                                                         EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewComboBoxColumn Header="工作代码"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.MaintainWorks, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.MaintainWorks,  ElementName=ManageItemView}"
                                                                         DisplayMemberPath="WorkCode"
                                                                         DataMemberBinding="{Binding MaintainWorkId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"

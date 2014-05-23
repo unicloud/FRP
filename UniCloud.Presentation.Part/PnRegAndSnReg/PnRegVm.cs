@@ -88,6 +88,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             };
             CtrlUnits = new QueryableDataServiceCollectionView<CtrlUnitDTO>(_context, _context.CtrlUnits);
             MaintainWorks = new QueryableDataServiceCollectionView<MaintainWorkDTO>(_context, _context.MaintainWorks);
+            Items = new QueryableDataServiceCollectionView<ItemDTO>(_context, _context.Items);
         }
 
         /// <summary>
@@ -131,6 +132,10 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         public QueryableDataServiceCollectionView<MaintainWorkDTO> MaintainWorks { get; set; }
 
+        /// <summary>
+        ///     附件项集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ItemDTO> Items { get; set; }
 
         /// <summary>
         ///     维修控制策略
@@ -182,6 +187,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             CtrlUnits.Load(true);
             MaintainWorks.Load(true);
             ItemMaintainCtrls.Load(true);
+            Items.Load(true);
         }
 
         #region 业务
