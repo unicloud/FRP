@@ -283,6 +283,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                          IsCompleted = p.IsCompleted,
                          Status = (int)p.Status,
                          CurrencyId = p.CurrencyId,
+                         PaymentScheduleLineId = p.PaymentScheduleLineId,
                          MaintainInvoiceLines = p.InvoiceLines.Select(q => new MaintainInvoiceLineDTO
                          {
                              MaintainInvoiceLineId = q.Id,

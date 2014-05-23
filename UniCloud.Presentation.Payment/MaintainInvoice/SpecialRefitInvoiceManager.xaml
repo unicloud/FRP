@@ -146,12 +146,12 @@
                                                                         IsReadOnly="True"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding InvoiceValue,Mode=TwoWay}" />
+                                                                        DataMemberBinding="{Binding InvoiceValue,Mode=TwoWay,StringFormat={StaticResource CurrencyStringFormat}}" />
                                             <telerik:GridViewDataColumn Header="已付金额"
                                                                         IsReadOnly="True"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding PaidAmount}" />
+                                                                        DataMemberBinding="{Binding PaidAmount,StringFormat={StaticResource CurrencyStringFormat}}" />
                                             <telerik:GridViewComboBoxColumn Header="币种"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -268,10 +268,14 @@
                                                                             DataMemberBinding="{Binding ItemName}"
                                                                             SelectedValueMemberPath="Key"
                                                                             DisplayMemberPath="Value" />
-                                            <telerik:GridViewDataColumn Header="金额"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Amount}"
-                                                                        UniqueName="TotalLine" />
+                                            <telerik:GridViewMaskedInputColumn Header="金额"
+                                                                               UniqueName="TotalLine"
+                                                                               MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                               TextAlignment="Right"
+                                                                               HeaderTextAlignment="Center"
+                                                                               DataMemberBinding="{Binding Amount,StringFormat={StaticResource CurrencyStringFormat}}"
+                                                                               MaskType="Numeric"
+                                                                               Mask="###,###,###.##" />
                                             <telerik:GridViewDataColumn Header="备注"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding Note}"
@@ -325,7 +329,7 @@
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsFilterable="True"
-                                                                            ItemsSource="{Binding DataContext.Currencies,ElementName=AirframeMaintainView,Mode=TwoWay}"
+                                                                            ItemsSource="{Binding DataContext.Currencies,ElementName=SpecialRefitInvoiceView,Mode=TwoWay}"
                                                                             DisplayMemberPath="Name"
                                                                             DataMemberBinding="{Binding CurrencyId,Mode=TwoWay}"
                                                                             SelectedValueMemberPath="Id" />

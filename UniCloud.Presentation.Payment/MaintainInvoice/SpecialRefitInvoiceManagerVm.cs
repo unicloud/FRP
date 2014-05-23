@@ -193,20 +193,25 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                     {
                         InvoiceLines.Add(invoiceLine);
                     }
-                    RelatedPaymentSchedule.Add(
-                        PaymentSchedules.FirstOrDefault(p =>
-                        {
-                            var paymentScheduleLine =
-                                p.PaymentScheduleLines.FirstOrDefault(
-                                    l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
-                            return paymentScheduleLine != null &&
-                                   paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
-                        }));
+                    var relate = PaymentSchedules.FirstOrDefault(p =>
+                                                      {
+                                                          var paymentScheduleLine =
+                                                              p.PaymentScheduleLines.FirstOrDefault(
+                                                                  l =>
+                                                                      l.PaymentScheduleLineId ==
+                                                                      value.PaymentScheduleLineId);
+                                                          return paymentScheduleLine != null &&
+                                                                 paymentScheduleLine.PaymentScheduleLineId ==
+                                                                 value.PaymentScheduleLineId;
+                                                      });
+                    if (relate != null)
+                        RelatedPaymentSchedule.Add(relate);
                     SelPaymentSchedule = RelatedPaymentSchedule.FirstOrDefault();
                     if (SelPaymentSchedule != null)
                         RelatedPaymentScheduleLine =
                             SelPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
                                 l => l.InvoiceId == value.SpecialRefitId);
+                    RaisePropertyChanged(() => RelatedPaymentSchedule);
                 }
                 RaisePropertyChanged(() => SelectRefitInvoice);
             }

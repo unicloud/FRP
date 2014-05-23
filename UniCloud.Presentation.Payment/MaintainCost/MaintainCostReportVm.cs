@@ -296,10 +296,10 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (_loadedApu && _loadedFha && _loadedNonFha && _loadedRegularCheck && _loadedSpecialRefit &&
                 _loadedUndercart)
             {
-                IsBusy = false;
                 RaisePropertyChanged(() => MaintainCostReports);
                 var maintainCost = MaintainCostReports.LastOrDefault();
                 GenerateDetail(maintainCost);
+                IsBusy = false;
             }
         }
         #endregion

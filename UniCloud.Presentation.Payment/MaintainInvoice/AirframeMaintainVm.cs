@@ -127,15 +127,16 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 if (value != null)
                 {
                     AirframeMaintainInvoiceLine = value.MaintainInvoiceLines.FirstOrDefault();
-                    RelatedPaymentSchedule.Add(
-                        PaymentSchedules.FirstOrDefault(p =>
+                    var relate = PaymentSchedules.FirstOrDefault(p =>
                         {
                             var paymentScheduleLine =
                                 p.PaymentScheduleLines.FirstOrDefault(
                                     l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
                             return paymentScheduleLine != null &&
                                    paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
-                        }));
+                        });
+                    if (relate != null)
+                        RelatedPaymentSchedule.Add(relate);
                     SelPaymentSchedule = RelatedPaymentSchedule.FirstOrDefault();
                     if (SelPaymentSchedule != null)
                         RelatedPaymentScheduleLine =

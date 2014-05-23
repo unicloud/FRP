@@ -160,7 +160,6 @@
                                                     <telerik:GridViewMaskedInputColumn Header="预算费率(美元)"
                                                                                        ColumnGroupName="BudgetInfo"
                                                                                        TextAlignment="Center"
-                                                                                       IsReadOnly="True"
                                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                        DataMemberBinding="{Binding YearBudgetRate}"
                                                                                        DataFormatString="{StaticResource CurrencyStringFormat}"
