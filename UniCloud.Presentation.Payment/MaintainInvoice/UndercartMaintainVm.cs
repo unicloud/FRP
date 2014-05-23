@@ -177,8 +177,36 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         protected override void OnAddInvoice(object obj)
         {
-            PrepayPayscheduleChildView.ViewModel.InitData(typeof(UndercartMaintainInvoiceDTO), PrepayPayscheduleChildViewClosed);
-            PrepayPayscheduleChildView.ShowDialog();
+            MessageConfirm("是否根据付款计划创建?", (s, arg) =>
+                                          {
+                                              if (arg.DialogResult != true)
+                                              {
+                                                  UndercartMaintainInvoice = new UndercartMaintainInvoiceDTO
+                                                                       {
+                                                                           UndercartMaintainInvoiceId =
+                                                                               RandomHelper.Next(),
+                                                                           CreateDate = DateTime.Now,
+                                                                           InvoiceDate = DateTime.Now,
+                                                                           InMaintainTime = DateTime.Now,
+                                                                           OutMaintainTime = DateTime.Now,
+                                                                       };
+                                                  var currency = Currencies.FirstOrDefault();
+                                                  if (currency != null)
+                                                      UndercartMaintainInvoice.CurrencyId = currency.Id;
+                                                  var supplier = Suppliers.FirstOrDefault();
+                                                  if (supplier != null)
+                                                  {
+                                                      UndercartMaintainInvoice.SupplierId = supplier.SupplierId;
+                                                      UndercartMaintainInvoice.SupplierName = supplier.Name;
+                                                  }
+                                                  UndercartMaintainInvoices.AddNew(UndercartMaintainInvoice);
+                                                  return;
+                                              }
+                                              PrepayPayscheduleChildView.ViewModel.InitData(
+                                                  typeof(UndercartMaintainInvoiceDTO),
+                                                  PrepayPayscheduleChildViewClosed);
+                                              PrepayPayscheduleChildView.ShowDialog();
+                                          });
         }
 
         protected override bool CanAddInvoice(object obj)
@@ -339,7 +367,18 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         }
 
         #endregion
+        #region GridView单元格变更处理
 
+        /// <summary>
+        ///     GridView单元格变更处理
+        /// </summary>
+        /// <param name="sender"></param>
+        protected override void OnCellEditEnd(object sender)
+        {
+            UndercartMaintainInvoice.InvoiceValue = UndercartMaintainInvoice.MaintainInvoiceLines.Sum(invoiceLine => invoiceLine.Amount * invoiceLine.UnitPrice);
+        }
+
+        #endregion
         #endregion
     }
 }

@@ -192,10 +192,10 @@
     <Compile Include="Invoice\MaintainPrepayPayscheduleChildView.xaml.cs">
       <DependentUpon>MaintainPrepayPayscheduleChildView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Invoice\SpecialRefitInvoiceManager.xaml.cs">
+    <Compile Include="MaintainInvoice\SpecialRefitInvoiceManager.xaml.cs">
       <DependentUpon>SpecialRefitInvoiceManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Invoice\SpecialRefitInvoiceManagerVm.cs" />
+    <Compile Include="MaintainInvoice\SpecialRefitInvoiceManagerVm.cs" />
     <Compile Include="Invoice\SundryInvoiceManager.xaml.cs">
       <DependentUpon>SundryInvoiceManager.xaml</DependentUpon>
     </Compile>
@@ -386,7 +386,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Invoice\SpecialRefitInvoiceManager.xaml">
+    <Page Include="MaintainInvoice\SpecialRefitInvoiceManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

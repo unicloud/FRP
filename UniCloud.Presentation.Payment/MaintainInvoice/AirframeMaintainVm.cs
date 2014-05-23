@@ -19,6 +19,7 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
@@ -173,8 +174,35 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         protected override void OnAddInvoice(object obj)
         {
-            PrepayPayscheduleChildView.ViewModel.InitData(typeof(AirframeMaintainInvoiceDTO), PrepayPayscheduleChildViewClosed);
-            PrepayPayscheduleChildView.ShowDialog();
+            MessageConfirm("是否根据付款计划创建?", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true)
+                                                {
+                                                    AirframeMaintainInvoice = new AirframeMaintainInvoiceDTO
+                                                    {
+                                                        AirframeMaintainInvoiceId = RandomHelper.Next(),
+                                                        CreateDate = DateTime.Now,
+                                                        InvoiceDate = DateTime.Now,
+                                                        InMaintainTime = DateTime.Now,
+                                                        OutMaintainTime = DateTime.Now,
+                                                    };
+                                                    var currency = Currencies.FirstOrDefault();
+                                                    if (currency != null)
+                                                        AirframeMaintainInvoice.CurrencyId = currency.Id;
+                                                    var supplier = Suppliers.FirstOrDefault();
+                                                    if (supplier != null)
+                                                    {
+                                                        AirframeMaintainInvoice.SupplierId = supplier.SupplierId;
+                                                        AirframeMaintainInvoice.SupplierName = supplier.Name;
+                                                    }
+                                                    AirframeMaintainInvoices.AddNew(AirframeMaintainInvoice);
+                                                    return;
+                                                }
+                                                PrepayPayscheduleChildView.ViewModel.InitData(
+                                                    typeof(AirframeMaintainInvoiceDTO),
+                                                    PrepayPayscheduleChildViewClosed);
+                                                PrepayPayscheduleChildView.ShowDialog();
+                                            });
         }
 
         protected override bool CanAddInvoice(object obj)
@@ -336,6 +364,19 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         #endregion
 
+
+        #region GridView单元格变更处理
+
+        /// <summary>
+        ///     GridView单元格变更处理
+        /// </summary>
+        /// <param name="sender"></param>
+        protected override void OnCellEditEnd(object sender)
+        {
+            AirframeMaintainInvoice.InvoiceValue = AirframeMaintainInvoice.MaintainInvoiceLines.Sum(invoiceLine => invoiceLine.Amount * invoiceLine.UnitPrice);
+        }
+
+        #endregion
         #endregion
     }
 }

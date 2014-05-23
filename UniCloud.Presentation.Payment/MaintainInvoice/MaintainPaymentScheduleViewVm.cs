@@ -246,14 +246,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                             SupplierName = SelectMaintainPaymentSchedule.SupplierName,
                             CurrencyId = SelectMaintainPaymentSchedule.CurrencyId,
                             PaymentScheduleLineId = SelectPaymentScheduleLine.PaymentScheduleLineId,
-                            InvoiceValue = SelectPaymentScheduleLine.Amount
                         };
-                        var invoiceLine = new MaintainInvoiceLineDTO
-                        {
-                            UnitPrice = SelectPaymentScheduleLine.Amount,
-                            Amount = 1
-                        };
-                        maintainInvoice.MaintainInvoiceLines.Add(invoiceLine);
                         PrepayPayscheduleChildView.Tag = maintainInvoice;
                     }
                     else if (_currentType == typeof(APUMaintainInvoiceDTO))
@@ -269,14 +262,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                             SupplierName = SelectMaintainPaymentSchedule.SupplierName,
                             CurrencyId = SelectMaintainPaymentSchedule.CurrencyId,
                             PaymentScheduleLineId = SelectPaymentScheduleLine.PaymentScheduleLineId,
-                            InvoiceValue = SelectPaymentScheduleLine.Amount
                         };
-                        var invoiceLine = new MaintainInvoiceLineDTO
-                        {
-                            UnitPrice = SelectPaymentScheduleLine.Amount,
-                            Amount = 1
-                        };
-                        maintainInvoice.MaintainInvoiceLines.Add(invoiceLine);
                         PrepayPayscheduleChildView.Tag = maintainInvoice;
                     }
                     else if (_currentType == typeof(EngineMaintainInvoiceDTO))
@@ -292,17 +278,10 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                             SupplierName = SelectMaintainPaymentSchedule.SupplierName,
                             CurrencyId = SelectMaintainPaymentSchedule.CurrencyId,
                             PaymentScheduleLineId = SelectPaymentScheduleLine.PaymentScheduleLineId,
-                            InvoiceValue = SelectPaymentScheduleLine.Amount
                         };
-                        var invoiceLine = new MaintainInvoiceLineDTO
-                        {
-                            UnitPrice = SelectPaymentScheduleLine.Amount,
-                            Amount = 1
-                        };
-                        maintainInvoice.MaintainInvoiceLines.Add(invoiceLine);
                         PrepayPayscheduleChildView.Tag = maintainInvoice;
                     }
-                    else
+                    else if (_currentType == typeof(UndercartMaintainInvoiceDTO))
                     {
                         var maintainInvoice = new UndercartMaintainInvoiceDTO
                         {
@@ -315,14 +294,21 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                             SupplierName = SelectMaintainPaymentSchedule.SupplierName,
                             CurrencyId = SelectMaintainPaymentSchedule.CurrencyId,
                             PaymentScheduleLineId = SelectPaymentScheduleLine.PaymentScheduleLineId,
-                            InvoiceValue = SelectPaymentScheduleLine.Amount
                         };
-                        var invoiceLine = new MaintainInvoiceLineDTO
+                        PrepayPayscheduleChildView.Tag = maintainInvoice;
+                    }
+                    else
+                    {
+                        var maintainInvoice = new SpecialRefitInvoiceDTO
                         {
-                            UnitPrice = SelectPaymentScheduleLine.Amount,
-                            Amount = 1
+                            SpecialRefitId = RandomHelper.Next(),
+                            CreateDate = DateTime.Now,
+                            InvoiceDate = DateTime.Now,
+                            SupplierId = SelectMaintainPaymentSchedule.SupplierId,
+                            SupplierName = SelectMaintainPaymentSchedule.SupplierName,
+                            CurrencyId = SelectMaintainPaymentSchedule.CurrencyId,
+                            PaymentScheduleLineId = SelectPaymentScheduleLine.PaymentScheduleLineId,
                         };
-                        maintainInvoice.MaintainInvoiceLines.Add(invoiceLine);
                         PrepayPayscheduleChildView.Tag = maintainInvoice;
                     }
                     PrepayPayscheduleChildView.Close();
