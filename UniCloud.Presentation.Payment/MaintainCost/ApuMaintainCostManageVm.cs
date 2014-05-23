@@ -161,7 +161,6 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         private void CellEditEnd(object sender)
         {
-            ApuMaintainCost.YearBudgetRate = ApuMaintainCost.LastYearRate * ApuMaintainCost.YearAddedRate;
             ApuMaintainCost.Hour = ApuMaintainCost.BudgetHour * ApuMaintainCost.HourPercent;
             ApuMaintainCost.ContractRepairFeeUsd = ApuMaintainCost.Hour * ApuMaintainCost.YearBudgetRate;
             ApuMaintainCost.ContractRepairFeeRmb = ApuMaintainCost.ContractRepairFeeUsd * ApuMaintainCost.Rate;

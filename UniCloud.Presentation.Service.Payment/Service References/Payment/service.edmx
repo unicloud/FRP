@@ -830,9 +830,9 @@
         <Property Name="FreightFee" Type="Edm.Decimal" Nullable="false" />
         <Property Name="ReplaceFee" Type="Edm.Decimal" Nullable="false" />
         <Property Name="CustomRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="Custom" Type="Edm.String" />
+        <Property Name="Custom" Type="Edm.Decimal" Nullable="false" />
         <Property Name="AddedValueRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="AddedValue" Type="Edm.String" />
+        <Property Name="AddedValue" Type="Edm.Decimal" Nullable="false" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ActionCategoryId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
@@ -891,9 +891,9 @@
         <Property Name="Rate" Type="Edm.Decimal" Nullable="false" />
         <Property Name="FeeTotalSum" Type="Edm.Decimal" Nullable="false" />
         <Property Name="CustomRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="Custom" Type="Edm.String" />
+        <Property Name="Custom" Type="Edm.Decimal" Nullable="false" />
         <Property Name="AddedValueRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="AddedValue" Type="Edm.String" />
+        <Property Name="AddedValue" Type="Edm.Decimal" Nullable="false" />
         <Property Name="CustomsTax" Type="Edm.Decimal" Nullable="false" />
         <Property Name="FreightFee" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
@@ -926,8 +926,6 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="NameType" Type="Edm.String" />
         <Property Name="Type" Type="Edm.String" />
-        <Property Name="LastYearRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="YearAddedRate" Type="Edm.Decimal" Nullable="false" />
         <Property Name="YearBudgetRate" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Rate" Type="Edm.Decimal" Nullable="false" />
         <Property Name="BudgetHour" Type="Edm.Decimal" Nullable="false" />
@@ -961,8 +959,6 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="EngineProperty" Type="Edm.String" />
         <Property Name="Jx" Type="Edm.String" />
-        <Property Name="LastYearRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="YearAddedRate" Type="Edm.Decimal" Nullable="false" />
         <Property Name="YearBudgetRate" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Rate" Type="Edm.Decimal" Nullable="false" />
         <Property Name="AirHour" Type="Edm.Decimal" Nullable="false" />

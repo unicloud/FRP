@@ -161,7 +161,6 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         private void CellEditEnd(object sender)
         {
-            FhaMaintainCost.YearBudgetRate = FhaMaintainCost.LastYearRate * (1 + FhaMaintainCost.YearAddedRate);
             FhaMaintainCost.Hour = FhaMaintainCost.AirHour * FhaMaintainCost.HourPercent * 2;
             FhaMaintainCost.FhaFeeUsd = FhaMaintainCost.Hour * FhaMaintainCost.YearBudgetRate;
             FhaMaintainCost.FhaFeeRmb = FhaMaintainCost.FhaFeeUsd * FhaMaintainCost.Rate;

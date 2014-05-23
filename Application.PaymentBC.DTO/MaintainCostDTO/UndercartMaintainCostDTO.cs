@@ -67,7 +67,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         /// 关税
         /// </summary>
-        public string Custom { get; set; }
+        public decimal Custom { get; set; }
         /// <summary>
         /// 增值税税率
         /// </summary>
@@ -75,7 +75,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         /// 增值税
         /// </summary>
-        public string AddedValue { get; set; }
+        public decimal AddedValue { get; set; }
         #endregion
 
         #region 外键属性

@@ -270,7 +270,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         public void InsertApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
         {
             var newApuMaintainCost = MaintainCostFactory.CreateApuMaintainCost();
-            MaintainCostFactory.SetApuMaintainCost(newApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type, apuMaintainCost.LastYearRate, apuMaintainCost.YearAddedRate,
+            MaintainCostFactory.SetApuMaintainCost(newApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type,
                 apuMaintainCost.YearBudgetRate, apuMaintainCost.Rate, apuMaintainCost.BudgetHour, apuMaintainCost.HourPercent, apuMaintainCost.Hour, apuMaintainCost.ContractRepairFeeUsd,
                 apuMaintainCost.ContractRepairFeeRmb, apuMaintainCost.CustomRate, apuMaintainCost.TotalTax, apuMaintainCost.AddedValueRate, apuMaintainCost.AddedValue,
                 apuMaintainCost.IncludeAddedValue, apuMaintainCost.MaintainInvoiceId, apuMaintainCost.Year);
@@ -286,7 +286,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         public void ModifyApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
         {
             var updateApuMaintainCost = _maintainCostRepository.Get(apuMaintainCost.Id) as ApuMaintainCost; //获取需要更新的对象。
-            MaintainCostFactory.SetApuMaintainCost(updateApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type, apuMaintainCost.LastYearRate, apuMaintainCost.YearAddedRate,
+            MaintainCostFactory.SetApuMaintainCost(updateApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type, 
                 apuMaintainCost.YearBudgetRate, apuMaintainCost.Rate, apuMaintainCost.BudgetHour, apuMaintainCost.HourPercent, apuMaintainCost.Hour, apuMaintainCost.ContractRepairFeeUsd,
                 apuMaintainCost.ContractRepairFeeRmb, apuMaintainCost.CustomRate, apuMaintainCost.TotalTax, apuMaintainCost.AddedValueRate, apuMaintainCost.AddedValue,
                 apuMaintainCost.IncludeAddedValue, apuMaintainCost.MaintainInvoiceId, apuMaintainCost.Year);
@@ -324,7 +324,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         public void InsertFhaMaintainCost(FhaMaintainCostDTO fhaMaintainCost)
         {
             var newFhaMaintainCost = MaintainCostFactory.CreateFhaMaintainCost();
-            MaintainCostFactory.SetFhaMaintainCost(newFhaMaintainCost, fhaMaintainCost.AircraftTypeId, fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx, fhaMaintainCost.LastYearRate, fhaMaintainCost.YearAddedRate,
+            MaintainCostFactory.SetFhaMaintainCost(newFhaMaintainCost, fhaMaintainCost.AircraftTypeId, fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx,
                 fhaMaintainCost.YearBudgetRate, fhaMaintainCost.Rate, fhaMaintainCost.AirHour, fhaMaintainCost.HourPercent, fhaMaintainCost.Hour, fhaMaintainCost.FhaFeeUsd,
                 fhaMaintainCost.FhaFeeRmb, fhaMaintainCost.Custom, fhaMaintainCost.CustomAddedRmb, fhaMaintainCost.TotalTax, fhaMaintainCost.AddedValueRate, fhaMaintainCost.AddedValue,
                 fhaMaintainCost.IncludeAddedValue, fhaMaintainCost.CustomAdded, fhaMaintainCost.MaintainInvoiceId, fhaMaintainCost.Year);
@@ -340,7 +340,7 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         public void ModifyFhaMaintainCost(FhaMaintainCostDTO fhaMaintainCost)
         {
             var updateFhaMaintainCost = _maintainCostRepository.Get(fhaMaintainCost.Id) as FhaMaintainCost; //获取需要更新的对象。
-            MaintainCostFactory.SetFhaMaintainCost(updateFhaMaintainCost, fhaMaintainCost.AircraftTypeId, fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx, fhaMaintainCost.LastYearRate, fhaMaintainCost.YearAddedRate,
+            MaintainCostFactory.SetFhaMaintainCost(updateFhaMaintainCost, fhaMaintainCost.AircraftTypeId, fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx, 
                 fhaMaintainCost.YearBudgetRate, fhaMaintainCost.Rate, fhaMaintainCost.AirHour, fhaMaintainCost.HourPercent, fhaMaintainCost.Hour, fhaMaintainCost.FhaFeeUsd,
                 fhaMaintainCost.FhaFeeRmb, fhaMaintainCost.Custom, fhaMaintainCost.CustomAddedRmb, fhaMaintainCost.TotalTax, fhaMaintainCost.AddedValueRate, fhaMaintainCost.AddedValue,
                 fhaMaintainCost.IncludeAddedValue, fhaMaintainCost.CustomAdded, fhaMaintainCost.MaintainInvoiceId, fhaMaintainCost.Year);

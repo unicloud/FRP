@@ -71,7 +71,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
         public static void SetUndercartMaintainCost(UndercartMaintainCost maintainCost, Guid aircraftId, Guid actionCategoryId, Guid aircraftTypeId, int type,
             int part, DateTime inMaintainTime, DateTime outMaintainTime, int totalDays, decimal departmentDeclareAmount, decimal financialApprovalAmount,
             decimal financialApprovalAmountNonTax, int? maintainInvoiceId, decimal maintainFeeEur, decimal rate, decimal maintainFeeRmb, decimal freightFee,
-            decimal replaceFee, decimal customRate, string custom, decimal addedValueRate, string addedValue, int year)
+            decimal replaceFee, decimal customRate, decimal custom, decimal addedValueRate, decimal addedValue, int year)
         {
             maintainCost.AircraftId = aircraftId;
             maintainCost.ActionCategoryId = actionCategoryId;
@@ -138,7 +138,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
 
         public static void SetNonFhaMaintainCost(NonFhaMaintainCost maintainCost, string engineNumber, int contractRepairt, int type, Guid aircraftId, Guid actionCategoryId,
             Guid aircraftTypeId, int supplierId, DateTime inMaintainTime, DateTime outMaintainTime, int maintainLevel, int changeLlpNumber, decimal tsr, decimal csr, decimal nonFhaFee,
-            decimal partFee, decimal changeLlpFee, decimal feeLittleSum, decimal rate, decimal feeTotalSum, decimal customRate, string custom, decimal addedValueRate, string addedValue,
+            decimal partFee, decimal changeLlpFee, decimal feeLittleSum, decimal rate, decimal feeTotalSum, decimal customRate, decimal custom, decimal addedValueRate, decimal addedValue,
         decimal customsTax, decimal freightFee, decimal departmentDeclareAmount, decimal financialApprovalAmount, decimal financialApprovalAmountNonTax, string note, int actualMaintainLevel,
             int actualChangeLlpNumber, decimal actualTsr, decimal actualCsr, int? maintainInvoiceId, int year)
         {
@@ -191,14 +191,12 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             return maintainCost;
         }
 
-        public static void SetApuMaintainCost(ApuMaintainCost maintainCost, string nameType, string type, decimal lastYearRate, decimal yearAddedRate, decimal yearBudgetRate,
+        public static void SetApuMaintainCost(ApuMaintainCost maintainCost, string nameType, string type, decimal yearBudgetRate,
             decimal rate, decimal budgetHour, decimal hourPercent, decimal hour, decimal contractRepairFeeUsd, decimal contractRepairFeeRmb, decimal customRate, decimal totalTax,
             decimal addedValueRate, decimal addedValue, decimal includeAddedValue, int? maintainInvoiceId, int year)
         {
             maintainCost.NameType = nameType;
             maintainCost.Type = type;
-            maintainCost.LastYearRate = lastYearRate;
-            maintainCost.YearAddedRate = yearAddedRate;
             maintainCost.YearBudgetRate = yearBudgetRate;
             maintainCost.Rate = rate;
             maintainCost.BudgetHour = budgetHour;
@@ -227,15 +225,13 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg
             return maintainCost;
         }
 
-        public static void SetFhaMaintainCost(FhaMaintainCost maintainCost,Guid aircraftTypeId, string engineProperty, string jx, decimal lastYearRate, decimal yearAddedRate, decimal yearBudgetRate,
+        public static void SetFhaMaintainCost(FhaMaintainCost maintainCost,Guid aircraftTypeId, string engineProperty, string jx,  decimal yearBudgetRate,
             decimal rate, decimal airHour, decimal hourPercent, decimal hour, decimal fhaFeeUsd, decimal fhaFeeRmb, decimal custom, decimal customAddedRmb, decimal totalTax,
             decimal addedValueRate, decimal addedValue, decimal includeAddedValue, decimal customAdded, int? maintainInvoiceId, int year)
         {
             maintainCost.AircraftTypeId = aircraftTypeId;
             maintainCost.EngineProperty = engineProperty;
             maintainCost.Jx = jx;
-            maintainCost.LastYearRate = lastYearRate;
-            maintainCost.YearAddedRate = yearAddedRate;
             maintainCost.YearBudgetRate = yearBudgetRate;
             maintainCost.Rate = rate;
             maintainCost.AirHour = airHour;
