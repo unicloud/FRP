@@ -72,7 +72,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                                  };
             _service.RegisterCollectionView(PnRegs);
 
-            PnMaintainCtrls = _service.CreateCollection(_context.PnMaintainCtrls);
+            PnMaintainCtrls = _service.CreateCollection(_context.PnMaintainCtrls,o=>o.MaintainCtrlLines);
             _service.RegisterCollectionView(PnMaintainCtrls);
 
             ItemMaintainCtrls = new QueryableDataServiceCollectionView<ItemMaintainCtrlDTO>(_context, _context.ItemMaintainCtrls);
