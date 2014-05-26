@@ -66,8 +66,8 @@ namespace UniCloud.Application.FlightLogBC.Query.FlightLogQueries
         public List<AcFlightDataDTO> QueryAcFlightData(string regNumber, DateTime flightDate)
         {
             var acFlightDatas = new List<AcFlightDataDTO>();
-            DateTime start = flightDate.AddDays(-30);
-            DateTime end = flightDate.AddDays(1);
+            DateTime start = flightDate.AddDays(-32);
+            DateTime end = flightDate;
             var flightLogs = _unitOfWork.CreateSet<FlightLog>()
                     .Where(p => p.AcReg == regNumber && p.FlightDate.CompareTo(end) < 0 &&
                             p.FlightDate.CompareTo(start) > 0).ToList();
@@ -79,12 +79,21 @@ namespace UniCloud.Application.FlightLogBC.Query.FlightLogQueries
                 {
                     var date = flightDate.AddDays(-i);
                     var selFlightLogs = flightLogs.Where(
-                           p => p.FlightDate.CompareTo(date.AddDays(1)) < 0 && p.FlightDate.CompareTo(date.AddDays(-1)) > 0).ToList();
+                           p => p.FlightDate.CompareTo(date) < 0 && p.FlightDate.CompareTo(date.AddDays(-2)) > 0).ToList();
                     selFlightLogs.ForEach(p =>
                     {
                         sumHours += p.FlightHours;
                         sumCycle += 1;
                     });
+                    var curFlightLog = selFlightLogs.OrderBy(p => p.TotalCycles).LastOrDefault();
+                    var lastFlightLog = flightLogs.Where(p => p.FlightDate.Date == date.AddDays(-2)).OrderBy(l => l.TotalCycles).LastOrDefault();
+                    if (curFlightLog != null)
+                    {
+                        if (lastFlightLog != null)
+                        {
+                            sumCycle = curFlightLog.TotalCycles - lastFlightLog.TotalCycles;
+                        }
+                    }
                     acFlightDatas.Add(new AcFlightDataDTO
                     {
                         FlightDate = date,
@@ -92,6 +101,8 @@ namespace UniCloud.Application.FlightLogBC.Query.FlightLogQueries
                         FlightHour = sumHours,
                         RegNumber = regNumber,
                     });
+                    sumHours = 0;
+                    sumCycle = 0;
                 }
             }
             return acFlightDatas;
