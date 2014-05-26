@@ -163,6 +163,10 @@
       <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
       <Name>Infrastructure.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
+      <Project>{34A8A0E1-3D4A-48CA-9E78-71F88E2D273D}</Project>
+      <Name>Infrastructure.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

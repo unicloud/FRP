@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,8 +45,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IFlightLogAppService.cs" />
-    <Compile Include="Services\FlightLogAppService.cs" />
+    <Compile Include="FlightLogServices\IFlightLogAppService.cs" />
+    <Compile Include="FlightLogServices\FlightLogAppService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.FlightLogBC.DTO\Application.FlightLogBC.DTO.csproj">
+      <Project>{14BC98DD-04E2-4FB7-996C-2F8C4BA173E4}</Project>
+      <Name>Application.FlightLogBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.FlightLogBC.Query\Application.FlightLogBC.Query.csproj">
+      <Project>{7A9B7589-9A96-4F49-B78A-8FE1DFB57EEE}</Project>
+      <Name>Application.FlightLogBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{C926E107-6971-4B5C-8E00-DB7761EEAC8E}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.FlightLogBC\Domain.FlightLogBC.csproj">
+      <Project>{2E3CA0C8-057A-4817-87ED-28A63AFF50D2}</Project>
+      <Name>Domain.FlightLogBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -50,11 +50,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FlightLogQueries\FlightLogQuery.cs" />
+    <Compile Include="FlightLogQueries\IFlightLogQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.FleetPlanBC.DTO\Application.FleetPlanBC.DTO.csproj">
+      <Project>{6db639ca-9513-4c6a-90ef-74e9180997e7}</Project>
+      <Name>Application.FleetPlanBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.FlightLogBC.DTO\Application.FlightLogBC.DTO.csproj">
+      <Project>{14BC98DD-04E2-4FB7-996C-2F8C4BA173E4}</Project>
+      <Name>Application.FlightLogBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{C926E107-6971-4B5C-8E00-DB7761EEAC8E}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.FlightLogBC\Domain.FlightLogBC.csproj">
+      <Project>{2e3ca0c8-057a-4817-87ed-28a63aff50d2}</Project>
+      <Name>Domain.FlightLogBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{CAD91A38-6B90-4A18-83CA-0215CE512F4D}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
