@@ -318,6 +318,7 @@
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionNames.cs" />
+    <Compile Include="ValueConverts\NameToLegendSettingsConverter.cs" />
     <Compile Include="ValueConverts\RightAlignedLabelStrategy.cs" />
     <Compile Include="SessionExtension\SessionHelper.cs" />
     <Compile Include="SessionExtension\SessionUser.cs" />
