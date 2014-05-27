@@ -69,6 +69,8 @@ namespace UniCloud.Presentation.Part.MaintainControl
         private void InitializeVM()
         {
             Items = new QueryableDataServiceCollectionView<ItemDTO>(_context, _context.Items);
+            var itemDescriptor = new FilterDescriptor("IsLife", FilterOperator.IsEqualTo, true);
+            Items.FilterDescriptors.Add(itemDescriptor);
             Items.LoadedData += (s, e) =>
             {
                 SelItem = Items.FirstOrDefault();
