@@ -111,24 +111,6 @@
                                                         <TextBlock Text="{Binding Value, StringFormat='\{0:N\}'}"
                                                                    Margin="4,3,4,9"
                                                                    FontFamily="Segoe UI" />
-                                                        <!--<TextBlock Text="{Binding DataItem.RegularCheckActual, StringFormat='年度定检 \{0:N\}'}"
-                                                       Margin="4,3,4,9"
-                                                       FontFamily="Segoe UI" />
-                                            <TextBlock Text="{Binding DataItem.NonFhaActual, StringFormat='非FHA.超包修 \{0:N\}'}"
-                                                       Margin="4,3,4,9"
-                                                       FontFamily="Segoe UI" />
-                                            <TextBlock Text="{Binding DataItem.UndercartActual, StringFormat='起落架 \{0:N\}'}"
-                                                       Margin="4,3,4,9"
-                                                       FontFamily="Segoe UI" />
-                                            <TextBlock Text="{Binding DataItem.SpecialRefitActual, StringFormat='特修改装 \{0:N\}'}"
-                                                       Margin="4,3,4,9"
-                                                       FontFamily="Segoe UI" />
-                                            <TextBlock Text="{Binding DataItem.FhaActual, StringFormat='FHA \{0:N\}'}"
-                                                       Margin="4,3,4,9"
-                                                       FontFamily="Segoe UI" />
-                                            <TextBlock Text="{Binding DataItem.ApuActual, StringFormat='APU \{0:N\}'}"
-                                                       Margin="4,3,4,9"
-                                                       FontFamily="Segoe UI" />-->
                                                     </StackPanel>
                                                 </Grid>
                                             </DataTemplate>
