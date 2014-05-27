@@ -1,64 +1,40 @@
 ﻿//------------------------------------------------------------------------------
 // 
 //------------------------------------------------------------------------------
+
+using Microsoft.Practices.Unity;
+using UniCloud.Application.FlightLogBC.FlightLogServices;
+using UniCloud.Application.FlightLogBC.Query.FlightLogQueries;
+using UniCloud.Domain.FlightLogBC.Aggregates.FlightLogAgg;
+using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Data.FlightLogBC.Repositories;
+using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork.Mapping;
+using UniCloud.Infrastructure.Utilities.Container;
+
 namespace UniCloud.DistributedServices.FlightLog.InstanceProviders
 {
-    using Application.FlightLogBC.Services;
-    using Infrastructure.Crosscutting.Logging;
-    using Infrastructure.Crosscutting.NetFramework.Logging;
-    using Microsoft.Practices.Unity;
-
     /// <summary>
-    /// DI 容器
+    ///     DI 容器
     /// </summary>
     public static class Container
     {
-        #region 属性
-
-        /// <summary>
-        /// 当前 DI 容器
-        /// </summary>
-        public static IUnityContainer Current { get; private set; }
-
-        #endregion
-
-        #region 构造函数
-
-        static Container()
-        {
-            ConfigureContainer();
-            ConfigureFactories();
-        }
-
-        #endregion
-
         #region 方法
 
-        static void ConfigureContainer()
+        public static void ConfigureContainer()
         {
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, FlightLogBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
-            Current = new UnityContainer();
+                #region 飞行日志相关配置，包括查询，应用服务，仓储注册
 
+                .RegisterType<IFlightLogAppService, FlightLogAppService>()
+                .RegisterType<IFlightLogRepository, FlightLogRepository>()
+                .RegisterType<IFlightLogQuery, FlightLogQuery>()
+                #endregion
 
-            //-> Unit of Work与仓储
-
-            //-> 领域服务
-
-
-            //-> 应用服务
-            Current.RegisterType<IFlightLogAppService, FlightLogAppService>();
-
-            //-> 分布式服务
-
-        }
-
-
-        static void ConfigureFactories()
-        {
-            LoggerFactory.SetCurrent(new UniCloudLogFactory());
+                ;
         }
 
         #endregion
-
     }
 }

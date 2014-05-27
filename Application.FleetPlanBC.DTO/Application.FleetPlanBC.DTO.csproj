@@ -126,7 +126,7 @@
     <Compile Include="ManufacturerDTO\ManufacturerDTO.cs" />
     <Compile Include="PlanAircraftDTO\PlanAircraftDTO.cs" />
     <Compile Include="PlanEngineDTO\PlanEngineDTO.cs" />
-    <Compile Include="Programming.cs" />
+    <Compile Include="DataTransfer\Programming.cs" />
     <Compile Include="ProgrammingDTO\ProgrammingDTO.cs" />
     <Compile Include="ProgrammingFileDTO\ProgrammingFileDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
