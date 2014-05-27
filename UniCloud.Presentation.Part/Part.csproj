@@ -223,6 +223,14 @@
       <DependentUpon>ManageRemovalAndInstallationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MaintainControl\ManageRemovalAndInstallationVm.cs" />
+    <Compile Include="MaintainControl\QueryLifeMonitorView.xaml.cs">
+      <DependentUpon>QueryLifeMonitorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainControl\QueryLifeMonitorVm.cs" />
+    <Compile Include="MaintainControl\QueryMaintainCtrlView.xaml.cs">
+      <DependentUpon>QueryMaintainCtrlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MaintainControl\QueryMaintainCtrlVm.cs" />
     <Compile Include="MaintainControl\QueryRemovalAndInstallationView.xaml.cs">
       <DependentUpon>QueryRemovalAndInstallationView.xaml</DependentUpon>
     </Compile>
@@ -348,6 +356,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MaintainControl\ManageRemovalAndInstallationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainControl\QueryLifeMonitorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MaintainControl\QueryMaintainCtrlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
