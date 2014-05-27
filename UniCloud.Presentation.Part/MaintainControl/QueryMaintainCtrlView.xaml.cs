@@ -13,7 +13,7 @@ using System.Windows.Shapes;
 
 namespace UniCloud.Presentation.Part.MaintainControl
 {
-    [Export(typeof (ManageRemovalAndInstallationView))]
+    [Export(typeof(QueryMaintainCtrlView))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public partial class QueryMaintainCtrlView : UserControl
     {
@@ -23,9 +23,9 @@ namespace UniCloud.Presentation.Part.MaintainControl
         }
 
         [Import]
-        public ManageRemovalAndInstallationVm ViewModel
+        public QueryMaintainCtrlVm ViewModel
         {
-            get { return DataContext as ManageRemovalAndInstallationVm; }
+            get { return DataContext as QueryMaintainCtrlVm; }
             set { DataContext = value; }
         }
     }

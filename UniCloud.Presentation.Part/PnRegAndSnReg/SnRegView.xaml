@@ -110,7 +110,7 @@
                                             <telerik:GridViewDataColumn Header="当前状态"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Status}" />
+                                                                        DataMemberBinding="{Binding SnStatus}" />
                                             <telerik:GridViewDataColumn Header="CSN"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"

@@ -1022,10 +1022,12 @@ namespace UniCloud.Presentation.Shell
             var menu7101 = new MenuItem
             {
                 Text = "查看控制方案",
+                NavUri = "UniCloud.Presentation.Part.MaintainControl.QueryMaintainCtrlView"
             };
             var menu7102 = new MenuItem
             {
                 Text = "查询到寿日期",
+                NavUri = "UniCloud.Presentation.Part.MaintainControl.QueryLifeMonitorView"
             };
             menu710.Items.Add(menu7101);
             menu710.Items.Add(menu7102);
