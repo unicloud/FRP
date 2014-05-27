@@ -419,9 +419,10 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         private bool _loadSpecialRefitInvoice;
 
         public ObservableCollection<MaintainItemData> Data { get; set; }
-
+        public ObservableCollection<MaintainItemData> EngineData { get; set; }
         private void LoadMaintainInvoiceComplete()
         {
+            EngineData = new ObservableCollection<MaintainItemData>();
             if (_loadUndercartMaintainInvoice && _loadApuMaintainInvoice && _loadEngineMaintainInvoice &&
                 _loadAirframeMaintainInvoice && _loadSpecialRefitInvoice)
             {
@@ -475,6 +476,28 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                                                  else
                                                  {
                                                      detail.Amount += u.Amount * u.UnitPrice;
+                                                 }
+
+                                                 var engineData = EngineData.FirstOrDefault(o => o.Type == u.ItemName);
+                                                 if (engineData == null)
+                                                 {
+                                                     engineData = new MaintainItemData
+                                                     {
+                                                         Name = ((ItemNameType)u.ItemName).ToString(),
+                                                         Type = u.ItemName,
+                                                         Data = new ObservableCollection<MaintainItem>()
+                                                     };
+                                                     EngineData.Add(engineData);
+                                                 }
+                                                 var engineDetail = engineData.Data.FirstOrDefault(o => o.Year == p.Year);
+                                                 if (engineDetail == null)
+                                                 {
+                                                     engineDetail = new MaintainItem { Name = engineData.Name, Year = p.Year, Amount = u.Amount * u.UnitPrice };
+                                                     engineData.Data.Add(engineDetail);
+                                                 }
+                                                 else
+                                                 {
+                                                     engineDetail.Amount += u.Amount * u.UnitPrice;
                                                  }
                                              }));
                                              var airframeMaintainInvoices = AirframeMaintainInvoices.Where(q => q.InvoiceDate.Year == p.Year).ToList();

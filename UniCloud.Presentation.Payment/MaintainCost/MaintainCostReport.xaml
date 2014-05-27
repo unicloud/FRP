@@ -16,6 +16,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <uc:NameToLegendSettingsConverter x:Key="NameToImageSourceConverter" />
             <RectangleGeometry x:Key="LineSeriesLegendGeometry"
                                Rect="0 5 12 2" />
             <RectangleGeometry x:Key="SolidRectLegendGeometry"
@@ -30,24 +31,6 @@
                         Value="12" />
                 <Setter Property="Foreground"
                         Value="Black" />
-                <Setter Property="Margin"
-                        Value="0 0 14 0" />
-            </Style>
-            <Style x:Key="ActualTextBlocktyle"
-                   TargetType="TextBlock">
-                <Setter Property="FontSize"
-                        Value="12" />
-                <Setter Property="Foreground"
-                        Value="{StaticResource ActualBrush}" />
-                <Setter Property="Margin"
-                        Value="0 0 14 0" />
-            </Style>
-            <Style x:Key="TargetTextBlockStyle"
-                   TargetType="TextBlock">
-                <Setter Property="FontSize"
-                        Value="12" />
-                <Setter Property="Foreground"
-                        Value="{StaticResource TargetBrush}" />
                 <Setter Property="Margin"
                         Value="0 0 14 0" />
             </Style>
@@ -355,21 +338,13 @@
                         <telerik:RadCartesianChart.SeriesProvider>
                             <telerik:ChartSeriesProvider Source="{Binding Data}">
                                 <telerik:ChartSeriesProvider.SeriesDescriptors>
-                                    <!--<telerik:CategoricalSeriesDescriptor ItemsSourcePath="Data"
-                                                                     ValuePath="Amount"
-                                                                     CategoryPath="Year">
-                                    <telerik:CategoricalSeriesDescriptor.Style>
-                                        <Style TargetType="telerik:BarSeries">
-                                            <Setter Property="CombineMode"
-                                                    Value="Cluster" />
-                                        </Style>
-                                    </telerik:CategoricalSeriesDescriptor.Style>
-                                </telerik:CategoricalSeriesDescriptor>-->
                                     <telerik:CategoricalSeriesDescriptor ItemsSourcePath="Data"
                                                                          ValuePath="Amount"
                                                                          CategoryPath="Year">
                                         <telerik:CategoricalSeriesDescriptor.Style>
                                             <Style TargetType="telerik:LineSeries">
+                                                <Setter Property="LegendSettings"
+                                                        Value="{Binding Name, Converter={StaticResource NameToImageSourceConverter}}" />
                                                 <Setter Property="StrokeThickness"
                                                         Value="2" />
                                                 <Setter Property="TrackBallInfoTemplate"
@@ -381,28 +356,61 @@
                             </telerik:ChartSeriesProvider>
                         </telerik:RadCartesianChart.SeriesProvider>
                     </telerik:RadCartesianChart>
-                    <ScrollViewer Grid.Column="1"
-                                  telerik:StyleManager.Theme="Windows8"
-                                  VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                            <ItemsControl ItemsSource="{Binding Data,Mode=TwoWay}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Vertical" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <telerik:RadToggleButton x:Name="ImportTypeToggleButton"
-                                                                 Content="{Binding Name}"
-                                                                 Tag="{Binding Name}"
-                                                                 Style="{StaticResource ChartButton}"
-                                                                 IsChecked="True" />
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </StackPanel>
-                    </ScrollViewer>
+                    <telerik:RadLegend Grid.Column="1"
+                                       Margin="0 0 10 0"
+                                       Items="{Binding LegendItems, ElementName=ItemChart}" />
+                </Grid>
+            </telerik:RadPane>
+            <telerik:RadPane Header="发动机维修成本"
+                             FontSize="{StaticResource TextFontSize}"
+                             IsPinned="True"
+                             CanFloat="False"
+                             CanDockInDocumentHost="False"
+                             CanUserClose="False"
+                             CanUserPin="False"
+                             ContextMenuTemplate="{x:Null}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <telerik:RadCartesianChart Name="EngineItemChart"
+                                               Palette="Summer"
+                                               EmptyContent="发动机维修成本趋势">
+                        <telerik:RadCartesianChart.Behaviors>
+                            <telerik:ChartTrackBallBehavior />
+                        </telerik:RadCartesianChart.Behaviors>
+                        <telerik:RadCartesianChart.HorizontalAxis>
+                            <telerik:CategoricalAxis></telerik:CategoricalAxis>
+                        </telerik:RadCartesianChart.HorizontalAxis>
+                        <telerik:RadCartesianChart.VerticalAxis>
+                            <telerik:LinearAxis HorizontalAlignment="Right"
+                                                LabelInterval="10"></telerik:LinearAxis>
+                        </telerik:RadCartesianChart.VerticalAxis>
+                        <telerik:RadCartesianChart.SeriesProvider>
+                            <telerik:ChartSeriesProvider Source="{Binding EngineData}">
+                                <telerik:ChartSeriesProvider.SeriesDescriptors>
+                                    <telerik:CategoricalSeriesDescriptor ItemsSourcePath="Data"
+                                                                         ValuePath="Amount"
+                                                                         CategoryPath="Year">
+                                        <telerik:CategoricalSeriesDescriptor.Style>
+                                            <Style TargetType="telerik:LineSeries">
+                                                <Setter Property="LegendSettings"
+                                                        Value="{Binding Name, Converter={StaticResource NameToImageSourceConverter}}" />
+                                                <Setter Property="StrokeThickness"
+                                                        Value="2" />
+                                                <Setter Property="TrackBallInfoTemplate"
+                                                        Value="{StaticResource TrackballInfoTemplate}" />
+                                            </Style>
+                                        </telerik:CategoricalSeriesDescriptor.Style>
+                                    </telerik:CategoricalSeriesDescriptor>
+                                </telerik:ChartSeriesProvider.SeriesDescriptors>
+                            </telerik:ChartSeriesProvider>
+                        </telerik:RadCartesianChart.SeriesProvider>
+                    </telerik:RadCartesianChart>
+                    <telerik:RadLegend Grid.Column="1"
+                                       Margin="0 0 10 0"
+                                       Items="{Binding LegendItems, ElementName=EngineItemChart}" />
                 </Grid>
             </telerik:RadPane>
         </telerik:RadPaneGroup>
