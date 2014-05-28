@@ -1036,6 +1036,7 @@ namespace UniCloud.Presentation.Shell
             var menu711 = new MenuItem
             {
                 Text = "租赁月度报表",
+                NavUri = "UniCloud.Presentation.Part.Report.MonthlyUtilizationReport"
             };
             menu7.Items.Add(menu711);
             _items.Add(menu7);
