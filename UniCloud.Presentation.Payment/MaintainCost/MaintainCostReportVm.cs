@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
@@ -426,6 +427,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             if (_loadUndercartMaintainInvoice && _loadApuMaintainInvoice && _loadEngineMaintainInvoice &&
                 _loadAirframeMaintainInvoice && _loadSpecialRefitInvoice)
             {
+                var years = new List<int>();
+                var engineYears = new List<int>();
                 Annuals.ToList().ForEach(p =>
                                          {
                                              var apuMaintainInvoices = ApuMaintainInvoices.Where(q => q.InvoiceDate.Year == p.Year).ToList();
@@ -443,6 +446,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                                                                                                                             Data.Add(data);
                                                                                                                         }
                                                                                                                         var detail = data.Data.FirstOrDefault(o => o.Year == p.Year);
+                                                                                                                        if (!years.Contains(p.Year)) years.Add(p.Year);
                                                                                                                         if (detail == null)
                                                                                                                         {
                                                                                                                             detail = new MaintainItem { Name = data.Name, Year = p.Year, Amount = u.Amount * u.UnitPrice };
@@ -468,6 +472,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                                                      Data.Add(data);
                                                  }
                                                  var detail = data.Data.FirstOrDefault(o => o.Year == p.Year);
+                                                 if (!years.Contains(p.Year)) years.Add(p.Year);
                                                  if (detail == null)
                                                  {
                                                      detail = new MaintainItem { Name = data.Name, Year = p.Year, Amount = u.Amount * u.UnitPrice };
@@ -490,6 +495,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                                                      EngineData.Add(engineData);
                                                  }
                                                  var engineDetail = engineData.Data.FirstOrDefault(o => o.Year == p.Year);
+                                                 if (!engineYears.Contains(p.Year)) engineYears.Add(p.Year);
                                                  if (engineDetail == null)
                                                  {
                                                      engineDetail = new MaintainItem { Name = engineData.Name, Year = p.Year, Amount = u.Amount * u.UnitPrice };
@@ -515,6 +521,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                                                      Data.Add(data);
                                                  }
                                                  var detail = data.Data.FirstOrDefault(o => o.Year == p.Year);
+                                                 if (!years.Contains(p.Year)) years.Add(p.Year);
                                                  if (detail == null)
                                                  {
                                                      detail = new MaintainItem { Name = data.Name, Year = p.Year, Amount = u.Amount * u.UnitPrice };
@@ -540,6 +547,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                                                      Data.Add(data);
                                                  }
                                                  var detail = data.Data.FirstOrDefault(o => o.Year == p.Year);
+                                                 if (!years.Contains(p.Year)) years.Add(p.Year);
                                                  if (detail == null)
                                                  {
                                                      detail = new MaintainItem { Name = data.Name, Year = p.Year, Amount = u.Amount * u.UnitPrice };
@@ -565,6 +573,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                                                      Data.Add(data);
                                                  }
                                                  var detail = data.Data.FirstOrDefault(o => o.Year == p.Year);
+                                                 if (!years.Contains(p.Year)) years.Add(p.Year);
                                                  if (detail == null)
                                                  {
                                                      detail = new MaintainItem { Name = data.Name, Year = p.Year, Amount = u.Amount * u.UnitPrice };
@@ -576,6 +585,30 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                                                  }
                                              }));
                                          });
+                Data.ToList().ForEach(p =>
+                                      {
+                                          foreach (var year in years)
+                                          {
+                                              var detail = p.Data.FirstOrDefault(q => q.Year == year);
+                                              if (detail == null)
+                                              {
+                                                  detail = new MaintainItem { Name = p.Name, Year = year, Amount = 0 };
+                                                  p.Data.Add(detail);
+                                              }
+                                          }
+                                      });
+                EngineData.ToList().ForEach(p =>
+                {
+                    foreach (var year in engineYears)
+                    {
+                        var detail = p.Data.FirstOrDefault(q => q.Year == year);
+                        if (detail == null)
+                        {
+                            detail = new MaintainItem { Name = p.Name, Year = year, Amount = 0 };
+                            p.Data.Add(detail);
+                        }
+                    }
+                });
                 RaisePropertyChanged(() => Data);
             }
         }

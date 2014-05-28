@@ -280,7 +280,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu48.SubFunctionItems.Add(menu481);
             menu48.SubFunctionItems.Add(menu482);
             menu48.SubFunctionItems.Add(menu483);
-            menu48.SubFunctionItems.Add(menu484);
+            //menu48.SubFunctionItems.Add(menu484);
             menu4.SubFunctionItems.Add(menu48);
 
             #endregion

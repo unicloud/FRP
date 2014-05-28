@@ -837,7 +837,7 @@ namespace UniCloud.Presentation.Shell
             menu48.Items.Add(menu481);
             menu48.Items.Add(menu482);
             menu48.Items.Add(menu483);
-            menu48.Items.Add(menu484);
+            //menu48.Items.Add(menu484);
             menu4.Items.Add(menu48);
 
 
