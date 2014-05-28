@@ -173,11 +173,11 @@
                             <telerik:RadCartesianChart.VerticalAxis>
                                 <telerik:LinearAxis Title="单位(万)"
                                                     Foreground="Black"
-                                                    MajorStep="5"
+                                                    LabelFormat="0,,"
+                                                    MajorStep="1000000"
                                                     Minimum="0"
-                                                    Maximum="50" />
+                                                    Maximum="10000000" />
                             </telerik:RadCartesianChart.VerticalAxis>
-
                             <telerik:RadCartesianChart.Grid>
                                 <telerik:CartesianChartGrid StripLinesVisibility="Y"
                                                             MajorLinesVisibility="Y">
@@ -332,15 +332,15 @@
                     <telerik:GridViewDataColumn Header="当月累计金额"
                                                 HeaderTextAlignment="Center"
                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                DataMemberBinding="{Binding Amount}" />
+                                                DataMemberBinding="{Binding Amount,StringFormat={StaticResource CurrencyStringFormat}}" />
                     <telerik:GridViewDataColumn Header="当月已付金额"
                                                 HeaderTextAlignment="Center"
                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                DataMemberBinding="{Binding PaidAmount}" />
+                                                DataMemberBinding="{Binding PaidAmount,StringFormat={StaticResource CurrencyStringFormat}}" />
                     <telerik:GridViewDataColumn Header="资金需求"
                                                 HeaderTextAlignment="Center"
                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                DataMemberBinding="{Binding RemainAmount}" />
+                                                DataMemberBinding="{Binding RemainAmount,StringFormat={StaticResource CurrencyStringFormat}}" />
                 </telerik:RadGridView.Columns>
             </telerik:RadGridView>
         </Grid>

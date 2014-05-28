@@ -24,6 +24,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
@@ -32,7 +33,7 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.QueryAnalyse
 {
-    [Export(typeof (FinancingDemandForecastVM))]
+    [Export(typeof(FinancingDemandForecastVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class FinancingDemandForecastVM : EditViewModelBase
     {
@@ -47,7 +48,8 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         private Size _zoom;
 
         [ImportingConstructor]
-        public FinancingDemandForecastVM(IRegionManager regionManager, IPaymentService service) : base(service)
+        public FinancingDemandForecastVM(IRegionManager regionManager, IPaymentService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -65,9 +67,27 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         private void InitializeVM()
         {
             Zoom = new Size(1, 1);
-            //RelatedDocs = Service.CreateCollection<RelatedDocDTO>(_purchaseData.RelatedDocs);
-            //Service.RegisterCollectionView(RelatedDocs); //注册查询集合。
-            //RelatedDocs.PropertyChanged += OnViewPropertyChanged;
+            PaymentSchedules = _service.CreateCollection(_context.PaymentSchedules);
+            PaymentSchedules.LoadedData += (o, e) =>
+                                           {
+                                               _financingDemands.Clear();
+                                               PaymentSchedules.ToList().ForEach(p => p.PaymentScheduleLines.ToList().ForEach(
+                                                   q =>
+                                                   {
+                                                       var dataItem = new FinancingDemand
+                                                                      {
+                                                                          Id = q.PaymentScheduleLineId,
+                                                                          TimeStamp = q.ScheduleDate,
+                                                                          Year = q.ScheduleDate.Year,
+                                                                          Month = q.ScheduleDate.Month,
+                                                                          Amount = q.Amount,
+                                                                          PaidAmount = q.Amount
+                                                                      };
+                                                       FinancingDemands.Add(dataItem);
+                                                   }));
+                                               RaisePropertyChanged(() => FinancingDemands);
+                                               CreateViewFinancingDemandData();
+                                           };
         }
 
         /// <summary>
@@ -196,6 +216,10 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
             }
         }
 
+        #region 付款计划
+        public QueryableDataServiceCollectionView<PaymentScheduleDTO> PaymentSchedules { get; set; }
+        #endregion
+
         /// <summary>
         ///     加载数据方法
         ///     <remarks>
@@ -205,9 +229,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         /// </summary>
         public override void LoadData()
         {
-            //RelatedDocs.AutoLoad = true;
-            LoadFinancingDemandData();
-            CreateViewFinancingDemandData();
+            PaymentSchedules.Load(true);
         }
 
         #region 业务
@@ -215,7 +237,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         public void LoadFinancingDemandData()
         {
             _financingDemands.Clear();
-            var ro = new Random((int) DateTime.Now.Ticks);
+            var ro = new Random((int)DateTime.Now.Ticks);
             for (int i = 0; i < 20; i++)
             {
                 for (int j = 0; j < 12; j++)
@@ -263,9 +285,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
                     }
 
                     if (dataItem.TimeStamp < StartDate || dataItem.TimeStamp > EndDate) continue;
-                    dataItem.PaidAmount /= 10000;
-                    dataItem.RemainAmount /= 10000;
-                    dataItem.Amount /= 10000;
+                    
                     ViewFinancingDemands.Add(dataItem);
                 }
             }
@@ -276,8 +296,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         private ObservableCollection<FinancingDemand> _financingDemands = new ObservableCollection<FinancingDemand>();
 
 
-        private ObservableCollection<FinancingDemand> _viewFinancingDemands =
-            new ObservableCollection<FinancingDemand>();
+        private ObservableCollection<FinancingDemand> _viewFinancingDemands =new ObservableCollection<FinancingDemand>();
 
         /// <summary>
         ///     资金需求
@@ -285,7 +304,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         public ObservableCollection<FinancingDemand> FinancingDemands
         {
             get { return _financingDemands; }
-            private set
+             set
             {
                 if (_financingDemands != value)
                 {
@@ -301,7 +320,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         public ObservableCollection<FinancingDemand> ViewFinancingDemands
         {
             get { return _viewFinancingDemands; }
-            private set
+             set
             {
                 if (_viewFinancingDemands != value)
                 {
