@@ -243,17 +243,32 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
                 PaymentSchedules.ToList().ForEach(p => p.PaymentScheduleLines.ToList().ForEach(
                     q =>
                     {
-                        var dataItem = new FinancingDemand
-                                       {
-                                           Id = q.PaymentScheduleLineId,
-                                           TimeStamp = q.ScheduleDate,
-                                           Year = q.ScheduleDate.Year,
-                                           Month = q.ScheduleDate.Month,
-                                           Amount = q.Amount,
-                                           PaidAmount = BaseInvoices.Where(t => t.PaymentScheduleLineId == q.PaymentScheduleLineId).Sum(o => o.PaidAmount),
-                                       };
-                        dataItem.RemainAmount = dataItem.Amount - dataItem.PaidAmount;
-                        FinancingDemands.Add(dataItem);
+                        var dataItem =
+                            FinancingDemands.FirstOrDefault(
+                                a => a.Year == q.ScheduleDate.Year && a.Month == q.ScheduleDate.Month);
+                        if (dataItem == null)
+                        {
+                            dataItem = new FinancingDemand
+                            {
+                                TimeStamp = q.ScheduleDate.Date,
+                                Year = q.ScheduleDate.Year,
+                                Month = q.ScheduleDate.Month,
+                                Amount = q.Amount,
+                                PaidAmount =
+                                    BaseInvoices.Where(t => t.PaymentScheduleLineId == q.PaymentScheduleLineId)
+                                    .Sum(o => o.PaidAmount),
+                            };
+                            dataItem.RemainAmount = dataItem.Amount - dataItem.PaidAmount;
+                            FinancingDemands.Add(dataItem);
+                        }
+                        else
+                        {
+                            dataItem.Amount += q.Amount;
+                            dataItem.PaidAmount += BaseInvoices.Where(
+                                t => t.PaymentScheduleLineId == q.PaymentScheduleLineId)
+                                .Sum(o => o.PaidAmount);
+                            dataItem.RemainAmount = dataItem.Amount - dataItem.PaidAmount;
+                        }
                     }));
                 RaisePropertyChanged(() => FinancingDemands);
                 CreateViewFinancingDemandData();
