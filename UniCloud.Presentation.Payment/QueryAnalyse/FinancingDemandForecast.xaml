@@ -73,277 +73,279 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="8*"></RowDefinition>
-            <RowDefinition Height="5*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <telerik:RadTileView x:Name="MyTileView"
-                             Grid.Row="0"
-                             ColumnWidth="Auto"
-                             IsItemsSizeInPercentages="True"
-                             MinimizedColumnWidth="250"
-                             PreservePositionWhenMaximized="true"
-                             RowHeight="Auto"
-                             MinimizedRowHeight="Auto"
-                             MaximizeMode="One"
-                             telerik:TileViewPanel.IsColumnsShrinkEnabled="True"
-                             telerik:TileViewPanel.IsRowsShrinkEnabled="True"
-                             telerik:TileViewPanel.IsSizeBoundToPosition="True">
-            <telerik:RadTileViewItem Header="资金需求"
-                                     RestoredHeight="62"
-                                     MinimizedHeight="164"
-                                     RestoredWidth="18">
-                <Grid x:Name="LayoutRootTotal">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="2*" />
-                    </Grid.RowDefinitions>
-                    <Grid Height="40">
-                        <StackPanel x:Name="ToolBar"
-                                    Orientation="Horizontal">
-                            <TextBlock Text="时间的统计方式："
-                                       Foreground="Black"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Right"
-                                       Margin="20,0,0,0" />
-                            <telerik:RadComboBox Margin="0 7"
-                                                 VerticalAlignment="Center"
-                                                 IsEditable="True"
-                                                 FontSize="{StaticResource TextFontSize}"
-                                                 IsReadOnly="True"
-                                                 SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
-                                <telerik:RadComboBoxItem Content="按月份统计" />
-                                <telerik:RadComboBoxItem Content="按半年统计" />
-                                <telerik:RadComboBoxItem Content="按年份统计" />
-                            </telerik:RadComboBox>
-                            <TextBlock Text="开始时间："
-                                       Foreground="Black"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Right"
-                                       Margin="20,0,0,0" />
-                            <telerik:RadDateTimePicker x:Name="StartDateTimePicker"
-                                                       Margin="0 7"
-                                                       Width="{StaticResource GridTextBlockWidth}"
-                                                       SelectedValue="{Binding StartDate,StringFormat='yyyy/MM', Mode=TwoWay }"
-                                                       DisplayDateEnd="{Binding Path=EndDate, Mode=TwoWay}"
-                                                       VerticalAlignment="Center"
-                                                       FontSize="{StaticResource TextFontSize}"
-                                                       InputMode="DatePicker"
-                                                       DateSelectionMode="Month"
-                                                       Culture="zh-Hans" />
-                            <TextBlock Text="结束时间："
-                                       Foreground="Black"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Right"
-                                       Margin="20,0,0,0" />
-                            <telerik:RadDateTimePicker x:Name="EndDateTimePicker"
-                                                       Margin="0 7"
-                                                       Width="{StaticResource GridTextBlockWidth}"
-                                                       FontSize="{StaticResource TextFontSize}"
-                                                       SelectedValue="{Binding EndDate, Mode=TwoWay}"
-                                                       DisplayDateStart="{Binding Path=StartDate, Mode=TwoWay}"
-                                                       VerticalAlignment="Center"
-                                                       InputMode="DatePicker"
-                                                       DateSelectionMode="Month"
-                                                       Culture="zh-Hans" />
-                        </StackPanel>
-                    </Grid>
-                    <Grid Grid.Row="1"
-                          x:Name="LineGrid">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <telerik:RadCartesianChart x:Name="LineChart"
-                                                   Zoom="{Binding Zoom, Mode=TwoWay}"
-                                                   PanOffset="{Binding PanOffset, Mode=TwoWay}">
-                            <telerik:RadCartesianChart.Behaviors>
-                                <telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" />
-                            </telerik:RadCartesianChart.Behaviors>
-                            <telerik:RadCartesianChart.HorizontalAxis>
-                                <telerik:DateTimeCategoricalAxis Name="LineCategoricalAxis"
-                                                                 MajorTickInterval="6"
-                                                                 PlotMode="OnTicksPadded"
-                                                                 ShowLabels="True"
-                                                                 LabelFormat="yyyy/MM"
-                                                                 Foreground="Black"
-                                                                 MajorTickStyle="{StaticResource TickStyle}" />
-                            </telerik:RadCartesianChart.HorizontalAxis>
-                            <telerik:RadCartesianChart.VerticalAxis>
-                                <telerik:LinearAxis Title="单位(万)"
-                                                    Foreground="Black"
-                                                    LabelFormat="0,,"
-                                                    MajorStep="1000000"
-                                                    Minimum="0"
-                                                    Maximum="10000000" />
-                            </telerik:RadCartesianChart.VerticalAxis>
-                            <telerik:RadCartesianChart.Grid>
-                                <telerik:CartesianChartGrid StripLinesVisibility="Y"
-                                                            MajorLinesVisibility="Y">
-                                    <telerik:CartesianChartGrid.YStripeBrushes>
-                                        <SolidColorBrush Color="#FFD7D7D7"
-                                                         Opacity="0.3" />
-                                        <SolidColorBrush Color="Transparent" />
-                                    </telerik:CartesianChartGrid.YStripeBrushes>
-                                </telerik:CartesianChartGrid>
-                            </telerik:RadCartesianChart.Grid>
-                            <telerik:LineSeries DisplayName="计划付款金额"
-                                                ItemsSource="{Binding ViewFinancingDemands}"
-                                                CategoryBinding="TimeStamp"
-                                                ValueBinding="Amount"
-                                                Stroke="#DC5B20"
-                                                StrokeThickness="2"
-                                                ShowLabels="False">
-                                <telerik:LineSeries.PointTemplate>
-                                    <DataTemplate>
-                                        <Ellipse Height='8'
-                                                 Width='8'
-                                                 Fill="#DC5B20" />
-                                    </DataTemplate>
-                                </telerik:LineSeries.PointTemplate>
-                                <telerik:LineSeries.TrackBallInfoTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Background="Transparent">
-                                            <TextBlock Text="{Binding Path=DataPoint.DataItem.Amount, StringFormat='计划付款金额: {0}'}"
-                                                       Foreground="#DC5B20"
-                                                       Margin="6,0"
-                                                       FontFamily="Segoe UI" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </telerik:LineSeries.TrackBallInfoTemplate>
-                            </telerik:LineSeries>
-                            <telerik:LineSeries DisplayName="已付金额"
-                                                ItemsSource="{Binding ViewFinancingDemands}"
-                                                CategoryBinding="TimeStamp"
-                                                ValueBinding="PaidAmount"
-                                                Stroke="#FF25A0DA"
-                                                StrokeThickness="2"
-                                                ShowLabels="False"
-                                                Foreground="Black">
-                                <telerik:LineSeries.PointTemplate>
-                                    <DataTemplate>
-                                        <Ellipse Height='8'
-                                                 Width='8'
-                                                 Fill="#FF25A0DA" />
-                                    </DataTemplate>
-                                </telerik:LineSeries.PointTemplate>
-                                <telerik:LineSeries.TrackBallInfoTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Background="Transparent">
-                                            <TextBlock Text="{Binding Path=DataPoint.DataItem.PaidAmount, StringFormat='已付金额: {0}'}"
-                                                       Foreground="#FF25A0DA"
-                                                       Margin="6,0"
-                                                       FontFamily="Segoe UI" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </telerik:LineSeries.TrackBallInfoTemplate>
-                            </telerik:LineSeries>
-                        </telerik:RadCartesianChart>
-                        <ScrollViewer Grid.Column="1"
-                                      Width="176"
-                                      Margin="0,5,5,5"
-                                      VerticalScrollBarVisibility="Auto">
-                            <StackPanel Style="{StaticResource legendStyle}">
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="5,5,5,5"
-                                            Background="#DC5B20">
-                                    <CheckBox Content="计划付款金额"
-                                              IsChecked="true"
-                                              Foreground="White"
-                                              VerticalAlignment="Center">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="Checked">
-                                                <ei:CallMethodAction TargetObject="{Binding}"
-                                                                     MethodName="checkbox_Checked"></ei:CallMethodAction>
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="Unchecked">
-                                                <ei:CallMethodAction TargetObject="{Binding}"
-                                                                     MethodName="checkbox_Unchecked"></ei:CallMethodAction>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </CheckBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="5,5,5,5"
-                                            Background="#FF25A0DA">
-                                    <CheckBox Content="已付金额"
-                                              IsChecked="true"
-                                              Foreground="White"
-                                              VerticalAlignment="Center">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="Checked">
-                                                <ei:CallMethodAction TargetObject="{Binding}"
-                                                                     MethodName="checkbox_Checked"></ei:CallMethodAction>
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="Unchecked">
-                                                <ei:CallMethodAction TargetObject="{Binding}"
-                                                                     MethodName="checkbox_Unchecked"></ei:CallMethodAction>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </CheckBox>
-                                </StackPanel>
+    <telerik:RadBusyIndicator BusyContent="{Binding BusyContent,Mode=TwoWay}"
+                              IsBusy="{Binding IsBusy,Mode=TwoWay}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"></RowDefinition>
+                <RowDefinition Height="5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <telerik:RadTileView x:Name="MyTileView"
+                                 Grid.Row="0"
+                                 ColumnWidth="Auto"
+                                 IsItemsSizeInPercentages="True"
+                                 MinimizedColumnWidth="250"
+                                 PreservePositionWhenMaximized="true"
+                                 RowHeight="Auto"
+                                 MinimizedRowHeight="Auto"
+                                 MaximizeMode="One"
+                                 telerik:TileViewPanel.IsColumnsShrinkEnabled="True"
+                                 telerik:TileViewPanel.IsRowsShrinkEnabled="True"
+                                 telerik:TileViewPanel.IsSizeBoundToPosition="True">
+                <telerik:RadTileViewItem Header="资金需求"
+                                         RestoredHeight="62"
+                                         MinimizedHeight="164"
+                                         RestoredWidth="18">
+                    <Grid x:Name="LayoutRootTotal">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="2*" />
+                        </Grid.RowDefinitions>
+                        <Grid Height="40">
+                            <StackPanel x:Name="ToolBar"
+                                        Orientation="Horizontal">
+                                <TextBlock Text="时间的统计方式："
+                                           Foreground="Black"
+                                           VerticalAlignment="Center"
+                                           TextAlignment="Right"
+                                           Margin="20,0,0,0" />
+                                <telerik:RadComboBox Margin="0 7"
+                                                     VerticalAlignment="Center"
+                                                     IsEditable="True"
+                                                     FontSize="{StaticResource TextFontSize}"
+                                                     IsReadOnly="True"
+                                                     SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}">
+                                    <telerik:RadComboBoxItem Content="按月份统计" />
+                                    <telerik:RadComboBoxItem Content="按半年统计" />
+                                    <telerik:RadComboBoxItem Content="按年份统计" />
+                                </telerik:RadComboBox>
+                                <TextBlock Text="开始时间："
+                                           Foreground="Black"
+                                           VerticalAlignment="Center"
+                                           TextAlignment="Right"
+                                           Margin="20,0,0,0" />
+                                <telerik:RadDateTimePicker x:Name="StartDateTimePicker"
+                                                           Margin="0 7"
+                                                           Width="{StaticResource GridTextBlockWidth}"
+                                                           SelectedValue="{Binding StartDate,StringFormat='yyyy/MM', Mode=TwoWay }"
+                                                           DisplayDateEnd="{Binding Path=EndDate, Mode=TwoWay}"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="{StaticResource TextFontSize}"
+                                                           InputMode="DatePicker"
+                                                           DateSelectionMode="Month"
+                                                           Culture="zh-Hans" />
+                                <TextBlock Text="结束时间："
+                                           Foreground="Black"
+                                           VerticalAlignment="Center"
+                                           TextAlignment="Right"
+                                           Margin="20,0,0,0" />
+                                <telerik:RadDateTimePicker x:Name="EndDateTimePicker"
+                                                           Margin="0 7"
+                                                           Width="{StaticResource GridTextBlockWidth}"
+                                                           FontSize="{StaticResource TextFontSize}"
+                                                           SelectedValue="{Binding EndDate, Mode=TwoWay}"
+                                                           DisplayDateStart="{Binding Path=StartDate, Mode=TwoWay}"
+                                                           VerticalAlignment="Center"
+                                                           InputMode="DatePicker"
+                                                           DateSelectionMode="Month"
+                                                           Culture="zh-Hans" />
                             </StackPanel>
-                        </ScrollViewer>
+                        </Grid>
+                        <Grid Grid.Row="1"
+                              x:Name="LineGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <telerik:RadCartesianChart x:Name="LineChart"
+                                                       EmptyContent="资金需求趋势"
+                                                       Zoom="{Binding Zoom, Mode=TwoWay}"
+                                                       PanOffset="{Binding PanOffset, Mode=TwoWay}">
+                                <telerik:RadCartesianChart.Behaviors>
+                                    <telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" />
+                                    <telerik:ChartTrackBallBehavior />
+                                </telerik:RadCartesianChart.Behaviors>
+                                <telerik:RadCartesianChart.HorizontalAxis>
+                                    <telerik:DateTimeCategoricalAxis Name="LineCategoricalAxis"
+                                                                     MajorTickInterval="6"
+                                                                     PlotMode="OnTicksPadded"
+                                                                     ShowLabels="True"
+                                                                     LabelFormat="yyyy/MM"
+                                                                     Foreground="Black"
+                                                                     MajorTickStyle="{StaticResource TickStyle}" />
+                                </telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:RadCartesianChart.VerticalAxis>
+                                    <telerik:LinearAxis Title="单位(万)"
+                                                        Foreground="Black"
+                                                        LabelFormat="0,,"
+                                                        MajorStep="1000000"
+                                                        Minimum="0"
+                                                        Maximum="10000000" />
+                                </telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:RadCartesianChart.Grid>
+                                    <telerik:CartesianChartGrid StripLinesVisibility="Y"
+                                                                MajorLinesVisibility="Y">
+                                        <telerik:CartesianChartGrid.YStripeBrushes>
+                                            <SolidColorBrush Color="#FFD7D7D7"
+                                                             Opacity="0.3" />
+                                            <SolidColorBrush Color="Transparent" />
+                                        </telerik:CartesianChartGrid.YStripeBrushes>
+                                    </telerik:CartesianChartGrid>
+                                </telerik:RadCartesianChart.Grid>
+                                <telerik:LineSeries DisplayName="计划付款金额"
+                                                    ItemsSource="{Binding ViewFinancingDemands}"
+                                                    CategoryBinding="TimeStamp"
+                                                    ValueBinding="Amount"
+                                                    Stroke="#DC5B20"
+                                                    StrokeThickness="2"
+                                                    ShowLabels="False">
+                                    <telerik:LineSeries.PointTemplate>
+                                        <DataTemplate>
+                                            <Ellipse Height='8'
+                                                     Width='8'
+                                                     Fill="#DC5B20" />
+                                        </DataTemplate>
+                                    </telerik:LineSeries.PointTemplate>
+                                    <telerik:LineSeries.TrackBallInfoTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Background="Transparent">
+                                                <TextBlock Text="{Binding Path=DataPoint.DataItem.Amount, StringFormat='计划付款金额: {0}'}"
+                                                           Foreground="#DC5B20"
+                                                           Margin="6,0"
+                                                           FontFamily="Segoe UI" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </telerik:LineSeries.TrackBallInfoTemplate>
+                                </telerik:LineSeries>
+                                <telerik:LineSeries DisplayName="已付金额"
+                                                    ItemsSource="{Binding ViewFinancingDemands}"
+                                                    CategoryBinding="TimeStamp"
+                                                    ValueBinding="PaidAmount"
+                                                    Stroke="#FF25A0DA"
+                                                    StrokeThickness="2"
+                                                    ShowLabels="False"
+                                                    Foreground="Black">
+                                    <telerik:LineSeries.PointTemplate>
+                                        <DataTemplate>
+                                            <Ellipse Height='8'
+                                                     Width='8'
+                                                     Fill="#FF25A0DA" />
+                                        </DataTemplate>
+                                    </telerik:LineSeries.PointTemplate>
+                                    <telerik:LineSeries.TrackBallInfoTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Background="Transparent">
+                                                <TextBlock Text="{Binding Path=DataPoint.DataItem.PaidAmount, StringFormat='已付金额: {0}'}"
+                                                           Foreground="#FF25A0DA"
+                                                           Margin="6,0"
+                                                           FontFamily="Segoe UI" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </telerik:LineSeries.TrackBallInfoTemplate>
+                                </telerik:LineSeries>
+                            </telerik:RadCartesianChart>
+                            <ScrollViewer Grid.Column="1"
+                                          Width="176"
+                                          Margin="0,5,5,5"
+                                          VerticalScrollBarVisibility="Auto">
+                                <StackPanel Style="{StaticResource legendStyle}">
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="5,5,5,5"
+                                                Background="#DC5B20">
+                                        <CheckBox Content="计划付款金额"
+                                                  IsChecked="true"
+                                                  Foreground="White"
+                                                  telerik:StyleManager.Theme="Windows8"
+                                                  VerticalAlignment="Center">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked">
+                                                    <ei:CallMethodAction TargetObject="{Binding}"
+                                                                         MethodName="CheckboxChecked"></ei:CallMethodAction>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked">
+                                                    <ei:CallMethodAction TargetObject="{Binding}"
+                                                                         MethodName="CheckboxUnchecked"></ei:CallMethodAction>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="5,5,5,5"
+                                                Background="#FF25A0DA">
+                                        <CheckBox Content="已付金额"
+                                                  IsChecked="true"
+                                                  Foreground="White"
+                                                  telerik:StyleManager.Theme="Windows8"
+                                                  VerticalAlignment="Center">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked">
+                                                    <ei:CallMethodAction TargetObject="{Binding}"
+                                                                         MethodName="CheckboxChecked"></ei:CallMethodAction>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked">
+                                                    <ei:CallMethodAction TargetObject="{Binding}"
+                                                                         MethodName="CheckboxUnchecked"></ei:CallMethodAction>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </CheckBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </telerik:RadTileViewItem>
-        </telerik:RadTileView>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="8*"></ColumnDefinition>
-                <ColumnDefinition Width="5*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <telerik:RadGridView x:Name="AmountCounts"
-                                 ShowGroupPanel="True"
-                                 AutoExpandGroups="True"
-                                 IsReadOnly="False"
-                                 Grid.Column="1"
-                                 CanUserFreezeColumns="False"
-                                 RowIndicatorVisibility="Collapsed"
-                                 CanUserResizeColumns="False"
-                                 IsFilteringAllowed="False"
-                                 ItemsSource="{Binding FinancingDemands}"
-                                 AutoGenerateColumns="False"
-                                 ShowColumnFooters="True">
-                <telerik:RadContextMenu.ContextMenu>
-                    <telerik:RadContextMenu>
-                        <telerik:RadMenuItem Header="导出Excel"
-                                             Command="{Binding ExcelExportCommand}"
-                                             CommandParameter="{Binding ElementName=FinancingDemands, Mode=OneWay}" />
-                        <telerik:RadMenuItem Header="导出Word"
-                                             Command="{Binding WordExportCommand}"
-                                             CommandParameter="{Binding ElementName=FinancingDemands, Mode=OneWay}" />
-                    </telerik:RadContextMenu>
-                </telerik:RadContextMenu.ContextMenu>
-                <telerik:RadGridView.Columns>
-                    <uc:DataPageSerialColumn Header="序号"
-                                             HeaderTextAlignment="Center" />
-                    <telerik:GridViewDataColumn Header="年度"
-                                                IsReadOnly="True"
-                                                HeaderTextAlignment="Center"
-                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                DataMemberBinding="{Binding Year}" />
-                    <telerik:GridViewDataColumn Header="月份"
-                                                IsReadOnly="True"
-                                                HeaderTextAlignment="Center"
-                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                DataMemberBinding="{Binding Month}" />
-                    <telerik:GridViewDataColumn Header="当月累计金额"
-                                                HeaderTextAlignment="Center"
-                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                DataMemberBinding="{Binding Amount,StringFormat={StaticResource CurrencyStringFormat}}" />
-                    <telerik:GridViewDataColumn Header="当月已付金额"
-                                                HeaderTextAlignment="Center"
-                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                DataMemberBinding="{Binding PaidAmount,StringFormat={StaticResource CurrencyStringFormat}}" />
-                    <telerik:GridViewDataColumn Header="资金需求"
-                                                HeaderTextAlignment="Center"
-                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                DataMemberBinding="{Binding RemainAmount,StringFormat={StaticResource CurrencyStringFormat}}" />
-                </telerik:RadGridView.Columns>
-            </telerik:RadGridView>
+                </telerik:RadTileViewItem>
+            </telerik:RadTileView>
+            <Grid Grid.Row="1">
+                <telerik:RadGridView x:Name="AmountCounts"
+                                     ShowGroupPanel="True"
+                                     AutoExpandGroups="True"
+                                     IsReadOnly="False"
+                                     Grid.Column="1"
+                                     CanUserFreezeColumns="False"
+                                     RowIndicatorVisibility="Collapsed"
+                                     CanUserResizeColumns="False"
+                                     IsFilteringAllowed="False"
+                                     ItemsSource="{Binding FinancingDemands}"
+                                     AutoGenerateColumns="False"
+                                     ShowColumnFooters="True">
+                    <telerik:RadContextMenu.ContextMenu>
+                        <telerik:RadContextMenu>
+                            <telerik:RadMenuItem Header="导出Excel"
+                                                 Command="{Binding ExcelExportCommand}"
+                                                 CommandParameter="{Binding ElementName=FinancingDemands, Mode=OneWay}" />
+                            <telerik:RadMenuItem Header="导出Word"
+                                                 Command="{Binding WordExportCommand}"
+                                                 CommandParameter="{Binding ElementName=FinancingDemands, Mode=OneWay}" />
+                        </telerik:RadContextMenu>
+                    </telerik:RadContextMenu.ContextMenu>
+                    <telerik:RadGridView.Columns>
+                        <uc:DataPageSerialColumn Header="序号"
+                                                 HeaderTextAlignment="Center" />
+                        <telerik:GridViewDataColumn Header="年度"
+                                                    IsReadOnly="True"
+                                                    HeaderTextAlignment="Center"
+                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                    DataMemberBinding="{Binding Year}" />
+                        <telerik:GridViewDataColumn Header="月份"
+                                                    IsReadOnly="True"
+                                                    HeaderTextAlignment="Center"
+                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                    DataMemberBinding="{Binding Month}" />
+                        <telerik:GridViewDataColumn Header="当月累计金额"
+                                                    HeaderTextAlignment="Center"
+                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                    DataMemberBinding="{Binding Amount,StringFormat={StaticResource CurrencyStringFormat}}" />
+                        <telerik:GridViewDataColumn Header="当月已付金额"
+                                                    HeaderTextAlignment="Center"
+                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                    DataMemberBinding="{Binding PaidAmount,StringFormat={StaticResource CurrencyStringFormat}}" />
+                        <telerik:GridViewDataColumn Header="资金需求"
+                                                    HeaderTextAlignment="Center"
+                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                    DataMemberBinding="{Binding RemainAmount,StringFormat={StaticResource CurrencyStringFormat}}" />
+                    </telerik:RadGridView.Columns>
+                </telerik:RadGridView>
+            </Grid>
         </Grid>
-
-    </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>
