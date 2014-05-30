@@ -33,13 +33,10 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(p => p.WorkCode).HasColumnName("WorkCode").HasMaxLength(100);
+            Property(p => p.WorkDescription).HasColumnName("WorkDescription").HasMaxLength(100);
             Property(p => p.MointorStart).HasColumnName("MointorStart").HasColumnType("datetime2");
             Property(p => p.MointorEnd).HasColumnName("MointorEnd").HasColumnType("datetime2");
-            Property(p => p.MaintainWorkId).HasColumnName("MaintainWorkId");
             Property(p => p.SnRegId).HasColumnName("SnRegId");
-
-            HasRequired(p => p.MaintainWork).WithMany().HasForeignKey(o => o.MaintainWorkId);
         }
 
     }

@@ -34,7 +34,7 @@ namespace UniCloud.Presentation.Service.Part.Part.Enums
     /// </summary>
     public enum ControlStrategy
     {
-        区间交集 = 0,
-        区间并集 = 1,
+        先到为准 = 0,
+        后到为准 = 1,
     }
 }

@@ -47,34 +47,24 @@ namespace UniCloud.Application.PartBC.DTO
         public string Pn { get; set; }
 
         /// <summary>
-        ///     装上时间
+        /// 操作时间
         /// </summary>
-        public DateTime InstallDate { get; set; }
+        public DateTime ActionDate { get; set; }
 
         /// <summary>
-        ///     拆下时间
+        /// 操作类型 拆下/装上/不拆换
         /// </summary>
-        public DateTime? RemoveDate { get; set; }
+        public int ActionType { get; set; }
 
         /// <summary>
-        ///     拆下原因
+        ///     操作原因
         /// </summary>
-        public string RemoveReason { get; set; }
+        public string ActionReason { get; set; }
         
         /// <summary>
-        ///     拆下指令号
+        ///     操作指令号
         /// </summary>
-        public string RemoveActionNo { get; set; }
-
-        /// <summary>
-        ///     装上原因
-        /// </summary>
-        public string InstallReason { get; set; }
-
-        /// <summary>
-        ///     装上指令号
-        /// </summary>
-        public string InstallActionNo { get; set; }
+        public string ActionNo { get; set; }
 
         /// <summary>
         ///     CSN，自装机以来使用循环
@@ -82,19 +72,9 @@ namespace UniCloud.Application.PartBC.DTO
         public int CSN { get; set; }
 
         /// <summary>
-        ///     CSR，自上一次修理以来使用循环
-        /// </summary>
-        public int CSR { get; set; }
-
-        /// <summary>
         ///     TSN，自装机以来使用小时数
         /// </summary>
         public decimal TSN { get; set; }
-
-        /// <summary>
-        ///     TSR，自上一次修理以来使用小时数
-        /// </summary>
-        public decimal TSR { get; set; }
 
         /// <summary>
         ///     装机机号
@@ -118,16 +98,11 @@ namespace UniCloud.Application.PartBC.DTO
         ///     Pn外键
         /// </summary>
         public int PnRegId { get; set; }
-
+        
         /// <summary>
-        ///     装上记录外键
+        ///     拆换记录外键
         /// </summary>
-        public int InstallRecordId { get; set; }
-
-        /// <summary>
-        ///     拆下记录外键
-        /// </summary>
-        public int? RemoveRecordId { get; set; }
+        public int? RemInstRecordId { get; set; }
         #endregion
     }
 }

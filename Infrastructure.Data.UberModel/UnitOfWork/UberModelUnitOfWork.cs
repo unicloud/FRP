@@ -996,7 +996,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new ItemMaintainCtrlEntityConfiguration())
                 .Add(new PnMaintainCtrlEntityConfiguration())
                 .Add(new SnMaintainCtrlEntityConfiguration())
-                .Add(new MaintainCtrlLineEntityConfiguration())
             #endregion
 
             #region MaintainInvoiceAgg

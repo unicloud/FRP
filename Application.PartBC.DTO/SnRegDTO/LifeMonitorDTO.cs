@@ -34,9 +34,9 @@ namespace UniCloud.Application.PartBC.DTO
         public int Id { get; set; }
 
         /// <summary>
-        /// 工作代码
+        /// 监控的工作描述（可以为维修工作名称或维修监控描述）
         /// </summary>
-        public string WorkCode
+        public string WorkDescription
         {
             get;
             set;
@@ -71,15 +71,6 @@ namespace UniCloud.Application.PartBC.DTO
         #endregion
 
         #region 外键属性
-
-        /// <summary>
-        /// 维修工作外键
-        /// </summary>
-        public int MaintainWorkId
-        {
-            get;
-            set;
-        }
 
         /// <summary>
         /// 序号外键

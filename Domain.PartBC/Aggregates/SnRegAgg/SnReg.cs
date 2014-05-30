@@ -22,7 +22,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
-using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 
 #endregion
@@ -65,26 +64,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string AllSnName { get; set; }
 
         /// <summary>
-        ///     TSN，自装机以来使用小时数
-        /// </summary>
-        public decimal TSN { get; internal set; }
-
-        /// <summary>
-        ///     TSR，自上一次修理以来使用小时数
-        /// </summary>
-        public decimal TSR { get; internal set; }
-
-        /// <summary>
-        ///     CSN，自装机以来使用循环
-        /// </summary>
-        public decimal CSN { get; internal set; }
-
-        /// <summary>
-        ///     CSR，自上一次修理以来使用循环
-        /// </summary>
-        public decimal CSR { get; internal set; }
-
-        /// <summary>
         ///     初始安装日期
         /// </summary>
         public DateTime InstallDate { get; internal set; }
@@ -100,7 +79,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string AllPnName { get; set; }
 
         /// <summary>
-        ///     是否停用
+        ///     是否停用(停用的序号件不用于拆装：包括出租、出售、报废的情况)
         /// </summary>
         public bool IsStop { get; private set; }
 
@@ -128,6 +107,16 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         ///     是否寿控件
         /// </summary>
         public bool IsLife { get; private set; }
+
+        /// <summary>
+        /// LifeContainStoreTime(时寿是否包含在库时间)
+        /// </summary>
+        public bool IsLifeCst { get; private set; }
+
+        /// <summary>
+        /// 在库时间折算成飞行小时的比率
+        /// </summary>
+        public decimal Rate { get; private set; }
 
         #endregion
 
@@ -168,62 +157,29 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         {
             switch (status)
             {
-                case SnStatus.NotAgree:
-                    Status = SnStatus.NotAgree;
+                case SnStatus.装机:
+                    Status = SnStatus.装机;
+                    IsStop = false;
                     break;
-                case SnStatus.Stored:
-                    Status = SnStatus.Stored;
+                case SnStatus.在库:
+                    Status = SnStatus.在库;
+                    IsStop = false;
                     break;
-                case SnStatus.InTransfer:
-                    Status = SnStatus.InTransfer;
+                case SnStatus.在修:
+                    Status = SnStatus.在修;
+                    IsStop = false;
                     break;
-                case SnStatus.FlightKit:
-                    Status = SnStatus.FlightKit;
+                case SnStatus.出租:
+                    Status = SnStatus.出租;
+                    IsStop = true;
                     break;
-                case SnStatus.Lent:
-                    Status = SnStatus.Lent;
+                case SnStatus.出售:
+                    Status = SnStatus.出售;
+                    IsStop = true;
                     break;
-                case SnStatus.InLocalRepair:
-                    Status = SnStatus.InLocalRepair;
-                    break;
-                case SnStatus.InOutsideRepair:
-                    Status = SnStatus.InOutsideRepair;
-                    break;
-                case SnStatus.InRepairOnOtherSite:
-                    Status = SnStatus.InRepairOnOtherSite;
-                    break;
-                case SnStatus.ToolsWithPersonalInventoryDocument:
-                    Status = SnStatus.ToolsWithPersonalInventoryDocument;
-                    break;
-                case SnStatus.WorkshopOk:
-                    Status = SnStatus.WorkshopOk;
-                    break;
-                case SnStatus.InStoreUorS:
-                    Status = SnStatus.InStoreUorS;
-                    break;
-                case SnStatus.WorkshopUorS:
-                    Status = SnStatus.WorkshopUorS;
-                    break;
-                case SnStatus.Unknown:
-                    Status = SnStatus.Unknown;
-                    break;
-                case SnStatus.TemporaryScrap:
-                    Status = SnStatus.TemporaryScrap;
-                    break;
-                case SnStatus.Scrapped:
-                    Status = SnStatus.Scrapped;
-                    break;
-                case SnStatus.NewReference:
-                    Status = SnStatus.NewReference;
-                    break;
-                case SnStatus.OnAircraft:
-                    Status = SnStatus.OnAircraft;
-                    break;
-                case SnStatus.NotFollowed:
-                    Status = SnStatus.NotFollowed;
-                    break;
-                case SnStatus.ToBeRepaired:
-                    Status = SnStatus.ToBeRepaired;
+                case SnStatus.报废:
+                    Status = SnStatus.报废;
+                    IsStop = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("status");
@@ -231,21 +187,19 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         }
 
         /// <summary>
-        ///     设置是否停用
-        /// </summary>
-        /// <param name="isStop">是否停用</param>
-        public void SetIsStop(bool isStop)
-        {
-            IsStop = isStop;
-        }
-
-        /// <summary>
         ///     设置是否寿控件
         /// </summary>
         /// <param name="isLife">是否寿控件</param>
-        public void SetIsLife(bool isLife)
+        /// <param name="isLifeCst">时寿是否包含在库时间</param>
+        /// <param name="rate">在库时间折算成飞行小时的比率</param>
+        public void SetIsLife(bool isLife, bool isLifeCst, decimal rate)
         {
             IsLife = isLife;
+            if (isLife)
+            {
+                IsLifeCst = isLifeCst;
+                Rate = isLifeCst ? rate : 0;
+            }
         }
 
         /// <summary>
@@ -288,18 +242,18 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// <summary>
         ///     新增到寿监控
         /// </summary>
-        /// <param name="maintainWork">维修工作</param>
+        /// <param name="workDescription">监控工作描述</param>
         /// <param name="start">到寿日期开始</param>
         /// <param name="end">到寿日期结束</param>
         /// <returns>到寿监控</returns>
-        public LifeMonitor AddNewLifeMonitor(MaintainWork maintainWork, DateTime start, DateTime end)
+        public LifeMonitor AddNewLifeMonitor(string workDescription, DateTime start, DateTime end)
         {
             var lifeMonitor = new LifeMonitor
             {
                 SnRegId = Id,
             };
             lifeMonitor.GenerateNewIdentity();
-            lifeMonitor.SetMaintainWork(maintainWork);
+            lifeMonitor.SetWorkDescription(workDescription);
             lifeMonitor.SetMointorPeriod(start, end);
             LifeMonitors.Add(lifeMonitor);
 

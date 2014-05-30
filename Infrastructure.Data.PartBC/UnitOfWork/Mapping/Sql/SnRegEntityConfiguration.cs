@@ -37,10 +37,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(p => p.Sn).HasColumnName("Sn").HasMaxLength(100);
-            Property(p => p.TSN).HasColumnName("TSN");
-            Property(p => p.TSR).HasColumnName("TSR");
-            Property(p => p.CSN).HasColumnName("CSN");
-            Property(p => p.CSR).HasColumnName("CSR");
             Property(p => p.InstallDate).HasColumnName("InstallDate").HasColumnType("datetime2");
             Property(p => p.Pn).HasColumnName("Pn").HasMaxLength(100);
             Property(p => p.IsStop).HasColumnName("IsStop");
@@ -50,6 +46,9 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.Status).HasColumnName("Status");
             Property(p => p.AllSnName).HasColumnName("AllSnName");
             Property(p => p.AllPnName).HasColumnName("AllPnName");
+            Property(p => p.IsLife).HasColumnName("IsLife");
+            Property(p => p.IsLifeCst).HasColumnName("IsLifeCst");
+            Property(p => p.Rate).HasColumnName("Rate");
 
             Property(p => p.PnRegId).HasColumnName("PnRegId");
             Property(p => p.AircraftId).HasColumnName("AircraftId");

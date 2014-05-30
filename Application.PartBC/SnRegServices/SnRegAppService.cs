@@ -26,7 +26,6 @@ using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.SnRegQueries;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
-using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 
@@ -42,20 +41,17 @@ namespace UniCloud.Application.PartBC.SnRegServices
     public class SnRegAppService : ContextBoundObject, ISnRegAppService
     {
         private readonly IAircraftRepository _aircraftRepository;
-        private readonly IMaintainWorkRepository _maintainWorkRepository;
         private readonly IPnRegRepository _pnRegRepository;
         private readonly ISnRegQuery _snRegQuery;
         private readonly ISnRegRepository _snRegRepository;
 
         public SnRegAppService(ISnRegQuery snRegQuery, ISnRegRepository snRegRepository,
-            IAircraftRepository aircraftRepository, IPnRegRepository pnRegRepository,
-            IMaintainWorkRepository maintainWorkRepository)
+            IAircraftRepository aircraftRepository, IPnRegRepository pnRegRepository)
         {
             _snRegQuery = snRegQuery;
             _snRegRepository = snRegRepository;
             _aircraftRepository = aircraftRepository;
             _pnRegRepository = pnRegRepository;
-            _maintainWorkRepository = maintainWorkRepository;
         }
 
         #region SnRegDTO
@@ -81,18 +77,17 @@ namespace UniCloud.Application.PartBC.SnRegServices
         ///     新增SnReg。
         /// </summary>
         /// <param name="dto">SnRegDTO。</param>
-        [Insert(typeof (SnRegDTO))]
+        [Insert(typeof(SnRegDTO))]
         public void InsertSnReg(SnRegDTO dto)
         {
             Aircraft aircraft = _aircraftRepository.Get(dto.AircraftId); //获取运营飞机
             PnReg pnReg = _pnRegRepository.Get(dto.PnRegId); //获取附件
 
             //创建序号件
-            SnReg newSnReg = SnRegFactory.CreateSnReg(dto.InstallDate, pnReg, dto.Sn, dto.TSN, dto.TSR, dto.CSN, dto.CSR);
+            SnReg newSnReg = SnRegFactory.CreateSnReg(dto.InstallDate, pnReg, dto.Sn);
             newSnReg.SetAircraft(aircraft);
-            newSnReg.SetIsStop(dto.IsStop);
-            newSnReg.SetSnStatus((SnStatus) dto.Status);
-
+            newSnReg.SetIsLife(dto.IsLife, dto.IsLifeCst, dto.Rate);
+            newSnReg.SetSnStatus((SnStatus)dto.Status);
             //添加到寿监控
             dto.LiftMonitors.ToList().ForEach(lifeMonitor => InsertLifeMonitor(newSnReg, lifeMonitor));
 
@@ -103,7 +98,7 @@ namespace UniCloud.Application.PartBC.SnRegServices
         ///     更新SnReg。
         /// </summary>
         /// <param name="dto">SnRegDTO。</param>
-        [Update(typeof (SnRegDTO))]
+        [Update(typeof(SnRegDTO))]
         public void ModifySnReg(SnRegDTO dto)
         {
             Aircraft aircraft = _aircraftRepository.Get(dto.AircraftId); //获取运营飞机
@@ -115,11 +110,10 @@ namespace UniCloud.Application.PartBC.SnRegServices
             if (updateSnReg != null)
             {
                 //更新主表：
-                SnRegFactory.UpdateSnReg(updateSnReg, dto.InstallDate, pnReg, dto.Sn, dto.TSN, dto.TSR, dto.CSN, dto.CSR);
+                SnRegFactory.UpdateSnReg(updateSnReg, dto.InstallDate, pnReg, dto.Sn);
                 updateSnReg.SetAircraft(aircraft);
-                updateSnReg.SetIsStop(dto.IsStop);
-                updateSnReg.SetSnStatus((SnStatus) dto.Status);
-
+                updateSnReg.SetIsLife(dto.IsLife, dto.IsLifeCst, dto.Rate);
+                updateSnReg.SetSnStatus((SnStatus)dto.Status);
 
                 //更新到寿监控集合：
                 List<LifeMonitorDTO> dtoLiftMonitors = dto.LiftMonitors;
@@ -138,7 +132,7 @@ namespace UniCloud.Application.PartBC.SnRegServices
         ///     删除SnReg。
         /// </summary>
         /// <param name="dto">SnRegDTO。</param>
-        [Delete(typeof (SnRegDTO))]
+        [Delete(typeof(SnRegDTO))]
         public void DeleteSnReg(SnRegDTO dto)
         {
             if (dto == null)
@@ -163,11 +157,8 @@ namespace UniCloud.Application.PartBC.SnRegServices
         /// <param name="lifeMonitorDto">到寿监控DTO</param>
         private void InsertLifeMonitor(SnReg snReg, LifeMonitorDTO lifeMonitorDto)
         {
-            //获取
-            MaintainWork maintainWork = _maintainWorkRepository.Get(lifeMonitorDto.MaintainWorkId);
-
             // 添加到寿监控
-            snReg.AddNewLifeMonitor(maintainWork, lifeMonitorDto.MointorStart, lifeMonitorDto.MointorEnd);
+            snReg.AddNewLifeMonitor(lifeMonitorDto.WorkDescription, lifeMonitorDto.MointorStart, lifeMonitorDto.MointorEnd);
         }
 
         /// <summary>
@@ -177,10 +168,7 @@ namespace UniCloud.Application.PartBC.SnRegServices
         /// <param name="lifeMonitor">到寿监控</param>
         private void UpdateLifeMonitor(LifeMonitorDTO lifeMonitorDto, LifeMonitor lifeMonitor)
         {
-            //获取
-            MaintainWork maintainWork = _maintainWorkRepository.Get(lifeMonitorDto.MaintainWorkId);
-
-            lifeMonitor.SetMaintainWork(maintainWork);
+            lifeMonitor.SetWorkDescription(lifeMonitorDto.WorkDescription);
             lifeMonitor.SetMointorPeriod(lifeMonitorDto.MointorStart, lifeMonitorDto.MointorEnd);
         }
 

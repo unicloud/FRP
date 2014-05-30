@@ -188,7 +188,6 @@
     <Compile Include="Aggregates\MaintainCostAgg\UndercartMaintainCost.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\ItemMaintainCtrl.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrl.cs" />
-    <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrlLine.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\PnMaintainCtrl.cs" />
     <Compile Include="Aggregates\MaintainCtrlAgg\SnMaintainCtrl.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\AirframeMaintainInvoice.cs" />

@@ -37,5 +37,6 @@ namespace UniCloud.Presentation.Service.Part.Part.Enums
         装上 = 0,
         拆下 = 1,
         拆换 = 2,
+        不拆换 = 3,
     }
 }

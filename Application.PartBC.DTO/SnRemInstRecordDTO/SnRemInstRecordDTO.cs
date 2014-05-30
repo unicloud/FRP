@@ -40,7 +40,7 @@ namespace UniCloud.Application.PartBC.DTO
         public string ActionNo { get; set; }
 
         /// <summary>
-        ///     拆换时间
+        ///     拆换开始日期
         /// </summary>
         public DateTime ActionDate { get; set; }
 

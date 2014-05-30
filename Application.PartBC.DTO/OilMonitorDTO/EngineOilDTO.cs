@@ -40,26 +40,6 @@ namespace UniCloud.Application.PartBC.DTO
         public string Sn { get; set; }
 
         /// <summary>
-        ///     TSN，自装机以来使用小时数
-        /// </summary>
-        public decimal TSN { get; set; }
-
-        /// <summary>
-        ///     TSR，自上一次修理以来使用小时数
-        /// </summary>
-        public decimal TSR { get; set; }
-
-        /// <summary>
-        ///     CSN，自装机以来使用循环
-        /// </summary>
-        public decimal CSN { get; set; }
-
-        /// <summary>
-        ///     CSR，自上一次修理以来使用循环
-        /// </summary>
-        public decimal CSR { get; set; }
-
-        /// <summary>
         ///     滑油监控状态状态
         /// </summary>
         public int Status { get; set; }

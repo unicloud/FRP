@@ -20,7 +20,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 
 #endregion
 
@@ -48,9 +47,9 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         #region 属性
 
         /// <summary>
-        ///     工作代码
+        ///    监控的工作描述（可以为维修工作名称或维修监控描述）
         /// </summary>
-        public string WorkCode { get; private set; }
+        public string WorkDescription { get; private set; }
 
         /// <summary>
         ///     预计到寿开始
@@ -67,11 +66,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         #region 外键属性
 
         /// <summary>
-        ///     维修工作外键
-        /// </summary>
-        public int MaintainWorkId { get; private set; }
-
-        /// <summary>
         ///     序号外键
         /// </summary>
         public int SnRegId { get; internal set; }
@@ -79,8 +73,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         #endregion
 
         #region 导航属性
-
-        public MaintainWork MaintainWork { get; private set; }
 
         #endregion
 
@@ -98,19 +90,16 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         }
 
         /// <summary>
-        ///     设置维修工作
+        ///     设置监控的工作描述
         /// </summary>
-        /// <param name="maintainWork">维修工作</param>
-        public void SetMaintainWork(MaintainWork maintainWork)
+        /// <param name="workDescription">监控的工作描述</param>
+        public void SetWorkDescription(string workDescription)
         {
-            if (maintainWork == null || maintainWork.IsTransient())
+            if (string.IsNullOrWhiteSpace(workDescription))
             {
-                throw new ArgumentException("维修工作参数为空！");
+                throw new ArgumentException("监控的工作描述参数为空！");
             }
-
-            MaintainWork = maintainWork;
-            WorkCode = maintainWork.WorkCode;
-            MaintainWorkId = maintainWork.Id;
+            WorkDescription = workDescription;
         }
 
         #endregion

@@ -68,11 +68,11 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             var thrust = thrustRep.GetAll().FirstOrDefault();
 
             // Act
-            var engine1 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2334", 100, 20, 30, 20);
+            var engine1 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2334");
             engine1.SetMonitorStatus(OilMonitorStatus.关注);
-            var engine2 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2335", 100, 20, 30, 20);
+            var engine2 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2335");
             engine2.SetMonitorStatus(OilMonitorStatus.警告);
-            var engine3 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2336", 100, 20, 30, 20);
+            var engine3 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2336");
             engine3.SetMonitorStatus(OilMonitorStatus.正常);
             snRep.Add(engine1);
             snRep.Add(engine2);

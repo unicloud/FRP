@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
@@ -64,34 +65,24 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
         public DateTime CreateDate { get; internal set; }
 
         /// <summary>
-        ///     装上时间
+        /// 操作时间
         /// </summary>
-        public DateTime InstallDate { get; private set; }
+        public DateTime ActionDate { get; private set; }
 
         /// <summary>
-        ///     拆下时间
+        /// 操作类型 拆下/装上/不拆换
         /// </summary>
-        public DateTime? RemoveDate { get; private set; }
+        public ActionType ActionType { get; private set; }
 
         /// <summary>
-        ///     CSN，自装机以来使用循环
+        ///     CSN，自装机以来使用循环,操作时间节点的值
         /// </summary>
         public int CSN { get; private set; }
 
         /// <summary>
-        ///     CSR，自上一次修理以来使用循环
-        /// </summary>
-        public int CSR { get; private set; }
-
-        /// <summary>
-        ///     TSN，自装机以来使用小时数
+        ///     TSN，自装机以来使用小时数，操作时间节点的值
         /// </summary>
         public decimal TSN { get; private set; }
-
-        /// <summary>
-        ///     TSR，自上一次修理以来使用小时数
-        /// </summary>
-        public decimal TSR { get; private set; }
 
         #endregion
 
@@ -113,25 +104,43 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
         public int PnRegId { get; private set; }
 
         /// <summary>
-        ///     装上记录外键
+        ///     拆换记录外键（如果针对序号做操作时，不涉及拆换的情况，拆换记录Id可以为空）
         /// </summary>
-        public int InstallRecordId { get; private set; }
-
-        /// <summary>
-        ///     拆下记录外键
-        /// </summary>
-        public int? RemoveRecordId { get; private set; }
+        public int? RemInstRecordId { get; private set; }
 
         #endregion
 
         #region 导航属性
-        public SnRemInstRecord InstallRecord { get; private set; }
 
-        public SnRemInstRecord RemoveRecord { get; private set; }
+        public SnRemInstRecord RemInstRecord { get; private set; }
 
         #endregion
 
         #region 操作
+        /// <summary>
+        ///     设置拆换类型
+        /// </summary>
+        /// <param name="actionType">拆换类型</param>
+        public void SetActionType(ActionType actionType)
+        {
+            switch (actionType)
+            {
+                case ActionType.拆下:
+                    ActionType = ActionType.拆下;
+                    break;
+                case ActionType.装上:
+                    ActionType = ActionType.装上;
+                    break;
+                case ActionType.拆换:
+                    ActionType = ActionType.拆换;
+                    break;
+                case ActionType.不拆换:
+                    ActionType = ActionType.不拆换;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("actionType");
+            }
+        }
 
         /// <summary>
         ///     设置装机序号
@@ -162,25 +171,15 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
             Pn = pnReg.Pn;
             PnRegId = pnReg.Id;
         }
-        
-        /// <summary>
-        ///     设置装上时间
-        /// </summary>
-        /// <param name="date">装上时间</param>
-        public void SetInstallDate(DateTime date)
-        {
-            InstallDate = date;
-        }
 
         /// <summary>
-        ///     设置拆下时间
+        ///     设置操作时间
         /// </summary>
-        /// <param name="date">拆下时间</param>
-        public void SetRemoveDate(DateTime? date)
+        /// <param name="date">操作时间</param>
+        public void SetActionDate(DateTime date)
         {
-            RemoveDate = date;
+            ActionDate = date;
         }
-
 
         /// <summary>
         ///     设置CSN
@@ -198,20 +197,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
 
 
         /// <summary>
-        ///     设置CSR
-        /// </summary>
-        /// <param name="csr">CSR</param>
-        public void SetCSR(int csr)
-        {
-            if (csr < 0)
-            {
-                throw new ArgumentException("CSR参数不能为负数！");
-            }
-
-            CSR = csr;
-        }
-
-        /// <summary>
         ///     设置TSN
         /// </summary>
         /// <param name="tsn">TSN</param>
@@ -223,20 +208,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
             }
 
             TSN = tsn;
-        }
-
-        /// <summary>
-        ///     设置TSR
-        /// </summary>
-        /// <param name="tsr">TSR</param>
-        public void SetTSR(decimal tsr)
-        {
-            if (tsr < 0)
-            {
-                throw new ArgumentException("TSR参数不能为负数！");
-            }
-
-            TSR = tsr;
         }
 
         /// <summary>
@@ -253,37 +224,25 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
             AircraftId = aircraft.Id;
         }
 
-
         /// <summary>
-        ///     设置装上记录
+        ///     设置拆换记录
         /// </summary>
-        /// <param name="installRecord">装上记录</param>
-        public void SetInstallRecord(SnRemInstRecord installRecord)
+        /// <param name="remInstRecord">拆换记录</param>
+        public void SetRemInstRecord(SnRemInstRecord remInstRecord)
         {
-            if (installRecord == null || installRecord.IsTransient())
+            if (remInstRecord != null)
             {
-                throw new ArgumentException("装上指令为空！");
-            }
-
-            InstallRecordId = installRecord.Id;
-            InstallRecord = installRecord;
-        }
-
-        /// <summary>
-        ///     设置拆下记录
-        /// </summary>
-        /// <param name="removeRecord">拆下记录</param>
-        public void SetRemoveRecord(SnRemInstRecord removeRecord)
-        {
-            if (removeRecord != null)
-            {
-                RemoveRecordId = removeRecord.Id;
-                RemoveRecord = removeRecord;
+                RemInstRecordId = remInstRecord.Id;
+                RemInstRecord = remInstRecord;
             }
             else
             {
-                RemoveRecordId = null;
-                RemoveRecord = null;
+                if (ActionType != ActionType.不拆换)
+                {
+                    throw new ArgumentException("拆换记录外键不能为空！");
+                }
+                RemInstRecordId = null;
+                RemInstRecord = null;
             }
         }
         #endregion

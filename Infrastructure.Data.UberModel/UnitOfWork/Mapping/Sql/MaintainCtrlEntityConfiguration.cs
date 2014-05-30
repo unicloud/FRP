@@ -32,9 +32,15 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(p => p.CtrlStrategy).HasColumnName("CtrlStrategy");
+            Ignore(x => x.XmlContent);
 
-            HasMany(o => o.MaintainCtrlLines).WithRequired().HasForeignKey(o => o.MaintainCtrlId);
+            Property(p => p.CtrlDetail).HasColumnName("CtrlDetail").HasColumnType("xml");
+            Property(p => p.Description).HasColumnName("Description");
+            Property(p => p.CtrlStrategy).HasColumnName("CtrlStrategy");
+            Property(p => p.MaintainWorkId).HasColumnName("MaintainWorkId");
+
+            HasOptional(p => p.MaintainWork).WithMany().HasForeignKey(o => o.MaintainWorkId);
+
         }
 
     }

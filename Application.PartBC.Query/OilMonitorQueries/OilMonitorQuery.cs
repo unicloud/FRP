@@ -48,10 +48,6 @@ namespace UniCloud.Application.PartBC.Query.OilMonitorQueries
                     {
                         Id = o.Id,
                         Sn = o.Sn,
-                        TSN = o.TSN,
-                        TSR = o.TSR,
-                        CSN = o.CSN,
-                        CSR = o.CSR,
                         Status = (int) o.MonitorStatus
                     });
             return result;
@@ -67,10 +63,6 @@ namespace UniCloud.Application.PartBC.Query.OilMonitorQueries
                     {
                         Id = o.Id,
                         Sn = o.Sn,
-                        TSN = o.TSN,
-                        TSR = o.TSR,
-                        CSN = o.CSN,
-                        CSR = o.CSR,
                         Status = (int) o.MonitorStatus
                     });
             return result;

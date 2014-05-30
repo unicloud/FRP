@@ -17,6 +17,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
@@ -48,33 +49,26 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
         /// <param name="snReg">序号件</param>
         /// <param name="pnReg">附件</param>
         /// <param name="csn">CSN，自装机以来使用循环</param>
-        /// <param name="csr">CSR，自上一次修理以来使用循环</param>
         /// <param name="tsn">TSN，自装机以来使用小时数</param>
-        /// <param name="tsr">TSR，自上一次修理以来使用小时数</param>
+        /// <param name="actionType">操作类型</param>
         /// <param name="aircraft">装机所在飞机</param>
-        /// <param name="installDate">装上日期</param>
-        /// <param name="removeDate">拆下日期</param>
-        /// <param name="installRecord">装上记录</param>
-        /// <param name="removeRecord">拆下记录</param>
+        /// <param name="actionDate">操作日期</param>
+        /// <param name="remInstRecord">拆换记录</param>
         /// <returns></returns>
-        public static SnHistory CreateSnHistory(SnReg snReg, PnReg pnReg, int csn, int csr, decimal tsn,
-            decimal tsr, Aircraft aircraft,
-            DateTime installDate, DateTime? removeDate, SnRemInstRecord installRecord, SnRemInstRecord removeRecord)
+        public static SnHistory CreateSnHistory(SnReg snReg, PnReg pnReg, int csn, decimal tsn, int actionType,
+             Aircraft aircraft,DateTime actionDate, SnRemInstRecord remInstRecord)
         {
             var snHistory = new SnHistory();
             snHistory.CreateDate = DateTime.Now;
             snHistory.GenerateNewIdentity();
             snHistory.SetAircraft(aircraft);
-            snHistory.SetInstallDate(installDate);
-            snHistory.SetRemoveDate(removeDate); 
+            snHistory.SetActionDate(actionDate);
+            snHistory.SetActionType((ActionType)actionType);
             snHistory.SetSn(snReg);
             snHistory.SetPn(pnReg);
             snHistory.SetCSN(csn);
-            snHistory.SetCSR(csr);
             snHistory.SetTSN(tsn);
-            snHistory.SetTSR(tsr);
-            snHistory.SetInstallRecord(installRecord);
-            snHistory.SetRemoveRecord(removeRecord);
+            snHistory.SetRemInstRecord(remInstRecord);
             return snHistory;
         }
     }

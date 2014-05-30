@@ -105,7 +105,6 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ItemMaintainCtrlEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\LifeMonitorEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainCtrlEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\MaintainCtrlLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainWorkEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ModEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OilMonitorEntityConfiguration.cs" />

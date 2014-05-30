@@ -34,24 +34,11 @@ namespace UniCloud.Presentation.Service.Part.Part.Enums
     /// </summary>
     public enum SnStatus
     {
-        NotAgree = 0,
-        Stored = 1,
-        InTransfer = 3,
-        FlightKit = 4,
-        Lent = 5,
-        InLocalRepair = 11,
-        InOutsideRepair = 12,
-        InRepairOnOtherSite = 13,
-        ToolsWithPersonalInventoryDocument = 20,
-        WorkshopOk = 21,
-        InStoreUorS = 22,
-        WorkshopUorS = 23,
-        Unknown = 25,
-        TemporaryScrap = 31,
-        Scrapped = 32,
-        NewReference = 36,
-        OnAircraft = 41,
-        NotFollowed = 42,
-        ToBeRepaired = 46,
+        装机 = 0,
+        在库 = 1,
+        在修 = 2,
+        出租 = 3,
+        出售 = 4,
+        报废 = 5,
     }
 }

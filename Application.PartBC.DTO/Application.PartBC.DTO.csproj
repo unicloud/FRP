@@ -74,7 +74,6 @@
     <Compile Include="InstallControllerDTO\InstallControllerDTO.cs" />
     <Compile Include="ItemDTO\ItemDTO.cs" />
     <Compile Include="MaintainCtrlDTO\ItemMaintainCtrlDTO.cs" />
-    <Compile Include="MaintainCtrlDTO\MaintainCtrlLineDTO.cs" />
     <Compile Include="MaintainCtrlDTO\PnMaintainCtrlDTO.cs" />
     <Compile Include="MaintainCtrlDTO\SnMaintainCtrlDTO.cs" />
     <Compile Include="MaintainWorkDTO\MaintainWorkDTO.cs" />

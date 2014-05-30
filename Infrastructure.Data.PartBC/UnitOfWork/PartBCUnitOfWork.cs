@@ -331,7 +331,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
                 .Add(new ItemMaintainCtrlEntityConfiguration())
                 .Add(new PnMaintainCtrlEntityConfiguration())
                 .Add(new SnMaintainCtrlEntityConfiguration())
-                .Add(new MaintainCtrlLineEntityConfiguration())
 
             #endregion
 

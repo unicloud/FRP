@@ -22,6 +22,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg
     /// <summary>
     /// CtrlUnit聚合根。
     /// 维修控制单位
+    /// 包含飞行小时，飞行循环，日历天，日历月
     /// </summary>
     public class CtrlUnit : EntityInt, IValidatableObject
     {

@@ -20,7 +20,6 @@ using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
-using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -45,7 +44,6 @@ namespace UniCloud.Application.PartBC.Query.SnHistoryQueries
             QueryBuilder<SnHistory> query)
         {
             var dbAircrafts = _unitOfWork.CreateSet<Aircraft>();
-            var dbSnRemInstRecords = _unitOfWork.CreateSet<SnRemInstRecord>();
 
             return query.ApplyTo(_unitOfWork.CreateSet<SnHistory>()).Select(p => new SnHistoryDTO
             {
@@ -55,18 +53,13 @@ namespace UniCloud.Application.PartBC.Query.SnHistoryQueries
                 Pn = p.Pn,
                 PnRegId = p.PnRegId,
                 CSN = p.CSN,
-                CSR = p.CSR,
                 TSN = p.TSN,
-                TSR = p.TSR,
                 AircraftId = p.AircraftId,
-                InstallDate = p.InstallDate,
-                RemoveDate = p.RemoveDate,
-                InstallReason = dbSnRemInstRecords.FirstOrDefault(l=>l.Id==p.InstallRecordId).Reason,
-                RemoveReason = dbSnRemInstRecords.FirstOrDefault(l => l.Id == p.RemoveRecordId).Reason,
-                InstallActionNo = dbSnRemInstRecords.FirstOrDefault(l=>l.Id==p.InstallRecordId).ActionNo,
-                RemoveActionNo = dbSnRemInstRecords.FirstOrDefault(l => l.Id == p.RemoveRecordId).ActionNo,
-                InstallRecordId = p.InstallRecordId,
-                RemoveRecordId = p.RemoveRecordId,
+                ActionDate = p.ActionDate,
+                ActionType = (int)p.ActionType,
+                ActionNo = p.RemInstRecord.ActionNo,
+                ActionReason = p.RemInstRecord.Reason,
+                RemInstRecordId = p.RemInstRecordId,
                 RegNumber = dbAircrafts.FirstOrDefault(c => c.Id == p.AircraftId).RegNumber,
             });
         }

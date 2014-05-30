@@ -86,42 +86,6 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
-        ///  TSN，自装机以来使用小时数
-        /// </summary>
-        public decimal TSN
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// TSR，自上一次修理以来使用小时数
-        /// </summary>
-        public decimal TSR
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        ///  CSN，自装机以来使用循环
-        /// </summary>
-        public decimal CSN
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// CSR，自上一次修理以来使用循环
-        /// </summary>
-        public decimal CSR
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         ///     序号件状态
         /// </summary>
         public int Status
@@ -138,6 +102,16 @@ namespace UniCloud.Application.PartBC.DTO
             get;
             set;
         }
+
+        /// <summary>
+        /// LifeContainStoreTime(时寿是否包含在库时间)
+        /// </summary>
+        public bool IsLifeCst { get; set; }
+
+        /// <summary>
+        /// 在库时间折算成飞行小时的比率
+        /// </summary>
+        public decimal Rate { get; set; }
 
         #endregion
 

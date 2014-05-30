@@ -50,7 +50,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg
         public string ActionNo { get; private set; }
 
         /// <summary>
-        ///     拆换时间
+        ///     拆换开始日期
         /// </summary>
         public DateTime ActionDate { get; private set; }
 
@@ -101,9 +101,9 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg
         }
 
         /// <summary>
-        ///     设置拆换时间
+        ///     设置拆换开始日期
         /// </summary>
-        /// <param name="date">拆换时间</param>
+        /// <param name="date">拆换开始日期</param>
         public void SetActionDate(DateTime date)
         {
             ActionDate = date;
@@ -125,6 +125,9 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg
                     break;
                 case ActionType.拆换:
                     ActionType = ActionType.拆换;
+                    break;
+                case ActionType.不拆换:
+                    ActionType = ActionType.不拆换;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("actionType");

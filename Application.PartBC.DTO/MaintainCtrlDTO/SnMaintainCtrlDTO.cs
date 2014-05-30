@@ -14,9 +14,10 @@
 #endregion
 
 #region 命名空间
-using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
+using System.Xml.Linq;
+
 #endregion
 
 namespace UniCloud.Application.PartBC.DTO
@@ -28,9 +29,7 @@ namespace UniCloud.Application.PartBC.DTO
     public class SnMaintainCtrlDTO
     {
         #region 私有字段
-
-        private List<MaintainCtrlLineDTO> _maintainCtrlLines;
-
+        
         #endregion
 
         #region 属性
@@ -56,18 +55,42 @@ namespace UniCloud.Application.PartBC.DTO
             get;
             set;
         }
+
+        /// <summary>
+        /// 描述信息
+        /// </summary>
+        public string WorkCode { get; set; }
+
+        /// <summary>
+        /// 描述信息
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 维修控制明细
+        /// </summary>
+        public string CtrlDetail { get; set; }
+
+        /// <summary>
+        /// 维修控制明细
+        /// </summary>
+        public XElement XmlContent
+        {
+            get { return XElement.Parse(CtrlDetail); }
+            set { CtrlDetail = value.ToString(); }
+        }
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        ///  维修工作外键
+        /// </summary>
+        public int? MaintainWorkId { get; set; }
+
         #endregion
 
         #region 导航属性
-
-        /// <summary>
-        ///     维修控制明细
-        /// </summary>
-        public virtual List<MaintainCtrlLineDTO> MaintainCtrlLines
-        {
-            get { return _maintainCtrlLines ?? (_maintainCtrlLines = new List<MaintainCtrlLineDTO>()); }
-            set { _maintainCtrlLines = value; }
-        }
 
         #endregion
 

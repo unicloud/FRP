@@ -20,7 +20,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
 using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.UberModel.Aggregates.MaintainWorkAgg;
 
 #endregion
 
@@ -34,7 +36,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
     {
         #region 私有字段
 
-        private HashSet<MaintainCtrlLine> _maintainCtrlLines;
 
         #endregion
 
@@ -54,25 +55,43 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
 
         /// <summary>
         ///     控制策略
+        ///     目前分为：“先到为准”和“后到为准”两种策略
         /// </summary>
         public ControlStrategy CtrlStrategy { get; private set; }
+
+        /// <summary>
+        /// 描述信息
+        /// </summary>
+        public string Description { get; private set; }
+
+        /// <summary>
+        /// 维修控制明细
+        /// </summary>
+        public string CtrlDetail { get; private set; }
+
+        /// <summary>
+        /// 维修控制明细
+        /// </summary>
+        public XElement XmlContent
+        {
+            get { return XElement.Parse(CtrlDetail); }
+            set { CtrlDetail = value.ToString(); }
+        }
 
         #endregion
 
         #region 外键属性
+
+        public int? MaintainWorkId { get; private set; }
 
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        ///     维修控制明细
+        /// 维修工作
         /// </summary>
-        public virtual ICollection<MaintainCtrlLine> MaintainCtrlLines
-        {
-            get { return _maintainCtrlLines ?? (_maintainCtrlLines = new HashSet<MaintainCtrlLine>()); }
-            set { _maintainCtrlLines = new HashSet<MaintainCtrlLine>(value); }
-        }
+        public MaintainWork MaintainWork { get; set; }
 
         #endregion
 
@@ -86,32 +105,52 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
         {
             switch (ctrlStrategy)
             {
-                case ControlStrategy.区间交集:
-                    CtrlStrategy = ControlStrategy.区间交集;
+                case ControlStrategy.先到为准:
+                    CtrlStrategy = ControlStrategy.先到为准;
                     break;
-                case ControlStrategy.区间并集:
-                    CtrlStrategy = ControlStrategy.区间并集;
+                case ControlStrategy.后到为准:
+                    CtrlStrategy = ControlStrategy.后到为准;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("ctrlStrategy");
             }
         }
 
+
         /// <summary>
-        ///     新增维修控制明细
+        ///     设置维修工作
         /// </summary>
-        /// <returns></returns>
-        public MaintainCtrlLine AddNewMaintainCtrlLine()
+        /// <param name="maintainWork">维修工作</param>
+        public void SetMaintainWork(MaintainWork maintainWork)
         {
-            var maintainCtrlLine = new MaintainCtrlLine
+            if (maintainWork == null)
             {
-                MaintainCtrlId = Id,
-            };
+                MaintainWork = null;
+                MaintainWorkId = null;
+            }
+            else
+            {
+                MaintainWork = maintainWork;
+                MaintainWorkId = maintainWork.Id;
+            }
+        }
 
-            maintainCtrlLine.GenerateNewIdentity();
-            MaintainCtrlLines.Add(maintainCtrlLine);
+        /// <summary>
+        /// 设置描述信息
+        /// </summary>
+        /// <param name="description"></param>
+        public void SetDescription(string description)
+        {
+            Description = description;
+        }
 
-            return maintainCtrlLine;
+        /// <summary>
+        /// 设置维修控制明细
+        /// </summary>
+        /// <param name="ctrlDetail"></param>
+        public void SetCtrlDetail(string ctrlDetail)
+        {
+            CtrlDetail = ctrlDetail;
         }
 
         #endregion

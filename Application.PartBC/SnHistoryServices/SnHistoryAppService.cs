@@ -21,6 +21,7 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.SnHistoryQueries;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
@@ -83,11 +84,10 @@ namespace UniCloud.Application.PartBC.SnHistoryServices
             var snReg = _snRegRepository.Get(dto.SnRegId);
             var pnReg = _pnRegRepository.Get(dto.PnRegId);
             var aircraft = _aircraftRepository.Get(dto.AircraftId);
-            var installRecord = _snRemInstRecordRepository.Get(dto.InstallRecordId);
-            var removeRecord = _snRemInstRecordRepository.Get(dto.RemoveRecordId);
+            var remInstRecord = _snRemInstRecordRepository.Get(dto.RemInstRecordId);
 
             var newSnHistory = SnHistoryFactory.CreateSnHistory(snReg, pnReg,
-                dto.CSN, dto.CSR, dto.TSN, dto.TSR, aircraft, dto.InstallDate, dto.RemoveDate, installRecord, removeRecord);
+                dto.CSN, dto.TSN, dto.ActionType, aircraft, dto.ActionDate, remInstRecord);
 
             _snHistoryRepository.Add(newSnHistory);
         }
@@ -102,8 +102,7 @@ namespace UniCloud.Application.PartBC.SnHistoryServices
             var snReg = _snRegRepository.Get(dto.SnRegId);
             var pnReg = _pnRegRepository.Get(dto.PnRegId);
             var aircraft = _aircraftRepository.Get(dto.AircraftId);
-            var installRecord = _snRemInstRecordRepository.Get(dto.InstallRecordId);
-            var removeRecord = _snRemInstRecordRepository.Get(dto.RemoveRecordId);
+            var remInstRecord = _snRemInstRecordRepository.Get(dto.RemInstRecordId);
 
             var updateSnHistory = _snHistoryRepository.Get(dto.Id); //获取需要更新的对象。
 
@@ -111,16 +110,13 @@ namespace UniCloud.Application.PartBC.SnHistoryServices
             {
                 //更新。
                 updateSnHistory.SetAircraft(aircraft);
-                updateSnHistory.SetInstallDate(dto.InstallDate);
-                updateSnHistory.SetRemoveDate(dto.RemoveDate);
+                updateSnHistory.SetActionDate(dto.ActionDate);
+                updateSnHistory.SetActionType((ActionType)dto.ActionType);
                 updateSnHistory.SetSn(snReg);
                 updateSnHistory.SetPn(pnReg);
                 updateSnHistory.SetCSN(dto.CSN);
-                updateSnHistory.SetCSR(dto.CSR);
                 updateSnHistory.SetTSN(dto.TSN);
-                updateSnHistory.SetTSR(dto.TSR);
-                updateSnHistory.SetInstallRecord(installRecord);
-                updateSnHistory.SetRemoveRecord(removeRecord);
+                updateSnHistory.SetRemInstRecord(remInstRecord);
                 _snHistoryRepository.Modify(updateSnHistory);
             }
         }

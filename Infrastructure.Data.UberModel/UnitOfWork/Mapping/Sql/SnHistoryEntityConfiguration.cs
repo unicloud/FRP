@@ -39,19 +39,15 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.SnRegId).HasColumnName("SnRegId");
             Property(p => p.Pn).HasColumnName("Pn").HasMaxLength(100);
             Property(p => p.PnRegId).HasColumnName("PnRegId");
-            Property(p => p.InstallDate).HasColumnName("InstallDate").HasColumnType("datetime2");
-            Property(p => p.RemoveDate).HasColumnName("RemoveDate").HasColumnType("datetime2");
-            Property(p => p.InstallRecordId).HasColumnName("InstallRecordId");
-            Property(p => p.RemoveRecordId).HasColumnName("RemoveRecordId");
+            Property(p => p.ActionDate).HasColumnName("ActionDate").HasColumnType("datetime2");
+            Property(p => p.ActionType).HasColumnName("ActionType");
+            Property(p => p.RemInstRecordId).HasColumnName("RemInstRecordId");
             Property(p => p.CSN).HasColumnName("CSN");
-            Property(p => p.CSR).HasColumnName("CSR");
             Property(p => p.TSN).HasColumnName("TSN");
-            Property(p => p.TSR).HasColumnName("TSR");
             Property(p => p.AircraftId).HasColumnName("AircraftId");
             Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
 
-            HasRequired(o => o.InstallRecord).WithMany().HasForeignKey(o => o.InstallRecordId);
-            HasOptional(o => o.RemoveRecord).WithMany().HasForeignKey(o => o.RemoveRecordId);
+            HasOptional(o => o.RemInstRecord).WithMany().HasForeignKey(o => o.RemInstRecordId);
 
         }
     }

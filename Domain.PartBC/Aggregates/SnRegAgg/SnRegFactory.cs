@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
 
@@ -38,28 +39,16 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// <param name="installDate">初始安装日期</param>
         /// <param name="pnReg">附件</param>
         /// <param name="sn">序号</param>
-        /// <param name="tsn">TSN</param>
-        /// <param name="tsr">TSR</param>
-        /// <param name="csn">CSN</param>
-        /// <param name="csr">CSR</param>
         /// <returns>序号件</returns>
         public static SnReg CreateSnReg(
             DateTime installDate,
             PnReg pnReg,
-            string sn,
-            decimal tsn,
-            decimal tsr,
-            decimal csn,
-            decimal csr)
+            string sn)
         {
             var snReg = new SnReg
             {
                 InstallDate = installDate,
                 Sn = sn,
-                TSN = tsn,
-                TSR = tsr,
-                CSN = csn,
-                CSR = csr
             };
             snReg.GenerateNewIdentity();
             snReg.SetPnReg(pnReg);
@@ -76,33 +65,24 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// <param name="pnReg">附件</param>
         /// <param name="thrust"></param>
         /// <param name="sn">序号</param>
-        /// <param name="tsn">TSN</param>
-        /// <param name="tsr">TSR</param>
-        /// <param name="csn">CSN</param>
-        /// <param name="csr">CSR</param>
         /// <returns>发动机序号件</returns>
         public static EngineReg CreateEngineReg(
             DateTime installDate,
             PnReg pnReg,
             Thrust thrust,
-            string sn,
-            decimal tsn,
-            decimal tsr,
-            decimal csn,
-            decimal csr)
+            string sn)
         {
             var engineReg = new EngineReg
             {
                 InstallDate = installDate,
                 Sn = sn,
-                TSN = tsn,
-                TSR = tsr,
-                CSN = csn,
-                CSR = csr
             };
             engineReg.GenerateNewIdentity();
             engineReg.SetPnReg(pnReg);
             engineReg.SetThrust(thrust);
+            engineReg.SetSnStatus(SnStatus.装机);
+            engineReg.SetIsLife(false, false, 0);
+            engineReg.SetMonitorStatus((OilMonitorStatus.正常));
             engineReg.CreateDate = DateTime.Now;
             engineReg.UpdateDate = DateTime.Now;
 
@@ -115,31 +95,22 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// <param name="installDate">初始安装日期</param>
         /// <param name="pnReg">附件</param>
         /// <param name="sn">序号</param>
-        /// <param name="tsn">TSN</param>
-        /// <param name="tsr">TSR</param>
-        /// <param name="csn">CSN</param>
-        /// <param name="csr">CSR</param>
         /// <returns>APU序号件</returns>
         public static APUReg CreateAPUReg(
             DateTime installDate,
             PnReg pnReg,
-            string sn,
-            decimal tsn,
-            decimal tsr,
-            decimal csn,
-            decimal csr)
+            string sn)
         {
             var apuReg = new APUReg
             {
                 InstallDate = installDate,
                 Sn = sn,
-                TSN = tsn,
-                TSR = tsr,
-                CSN = csn,
-                CSR = csr
             };
             apuReg.GenerateNewIdentity();
             apuReg.SetPnReg(pnReg);
+            apuReg.SetSnStatus(SnStatus.装机);
+            apuReg.SetIsLife(false, false, 0);
+            apuReg.SetMonitorStatus((OilMonitorStatus.正常));
             apuReg.CreateDate = DateTime.Now;
             apuReg.UpdateDate = DateTime.Now;
 
@@ -157,27 +128,15 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// <param name="installDate">初始安装日期</param>
         /// <param name="pnReg">附件</param>
         /// <param name="sn">序号</param>
-        /// <param name="tsn">TSN</param>
-        /// <param name="tsr">TSR</param>
-        /// <param name="csn">CSN</param>
-        /// <param name="csr">CSR</param>
         /// <returns>序号件</returns>
         public static SnReg UpdateSnReg(
             SnReg updateSnReg,
             DateTime installDate,
             PnReg pnReg,
-            string sn,
-            decimal tsn,
-            decimal tsr,
-            decimal csn,
-            decimal csr)
+            string sn)
         {
             updateSnReg.InstallDate = installDate;
             updateSnReg.Sn = sn;
-            updateSnReg.TSN = tsn;
-            updateSnReg.TSR = tsr;
-            updateSnReg.CSN = csn;
-            updateSnReg.CSR = csr;
 
             updateSnReg.SetPnReg(pnReg);
             updateSnReg.UpdateDate = DateTime.Now;
@@ -192,29 +151,17 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// <param name="pnReg">附件</param>
         /// <param name="thrust"></param>
         /// <param name="sn">序号</param>
-        /// <param name="tsn">TSN</param>
-        /// <param name="tsr">TSR</param>
-        /// <param name="csn">CSN</param>
-        /// <param name="csr">CSR</param>
         /// <returns>发动机序号件</returns>
         public static EngineReg UpdateEngineReg(
             DateTime installDate,
             PnReg pnReg,
             Thrust thrust,
-            string sn,
-            decimal tsn,
-            decimal tsr,
-            decimal csn,
-            decimal csr)
+            string sn)
         {
             var engineReg = new EngineReg
             {
                 InstallDate = installDate,
                 Sn = sn,
-                TSN = tsn,
-                TSR = tsr,
-                CSN = csn,
-                CSR = csr
             };
             engineReg.GenerateNewIdentity();
             engineReg.SetPnReg(pnReg);
@@ -230,28 +177,16 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// <param name="installDate">初始安装日期</param>
         /// <param name="pnReg">附件</param>
         /// <param name="sn">序号</param>
-        /// <param name="tsn">TSN</param>
-        /// <param name="tsr">TSR</param>
-        /// <param name="csn">CSN</param>
-        /// <param name="csr">CSR</param>
         /// <returns>APU序号件</returns>
         public static APUReg UpdateAPUReg(
             DateTime installDate,
             PnReg pnReg,
-            string sn,
-            decimal tsn,
-            decimal tsr,
-            decimal csn,
-            decimal csr)
+            string sn)
         {
             var apuReg = new APUReg
             {
                 InstallDate = installDate,
                 Sn = sn,
-                TSN = tsn,
-                TSR = tsr,
-                CSN = csn,
-                CSR = csr
             };
             apuReg.GenerateNewIdentity();
             apuReg.SetPnReg(pnReg);
