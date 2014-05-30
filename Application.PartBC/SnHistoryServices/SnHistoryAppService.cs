@@ -87,7 +87,7 @@ namespace UniCloud.Application.PartBC.SnHistoryServices
             var remInstRecord = _snRemInstRecordRepository.Get(dto.RemInstRecordId);
 
             var newSnHistory = SnHistoryFactory.CreateSnHistory(snReg, pnReg,
-                dto.CSN, dto.TSN, dto.ActionType, aircraft, dto.ActionDate, remInstRecord);
+                dto.CSN, dto.TSN, dto.CSN2, dto.TSN2, dto.ActionType, aircraft, dto.ActionDate, remInstRecord, dto.Status);
 
             _snHistoryRepository.Add(newSnHistory);
         }

@@ -44,7 +44,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.AllPnName).HasColumnName("AllPnName");
             Property(p => p.IsLife).HasColumnName("IsLife");
             Property(p => p.IsLifeCst).HasColumnName("IsLifeCst");
-            Property(p => p.Rate).HasColumnName("Rate");
+            Property(p => p.TimeRate).HasColumnName("TimeRate");
+            Property(p => p.CycleRate).HasColumnName("CycleRate");
 
             Property(p => p.PnRegId).HasColumnName("PnRegId");
             Property(p => p.AircraftId).HasColumnName("AircraftId");

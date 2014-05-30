@@ -111,8 +111,12 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         /// 在库时间折算成飞行小时的比率
         /// </summary>
-        public decimal Rate { get; set; }
+        public decimal TimeRate { get; set; }
 
+        /// <summary>
+        /// 在库时间折算成飞行循环的比率
+        /// </summary>
+        public decimal CycleRate { get; set; }
         #endregion
 
         #region 外键属性

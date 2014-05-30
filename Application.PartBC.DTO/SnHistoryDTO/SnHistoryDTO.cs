@@ -52,7 +52,7 @@ namespace UniCloud.Application.PartBC.DTO
         public DateTime ActionDate { get; set; }
 
         /// <summary>
-        /// 操作类型 拆下/装上/不拆换
+        /// 操作类型 拆下/装上/非拆换
         /// </summary>
         public int ActionType { get; set; }
 
@@ -75,6 +75,21 @@ namespace UniCloud.Application.PartBC.DTO
         ///     TSN，自装机以来使用小时数
         /// </summary>
         public decimal TSN { get; set; }
+
+        /// <summary>
+        ///     CSN的基础上再累加在库时间折算的使用循环数
+        /// </summary>
+        public int CSN2 { get; set; }
+
+        /// <summary>
+        ///     TSN的基础上再累加在库时间折算的使用小时数
+        /// </summary>
+        public decimal TSN2 { get; set; }
+
+        /// <summary>
+        ///     序号件在历史节点上的状态
+        /// </summary>
+        public int Status { get; set; }
 
         /// <summary>
         ///     装机机号

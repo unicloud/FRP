@@ -55,8 +55,8 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
         /// <param name="actionDate">操作日期</param>
         /// <param name="remInstRecord">拆换记录</param>
         /// <returns></returns>
-        public static SnHistory CreateSnHistory(SnReg snReg, PnReg pnReg, int csn, decimal tsn, int actionType,
-             Aircraft aircraft,DateTime actionDate, SnRemInstRecord remInstRecord)
+        public static SnHistory CreateSnHistory(SnReg snReg, PnReg pnReg, int csn, decimal tsn,int csn2,decimal tsn2, int actionType,
+             Aircraft aircraft,DateTime actionDate, SnRemInstRecord remInstRecord,int status)
         {
             var snHistory = new SnHistory();
             snHistory.CreateDate = DateTime.Now;
@@ -68,6 +68,9 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
             snHistory.SetPn(pnReg);
             snHistory.SetCSN(csn);
             snHistory.SetTSN(tsn);
+            snHistory.SetCSN2(csn2);
+            snHistory.SetTSN2(tsn2);
+            snHistory.SetSnStatus((SnStatus)status);
             snHistory.SetRemInstRecord(remInstRecord);
             return snHistory;
         }

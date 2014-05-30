@@ -70,7 +70,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
         public DateTime ActionDate { get; private set; }
 
         /// <summary>
-        /// 操作类型 拆下/装上/不拆换
+        /// 操作类型 拆下/装上/非拆换
         /// </summary>
         public ActionType ActionType { get; private set; }
 
@@ -84,6 +84,20 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
         /// </summary>
         public decimal TSN { get; private set; }
 
+        /// <summary>
+        ///     CSN的基础上再累加在库时间折算的使用循环数
+        /// </summary>
+        public int CSN2 { get; private set; }
+
+        /// <summary>
+        ///     TSN的基础上再累加在库时间折算的使用小时数
+        /// </summary>
+        public decimal TSN2 { get; private set; }
+
+        /// <summary>
+        ///     序号件在历史节点上的状态
+        /// </summary>
+        public SnStatus Status { get; private set; }
         #endregion
 
         #region 外键属性
@@ -117,6 +131,38 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置序号件状态
+        /// </summary>
+        /// <param name="status">序号件状态</param>
+        public void SetSnStatus(SnStatus status)
+        {
+            switch (status)
+            {
+                case SnStatus.装机:
+                    Status = SnStatus.装机;
+                    break;
+                case SnStatus.在库:
+                    Status = SnStatus.在库;
+                    break;
+                case SnStatus.在修:
+                    Status = SnStatus.在修;
+                    break;
+                case SnStatus.出租:
+                    Status = SnStatus.出租;
+                    break;
+                case SnStatus.出售:
+                    Status = SnStatus.出售;
+                    break;
+                case SnStatus.报废:
+                    Status = SnStatus.报废;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
+
         /// <summary>
         ///     设置拆换类型
         /// </summary>
@@ -134,8 +180,8 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
                 case ActionType.拆换:
                     ActionType = ActionType.拆换;
                     break;
-                case ActionType.不拆换:
-                    ActionType = ActionType.不拆换;
+                case ActionType.非拆换:
+                    ActionType = ActionType.非拆换;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("actionType");
@@ -211,6 +257,35 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
         }
 
         /// <summary>
+        ///     设置CSN2
+        /// </summary>
+        /// <param name="csn">CSN</param>
+        public void SetCSN2(int csn)
+        {
+            if (csn < 0)
+            {
+                throw new ArgumentException("CSN2参数不能为负数！");
+            }
+
+            CSN2 = csn;
+        }
+
+
+        /// <summary>
+        ///     设置TSN2
+        /// </summary>
+        /// <param name="tsn">TSN</param>
+        public void SetTSN2(decimal tsn)
+        {
+            if (tsn < 0)
+            {
+                throw new ArgumentException("TSN2参数不能为负数！");
+            }
+
+            TSN2 = tsn;
+        }
+
+        /// <summary>
         ///     设置飞机
         /// </summary>
         /// <param name="aircraft">飞机</param>
@@ -237,7 +312,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
             }
             else
             {
-                if (ActionType != ActionType.不拆换)
+                if (ActionType != ActionType.非拆换)
                 {
                     throw new ArgumentException("拆换记录外键不能为空！");
                 }

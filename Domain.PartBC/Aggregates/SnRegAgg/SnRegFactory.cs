@@ -81,7 +81,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
             engineReg.SetPnReg(pnReg);
             engineReg.SetThrust(thrust);
             engineReg.SetSnStatus(SnStatus.装机);
-            engineReg.SetIsLife(false, false, 0);
+            engineReg.SetIsLife(false, false, 0, 0);
             engineReg.SetMonitorStatus((OilMonitorStatus.正常));
             engineReg.CreateDate = DateTime.Now;
             engineReg.UpdateDate = DateTime.Now;
@@ -109,7 +109,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
             apuReg.GenerateNewIdentity();
             apuReg.SetPnReg(pnReg);
             apuReg.SetSnStatus(SnStatus.装机);
-            apuReg.SetIsLife(false, false, 0);
+            apuReg.SetIsLife(false, false, 0, 0);
             apuReg.SetMonitorStatus((OilMonitorStatus.正常));
             apuReg.CreateDate = DateTime.Now;
             apuReg.UpdateDate = DateTime.Now;

@@ -86,7 +86,7 @@ namespace UniCloud.Application.PartBC.SnRegServices
             //创建序号件
             SnReg newSnReg = SnRegFactory.CreateSnReg(dto.InstallDate, pnReg, dto.Sn);
             newSnReg.SetAircraft(aircraft);
-            newSnReg.SetIsLife(dto.IsLife, dto.IsLifeCst, dto.Rate);
+            newSnReg.SetIsLife(dto.IsLife, dto.IsLifeCst, dto.TimeRate,dto.CycleRate);
             newSnReg.SetSnStatus((SnStatus)dto.Status);
             //添加到寿监控
             dto.LiftMonitors.ToList().ForEach(lifeMonitor => InsertLifeMonitor(newSnReg, lifeMonitor));
@@ -112,7 +112,7 @@ namespace UniCloud.Application.PartBC.SnRegServices
                 //更新主表：
                 SnRegFactory.UpdateSnReg(updateSnReg, dto.InstallDate, pnReg, dto.Sn);
                 updateSnReg.SetAircraft(aircraft);
-                updateSnReg.SetIsLife(dto.IsLife, dto.IsLifeCst, dto.Rate);
+                updateSnReg.SetIsLife(dto.IsLife, dto.IsLifeCst, dto.TimeRate,dto.CycleRate);
                 updateSnReg.SetSnStatus((SnStatus)dto.Status);
 
                 //更新到寿监控集合：

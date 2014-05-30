@@ -116,8 +116,12 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// <summary>
         /// 在库时间折算成飞行小时的比率
         /// </summary>
-        public decimal Rate { get; private set; }
+        public decimal TimeRate { get; private set; }
 
+        /// <summary>
+        /// 在库时间折算成飞行循环的比率
+        /// </summary>
+        public decimal CycleRate { get; private set; }
         #endregion
 
         #region 外键属性
@@ -191,14 +195,16 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// </summary>
         /// <param name="isLife">是否寿控件</param>
         /// <param name="isLifeCst">时寿是否包含在库时间</param>
-        /// <param name="rate">在库时间折算成飞行小时的比率</param>
-        public void SetIsLife(bool isLife, bool isLifeCst, decimal rate)
+        /// <param name="timeRate">在库时间折算成飞行小时的比率</param>
+        /// <param name="cycleRate">在库时间折算成飞行循环的比率</param>
+        public void SetIsLife(bool isLife, bool isLifeCst, decimal timeRate,decimal cycleRate)
         {
             IsLife = isLife;
             if (isLife)
             {
                 IsLifeCst = isLifeCst;
-                Rate = isLifeCst ? rate : 0;
+                TimeRate = isLifeCst ? timeRate : 0;
+                CycleRate = isLifeCst ? cycleRate : 0;
             }
         }
 

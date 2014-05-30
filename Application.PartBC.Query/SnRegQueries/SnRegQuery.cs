@@ -65,7 +65,8 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
                 Status = (int) p.Status,
                 IsLife = p.IsLife,
                 IsLifeCst = p.IsLifeCst,
-                Rate = p.Rate,
+                TimeRate = p.TimeRate,
+                CycleRate = p.CycleRate,
                 LiftMonitors = p.LifeMonitors.Select(q => new LifeMonitorDTO
                 {
                     Id = q.Id,

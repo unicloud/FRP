@@ -44,6 +44,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.RemInstRecordId).HasColumnName("RemInstRecordId");
             Property(p => p.CSN).HasColumnName("CSN");
             Property(p => p.TSN).HasColumnName("TSN");
+            Property(p => p.CSN2).HasColumnName("CSN2");
+            Property(p => p.TSN2).HasColumnName("TSN2");
+            Property(p => p.Status).HasColumnName("Status");
             Property(p => p.AircraftId).HasColumnName("AircraftId");
             Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
 

@@ -126,8 +126,8 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRemInstRecordAgg
                 case ActionType.拆换:
                     ActionType = ActionType.拆换;
                     break;
-                case ActionType.不拆换:
-                    ActionType = ActionType.不拆换;
+                case ActionType.非拆换:
+                    ActionType = ActionType.非拆换;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("actionType");
