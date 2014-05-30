@@ -24,6 +24,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
@@ -32,7 +33,7 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.QueryAnalyse
 {
-    [Export(typeof (FinancingDemandForecastVM))]
+    [Export(typeof(FinancingDemandForecastVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class FinancingDemandForecastVM : EditViewModelBase
     {
@@ -47,7 +48,8 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         private Size _zoom;
 
         [ImportingConstructor]
-        public FinancingDemandForecastVM(IRegionManager regionManager, IPaymentService service) : base(service)
+        public FinancingDemandForecastVM(IRegionManager regionManager, IPaymentService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -65,9 +67,18 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         private void InitializeVM()
         {
             Zoom = new Size(1, 1);
-            //RelatedDocs = Service.CreateCollection<RelatedDocDTO>(_purchaseData.RelatedDocs);
-            //Service.RegisterCollectionView(RelatedDocs); //注册查询集合。
-            //RelatedDocs.PropertyChanged += OnViewPropertyChanged;
+            PaymentSchedules = _service.CreateCollection(_context.PaymentSchedules);
+            PaymentSchedules.LoadedData += (o, e) =>
+                                           {
+                                               _loadPaymentSchedules = true;
+                                               LoadComplete();
+                                           };
+            BaseInvoices = _service.CreateCollection(_context.Invoices);
+            BaseInvoices.LoadedData += (o, e) =>
+                                       {
+                                           _loadInvoices = true;
+                                           LoadComplete();
+                                       };
         }
 
         /// <summary>
@@ -196,6 +207,16 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
             }
         }
 
+        #region 付款计划
+        public QueryableDataServiceCollectionView<PaymentScheduleDTO> PaymentSchedules { get; set; }
+        private bool _loadPaymentSchedules;
+        #endregion
+
+        #region 发票
+        public QueryableDataServiceCollectionView<BaseInvoiceDTO> BaseInvoices { get; set; }
+        private bool _loadInvoices;
+        #endregion
+
         /// <summary>
         ///     加载数据方法
         ///     <remarks>
@@ -205,42 +226,58 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         /// </summary>
         public override void LoadData()
         {
-            //RelatedDocs.AutoLoad = true;
-            LoadFinancingDemandData();
-            CreateViewFinancingDemandData();
+            _loadPaymentSchedules = false;
+            _loadInvoices = false;
+            PaymentSchedules.Load(true);
+            BaseInvoices.Load(true);
+            IsBusy = !(_loadPaymentSchedules && _loadInvoices);
         }
 
         #region 业务
 
-        public void LoadFinancingDemandData()
+        private void LoadComplete()
         {
-            _financingDemands.Clear();
-            var ro = new Random((int) DateTime.Now.Ticks);
-            for (int i = 0; i < 20; i++)
+            if (_loadInvoices && _loadPaymentSchedules)
             {
-                for (int j = 0; j < 12; j++)
-                {
-                    decimal amount = ro.Next(10000, 500000);
-                    decimal paidAmount = ro.Next(10000, 500000);
-                    var dataItem = new FinancingDemand
+                _financingDemands.Clear();
+                PaymentSchedules.ToList().ForEach(p => p.PaymentScheduleLines.ToList().ForEach(
+                    q =>
                     {
-                        Id = ro.Next(),
-                        TimeStamp = new DateTime(2001 + i, 1 + j, 1),
-                        Year = 2001 + i,
-                        Month = 1 + j,
-                        Amount = amount,
-                    };
-                    if (i < 13)
-                    {
-                        dataItem.PaidAmount = paidAmount;
-                        dataItem.RemainAmount = amount - paidAmount;
-                    }
-                    FinancingDemands.Add(dataItem);
-                }
+                        var dataItem =
+                            FinancingDemands.FirstOrDefault(
+                                a => a.Year == q.ScheduleDate.Year && a.Month == q.ScheduleDate.Month);
+                        if (dataItem == null)
+                        {
+                            dataItem = new FinancingDemand
+                            {
+                                TimeStamp = q.ScheduleDate.Date,
+                                Year = q.ScheduleDate.Year,
+                                Month = q.ScheduleDate.Month,
+                                Amount = q.Amount,
+                                PaidAmount =
+                                    BaseInvoices.Where(t => t.PaymentScheduleLineId == q.PaymentScheduleLineId)
+                                    .Sum(o => o.PaidAmount),
+                            };
+                            dataItem.RemainAmount = dataItem.Amount - dataItem.PaidAmount;
+                            FinancingDemands.Add(dataItem);
+                        }
+                        else
+                        {
+                            dataItem.Amount += q.Amount;
+                            dataItem.PaidAmount += BaseInvoices.Where(
+                                t => t.PaymentScheduleLineId == q.PaymentScheduleLineId)
+                                .Sum(o => o.PaidAmount);
+                            dataItem.RemainAmount = dataItem.Amount - dataItem.PaidAmount;
+                        }
+                    }));
+                RaisePropertyChanged(() => FinancingDemands);
+                CreateViewFinancingDemandData();
+                IsBusy = !(_loadPaymentSchedules && _loadInvoices);
             }
         }
 
-        public void CreateViewFinancingDemandData()
+
+        private void CreateViewFinancingDemandData()
         {
             if (FinancingDemands != null)
             {
@@ -263,9 +300,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
                     }
 
                     if (dataItem.TimeStamp < StartDate || dataItem.TimeStamp > EndDate) continue;
-                    dataItem.PaidAmount /= 10000;
-                    dataItem.RemainAmount /= 10000;
-                    dataItem.Amount /= 10000;
+
                     ViewFinancingDemands.Add(dataItem);
                 }
             }
@@ -276,8 +311,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         private ObservableCollection<FinancingDemand> _financingDemands = new ObservableCollection<FinancingDemand>();
 
 
-        private ObservableCollection<FinancingDemand> _viewFinancingDemands =
-            new ObservableCollection<FinancingDemand>();
+        private ObservableCollection<FinancingDemand> _viewFinancingDemands = new ObservableCollection<FinancingDemand>();
 
         /// <summary>
         ///     资金需求
@@ -285,7 +319,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         public ObservableCollection<FinancingDemand> FinancingDemands
         {
             get { return _financingDemands; }
-            private set
+            set
             {
                 if (_financingDemands != value)
                 {
@@ -301,7 +335,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         public ObservableCollection<FinancingDemand> ViewFinancingDemands
         {
             get { return _viewFinancingDemands; }
-            private set
+            set
             {
                 if (_viewFinancingDemands != value)
                 {
@@ -326,7 +360,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void checkbox_Checked(object sender, RoutedEventArgs e)
+        public void CheckboxChecked(object sender, RoutedEventArgs e)
         {
             var checkbox = sender as CheckBox;
             if (checkbox != null)
@@ -343,15 +377,18 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void checkbox_Unchecked(object sender, RoutedEventArgs e)
+        public void CheckboxUnchecked(object sender, RoutedEventArgs e)
         {
             var checkbox = sender as CheckBox;
             if (checkbox != null)
             {
-                var grid =
-                    (((checkbox.Parent as StackPanel).Parent as StackPanel).Parent as ScrollViewer).Parent as Grid;
-                (grid.Children[0] as RadCartesianChart).Series.FirstOrDefault(
-                    p => p.DisplayName == checkbox.Content.ToString()).Visibility = Visibility.Collapsed;
+                var stackPanel = checkbox.Parent as StackPanel;
+                if (stackPanel != null)
+                {
+                    var grid = ((stackPanel.Parent as StackPanel).Parent as ScrollViewer).Parent as Grid;
+                    (grid.Children[0] as RadCartesianChart).Series.FirstOrDefault(
+                        p => p.DisplayName == checkbox.Content.ToString()).Visibility = Visibility.Collapsed;
+                }
             }
         }
 

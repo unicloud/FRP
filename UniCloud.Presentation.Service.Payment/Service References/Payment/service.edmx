@@ -236,6 +236,7 @@
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="PaymentScheduleLineId" Type="Edm.Int32" />
       </EntityType>
       <EntityType Name="EngineMaintainInvoiceDTO">
         <Key>

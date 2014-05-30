@@ -51,6 +51,11 @@
                     <TextBlock Text="{Binding DataPoint.DataItem.Amount,StringFormat={StaticResource CurrencyStringFormat}}" />
                 </StackPanel>
             </DataTemplate>
+            <DataTemplate x:Key="PoinTemplate">
+                <Rectangle Fill="#FF5B5B5B"
+                           Width="4"
+                           Height="4" />
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <telerik:RadBusyIndicator BusyContent="{Binding BusyContent,Mode=TwoWay}"
@@ -111,24 +116,6 @@
                                                         <TextBlock Text="{Binding Value, StringFormat='\{0:N\}'}"
                                                                    Margin="4,3,4,9"
                                                                    FontFamily="Segoe UI" />
-                                                        <!--<TextBlock Text="{Binding DataItem.RegularCheckActual, StringFormat='年度定检 \{0:N\}'}"
-                                                       Margin="4,3,4,9"
-                                                       FontFamily="Segoe UI" />
-                                            <TextBlock Text="{Binding DataItem.NonFhaActual, StringFormat='非FHA.超包修 \{0:N\}'}"
-                                                       Margin="4,3,4,9"
-                                                       FontFamily="Segoe UI" />
-                                            <TextBlock Text="{Binding DataItem.UndercartActual, StringFormat='起落架 \{0:N\}'}"
-                                                       Margin="4,3,4,9"
-                                                       FontFamily="Segoe UI" />
-                                            <TextBlock Text="{Binding DataItem.SpecialRefitActual, StringFormat='特修改装 \{0:N\}'}"
-                                                       Margin="4,3,4,9"
-                                                       FontFamily="Segoe UI" />
-                                            <TextBlock Text="{Binding DataItem.FhaActual, StringFormat='FHA \{0:N\}'}"
-                                                       Margin="4,3,4,9"
-                                                       FontFamily="Segoe UI" />
-                                            <TextBlock Text="{Binding DataItem.ApuActual, StringFormat='APU \{0:N\}'}"
-                                                       Margin="4,3,4,9"
-                                                       FontFamily="Segoe UI" />-->
                                                     </StackPanel>
                                                 </Grid>
                                             </DataTemplate>
@@ -333,7 +320,11 @@
                         </telerik:RadCartesianChart.HorizontalAxis>
                         <telerik:RadCartesianChart.VerticalAxis>
                             <telerik:LinearAxis HorizontalAlignment="Right"
-                                                LabelInterval="4"></telerik:LinearAxis>
+                                                LabelFormat="0,,"
+                                                MajorStep="400000"
+                                                Minimum="100000"
+                                                Maximum="10000000"
+                                                LabelInterval="2"></telerik:LinearAxis>
                         </telerik:RadCartesianChart.VerticalAxis>
                         <telerik:RadCartesianChart.SeriesProvider>
                             <telerik:ChartSeriesProvider Source="{Binding Data}">
@@ -347,6 +338,8 @@
                                                         Value="{Binding Name, Converter={StaticResource NameToImageSourceConverter}}" />
                                                 <Setter Property="StrokeThickness"
                                                         Value="2" />
+                                                <Setter Property="PointTemplate"
+                                                        Value="{StaticResource PoinTemplate}" />
                                                 <Setter Property="TrackBallInfoTemplate"
                                                         Value="{StaticResource TrackballInfoTemplate}" />
                                             </Style>
@@ -385,7 +378,11 @@
                         </telerik:RadCartesianChart.HorizontalAxis>
                         <telerik:RadCartesianChart.VerticalAxis>
                             <telerik:LinearAxis HorizontalAlignment="Right"
-                                                LabelInterval="10"></telerik:LinearAxis>
+                                                LabelFormat="0,,"
+                                                MajorStep="400000"
+                                                Minimum="100000"
+                                                Maximum="10000000"
+                                                LabelInterval="2"></telerik:LinearAxis>
                         </telerik:RadCartesianChart.VerticalAxis>
                         <telerik:RadCartesianChart.SeriesProvider>
                             <telerik:ChartSeriesProvider Source="{Binding EngineData}">
@@ -399,6 +396,8 @@
                                                         Value="{Binding Name, Converter={StaticResource NameToImageSourceConverter}}" />
                                                 <Setter Property="StrokeThickness"
                                                         Value="2" />
+                                                <Setter Property="PointTemplate"
+                                                        Value="{StaticResource PoinTemplate}" />
                                                 <Setter Property="TrackBallInfoTemplate"
                                                         Value="{StaticResource TrackballInfoTemplate}" />
                                             </Style>

@@ -660,12 +660,9 @@
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 DataMemberBinding="{Binding ControlStatus}" />
-
                                                 </telerik:RadGridView.Columns>
                                             </telerik:RadGridView>
-
                                         </Grid>
-
                                     </telerik:RadPane>
                                 </telerik:RadPaneGroup>
                             </telerik:RadSplitContainer>
@@ -700,6 +697,7 @@
                                                                  CanUserSortColumns="True"
                                                                  CanUserFreezeColumns="False"
                                                                  IsFilteringAllowed="True"
+                                                                 IsReadOnly="True"
                                                                  FontSize="{StaticResource TextFontSize}"
                                                                  ItemsSource="{Binding MaintainPaymentSchedules,Mode=TwoWay}"
                                                                  SelectedItem="{Binding SelectMaintainPaymentSchedule,Mode=TwoWay}"
@@ -802,12 +800,9 @@
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 DataMemberBinding="{Binding ControlStatus}" />
-
                                                 </telerik:RadGridView.Columns>
                                             </telerik:RadGridView>
-
                                         </Grid>
-
                                     </telerik:RadPane>
                                 </telerik:RadPaneGroup>
                             </telerik:RadSplitContainer>
