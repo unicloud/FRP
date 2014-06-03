@@ -3,11 +3,11 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2014/4/16 0:51:52
-// 文件名：ActionType
+// 作者：HuangQiBin 时间：2014/6/3 16:16:31
+// 文件名：SnHistoryDTO
 // 版本：V1.0.0
 //
-// 修改者： 时间： 
+// 修改者：  时间：2014/6/3 16:16:31
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -24,18 +24,25 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using UniCloud.Presentation.Service.Part.Part.Enums;
 
 #endregion
 
-namespace UniCloud.Presentation.Service.Part.Part.Enums
+namespace UniCloud.Presentation.Service.Part.Part
 {
-    /// <summary>
-    ///     操作类型
-    /// </summary>
-    public enum ActionType
+    public partial class SnHistoryDTO
     {
-        装上 = 0,
-        拆下 = 1,
-        拆换 = 2,
+        partial void OnStatusChanged()
+        {
+            OnPropertyChanged("SnStatus");
+        }
+
+        public SnStatus SnStatus
+        {
+            get
+            {
+                return (SnStatus)Status;
+            }
+        }
     }
 }

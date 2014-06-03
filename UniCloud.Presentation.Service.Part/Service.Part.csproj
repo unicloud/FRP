@@ -112,6 +112,7 @@
     <Compile Include="Part\Enums\ScnType.cs" />
     <Compile Include="Part\Enums\SnStatus.cs" />
     <Compile Include="Part\ScnDTO.cs" />
+    <Compile Include="Part\SnHistoryDTO.cs" />
     <Compile Include="Part\SnRegDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\Part\Reference.cs">

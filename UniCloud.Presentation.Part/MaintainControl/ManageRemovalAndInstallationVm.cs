@@ -129,6 +129,14 @@ namespace UniCloud.Presentation.Part.MaintainControl
         }
 
         /// <summary>
+        ///     序号件状态
+        /// </summary>
+        public Dictionary<int, SnStatus> SnStatuss
+        {
+            get { return Enum.GetValues(typeof(SnStatus)).Cast<object>().ToDictionary(value => (int)value, value => (SnStatus)value); }
+        }
+
+        /// <summary>
         ///     所有的件号集合
         /// </summary>
         public QueryableDataServiceCollectionView<PnRegDTO> PnRegs { get; set; }
@@ -188,7 +196,8 @@ namespace UniCloud.Presentation.Part.MaintainControl
         }
 
         /// <summary>
-        /// 在库件（可用于装上的件集合）
+        /// 在库件（可用于装上的件集合:在库、在修、出租的都行）
+        /// 其中在修、出租的在系统中没有按正常入库流程考虑修完或出租收回的情况
         /// </summary>
         public ObservableCollection<SnRegDTO> InStoreSnRegs
         {
@@ -231,8 +240,8 @@ namespace UniCloud.Presentation.Part.MaintainControl
                     {
                         foreach (var snHistory in SnHistories.SourceCollection.Cast<SnHistoryDTO>())
                         {
-                            if (snHistory.InstallRecordId == value.Id) Installations.Add(snHistory);
-                            else if (snHistory.RemoveRecordId == value.Id) Removals.Add(snHistory);
+                            if (snHistory.RemInstRecordId == value.Id && snHistory.ActionType == (int)ActionType.装上) Installations.Add(snHistory);
+                            else if (snHistory.RemInstRecordId == value.Id && snHistory.ActionType == (int)ActionType.拆下) Removals.Add(snHistory);
                         }
                     }
                     SelInstallation = Installations.FirstOrDefault();
@@ -242,8 +251,8 @@ namespace UniCloud.Presentation.Part.MaintainControl
                     InStoreSnRegs = new ObservableCollection<SnRegDTO>();
                     if (value != null && value.AircraftId != Guid.Empty)
                     {
-                        OnBoardSnRegs.AddRange(SnRegs.Where(p => p.AircraftId == value.AircraftId));
-                        InStoreSnRegs.AddRange(SnRegs.Where(p => p.AircraftId == null || p.AircraftId == Guid.Empty));
+                        OnBoardSnRegs.AddRange(SnRegs.Where(p => p.SnStatus == SnStatus.装机));
+                        InStoreSnRegs.AddRange(SnRegs.Where(p => p.SnStatus == SnStatus.在库 || p.SnStatus == SnStatus.在修 || p.SnStatus == SnStatus.出租));
                         RaisePropertyChanged(() => OnBoardSnRegs);
                         RaisePropertyChanged(() => InStoreSnRegs);
                     }
@@ -374,46 +383,46 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         private void OnRemove(object obj)
         {
-            //判断要删除的拆换记录中涉及到的序号件有没有后续的拆装记录，有的话不能删除
-            int count = 0;
-            var snInstallHistories = SnHistories.Where(p => p.InstallRecordId == SelSnRemInstRecord.Id && p.RemoveRecordId != null).ToList();
-            if (snInstallHistories != null && snInstallHistories.Count != 0)
-            {
-                var snHistory = snInstallHistories.First();
-                MessageAlert("此次拆装中存在装上序号件" + snHistory.Sn + "在之后有新的拆下动作，因此不能删除此拆换记录！");
-                count = 1;
-            }
+            ////判断要删除的拆换记录中涉及到的序号件有没有后续的拆装记录，有的话不能删除
+            //int count = 0;
+            //var snInstallHistories = SnHistories.Where(p => p.InstallRecordId == SelSnRemInstRecord.Id && p.RemoveRecordId != null).ToList();
+            //if (snInstallHistories != null && snInstallHistories.Count != 0)
+            //{
+            //    var snHistory = snInstallHistories.First();
+            //    MessageAlert("此次拆装中存在装上序号件" + snHistory.Sn + "在之后有新的拆下动作，因此不能删除此拆换记录！");
+            //    count = 1;
+            //}
 
-            var snRemoveHistories = SnHistories.Where(p => p.RemoveRecordId == SelSnRemInstRecord.Id).ToList();
-            snRemoveHistories.ForEach(p =>
-            {
-                var snHistory = SnHistories.Where(s => s.SnRegId == p.SnRegId).OrderBy(l => l.InstallDate).LastOrDefault();
-                if (snHistory != null && snHistory.Id != p.Id)
-                {
-                    MessageAlert("此次拆装中存在拆下序号件" + p.Sn + "在之后有新的装机动作，因此不能删除此拆换记录！");
-                    count = 1;
-                }
-            });
-            if (count != 0) return;
+            //var snRemoveHistories = SnHistories.Where(p => p.RemoveRecordId == SelSnRemInstRecord.Id).ToList();
+            //snRemoveHistories.ForEach(p =>
+            //{
+            //    var snHistory = SnHistories.Where(s => s.SnRegId == p.SnRegId).OrderBy(l => l.InstallDate).LastOrDefault();
+            //    if (snHistory != null && snHistory.Id != p.Id)
+            //    {
+            //        MessageAlert("此次拆装中存在拆下序号件" + p.Sn + "在之后有新的装机动作，因此不能删除此拆换记录！");
+            //        count = 1;
+            //    }
+            //});
+            //if (count != 0) return;
 
-            //判断完之后，删除拆换记录（清除拆下信息，删除装上记录）
-            snRemoveHistories.ForEach(p =>
-            {
-                p.RemoveRecordId = null;
-                p.RemoveReason = null;
-                p.RemoveReason = null;
-                var snReg = SnRegs.FirstOrDefault(sn => sn.Id == p.SnRegId);
-                if (snReg != null) snReg.AircraftId = p.AircraftId;
-            });
-            SnHistories.Where(p => p.InstallRecordId == SelSnRemInstRecord.Id && p.RemoveRecordId == null).ToList().ForEach(
-                p =>
-                {
-                    var snReg = SnRegs.FirstOrDefault(sn => sn.Id == p.SnRegId);
-                    if (snReg != null) snReg.AircraftId = null;
-                    SnHistories.Remove(p);
-                });
-            SnRemInstRecords.Remove(SelSnRemInstRecord);
-            RefreshCommandState();
+            ////判断完之后，删除拆换记录（清除拆下信息，删除装上记录）
+            //snRemoveHistories.ForEach(p =>
+            //{
+            //    p.RemoveRecordId = null;
+            //    p.RemoveReason = null;
+            //    p.RemoveReason = null;
+            //    var snReg = SnRegs.FirstOrDefault(sn => sn.Id == p.SnRegId);
+            //    if (snReg != null) snReg.AircraftId = p.AircraftId;
+            //});
+            //SnHistories.Where(p => p.InstallRecordId == SelSnRemInstRecord.Id && p.RemoveRecordId == null).ToList().ForEach(
+            //    p =>
+            //    {
+            //        var snReg = SnRegs.FirstOrDefault(sn => sn.Id == p.SnRegId);
+            //        if (snReg != null) snReg.AircraftId = null;
+            //        SnHistories.Remove(p);
+            //    });
+            //SnRemInstRecords.Remove(SelSnRemInstRecord);
+            //RefreshCommandState();
         }
 
         private bool CanRemove(object obj)
@@ -459,8 +468,6 @@ namespace UniCloud.Presentation.Part.MaintainControl
                 return false;
             if (SelSnRemInstRecord.AircraftId == Guid.Empty)
                 return false;
-            //if (SelSnRemInstRecord.Position == null)
-            //    return false;
             if (SelSnRemInstRecord.ActionType == (int)ActionType.装上)
                 return false;
             return true;
@@ -477,19 +484,19 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         private void OnRemoveRemoval(object obj)
         {
-            SelRemoval.RemoveRecordId = null;
-            SelRemoval.RemoveReason = null;
-            SelRemoval.RemoveReason = null;
-            var snReg = SnRegs.FirstOrDefault(p => p.Id == SelRemoval.SnRegId);
-            if (snReg != null) snReg.AircraftId = SelRemoval.AircraftId;
-            Removals.Remove(SelRemoval);
-            SelRemoval = Removals.FirstOrDefault();
-            RefreshCommandState();
+            //SelRemoval.RemoveRecordId = null;
+            //SelRemoval.RemoveReason = null;
+            //SelRemoval.RemoveReason = null;
+            //var snReg = SnRegs.FirstOrDefault(p => p.Id == SelRemoval.SnRegId);
+            //if (snReg != null) snReg.AircraftId = SelRemoval.AircraftId;
+            //Removals.Remove(SelRemoval);
+            //SelRemoval = Removals.FirstOrDefault();
+            //RefreshCommandState();
         }
 
         private bool CanRemoveRemoval(object obj)
         {
-            return _selRemoval != null && _selRemoval.InstallRecordId != 0;
+            return _selRemoval != null;
         }
 
         #endregion
@@ -530,8 +537,6 @@ namespace UniCloud.Presentation.Part.MaintainControl
                 return false;
             if (SelSnRemInstRecord.AircraftId == Guid.Empty)
                 return false;
-            //if (SelSnRemInstRecord.Position == null)
-            //    return false;
             if (SelSnRemInstRecord.ActionType == (int)ActionType.拆下)
                 return false;
             return true;
@@ -559,7 +564,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         private bool CanRemoveInstallation(object obj)
         {
-            return _selInstallation != null && _selInstallation.RemoveRecordId == null;
+            return _selInstallation != null;
         }
 
         #endregion
@@ -615,6 +620,15 @@ namespace UniCloud.Presentation.Part.MaintainControl
                             snReg.Pn = pnReg.Pn;
                             snReg.PnRegId = value;
                         }
+                    }
+                    RefreshCommandState();
+                }
+                else if (string.Equals(cell.Column.UniqueName, "Status"))
+                {
+                    var snReg = SnRegs.FirstOrDefault(p => p.Id == SelRemoval.SnRegId);
+                    if (snReg != null)
+                    {
+                        snReg.Status = SelRemoval.Status;
                     }
                     RefreshCommandState();
                 }
@@ -702,19 +716,36 @@ namespace UniCloud.Presentation.Part.MaintainControl
                     if (snRegDto != null)
                     {
                         //找到SnReg的最后一条装上记录（时间最大），且这条记录无拆下信息
-                        var snHis = SnHistories.Where(s => s.SnRegId == snRegDto.Id).OrderBy(l => l.InstallDate).LastOrDefault();
+                        var snHis = SnHistories.Where(s => s.SnRegId == snRegDto.Id).OrderBy(l => l.ActionDate).LastOrDefault();
                         if (snHis == null) MessageAlert("序号件：" + snRegDto.Sn + "没有找到拆装历史！请检查！");
-                        else if (snHis.RemoveRecordId == null)
-                        {
-                            snHis.RemoveDate = DateTime.Now;
-                            snHis.RemoveRecordId = SelSnRemInstRecord.Id;
-                            Removals.Add(snHis);
-                            var snReg = SnRegs.FirstOrDefault(sn => sn.Id == snHis.SnRegId);
-                            if (snReg != null) snReg.AircraftId = null;
-                        }
-                        else if (snHis.RemoveRecordId != null)
+                        else if (snHis.ActionType == (int)ActionType.拆下)
                         {
                             MessageAlert("序号件：" + snRegDto.Sn + "最近一次操作为拆下，不能再做拆下操作！请检查！");
+                        }
+                        else
+                        {
+                            var newSh = new SnHistoryDTO
+                            {
+                                Id = RandomHelper.Next(),
+                                ActionDate = DateTime.Now,
+                                ActionNo = SelSnRemInstRecord.ActionNo,
+                                ActionType = (int)ActionType.拆下,
+                                AircraftId = SelSnRemInstRecord.AircraftId,
+                                RegNumber = SelSnRemInstRecord.RegNumber,
+                                Pn = snRegDto.Pn,
+                                Sn = snRegDto.Sn,
+                                PnRegId = snRegDto.PnRegId,
+                                SnRegId = snRegDto.Id,
+                                RemInstRecordId = SelSnRemInstRecord.Id,
+                                Status = (int)SnStatus.在库,
+                            };
+                            Removals.Add(newSh);
+                            var snReg = SnRegs.FirstOrDefault(sn => sn.Id == snHis.SnRegId);
+                            if (snReg != null)
+                            {
+                                snHis.Status = newSh.Status;
+                                snReg.AircraftId = null;
+                            }
                         }
                     }
                 });
@@ -729,29 +760,36 @@ namespace UniCloud.Presentation.Part.MaintainControl
                     var snRegDto = p as SnRegDTO;
                     if (snRegDto != null)
                     {
-                        //找到SnReg的最后一条装上记录（时间最大），且这条记录包含拆下信息
-                        var snHis = SnHistories.Where(s => s.SnRegId == snRegDto.Id).OrderBy(l => l.InstallDate).LastOrDefault();
-                        if (snHis == null || snHis.RemoveRecordId != null)
+                        var snHis = SnHistories.Where(s => s.SnRegId == snRegDto.Id).OrderBy(l => l.ActionDate).LastOrDefault();
+                        if (snHis != null && snHis.ActionType == (int)ActionType.装上)
+                        {
+                            MessageAlert("序号件：" + snRegDto.Sn + "最近一次操作为装上，不能再做装上操作！请检查！");
+                        }
+                        else
                         {
                             var newSnHis = new SnHistoryDTO
                             {
                                 Id = RandomHelper.Next(),
-                                InstallDate = DateTime.Now,
-                                InstallRecordId = SelSnRemInstRecord.Id,
+                                ActionDate = DateTime.Now,
+                                ActionNo = SelSnRemInstRecord.ActionNo,
+                                ActionType = (int)ActionType.装上,
+                                AircraftId = SelSnRemInstRecord.AircraftId,
+                                RegNumber = SelSnRemInstRecord.RegNumber,
                                 Pn = snRegDto.Pn,
+                                Sn = snRegDto.Sn,
                                 PnRegId = snRegDto.PnRegId,
                                 SnRegId = snRegDto.Id,
-                                Sn = snRegDto.Sn,
-                                AircraftId = SelSnRemInstRecord.AircraftId,
+                                RemInstRecordId = SelSnRemInstRecord.Id,
+                                Status = (int)SnStatus.装机,
                             };
                             var snReg = SnRegs.FirstOrDefault(sn => sn.Id == snRegDto.Id);
-                            if (snReg != null) snReg.AircraftId = SelSnRemInstRecord.AircraftId;
+                            if (snReg != null)
+                            {
+                                snReg.AircraftId = SelSnRemInstRecord.AircraftId;
+                                snReg.Status = (int)SnStatus.装机;
+                            }
                             Installations.Add(newSnHis);
                             SnHistories.AddNew(newSnHis);
-                        }
-                        else if (snHis.RemoveRecordId == null)
-                        {
-                            MessageAlert("序号件：" + snRegDto.Sn + "最近一次操作为装上，不能再做装上操作！请检查！");
                         }
                     }
                 });

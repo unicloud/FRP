@@ -58,15 +58,13 @@
                                                     Margin="-1 -2 -1 0"
                                                     OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
-                                                       Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding AircraftLeaseReceptions}">
+                                                       Command="{Binding SaveCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding AircraftLeaseReceptions}">
+                                                       Command="{Binding AbortCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
@@ -124,7 +122,7 @@
                                                                     DataMemberBinding="{Binding ActionNo}"/>
                                         <telerik:GridViewComboBoxColumn Header="拆装类型"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.ActionTypes, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.ActionTypes, ElementName=ReInstallUserControl}"
                                                                         SelectedValueMemberPath="Key"
                                                                         DisplayMemberPath="Value"
                                                                         HeaderTextAlignment="Center"
@@ -133,7 +131,7 @@
                                                                         UniqueName="ActionType"/>
                                         <telerik:GridViewComboBoxColumn Header="飞机"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.Aircrafts, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.Aircrafts,  ElementName=ReInstallUserControl}"
                                                                         DisplayMemberPath="RegNumber"
                                                                         DataMemberBinding="{Binding AircraftId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
@@ -148,10 +146,10 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Reason}" />
-                                        <telerik:GridViewDataColumn Header="拆装日期"
+                                        <telerik:GridViewDataColumn Header="拆装开始日期"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding ActionDate}" 
+                                                                    DataMemberBinding="{Binding ActionDate}"
                                                                     DataFormatString="{StaticResource DateStringFormat}"/>
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
@@ -221,6 +219,12 @@
                                                                  CommandParameter="{Binding ElementName=Removals, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="CellEditEnded">
+                                            <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
+                                                                   CommandParameter="{Binding ElementName=Removals}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadGridView.Columns>
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
@@ -237,24 +241,29 @@
                                         <telerik:GridViewDataColumn Header="拆下日期"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding RemoveDate}"
+                                                                    DataMemberBinding="{Binding ActionDate}"
                                                                     DataFormatString="{StaticResource DateStringFormat}"/>
-                                        <telerik:GridViewDataColumn Header="CSN"
+                                        <telerik:GridViewDataColumn Header="拆下时CSN"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding CSN}" />
-                                        <telerik:GridViewDataColumn Header="CSR"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding CSR}" />
-                                        <telerik:GridViewDataColumn Header="TSN"
+                                        <telerik:GridViewDataColumn Header="拆下时TSN"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding TSN}" />
-                                        <telerik:GridViewDataColumn Header="TSR"
+                                        <telerik:GridViewComboBoxColumn Header="拆下后状态"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.SnStatuss, ElementName=ReInstallUserControl}"
+                                                                        SelectedValueMemberPath="Key"
+                                                                        DisplayMemberPath="Value"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding Status,Mode=TwoWay}"
+                                                                        EditorStyle="{StaticResource EditComboBox}"
+                                                                        UniqueName="Status" />
+                                        <telerik:GridViewDataColumn Header="拆下原因"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding TSR}" />
+                                                                    DataMemberBinding="{Binding ActionReason}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </Grid>
@@ -337,8 +346,25 @@
                                         <telerik:GridViewDataColumn Header="装上日期"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding InstallDate}" 
+                                                                    DataMemberBinding="{Binding ActionDate}" 
                                                                     DataFormatString="{StaticResource DateStringFormat}"/>
+                                        <telerik:GridViewDataColumn Header="装上时CSN"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding CSN}" />
+                                        <telerik:GridViewDataColumn Header="装上时TSN"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding TSN}" />
+                                        <telerik:GridViewDataColumn Header="装上后状态"
+                                                                    IsReadOnly="True"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding SnStatus}" />
+                                        <telerik:GridViewDataColumn Header="装上原因"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding ActionReason}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </Grid>
