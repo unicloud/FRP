@@ -41,7 +41,7 @@
             <telerik:RadSplitContainer Orientation="Vertical">
                 <telerik:RadSplitContainer Orientation="Vertical">
                     <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="600,450">
-                        <telerik:RadPane Header="附件项(项号与功能标识号维护其中一个)"
+                        <telerik:RadPane Header="附件项"
                                          IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
@@ -124,10 +124,10 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding ItemNo}" />
-                                        <telerik:GridViewDataColumn Header="功能标识号"
+                                        <!--<telerik:GridViewDataColumn Header="功能标识号"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding FiNumber}" />
+                                                                    DataMemberBinding="{Binding FiNumber}" />-->
                                         <telerik:GridViewCheckBoxColumn Header="是否寿控项"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -150,6 +150,8 @@
                             </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
+                <telerik:RadSplitContainer Orientation="Horizontal">
                     <telerik:RadPaneGroup VerticalAlignment="Stretch"
                                           telerik:ProportionalStackPanel.RelativeSize="600,350">
                         <telerik:RadPane Header="项维修控制策略"
@@ -162,99 +164,35 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                     Margin="-1 -2 -1 0"
                                                     OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
-                                                       Command="{Binding AddCtrlLineCommand}">
+                                                       Command="{Binding AddMaintainCtrlCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Add.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="添加维修控制明细" />
+                                               ToolTipService.ToolTip="添加维修控制" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding RemoveCtrlLineCommand}">
+                                                       Command="{Binding RemoveMaintainCtrlCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="移除维修控制明细" />
+                                               ToolTipService.ToolTip="移除维修控制" />
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
-                                <Grid Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition  MaxWidth="150" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition MaxWidth="150" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition MaxWidth="100" />
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal"
-                                                Grid.Column="0"
-                                                Grid.Row="0"
-                                                HorizontalAlignment="Stretch"
-                                                VerticalAlignment="Stretch">
-                                        <TextBlock Text="项号"
-                                                   TextAlignment="Left"
-                                                   FontSize="{StaticResource TextFontSize}" />
-                                    </StackPanel>
-                                    <StackPanel Grid.Row="0"
-                                                Grid.Column="1"
-                                                VerticalAlignment="Center">
-                                        <TextBox Text="{Binding SelItem.ItemNo}"
-                                                 IsReadOnly="True"
-                                                 HorizontalAlignment="Stretch"
-                                                 VerticalAlignment="Stretch" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal"
-                                                Grid.Column="2"
-                                                Grid.Row="0"
-                                                HorizontalAlignment="Stretch"
-                                                VerticalAlignment="Stretch">
-                                        <TextBlock Text="FI号"
-                                                   TextAlignment="Left"
-                                                   FontSize="{StaticResource TextFontSize}" />
-                                    </StackPanel>
-                                    <StackPanel Grid.Row="0"
-                                                Grid.Column="3"
-                                                VerticalAlignment="Center">
-                                        <TextBox Text="{Binding SelItem.FiNumber}"
-                                                 IsReadOnly="True"
-                                                 HorizontalAlignment="Stretch"
-                                                 VerticalAlignment="Stretch" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal"
-                                                Grid.Column="4"
-                                                Grid.Row="0"
-                                                VerticalAlignment="Stretch"
-                                                HorizontalAlignment="Stretch"
-                                                Margin="10 0 0 0">
-                                        <TextBlock Text="控制策略"
-                                                   TextAlignment="Left"
-                                                   FontSize="{StaticResource TextFontSize}" />
-                                    </StackPanel>
-                                    <StackPanel Grid.Row="0"
-                                                Grid.Column="5"
-                                                VerticalAlignment="Center">
-                                        <telerik:RadComboBox  SelectedValue="{Binding CurItemMaintainCtrl.CtrlStrategy, Mode=TwoWay}"
-                                                              ItemsSource="{Binding ControlStrategies}"
-                                                              Height="{StaticResource ControlHeight}"
-                                                              SelectedValuePath="Key"
-                                                              DisplayMemberPath="Value" />
-                                    </StackPanel>
-                                </Grid>
-                                <telerik:RadGridView x:Name="ItemMaintainCtrlLines"
+                                <telerik:RadGridView x:Name="ViewItemMaintainCtrls"
                                                      ShowGroupPanel="False"
                                                      AutoExpandGroups="True"
                                                      IsReadOnly="False"
-                                                     Grid.Row="2"
+                                                     Grid.Row="1"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="False"
-                                                     ItemsSource="{Binding CurItemMaintainCtrl.MaintainCtrlLines,Mode=TwoWay}"
-                                                     SelectedItem="{Binding SelCtrlLine,Mode=TwoWay}"
+                                                     ItemsSource="{Binding ViewItemMaintainCtrls,Mode=TwoWay}"
+                                                     SelectedItem="{Binding SelItemMaintainCtrl,Mode=TwoWay}"
                                                      IsBusy="{Binding ItemMaintainCtrls.IsBusy}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True">
@@ -262,45 +200,59 @@
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=ItemMaintainCtrlLines, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=ViewItemMaintainCtrls, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=ItemMaintainCtrlLines, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=ViewItemMaintainCtrls, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
-                                        <telerik:GridViewComboBoxColumn Header="控制单位"
+                                        <telerik:GridViewComboBoxColumn Header="控制策略"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.CtrlUnits, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                                                        DisplayMemberPath="Name"
-                                                                        DataMemberBinding="{Binding CtrlUnitId,Mode=TwoWay}"
-                                                                        SelectedValueMemberPath="Id"
+                                                                        ItemsSource="{Binding DataContext.ControlStrategies, ElementName=ManageItemView}"
+                                                                        DisplayMemberPath="Value"
+                                                                        DataMemberBinding="{Binding CtrlStrategy,Mode=TwoWay}"
+                                                                        SelectedValueMemberPath="Key"
                                                                         IsComboBoxEditable="True"
                                                                         EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewComboBoxColumn Header="工作代码"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.MaintainWorks, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.MaintainWorks, ElementName=ManageItemView}"
                                                                         DisplayMemberPath="WorkCode"
                                                                         DataMemberBinding="{Binding MaintainWorkId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
                                                                         IsComboBoxEditable="True"
                                                                         EditorStyle="{StaticResource EditComboBox}" />
-                                        <telerik:GridViewDataColumn Header="最大控制间隔"
+                                        <telerik:GridViewDataColumn Header="控制描述"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding MaxInterval}" />
-                                        <telerik:GridViewDataColumn Header="标准控制间隔"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding StandardInterval}" />
-                                        <telerik:GridViewDataColumn Header="最小控制间隔"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding MinInterval}" />
+                                                                    DataMemberBinding="{Binding Description}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                    <telerik:RadPaneGroup VerticalAlignment="Stretch"
+                                          telerik:ProportionalStackPanel.RelativeSize="600,350">
+                        <telerik:RadPane Header="项维修控制明细"
+                                         PaneHeaderVisibility="Collapsed"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <telerik:GroupBox Header="附件项维修控制明细">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                                  BorderThickness="0"
+                                                  HorizontalScrollBarVisibility="Disabled"
+                                                  telerik:StyleManager.Theme="Windows8">
+                                        <TextBlock Text="{Binding SelItemMaintainCtrl.CtrlDetail }"
+                                                   TextWrapping="Wrap" />
+                                    </ScrollViewer>
+                                </telerik:GroupBox>
                             </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>

@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.PartBC.Aggregates.InstallControllerAgg;
+using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Infrastructure.Data;
@@ -44,12 +45,14 @@ namespace UniCloud.Application.PartBC.Query.PnRegQueries
         ///  <returns>PnRegDTO集合</returns>
         public IQueryable<PnRegDTO> PnRegDTOQuery(QueryBuilder<PnReg> query)
         {
+            var items = _unitOfWork.CreateSet<Item>();
             return query.ApplyTo(_unitOfWork.CreateSet<PnReg>()).Select(p => new PnRegDTO
             {
                 Id = p.Id,
                 Pn = p.Pn,
                 IsLife = p.IsLife,
                 ItemId = p.ItemId,
+                ItemNo = items.FirstOrDefault(l => l.Id == p.ItemId).ItemNo,
                 Description = p.Description,
             });
         }
@@ -70,14 +73,19 @@ namespace UniCloud.Application.PartBC.Query.PnRegQueries
                 {
                     var pnReg = pnRegs.FirstOrDefault(l => l.Id == p.PnRegId);
                     if (pnReg != null)
-                        result.Add(new PnRegDTO
+                    {
+                        var dbItem = _unitOfWork.CreateSet<Item>().ToList().FirstOrDefault(l => l.Id == pnReg.ItemId);
+
+                        var pn = new PnRegDTO
                         {
                             Id = pnReg.Id,
                             Description = pnReg.Description,
                             IsLife = pnReg.IsLife,
                             Pn = pnReg.Pn,
                             ItemId = pnReg.ItemId,
-                        });
+                        };
+                        if (dbItem != null) pn.ItemNo = dbItem.ItemNo;
+                    }
                 }
             });
             return result;

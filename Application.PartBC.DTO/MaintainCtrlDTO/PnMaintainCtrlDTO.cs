@@ -71,14 +71,6 @@ namespace UniCloud.Application.PartBC.DTO
         /// </summary>
         public string CtrlDetail { get; set; }
 
-        /// <summary>
-        /// 维修控制明细
-        /// </summary>
-        public XElement XmlContent
-        {
-            get { return XElement.Parse(CtrlDetail); }
-            set { CtrlDetail = value.ToString(); }
-        }
         #endregion
 
         #region 外键属性

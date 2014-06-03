@@ -159,20 +159,12 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="CtrlStrategy" Type="Edm.Int32" Nullable="false" />
         <Property Name="ItemNo" Type="Edm.String" />
-        <Property Name="ItemId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="MaintainCtrlLines" Type="Collection(UniCloud.Application.PartBC.DTO.MaintainCtrlLineDTO)" Nullable="false" />
-      </EntityType>
-      <ComplexType Name="MaintainCtrlLineDTO">
-        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="StandardInterval" Type="Edm.Int32" Nullable="false" />
-        <Property Name="MaxInterval" Type="Edm.Int32" Nullable="false" />
-        <Property Name="MinInterval" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CtrlUnitName" Type="Edm.String" />
         <Property Name="WorkCode" Type="Edm.String" />
-        <Property Name="CtrlUnitId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="MaintainWorkId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="MaintainCtrlId" Type="Edm.Int32" Nullable="false" />
-      </ComplexType>
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="CtrlDetail" Type="Edm.String" />
+        <Property Name="ItemId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainWorkId" Type="Edm.Int32" />
+      </EntityType>
       <EntityType Name="PnMaintainCtrlDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -180,8 +172,11 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="CtrlStrategy" Type="Edm.Int32" Nullable="false" />
         <Property Name="Pn" Type="Edm.String" />
+        <Property Name="WorkCode" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="CtrlDetail" Type="Edm.String" />
         <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="MaintainCtrlLines" Type="Collection(UniCloud.Application.PartBC.DTO.MaintainCtrlLineDTO)" Nullable="false" />
+        <Property Name="MaintainWorkId" Type="Edm.Int32" />
       </EntityType>
       <EntityType Name="SnMaintainCtrlDTO">
         <Key>
@@ -190,7 +185,10 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="CtrlStrategy" Type="Edm.Int32" Nullable="false" />
         <Property Name="SnScope" Type="Edm.String" />
-        <Property Name="MaintainCtrlLines" Type="Collection(UniCloud.Application.PartBC.DTO.MaintainCtrlLineDTO)" Nullable="false" />
+        <Property Name="WorkCode" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="CtrlDetail" Type="Edm.String" />
+        <Property Name="MaintainWorkId" Type="Edm.Int32" />
       </EntityType>
       <EntityType Name="MaintainWorkDTO">
         <Key>
@@ -213,10 +211,6 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="Sn" Type="Edm.String" />
-        <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="CSN" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="CSR" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
       </EntityType>
       <EntityType Name="APUOilDTO">
@@ -225,10 +219,6 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="Sn" Type="Edm.String" />
-        <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="CSN" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="CSR" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
       </EntityType>
       <EntityType Name="OilMonitorDTO">
@@ -254,6 +244,7 @@
         <Property Name="Pn" Type="Edm.String" />
         <Property Name="IsLife" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Description" Type="Edm.String" />
+        <Property Name="ItemNo" Type="Edm.String" />
         <Property Name="ItemId" Type="Edm.Int32" />
       </EntityType>
       <EntityType Name="ScnDTO">
@@ -313,12 +304,11 @@
         <Property Name="Pn" Type="Edm.String" />
         <Property Name="IsStop" Type="Edm.Boolean" Nullable="false" />
         <Property Name="RegNumber" Type="Edm.String" />
-        <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="CSN" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="CSR" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="IsLife" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsLifeCst" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="TimeRate" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CycleRate" Type="Edm.Decimal" Nullable="false" />
         <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
         <Property Name="AircraftId" Type="Edm.Guid" />
         <Property Name="LiftMonitors" Type="Collection(UniCloud.Application.PartBC.DTO.LifeMonitorDTO)" Nullable="false" />
@@ -326,11 +316,10 @@
       </EntityType>
       <ComplexType Name="LifeMonitorDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="WorkCode" Type="Edm.String" />
+        <Property Name="WorkDescription" Type="Edm.String" />
         <Property Name="Sn" Type="Edm.String" />
         <Property Name="MointorStart" Type="Edm.DateTime" Nullable="false" />
         <Property Name="MointorEnd" Type="Edm.DateTime" Nullable="false" />
-        <Property Name="MaintainWorkId" Type="Edm.Int32" Nullable="false" />
         <Property Name="SnRegId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="ApuEngineSnRegDTO">
@@ -359,22 +348,20 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="Sn" Type="Edm.String" />
         <Property Name="Pn" Type="Edm.String" />
-        <Property Name="InstallDate" Type="Edm.DateTime" Nullable="false" />
-        <Property Name="RemoveDate" Type="Edm.DateTime" />
-        <Property Name="RemoveReason" Type="Edm.String" />
-        <Property Name="RemoveActionNo" Type="Edm.String" />
-        <Property Name="InstallReason" Type="Edm.String" />
-        <Property Name="InstallActionNo" Type="Edm.String" />
+        <Property Name="ActionDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ActionType" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ActionReason" Type="Edm.String" />
+        <Property Name="ActionNo" Type="Edm.String" />
         <Property Name="CSN" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CSR" Type="Edm.Int32" Nullable="false" />
         <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSN2" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TSN2" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="RegNumber" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="SnRegId" Type="Edm.Int32" Nullable="false" />
         <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="InstallRecordId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="RemoveRecordId" Type="Edm.Int32" />
+        <Property Name="RemInstRecordId" Type="Edm.Int32" />
       </EntityType>
       <EntityType Name="SnRemInstRecordDTO">
         <Key>

@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism;
@@ -70,6 +71,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                                          SelSnReg = SnRegs.FirstOrDefault();
                                  };
             SnHistories = _service.CreateCollection(_context.SnHistories);
+            SnHistories.SortDescriptors.Add(new SortDescriptor { Member = "ActionDate", SortDirection = ListSortDirection.Descending });
             SnHistories.LoadedData += (s, e) =>
             {
                 if (SelSnReg != null)
@@ -124,6 +126,19 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             }
         }
         #endregion
+
+        /// <summary>
+        ///     操作类型
+        /// </summary>
+        public Dictionary<int, ActionType> ActionTypes
+        {
+            get
+            {
+                return Enum.GetValues(typeof(ActionType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int)value, value => (ActionType)value);
+            }
+        }
 
         #endregion
 

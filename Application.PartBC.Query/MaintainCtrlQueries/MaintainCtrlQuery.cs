@@ -57,7 +57,6 @@ namespace UniCloud.Application.PartBC.Query.MaintainCtrlQueries
                 Description = p.Description,
                 MaintainWorkId = p.MaintainWorkId,
                 WorkCode = maintainWorks.FirstOrDefault(l=>l.Id==p.MaintainWorkId).WorkCode,
-                XmlContent = p.XmlContent,
             });
         }
 
@@ -79,7 +78,6 @@ namespace UniCloud.Application.PartBC.Query.MaintainCtrlQueries
                 Description = p.Description,
                 MaintainWorkId = p.MaintainWorkId,
                 WorkCode = maintainWorks.FirstOrDefault(l => l.Id == p.MaintainWorkId).WorkCode,
-                XmlContent = p.XmlContent,
             });
         }
 
@@ -100,7 +98,6 @@ namespace UniCloud.Application.PartBC.Query.MaintainCtrlQueries
                 Description = p.Description,
                 MaintainWorkId = p.MaintainWorkId,
                 WorkCode = maintainWorks.FirstOrDefault(l => l.Id == p.MaintainWorkId).WorkCode,
-                XmlContent = p.XmlContent,
             });
         }
     }

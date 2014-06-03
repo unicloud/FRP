@@ -12,7 +12,7 @@
              d:DesignHeight="600"
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance uc:SnRegVm}"
-             Name="ManageItemView">
+             Name="ManageSnView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -67,12 +67,6 @@
                                                          ItemsSource="{Binding SnRegs,Mode=TwoWay}"
                                                          SelectedItem="{Binding SelSnReg,Mode=TwoWay}"
                                                          IsBusy="{Binding SnRegs.IsBusy}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="CellEditEnded">
-                                                <i:InvokeCommandAction Command="{Binding ItemIsLifeChanged}"
-                                                                       CommandParameter="{Binding ElementName=SnRegs}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
                                         <telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadContextMenu>
                                                 <telerik:RadMenuItem Header="导出Excel"
@@ -111,23 +105,18 @@
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding SnStatus}" />
-                                            <telerik:GridViewDataColumn Header="CSN"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding CSN}" />
-                                            <telerik:GridViewDataColumn Header="CSR"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding CSR}" />
-                                            <telerik:GridViewDataColumn Header="TSN"
-                                                                        IsReadOnly="True"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding TSN}" />
-                                            <telerik:GridViewDataColumn Header="TSR"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding TSR}" />
+                                            <telerik:GridViewCheckBoxColumn Header="在库是否累计寿命"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding IsLifeCst}" />
+                                            <telerik:GridViewDataColumn Header="在库时间换算成装机时间比率"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding TimeRate}" />
+                                            <telerik:GridViewDataColumn Header="在库时间换算成装机循环比率"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding CycleRate}" />
                                         </telerik:RadGridView.Columns>
                                     </telerik:RadGridView>
                                 </Grid>
@@ -189,48 +178,35 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding RegNumber}" />
-                                        <telerik:GridViewDataColumn Header="装上日期"
+                                        <telerik:GridViewComboBoxColumn Header="操作类型"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.ActionTypes, ElementName=ManageSnView}"
+                                                                        DisplayMemberPath="Value"
+                                                                        DataMemberBinding="{Binding ActionType,Mode=TwoWay}"
+                                                                        SelectedValueMemberPath="Key"
+                                                                        IsComboBoxEditable="True"
+                                                                        EditorStyle="{StaticResource EditComboBox}" />
+                                        <telerik:GridViewDataColumn Header="操作日期"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding InstallDate}"
+                                                                    DataMemberBinding="{Binding ActionDate}"
                                                                     DataFormatString="{StaticResource DateStringFormat}" />
-                                        <telerik:GridViewDataColumn Header="装上原因"
+                                        <telerik:GridViewDataColumn Header="原因"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding InstallReason}" />
-                                        <telerik:GridViewDataColumn Header="装机指令"
+                                                                    DataMemberBinding="{Binding ActionReason}" />
+                                        <telerik:GridViewDataColumn Header="拆装指令"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding InstallActionNo}" />
-                                        <telerik:GridViewDataColumn Header="拆下日期"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding RemoveDate}"
-                                                                    DataFormatString="{StaticResource DateStringFormat}" />
-                                        <telerik:GridViewDataColumn Header="拆下原因"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding RemoveReason}" />
-                                        <telerik:GridViewDataColumn Header="拆下指令"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding RemoveActionNo}" />
-                                        <telerik:GridViewDataColumn Header="CSN"
+                                                                    DataMemberBinding="{Binding ActionNo}" />
+                                        <telerik:GridViewDataColumn Header="当时CSN"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding CSN}" />
-                                        <telerik:GridViewDataColumn Header="CSR"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding CSR}" />
-                                        <telerik:GridViewDataColumn Header="TSN"
+                                        <telerik:GridViewDataColumn Header="当时TSN"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding TSN}" />
-                                        <telerik:GridViewDataColumn Header="TSR"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding TSR}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </Grid>

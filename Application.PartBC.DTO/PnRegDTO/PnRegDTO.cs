@@ -51,6 +51,12 @@ namespace UniCloud.Application.PartBC.DTO
         ///     描述
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// 项号
+        /// </summary>
+        public string ItemNo { get; set; }
+
         #endregion
 
         #region 外键属性
