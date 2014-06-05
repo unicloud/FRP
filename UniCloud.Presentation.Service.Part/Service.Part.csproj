@@ -110,7 +110,10 @@
     <Compile Include="Part\Enums\ScnApplicableType.cs" />
     <Compile Include="Part\Enums\ScnStatus.cs" />
     <Compile Include="Part\Enums\ScnType.cs" />
+    <Compile Include="Part\Enums\SinceNewType.cs" />
     <Compile Include="Part\Enums\SnStatus.cs" />
+    <Compile Include="Part\ItemMaintainCtrlDTO.cs" />
+    <Compile Include="Part\PnMaintainCtrlDTO.cs" />
     <Compile Include="Part\ScnDTO.cs" />
     <Compile Include="Part\SnHistoryDTO.cs" />
     <Compile Include="Part\SnRegDTO.cs" />

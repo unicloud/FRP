@@ -45,6 +45,9 @@
 
     <!--数字格式-->
     <system:String x:Key="NumberStringFormat">###,###</system:String>
+    
+    <!--数字格式-->
+    <system:String x:Key="RateStringFormat">0.##%</system:String>
 
     <!-- 字体、字号 -->
     <FontFamily x:Key="NormalFontFamily">Microsoft YaHei UI</FontFamily>

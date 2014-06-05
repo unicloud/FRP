@@ -19,6 +19,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows;
+using System.Xml.Linq;
 using Microsoft.Practices.Prism;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -114,6 +116,20 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             get { return Enum.GetValues(typeof(ControlStrategy)).Cast<object>().ToDictionary(value => (int)value, value => (ControlStrategy)value); }
         }
 
+
+        /// <summary>
+        ///     TSN或CSN
+        /// </summary>
+        public Dictionary<int, SinceNewType> SinceNewTypes
+        {
+            get
+            {
+                return Enum.GetValues(typeof(SinceNewType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int)value, value => (SinceNewType)value);
+            }
+        }
+
         #endregion
 
         #region 加载数据
@@ -162,6 +178,16 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                 if (_selPnReg != value)
                 {
                     _selPnReg = value;
+                    ViewPnMaintainCtrls = new ObservableCollection<PnMaintainCtrlDTO>();
+                    if (value != null)
+                    {
+                        foreach (var maintainCtrl in PnMaintainCtrls.SourceCollection.Cast<PnMaintainCtrlDTO>())
+                        {
+                            if (maintainCtrl.PnRegId == value.Id)
+                                ViewPnMaintainCtrls.Add(maintainCtrl);
+                        }
+                        SelPnMaintainCtrl = ViewPnMaintainCtrls.FirstOrDefault();
+                    }
                     RaisePropertyChanged(() => SelPnReg);
                     RefreshCommandState();
                 }
@@ -205,6 +231,12 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                 if (_selPnMaintainCtrl != value)
                 {
                     _selPnMaintainCtrl = value;
+                    CtrlLines = null;
+                    if (value != null && value.XmlContent != null)
+                    {
+                        CtrlLines = ConvertXmlToString(value.XmlContent);
+                    }
+                    RaisePropertyChanged(() => CtrlLines);
                     RaisePropertyChanged(() => SelPnMaintainCtrl);
                 }
             }
@@ -273,6 +305,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                             }
                         });
                     }
+                    RefreshCommandState();
                 }
             }
         }
@@ -346,12 +379,100 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         private void OnAddCtrlLine(object obj)
         {
+            var xmlNode = SelPnMaintainCtrl.XmlContent;
+            if (xmlNode == null) xmlNode = new XElement("MaintainCtrl");
+            if (FirstVisible == Visibility.Visible)
+            {
+                var node = new XElement("CtrlType", new XAttribute("Name", "StartDate"), new XAttribute("Value", StartDate.Year + "-" + StartDate.Month + "-" + StartDate.Day));
+                var detailNode = new XElement("CtrlDetail", new XAttribute("Type", SelCtrlUnit.Id));
+                var maxNode = new XElement("Max", new XAttribute("Value", Max));
+                var minNode = new XElement("Min", new XAttribute("Value", Min));
+                detailNode.Add(maxNode);
+                detailNode.Add(minNode);
+                node.Add(detailNode);
+                xmlNode.Add(node);
+            }
+            else if (SecondVisible == Visibility.Visible || ThirdVisible == Visibility.Visible)
+            {
+                var node = new XElement("CtrlType", new XAttribute("Name", "StartDate"), new XAttribute("Value", StartDate.Year + "-" + StartDate.Month + "-" + StartDate.Day));
+                var detailNode = new XElement("CtrlDetail", new XAttribute("Type", SelCtrlUnit.Id));
+                var standardNode = new XElement("Standard", new XAttribute("Value", Standard));
+                detailNode.Add(standardNode);
+                if (SecondVisible == Visibility.Visible)
+                {
+                    var rateNode = new XElement("Rate", new XAttribute("Value", Rate));
+                    detailNode.Add(rateNode);
+                }
+                node.Add(detailNode);
+                xmlNode.Add(node);
+            }
+            else if (FourVisible == Visibility.Visible)
+            {
+                var node = new XElement("CtrlType", new XAttribute("Name", "Action"), new XAttribute("Value", SelMaintainWork.Id));
+                var detailNode = new XElement("CtrlDetail", new XAttribute("Type", SelCtrlUnit.Id));
+                var maxNode = new XElement("Max", new XAttribute("Value", Max));
+                var minNode = new XElement("Min", new XAttribute("Value", Min));
+                detailNode.Add(maxNode);
+                detailNode.Add(minNode);
+                node.Add(detailNode);
+                xmlNode.Add(node);
+            }
+            else if (FiveVisible == Visibility.Visible || SixVisible == Visibility.Visible)
+            {
+                var node = new XElement("CtrlType", new XAttribute("Name", "Action"), new XAttribute("Value", SelMaintainWork.Id));
+                var detailNode = new XElement("CtrlDetail", new XAttribute("Type", SelCtrlUnit.Id));
+                var standardNode = new XElement("Standard", new XAttribute("Value", Standard));
+                detailNode.Add(standardNode);
+                if (FiveVisible == Visibility.Visible)
+                {
+                    var rateNode = new XElement("Rate", new XAttribute("Value", Rate));
+                    detailNode.Add(rateNode);
+                }
+                node.Add(detailNode);
+                xmlNode.Add(node);
+            }
+            else if (SevenVisible == Visibility.Visible)
+            {
+                var node = new XElement("CtrlType", new XAttribute("Name", "SinceNew"));
+                var detailNode = new XElement("CtrlDetail", new XAttribute("Type", SelSnType.ToString()));
+                var maxNode = new XElement("Max", new XAttribute("Value", Max));
+                var minNode = new XElement("Min", new XAttribute("Value", Min));
+                detailNode.Add(maxNode);
+                detailNode.Add(minNode);
+                node.Add(detailNode);
+                xmlNode.Add(node);
+            }
+            else if (EightVisible == Visibility.Visible || NineVisible == Visibility.Visible)
+            {
+                var node = new XElement("CtrlType", new XAttribute("Name", "SinceNew"));
+                var detailNode = new XElement("CtrlDetail", new XAttribute("Type", SelSnType.ToString()));
+                var standardNode = new XElement("Standard", new XAttribute("Value", Standard));
+                detailNode.Add(standardNode);
+                if (EightVisible == Visibility.Visible)
+                {
+                    var rateNode = new XElement("Rate", new XAttribute("Value", Rate));
+                    detailNode.Add(rateNode);
+                }
+                node.Add(detailNode);
+                xmlNode.Add(node);
+            }
+            SelPnMaintainCtrl.XmlContent = xmlNode;
+            CtrlLines = ConvertXmlToString(xmlNode);
+            RaisePropertyChanged(() => CtrlLines);
         }
 
         private bool CanAddCtrlLine(object obj)
         {
-            if (SelPnMaintainCtrl != null)
-                return true;
+            if (SelPnMaintainCtrl == null) return false;
+            if (FirstVisible == Visibility.Visible && SelCtrlUnit != null && Max > 0 && Min > 0) return true;
+            if (SecondVisible == Visibility.Visible && SelCtrlUnit != null && Standard > 0) return true;
+            if (ThirdVisible == Visibility.Visible && SelCtrlUnit != null && Standard > 0) return true;
+            if (FourVisible == Visibility.Visible && SelMaintainWork != null && SelCtrlUnit != null && Max > 0 && Min > 0) return true;
+            if (FiveVisible == Visibility.Visible && SelMaintainWork != null && SelCtrlUnit != null && Standard > 0) return true;
+            if (SixVisible == Visibility.Visible && SelMaintainWork != null && SelCtrlUnit != null && Standard > 0) return true;
+            if (SevenVisible == Visibility.Visible && (int)SelSnType >= 0 && Max > 0 && Min > 0) return true;
+            if (EightVisible == Visibility.Visible && (int)SelSnType >= 0 && Standard > 0) return true;
+            if (NineVisible == Visibility.Visible && (int)SelSnType >= 0 && Standard > 0) return true;
             return false;
         }
 
@@ -375,5 +496,500 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         #endregion
         #endregion
+        #region  界面控制属性
+
+        public class CtrlType
+        {
+            public int TypeId { get; set; }
+
+            public string Description { get; set; }
+        }
+
+        public class CtrlLine
+        {
+            public int Id { get; set; }
+
+            public string Description { get; set; }
+        }
+
+        public IEnumerable<CtrlType> CtrlTypes
+        {
+            get
+            {
+                var result = new List<CtrlType>();
+                result.Add(new CtrlType { TypeId = 1, Description = "自XX日期起，XX值处于XX与XX之间" });
+                result.Add(new CtrlType { TypeId = 2, Description = "自XX日期起，XX值达到XX基准值之前（浮动比率为X%）" });
+                result.Add(new CtrlType { TypeId = 3, Description = "自XX日期起，XX值达到XX基准值之前" });
+                result.Add(new CtrlType { TypeId = 4, Description = "自上一次XX操作起，XX值处于XX与XX之间" });
+                result.Add(new CtrlType { TypeId = 5, Description = "自上一次XX操作起，XX值达到XX基准值之前（浮动比率为X%）" });
+                result.Add(new CtrlType { TypeId = 6, Description = "自上一次XX操作起，XX值达到XX基准值之前" });
+                result.Add(new CtrlType { TypeId = 7, Description = "TSN或CSN值达到XX与XX之间" });
+                result.Add(new CtrlType { TypeId = 8, Description = "TSN或CSN值达到XX基准值之前（浮动比率为X%）" });
+                result.Add(new CtrlType { TypeId = 9, Description = "TSN或CSN值达到XX基准值之前" });
+                return result.AsEnumerable();
+            }
+        }
+
+        private Visibility _buttonVisible = Visibility.Collapsed;
+        private Visibility _firstVisible = Visibility.Collapsed;
+        private Visibility _secondVisible = Visibility.Collapsed;
+        private Visibility _thirdVisible = Visibility.Collapsed;
+        private Visibility _fourVisible = Visibility.Collapsed;
+        private Visibility _fiveVisible = Visibility.Collapsed;
+        private Visibility _sixVisible = Visibility.Collapsed;
+        private Visibility _sevenVisible = Visibility.Collapsed;
+        private Visibility _eightVisible = Visibility.Collapsed;
+        private Visibility _nineVisible = Visibility.Collapsed;
+        public Visibility ButtonVisible
+        {
+            get
+            {
+                return _buttonVisible;
+            }
+            private set
+            {
+                if (_buttonVisible != value)
+                {
+                    _buttonVisible = value;
+                    RaisePropertyChanged(() => ButtonVisible);
+                }
+            }
+        }
+
+        public Visibility FirstVisible
+        {
+            get
+            {
+                return _firstVisible;
+            }
+            private set
+            {
+                if (_firstVisible != value)
+                {
+                    _firstVisible = value;
+                    RaisePropertyChanged(() => FirstVisible);
+                }
+            }
+        }
+
+        public Visibility SecondVisible
+        {
+            get
+            {
+                return _secondVisible;
+            }
+            private set
+            {
+                if (_secondVisible != value)
+                {
+                    _secondVisible = value;
+                    RaisePropertyChanged(() => SecondVisible);
+                }
+            }
+        }
+
+        public Visibility ThirdVisible
+        {
+            get
+            {
+                return _thirdVisible;
+            }
+            private set
+            {
+                if (_thirdVisible != value)
+                {
+                    _thirdVisible = value;
+                    RaisePropertyChanged(() => ThirdVisible);
+                }
+            }
+        }
+
+        public Visibility FourVisible
+        {
+            get
+            {
+                return _fourVisible;
+            }
+            private set
+            {
+                if (_fourVisible != value)
+                {
+                    _fourVisible = value;
+                    RaisePropertyChanged(() => FourVisible);
+                }
+            }
+        }
+
+        public Visibility FiveVisible
+        {
+            get
+            {
+                return _fiveVisible;
+            }
+            private set
+            {
+                if (_fiveVisible != value)
+                {
+                    _fiveVisible = value;
+                    RaisePropertyChanged(() => FiveVisible);
+                }
+            }
+        }
+
+        public Visibility SixVisible
+        {
+            get
+            {
+                return _sixVisible;
+            }
+            private set
+            {
+                if (_sixVisible != value)
+                {
+                    _sixVisible = value;
+                    RaisePropertyChanged(() => SixVisible);
+                }
+            }
+        }
+
+        public Visibility SevenVisible
+        {
+            get
+            {
+                return _sevenVisible;
+            }
+            private set
+            {
+                if (_sevenVisible != value)
+                {
+                    _sevenVisible = value;
+                    RaisePropertyChanged(() => SevenVisible);
+                }
+            }
+        }
+
+        public Visibility EightVisible
+        {
+            get
+            {
+                return _eightVisible;
+            }
+            private set
+            {
+                if (_eightVisible != value)
+                {
+                    _eightVisible = value;
+                    RaisePropertyChanged(() => EightVisible);
+                }
+            }
+        }
+
+        public Visibility NineVisible
+        {
+            get
+            {
+                return _nineVisible;
+            }
+            private set
+            {
+                if (_nineVisible != value)
+                {
+                    _nineVisible = value;
+                    RaisePropertyChanged(() => NineVisible);
+                }
+            }
+        }
+
+        private CtrlType _selCtrlType;
+
+        /// <summary>
+        ///     选择的控制明细类型
+        /// </summary>
+        public CtrlType SelCtrlType
+        {
+            get { return _selCtrlType; }
+            private set
+            {
+                if (_selCtrlType != value)
+                {
+                    _selCtrlType = value;
+                    ButtonVisible = Visibility.Collapsed;
+                    FirstVisible = Visibility.Collapsed;
+                    SecondVisible = Visibility.Collapsed;
+                    ThirdVisible = Visibility.Collapsed;
+                    FourVisible = Visibility.Collapsed;
+                    FiveVisible = Visibility.Collapsed;
+                    SixVisible = Visibility.Collapsed;
+                    SevenVisible = Visibility.Collapsed;
+                    EightVisible = Visibility.Collapsed;
+                    NineVisible = Visibility.Collapsed;
+                    if (value != null)
+                    {
+                        ButtonVisible = Visibility.Visible;
+                        if (value.TypeId == 1)
+                        {
+                            FirstVisible = Visibility.Visible;
+                        }
+                        else if (value.TypeId == 2)
+                        {
+                            SecondVisible = Visibility.Visible;
+                        }
+                        else if (value.TypeId == 3)
+                        {
+                            ThirdVisible = Visibility.Visible;
+                        }
+                        else if (value.TypeId == 4)
+                        {
+                            FourVisible = Visibility.Visible;
+                        }
+                        else if (value.TypeId == 5)
+                        {
+                            FiveVisible = Visibility.Visible;
+                        }
+                        else if (value.TypeId == 6)
+                        {
+                            SixVisible = Visibility.Visible;
+                        }
+                        else if (value.TypeId == 7)
+                        {
+                            SevenVisible = Visibility.Visible;
+                        }
+                        else if (value.TypeId == 8)
+                        {
+                            EightVisible = Visibility.Visible;
+                        }
+                        else if (value.TypeId == 9)
+                        {
+                            NineVisible = Visibility.Visible;
+                        }
+                    }
+                    RefreshVisivlities();
+                    RaisePropertyChanged(() => SelCtrlType);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        public void RefreshVisivlities()
+        {
+            RaisePropertyChanged(() => FirstVisible);
+            RaisePropertyChanged(() => SecondVisible);
+            RaisePropertyChanged(() => ThirdVisible);
+        }
+
+
+        private DateTime _startDate;
+        private CtrlUnitDTO _selCtrlUnit;
+        private MaintainWorkDTO _selMaintainWork;
+        private SinceNewType _selSnType;
+        private decimal _max;
+        private decimal _min;
+        private decimal _standard;
+        private decimal _rate;
+        private IEnumerable<CtrlLine> _ctrlLines;
+
+        public DateTime StartDate
+        {
+            get { return _startDate; }
+            private set
+            {
+                if (_startDate != value)
+                {
+                    _startDate = value;
+                    RaisePropertyChanged(() => StartDate);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        public CtrlUnitDTO SelCtrlUnit
+        {
+            get { return _selCtrlUnit; }
+            private set
+            {
+                if (_selCtrlUnit != value)
+                {
+                    _selCtrlUnit = value;
+                    RaisePropertyChanged(() => SelCtrlUnit);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        public MaintainWorkDTO SelMaintainWork
+        {
+            get { return _selMaintainWork; }
+            private set
+            {
+                if (_selMaintainWork != value)
+                {
+                    _selMaintainWork = value;
+                    RaisePropertyChanged(() => SelMaintainWork);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        public SinceNewType SelSnType
+        {
+            get { return _selSnType; }
+            private set
+            {
+                if (_selSnType != value)
+                {
+                    _selSnType = value;
+                    RaisePropertyChanged(() => SelSnType);
+                    RefreshCommandState();
+                }
+            }
+        }
+        public decimal Max
+        {
+            get { return _max; }
+            private set
+            {
+                if (_max != value)
+                {
+                    _max = value;
+                    RaisePropertyChanged(() => Max);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        public decimal Min
+        {
+            get { return _min; }
+            private set
+            {
+                if (_min != value)
+                {
+                    _min = value;
+                    RaisePropertyChanged(() => Min);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        public decimal Standard
+        {
+            get { return _standard; }
+            private set
+            {
+                if (_standard != value)
+                {
+                    _standard = value;
+                    RaisePropertyChanged(() => Standard);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        public decimal Rate
+        {
+            get { return _rate; }
+            private set
+            {
+                if (_rate != value)
+                {
+                    _rate = value;
+                    RaisePropertyChanged(() => Rate);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        public IEnumerable<CtrlLine> CtrlLines
+        {
+            get { return _ctrlLines; }
+            private set
+            {
+                if (_ctrlLines != value)
+                {
+                    _ctrlLines = value;
+                    RaisePropertyChanged(() => CtrlLines);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        private CtrlLine _selCtrlLine;
+
+        /// <summary>
+        ///     选择的控制明细
+        /// </summary>
+        public CtrlLine SelCtrlLine
+        {
+            get { return _selCtrlLine; }
+            private set
+            {
+                if (_selCtrlLine != value)
+                {
+                    _selCtrlLine = value;
+                    RaisePropertyChanged(() => SelCtrlLine);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        private IEnumerable<CtrlLine> ConvertXmlToString(XElement xmlContent)
+        {
+            if (xmlContent != null)
+            {
+                var result = new List<CtrlLine>();
+                foreach (var ctrlType in xmlContent.Descendants("CtrlType"))
+                {
+                    foreach (var ctrlDetail in ctrlType.Descendants("CtrlDetail"))
+                    {
+                        string str = null;
+                        if (ctrlType.Attribute("Name").Value == "StartDate")
+                        {
+                            str += "自" + ctrlType.Attribute("Value").Value + "起，当";
+                        }
+                        else if (ctrlType.Attribute("Name").Value == "Action")
+                        {
+                            var maintainWork =
+                                MaintainWorks.FirstOrDefault(p => p.Id.ToString() == ctrlType.Attribute("Value").Value);
+                            if (maintainWork != null)
+                                str += "自上次" + maintainWork.WorkCode + "起，当";
+                        }
+
+                        //控制单位
+                        var ctrlUnit = CtrlUnits.FirstOrDefault(p => p.Id.ToString() == ctrlDetail.Attribute("Type").Value);
+                        if (ctrlUnit != null)
+                            str += ctrlUnit.Name + "(" + ctrlUnit.Description + ")";
+                        else str += ctrlDetail.Attribute("Type").Value;
+
+                        //间隔
+                        if (ctrlDetail.Descendants("Max").Count() != 0 && ctrlDetail.Descendants("Min").Count() != 0)
+                        {
+                            var max = ctrlDetail.Descendants("Max").First();
+                            var min = ctrlDetail.Descendants("Min").First();
+
+                            str += "处于(最小间隔)" + min.Attribute("Value").Value + "和(最大间隔)" + max.Attribute("Value").Value + "之间";
+                        }
+                        else if (ctrlDetail.Descendants("Standard").Count() != 0)
+                        {
+                            var standard = ctrlDetail.Descendants("Standard").First();
+                            str += "的基准间隔为" + standard.Attribute("Value").Value;
+                        }
+                        if (ctrlDetail.Descendants("Rate").Count() != 0)
+                        {
+                            var rate = ctrlDetail.Descendants("Rate").First();
+                            str += "(浮动比率为" + rate.Attribute("Value").Value + ")";
+                        }
+                        str += "时";
+                        var ctrlLine = new CtrlLine();
+                        ctrlLine.Id = RandomHelper.Next();
+                        ctrlLine.Description = str;
+                        result.Add(ctrlLine);
+                    }
+                }
+                return result;
+            }
+            return null;
+        }
+        #endregion
+
     }
 }
