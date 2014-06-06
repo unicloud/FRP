@@ -15,7 +15,6 @@
 
 #endregion
 
-
 #region 命名空间
 
 using System;
@@ -33,7 +32,7 @@ namespace UniCloud.Application.PaymentBC.MaintainContractServices
     ///     实现发动机维修合同接口。
     ///     用于处于维修合同相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class MaintainContractAppService : ContextBoundObject, IMaintainContractAppService
     {
         private readonly IMaintainContractQuery _maintainContractQuery;
@@ -43,6 +42,7 @@ namespace UniCloud.Application.PaymentBC.MaintainContractServices
         {
             _maintainContractQuery = maintainContractQuery;
         }
+
         /// <summary>
         ///     获取所有维修合同。
         /// </summary>
@@ -52,7 +52,5 @@ namespace UniCloud.Application.PaymentBC.MaintainContractServices
             var queryBuilder = new QueryBuilder<MaintainContract>();
             return _maintainContractQuery.MaintainContractsQuery(queryBuilder);
         }
-
-   
     }
 }

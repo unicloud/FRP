@@ -33,14 +33,14 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
     ///     实现发动机维修发票接口。
     ///     用于处于维修发票相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class PaymentScheduleAppService : ContextBoundObject, IPaymentScheduleAppService
     {
         private readonly IPaymentScheduleQuery _paymentScheduleQuery;
         private readonly IPaymentScheduleRepository _paymentScheduleRepository;
 
         public PaymentScheduleAppService(IPaymentScheduleQuery paymentScheduleQuery,
-                                         IPaymentScheduleRepository paymentScheduleRepository)
+            IPaymentScheduleRepository paymentScheduleRepository)
         {
             _paymentScheduleQuery = paymentScheduleQuery;
             _paymentScheduleRepository = paymentScheduleRepository;
@@ -84,10 +84,11 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
                 throw new Exception("飞机付款计划不能为空");
             }
 
-            var newAcPaymentSchedule = PaymentScheduleFactory.CreateAcPaymentSchedule(acPaymentSchedule.SupplierName,
-                                                                                      acPaymentSchedule.SupplierId,
-                                                                                      acPaymentSchedule.CurrencyId,
-                                                                                      acPaymentSchedule.ContractAcId);
+            PaymentSchedule newAcPaymentSchedule =
+                PaymentScheduleFactory.CreateAcPaymentSchedule(acPaymentSchedule.SupplierName,
+                    acPaymentSchedule.SupplierId,
+                    acPaymentSchedule.CurrencyId,
+                    acPaymentSchedule.ContractAcId);
             InsertPaymentSchedule(newAcPaymentSchedule, acPaymentSchedule.PaymentScheduleLines); //新增飞机付款计划
         }
 
@@ -165,11 +166,11 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
                 throw new Exception("发动机付款计划不能为空");
             }
 
-            var newEnginePaymentSchedule =
+            PaymentSchedule newEnginePaymentSchedule =
                 PaymentScheduleFactory.CreateEnginePaymentSchedule(eginePaymentSchedule.SupplierName,
-                                                                   eginePaymentSchedule.SupplierId,
-                                                                   eginePaymentSchedule.CurrencyId,
-                                                                   eginePaymentSchedule.ContractEngineId);
+                    eginePaymentSchedule.SupplierId,
+                    eginePaymentSchedule.CurrencyId,
+                    eginePaymentSchedule.ContractEngineId);
             InsertPaymentSchedule(newEnginePaymentSchedule, eginePaymentSchedule.PaymentScheduleLines); //新增发动机付款计划
         }
 
@@ -247,11 +248,11 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
                 throw new Exception("付款计划不能为空");
             }
 
-            var newStandardPaymentSchedule =
+            PaymentSchedule newStandardPaymentSchedule =
                 PaymentScheduleFactory.CreateStandardPaymentSchedule(standardPaymentSchedule.SupplierName,
-                                                                                      standardPaymentSchedule.SupplierId,
-                                                                                      standardPaymentSchedule.CurrencyId,
-                                                                                      standardPaymentSchedule.OrderId);
+                    standardPaymentSchedule.SupplierId,
+                    standardPaymentSchedule.CurrencyId,
+                    standardPaymentSchedule.OrderId);
             InsertPaymentSchedule(newStandardPaymentSchedule, standardPaymentSchedule.PaymentScheduleLines); //新增飞机付款计划
         }
 
@@ -323,7 +324,7 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
         ///     新增维修付款计划
         /// </summary>
         /// <param name="maintainPaymentSchedule">维修付款计划DTO。</param>
-        [Insert(typeof(MaintainPaymentScheduleDTO))]
+        [Insert(typeof (MaintainPaymentScheduleDTO))]
         public void InsertMaintainPaymentSchedule(MaintainPaymentScheduleDTO maintainPaymentSchedule)
         {
             if (maintainPaymentSchedule == null)
@@ -331,10 +332,10 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
                 throw new Exception("付款计划不能为空");
             }
 
-            var newMaintainPaymentSchedule =
+            PaymentSchedule newMaintainPaymentSchedule =
                 PaymentScheduleFactory.CreateMaintainPaymentSchedule(maintainPaymentSchedule.SupplierName,
-                                                                                      maintainPaymentSchedule.SupplierId,
-                                                                                      maintainPaymentSchedule.CurrencyId);
+                    maintainPaymentSchedule.SupplierId,
+                    maintainPaymentSchedule.CurrencyId);
             InsertPaymentSchedule(newMaintainPaymentSchedule, maintainPaymentSchedule.PaymentScheduleLines); //新增飞机付款计划
         }
 
@@ -342,7 +343,7 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
         ///     修改维修付款计划
         /// </summary>
         /// <param name="maintainPaymentSchedule">维修付款计划DTO。</param>
-        [Update(typeof(MaintainPaymentScheduleDTO))]
+        [Update(typeof (MaintainPaymentScheduleDTO))]
         public void ModifyMaintainPaymentSchedule(MaintainPaymentScheduleDTO maintainPaymentSchedule)
         {
             if (maintainPaymentSchedule == null)
@@ -374,7 +375,7 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
         ///     删除维修付款计划
         /// </summary>
         /// <param name="maintainPaymentSchedule">维修付款计划DTO。</param>
-        [Delete(typeof(MaintainPaymentScheduleDTO))]
+        [Delete(typeof (MaintainPaymentScheduleDTO))]
         public void DeleteMaintainPaymentSchedule(MaintainPaymentScheduleDTO maintainPaymentSchedule)
         {
             if (maintainPaymentSchedule == null)
@@ -395,7 +396,7 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
             List<PaymentScheduleLineDTO> addingPaymentScheduleLines)
         {
             addingPaymentScheduleLines.ForEach(p => paymentSchedule
-                                                    .AddPaymentScheduleLine(p.ScheduleDate,
+                .AddPaymentScheduleLine(p.ScheduleDate,
                     p.Amount, p.Subject, p.Body, p.Importance, p.ProcessStatus, p.Start, p.End, p.IsAllDayEvent));
             _paymentScheduleRepository.Add(paymentSchedule);
         }
@@ -406,7 +407,7 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
         /// <param name="paymentScheduleId"></param>
         private void DeletePaymentSchedule(int paymentScheduleId)
         {
-            var deletingPaySchedule = _paymentScheduleRepository.Get(paymentScheduleId);
+            PaymentSchedule deletingPaySchedule = _paymentScheduleRepository.Get(paymentScheduleId);
             if (deletingPaySchedule == null)
             {
                 throw new Exception("找不到需要删除的付款计划");
@@ -423,47 +424,47 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
         /// <param name="persistPaymentSchedule"></param>
         /// <param name="paymentScheduleLines"></param>
         private void UpdatePaymentSchedule(PaymentSchedule persistPaymentSchedule,
-                                           List<PaymentScheduleLineDTO> paymentScheduleLines)
+            List<PaymentScheduleLineDTO> paymentScheduleLines)
         {
             var addingPaymentDetail = new List<PaymentScheduleLineDTO>(); //需要添加的付款计划明细
             var deletingPaymentDetail = new List<PaymentScheduleLine>(); //需要删除的付款计划明细 
             paymentScheduleLines.ForEach(p =>
+            {
+                //存在付款计划行
+                PaymentScheduleLine persistPaymentScheduleLine =
+                    persistPaymentSchedule.PaymentScheduleLines.FirstOrDefault(c => c.Id == p.PaymentScheduleLineId);
+                //更新
+                if (persistPaymentScheduleLine != null)
                 {
-                    //存在付款计划行
-                    var persistPaymentScheduleLine =
-                        persistPaymentSchedule.PaymentScheduleLines.FirstOrDefault(c => c.Id == p.PaymentScheduleLineId);
-                    //更新
-                    if (persistPaymentScheduleLine != null)
+                    if (!persistPaymentScheduleLine.ScheduleDate.Equals(p.ScheduleDate))
                     {
-                        if (!persistPaymentScheduleLine.ScheduleDate.Equals(p.ScheduleDate))
-                        {
-                            persistPaymentScheduleLine.SetScheduleDate(p.ScheduleDate);
-                        }
-                        if (!persistPaymentScheduleLine.Amount.Equals(p.Amount))
-                        {
-                            persistPaymentScheduleLine.SetAmount(p.Amount);
-                        }
-                        if (!persistPaymentScheduleLine.Amount.Equals(p.Amount))
-                        {
-                            persistPaymentScheduleLine.SetAmount(p.Amount);
-                        }
+                        persistPaymentScheduleLine.SetScheduleDate(p.ScheduleDate);
                     }
-                    else
+                    if (!persistPaymentScheduleLine.Amount.Equals(p.Amount))
+                    {
+                        persistPaymentScheduleLine.SetAmount(p.Amount);
+                    }
+                    if (!persistPaymentScheduleLine.Amount.Equals(p.Amount))
+                    {
+                        persistPaymentScheduleLine.SetAmount(p.Amount);
+                    }
+                }
+                else
                 {
                     //需要添加的付款计划明细,添加项
-                        addingPaymentDetail.Add(p);
-                    }
-                });
+                    addingPaymentDetail.Add(p);
+                }
+            });
             persistPaymentSchedule.PaymentScheduleLines.ToList().ForEach(p =>
+            {
+                //存在付款计划行
+                PaymentScheduleLineDTO persistPaymentScheduleLine =
+                    paymentScheduleLines.FirstOrDefault(c => c.PaymentScheduleLineId == p.Id);
+                if (persistPaymentScheduleLine == null)
                 {
-                    //存在付款计划行
-                    var persistPaymentScheduleLine =
-                        paymentScheduleLines.FirstOrDefault(c => c.PaymentScheduleLineId == p.Id);
-                    if (persistPaymentScheduleLine == null)
-                    {
-                        deletingPaymentDetail.Add(p);
-                    }
-                });
+                    deletingPaymentDetail.Add(p);
+                }
+            });
 
             addingPaymentDetail.ForEach(p => persistPaymentSchedule
                 .AddPaymentScheduleLine(p.ScheduleDate,

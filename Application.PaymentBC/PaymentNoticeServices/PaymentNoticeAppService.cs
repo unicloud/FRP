@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2013/12/20 11:05:34
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -36,11 +38,13 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
     [LogAOP]
     public class PaymentNoticeAppService : ContextBoundObject, IPaymentNoticeAppService
     {
-        private readonly IPaymentNoticeQuery _paymentNoticeQuery;
-        private readonly IPaymentNoticeRepository _paymentNoticeRepository;
         private static int _maxInvoiceNumber;
         private readonly IInvoiceRepository _invoiceRepository;
-        public PaymentNoticeAppService(IPaymentNoticeQuery paymentNoticeQuery, IPaymentNoticeRepository paymentNoticeRepository,
+        private readonly IPaymentNoticeQuery _paymentNoticeQuery;
+        private readonly IPaymentNoticeRepository _paymentNoticeRepository;
+
+        public PaymentNoticeAppService(IPaymentNoticeQuery paymentNoticeQuery,
+            IPaymentNoticeRepository paymentNoticeRepository,
             IInvoiceRepository invoiceRepository)
         {
             _paymentNoticeQuery = paymentNoticeQuery;
@@ -49,6 +53,7 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
         }
 
         #region PaymentNoticeDTO
+
         /// <summary>
         ///     获取所有付款通知。
         /// </summary>
@@ -63,12 +68,12 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
         ///     新增付款通知。
         /// </summary>
         /// <param name="paymentNotice">付款通知DTO。</param>
-        [Insert(typeof(PaymentNoticeDTO))]
+        [Insert(typeof (PaymentNoticeDTO))]
         public void InsertPaymentNotice(PaymentNoticeDTO paymentNotice)
         {
-            var newPaymentNotice = PaymentNoticeFactory.CreatePaymentNotice();
-            var date = DateTime.Now.Date.ToString("yyyyMMdd").Substring(0, 8);
-            var noticeNumber = _paymentNoticeRepository.GetAll().Max(p => p.NoticeNumber);
+            PaymentNotice newPaymentNotice = PaymentNoticeFactory.CreatePaymentNotice();
+            string date = DateTime.Now.Date.ToString("yyyyMMdd").Substring(0, 8);
+            string noticeNumber = _paymentNoticeRepository.GetAll().Max(p => p.NoticeNumber);
             int seq = 1;
             if (!string.IsNullOrEmpty(noticeNumber) && noticeNumber.StartsWith(date))
             {
@@ -84,14 +89,17 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
             }
             _maxInvoiceNumber++;
             newPaymentNotice.SetNoticeNumber(seq);
-            PaymentNoticeFactory.SetPaymentNotice(newPaymentNotice, paymentNotice.DeadLine, paymentNotice.SupplierName, paymentNotice.SupplierId,
-                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId, paymentNotice.IsComplete);
+            PaymentNoticeFactory.SetPaymentNotice(newPaymentNotice, paymentNotice.DeadLine, paymentNotice.SupplierName,
+                paymentNotice.SupplierId,
+                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId,
+                paymentNotice.BankAccountId, paymentNotice.IsComplete);
             if (paymentNotice.PaymentNoticeLines != null)
             {
-                foreach (var paymentNoticeLine in paymentNotice.PaymentNoticeLines)
+                foreach (PaymentNoticeLineDTO paymentNoticeLine in paymentNotice.PaymentNoticeLines)
                 {
-                    var newPaymentNoticeLine = PaymentNoticeFactory.CreatePaymentNoticeLine();
-                    PaymentNoticeFactory.SetPaymentNoticeLine(newPaymentNoticeLine, paymentNoticeLine.InvoiceType, paymentNoticeLine.InvoiceId, paymentNoticeLine.InvoiceNumber,
+                    PaymentNoticeLine newPaymentNoticeLine = PaymentNoticeFactory.CreatePaymentNoticeLine();
+                    PaymentNoticeFactory.SetPaymentNoticeLine(newPaymentNoticeLine, paymentNoticeLine.InvoiceType,
+                        paymentNoticeLine.InvoiceId, paymentNoticeLine.InvoiceNumber,
                         paymentNoticeLine.Amount, paymentNoticeLine.Note);
                     newPaymentNotice.PaymentNoticeLines.Add(newPaymentNoticeLine);
                 }
@@ -105,12 +113,15 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
         ///     更新付款通知。
         /// </summary>
         /// <param name="paymentNotice">付款通知DTO。</param>
-        [Update(typeof(PaymentNoticeDTO))]
+        [Update(typeof (PaymentNoticeDTO))]
         public void ModifyPaymentNotice(PaymentNoticeDTO paymentNotice)
         {
-            var updatePaymentNotice = _paymentNoticeRepository.Get(paymentNotice.PaymentNoticeId); //获取需要更新的对象。
-            PaymentNoticeFactory.SetPaymentNotice(updatePaymentNotice, paymentNotice.DeadLine, paymentNotice.SupplierName, paymentNotice.SupplierId,
-                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId, paymentNotice.IsComplete);
+            PaymentNotice updatePaymentNotice = _paymentNoticeRepository.Get(paymentNotice.PaymentNoticeId);
+                //获取需要更新的对象。
+            PaymentNoticeFactory.SetPaymentNotice(updatePaymentNotice, paymentNotice.DeadLine,
+                paymentNotice.SupplierName, paymentNotice.SupplierId,
+                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId,
+                paymentNotice.BankAccountId, paymentNotice.IsComplete);
             UpdatePaymentNoticeLines(paymentNotice.PaymentNoticeLines, updatePaymentNotice);
             _paymentNoticeRepository.Modify(updatePaymentNotice);
             UpdateInvoicePaidAmount(updatePaymentNotice);
@@ -120,34 +131,41 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
         ///     删除付款通知。
         /// </summary>
         /// <param name="paymentNotice">付款通知DTO。</param>
-        [Delete(typeof(PaymentNoticeDTO))]
+        [Delete(typeof (PaymentNoticeDTO))]
         public void DeletePaymentNotice(PaymentNoticeDTO paymentNotice)
         {
-            var deletePaymentNotice = _paymentNoticeRepository.Get(paymentNotice.PaymentNoticeId); //获取需要删除的对象。
+            PaymentNotice deletePaymentNotice = _paymentNoticeRepository.Get(paymentNotice.PaymentNoticeId);
+                //获取需要删除的对象。
             UpdatePaymentNoticeLines(new List<PaymentNoticeLineDTO>(), deletePaymentNotice);
             _paymentNoticeRepository.Remove(deletePaymentNotice); //删除付款通知。
         }
+
         #endregion
 
         #region 更新付款通知行集合
+
         /// <summary>
-        /// 更新付款通知行集合
+        ///     更新付款通知行集合
         /// </summary>
         /// <param name="sourcePaymentNoticeLines">客户端集合</param>
         /// <param name="dstPaymentNotice">数据库集合</param>
-        private void UpdatePaymentNoticeLines(IEnumerable<PaymentNoticeLineDTO> sourcePaymentNoticeLines, PaymentNotice dstPaymentNotice)
+        private void UpdatePaymentNoticeLines(IEnumerable<PaymentNoticeLineDTO> sourcePaymentNoticeLines,
+            PaymentNotice dstPaymentNotice)
         {
             var paymentNoticeLines = new List<PaymentNoticeLine>();
-            foreach (var sourcePaymentNoticeLine in sourcePaymentNoticeLines)
+            foreach (PaymentNoticeLineDTO sourcePaymentNoticeLine in sourcePaymentNoticeLines)
             {
-                var result = dstPaymentNotice.PaymentNoticeLines.FirstOrDefault(p => p.Id == sourcePaymentNoticeLine.PaymentNoticeLineId);
+                PaymentNoticeLine result =
+                    dstPaymentNotice.PaymentNoticeLines.FirstOrDefault(
+                        p => p.Id == sourcePaymentNoticeLine.PaymentNoticeLineId);
                 if (result == null)
                 {
                     result = PaymentNoticeFactory.CreatePaymentNoticeLine();
                     result.ChangeCurrentIdentity(sourcePaymentNoticeLine.PaymentNoticeLineId);
                 }
-                PaymentNoticeFactory.SetPaymentNoticeLine(result, sourcePaymentNoticeLine.InvoiceType, sourcePaymentNoticeLine.InvoiceId, sourcePaymentNoticeLine.InvoiceNumber,
-                        sourcePaymentNoticeLine.Amount, sourcePaymentNoticeLine.Note);
+                PaymentNoticeFactory.SetPaymentNoticeLine(result, sourcePaymentNoticeLine.InvoiceType,
+                    sourcePaymentNoticeLine.InvoiceId, sourcePaymentNoticeLine.InvoiceNumber,
+                    sourcePaymentNoticeLine.Amount, sourcePaymentNoticeLine.Note);
                 paymentNoticeLines.Add(result);
             }
             dstPaymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
@@ -159,34 +177,36 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
             });
             dstPaymentNotice.PaymentNoticeLines = paymentNoticeLines;
         }
+
         #endregion
 
         #region 更新发票已付金额
+
         private void UpdateInvoicePaidAmount(PaymentNotice paymentNotice)
         {
             if (paymentNotice.IsComplete)
             {
                 paymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
-                                                                  {
-                                                                      switch (p.InvoiceType)
-                                                                      {
-                                                                          case InvoiceType.维修发票:
-                                                                          case InvoiceType.租赁发票:
-                                                                          case InvoiceType.贷项单:
-                                                                          case InvoiceType.采购发票:
-                                                                          case InvoiceType.预付款发票:
-                                                                              var invoice = _invoiceRepository.Get(p.InvoiceId);
-                                                                              if (invoice != null)
-                                                                              {
-                                                                                  invoice.SetPaidAmount(Math.Abs(p.Amount));
-                                                                                  _invoiceRepository.Modify(invoice);
-                                                                              }
-                                                                              break;
-
-                                                                      }
-                                                                  });
+                {
+                    switch (p.InvoiceType)
+                    {
+                        case InvoiceType.维修发票:
+                        case InvoiceType.租赁发票:
+                        case InvoiceType.贷项单:
+                        case InvoiceType.采购发票:
+                        case InvoiceType.预付款发票:
+                            Invoice invoice = _invoiceRepository.Get(p.InvoiceId);
+                            if (invoice != null)
+                            {
+                                invoice.SetPaidAmount(Math.Abs(p.Amount));
+                                _invoiceRepository.Modify(invoice);
+                            }
+                            break;
+                    }
+                });
             }
         }
+
         #endregion
     }
 }

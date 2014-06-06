@@ -32,7 +32,7 @@ namespace UniCloud.Application.FleetPlanBC.AirlinesServices
     ///     实现航空公司服务接口。
     ///     用于处理航空公司相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class AirlinesAppService : ContextBoundObject, IAirlinesAppService
     {
         private readonly IAirlinesQuery _airlinesQuery;

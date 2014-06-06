@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/1/16 14:36:31
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -30,13 +32,14 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftLicenseServices
     ///     实现飞机证照服务接口。
     ///     用于处理飞机证照相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class AircraftLicenseAppService : ContextBoundObject, IAircraftLicenseAppService
     {
         private readonly IAircraftLicenseQuery _aircraftLicenseQuery;
         private readonly ILicenseTypeRepository _licenseTypeRepository;
 
-        public AircraftLicenseAppService(IAircraftLicenseQuery aircraftLicenseQuery, ILicenseTypeRepository licenseTypeRepository)
+        public AircraftLicenseAppService(IAircraftLicenseQuery aircraftLicenseQuery,
+            ILicenseTypeRepository licenseTypeRepository)
         {
             _aircraftLicenseQuery = aircraftLicenseQuery;
             _licenseTypeRepository = licenseTypeRepository;
@@ -58,11 +61,12 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftLicenseServices
         ///     新增证照类型。
         /// </summary>
         /// <param name="licenseType">证照类型DTO。</param>
-        [Insert(typeof(LicenseTypeDTO))]
+        [Insert(typeof (LicenseTypeDTO))]
         public void InsertLicenseType(LicenseTypeDTO licenseType)
         {
-            var newLicenseType = LicenseTypeFactory.CreateLicenseType();
-            LicenseTypeFactory.SetLicenseType(newLicenseType, licenseType.Name, licenseType.HasFile, licenseType.Description);
+            LicenseType newLicenseType = LicenseTypeFactory.CreateLicenseType();
+            LicenseTypeFactory.SetLicenseType(newLicenseType, licenseType.Name, licenseType.HasFile,
+                licenseType.Description);
             _licenseTypeRepository.Add(newLicenseType);
         }
 
@@ -71,11 +75,12 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftLicenseServices
         ///     更新证照类型。
         /// </summary>
         /// <param name="licenseType">证照类型DTO。</param>
-        [Update(typeof(LicenseTypeDTO))]
+        [Update(typeof (LicenseTypeDTO))]
         public void ModifyLicenseType(LicenseTypeDTO licenseType)
         {
-            var updateLicenseType = _licenseTypeRepository.Get(licenseType.LicenseTypeId); //获取需要更新的对象。
-            LicenseTypeFactory.SetLicenseType(updateLicenseType, licenseType.Name, licenseType.HasFile, licenseType.Description);
+            LicenseType updateLicenseType = _licenseTypeRepository.Get(licenseType.LicenseTypeId); //获取需要更新的对象。
+            LicenseTypeFactory.SetLicenseType(updateLicenseType, licenseType.Name, licenseType.HasFile,
+                licenseType.Description);
             _licenseTypeRepository.Modify(updateLicenseType);
         }
 
@@ -83,12 +88,13 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftLicenseServices
         ///     删除证照类型。
         /// </summary>
         /// <param name="licenseType">证照类型DTO。</param>
-        [Delete(typeof(LicenseTypeDTO))]
+        [Delete(typeof (LicenseTypeDTO))]
         public void DeleteLicenseType(LicenseTypeDTO licenseType)
         {
-            var deleteLicenseType = _licenseTypeRepository.Get(licenseType.LicenseTypeId); //获取需要删除的对象。
+            LicenseType deleteLicenseType = _licenseTypeRepository.Get(licenseType.LicenseTypeId); //获取需要删除的对象。
             _licenseTypeRepository.Remove(deleteLicenseType); //删除证照类型。
         }
+
         #endregion
     }
 }

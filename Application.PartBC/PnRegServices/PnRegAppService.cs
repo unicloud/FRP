@@ -63,7 +63,7 @@ namespace UniCloud.Application.PartBC.PnRegServices
         }
 
         /// <summary>
-        /// 获取某个项下所带的附件集合(去重)
+        ///     获取某个项下所带的附件集合(去重)
         /// </summary>
         /// <param name="itemId"></param>
         /// <returns></returns>
@@ -72,7 +72,7 @@ namespace UniCloud.Application.PartBC.PnRegServices
             return _pnRegQuery.GetPnRegsByItem(itemId);
         }
 
-            /// <summary>
+        /// <summary>
         ///     新增PnReg。
         /// </summary>
         /// <param name="dto">PnRegDTO。</param>
@@ -81,7 +81,7 @@ namespace UniCloud.Application.PartBC.PnRegServices
         {
             Item item = _itemRepository.Get(dto.ItemId);
 
-            PnReg newPnReg = PnRegFactory.CreatePnReg(dto.IsLife, dto.Pn,dto.Description);
+            PnReg newPnReg = PnRegFactory.CreatePnReg(dto.IsLife, dto.Pn, dto.Description);
             newPnReg.SetItem(item);
             newPnReg.ChangeCurrentIdentity(dto.Id);
             _pnRegRepository.Add(newPnReg);
@@ -118,6 +118,7 @@ namespace UniCloud.Application.PartBC.PnRegServices
 
             _pnRegRepository.Remove(delPnReg); //删除PnReg。
         }
+
         #endregion
     }
 }

@@ -20,10 +20,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UniCloud.Application.PartBC.Query.AcConfigQueries;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PartBC.DTO;
+using UniCloud.Application.PartBC.Query.AcConfigQueries;
 using UniCloud.Domain.PartBC.Aggregates;
-using UniCloud.Domain.PartBC.Aggregates.AdSbAgg;
 
 #endregion
 
@@ -33,6 +33,7 @@ namespace UniCloud.Application.PartBC.AcConfigServices
     ///     实现飞机构型服务接口。
     ///     用于处理飞机构型相关信息的服务，供Distributed Services调用。
     /// </summary>
+    [LogAOP]
     public class AcConfigAppService : IAcConfigAppService
     {
         private readonly IAcConfigQuery _acConfigQuery;
@@ -45,17 +46,17 @@ namespace UniCloud.Application.PartBC.AcConfigServices
         #region AcConfigDTO
 
         /// <summary>
-        /// 获取所有AcConfig。
+        ///     获取所有AcConfig。
         /// </summary>
         public IQueryable<AcConfigDTO> GetAcConfigs()
         {
             var queryBuilder =
-               new QueryBuilder<AcConfig>();
+                new QueryBuilder<AcConfig>();
             return _acConfigQuery.AcConfigDTOQuery(queryBuilder);
         }
 
         /// <summary>
-        /// 获取所有飞机构型
+        ///     获取所有飞机构型
         /// </summary>
         /// <param name="contractAircraftId"></param>
         /// <param name="date"></param>

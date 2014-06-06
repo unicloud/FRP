@@ -77,7 +77,7 @@ namespace UniCloud.Application.PartBC.SnRegServices
         ///     新增SnReg。
         /// </summary>
         /// <param name="dto">SnRegDTO。</param>
-        [Insert(typeof(SnRegDTO))]
+        [Insert(typeof (SnRegDTO))]
         public void InsertSnReg(SnRegDTO dto)
         {
             Aircraft aircraft = _aircraftRepository.Get(dto.AircraftId); //获取运营飞机
@@ -86,8 +86,8 @@ namespace UniCloud.Application.PartBC.SnRegServices
             //创建序号件
             SnReg newSnReg = SnRegFactory.CreateSnReg(dto.InstallDate, pnReg, dto.Sn);
             newSnReg.SetAircraft(aircraft);
-            newSnReg.SetIsLife(dto.IsLife, dto.IsLifeCst, dto.TimeRate,dto.CycleRate);
-            newSnReg.SetSnStatus((SnStatus)dto.Status);
+            newSnReg.SetIsLife(dto.IsLife, dto.IsLifeCst, dto.TimeRate, dto.CycleRate);
+            newSnReg.SetSnStatus((SnStatus) dto.Status);
             //添加到寿监控
             dto.LiftMonitors.ToList().ForEach(lifeMonitor => InsertLifeMonitor(newSnReg, lifeMonitor));
 
@@ -98,7 +98,7 @@ namespace UniCloud.Application.PartBC.SnRegServices
         ///     更新SnReg。
         /// </summary>
         /// <param name="dto">SnRegDTO。</param>
-        [Update(typeof(SnRegDTO))]
+        [Update(typeof (SnRegDTO))]
         public void ModifySnReg(SnRegDTO dto)
         {
             Aircraft aircraft = _aircraftRepository.Get(dto.AircraftId); //获取运营飞机
@@ -112,8 +112,8 @@ namespace UniCloud.Application.PartBC.SnRegServices
                 //更新主表：
                 SnRegFactory.UpdateSnReg(updateSnReg, dto.InstallDate, pnReg, dto.Sn);
                 updateSnReg.SetAircraft(aircraft);
-                updateSnReg.SetIsLife(dto.IsLife, dto.IsLifeCst, dto.TimeRate,dto.CycleRate);
-                updateSnReg.SetSnStatus((SnStatus)dto.Status);
+                updateSnReg.SetIsLife(dto.IsLife, dto.IsLifeCst, dto.TimeRate, dto.CycleRate);
+                updateSnReg.SetSnStatus((SnStatus) dto.Status);
 
                 //更新到寿监控集合：
                 List<LifeMonitorDTO> dtoLiftMonitors = dto.LiftMonitors;
@@ -132,7 +132,7 @@ namespace UniCloud.Application.PartBC.SnRegServices
         ///     删除SnReg。
         /// </summary>
         /// <param name="dto">SnRegDTO。</param>
-        [Delete(typeof(SnRegDTO))]
+        [Delete(typeof (SnRegDTO))]
         public void DeleteSnReg(SnRegDTO dto)
         {
             if (dto == null)
@@ -158,7 +158,8 @@ namespace UniCloud.Application.PartBC.SnRegServices
         private void InsertLifeMonitor(SnReg snReg, LifeMonitorDTO lifeMonitorDto)
         {
             // 添加到寿监控
-            snReg.AddNewLifeMonitor(lifeMonitorDto.WorkDescription, lifeMonitorDto.MointorStart, lifeMonitorDto.MointorEnd);
+            snReg.AddNewLifeMonitor(lifeMonitorDto.WorkDescription, lifeMonitorDto.MointorStart,
+                lifeMonitorDto.MointorEnd);
         }
 
         /// <summary>

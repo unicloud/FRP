@@ -36,13 +36,13 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
     ///     实现BasicConfig的服务接口。
     ///     用于处理BasicConfig相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class BasicConfigAppService : ContextBoundObject, IBasicConfigAppService
     {
+        private readonly IBasicConfigGroupRepository _basicConfigGroupRepository;
         private readonly IBasicConfigQuery _basicConfigQuery;
         private readonly IBasicConfigRepository _basicConfigRepository;
         private readonly IItemRepository _itemRepository;
-        private readonly IBasicConfigGroupRepository _basicConfigGroupRepository;
 
         public BasicConfigAppService(IBasicConfigQuery basicConfigQuery, IBasicConfigRepository basicConfigRepository,
             IBasicConfigGroupRepository basicConfigGroupRepository,
@@ -78,7 +78,8 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
             BasicConfigGroup basicConfigGroup = _basicConfigGroupRepository.Get(dto.BasicConfigGroupId);
 
             //创建基本构型
-            BasicConfig newBasicConfig = BasicConfigFactory.CreateBasicConfig(dto.Position, dto.Description, item, parentAcConfig, basicConfigGroup);
+            BasicConfig newBasicConfig = BasicConfigFactory.CreateBasicConfig(dto.Position, dto.Description, item,
+                parentAcConfig, basicConfigGroup);
             newBasicConfig.ChangeCurrentIdentity(dto.Id);
             _basicConfigRepository.Add(newBasicConfig);
         }

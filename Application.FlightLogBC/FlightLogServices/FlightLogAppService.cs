@@ -16,7 +16,7 @@ namespace UniCloud.Application.FlightLogBC.FlightLogServices
     ///     实现飞行日志服务接口。
     ///     用于处理飞行日志相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class FlightLogAppService : ContextBoundObject, IFlightLogAppService
     {
         private readonly IFlightLogQuery _flightLogQuery;
@@ -40,15 +40,16 @@ namespace UniCloud.Application.FlightLogBC.FlightLogServices
         }
 
         /// <summary>
-        ///    查询近一个月飞机的飞行数据
+        ///     查询近一个月飞机的飞行数据
         /// </summary>
         /// <param name="regNumber"></param>
         /// <param name="flightDate"></param>
         /// <returns></returns>
         public List<AcFlightDataDTO> QueryAcFlightData(string regNumber, DateTime flightDate)
         {
-            return _flightLogQuery.QueryAcFlightData(regNumber,flightDate);
+            return _flightLogQuery.QueryAcFlightData(regNumber, flightDate);
         }
+
         #endregion
     }
 }

@@ -38,7 +38,8 @@ namespace UniCloud.Application.FleetPlanBC.AnnualServices
     {
         private readonly IAnnualQuery _annualQuery;
         private readonly IAnnualRepository _annualRepository;
-        public AnnualAppService(IAnnualQuery annualQuery,IAnnualRepository annualRepository)
+
+        public AnnualAppService(IAnnualQuery annualQuery, IAnnualRepository annualRepository)
         {
             _annualQuery = annualQuery;
             _annualRepository = annualRepository;
@@ -68,7 +69,7 @@ namespace UniCloud.Application.FleetPlanBC.AnnualServices
         ///     新增计划年度。
         /// </summary>
         /// <param name="dto">计划年度DTO。</param>
-        [Insert(typeof(AnnualDTO))]
+        [Insert(typeof (AnnualDTO))]
         public void InsertAnnual(AnnualDTO dto)
         {
             var newAnnual = new Annual();
@@ -79,11 +80,11 @@ namespace UniCloud.Application.FleetPlanBC.AnnualServices
         ///     更新计划年度。
         /// </summary>
         /// <param name="dto">计划年度DTO。</param>
-        [Update(typeof(AnnualDTO))]
+        [Update(typeof (AnnualDTO))]
         public void ModifyAnnual(AnnualDTO dto)
         {
             //获取需要更新的对象
-            var updateAnnual = _annualRepository.Get(dto.Id);
+            Annual updateAnnual = _annualRepository.Get(dto.Id);
 
             if (updateAnnual != null)
             {
@@ -97,17 +98,17 @@ namespace UniCloud.Application.FleetPlanBC.AnnualServices
         ///     删除计划年度。
         /// </summary>
         /// <param name="dto">计划年度DTO。</param>
-        [Delete(typeof(AnnualDTO))]
+        [Delete(typeof (AnnualDTO))]
         public void DeleteAnnual(AnnualDTO dto)
         {
-            var delAnnual = _annualRepository.Get(dto.Id);
+            Annual delAnnual = _annualRepository.Get(dto.Id);
             //获取需要删除的对象。
             if (delAnnual != null)
             {
                 _annualRepository.Remove(delAnnual); //删除航空公司五年规划。
             }
-
         }
+
         #endregion
     }
 }

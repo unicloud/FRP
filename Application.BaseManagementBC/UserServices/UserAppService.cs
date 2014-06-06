@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,6 +12,7 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -31,8 +33,8 @@ using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
 namespace UniCloud.Application.BaseManagementBC.UserServices
 {
     /// <summary>
-    /// 实现User的服务接口。
-    ///  用于处理User相关信息的服务，供Distributed Services调用。
+    ///     实现User的服务接口。
+    ///     用于处理User相关信息的服务，供Distributed Services调用。
     /// </summary>
     [LogAOP]
     public class UserAppService : ContextBoundObject, IUserAppService
@@ -49,12 +51,12 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         #region UserDTO
 
         /// <summary>
-        /// 获取所有User。
+        ///     获取所有User。
         /// </summary>
         public IQueryable<UserDTO> GetUsers()
         {
             var queryBuilder =
-               new QueryBuilder<User>();
+                new QueryBuilder<User>();
             return _userQuery.UsersQuery(queryBuilder);
         }
 
@@ -62,10 +64,11 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         ///     新增User。
         /// </summary>
         /// <param name="user">UserDTO。</param>
-        [Insert(typeof(UserDTO))]
+        [Insert(typeof (UserDTO))]
         public void InsertUser(UserDTO user)
         {
-            var newUser = UserFactory.CreateUser(user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty, user.DisplayName, user.Password, user.Email,
+            User newUser = UserFactory.CreateUser(user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty,
+                user.DisplayName, user.Password, user.Email,
                 user.Mobile, user.Description, true);
             _userRepository.Add(newUser);
         }
@@ -75,15 +78,16 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         ///     更新User。
         /// </summary>
         /// <param name="user">UserDTO。</param>
-        [Update(typeof(UserDTO))]
+        [Update(typeof (UserDTO))]
         public void ModifyUser(UserDTO user)
         {
-            var updateUser = _userRepository.Get(user.Id); //获取需要更新的对象。
-            UserFactory.SetUser(updateUser, user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty, user.DisplayName, user.Password, user.Email,
+            User updateUser = _userRepository.Get(user.Id); //获取需要更新的对象。
+            UserFactory.SetUser(updateUser, user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty,
+                user.DisplayName, user.Password, user.Email,
                 user.Mobile, user.Description, true);
 
-            var dtoUserRoles = user.UserRoles;
-            var userRoles = updateUser.UserRoles;
+            List<UserRoleDTO> dtoUserRoles = user.UserRoles;
+            ICollection<UserRole> userRoles = updateUser.UserRoles;
             DataHelper.DetailHandle(dtoUserRoles.ToArray(),
                 userRoles.ToArray(),
                 c => c.Id, p => p.Id,
@@ -97,10 +101,10 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         ///     删除User。
         /// </summary>
         /// <param name="user">UserDTO。</param>
-        [Delete(typeof(UserDTO))]
+        [Delete(typeof (UserDTO))]
         public void DeleteUser(UserDTO user)
         {
-            var deleteUser = _userRepository.Get(user.Id); //获取需要删除的对象。
+            User deleteUser = _userRepository.Get(user.Id); //获取需要删除的对象。
             _userRepository.Remove(deleteUser); //删除User。
         }
 
@@ -112,7 +116,7 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         private void InsertUserRole(User user, UserRoleDTO userRoleDto)
         {
             // 添加UserRole
-            var userRole = user.AddNewUserRole();
+            UserRole userRole = user.AddNewUserRole();
             UserFactory.SetUserRole(userRole, userRoleDto.UserId, userRoleDto.RoleId);
         }
 
@@ -129,15 +133,16 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
 
         public void SyncUserInfo(List<UserDTO> users)
         {
-            foreach (var user in users)
+            foreach (UserDTO user in users)
             {
                 Expression<Func<User, bool>> condition = p => p.EmployeeCode == user.EmployeeCode;
 
-                var tempUser = _userRepository.GetUser(condition);
+                User tempUser = _userRepository.GetUser(condition);
                 if (tempUser != null)
                 {
-                    UserFactory.SetUser(tempUser, user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty, user.DisplayName, user.Password, user.Email,
-                     user.Mobile, user.Description, true);
+                    UserFactory.SetUser(tempUser, user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty,
+                        user.DisplayName, user.Password, user.Email,
+                        user.Mobile, user.Description, true);
                     _userRepository.Modify(tempUser);
                 }
                 else
@@ -147,7 +152,7 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
             }
             _userRepository.UnitOfWork.CommitAndRefreshChanges();
         }
-        #endregion
 
+        #endregion
     }
 }

@@ -33,7 +33,7 @@ namespace UniCloud.Application.PaymentBC.GuaranteeServices
     /// <summary>
     ///     查询保函服务实现
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class GuaranteeAppService : ContextBoundObject, IGuaranteeAppService
     {
         private readonly IGuaranteeQuery _guaranteeQuery;
@@ -67,7 +67,7 @@ namespace UniCloud.Application.PaymentBC.GuaranteeServices
             {
                 throw new Exception("保证金不能为空");
             }
-            var newGuarantee = GuaranteeFactory.CreateLeaseGuarantee(guarantee.StartDate, guarantee.EndDate,
+            LeaseGuarantee newGuarantee = GuaranteeFactory.CreateLeaseGuarantee(guarantee.StartDate, guarantee.EndDate,
                 guarantee.Amount, guarantee.SupplierName, guarantee.OperatorName,
                 guarantee.SupplierId, guarantee.CurrencyId, guarantee.OrderId, guarantee.Status, guarantee.Reviewer);
             AddGuarantee(newGuarantee);
@@ -140,7 +140,7 @@ namespace UniCloud.Application.PaymentBC.GuaranteeServices
             {
                 throw new Exception("保证金不能为空");
             }
-            var persistGuarantee =
+            Guarantee persistGuarantee =
                 _guaranteeRepository.Get(guarantee.GuaranteeId);
             if (persistGuarantee == null)
             {
@@ -173,7 +173,8 @@ namespace UniCloud.Application.PaymentBC.GuaranteeServices
             {
                 throw new Exception("保证金不能为空");
             }
-            var newGuarantee = GuaranteeFactory.CreateMaintainGuarantee(guarantee.CreateDate, guarantee.EndDate,
+            MaintainGuarantee newGuarantee = GuaranteeFactory.CreateMaintainGuarantee(guarantee.CreateDate,
+                guarantee.EndDate,
                 guarantee.Amount, guarantee.SupplierName, guarantee.OperatorName,
                 guarantee.SupplierId, guarantee.CurrencyId, guarantee.MaintainContractId, guarantee.Status,
                 guarantee.Reviewer);
@@ -247,7 +248,7 @@ namespace UniCloud.Application.PaymentBC.GuaranteeServices
             {
                 throw new Exception("保证金不能为空");
             }
-            var persistGuarantee =
+            Guarantee persistGuarantee =
                 _guaranteeRepository.Get(guarantee.GuaranteeId);
             if (persistGuarantee == null)
             {

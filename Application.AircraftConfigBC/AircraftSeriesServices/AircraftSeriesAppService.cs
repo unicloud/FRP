@@ -33,13 +33,14 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftSeriesServices
     ///     实现飞机系列服务接口。
     ///     用于处理飞机系列相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class AircraftSeriesAppService : ContextBoundObject, IAircraftSeriesAppService
     {
         private readonly IAircraftSeriesQuery _aircraftSeriesQuery;
         private readonly IAircraftSeriesRepository _aircraftSeriesRepository;
 
-        public AircraftSeriesAppService(IAircraftSeriesQuery aircraftSeriesQuery, IAircraftSeriesRepository aircraftSeriesRepository)
+        public AircraftSeriesAppService(IAircraftSeriesQuery aircraftSeriesQuery,
+            IAircraftSeriesRepository aircraftSeriesRepository)
         {
             _aircraftSeriesQuery = aircraftSeriesQuery;
             _aircraftSeriesRepository = aircraftSeriesRepository;
@@ -58,15 +59,16 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftSeriesServices
             return _aircraftSeriesQuery.AircraftSeriesDTOQuery(queryBuilder);
         }
 
-         /// <summary>
+        /// <summary>
         ///     新增飞机系列。
         /// </summary>
         /// <param name="aircraftSeries">飞机系列DTO。</param>
-        [Insert(typeof(AircraftSeriesDTO))]
+        [Insert(typeof (AircraftSeriesDTO))]
         public void InsertAircraftSeries(AircraftSeriesDTO aircraftSeries)
         {
-            var newAircraftSeries = AircraftSeriesFactory.CreateAircraftSeries();
-            AircraftSeriesFactory.SetAircraftSeries(newAircraftSeries, aircraftSeries.Name, aircraftSeries.Description, aircraftSeries.ManufacturerId);
+            AircraftSeries newAircraftSeries = AircraftSeriesFactory.CreateAircraftSeries();
+            AircraftSeriesFactory.SetAircraftSeries(newAircraftSeries, aircraftSeries.Name, aircraftSeries.Description,
+                aircraftSeries.ManufacturerId);
             _aircraftSeriesRepository.Add(newAircraftSeries);
         }
 
@@ -75,11 +77,12 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftSeriesServices
         ///     更新飞机系列。
         /// </summary>
         /// <param name="aircraftSeries">飞机系列DTO。</param>
-        [Update(typeof(AircraftSeriesDTO))]
+        [Update(typeof (AircraftSeriesDTO))]
         public void ModifyAircraftSeries(AircraftSeriesDTO aircraftSeries)
         {
-            var updateAircraftSeries = _aircraftSeriesRepository.Get(aircraftSeries.Id); //获取需要更新的对象。
-            AircraftSeriesFactory.SetAircraftSeries(updateAircraftSeries, aircraftSeries.Name, aircraftSeries.Description, aircraftSeries.ManufacturerId);
+            AircraftSeries updateAircraftSeries = _aircraftSeriesRepository.Get(aircraftSeries.Id); //获取需要更新的对象。
+            AircraftSeriesFactory.SetAircraftSeries(updateAircraftSeries, aircraftSeries.Name,
+                aircraftSeries.Description, aircraftSeries.ManufacturerId);
             _aircraftSeriesRepository.Modify(updateAircraftSeries);
         }
 
@@ -87,12 +90,13 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftSeriesServices
         ///     删除飞机系列。
         /// </summary>
         /// <param name="aircraftSeries">飞机系列DTO。</param>
-        [Delete(typeof(AircraftSeriesDTO))]
+        [Delete(typeof (AircraftSeriesDTO))]
         public void DeleteAircraftSeries(AircraftSeriesDTO aircraftSeries)
         {
-            var deleteAircraftSeries = _aircraftSeriesRepository.Get(aircraftSeries.Id); //获取需要删除的对象。
+            AircraftSeries deleteAircraftSeries = _aircraftSeriesRepository.Get(aircraftSeries.Id); //获取需要删除的对象。
             _aircraftSeriesRepository.Remove(deleteAircraftSeries); //删除飞机系列。
         }
+
         #endregion
     }
 }

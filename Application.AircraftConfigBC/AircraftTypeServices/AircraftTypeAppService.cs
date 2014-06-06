@@ -24,7 +24,6 @@ using UniCloud.Application.AircraftConfigBC.Query.AircraftTypeQueries;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.CAACAircraftTypeAgg;
 
 #endregion
@@ -35,12 +34,14 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftTypeServices
     ///     实现机型服务接口。
     ///     用于处理机型相关信息的服务，供Distributed Services调用。
     /// </summary>
-  [LogAOP]
+    [LogAOP]
     public class AircraftTypeAppService : ContextBoundObject, IAircraftTypeAppService
     {
         private readonly IAircraftTypeQuery _aircraftTypeQuery;
         private readonly IAircraftTypeRepository _aircraftTypeRepository;
-        public AircraftTypeAppService(IAircraftTypeQuery aircraftTypeQuery, IAircraftTypeRepository aircraftTypeRepository)
+
+        public AircraftTypeAppService(IAircraftTypeQuery aircraftTypeQuery,
+            IAircraftTypeRepository aircraftTypeRepository)
         {
             _aircraftTypeQuery = aircraftTypeQuery;
             _aircraftTypeRepository = aircraftTypeRepository;
@@ -63,11 +64,13 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftTypeServices
         ///     新增飞机机型。
         /// </summary>
         /// <param name="aircraftType">飞机机型DTO。</param>
-        [Insert(typeof(AircraftTypeDTO))]
+        [Insert(typeof (AircraftTypeDTO))]
         public void InsertAircraftType(AircraftTypeDTO aircraftType)
         {
-            var newAircraftType = AircraftTypeFactory.CreateAircraftType();
-            AircraftTypeFactory.SetAircraftType(newAircraftType, aircraftType.Name, aircraftType.Description, aircraftType.AircraftCategoryId, aircraftType.AircraftSeriesId, aircraftType.ManufacturerId, aircraftType.CaacAircraftTypeId);
+            AircraftType newAircraftType = AircraftTypeFactory.CreateAircraftType();
+            AircraftTypeFactory.SetAircraftType(newAircraftType, aircraftType.Name, aircraftType.Description,
+                aircraftType.AircraftCategoryId, aircraftType.AircraftSeriesId, aircraftType.ManufacturerId,
+                aircraftType.CaacAircraftTypeId);
             _aircraftTypeRepository.Add(newAircraftType);
         }
 
@@ -76,11 +79,13 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftTypeServices
         ///     更新飞机机型。
         /// </summary>
         /// <param name="aircraftType">飞机机型DTO。</param>
-        [Update(typeof(AircraftTypeDTO))]
+        [Update(typeof (AircraftTypeDTO))]
         public void ModifyAircraftType(AircraftTypeDTO aircraftType)
         {
-            var updateAircraftType = _aircraftTypeRepository.Get(aircraftType.AircraftTypeId); //获取需要更新的对象。
-            AircraftTypeFactory.SetAircraftType(updateAircraftType, aircraftType.Name, aircraftType.Description, aircraftType.AircraftCategoryId, aircraftType.AircraftSeriesId, aircraftType.ManufacturerId, aircraftType.CaacAircraftTypeId);
+            AircraftType updateAircraftType = _aircraftTypeRepository.Get(aircraftType.AircraftTypeId); //获取需要更新的对象。
+            AircraftTypeFactory.SetAircraftType(updateAircraftType, aircraftType.Name, aircraftType.Description,
+                aircraftType.AircraftCategoryId, aircraftType.AircraftSeriesId, aircraftType.ManufacturerId,
+                aircraftType.CaacAircraftTypeId);
             _aircraftTypeRepository.Modify(updateAircraftType);
         }
 
@@ -88,12 +93,13 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftTypeServices
         ///     删除飞机机型。
         /// </summary>
         /// <param name="aircraftType">飞机机型DTO。</param>
-        [Delete(typeof(AircraftTypeDTO))]
+        [Delete(typeof (AircraftTypeDTO))]
         public void DeleteAircraftType(AircraftTypeDTO aircraftType)
         {
-            var deleteAircraftType = _aircraftTypeRepository.Get(aircraftType.AircraftTypeId); //获取需要删除的对象。
+            AircraftType deleteAircraftType = _aircraftTypeRepository.Get(aircraftType.AircraftTypeId); //获取需要删除的对象。
             _aircraftTypeRepository.Remove(deleteAircraftType); //删除飞机机型。
         }
+
         #endregion
 
         #region CAACAircraftTypeDTO

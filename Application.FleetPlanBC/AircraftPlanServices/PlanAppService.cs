@@ -24,13 +24,9 @@ using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries;
 using UniCloud.Domain.Common.Enums;
-using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 
 #endregion
 
@@ -47,14 +43,14 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
         private readonly IAnnualRepository _annualRepository;
         private readonly IPlanQuery _planQuery;
         private readonly IPlanRepository _planRepository;
+
         public PlanAppService(IPlanQuery planQuery, IAirlinesRepository airlinesRepository,
-            IAnnualRepository annualRepository,IPlanRepository planRepository)
+            IAnnualRepository annualRepository, IPlanRepository planRepository)
         {
             _planQuery = planQuery;
             _airlinesRepository = airlinesRepository;
             _annualRepository = annualRepository;
             _planRepository = planRepository;
-
         }
 
         #region PlanDTO
@@ -74,14 +70,14 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
         ///     新增运力增减计划。
         /// </summary>
         /// <param name="dto">运力增减计划DTO。</param>
-        [Insert(typeof(PlanDTO))]
+        [Insert(typeof (PlanDTO))]
         public void InsertPlan(PlanDTO dto)
         {
-            var airlines = _airlinesRepository.Get(dto.AirlinesId); //获取航空公司
-            var annual = _annualRepository.Get(dto.AnnualId); //获取计划年度
+            Airlines airlines = _airlinesRepository.Get(dto.AirlinesId); //获取航空公司
+            Annual annual = _annualRepository.Get(dto.AnnualId); //获取计划年度
 
             //创建运力增减计划
-            var newPlan = PlanFactory.CreatePlan(dto.VersionNumber);
+            Plan newPlan = PlanFactory.CreatePlan(dto.VersionNumber);
             newPlan.ChangeCurrentIdentity(dto.Id);
             newPlan.SetPlanStatus(PlanStatus.草稿);
             newPlan.SetAirlines(airlines);
@@ -98,17 +94,17 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
         [Update(typeof (PlanDTO))]
         public void ModifyPlan(PlanDTO dto)
         {
-            var airlines = _airlinesRepository.Get(dto.AirlinesId); //获取航空公司
-            var annual = _annualRepository.Get(dto.AnnualId); //获取计划年度
+            Airlines airlines = _airlinesRepository.Get(dto.AirlinesId); //获取航空公司
+            Annual annual = _annualRepository.Get(dto.AnnualId); //获取计划年度
 
             //获取需要更新的对象
-            var updatePlan = _planRepository.Get(dto.Id);
+            Plan updatePlan = _planRepository.Get(dto.Id);
 
             if (updatePlan != null)
             {
                 //更新计划：
-                updatePlan.SetPlanStatus((PlanStatus)dto.Status);
-                updatePlan.SetPlanPublishStatus((PlanPublishStatus)dto.PublishStatus);
+                updatePlan.SetPlanStatus((PlanStatus) dto.Status);
+                updatePlan.SetPlanPublishStatus((PlanPublishStatus) dto.PublishStatus);
                 updatePlan.SetAirlines(airlines);
                 updatePlan.SetAnnual(annual);
                 updatePlan.SetDocNumber(dto.DocNumber);
@@ -129,7 +125,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delPlan = _planRepository.Get(dto.Id);
+            Plan delPlan = _planRepository.Get(dto.Id);
             //获取需要删除的对象。
             if (delPlan != null)
             {
@@ -139,9 +135,10 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
 
         #endregion
 
-      public  PerformPlan PerformPlanQuery(string planHistoryId, string approvalHistoryId, int planType, string relatedGuid)
-      {
-          return _planQuery.PerformPlanQuery(planHistoryId, approvalHistoryId, planType, relatedGuid);
-      }
+        public PerformPlan PerformPlanQuery(string planHistoryId, string approvalHistoryId, int planType,
+            string relatedGuid)
+        {
+            return _planQuery.PerformPlanQuery(planHistoryId, approvalHistoryId, planType, relatedGuid);
+        }
     }
 }

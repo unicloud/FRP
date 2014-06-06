@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,11 +11,13 @@
 // 修改者：linxw 时间：2014/5/15 13:52:10
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.MaintainCostQueries;
@@ -24,18 +27,21 @@ using UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg;
 
 namespace UniCloud.Application.PaymentBC.MaintainCostServices
 {
+    [LogAOP]
     public class MaintainCostAppService : IMaintainCostAppService
     {
         private readonly IMaintainCostQuery _maintainCostQuery;
         private readonly IMaintainCostRepository _maintainCostRepository;
 
-        public MaintainCostAppService(IMaintainCostQuery maintainCostQuery, IMaintainCostRepository maintainCostRepository)
+        public MaintainCostAppService(IMaintainCostQuery maintainCostQuery,
+            IMaintainCostRepository maintainCostRepository)
         {
             _maintainCostQuery = maintainCostQuery;
             _maintainCostRepository = maintainCostRepository;
         }
 
         #region RegularCheckMaintainCostDTO
+
         /// <summary>
         ///     获取所有定检维修成。
         /// </summary>
@@ -50,13 +56,19 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     新增定检维修成。
         /// </summary>
         /// <param name="regularCheckMaintainCost">定检维修成DTO。</param>
-        [Insert(typeof(RegularCheckMaintainCostDTO))]
+        [Insert(typeof (RegularCheckMaintainCostDTO))]
         public void InsertRegularCheckMaintainCost(RegularCheckMaintainCostDTO regularCheckMaintainCost)
         {
-            var newRegularCheckMaintainCost = MaintainCostFactory.CreateRegularCheckMaintainCost();
-            MaintainCostFactory.SetRegularCheckMaintainCost(newRegularCheckMaintainCost, regularCheckMaintainCost.AircraftId, regularCheckMaintainCost.ActionCategoryId, regularCheckMaintainCost.AircraftTypeId,
-                regularCheckMaintainCost.RegularCheckType, regularCheckMaintainCost.RegularCheckLevel, regularCheckMaintainCost.InMaintainTime, regularCheckMaintainCost.OutMaintainTime, regularCheckMaintainCost.TotalDays,
-                regularCheckMaintainCost.DepartmentDeclareAmount, regularCheckMaintainCost.FinancialApprovalAmount, regularCheckMaintainCost.FinancialApprovalAmountNonTax, regularCheckMaintainCost.MaintainInvoiceId, regularCheckMaintainCost.Year);
+            RegularCheckMaintainCost newRegularCheckMaintainCost = MaintainCostFactory.CreateRegularCheckMaintainCost();
+            MaintainCostFactory.SetRegularCheckMaintainCost(newRegularCheckMaintainCost,
+                regularCheckMaintainCost.AircraftId, regularCheckMaintainCost.ActionCategoryId,
+                regularCheckMaintainCost.AircraftTypeId,
+                regularCheckMaintainCost.RegularCheckType, regularCheckMaintainCost.RegularCheckLevel,
+                regularCheckMaintainCost.InMaintainTime, regularCheckMaintainCost.OutMaintainTime,
+                regularCheckMaintainCost.TotalDays,
+                regularCheckMaintainCost.DepartmentDeclareAmount, regularCheckMaintainCost.FinancialApprovalAmount,
+                regularCheckMaintainCost.FinancialApprovalAmountNonTax, regularCheckMaintainCost.MaintainInvoiceId,
+                regularCheckMaintainCost.Year);
             _maintainCostRepository.Add(newRegularCheckMaintainCost);
         }
 
@@ -65,13 +77,20 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     更新定检维修成。
         /// </summary>
         /// <param name="regularCheckMaintainCost">定检维修成DTO。</param>
-        [Update(typeof(RegularCheckMaintainCostDTO))]
+        [Update(typeof (RegularCheckMaintainCostDTO))]
         public void ModifyRegularCheckMaintainCost(RegularCheckMaintainCostDTO regularCheckMaintainCost)
         {
-            var updateRegularCheckMaintainCost = _maintainCostRepository.Get(regularCheckMaintainCost.Id) as RegularCheckMaintainCost; //获取需要更新的对象。
-            MaintainCostFactory.SetRegularCheckMaintainCost(updateRegularCheckMaintainCost, regularCheckMaintainCost.AircraftId, regularCheckMaintainCost.ActionCategoryId, regularCheckMaintainCost.AircraftTypeId,
-                regularCheckMaintainCost.RegularCheckType, regularCheckMaintainCost.RegularCheckLevel, regularCheckMaintainCost.InMaintainTime, regularCheckMaintainCost.OutMaintainTime, regularCheckMaintainCost.TotalDays,
-                regularCheckMaintainCost.DepartmentDeclareAmount, regularCheckMaintainCost.FinancialApprovalAmount, regularCheckMaintainCost.FinancialApprovalAmountNonTax, regularCheckMaintainCost.MaintainInvoiceId, regularCheckMaintainCost.Year);
+            var updateRegularCheckMaintainCost =
+                _maintainCostRepository.Get(regularCheckMaintainCost.Id) as RegularCheckMaintainCost; //获取需要更新的对象。
+            MaintainCostFactory.SetRegularCheckMaintainCost(updateRegularCheckMaintainCost,
+                regularCheckMaintainCost.AircraftId, regularCheckMaintainCost.ActionCategoryId,
+                regularCheckMaintainCost.AircraftTypeId,
+                regularCheckMaintainCost.RegularCheckType, regularCheckMaintainCost.RegularCheckLevel,
+                regularCheckMaintainCost.InMaintainTime, regularCheckMaintainCost.OutMaintainTime,
+                regularCheckMaintainCost.TotalDays,
+                regularCheckMaintainCost.DepartmentDeclareAmount, regularCheckMaintainCost.FinancialApprovalAmount,
+                regularCheckMaintainCost.FinancialApprovalAmountNonTax, regularCheckMaintainCost.MaintainInvoiceId,
+                regularCheckMaintainCost.Year);
             _maintainCostRepository.Modify(updateRegularCheckMaintainCost);
         }
 
@@ -79,15 +98,18 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     删除定检维修成。
         /// </summary>
         /// <param name="regularCheckMaintainCost">定检维修成DTO。</param>
-        [Delete(typeof(RegularCheckMaintainCostDTO))]
+        [Delete(typeof (RegularCheckMaintainCostDTO))]
         public void DeleteRegularCheckMaintainCost(RegularCheckMaintainCostDTO regularCheckMaintainCost)
         {
-            var deleteRegularCheckMaintainCost = _maintainCostRepository.Get(regularCheckMaintainCost.Id);//获取需要删除的对象。
+            MaintainCost deleteRegularCheckMaintainCost = _maintainCostRepository.Get(regularCheckMaintainCost.Id);
+                //获取需要删除的对象。
             _maintainCostRepository.Remove(deleteRegularCheckMaintainCost); //删除定检维修成。
         }
+
         #endregion
 
         #region UndercartMaintainCostDTO
+
         /// <summary>
         ///     获取所有起落架维修成。
         /// </summary>
@@ -102,15 +124,20 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     新增起落架维修成。
         /// </summary>
         /// <param name="undercartMaintainCost">起落架维修成DTO。</param>
-        [Insert(typeof(UndercartMaintainCostDTO))]
+        [Insert(typeof (UndercartMaintainCostDTO))]
         public void InsertUndercartMaintainCost(UndercartMaintainCostDTO undercartMaintainCost)
         {
-            var newUndercartMaintainCost = MaintainCostFactory.CreateUndercartMaintainCost();
-            MaintainCostFactory.SetUndercartMaintainCost(newUndercartMaintainCost, undercartMaintainCost.AircraftId, undercartMaintainCost.ActionCategoryId, undercartMaintainCost.AircraftTypeId,
-                undercartMaintainCost.Type, undercartMaintainCost.Part, undercartMaintainCost.InMaintainTime, undercartMaintainCost.OutMaintainTime, undercartMaintainCost.TotalDays,
-                undercartMaintainCost.DepartmentDeclareAmount, undercartMaintainCost.FinancialApprovalAmount, undercartMaintainCost.FinancialApprovalAmountNonTax, undercartMaintainCost.MaintainInvoiceId,
-                undercartMaintainCost.MaintainFeeEur, undercartMaintainCost.Rate, undercartMaintainCost.MaintainFeeRmb, undercartMaintainCost.FreightFee, undercartMaintainCost.ReplaceFee, undercartMaintainCost.CustomRate,
-                undercartMaintainCost.Custom, undercartMaintainCost.AddedValueRate, undercartMaintainCost.AddedValue, undercartMaintainCost.Year);
+            UndercartMaintainCost newUndercartMaintainCost = MaintainCostFactory.CreateUndercartMaintainCost();
+            MaintainCostFactory.SetUndercartMaintainCost(newUndercartMaintainCost, undercartMaintainCost.AircraftId,
+                undercartMaintainCost.ActionCategoryId, undercartMaintainCost.AircraftTypeId,
+                undercartMaintainCost.Type, undercartMaintainCost.Part, undercartMaintainCost.InMaintainTime,
+                undercartMaintainCost.OutMaintainTime, undercartMaintainCost.TotalDays,
+                undercartMaintainCost.DepartmentDeclareAmount, undercartMaintainCost.FinancialApprovalAmount,
+                undercartMaintainCost.FinancialApprovalAmountNonTax, undercartMaintainCost.MaintainInvoiceId,
+                undercartMaintainCost.MaintainFeeEur, undercartMaintainCost.Rate, undercartMaintainCost.MaintainFeeRmb,
+                undercartMaintainCost.FreightFee, undercartMaintainCost.ReplaceFee, undercartMaintainCost.CustomRate,
+                undercartMaintainCost.Custom, undercartMaintainCost.AddedValueRate, undercartMaintainCost.AddedValue,
+                undercartMaintainCost.Year);
             _maintainCostRepository.Add(newUndercartMaintainCost);
         }
 
@@ -119,15 +146,21 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     更新起落架维修成。
         /// </summary>
         /// <param name="undercartMaintainCost">起落架维修成DTO。</param>
-        [Update(typeof(UndercartMaintainCostDTO))]
+        [Update(typeof (UndercartMaintainCostDTO))]
         public void ModifyUndercartMaintainCost(UndercartMaintainCostDTO undercartMaintainCost)
         {
-            var updateUndercartMaintainCost = _maintainCostRepository.Get(undercartMaintainCost.Id) as UndercartMaintainCost; //获取需要更新的对象。
-            MaintainCostFactory.SetUndercartMaintainCost(updateUndercartMaintainCost, undercartMaintainCost.AircraftId, undercartMaintainCost.ActionCategoryId, undercartMaintainCost.AircraftTypeId,
-                undercartMaintainCost.Type, undercartMaintainCost.Part, undercartMaintainCost.InMaintainTime, undercartMaintainCost.OutMaintainTime, undercartMaintainCost.TotalDays,
-                undercartMaintainCost.DepartmentDeclareAmount, undercartMaintainCost.FinancialApprovalAmount, undercartMaintainCost.FinancialApprovalAmountNonTax, undercartMaintainCost.MaintainInvoiceId,
-                undercartMaintainCost.MaintainFeeEur, undercartMaintainCost.Rate, undercartMaintainCost.MaintainFeeRmb, undercartMaintainCost.FreightFee, undercartMaintainCost.ReplaceFee, undercartMaintainCost.CustomRate,
-                undercartMaintainCost.Custom, undercartMaintainCost.AddedValueRate, undercartMaintainCost.AddedValue, undercartMaintainCost.Year);
+            var updateUndercartMaintainCost =
+                _maintainCostRepository.Get(undercartMaintainCost.Id) as UndercartMaintainCost; //获取需要更新的对象。
+            MaintainCostFactory.SetUndercartMaintainCost(updateUndercartMaintainCost, undercartMaintainCost.AircraftId,
+                undercartMaintainCost.ActionCategoryId, undercartMaintainCost.AircraftTypeId,
+                undercartMaintainCost.Type, undercartMaintainCost.Part, undercartMaintainCost.InMaintainTime,
+                undercartMaintainCost.OutMaintainTime, undercartMaintainCost.TotalDays,
+                undercartMaintainCost.DepartmentDeclareAmount, undercartMaintainCost.FinancialApprovalAmount,
+                undercartMaintainCost.FinancialApprovalAmountNonTax, undercartMaintainCost.MaintainInvoiceId,
+                undercartMaintainCost.MaintainFeeEur, undercartMaintainCost.Rate, undercartMaintainCost.MaintainFeeRmb,
+                undercartMaintainCost.FreightFee, undercartMaintainCost.ReplaceFee, undercartMaintainCost.CustomRate,
+                undercartMaintainCost.Custom, undercartMaintainCost.AddedValueRate, undercartMaintainCost.AddedValue,
+                undercartMaintainCost.Year);
             _maintainCostRepository.Modify(updateUndercartMaintainCost);
         }
 
@@ -135,15 +168,18 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     删除起落架维修成。
         /// </summary>
         /// <param name="undercartMaintainCost">起落架维修成DTO。</param>
-        [Delete(typeof(UndercartMaintainCostDTO))]
+        [Delete(typeof (UndercartMaintainCostDTO))]
         public void DeleteUndercartMaintainCost(UndercartMaintainCostDTO undercartMaintainCost)
         {
-            var deleteUndercartMaintainCost = _maintainCostRepository.Get(undercartMaintainCost.Id);//获取需要删除的对象。
+            MaintainCost deleteUndercartMaintainCost = _maintainCostRepository.Get(undercartMaintainCost.Id);
+                //获取需要删除的对象。
             _maintainCostRepository.Remove(deleteUndercartMaintainCost); //删除起落架维修成。
         }
+
         #endregion
 
         #region SpecialRefitMaintainCostDTO
+
         /// <summary>
         ///     获取所有特修改装维修成。
         /// </summary>
@@ -158,12 +194,16 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     新增特修改装维修成。
         /// </summary>
         /// <param name="specialRefitMaintainCost">特修改装维修成DTO。</param>
-        [Insert(typeof(SpecialRefitMaintainCostDTO))]
+        [Insert(typeof (SpecialRefitMaintainCostDTO))]
         public void InsertSpecialRefitMaintainCost(SpecialRefitMaintainCostDTO specialRefitMaintainCost)
         {
-            var newSpecialRefitMaintainCost = MaintainCostFactory.CreateSpecialRefitMaintainCost();
-            MaintainCostFactory.SetSpecialRefitMaintainCost(newSpecialRefitMaintainCost, specialRefitMaintainCost.Project, specialRefitMaintainCost.Info, specialRefitMaintainCost.DepartmentDeclareAmount,
-                specialRefitMaintainCost.Note, specialRefitMaintainCost.FinancialApprovalAmount, specialRefitMaintainCost.FinancialApprovalAmountNonTax, specialRefitMaintainCost.MaintainInvoiceId, specialRefitMaintainCost.Year);
+            SpecialRefitMaintainCost newSpecialRefitMaintainCost = MaintainCostFactory.CreateSpecialRefitMaintainCost();
+            MaintainCostFactory.SetSpecialRefitMaintainCost(newSpecialRefitMaintainCost,
+                specialRefitMaintainCost.Project, specialRefitMaintainCost.Info,
+                specialRefitMaintainCost.DepartmentDeclareAmount,
+                specialRefitMaintainCost.Note, specialRefitMaintainCost.FinancialApprovalAmount,
+                specialRefitMaintainCost.FinancialApprovalAmountNonTax, specialRefitMaintainCost.MaintainInvoiceId,
+                specialRefitMaintainCost.Year);
             _maintainCostRepository.Add(newSpecialRefitMaintainCost);
         }
 
@@ -172,12 +212,17 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     更新特修改装维修成。
         /// </summary>
         /// <param name="specialRefitMaintainCost">特修改装维修成DTO。</param>
-        [Update(typeof(SpecialRefitMaintainCostDTO))]
+        [Update(typeof (SpecialRefitMaintainCostDTO))]
         public void ModifySpecialRefitMaintainCost(SpecialRefitMaintainCostDTO specialRefitMaintainCost)
         {
-            var updateSpecialRefitMaintainCost = _maintainCostRepository.Get(specialRefitMaintainCost.Id) as SpecialRefitMaintainCost; //获取需要更新的对象。
-            MaintainCostFactory.SetSpecialRefitMaintainCost(updateSpecialRefitMaintainCost, specialRefitMaintainCost.Project, specialRefitMaintainCost.Info, specialRefitMaintainCost.DepartmentDeclareAmount,
-                specialRefitMaintainCost.Note, specialRefitMaintainCost.FinancialApprovalAmount, specialRefitMaintainCost.FinancialApprovalAmountNonTax, specialRefitMaintainCost.MaintainInvoiceId, specialRefitMaintainCost.Year);
+            var updateSpecialRefitMaintainCost =
+                _maintainCostRepository.Get(specialRefitMaintainCost.Id) as SpecialRefitMaintainCost; //获取需要更新的对象。
+            MaintainCostFactory.SetSpecialRefitMaintainCost(updateSpecialRefitMaintainCost,
+                specialRefitMaintainCost.Project, specialRefitMaintainCost.Info,
+                specialRefitMaintainCost.DepartmentDeclareAmount,
+                specialRefitMaintainCost.Note, specialRefitMaintainCost.FinancialApprovalAmount,
+                specialRefitMaintainCost.FinancialApprovalAmountNonTax, specialRefitMaintainCost.MaintainInvoiceId,
+                specialRefitMaintainCost.Year);
             _maintainCostRepository.Modify(updateSpecialRefitMaintainCost);
         }
 
@@ -185,15 +230,18 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     删除特修改装维修成。
         /// </summary>
         /// <param name="specialRefitMaintainCost">特修改装维修成DTO。</param>
-        [Delete(typeof(SpecialRefitMaintainCostDTO))]
+        [Delete(typeof (SpecialRefitMaintainCostDTO))]
         public void DeleteSpecialRefitMaintainCost(SpecialRefitMaintainCostDTO specialRefitMaintainCost)
         {
-            var deleteSpecialRefitMaintainCost = _maintainCostRepository.Get(specialRefitMaintainCost.Id);//获取需要删除的对象。
+            MaintainCost deleteSpecialRefitMaintainCost = _maintainCostRepository.Get(specialRefitMaintainCost.Id);
+                //获取需要删除的对象。
             _maintainCostRepository.Remove(deleteSpecialRefitMaintainCost); //删除特修改装维修成。
         }
+
         #endregion
 
         #region NonFhaMaintainCostDTO
+
         /// <summary>
         ///     获取所有非FHA.超包修维修成。
         /// </summary>
@@ -208,16 +256,25 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     新增非FHA.超包修维修成。
         /// </summary>
         /// <param name="nonFhaMaintainCost">非FHA.超包修维修成DTO。</param>
-        [Insert(typeof(NonFhaMaintainCostDTO))]
+        [Insert(typeof (NonFhaMaintainCostDTO))]
         public void InsertNonFhaMaintainCost(NonFhaMaintainCostDTO nonFhaMaintainCost)
         {
-            var newNonFhaMaintainCost = MaintainCostFactory.CreateNonFhaMaintainCost();
-            MaintainCostFactory.SetNonFhaMaintainCost(newNonFhaMaintainCost, nonFhaMaintainCost.EngineNumber, nonFhaMaintainCost.ContractRepairt, nonFhaMaintainCost.Type, nonFhaMaintainCost.AircraftId,
-                nonFhaMaintainCost.ActionCategoryId, nonFhaMaintainCost.AircraftTypeId, nonFhaMaintainCost.SupplierId, nonFhaMaintainCost.InMaintainTime, nonFhaMaintainCost.OutMaintainTime, nonFhaMaintainCost.MaintainLevel,
-                nonFhaMaintainCost.ChangeLlpNumber, nonFhaMaintainCost.Tsr, nonFhaMaintainCost.Csr, nonFhaMaintainCost.NonFhaFee, nonFhaMaintainCost.PartFee, nonFhaMaintainCost.ChangeLlpFee, nonFhaMaintainCost.FeeLittleSum,
-                nonFhaMaintainCost.Rate, nonFhaMaintainCost.FeeTotalSum, nonFhaMaintainCost.CustomRate, nonFhaMaintainCost.Custom, nonFhaMaintainCost.AddedValueRate, nonFhaMaintainCost.AddedValue, nonFhaMaintainCost.CustomsTax,
-                nonFhaMaintainCost.FreightFee, nonFhaMaintainCost.DepartmentDeclareAmount, nonFhaMaintainCost.FinancialApprovalAmount, nonFhaMaintainCost.FinancialApprovalAmountNonTax, nonFhaMaintainCost.Note, nonFhaMaintainCost.ActualMaintainLevel,
-                nonFhaMaintainCost.ActualChangeLlpNumber, nonFhaMaintainCost.ActualTsr, nonFhaMaintainCost.ActualCsr, nonFhaMaintainCost.MaintainInvoiceId, nonFhaMaintainCost.Year);
+            NonFhaMaintainCost newNonFhaMaintainCost = MaintainCostFactory.CreateNonFhaMaintainCost();
+            MaintainCostFactory.SetNonFhaMaintainCost(newNonFhaMaintainCost, nonFhaMaintainCost.EngineNumber,
+                nonFhaMaintainCost.ContractRepairt, nonFhaMaintainCost.Type, nonFhaMaintainCost.AircraftId,
+                nonFhaMaintainCost.ActionCategoryId, nonFhaMaintainCost.AircraftTypeId, nonFhaMaintainCost.SupplierId,
+                nonFhaMaintainCost.InMaintainTime, nonFhaMaintainCost.OutMaintainTime, nonFhaMaintainCost.MaintainLevel,
+                nonFhaMaintainCost.ChangeLlpNumber, nonFhaMaintainCost.Tsr, nonFhaMaintainCost.Csr,
+                nonFhaMaintainCost.NonFhaFee, nonFhaMaintainCost.PartFee, nonFhaMaintainCost.ChangeLlpFee,
+                nonFhaMaintainCost.FeeLittleSum,
+                nonFhaMaintainCost.Rate, nonFhaMaintainCost.FeeTotalSum, nonFhaMaintainCost.CustomRate,
+                nonFhaMaintainCost.Custom, nonFhaMaintainCost.AddedValueRate, nonFhaMaintainCost.AddedValue,
+                nonFhaMaintainCost.CustomsTax,
+                nonFhaMaintainCost.FreightFee, nonFhaMaintainCost.DepartmentDeclareAmount,
+                nonFhaMaintainCost.FinancialApprovalAmount, nonFhaMaintainCost.FinancialApprovalAmountNonTax,
+                nonFhaMaintainCost.Note, nonFhaMaintainCost.ActualMaintainLevel,
+                nonFhaMaintainCost.ActualChangeLlpNumber, nonFhaMaintainCost.ActualTsr, nonFhaMaintainCost.ActualCsr,
+                nonFhaMaintainCost.MaintainInvoiceId, nonFhaMaintainCost.Year);
             _maintainCostRepository.Add(newNonFhaMaintainCost);
         }
 
@@ -226,16 +283,26 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     更新非FHA.超包修维修成。
         /// </summary>
         /// <param name="nonFhaMaintainCost">非FHA.超包修维修成DTO。</param>
-        [Update(typeof(NonFhaMaintainCostDTO))]
+        [Update(typeof (NonFhaMaintainCostDTO))]
         public void ModifyNonFhaMaintainCost(NonFhaMaintainCostDTO nonFhaMaintainCost)
         {
-            var updateNonFhaMaintainCost = _maintainCostRepository.Get(nonFhaMaintainCost.Id) as NonFhaMaintainCost; //获取需要更新的对象。
-            MaintainCostFactory.SetNonFhaMaintainCost(updateNonFhaMaintainCost, nonFhaMaintainCost.EngineNumber, nonFhaMaintainCost.ContractRepairt, nonFhaMaintainCost.Type, nonFhaMaintainCost.AircraftId,
-                nonFhaMaintainCost.ActionCategoryId, nonFhaMaintainCost.AircraftTypeId, nonFhaMaintainCost.SupplierId, nonFhaMaintainCost.InMaintainTime, nonFhaMaintainCost.OutMaintainTime, nonFhaMaintainCost.MaintainLevel,
-                nonFhaMaintainCost.ChangeLlpNumber, nonFhaMaintainCost.Tsr, nonFhaMaintainCost.Csr, nonFhaMaintainCost.NonFhaFee, nonFhaMaintainCost.PartFee, nonFhaMaintainCost.ChangeLlpFee, nonFhaMaintainCost.FeeLittleSum,
-                nonFhaMaintainCost.Rate, nonFhaMaintainCost.FeeTotalSum, nonFhaMaintainCost.CustomRate, nonFhaMaintainCost.Custom, nonFhaMaintainCost.AddedValueRate, nonFhaMaintainCost.AddedValue, nonFhaMaintainCost.CustomsTax,
-                nonFhaMaintainCost.FreightFee, nonFhaMaintainCost.DepartmentDeclareAmount, nonFhaMaintainCost.FinancialApprovalAmount, nonFhaMaintainCost.FinancialApprovalAmountNonTax, nonFhaMaintainCost.Note, nonFhaMaintainCost.ActualMaintainLevel,
-                nonFhaMaintainCost.ActualChangeLlpNumber, nonFhaMaintainCost.ActualTsr, nonFhaMaintainCost.ActualCsr, nonFhaMaintainCost.MaintainInvoiceId, nonFhaMaintainCost.Year);
+            var updateNonFhaMaintainCost = _maintainCostRepository.Get(nonFhaMaintainCost.Id) as NonFhaMaintainCost;
+                //获取需要更新的对象。
+            MaintainCostFactory.SetNonFhaMaintainCost(updateNonFhaMaintainCost, nonFhaMaintainCost.EngineNumber,
+                nonFhaMaintainCost.ContractRepairt, nonFhaMaintainCost.Type, nonFhaMaintainCost.AircraftId,
+                nonFhaMaintainCost.ActionCategoryId, nonFhaMaintainCost.AircraftTypeId, nonFhaMaintainCost.SupplierId,
+                nonFhaMaintainCost.InMaintainTime, nonFhaMaintainCost.OutMaintainTime, nonFhaMaintainCost.MaintainLevel,
+                nonFhaMaintainCost.ChangeLlpNumber, nonFhaMaintainCost.Tsr, nonFhaMaintainCost.Csr,
+                nonFhaMaintainCost.NonFhaFee, nonFhaMaintainCost.PartFee, nonFhaMaintainCost.ChangeLlpFee,
+                nonFhaMaintainCost.FeeLittleSum,
+                nonFhaMaintainCost.Rate, nonFhaMaintainCost.FeeTotalSum, nonFhaMaintainCost.CustomRate,
+                nonFhaMaintainCost.Custom, nonFhaMaintainCost.AddedValueRate, nonFhaMaintainCost.AddedValue,
+                nonFhaMaintainCost.CustomsTax,
+                nonFhaMaintainCost.FreightFee, nonFhaMaintainCost.DepartmentDeclareAmount,
+                nonFhaMaintainCost.FinancialApprovalAmount, nonFhaMaintainCost.FinancialApprovalAmountNonTax,
+                nonFhaMaintainCost.Note, nonFhaMaintainCost.ActualMaintainLevel,
+                nonFhaMaintainCost.ActualChangeLlpNumber, nonFhaMaintainCost.ActualTsr, nonFhaMaintainCost.ActualCsr,
+                nonFhaMaintainCost.MaintainInvoiceId, nonFhaMaintainCost.Year);
             _maintainCostRepository.Modify(updateNonFhaMaintainCost);
         }
 
@@ -243,15 +310,17 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     删除非FHA.超包修维修成。
         /// </summary>
         /// <param name="nonFhaMaintainCost">非FHA.超包修维修成DTO。</param>
-        [Delete(typeof(NonFhaMaintainCostDTO))]
+        [Delete(typeof (NonFhaMaintainCostDTO))]
         public void DeleteNonFhaMaintainCost(NonFhaMaintainCostDTO nonFhaMaintainCost)
         {
-            var deleteNonFhaMaintainCost = _maintainCostRepository.Get(nonFhaMaintainCost.Id);//获取需要删除的对象。
+            MaintainCost deleteNonFhaMaintainCost = _maintainCostRepository.Get(nonFhaMaintainCost.Id); //获取需要删除的对象。
             _maintainCostRepository.Remove(deleteNonFhaMaintainCost); //删除非FHA.超包修维修成。
         }
+
         #endregion
 
         #region ApuMaintainCostDTO
+
         /// <summary>
         ///     获取所有APU维修成。
         /// </summary>
@@ -266,13 +335,15 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     新增APU维修成。
         /// </summary>
         /// <param name="apuMaintainCost">APU维修成DTO。</param>
-        [Insert(typeof(ApuMaintainCostDTO))]
+        [Insert(typeof (ApuMaintainCostDTO))]
         public void InsertApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
         {
-            var newApuMaintainCost = MaintainCostFactory.CreateApuMaintainCost();
+            ApuMaintainCost newApuMaintainCost = MaintainCostFactory.CreateApuMaintainCost();
             MaintainCostFactory.SetApuMaintainCost(newApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type,
-                apuMaintainCost.YearBudgetRate, apuMaintainCost.Rate, apuMaintainCost.BudgetHour, apuMaintainCost.HourPercent, apuMaintainCost.Hour, apuMaintainCost.ContractRepairFeeUsd,
-                apuMaintainCost.ContractRepairFeeRmb, apuMaintainCost.CustomRate, apuMaintainCost.TotalTax, apuMaintainCost.AddedValueRate, apuMaintainCost.AddedValue,
+                apuMaintainCost.YearBudgetRate, apuMaintainCost.Rate, apuMaintainCost.BudgetHour,
+                apuMaintainCost.HourPercent, apuMaintainCost.Hour, apuMaintainCost.ContractRepairFeeUsd,
+                apuMaintainCost.ContractRepairFeeRmb, apuMaintainCost.CustomRate, apuMaintainCost.TotalTax,
+                apuMaintainCost.AddedValueRate, apuMaintainCost.AddedValue,
                 apuMaintainCost.IncludeAddedValue, apuMaintainCost.MaintainInvoiceId, apuMaintainCost.Year);
             _maintainCostRepository.Add(newApuMaintainCost);
         }
@@ -282,13 +353,15 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     更新APU维修成。
         /// </summary>
         /// <param name="apuMaintainCost">APU维修成DTO。</param>
-        [Update(typeof(ApuMaintainCostDTO))]
+        [Update(typeof (ApuMaintainCostDTO))]
         public void ModifyApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
         {
             var updateApuMaintainCost = _maintainCostRepository.Get(apuMaintainCost.Id) as ApuMaintainCost; //获取需要更新的对象。
-            MaintainCostFactory.SetApuMaintainCost(updateApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type, 
-                apuMaintainCost.YearBudgetRate, apuMaintainCost.Rate, apuMaintainCost.BudgetHour, apuMaintainCost.HourPercent, apuMaintainCost.Hour, apuMaintainCost.ContractRepairFeeUsd,
-                apuMaintainCost.ContractRepairFeeRmb, apuMaintainCost.CustomRate, apuMaintainCost.TotalTax, apuMaintainCost.AddedValueRate, apuMaintainCost.AddedValue,
+            MaintainCostFactory.SetApuMaintainCost(updateApuMaintainCost, apuMaintainCost.NameType, apuMaintainCost.Type,
+                apuMaintainCost.YearBudgetRate, apuMaintainCost.Rate, apuMaintainCost.BudgetHour,
+                apuMaintainCost.HourPercent, apuMaintainCost.Hour, apuMaintainCost.ContractRepairFeeUsd,
+                apuMaintainCost.ContractRepairFeeRmb, apuMaintainCost.CustomRate, apuMaintainCost.TotalTax,
+                apuMaintainCost.AddedValueRate, apuMaintainCost.AddedValue,
                 apuMaintainCost.IncludeAddedValue, apuMaintainCost.MaintainInvoiceId, apuMaintainCost.Year);
             _maintainCostRepository.Modify(updateApuMaintainCost);
         }
@@ -297,15 +370,17 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     删除APU维修成。
         /// </summary>
         /// <param name="apuMaintainCost">APU维修成DTO。</param>
-        [Delete(typeof(ApuMaintainCostDTO))]
+        [Delete(typeof (ApuMaintainCostDTO))]
         public void DeleteApuMaintainCost(ApuMaintainCostDTO apuMaintainCost)
         {
-            var deleteApuMaintainCost = _maintainCostRepository.Get(apuMaintainCost.Id);//获取需要删除的对象。
+            MaintainCost deleteApuMaintainCost = _maintainCostRepository.Get(apuMaintainCost.Id); //获取需要删除的对象。
             _maintainCostRepository.Remove(deleteApuMaintainCost); //删除APU维修成。
         }
+
         #endregion
 
         #region FhaMaintainCostDTO
+
         /// <summary>
         ///     获取所有Fha维修成。
         /// </summary>
@@ -320,14 +395,18 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     新增Fha维修成。
         /// </summary>
         /// <param name="fhaMaintainCost">Fha维修成DTO。</param>
-        [Insert(typeof(FhaMaintainCostDTO))]
+        [Insert(typeof (FhaMaintainCostDTO))]
         public void InsertFhaMaintainCost(FhaMaintainCostDTO fhaMaintainCost)
         {
-            var newFhaMaintainCost = MaintainCostFactory.CreateFhaMaintainCost();
-            MaintainCostFactory.SetFhaMaintainCost(newFhaMaintainCost, fhaMaintainCost.AircraftTypeId, fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx,
-                fhaMaintainCost.YearBudgetRate, fhaMaintainCost.Rate, fhaMaintainCost.AirHour, fhaMaintainCost.HourPercent, fhaMaintainCost.Hour, fhaMaintainCost.FhaFeeUsd,
-                fhaMaintainCost.FhaFeeRmb, fhaMaintainCost.Custom, fhaMaintainCost.CustomAddedRmb, fhaMaintainCost.TotalTax, fhaMaintainCost.AddedValueRate, fhaMaintainCost.AddedValue,
-                fhaMaintainCost.IncludeAddedValue, fhaMaintainCost.CustomAdded, fhaMaintainCost.MaintainInvoiceId, fhaMaintainCost.Year);
+            FhaMaintainCost newFhaMaintainCost = MaintainCostFactory.CreateFhaMaintainCost();
+            MaintainCostFactory.SetFhaMaintainCost(newFhaMaintainCost, fhaMaintainCost.AircraftTypeId,
+                fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx,
+                fhaMaintainCost.YearBudgetRate, fhaMaintainCost.Rate, fhaMaintainCost.AirHour,
+                fhaMaintainCost.HourPercent, fhaMaintainCost.Hour, fhaMaintainCost.FhaFeeUsd,
+                fhaMaintainCost.FhaFeeRmb, fhaMaintainCost.Custom, fhaMaintainCost.CustomAddedRmb,
+                fhaMaintainCost.TotalTax, fhaMaintainCost.AddedValueRate, fhaMaintainCost.AddedValue,
+                fhaMaintainCost.IncludeAddedValue, fhaMaintainCost.CustomAdded, fhaMaintainCost.MaintainInvoiceId,
+                fhaMaintainCost.Year);
             _maintainCostRepository.Add(newFhaMaintainCost);
         }
 
@@ -336,14 +415,18 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     更新Fha维修成。
         /// </summary>
         /// <param name="fhaMaintainCost">Fha维修成DTO。</param>
-        [Update(typeof(FhaMaintainCostDTO))]
+        [Update(typeof (FhaMaintainCostDTO))]
         public void ModifyFhaMaintainCost(FhaMaintainCostDTO fhaMaintainCost)
         {
             var updateFhaMaintainCost = _maintainCostRepository.Get(fhaMaintainCost.Id) as FhaMaintainCost; //获取需要更新的对象。
-            MaintainCostFactory.SetFhaMaintainCost(updateFhaMaintainCost, fhaMaintainCost.AircraftTypeId, fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx, 
-                fhaMaintainCost.YearBudgetRate, fhaMaintainCost.Rate, fhaMaintainCost.AirHour, fhaMaintainCost.HourPercent, fhaMaintainCost.Hour, fhaMaintainCost.FhaFeeUsd,
-                fhaMaintainCost.FhaFeeRmb, fhaMaintainCost.Custom, fhaMaintainCost.CustomAddedRmb, fhaMaintainCost.TotalTax, fhaMaintainCost.AddedValueRate, fhaMaintainCost.AddedValue,
-                fhaMaintainCost.IncludeAddedValue, fhaMaintainCost.CustomAdded, fhaMaintainCost.MaintainInvoiceId, fhaMaintainCost.Year);
+            MaintainCostFactory.SetFhaMaintainCost(updateFhaMaintainCost, fhaMaintainCost.AircraftTypeId,
+                fhaMaintainCost.EngineProperty, fhaMaintainCost.Jx,
+                fhaMaintainCost.YearBudgetRate, fhaMaintainCost.Rate, fhaMaintainCost.AirHour,
+                fhaMaintainCost.HourPercent, fhaMaintainCost.Hour, fhaMaintainCost.FhaFeeUsd,
+                fhaMaintainCost.FhaFeeRmb, fhaMaintainCost.Custom, fhaMaintainCost.CustomAddedRmb,
+                fhaMaintainCost.TotalTax, fhaMaintainCost.AddedValueRate, fhaMaintainCost.AddedValue,
+                fhaMaintainCost.IncludeAddedValue, fhaMaintainCost.CustomAdded, fhaMaintainCost.MaintainInvoiceId,
+                fhaMaintainCost.Year);
             _maintainCostRepository.Modify(updateFhaMaintainCost);
         }
 
@@ -351,12 +434,13 @@ namespace UniCloud.Application.PaymentBC.MaintainCostServices
         ///     删除Fha维修成。
         /// </summary>
         /// <param name="fhaMaintainCost">Fha维修成DTO。</param>
-        [Delete(typeof(FhaMaintainCostDTO))]
+        [Delete(typeof (FhaMaintainCostDTO))]
         public void DeleteFhaMaintainCost(FhaMaintainCostDTO fhaMaintainCost)
         {
-            var deleteFhaMaintainCost = _maintainCostRepository.Get(fhaMaintainCost.Id);//获取需要删除的对象。
+            MaintainCost deleteFhaMaintainCost = _maintainCostRepository.Get(fhaMaintainCost.Id); //获取需要删除的对象。
             _maintainCostRepository.Remove(deleteFhaMaintainCost); //删除Fha维修成。
         }
+
         #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,7 +11,9 @@
 // 修改者：linxw 时间：2014/4/4 16:11:12
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +28,8 @@ using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationRoleAgg;
 namespace UniCloud.Application.BaseManagementBC.OrganizationServices
 {
     /// <summary>
-    /// 实现Organization的服务接口。
-    ///  用于处理Organization相关信息的服务，供Distributed Services调用。
+    ///     实现Organization的服务接口。
+    ///     用于处理Organization相关信息的服务，供Distributed Services调用。
     /// </summary>
     [LogAOP]
     public class OrganizationAppService : ContextBoundObject, IOrganizationAppService
@@ -34,19 +37,20 @@ namespace UniCloud.Application.BaseManagementBC.OrganizationServices
         private readonly IOrganizationQuery _organizationQuery;
         private readonly IOrganizationRepository _organizationRepository;
 
-        public OrganizationAppService(IOrganizationQuery organizationQuery, IOrganizationRepository organizationRepository)
+        public OrganizationAppService(IOrganizationQuery organizationQuery,
+            IOrganizationRepository organizationRepository)
         {
             _organizationQuery = organizationQuery;
             _organizationRepository = organizationRepository;
         }
 
         /// <summary>
-        /// 获取所有Organization。
+        ///     获取所有Organization。
         /// </summary>
         public IQueryable<OrganizationDTO> GetOrganizations()
         {
             var queryBuilder =
-               new QueryBuilder<Organization>();
+                new QueryBuilder<Organization>();
             return _organizationQuery.OrganizationsQuery(queryBuilder);
         }
 
@@ -54,10 +58,10 @@ namespace UniCloud.Application.BaseManagementBC.OrganizationServices
         ///     新增Organization。
         /// </summary>
         /// <param name="organization">OrganizationDTO。</param>
-        [Insert(typeof(OrganizationDTO))]
+        [Insert(typeof (OrganizationDTO))]
         public void InsertOrganization(OrganizationDTO organization)
         {
-            var newOrganization = OrganizationFactory.CreateOrganization(organization.Code, organization.Name,
+            Organization newOrganization = OrganizationFactory.CreateOrganization(organization.Code, organization.Name,
                 organization.Sort, organization.Description, organization.IsValid);
             _organizationRepository.Add(newOrganization);
         }
@@ -66,15 +70,15 @@ namespace UniCloud.Application.BaseManagementBC.OrganizationServices
         ///     更新Organization。
         /// </summary>
         /// <param name="organization">OrganizationDTO。</param>
-        [Update(typeof(OrganizationDTO))]
+        [Update(typeof (OrganizationDTO))]
         public void ModifyOrganization(OrganizationDTO organization)
         {
-            var updateOrganization = _organizationRepository.Get(organization.Id); //获取需要更新的对象。
+            Organization updateOrganization = _organizationRepository.Get(organization.Id); //获取需要更新的对象。
             OrganizationFactory.SetOrganization(updateOrganization, organization.Code, organization.Name,
                 organization.Sort, organization.Description, organization.IsValid);
 
-            var dtoOrganizationRoles = organization.OrganizationRoles;
-            var organizationRoles = updateOrganization.OrganizationRoles;
+            List<OrganizationRoleDTO> dtoOrganizationRoles = organization.OrganizationRoles;
+            ICollection<OrganizationRole> organizationRoles = updateOrganization.OrganizationRoles;
             DataHelper.DetailHandle(dtoOrganizationRoles.ToArray(),
                 organizationRoles.ToArray(),
                 c => c.Id, p => p.Id,
@@ -92,8 +96,9 @@ namespace UniCloud.Application.BaseManagementBC.OrganizationServices
         private void InsertOrganizationRole(Organization organization, OrganizationRoleDTO organizationRoleDto)
         {
             // 添加OrganizationRole
-            var organizationRole = organization.AddNewOrganizationRole();
-            OrganizationFactory.SetOrganizationRole(organizationRole, organizationRoleDto.OrganizationId, organizationRoleDto.RoleId);
+            OrganizationRole organizationRole = organization.AddNewOrganizationRole();
+            OrganizationFactory.SetOrganizationRole(organizationRole, organizationRoleDto.OrganizationId,
+                organizationRoleDto.RoleId);
         }
 
         /// <summary>
@@ -104,20 +109,21 @@ namespace UniCloud.Application.BaseManagementBC.OrganizationServices
         private void UpdateOrganizationRole(OrganizationRoleDTO organizationRoleDto, OrganizationRole organizationRole)
         {
             // 更新OrganizationRole
-            OrganizationFactory.SetOrganizationRole(organizationRole, organizationRoleDto.OrganizationId, organizationRoleDto.RoleId);
+            OrganizationFactory.SetOrganizationRole(organizationRole, organizationRoleDto.OrganizationId,
+                organizationRoleDto.RoleId);
         }
 
         public void SyncOrganizationInfo(List<OrganizationDTO> organizations)
         {
-            foreach (var organization in organizations)
+            foreach (OrganizationDTO organization in organizations)
             {
                 Expression<Func<Organization, bool>> condition = p => p.Code == organization.Code;
 
-                var tempOrganization = _organizationRepository.GetOrganization(condition);
+                Organization tempOrganization = _organizationRepository.GetOrganization(condition);
                 if (tempOrganization != null)
                 {
                     OrganizationFactory.SetOrganization(tempOrganization, organization.Code, organization.Name,
-                         organization.Sort, organization.Description, organization.IsValid);
+                        organization.Sort, organization.Description, organization.IsValid);
                     _organizationRepository.Modify(tempOrganization);
                 }
                 else

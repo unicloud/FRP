@@ -15,11 +15,13 @@
 #region 命名空间
 
 using System;
+using UniCloud.Application.AOP.Log;
 
 #endregion
 
 namespace UniCloud.Application.LuceneSearch
 {
+    [LogAOP]
     public class DocumentIndexService
     {
         /// <summary>

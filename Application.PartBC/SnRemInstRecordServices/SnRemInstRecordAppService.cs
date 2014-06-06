@@ -18,12 +18,12 @@
 #region 命名空间
 
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.SnRemInstRecordQueries;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
-using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 
 #endregion
@@ -34,11 +34,13 @@ namespace UniCloud.Application.PartBC.SnRemInstRecordServices
     ///     实现拆换记录服务接口。
     ///     用于处理拆换记录相关信息的服务，供Distributed Services调用。
     /// </summary>
+    [LogAOP]
     public class SnRemInstRecordAppService : ISnRemInstRecordAppService
     {
+        private readonly IAircraftRepository _aircraftRepository;
         private readonly ISnRemInstRecordQuery _snRemInstRecordQuery;
         private readonly ISnRemInstRecordRepository _snRemInstRecordRepository;
-        private readonly IAircraftRepository _aircraftRepository;
+
         public SnRemInstRecordAppService(ISnRemInstRecordQuery snRemInstRecordQuery,
             ISnRemInstRecordRepository snRemInstRecordRepository,
             IAircraftRepository aircraftRepository)
@@ -62,38 +64,39 @@ namespace UniCloud.Application.PartBC.SnRemInstRecordServices
         }
 
         /// <summary>
-        ///  新增SnRemInstRecord。
+        ///     新增SnRemInstRecord。
         /// </summary>
         /// <param name="dto">SnRemInstRecordDTO。</param>
-        [Insert(typeof(SnRemInstRecordDTO))]
+        [Insert(typeof (SnRemInstRecordDTO))]
         public void InsertSnRemInstRecord(SnRemInstRecordDTO dto)
         {
-            var aircraft = _aircraftRepository.Get(dto.AircraftId);
+            Aircraft aircraft = _aircraftRepository.Get(dto.AircraftId);
 
-            var newSnRemInstRecord = SnRemInstRecordFactory.CreateSnRemInstRecord(dto.ActionNo,dto.ActionDate,dto.ActionType,
-                dto.Position,dto.Reason,aircraft);
+            SnRemInstRecord newSnRemInstRecord = SnRemInstRecordFactory.CreateSnRemInstRecord(dto.ActionNo,
+                dto.ActionDate, dto.ActionType,
+                dto.Position, dto.Reason, aircraft);
             newSnRemInstRecord.ChangeCurrentIdentity(dto.Id);
 
             _snRemInstRecordRepository.Add(newSnRemInstRecord);
         }
 
         /// <summary>
-        ///  更新SnRemInstRecord。
+        ///     更新SnRemInstRecord。
         /// </summary>
         /// <param name="dto">SnRemInstRecordDTO。</param>
-        [Update(typeof(SnRemInstRecordDTO))]
+        [Update(typeof (SnRemInstRecordDTO))]
         public void ModifySnRemInstRecord(SnRemInstRecordDTO dto)
         {
-            var aircraft = _aircraftRepository.Get(dto.AircraftId);
+            Aircraft aircraft = _aircraftRepository.Get(dto.AircraftId);
 
-            var updateSnRemInstRecord = _snRemInstRecordRepository.Get(dto.Id); //获取需要更新的对象。
+            SnRemInstRecord updateSnRemInstRecord = _snRemInstRecordRepository.Get(dto.Id); //获取需要更新的对象。
 
             if (updateSnRemInstRecord != null)
             {
                 //更新。
                 updateSnRemInstRecord.SetActionNo(dto.ActionNo);
                 updateSnRemInstRecord.SetActionDate(dto.ActionDate);
-                updateSnRemInstRecord.SetActionType((ActionType)dto.ActionType);
+                updateSnRemInstRecord.SetActionType((ActionType) dto.ActionType);
                 updateSnRemInstRecord.SetPosition(dto.Position);
                 updateSnRemInstRecord.SetReason(dto.Reason);
                 updateSnRemInstRecord.SetAircraft(aircraft);
@@ -102,15 +105,16 @@ namespace UniCloud.Application.PartBC.SnRemInstRecordServices
         }
 
         /// <summary>
-        ///  删除SnRemInstRecord。
+        ///     删除SnRemInstRecord。
         /// </summary>
         /// <param name="dto">SnRemInstRecordDTO。</param>
-        [Delete(typeof(SnRemInstRecordDTO))]
+        [Delete(typeof (SnRemInstRecordDTO))]
         public void DeleteSnRemInstRecord(SnRemInstRecordDTO dto)
         {
-            var delSnRemInstRecord = _snRemInstRecordRepository.Get(dto.Id); //获取需要删除的对象。
+            SnRemInstRecord delSnRemInstRecord = _snRemInstRecordRepository.Get(dto.Id); //获取需要删除的对象。
             _snRemInstRecordRepository.Remove(delSnRemInstRecord); //删除SnRemInstRecord。
         }
+
         #endregion
     }
 }

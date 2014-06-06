@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -30,11 +32,11 @@ namespace UniCloud.Application.PurchaseBC.ContractEngineServices
     ///     实现租赁合同发动机服务接口。
     ///     用于处理租赁合同发动机相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class LeaseContractEngineAppService : ContextBoundObject, ILeaseContractEngineAppService
     {
-        private readonly ILeaseContractEngineQuery _leaseContractEngineQuery;
         private readonly IContractEngineRepository _contractEngineRepository;
+        private readonly ILeaseContractEngineQuery _leaseContractEngineQuery;
 
         public LeaseContractEngineAppService(ILeaseContractEngineQuery leaseContractEngineQuery,
             IContractEngineRepository contractEngineRepository)
@@ -60,10 +62,10 @@ namespace UniCloud.Application.PurchaseBC.ContractEngineServices
         ///     新增租赁合同发动机。
         /// </summary>
         /// <param name="leaseContractEngine">租赁合同发动机DTO。</param>
-        [Insert(typeof(LeaseContractEngineDTO))]
+        [Insert(typeof (LeaseContractEngineDTO))]
         public void InsertLeaseContractEngine(LeaseContractEngineDTO leaseContractEngine)
         {
-            var newLeaseContractEngine = ContractEngineFactory.CreateLeaseContractEngine("", "");
+            LeaseContractEngine newLeaseContractEngine = ContractEngineFactory.CreateLeaseContractEngine("", "");
             _contractEngineRepository.Add(newLeaseContractEngine);
         }
 
@@ -71,11 +73,12 @@ namespace UniCloud.Application.PurchaseBC.ContractEngineServices
         ///     更新租赁合同发动机。
         /// </summary>
         /// <param name="leaseContractEngine">租赁合同发动机DTO。</param>
-        [Update(typeof(LeaseContractEngineDTO))]
+        [Update(typeof (LeaseContractEngineDTO))]
         public void ModifyLeaseContractEngine(LeaseContractEngineDTO leaseContractEngine)
         {
-
-            var updateLeaseContractEngine = _contractEngineRepository.GetFiltered(t => t.Id == leaseContractEngine.LeaseContractEngineId).FirstOrDefault();
+            ContractEngine updateLeaseContractEngine =
+                _contractEngineRepository.GetFiltered(t => t.Id == leaseContractEngine.LeaseContractEngineId)
+                    .FirstOrDefault();
             //获取需要更新的对象。
             if (updateLeaseContractEngine != null)
             {
@@ -87,10 +90,12 @@ namespace UniCloud.Application.PurchaseBC.ContractEngineServices
         ///     删除租赁合同发动机。
         /// </summary>
         /// <param name="leaseContractEngine">租赁合同发动机DTO。</param>
-        [Delete(typeof(LeaseContractEngineDTO))]
+        [Delete(typeof (LeaseContractEngineDTO))]
         public void DeleteLeaseContractEngine(LeaseContractEngineDTO leaseContractEngine)
         {
-            var newLeaseContractEngine = _contractEngineRepository.GetFiltered(t => t.Id == leaseContractEngine.LeaseContractEngineId).FirstOrDefault();
+            ContractEngine newLeaseContractEngine =
+                _contractEngineRepository.GetFiltered(t => t.Id == leaseContractEngine.LeaseContractEngineId)
+                    .FirstOrDefault();
             //获取需要删除的对象。
             _contractEngineRepository.Remove(newLeaseContractEngine); //删除租赁合同发动机。
         }

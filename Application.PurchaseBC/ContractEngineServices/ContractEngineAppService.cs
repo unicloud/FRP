@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -31,6 +33,7 @@ namespace UniCloud.Application.PurchaseBC.ContractEngineServices
     {
         private readonly IContractEngineQuery _contractEngineQuery;
         private readonly IContractEngineRepository _contractEngineRepository;
+
         public ContractEngineAppService(IContractEngineQuery contractEngineQuery,
             IContractEngineRepository contractEngineRepository)
         {
@@ -55,15 +58,16 @@ namespace UniCloud.Application.PurchaseBC.ContractEngineServices
         ///     更新合同发动机。
         /// </summary>
         /// <param name="contractEngine">租赁合同发动机DTO。</param>
-        [Update(typeof(ContractEngineDTO))]
+        [Update(typeof (ContractEngineDTO))]
         public void ModifyContractEngine(ContractEngineDTO contractEngine)
         {
-            var updateContractEngine = _contractEngineRepository
-                .GetFiltered(t => t.ContractNumber == contractEngine.ContractNumber && t.RankNumber == contractEngine.RankNumber).FirstOrDefault();
+            ContractEngine updateContractEngine = _contractEngineRepository
+                .GetFiltered(
+                    t => t.ContractNumber == contractEngine.ContractNumber && t.RankNumber == contractEngine.RankNumber)
+                .FirstOrDefault();
             _contractEngineRepository.Modify(updateContractEngine);
         }
 
         #endregion
-
     }
 }

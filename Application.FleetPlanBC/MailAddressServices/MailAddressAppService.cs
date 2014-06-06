@@ -63,11 +63,11 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
         ///     新增邮箱账号。
         /// </summary>
         /// <param name="dto">邮箱账号DTO。</param>
-        [Insert(typeof(MailAddressDTO))]
+        [Insert(typeof (MailAddressDTO))]
         public void InsertMailAddress(MailAddressDTO dto)
         {
             //创建邮箱账号
-            var newMailAddress = MailAddressFactory.CreateMailAddress();
+            MailAddress newMailAddress = MailAddressFactory.CreateMailAddress();
             newMailAddress.SetAddress(dto.Address);
             newMailAddress.SetDisplayName(dto.DisplayName);
             newMailAddress.SetLoginPassword(dto.LoginPassword);
@@ -88,11 +88,11 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
         ///     更新邮箱账号。
         /// </summary>
         /// <param name="dto">邮箱账号DTO。</param>
-        [Update(typeof(MailAddressDTO))]
+        [Update(typeof (MailAddressDTO))]
         public void ModifyMailAddress(MailAddressDTO dto)
         {
             //获取需要更新的对象
-            var updateMailAddress = _mailAddressRepository.Get(dto.Id);
+            MailAddress updateMailAddress = _mailAddressRepository.Get(dto.Id);
 
             if (updateMailAddress != null)
             {
@@ -117,20 +117,21 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
         ///     删除邮箱账号。
         /// </summary>
         /// <param name="dto">邮箱账号DTO。</param>
-        [Delete(typeof(MailAddressDTO))]
+        [Delete(typeof (MailAddressDTO))]
         public void DeleteMailAddress(MailAddressDTO dto)
         {
             if (dto == null)
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delMailAddress = _mailAddressRepository.Get(dto.Id);
+            MailAddress delMailAddress = _mailAddressRepository.Get(dto.Id);
             //获取需要删除的对象。
             if (delMailAddress != null)
             {
                 _mailAddressRepository.Remove(delMailAddress); //删除邮箱账号。
             }
         }
+
         #endregion
     }
 }

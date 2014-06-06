@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2013/12/29 15:27:47
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -30,19 +32,20 @@ namespace UniCloud.Application.FleetPlanBC.XmlConfigServices
     ///     实现分析数据相关xml接口。
     ///     用于处于分析数据相关xml相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class XmlConfigAppService : ContextBoundObject, IXmlConfigAppService
     {
         private readonly IXmlConfigQuery _xmlConfigQuery;
         private readonly IXmlConfigRepository _xmlConfigRepository;
 
-         public XmlConfigAppService(IXmlConfigQuery xmlConfigQuery, IXmlConfigRepository xmlConfigRepository)
+        public XmlConfigAppService(IXmlConfigQuery xmlConfigQuery, IXmlConfigRepository xmlConfigRepository)
         {
             _xmlConfigQuery = xmlConfigQuery;
             _xmlConfigRepository = xmlConfigRepository;
         }
 
         #region XmlConfigDTO
+
         /// <summary>
         ///     获取所有分析数据相关xml。
         /// </summary>
@@ -57,7 +60,7 @@ namespace UniCloud.Application.FleetPlanBC.XmlConfigServices
         ///     新增分析数据相关xml。
         /// </summary>
         /// <param name="xmlConfig">分析数据相关xmlDTO。</param>
-        [Insert(typeof(XmlConfigDTO))]
+        [Insert(typeof (XmlConfigDTO))]
         public void InsertXmlConfig(XmlConfigDTO xmlConfig)
         {
             //var newEngineXmlConfig = XmlConfigFactory.CreateEngineXmlConfig();
@@ -86,7 +89,7 @@ namespace UniCloud.Application.FleetPlanBC.XmlConfigServices
         ///     更新分析数据相关xml。
         /// </summary>
         /// <param name="xmlConfig">分析数据相关xmlDTO。</param>
-        [Update(typeof(XmlConfigDTO))]
+        [Update(typeof (XmlConfigDTO))]
         public void ModifyXmlConfig(XmlConfigDTO xmlConfig)
         {
             //var updateEngineXmlConfig =
@@ -103,7 +106,7 @@ namespace UniCloud.Application.FleetPlanBC.XmlConfigServices
         ///     删除分析数据相关xml。
         /// </summary>
         /// <param name="xmlConfig">分析数据相关xmlDTO。</param>
-        [Delete(typeof(XmlConfigDTO))]
+        [Delete(typeof (XmlConfigDTO))]
         public void DeleteXmlConfig(XmlConfigDTO xmlConfig)
         {
             //var deleteEngineXmlConfig =
@@ -111,6 +114,7 @@ namespace UniCloud.Application.FleetPlanBC.XmlConfigServices
             //UpdateXmlConfigLines(new List<XmlConfigLineDTO>(), deleteEngineXmlConfig);
             //_invoiceRepository.Remove(deleteEngineXmlConfig); //删除分析数据相关xml。
         }
+
         #endregion
     }
 }

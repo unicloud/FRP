@@ -30,7 +30,6 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 
 #endregion
 
@@ -85,19 +84,19 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
         ///     新增计划明细。
         /// </summary>
         /// <param name="dto">计划明细DTO。</param>
-        [Insert(typeof(PlanHistoryDTO))]
+        [Insert(typeof (PlanHistoryDTO))]
         public void InsertPlanHistory(PlanHistoryDTO dto)
         {
             //获取
-            var actionCategory = _actionCategoryRepository.Get(dto.ActionCategoryId);
-            var targetCategory = _actionCategoryRepository.Get(dto.TargetCategoryId);
-            var aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
-            var airlines = _airlinesRepository.Get(dto.AirlinesId);
-            var annual = _annualRepository.Get(dto.PerformAnnualId);
+            ActionCategory actionCategory = _actionCategoryRepository.Get(dto.ActionCategoryId);
+            ActionCategory targetCategory = _actionCategoryRepository.Get(dto.TargetCategoryId);
+            AircraftType aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
+            Airlines airlines = _airlinesRepository.Get(dto.AirlinesId);
+            Annual annual = _annualRepository.Get(dto.PerformAnnualId);
             // 添加接机行
             if (dto.PlanType == 1)
             {
-                var newPlanHistory = PlanHistoryFactory.CreateOperationPlan(dto.PlanId);
+                PlanHistory newPlanHistory = PlanHistoryFactory.CreateOperationPlan(dto.PlanId);
                 newPlanHistory.SetActionCategory(actionCategory, targetCategory);
                 newPlanHistory.SetAircraftType(aircraftType);
                 newPlanHistory.SetAirlines(airlines);
@@ -107,13 +106,13 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
                 newPlanHistory.SetPerformDate(annual, dto.PerformMonth);
                 newPlanHistory.SetPlanAircraft(dto.PlanAircraftId);
                 newPlanHistory.SetSeatingCapacity(dto.SeatingCapacity);
-                newPlanHistory.SetCanRequest((CanRequest)dto.CanRequest);
-                newPlanHistory.SetCanDeliver((CanDeliver)dto.CanDeliver);
+                newPlanHistory.SetCanRequest((CanRequest) dto.CanRequest);
+                newPlanHistory.SetCanDeliver((CanDeliver) dto.CanDeliver);
                 _planHistoryRepository.Add(newPlanHistory);
             }
             else if (dto.PlanType == 2)
             {
-                var newPlanHistory = PlanHistoryFactory.CreateChangePlan(dto.PlanId);
+                PlanHistory newPlanHistory = PlanHistoryFactory.CreateChangePlan(dto.PlanId);
                 newPlanHistory.SetActionCategory(actionCategory, targetCategory);
                 newPlanHistory.SetAircraftType(aircraftType);
                 newPlanHistory.SetAirlines(airlines);
@@ -123,8 +122,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
                 newPlanHistory.SetPerformDate(annual, dto.PerformMonth);
                 newPlanHistory.SetPlanAircraft(dto.PlanAircraftId);
                 newPlanHistory.SetSeatingCapacity(dto.SeatingCapacity);
-                newPlanHistory.SetCanRequest((CanRequest)dto.CanRequest);
-                newPlanHistory.SetCanDeliver((CanDeliver)dto.CanDeliver);
+                newPlanHistory.SetCanRequest((CanRequest) dto.CanRequest);
+                newPlanHistory.SetCanDeliver((CanDeliver) dto.CanDeliver);
                 _planHistoryRepository.Add(newPlanHistory);
             }
         }
@@ -133,20 +132,20 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
         ///     更新计划明细。
         /// </summary>
         /// <param name="dto">计划明细DTO。</param>
-        [Update(typeof(PlanHistoryDTO))]
+        [Update(typeof (PlanHistoryDTO))]
         public void ModifyPlanHistory(PlanHistoryDTO dto)
         {
             //获取
-            var actionCategory = _actionCategoryRepository.Get(dto.ActionCategoryId);
-            var targetCategory = _actionCategoryRepository.Get(dto.TargetCategoryId);
-            var aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
-            var airlines = _airlinesRepository.Get(dto.AirlinesId);
-            var annual = _annualRepository.Get(dto.PerformAnnualId);
-            var operationHistory = _aircraftRepository.GetPh(dto.RelatedGuid);
-            var aircraftBusiness = _aircraftRepository.GetAb(dto.RelatedGuid);
+            ActionCategory actionCategory = _actionCategoryRepository.Get(dto.ActionCategoryId);
+            ActionCategory targetCategory = _actionCategoryRepository.Get(dto.TargetCategoryId);
+            AircraftType aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
+            Airlines airlines = _airlinesRepository.Get(dto.AirlinesId);
+            Annual annual = _annualRepository.Get(dto.PerformAnnualId);
+            OperationHistory operationHistory = _aircraftRepository.GetPh(dto.RelatedGuid);
+            AircraftBusiness aircraftBusiness = _aircraftRepository.GetAb(dto.RelatedGuid);
 
             //获取需要更新的对象
-            var updatePlanHistory = _planHistoryRepository.Get(dto.Id);
+            PlanHistory updatePlanHistory = _planHistoryRepository.Get(dto.Id);
 
             // 更新计划历史
             if (dto.PlanType == 1)
@@ -161,8 +160,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
                 updatePlanHistory.SetPlanAircraft(dto.PlanAircraftId);
                 updatePlanHistory.SetSeatingCapacity(dto.SeatingCapacity);
                 updatePlanHistory.SetApprovalHistory(dto.ApprovalHistoryId);
-                updatePlanHistory.SetCanRequest((CanRequest)dto.CanRequest);
-                updatePlanHistory.SetCanDeliver((CanDeliver)dto.CanDeliver);
+                updatePlanHistory.SetCanRequest((CanRequest) dto.CanRequest);
+                updatePlanHistory.SetCanDeliver((CanDeliver) dto.CanDeliver);
                 var operationPlan = updatePlanHistory as OperationPlan;
                 if (operationPlan != null)
                     operationPlan.SetOperationHistory(operationHistory);
@@ -179,8 +178,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
                 updatePlanHistory.SetPlanAircraft(dto.PlanAircraftId);
                 updatePlanHistory.SetSeatingCapacity(dto.SeatingCapacity);
                 updatePlanHistory.SetApprovalHistory(dto.ApprovalHistoryId);
-                updatePlanHistory.SetCanRequest((CanRequest)dto.CanRequest);
-                updatePlanHistory.SetCanDeliver((CanDeliver)dto.CanDeliver);
+                updatePlanHistory.SetCanRequest((CanRequest) dto.CanRequest);
+                updatePlanHistory.SetCanDeliver((CanDeliver) dto.CanDeliver);
                 var changePlan = updatePlanHistory as ChangePlan;
                 if (changePlan != null)
                     changePlan.SetAircraftBusiness(aircraftBusiness);
@@ -192,20 +191,21 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
         ///     删除计划明细。
         /// </summary>
         /// <param name="dto">计划明细DTO。</param>
-        [Delete(typeof(PlanHistoryDTO))]
+        [Delete(typeof (PlanHistoryDTO))]
         public void DeletePlanHistory(PlanHistoryDTO dto)
         {
             if (dto == null)
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delPlanHistory = _planHistoryRepository.Get(dto.Id);
+            PlanHistory delPlanHistory = _planHistoryRepository.Get(dto.Id);
             //获取需要删除的对象。
             if (delPlanHistory != null)
             {
                 _planHistoryRepository.Remove(delPlanHistory); //删除计划明细。
             }
         }
+
         #endregion
     }
 }

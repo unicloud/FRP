@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.ItemQueries;
@@ -33,11 +34,13 @@ namespace UniCloud.Application.PartBC.ItemServices
     ///     实现附件项服务接口。
     ///     用于处理附件项相关信息的服务，供Distributed Services调用。
     /// </summary>
+    [LogAOP]
     public class ItemAppService : IItemAppService
     {
         private readonly IItemQuery _itemQuery;
         private readonly IItemRepository _itemRepository;
-        public ItemAppService(IItemQuery itemQuery,IItemRepository itemRepository)
+
+        public ItemAppService(IItemQuery itemQuery, IItemRepository itemRepository)
         {
             _itemQuery = itemQuery;
             _itemRepository = itemRepository;
@@ -57,7 +60,7 @@ namespace UniCloud.Application.PartBC.ItemServices
         }
 
         /// <summary>
-        /// 获取机型对应的项的集合
+        ///     获取机型对应的项的集合
         /// </summary>
         /// <param name="aircraftTypeId"></param>
         /// <returns></returns>
@@ -68,25 +71,25 @@ namespace UniCloud.Application.PartBC.ItemServices
 
 
         /// <summary>
-        ///  新增Item。
+        ///     新增Item。
         /// </summary>
         /// <param name="dto">ItemDTO。</param>
-        [Insert(typeof(ItemDTO))]
+        [Insert(typeof (ItemDTO))]
         public void InsertItem(ItemDTO dto)
         {
-            var newItem = ItemFactory.CreateItem(dto.Name,dto.ItemNo,dto.FiNumber,dto.Description,dto.IsLife);
+            Item newItem = ItemFactory.CreateItem(dto.Name, dto.ItemNo, dto.FiNumber, dto.Description, dto.IsLife);
             newItem.ChangeCurrentIdentity(dto.Id);
             _itemRepository.Add(newItem);
         }
 
         /// <summary>
-        ///  更新Item。
+        ///     更新Item。
         /// </summary>
         /// <param name="dto">ItemDTO。</param>
-        [Update(typeof(ItemDTO))]
+        [Update(typeof (ItemDTO))]
         public void ModifyItem(ItemDTO dto)
         {
-            var updateItem = _itemRepository.Get(dto.Id); //获取需要更新的对象。
+            Item updateItem = _itemRepository.Get(dto.Id); //获取需要更新的对象。
 
             if (updateItem != null)
             {
@@ -99,13 +102,13 @@ namespace UniCloud.Application.PartBC.ItemServices
         }
 
         /// <summary>
-        ///  删除Item。
+        ///     删除Item。
         /// </summary>
         /// <param name="dto">ItemDTO。</param>
-        [Delete(typeof(ItemDTO))]
+        [Delete(typeof (ItemDTO))]
         public void DeleteItem(ItemDTO dto)
         {
-            var delItem = _itemRepository.Get(dto.Id); //获取需要删除的对象。
+            Item delItem = _itemRepository.Get(dto.Id); //获取需要删除的对象。
             _itemRepository.Remove(delItem); //删除Item。
         }
 

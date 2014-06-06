@@ -55,7 +55,8 @@ namespace UniCloud.Application.FleetPlanBC.ApprovalDocServices
                 throw new Exception("批文不能为空");
             }
             //新批文申请
-            var newApprovalDoc = ApprovalDocFactory.CreateApprovalDoc(approvalDoc.Id, approvalDoc.CaacExamineDate,
+            ApprovalDoc newApprovalDoc = ApprovalDocFactory.CreateApprovalDoc(approvalDoc.Id,
+                approvalDoc.CaacExamineDate,
                 approvalDoc.NdrcExamineDate, approvalDoc.CaacApprovalNumber,
                 approvalDoc.NdrcApprovalNumber, approvalDoc.Status, approvalDoc.Note,
                 approvalDoc.CaacDocumentName, approvalDoc.NdrcDocumentName, approvalDoc.CaacDocumentId,
@@ -70,7 +71,7 @@ namespace UniCloud.Application.FleetPlanBC.ApprovalDocServices
             {
                 throw new Exception("批文不能为空");
             }
-            var pesistApprovalDoc = _approvalDocRepository.Get(approvalDoc.Id);
+            ApprovalDoc pesistApprovalDoc = _approvalDocRepository.Get(approvalDoc.Id);
             if (pesistApprovalDoc == null)
             {
                 throw new Exception("找不到需要更新的批文");
@@ -118,7 +119,7 @@ namespace UniCloud.Application.FleetPlanBC.ApprovalDocServices
             {
                 throw new Exception("批文不能为空");
             }
-            var pesistApprovalDoc = _approvalDocRepository.Get(approvalDoc.Id);
+            ApprovalDoc pesistApprovalDoc = _approvalDocRepository.Get(approvalDoc.Id);
             if (pesistApprovalDoc == null)
             {
                 throw new Exception("找不到需要删除的批文");

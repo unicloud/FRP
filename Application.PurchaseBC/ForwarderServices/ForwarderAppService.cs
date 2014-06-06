@@ -34,7 +34,7 @@ namespace UniCloud.Application.PurchaseBC.ForwarderServices
     ///     实现承运人接口。
     ///     用于处于承运人相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class ForwarderAppService : ContextBoundObject, IForwarderAppService
     {
         private readonly IForwarderQuery _forwarderQuery;
@@ -64,7 +64,8 @@ namespace UniCloud.Application.PurchaseBC.ForwarderServices
         [Insert(typeof (ForwarderDTO))]
         public void InsertForwarder(ForwarderDTO forwarder)
         {
-            var newForwarder = ForwarderFactory.Create(forwarder.Name, forwarder.Tel, forwarder.Fax, forwarder.Attn,
+            Forwarder newForwarder = ForwarderFactory.Create(forwarder.Name, forwarder.Tel, forwarder.Fax,
+                forwarder.Attn,
                 forwarder.Email,
                 forwarder.Addr);
 
@@ -78,7 +79,7 @@ namespace UniCloud.Application.PurchaseBC.ForwarderServices
         [Update(typeof (ForwarderDTO))]
         public void ModifyForwarder(ForwarderDTO forwarder)
         {
-            var updateForwarder = _forwarderRepository.Get(forwarder.ForwarderId); //获取需要更新的对象。
+            Forwarder updateForwarder = _forwarderRepository.Get(forwarder.ForwarderId); //获取需要更新的对象。
 
             //更新。
             updateForwarder.CnName = forwarder.Name;
@@ -97,7 +98,7 @@ namespace UniCloud.Application.PurchaseBC.ForwarderServices
         [Delete(typeof (ForwarderDTO))]
         public void DeleteForwarder(ForwarderDTO forwarder)
         {
-            var newForwarder = _forwarderRepository.Get(forwarder.ForwarderId); //获取需要删除的对象。
+            Forwarder newForwarder = _forwarderRepository.Get(forwarder.ForwarderId); //获取需要删除的对象。
             _forwarderRepository.Remove(newForwarder); //删除承运人。
         }
     }

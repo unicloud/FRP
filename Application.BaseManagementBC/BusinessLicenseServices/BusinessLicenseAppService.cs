@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/4/8 12:03:44
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -36,7 +38,8 @@ namespace UniCloud.Application.BaseManagementBC.BusinessLicenseServices
         private readonly IBusinessLicenseQuery _businessLicenseQuery;
         private readonly IBusinessLicenseRepository _businessLicenseRepository;
 
-        public BusinessLicenseAppService(IBusinessLicenseQuery businessLicenseQuery, IBusinessLicenseRepository businessLicenseRepository)
+        public BusinessLicenseAppService(IBusinessLicenseQuery businessLicenseQuery,
+            IBusinessLicenseRepository businessLicenseRepository)
         {
             _businessLicenseQuery = businessLicenseQuery;
             _businessLicenseRepository = businessLicenseRepository;
@@ -58,12 +61,14 @@ namespace UniCloud.Application.BaseManagementBC.BusinessLicenseServices
         ///     新增经营证照。
         /// </summary>
         /// <param name="businessLicense">经营证照DTO。</param>
-        [Insert(typeof(BusinessLicenseDTO))]
+        [Insert(typeof (BusinessLicenseDTO))]
         public void InsertBusinessLicense(BusinessLicenseDTO businessLicense)
         {
-            var newBusinessLicense = BusinessLicenseFactory.CreateBusinessLicense();
-            BusinessLicenseFactory.SetBusinessLicense(newBusinessLicense, businessLicense.Name, businessLicense.Description, businessLicense.IssuedUnit, businessLicense.IssuedDate,
-                businessLicense.ValidMonths, businessLicense.ExpireDate, businessLicense.State, businessLicense.FileName, businessLicense.FileContent);
+            BusinessLicense newBusinessLicense = BusinessLicenseFactory.CreateBusinessLicense();
+            BusinessLicenseFactory.SetBusinessLicense(newBusinessLicense, businessLicense.Name,
+                businessLicense.Description, businessLicense.IssuedUnit, businessLicense.IssuedDate,
+                businessLicense.ValidMonths, businessLicense.ExpireDate, businessLicense.State, businessLicense.FileName,
+                businessLicense.FileContent);
             _businessLicenseRepository.Add(newBusinessLicense);
         }
 
@@ -72,12 +77,14 @@ namespace UniCloud.Application.BaseManagementBC.BusinessLicenseServices
         ///     更新经营证照。
         /// </summary>
         /// <param name="businessLicense">经营证照DTO。</param>
-        [Update(typeof(BusinessLicenseDTO))]
+        [Update(typeof (BusinessLicenseDTO))]
         public void ModifyBusinessLicense(BusinessLicenseDTO businessLicense)
         {
-            var updateBusinessLicense = _businessLicenseRepository.Get(businessLicense.Id); //获取需要更新的对象。
-            BusinessLicenseFactory.SetBusinessLicense(updateBusinessLicense, businessLicense.Name, businessLicense.Description, businessLicense.IssuedUnit, businessLicense.IssuedDate,
-                businessLicense.ValidMonths, businessLicense.ExpireDate, businessLicense.State, businessLicense.FileName, businessLicense.FileContent);
+            BusinessLicense updateBusinessLicense = _businessLicenseRepository.Get(businessLicense.Id); //获取需要更新的对象。
+            BusinessLicenseFactory.SetBusinessLicense(updateBusinessLicense, businessLicense.Name,
+                businessLicense.Description, businessLicense.IssuedUnit, businessLicense.IssuedDate,
+                businessLicense.ValidMonths, businessLicense.ExpireDate, businessLicense.State, businessLicense.FileName,
+                businessLicense.FileContent);
             _businessLicenseRepository.Modify(updateBusinessLicense);
         }
 
@@ -85,12 +92,13 @@ namespace UniCloud.Application.BaseManagementBC.BusinessLicenseServices
         ///     删除经营证照。
         /// </summary>
         /// <param name="businessLicense">经营证照DTO。</param>
-        [Delete(typeof(BusinessLicenseDTO))]
+        [Delete(typeof (BusinessLicenseDTO))]
         public void DeleteBusinessLicense(BusinessLicenseDTO businessLicense)
         {
-            var deleteBusinessLicense = _businessLicenseRepository.Get(businessLicense.Id); //获取需要删除的对象。
+            BusinessLicense deleteBusinessLicense = _businessLicenseRepository.Get(businessLicense.Id); //获取需要删除的对象。
             _businessLicenseRepository.Remove(deleteBusinessLicense); //删除经营证照。
         }
+
         #endregion
     }
 }

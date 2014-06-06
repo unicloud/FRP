@@ -17,6 +17,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
@@ -34,7 +35,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
     /// <summary>
     ///     租赁飞机接收项目服务实现
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class AircraftLeaseReceptionAppService : ContextBoundObject, IAircraftLeaseReceptionAppService
     {
         private readonly IContractAircraftRepository _contractAircraftRepository;
@@ -74,15 +75,16 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         public void InsertAircraftLeaseReception(AircraftLeaseReceptionDTO dto)
         {
             //获取供应商
-            var supplier = _supplierRepository.Get(dto.SupplierId);
+            Supplier supplier = _supplierRepository.Get(dto.SupplierId);
 
             //创建接机项目
-            var newReception = ReceptionFactory.CreateAircraftLeaseReception(dto.StartDate, dto.EndDate, dto.SourceId,
+            AircraftLeaseReception newReception = ReceptionFactory.CreateAircraftLeaseReception(dto.StartDate,
+                dto.EndDate, dto.SourceId,
                 dto.Description);
 
             // TODO:设置接机编号,如果当天的记录被删除过，流水号seq可能会重复
-            var date = DateTime.Now.Date;
-            var seq = _receptionRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            DateTime date = DateTime.Now.Date;
+            int seq = _receptionRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
             newReception.SetReceptionNumber(seq);
 
             //设置供应商
@@ -107,7 +109,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         public void ModifyAircraftLeaseReception(AircraftLeaseReceptionDTO dto)
         {
             //获取供应商
-            var supplier = _supplierRepository.Get(dto.SupplierId);
+            Supplier supplier = _supplierRepository.Get(dto.SupplierId);
 
             //获取需要更新的对象
             var updateReception = _receptionRepository.Get(dto.AircraftLeaseReceptionId) as AircraftLeaseReception;
@@ -124,8 +126,8 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
                 updateReception.SourceId = dto.SourceId;
 
                 //更新接机行：
-                var dtoReceptionLines = dto.ReceptionLines;
-                var receptionLines = updateReception.ReceptionLines;
+                List<AircraftLeaseReceptionLineDTO> dtoReceptionLines = dto.ReceptionLines;
+                ICollection<ReceptionLine> receptionLines = updateReception.ReceptionLines;
                 DataHelper.DetailHandle(dtoReceptionLines.ToArray(),
                     receptionLines.OfType<AircraftLeaseReceptionLine>().ToArray(),
                     c => c.AircraftLeaseReceptionLineId, p => p.Id,
@@ -133,8 +135,8 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
                     UpdateReceptionLine,
                     d => _receptionRepository.RemoveReceptionLine(d));
                 //更新交付日程：
-                var dtoReceptionSchedules = dto.ReceptionSchedules;
-                var receptionSchedules = updateReception.ReceptionSchedules;
+                List<ReceptionScheduleDTO> dtoReceptionSchedules = dto.ReceptionSchedules;
+                ICollection<ReceptionSchedule> receptionSchedules = updateReception.ReceptionSchedules;
                 DataHelper.DetailHandle(dtoReceptionSchedules.ToArray(),
                     receptionSchedules.ToArray(),
                     c => c.ReceptionScheduleId, p => p.Id,
@@ -156,7 +158,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delAircraftLeaseReception = _receptionRepository.Get(dto.AircraftLeaseReceptionId);
+            Reception delAircraftLeaseReception = _receptionRepository.Get(dto.AircraftLeaseReceptionId);
             //获取需要删除的对象。
             if (delAircraftLeaseReception != null)
             {
@@ -174,11 +176,12 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         private void InsertReceptionLine(AircraftLeaseReception reception, AircraftLeaseReceptionLineDTO line)
         {
             //获取合同飞机
-            var leaseConAc = _contractAircraftRepository.GetFiltered(p => p.Id == line.ContractAircraftId)
-                .OfType<LeaseContractAircraft>().FirstOrDefault();
+            LeaseContractAircraft leaseConAc =
+                _contractAircraftRepository.GetFiltered(p => p.Id == line.ContractAircraftId)
+                    .OfType<LeaseContractAircraft>().FirstOrDefault();
 
             // 添加接机行
-            var newRecepitonLine =
+            AircraftLeaseReceptionLine newRecepitonLine =
                 reception.AddNewAircraftLeaseReceptionLine(line.ReceivedAmount);
             newRecepitonLine.AcceptedAmount = line.AcceptedAmount;
             newRecepitonLine.SetCompleted();
@@ -198,8 +201,9 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         private void UpdateReceptionLine(AircraftLeaseReceptionLineDTO line, AircraftLeaseReceptionLine receptionLine)
         {
             //获取合同飞机
-            var leaseConAc = _contractAircraftRepository.GetFiltered(p => p.Id == line.ContractAircraftId)
-                .OfType<LeaseContractAircraft>().FirstOrDefault();
+            LeaseContractAircraft leaseConAc =
+                _contractAircraftRepository.GetFiltered(p => p.Id == line.ContractAircraftId)
+                    .OfType<LeaseContractAircraft>().FirstOrDefault();
 
 
             // 更新订单行

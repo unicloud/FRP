@@ -19,6 +19,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.InstallControllerQueries;
@@ -35,16 +36,17 @@ namespace UniCloud.Application.PartBC.InstallControllerServices
     ///     实现装机控制服务接口。
     ///     用于处理装机控制相关信息的服务，供Distributed Services调用。
     /// </summary>
+    [LogAOP]
     public class InstallControllerAppService : IInstallControllerAppService
     {
+        private readonly IAircraftTypeRepository _aircraftTypeRepository;
         private readonly IInstallControllerQuery _installControllerQuery;
         private readonly IInstallControllerRepository _installControllerRepository;
-        private readonly IAircraftTypeRepository _aircraftTypeRepository;
         private readonly IItemRepository _itemRepository;
         private readonly IPnRegRepository _pnRegRepository;
 
         public InstallControllerAppService(IInstallControllerQuery installControllerQuery,
-        IInstallControllerRepository installControllerRepository,
+            IInstallControllerRepository installControllerRepository,
             IAircraftTypeRepository aircraftTypeRepository,
             IItemRepository itemRepository,
             IPnRegRepository pnRegRepository)
@@ -54,7 +56,6 @@ namespace UniCloud.Application.PartBC.InstallControllerServices
             _aircraftTypeRepository = aircraftTypeRepository;
             _itemRepository = itemRepository;
             _pnRegRepository = pnRegRepository;
-
         }
 
         #region InstallControllerDTO
@@ -73,14 +74,15 @@ namespace UniCloud.Application.PartBC.InstallControllerServices
         ///     新增InstallController。
         /// </summary>
         /// <param name="dto">InstallControllerDTO。</param>
-        [Insert(typeof(InstallControllerDTO))]
+        [Insert(typeof (InstallControllerDTO))]
         public void InsertInstallController(InstallControllerDTO dto)
         {
             Item item = _itemRepository.Get(dto.ItemId);
             PnReg pnReg = _pnRegRepository.Get(dto.PnRegId);
             AircraftType aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
 
-            InstallController newInstallController = InstallControllerFactory.CreateInstallController(dto.StartDate, dto.EndDate,item,pnReg,aircraftType);
+            InstallController newInstallController = InstallControllerFactory.CreateInstallController(dto.StartDate,
+                dto.EndDate, item, pnReg, aircraftType);
 
             //添加依赖项
             dto.Dependencies.ToList().ForEach(dependency => InsertDependency(newInstallController, dependency));
@@ -92,7 +94,7 @@ namespace UniCloud.Application.PartBC.InstallControllerServices
         ///     更新InstallController。
         /// </summary>
         /// <param name="dto">InstallControllerDTO。</param>
-        [Update(typeof(InstallControllerDTO))]
+        [Update(typeof (InstallControllerDTO))]
         public void ModifyInstallController(InstallControllerDTO dto)
         {
             Item item = _itemRepository.Get(dto.ItemId);
@@ -125,7 +127,7 @@ namespace UniCloud.Application.PartBC.InstallControllerServices
         ///     删除InstallController。
         /// </summary>
         /// <param name="dto">InstallControllerDTO。</param>
-        [Delete(typeof(InstallControllerDTO))]
+        [Delete(typeof (InstallControllerDTO))]
         public void DeleteInstallController(InstallControllerDTO dto)
         {
             InstallController delInstallController = _installControllerRepository.Get(dto.Id); //获取需要删除的对象。

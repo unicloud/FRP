@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,6 +12,7 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -18,19 +20,19 @@
 using System;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
-using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.AdSbQueries;
 using UniCloud.Domain.PartBC.Aggregates.AdSbAgg;
+
 #endregion
 
 namespace UniCloud.Application.PartBC.AdSbServices
 {
     /// <summary>
-    /// 实现AdSb的服务接口。
-    ///  用于处理AdSb相关信息的服务，供Distributed Services调用。
+    ///     实现AdSb的服务接口。
+    ///     用于处理AdSb相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class AdSbAppService : ContextBoundObject, IAdSbAppService
     {
         private readonly IAdSbQuery _adSbQuery;
@@ -43,16 +45,15 @@ namespace UniCloud.Application.PartBC.AdSbServices
         #region AdSbDTO
 
         /// <summary>
-        /// 获取所有AdSb。
+        ///     获取所有AdSb。
         /// </summary>
         public IQueryable<AdSbDTO> GetAdSbs()
         {
             var queryBuilder =
-               new QueryBuilder<AdSb>();
+                new QueryBuilder<AdSb>();
             return _adSbQuery.AdSbDTOQuery(queryBuilder);
         }
 
         #endregion
-
     }
 }

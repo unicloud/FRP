@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -30,11 +32,11 @@ namespace UniCloud.Application.PurchaseBC.ContractAircraftServices
     ///     实现采购合同飞机服务接口。
     ///     用于处理采购合同飞机相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class PurchaseContractAircraftAppService : ContextBoundObject, IPurchaseContractAircraftAppService
     {
-        private readonly IPurchaseContractAircraftQuery _purchaseContractAircraftQuery;
         private readonly IContractAircraftRepository _contractAircraftRepository;
+        private readonly IPurchaseContractAircraftQuery _purchaseContractAircraftQuery;
 
         public PurchaseContractAircraftAppService(IPurchaseContractAircraftQuery purchaseContractAircraftQuery,
             IContractAircraftRepository contractAircraftRepository)
@@ -60,10 +62,11 @@ namespace UniCloud.Application.PurchaseBC.ContractAircraftServices
         ///     新增采购合同飞机。
         /// </summary>
         /// <param name="purchaseContractAircraft">采购合同飞机DTO。</param>
-        [Insert(typeof(PurchaseContractAircraftDTO))]
+        [Insert(typeof (PurchaseContractAircraftDTO))]
         public void InsertPurchaseContractAircraft(PurchaseContractAircraftDTO purchaseContractAircraft)
         {
-            var newPurchaseContractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft("", "");
+            PurchaseContractAircraft newPurchaseContractAircraft =
+                ContractAircraftFactory.CreatePurchaseContractAircraft("", "");
             _contractAircraftRepository.Add(newPurchaseContractAircraft);
         }
 
@@ -71,11 +74,12 @@ namespace UniCloud.Application.PurchaseBC.ContractAircraftServices
         ///     更新采购合同飞机。
         /// </summary>
         /// <param name="purchaseContractAircraft">采购合同飞机DTO。</param>
-        [Update(typeof(PurchaseContractAircraftDTO))]
+        [Update(typeof (PurchaseContractAircraftDTO))]
         public void ModifyPurchaseContractAircraft(PurchaseContractAircraftDTO purchaseContractAircraft)
         {
-
-            var updatePurchaseContractAircraft = _contractAircraftRepository.GetFiltered(t => t.Id == purchaseContractAircraft.PurchaseContractAircraftId).FirstOrDefault();
+            ContractAircraft updatePurchaseContractAircraft =
+                _contractAircraftRepository.GetFiltered(t => t.Id == purchaseContractAircraft.PurchaseContractAircraftId)
+                    .FirstOrDefault();
             //获取需要更新的对象。
             if (updatePurchaseContractAircraft != null)
             {
@@ -87,10 +91,12 @@ namespace UniCloud.Application.PurchaseBC.ContractAircraftServices
         ///     删除采购合同飞机。
         /// </summary>
         /// <param name="purchaseContractAircraft">采购合同飞机DTO。</param>
-        [Delete(typeof(PurchaseContractAircraftDTO))]
+        [Delete(typeof (PurchaseContractAircraftDTO))]
         public void DeletePurchaseContractAircraft(PurchaseContractAircraftDTO purchaseContractAircraft)
         {
-            var newPurchaseContractAircraft = _contractAircraftRepository.GetFiltered(t => t.Id == purchaseContractAircraft.PurchaseContractAircraftId).FirstOrDefault();
+            ContractAircraft newPurchaseContractAircraft =
+                _contractAircraftRepository.GetFiltered(t => t.Id == purchaseContractAircraft.PurchaseContractAircraftId)
+                    .FirstOrDefault();
             //获取需要删除的对象。
             _contractAircraftRepository.Remove(newPurchaseContractAircraft); //删除采购合同飞机。
         }

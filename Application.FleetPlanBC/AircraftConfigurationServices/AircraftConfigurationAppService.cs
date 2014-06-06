@@ -32,7 +32,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftConfigurationServices
     ///     实现飞机配置服务接口。
     ///     用于处理飞机配置相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class AircraftConfigurationAppService : ContextBoundObject, IAircraftConfigurationAppService
     {
         private readonly IAircraftConfigurationQuery _aircraftConfigurationQuery;

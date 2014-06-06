@@ -32,7 +32,7 @@ namespace UniCloud.Application.PurchaseBC.MaterialServices
     ///     实现部件接口。
     ///     用于处理部件相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class MaterialAppService : ContextBoundObject, IMaterialAppService
     {
         private readonly IMaterialQuery _materialQuery;
@@ -72,7 +72,7 @@ namespace UniCloud.Application.PurchaseBC.MaterialServices
                 new QueryBuilder<Material>();
             return _materialQuery.EngineMaterialsQuery(queryBuilder);
         }
-        #endregion
 
+        #endregion
     }
 }

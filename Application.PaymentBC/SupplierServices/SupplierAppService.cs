@@ -32,7 +32,7 @@ namespace UniCloud.Application.PaymentBC.SupplierServices
     ///     实现供应商服务接口。
     ///     用于处于供应商相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class SupplierAppService : ContextBoundObject, ISupplierAppService
     {
         private readonly ISupplierQuery _supplierQuery;

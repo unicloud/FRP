@@ -83,8 +83,8 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
 
             //创建项维修控制组
             ItemMaintainCtrl newItemMainCtrl = MaintainCtrlFactory.CreateItemMaintainCtrl(item,
-                ((ControlStrategy) dto.CtrlStrategy),dto.Description,dto.CtrlDetail,maintainWork);
-            
+                ((ControlStrategy) dto.CtrlStrategy), dto.Description, dto.CtrlDetail, maintainWork);
+
             _maintainCtrlRepository.Add(newItemMainCtrl);
         }
 
@@ -160,7 +160,7 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
 
             //创建附件维修控制组
             PnMaintainCtrl newPnMainCtrl = MaintainCtrlFactory.CreatePnMaintainCtrl(pnReg,
-                (ControlStrategy)dto.CtrlStrategy, dto.Description, dto.CtrlDetail, maintainWork);
+                (ControlStrategy) dto.CtrlStrategy, dto.Description, dto.CtrlDetail, maintainWork);
 
             _maintainCtrlRepository.Add(newPnMainCtrl);
         }
@@ -180,14 +180,13 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
                 //获取附件
                 PnReg pnReg = _pnRegRepository.Get(dto.PnRegId);
                 MaintainWork maintainWork = _maintainWorkRepository.Get(dto.MaintainWorkId);
-                
+
                 //更新主表：
                 updatePnMainCtrl.SetCtrlStrategy((ControlStrategy) dto.CtrlStrategy);
                 updatePnMainCtrl.SetPnReg(pnReg);
                 updatePnMainCtrl.SetDescription(dto.Description);
                 updatePnMainCtrl.SetCtrlDetail(dto.CtrlDetail);
                 updatePnMainCtrl.SetMaintainWork(maintainWork);
-
             }
             _maintainCtrlRepository.Modify(updatePnMainCtrl);
         }
@@ -237,7 +236,7 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
 
             //创建序号维修控制组
             SnMaintainCtrl newSnMainCtrl = MaintainCtrlFactory.CreateSnMaintainCtrl(dto.SnScope,
-                (ControlStrategy)dto.CtrlStrategy, dto.Description, dto.CtrlDetail, maintainWork);
+                (ControlStrategy) dto.CtrlStrategy, dto.Description, dto.CtrlDetail, maintainWork);
 
             _maintainCtrlRepository.Add(newSnMainCtrl);
         }

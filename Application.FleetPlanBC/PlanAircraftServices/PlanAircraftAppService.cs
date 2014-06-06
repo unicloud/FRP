@@ -37,7 +37,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
     ///     实现计划飞机服务接口。
     ///     用于处理计划飞机相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class PlanAircraftAppService : ContextBoundObject, IPlanAircraftAppService
     {
         private readonly IAircraftRepository _aircraftRepository;
@@ -79,11 +79,11 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
         [Insert(typeof (PlanAircraftDTO))]
         public void InsertPlanAircraft(PlanAircraftDTO dto)
         {
-            var aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
-            var airlines = _airlinesRepository.Get(dto.AirlinesId);
+            AircraftType aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
+            Airlines airlines = _airlinesRepository.Get(dto.AirlinesId);
 
             //创建计划飞机
-            var newPlanAircraft = PlanAircraftFactory.CreatePlanAircraft();
+            PlanAircraft newPlanAircraft = PlanAircraftFactory.CreatePlanAircraft();
             newPlanAircraft.ChangeCurrentIdentity(dto.Id);
             newPlanAircraft.SetAircraftType(aircraftType);
             newPlanAircraft.SetAirlines(airlines);
@@ -101,19 +101,18 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
         [Update(typeof (PlanAircraftDTO))]
         public void ModifyPlanAircraft(PlanAircraftDTO dto)
         {
-            
-            var aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
-            var airlines = _airlinesRepository.Get(dto.AirlinesId);
+            AircraftType aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
+            Airlines airlines = _airlinesRepository.Get(dto.AirlinesId);
 
             //获取需要更新的对象
-            var updatePlanAircraft = _planAircraftRepository.Get(dto.Id);
+            PlanAircraft updatePlanAircraft = _planAircraftRepository.Get(dto.Id);
 
             if (updatePlanAircraft != null)
             {
                 //更新主表：
                 if (dto.AircraftId != null)
                 {
-                    var aircraft = _aircraftRepository.Get(dto.AircraftId);
+                    Aircraft aircraft = _aircraftRepository.Get(dto.AircraftId);
                     updatePlanAircraft.SetAircraft(aircraft);
                 }
                 updatePlanAircraft.SetAircraftType(aircraftType);
@@ -136,7 +135,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delPlanAircraft = _planAircraftRepository.Get(dto.Id);
+            PlanAircraft delPlanAircraft = _planAircraftRepository.Get(dto.Id);
             //获取需要删除的对象。
             if (delPlanAircraft != null)
             {

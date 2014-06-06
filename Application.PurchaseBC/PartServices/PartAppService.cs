@@ -32,7 +32,7 @@ namespace UniCloud.Application.PurchaseBC.PartServices
     ///     实现部件服务接口。
     ///     用于处理部件相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class PartAppService : ContextBoundObject, IPartAppService
     {
         private readonly IPartQuery _partQuery;

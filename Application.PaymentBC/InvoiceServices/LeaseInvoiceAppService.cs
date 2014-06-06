@@ -75,17 +75,18 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     新增租赁发票。
         /// </summary>
         /// <param name="leaseInvoice">租赁发票DTO。</param>
-        [Insert(typeof(LeaseInvoiceDTO))]
+        [Insert(typeof (LeaseInvoiceDTO))]
         public void InsertLeaseInvoice(LeaseInvoiceDTO leaseInvoice)
         {
-            var supplier = _supplierRepository.GetFiltered(p => p.Id == leaseInvoice.SupplierId).FirstOrDefault();
-            var order = _orderRepository.Get(leaseInvoice.OrderId);
-            var currency = _currencyRepository.GetFiltered(p => p.Id == leaseInvoice.CurrencyId).FirstOrDefault();
+            Supplier supplier = _supplierRepository.GetFiltered(p => p.Id == leaseInvoice.SupplierId).FirstOrDefault();
+            Order order = _orderRepository.Get(leaseInvoice.OrderId);
+            Currency currency = _currencyRepository.GetFiltered(p => p.Id == leaseInvoice.CurrencyId).FirstOrDefault();
 
-            var newLeaseInvoice = InvoiceFactory.CreateLeaseInvoice(leaseInvoice.InvoideCode, leaseInvoice.InvoiceDate,
+            LeaseInvoice newLeaseInvoice = InvoiceFactory.CreateLeaseInvoice(leaseInvoice.InvoideCode,
+                leaseInvoice.InvoiceDate,
                 leaseInvoice.OperatorName);
-            var date = DateTime.Now.Date;
-            var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            DateTime date = DateTime.Now.Date;
+            int seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
             newLeaseInvoice.SetInvoiceNumber(seq);
             newLeaseInvoice.SetSupplier(supplier);
             newLeaseInvoice.SetOrder(order);
@@ -93,11 +94,11 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             newLeaseInvoice.SetCurrency(currency);
             newLeaseInvoice.SetPaymentScheduleLine(leaseInvoice.PaymentScheduleLineId);
             newLeaseInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
-            foreach (var invoiceLine in leaseInvoice.InvoiceLines)
+            foreach (InvoiceLineDTO invoiceLine in leaseInvoice.InvoiceLines)
             {
                 if (order != null)
                 {
-                    var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
+                    OrderLine orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
                     newLeaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine, invoiceLine.Note);
                 }
                 else
@@ -113,14 +114,15 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     更新租赁发票。
         /// </summary>
         /// <param name="leaseInvoice">租赁发票DTO。</param>
-        [Update(typeof(LeaseInvoiceDTO))]
+        [Update(typeof (LeaseInvoiceDTO))]
         public void ModifyLeaseInvoice(LeaseInvoiceDTO leaseInvoice)
         {
-            var supplier = _supplierRepository.GetFiltered(p => p.Id == leaseInvoice.SupplierId).FirstOrDefault();
-            var order = _orderRepository.Get(leaseInvoice.OrderId);
-            var currency = _currencyRepository.GetFiltered(p => p.Id == leaseInvoice.CurrencyId).FirstOrDefault();
+            Supplier supplier = _supplierRepository.GetFiltered(p => p.Id == leaseInvoice.SupplierId).FirstOrDefault();
+            Order order = _orderRepository.Get(leaseInvoice.OrderId);
+            Currency currency = _currencyRepository.GetFiltered(p => p.Id == leaseInvoice.CurrencyId).FirstOrDefault();
 
-            var updateLeaseInvoice = _invoiceRepository.GetBasePurchaseInvoice(leaseInvoice.LeaseInvoiceId);
+            BasePurchaseInvoice updateLeaseInvoice =
+                _invoiceRepository.GetBasePurchaseInvoice(leaseInvoice.LeaseInvoiceId);
             //获取需要更新的对象。
             if (updateLeaseInvoice != null)
             {
@@ -139,14 +141,14 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     删除租赁发票。
         /// </summary>
         /// <param name="leaseInvoice">租赁发票DTO。</param>
-        [Delete(typeof(LeaseInvoiceDTO))]
+        [Delete(typeof (LeaseInvoiceDTO))]
         public void DeleteLeaseInvoice(LeaseInvoiceDTO leaseInvoice)
         {
             if (leaseInvoice == null)
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delLeaseInvoice = _invoiceRepository.GetBasePurchaseInvoice(leaseInvoice.LeaseInvoiceId);
+            BasePurchaseInvoice delLeaseInvoice = _invoiceRepository.GetBasePurchaseInvoice(leaseInvoice.LeaseInvoiceId);
             //获取需要删除的对象。
             if (delLeaseInvoice != null)
             {
@@ -164,12 +166,14 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         /// <param name="sourceInvoiceLines">客户端集合</param>
         /// <param name="dstInvoice">数据库集合</param>
         /// <param name="order"></param>
-        private void UpdateInvoiceLines(IEnumerable<InvoiceLineDTO> sourceInvoiceLines, BasePurchaseInvoice dstInvoice, Order order)
+        private void UpdateInvoiceLines(IEnumerable<InvoiceLineDTO> sourceInvoiceLines, BasePurchaseInvoice dstInvoice,
+            Order order)
         {
             var invoiceLines = new List<PurchaseInvoiceLine>();
-            foreach (var sourceInvoiceLine in sourceInvoiceLines)
+            foreach (InvoiceLineDTO sourceInvoiceLine in sourceInvoiceLines)
             {
-                var result = dstInvoice.InvoiceLines.FirstOrDefault(p => p.Id == sourceInvoiceLine.InvoiceLineId);
+                PurchaseInvoiceLine result =
+                    dstInvoice.InvoiceLines.FirstOrDefault(p => p.Id == sourceInvoiceLine.InvoiceLineId);
                 if (result == null)
                 {
                     result = InvoiceFactory.CreateInvoiceLine();

@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/5/8 11:52:24
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -32,13 +34,16 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
     {
         private readonly IAnnualMaintainPlanQuery _annualMaintainPlanQuery;
         private readonly IAnnualMaintainPlanRepository _aunualMaintainPlanRepository;
-        public AnnualMaintainPlanAppService(IAnnualMaintainPlanQuery annualMaintainPlanQuery, IAnnualMaintainPlanRepository aunualMaintainPlanRepository)
+
+        public AnnualMaintainPlanAppService(IAnnualMaintainPlanQuery annualMaintainPlanQuery,
+            IAnnualMaintainPlanRepository aunualMaintainPlanRepository)
         {
             _annualMaintainPlanQuery = annualMaintainPlanQuery;
             _aunualMaintainPlanRepository = aunualMaintainPlanRepository;
         }
 
         #region EngineMaintainPlanDTO
+
         /// <summary>
         ///     获取所有发动机维修计划。
         /// </summary>
@@ -53,20 +58,31 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
         ///     新增发动机维修计划。
         /// </summary>
         /// <param name="engineMaintainPlan">发动机维修计划DTO。</param>
-        [Insert(typeof(EngineMaintainPlanDTO))]
+        [Insert(typeof (EngineMaintainPlanDTO))]
         public void InsertEngineMaintainPlan(EngineMaintainPlanDTO engineMaintainPlan)
         {
-            var newEngineMaintainPlan = AnnualMaintainPlanFactory.CreatEngineMaintainPlan();
-            AnnualMaintainPlanFactory.SetEngineMaintainPlan(newEngineMaintainPlan, engineMaintainPlan.MaintainPlanType, engineMaintainPlan.DollarRate, engineMaintainPlan.CompanyLeader, engineMaintainPlan.DepartmentLeader, engineMaintainPlan.BudgetManager,
+            EngineMaintainPlan newEngineMaintainPlan = AnnualMaintainPlanFactory.CreatEngineMaintainPlan();
+            AnnualMaintainPlanFactory.SetEngineMaintainPlan(newEngineMaintainPlan, engineMaintainPlan.MaintainPlanType,
+                engineMaintainPlan.DollarRate, engineMaintainPlan.CompanyLeader, engineMaintainPlan.DepartmentLeader,
+                engineMaintainPlan.BudgetManager,
                 engineMaintainPlan.PhoneNumber, engineMaintainPlan.AnnualId);
             if (engineMaintainPlan.EngineMaintainPlanDetails != null)
             {
-                foreach (var engineMaintainPlanLine in engineMaintainPlan.EngineMaintainPlanDetails)
+                foreach (
+                    EngineMaintainPlanDetailDTO engineMaintainPlanLine in engineMaintainPlan.EngineMaintainPlanDetails)
                 {
-                    var newEngineMaintainPlanLine = AnnualMaintainPlanFactory.CreatEngineMaintainPlanDetail();
-                    AnnualMaintainPlanFactory.SetEngineMaintainPlanDetail(newEngineMaintainPlanLine, engineMaintainPlanLine.ChangeLlpFee, engineMaintainPlanLine.ChangeLlpNumber, engineMaintainPlanLine.CustomsTax, engineMaintainPlanLine.EngineNumber,
-                        engineMaintainPlanLine.FreightFee, engineMaintainPlanLine.InMaintainDate, engineMaintainPlanLine.MaintainLevel, engineMaintainPlanLine.NonFhaFee, engineMaintainPlanLine.Note, engineMaintainPlanLine.OutMaintainDate, engineMaintainPlanLine.PartFee,
-                        engineMaintainPlanLine.TsnCsn, engineMaintainPlanLine.TsrCsr, engineMaintainPlanLine.FeeLittleSum, engineMaintainPlanLine.FeeTotalSum, engineMaintainPlanLine.BudgetToalSum);
+                    EngineMaintainPlanDetail newEngineMaintainPlanLine =
+                        AnnualMaintainPlanFactory.CreatEngineMaintainPlanDetail();
+                    AnnualMaintainPlanFactory.SetEngineMaintainPlanDetail(newEngineMaintainPlanLine,
+                        engineMaintainPlanLine.ChangeLlpFee, engineMaintainPlanLine.ChangeLlpNumber,
+                        engineMaintainPlanLine.CustomsTax, engineMaintainPlanLine.EngineNumber,
+                        engineMaintainPlanLine.FreightFee, engineMaintainPlanLine.InMaintainDate,
+                        engineMaintainPlanLine.MaintainLevel, engineMaintainPlanLine.NonFhaFee,
+                        engineMaintainPlanLine.Note, engineMaintainPlanLine.OutMaintainDate,
+                        engineMaintainPlanLine.PartFee,
+                        engineMaintainPlanLine.TsnCsn, engineMaintainPlanLine.TsrCsr,
+                        engineMaintainPlanLine.FeeLittleSum, engineMaintainPlanLine.FeeTotalSum,
+                        engineMaintainPlanLine.BudgetToalSum);
                     newEngineMaintainPlan.EngineMaintainPlanDetails.Add(newEngineMaintainPlanLine);
                 }
             }
@@ -78,12 +94,15 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
         ///     更新发动机维修计划。
         /// </summary>
         /// <param name="engineMaintainPlan">发动机维修计划DTO。</param>
-        [Update(typeof(EngineMaintainPlanDTO))]
+        [Update(typeof (EngineMaintainPlanDTO))]
         public void ModifyEngineMaintainPlan(EngineMaintainPlanDTO engineMaintainPlan)
         {
-            var updateEngineMaintainPlan = _aunualMaintainPlanRepository.GetEngineMaintainPlan(engineMaintainPlan.Id); //获取需要更新的对象。
-            AnnualMaintainPlanFactory.SetEngineMaintainPlan(updateEngineMaintainPlan, engineMaintainPlan.MaintainPlanType, engineMaintainPlan.DollarRate, engineMaintainPlan.CompanyLeader, engineMaintainPlan.DepartmentLeader, engineMaintainPlan.BudgetManager,
-                 engineMaintainPlan.PhoneNumber, engineMaintainPlan.AnnualId);
+            EngineMaintainPlan updateEngineMaintainPlan =
+                _aunualMaintainPlanRepository.GetEngineMaintainPlan(engineMaintainPlan.Id); //获取需要更新的对象。
+            AnnualMaintainPlanFactory.SetEngineMaintainPlan(updateEngineMaintainPlan,
+                engineMaintainPlan.MaintainPlanType, engineMaintainPlan.DollarRate, engineMaintainPlan.CompanyLeader,
+                engineMaintainPlan.DepartmentLeader, engineMaintainPlan.BudgetManager,
+                engineMaintainPlan.PhoneNumber, engineMaintainPlan.AnnualId);
             UpdateEngineMaintainPlanDetails(engineMaintainPlan.EngineMaintainPlanDetails, updateEngineMaintainPlan);
             _aunualMaintainPlanRepository.Modify(updateEngineMaintainPlan);
         }
@@ -92,34 +111,47 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
         ///     删除发动机维修计划。
         /// </summary>
         /// <param name="engineMaintainPlan">发动机维修计划DTO。</param>
-        [Delete(typeof(EngineMaintainPlanDTO))]
+        [Delete(typeof (EngineMaintainPlanDTO))]
         public void DeleteEngineMaintainPlan(EngineMaintainPlanDTO engineMaintainPlan)
         {
-            var deleteEngineMaintainPlan = _aunualMaintainPlanRepository.GetEngineMaintainPlan(engineMaintainPlan.Id); //获取需要删除的对象。
+            EngineMaintainPlan deleteEngineMaintainPlan =
+                _aunualMaintainPlanRepository.GetEngineMaintainPlan(engineMaintainPlan.Id); //获取需要删除的对象。
             UpdateEngineMaintainPlanDetails(new List<EngineMaintainPlanDetailDTO>(), deleteEngineMaintainPlan);
             _aunualMaintainPlanRepository.Remove(deleteEngineMaintainPlan); //删除发动机维修计划。
         }
 
         #region 更新发动机维修计划行集合
+
         /// <summary>
-        /// 更新发动机维修计划行集合
+        ///     更新发动机维修计划行集合
         /// </summary>
         /// <param name="sourceEngineMaintainPlanDetails">客户端集合</param>
         /// <param name="dstEngineMaintainPlan">数据库集合</param>
-        private void UpdateEngineMaintainPlanDetails(IEnumerable<EngineMaintainPlanDetailDTO> sourceEngineMaintainPlanDetails, EngineMaintainPlan dstEngineMaintainPlan)
+        private void UpdateEngineMaintainPlanDetails(
+            IEnumerable<EngineMaintainPlanDetailDTO> sourceEngineMaintainPlanDetails,
+            EngineMaintainPlan dstEngineMaintainPlan)
         {
             var engineMaintainPlanLines = new List<EngineMaintainPlanDetail>();
-            foreach (var sourceEngineMaintainPlanLine in sourceEngineMaintainPlanDetails)
+            foreach (EngineMaintainPlanDetailDTO sourceEngineMaintainPlanLine in sourceEngineMaintainPlanDetails)
             {
-                var result = dstEngineMaintainPlan.EngineMaintainPlanDetails.FirstOrDefault(p => p.Id == sourceEngineMaintainPlanLine.Id);
+                EngineMaintainPlanDetail result =
+                    dstEngineMaintainPlan.EngineMaintainPlanDetails.FirstOrDefault(
+                        p => p.Id == sourceEngineMaintainPlanLine.Id);
                 if (result == null)
                 {
                     result = AnnualMaintainPlanFactory.CreatEngineMaintainPlanDetail();
                     result.ChangeCurrentIdentity(sourceEngineMaintainPlanLine.Id);
                 }
-                AnnualMaintainPlanFactory.SetEngineMaintainPlanDetail(result, sourceEngineMaintainPlanLine.ChangeLlpFee, sourceEngineMaintainPlanLine.ChangeLlpNumber, sourceEngineMaintainPlanLine.CustomsTax, sourceEngineMaintainPlanLine.EngineNumber,
-                        sourceEngineMaintainPlanLine.FreightFee, sourceEngineMaintainPlanLine.InMaintainDate, sourceEngineMaintainPlanLine.MaintainLevel, sourceEngineMaintainPlanLine.NonFhaFee, sourceEngineMaintainPlanLine.Note, sourceEngineMaintainPlanLine.OutMaintainDate, sourceEngineMaintainPlanLine.PartFee,
-                        sourceEngineMaintainPlanLine.TsnCsn, sourceEngineMaintainPlanLine.TsrCsr, sourceEngineMaintainPlanLine.FeeLittleSum, sourceEngineMaintainPlanLine.FeeTotalSum, sourceEngineMaintainPlanLine.BudgetToalSum);
+                AnnualMaintainPlanFactory.SetEngineMaintainPlanDetail(result, sourceEngineMaintainPlanLine.ChangeLlpFee,
+                    sourceEngineMaintainPlanLine.ChangeLlpNumber, sourceEngineMaintainPlanLine.CustomsTax,
+                    sourceEngineMaintainPlanLine.EngineNumber,
+                    sourceEngineMaintainPlanLine.FreightFee, sourceEngineMaintainPlanLine.InMaintainDate,
+                    sourceEngineMaintainPlanLine.MaintainLevel, sourceEngineMaintainPlanLine.NonFhaFee,
+                    sourceEngineMaintainPlanLine.Note, sourceEngineMaintainPlanLine.OutMaintainDate,
+                    sourceEngineMaintainPlanLine.PartFee,
+                    sourceEngineMaintainPlanLine.TsnCsn, sourceEngineMaintainPlanLine.TsrCsr,
+                    sourceEngineMaintainPlanLine.FeeLittleSum, sourceEngineMaintainPlanLine.FeeTotalSum,
+                    sourceEngineMaintainPlanLine.BudgetToalSum);
                 engineMaintainPlanLines.Add(result);
             }
             dstEngineMaintainPlan.EngineMaintainPlanDetails.ToList().ForEach(p =>
@@ -131,10 +163,13 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
             });
             dstEngineMaintainPlan.EngineMaintainPlanDetails = engineMaintainPlanLines;
         }
+
         #endregion
+
         #endregion
 
         #region AircraftMaintainPlanDTO
+
         /// <summary>
         ///     获取所有飞机维修计划。
         /// </summary>
@@ -149,18 +184,25 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
         ///     新增飞机维修计划。
         /// </summary>
         /// <param name="aircraftMaintainPlan">飞机维修计划DTO。</param>
-        [Insert(typeof(AircraftMaintainPlanDTO))]
+        [Insert(typeof (AircraftMaintainPlanDTO))]
         public void InsertAircraftMaintainPlan(AircraftMaintainPlanDTO aircraftMaintainPlan)
         {
-            var newAircraftMaintainPlan = AnnualMaintainPlanFactory.CreatAircraftMaintainPlan();
-            AnnualMaintainPlanFactory.SetAircraftMaintainPlan(newAircraftMaintainPlan, aircraftMaintainPlan.FirstHalfYear, aircraftMaintainPlan.SecondHalfYear, aircraftMaintainPlan.Note, aircraftMaintainPlan.AnnualId);
+            AircraftMaintainPlan newAircraftMaintainPlan = AnnualMaintainPlanFactory.CreatAircraftMaintainPlan();
+            AnnualMaintainPlanFactory.SetAircraftMaintainPlan(newAircraftMaintainPlan,
+                aircraftMaintainPlan.FirstHalfYear, aircraftMaintainPlan.SecondHalfYear, aircraftMaintainPlan.Note,
+                aircraftMaintainPlan.AnnualId);
             if (aircraftMaintainPlan.AircraftMaintainPlanDetails != null)
             {
-                foreach (var aircraftMaintainPlanLine in aircraftMaintainPlan.AircraftMaintainPlanDetails)
+                foreach (
+                    AircraftMaintainPlanDetailDTO aircraftMaintainPlanLine in
+                        aircraftMaintainPlan.AircraftMaintainPlanDetails)
                 {
-                    var newAircraftMaintainPlanLine = AnnualMaintainPlanFactory.CreatAircraftMaintainPlanDetail();
-                    AnnualMaintainPlanFactory.SetAircraftMaintainPlanDetail(newAircraftMaintainPlanLine, aircraftMaintainPlanLine.AircraftNumber, aircraftMaintainPlanLine.AircraftType,
-                        aircraftMaintainPlanLine.Level, aircraftMaintainPlanLine.InDate, aircraftMaintainPlanLine.OutDate, aircraftMaintainPlanLine.Cycle);
+                    AircraftMaintainPlanDetail newAircraftMaintainPlanLine =
+                        AnnualMaintainPlanFactory.CreatAircraftMaintainPlanDetail();
+                    AnnualMaintainPlanFactory.SetAircraftMaintainPlanDetail(newAircraftMaintainPlanLine,
+                        aircraftMaintainPlanLine.AircraftNumber, aircraftMaintainPlanLine.AircraftType,
+                        aircraftMaintainPlanLine.Level, aircraftMaintainPlanLine.InDate,
+                        aircraftMaintainPlanLine.OutDate, aircraftMaintainPlanLine.Cycle);
                     newAircraftMaintainPlan.AircraftMaintainPlanDetails.Add(newAircraftMaintainPlanLine);
                 }
             }
@@ -172,12 +214,16 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
         ///     更新飞机维修计划。
         /// </summary>
         /// <param name="aircraftMaintainPlan">飞机维修计划DTO。</param>
-        [Update(typeof(AircraftMaintainPlanDTO))]
+        [Update(typeof (AircraftMaintainPlanDTO))]
         public void ModifyAircraftMaintainPlan(AircraftMaintainPlanDTO aircraftMaintainPlan)
         {
-            var updateAircraftMaintainPlan = _aunualMaintainPlanRepository.GetAircraftMaintainPlan(aircraftMaintainPlan.Id); //获取需要更新的对象。
-            AnnualMaintainPlanFactory.SetAircraftMaintainPlan(updateAircraftMaintainPlan, aircraftMaintainPlan.FirstHalfYear, aircraftMaintainPlan.SecondHalfYear, aircraftMaintainPlan.Note, aircraftMaintainPlan.AnnualId);
-            UpdateAircraftMaintainPlanDetails(aircraftMaintainPlan.AircraftMaintainPlanDetails, updateAircraftMaintainPlan);
+            AircraftMaintainPlan updateAircraftMaintainPlan =
+                _aunualMaintainPlanRepository.GetAircraftMaintainPlan(aircraftMaintainPlan.Id); //获取需要更新的对象。
+            AnnualMaintainPlanFactory.SetAircraftMaintainPlan(updateAircraftMaintainPlan,
+                aircraftMaintainPlan.FirstHalfYear, aircraftMaintainPlan.SecondHalfYear, aircraftMaintainPlan.Note,
+                aircraftMaintainPlan.AnnualId);
+            UpdateAircraftMaintainPlanDetails(aircraftMaintainPlan.AircraftMaintainPlanDetails,
+                updateAircraftMaintainPlan);
             _aunualMaintainPlanRepository.Modify(updateAircraftMaintainPlan);
         }
 
@@ -185,33 +231,41 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
         ///     删除飞机维修计划。
         /// </summary>
         /// <param name="aircraftMaintainPlan">飞机维修计划DTO。</param>
-        [Delete(typeof(AircraftMaintainPlanDTO))]
+        [Delete(typeof (AircraftMaintainPlanDTO))]
         public void DeleteAircraftMaintainPlan(AircraftMaintainPlanDTO aircraftMaintainPlan)
         {
-            var deleteAircraftMaintainPlan = _aunualMaintainPlanRepository.GetAircraftMaintainPlan(aircraftMaintainPlan.Id); //获取需要删除的对象。
+            AircraftMaintainPlan deleteAircraftMaintainPlan =
+                _aunualMaintainPlanRepository.GetAircraftMaintainPlan(aircraftMaintainPlan.Id); //获取需要删除的对象。
             UpdateAircraftMaintainPlanDetails(new List<AircraftMaintainPlanDetailDTO>(), deleteAircraftMaintainPlan);
             _aunualMaintainPlanRepository.Remove(deleteAircraftMaintainPlan); //删除飞机维修计划。
         }
 
         #region 更新飞机维修计划行集合
+
         /// <summary>
-        /// 更新飞机维修计划行集合
+        ///     更新飞机维修计划行集合
         /// </summary>
         /// <param name="sourceAircraftMaintainPlanDetails">客户端集合</param>
         /// <param name="dstAircraftMaintainPlan">数据库集合</param>
-        private void UpdateAircraftMaintainPlanDetails(IEnumerable<AircraftMaintainPlanDetailDTO> sourceAircraftMaintainPlanDetails, AircraftMaintainPlan dstAircraftMaintainPlan)
+        private void UpdateAircraftMaintainPlanDetails(
+            IEnumerable<AircraftMaintainPlanDetailDTO> sourceAircraftMaintainPlanDetails,
+            AircraftMaintainPlan dstAircraftMaintainPlan)
         {
             var aircraftMaintainPlanLines = new List<AircraftMaintainPlanDetail>();
-            foreach (var sourceAircraftMaintainPlanLine in sourceAircraftMaintainPlanDetails)
+            foreach (AircraftMaintainPlanDetailDTO sourceAircraftMaintainPlanLine in sourceAircraftMaintainPlanDetails)
             {
-                var result = dstAircraftMaintainPlan.AircraftMaintainPlanDetails.FirstOrDefault(p => p.Id == sourceAircraftMaintainPlanLine.Id);
+                AircraftMaintainPlanDetail result =
+                    dstAircraftMaintainPlan.AircraftMaintainPlanDetails.FirstOrDefault(
+                        p => p.Id == sourceAircraftMaintainPlanLine.Id);
                 if (result == null)
                 {
                     result = AnnualMaintainPlanFactory.CreatAircraftMaintainPlanDetail();
                     result.ChangeCurrentIdentity(sourceAircraftMaintainPlanLine.Id);
                 }
-                AnnualMaintainPlanFactory.SetAircraftMaintainPlanDetail(result, sourceAircraftMaintainPlanLine.AircraftNumber, sourceAircraftMaintainPlanLine.AircraftType,
-                        sourceAircraftMaintainPlanLine.Level, sourceAircraftMaintainPlanLine.InDate, sourceAircraftMaintainPlanLine.OutDate, sourceAircraftMaintainPlanLine.Cycle);
+                AnnualMaintainPlanFactory.SetAircraftMaintainPlanDetail(result,
+                    sourceAircraftMaintainPlanLine.AircraftNumber, sourceAircraftMaintainPlanLine.AircraftType,
+                    sourceAircraftMaintainPlanLine.Level, sourceAircraftMaintainPlanLine.InDate,
+                    sourceAircraftMaintainPlanLine.OutDate, sourceAircraftMaintainPlanLine.Cycle);
                 aircraftMaintainPlanLines.Add(result);
             }
             dstAircraftMaintainPlan.AircraftMaintainPlanDetails.ToList().ForEach(p =>
@@ -223,7 +277,9 @@ namespace UniCloud.Application.PartBC.AnnualMaintainPlanServices
             });
             dstAircraftMaintainPlan.AircraftMaintainPlanDetails = aircraftMaintainPlanLines;
         }
+
         #endregion
+
         #endregion
     }
 }

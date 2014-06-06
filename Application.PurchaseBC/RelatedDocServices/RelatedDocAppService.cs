@@ -31,7 +31,7 @@ namespace UniCloud.Application.PurchaseBC.RelatedDocServices
     /// <summary>
     ///     关联文档服务实现
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class RelatedDocAppService : ContextBoundObject, IRelatedDocAppService
     {
         private readonly IRelatedDocQuery _relatedDocQuery;
@@ -64,7 +64,7 @@ namespace UniCloud.Application.PurchaseBC.RelatedDocServices
         [Insert(typeof (RelatedDocDTO))]
         public void InsertRelatedDoc(RelatedDocDTO relatedDoc)
         {
-            var newRelatedDoc = RelatedDocFactory.CreateRelatedDoc(relatedDoc.SourceId, relatedDoc.DocumentId,
+            RelatedDoc newRelatedDoc = RelatedDocFactory.CreateRelatedDoc(relatedDoc.SourceId, relatedDoc.DocumentId,
                 relatedDoc.DocumentName);
 
             _relatedDocRepository.Add(newRelatedDoc);
@@ -77,11 +77,11 @@ namespace UniCloud.Application.PurchaseBC.RelatedDocServices
         [Update(typeof (RelatedDocDTO))]
         public void ModifyRelatedDoc(RelatedDocDTO relatedDoc)
         {
-            var updateRelatedDoc =
+            RelatedDoc updateRelatedDoc =
                 _relatedDocRepository.GetFiltered(t => t.Id == relatedDoc.Id)
                     .FirstOrDefault();
             //获取需要更新的对象。
-            var current = RelatedDocFactory.CreateRelatedDoc(relatedDoc.SourceId, relatedDoc.DocumentId,
+            RelatedDoc current = RelatedDocFactory.CreateRelatedDoc(relatedDoc.SourceId, relatedDoc.DocumentId,
                 relatedDoc.DocumentName);
 
             _relatedDocRepository.Merge(updateRelatedDoc, current);
@@ -94,7 +94,7 @@ namespace UniCloud.Application.PurchaseBC.RelatedDocServices
         [Delete(typeof (RelatedDocDTO))]
         public void DeleteRelatedDoc(RelatedDocDTO relatedDoc)
         {
-            var delRelatedDoc =
+            RelatedDoc delRelatedDoc =
                 _relatedDocRepository.GetFiltered(t => t.Id == relatedDoc.Id)
                     .FirstOrDefault();
             //获取需要删除的对象。

@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -29,7 +31,7 @@ namespace UniCloud.Application.PurchaseBC.ActionCategoryServices
     ///     实现活动类型服务接口。
     ///     用于处理活动类型相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class ActionCategoryAppService : ContextBoundObject, IActionCategoryAppService
     {
         private readonly IActionCategoryQuery _actionCategoryQuery;
@@ -51,6 +53,7 @@ namespace UniCloud.Application.PurchaseBC.ActionCategoryServices
                 new QueryBuilder<ActionCategory>();
             return _actionCategoryQuery.ActionCategoryDTOQuery(queryBuilder);
         }
+
         #endregion
     }
 }

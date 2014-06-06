@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -33,6 +35,7 @@ namespace UniCloud.Application.PurchaseBC.ContractAircraftServices
         private readonly IContractAircraftQuery _contractAircraftQuery;
         private readonly IContractAircraftRepository _contractAircraftRepository;
         private readonly IPlanAircraftRepository _planAircraftRepository;
+
         public ContractAircraftAppService(IContractAircraftQuery contractAircraftQuery,
             IContractAircraftRepository contractAircraftRepository,
             IPlanAircraftRepository planAircraftRepository)
@@ -59,24 +62,27 @@ namespace UniCloud.Application.PurchaseBC.ContractAircraftServices
         ///     更新合同飞机。
         /// </summary>
         /// <param name="contractAircraft">租赁合同飞机DTO。</param>
-        [Update(typeof(ContractAircraftDTO))]
+        [Update(typeof (ContractAircraftDTO))]
         public void ModifyContractAircraft(ContractAircraftDTO contractAircraft)
         {
-            var planAircraft = _planAircraftRepository.GetFiltered(p => p.Id == contractAircraft.PlanAircraftID).FirstOrDefault();
-            var updateContractAircraft = _contractAircraftRepository
-                .GetFiltered(t => t.ContractNumber == contractAircraft.ContractNumber && t.RankNumber == contractAircraft.RankNumber).FirstOrDefault();
+            PlanAircraft planAircraft =
+                _planAircraftRepository.GetFiltered(p => p.Id == contractAircraft.PlanAircraftID).FirstOrDefault();
+            ContractAircraft updateContractAircraft = _contractAircraftRepository
+                .GetFiltered(
+                    t =>
+                        t.ContractNumber == contractAircraft.ContractNumber &&
+                        t.RankNumber == contractAircraft.RankNumber).FirstOrDefault();
             //获取需要更新的对象。
             if (updateContractAircraft != null)
             {
                 if (planAircraft != null)
                     updateContractAircraft.SetPlanAircraft(planAircraft);
-                else 
+                else
                     updateContractAircraft.RemovePlanAircraft();
             }
             _contractAircraftRepository.Modify(updateContractAircraft);
         }
 
         #endregion
-
     }
 }

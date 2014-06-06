@@ -39,15 +39,15 @@ namespace UniCloud.Application.FleetPlanBC.PlanEngineServices
     [LogAOP]
     public class PlanEngineAppService : ContextBoundObject, IPlanEngineAppService
     {
-        private readonly IPlanEngineQuery _planEngineQuery;
         private readonly IAirlinesRepository _airlinesRepository;
         private readonly IEngineRepository _engineRepository;
         private readonly IEngineTypeRepository _engineTypeRepository;
+        private readonly IPlanEngineQuery _planEngineQuery;
         private readonly IPlanEngineRepository _planEngineRepository;
 
         public PlanEngineAppService(IPlanEngineQuery planEngineQuery,
-            IAirlinesRepository airlinesRepository,IEngineRepository engineRepository,
-            IEngineTypeRepository engineTypeRepository,IPlanEngineRepository planEngineRepository)
+            IAirlinesRepository airlinesRepository, IEngineRepository engineRepository,
+            IEngineTypeRepository engineTypeRepository, IPlanEngineRepository planEngineRepository)
         {
             _planEngineQuery = planEngineQuery;
             _airlinesRepository = airlinesRepository;
@@ -74,14 +74,14 @@ namespace UniCloud.Application.FleetPlanBC.PlanEngineServices
         ///     新增计划发动机。
         /// </summary>
         /// <param name="dto">计划发动机DTO。</param>
-        [Insert(typeof(PlanEngineDTO))]
+        [Insert(typeof (PlanEngineDTO))]
         public void InsertPlanEngine(PlanEngineDTO dto)
         {
-            var engineType = _engineTypeRepository.Get(dto.EngineTypeId);
-            var airlines = _airlinesRepository.Get(dto.AirlinesId);
+            EngineType engineType = _engineTypeRepository.Get(dto.EngineTypeId);
+            Airlines airlines = _airlinesRepository.Get(dto.AirlinesId);
 
             //创建计划发动机
-            var newPlanEngine = PlanEngineFactory.CreatePlanEngine();
+            PlanEngine newPlanEngine = PlanEngineFactory.CreatePlanEngine();
             newPlanEngine.ChangeCurrentIdentity(dto.Id);
             newPlanEngine.SetEngineType(engineType);
             newPlanEngine.SetAirlines(airlines);
@@ -93,21 +93,21 @@ namespace UniCloud.Application.FleetPlanBC.PlanEngineServices
         ///     更新计划发动机。
         /// </summary>
         /// <param name="dto">计划发动机DTO。</param>
-        [Update(typeof(PlanEngineDTO))]
+        [Update(typeof (PlanEngineDTO))]
         public void ModifyPlanEngine(PlanEngineDTO dto)
         {
-           var engineType = _engineTypeRepository.Get(dto.EngineTypeId);
-            var airlines = _airlinesRepository.Get(dto.AirlinesId);
+            EngineType engineType = _engineTypeRepository.Get(dto.EngineTypeId);
+            Airlines airlines = _airlinesRepository.Get(dto.AirlinesId);
 
             //获取需要更新的对象
-            var updatePlanEngine = _planEngineRepository.Get(dto.Id);
+            PlanEngine updatePlanEngine = _planEngineRepository.Get(dto.Id);
 
             if (updatePlanEngine != null)
             {
                 //更新主表：
                 if (dto.EngineId != null)
                 {
-                    var engine = _engineRepository.Get(dto.EngineId);
+                    Engine engine = _engineRepository.Get(dto.EngineId);
                     updatePlanEngine.SetEngine(engine);
                 }
                 updatePlanEngine.SetEngineType(engineType);
@@ -120,20 +120,21 @@ namespace UniCloud.Application.FleetPlanBC.PlanEngineServices
         ///     删除计划发动机。
         /// </summary>
         /// <param name="dto">计划发动机DTO。</param>
-        [Delete(typeof(PlanEngineDTO))]
+        [Delete(typeof (PlanEngineDTO))]
         public void DeletePlanEngine(PlanEngineDTO dto)
         {
             if (dto == null)
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delPlanEngine = _planEngineRepository.Get(dto.Id);
+            PlanEngine delPlanEngine = _planEngineRepository.Get(dto.Id);
             //获取需要删除的对象。
             if (delPlanEngine != null)
             {
                 _planEngineRepository.Remove(delPlanEngine); //删除计划发动机。
             }
         }
+
         #endregion
     }
 }

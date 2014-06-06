@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/4/8 15:37:39
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -59,11 +61,12 @@ namespace UniCloud.Application.BaseManagementBC.AircraftCabinTypeServices
         ///     新增飞机舱位类型。
         /// </summary>
         /// <param name="aircraftCabinType">飞机舱位类型DTO。</param>
-        [Insert(typeof(AircraftCabinTypeDTO))]
+        [Insert(typeof (AircraftCabinTypeDTO))]
         public void InsertAircraftCabinType(AircraftCabinTypeDTO aircraftCabinType)
         {
-            var newAircraftCabinType = AircraftCabinTypeFactory.CreateAircraftCabinType();
-            AircraftCabinTypeFactory.SetAircraftCabinType(newAircraftCabinType, aircraftCabinType.Name, aircraftCabinType.Note);
+            AircraftCabinType newAircraftCabinType = AircraftCabinTypeFactory.CreateAircraftCabinType();
+            AircraftCabinTypeFactory.SetAircraftCabinType(newAircraftCabinType, aircraftCabinType.Name,
+                aircraftCabinType.Note);
 
             _aircraftCabinTypeRepository.Add(newAircraftCabinType);
         }
@@ -72,11 +75,13 @@ namespace UniCloud.Application.BaseManagementBC.AircraftCabinTypeServices
         ///     更新飞机舱位类型。
         /// </summary>
         /// <param name="aircraftCabinType">飞机舱位类型DTO。</param>
-        [Update(typeof(AircraftCabinTypeDTO))]
+        [Update(typeof (AircraftCabinTypeDTO))]
         public void ModifyAircraftCabinType(AircraftCabinTypeDTO aircraftCabinType)
         {
-            var updateAircraftCabinType = _aircraftCabinTypeRepository.Get(aircraftCabinType.Id); //获取需要更新的对象。
-            AircraftCabinTypeFactory.SetAircraftCabinType(updateAircraftCabinType, aircraftCabinType.Name, aircraftCabinType.Note);
+            AircraftCabinType updateAircraftCabinType = _aircraftCabinTypeRepository.Get(aircraftCabinType.Id);
+                //获取需要更新的对象。
+            AircraftCabinTypeFactory.SetAircraftCabinType(updateAircraftCabinType, aircraftCabinType.Name,
+                aircraftCabinType.Note);
 
             _aircraftCabinTypeRepository.Modify(updateAircraftCabinType);
         }
@@ -85,12 +90,14 @@ namespace UniCloud.Application.BaseManagementBC.AircraftCabinTypeServices
         ///     删除飞机舱位类型。
         /// </summary>
         /// <param name="aircraftCabinType">飞机舱位类型DTO。</param>
-        [Delete(typeof(AircraftCabinTypeDTO))]
+        [Delete(typeof (AircraftCabinTypeDTO))]
         public void DeleteAircraftCabinType(AircraftCabinTypeDTO aircraftCabinType)
         {
-            var deleteAircraftCabinType = _aircraftCabinTypeRepository.Get(aircraftCabinType.Id); //获取需要删除的对象。
+            AircraftCabinType deleteAircraftCabinType = _aircraftCabinTypeRepository.Get(aircraftCabinType.Id);
+                //获取需要删除的对象。
             _aircraftCabinTypeRepository.Remove(deleteAircraftCabinType); //删除飞机舱位类型。
         }
+
         #endregion
     }
 }

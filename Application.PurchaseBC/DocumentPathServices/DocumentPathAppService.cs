@@ -56,13 +56,14 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
         {
             return _documentPathQuery.SearchDocumentPath(documentPathId, name);
         }
+
         /// <summary>
         ///     删除文档路径
         /// </summary>
         /// <param name="documentPathId"></param>
         public void DelDocPath(int documentPathId)
         {
-            var docPath = _documentPathRepository.Get(documentPathId);
+            DocumentPath docPath = _documentPathRepository.Get(documentPathId);
             DelSubDocumentPath(docPath);
         }
 
@@ -72,7 +73,7 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             {
                 throw new Exception("文件名称不能为空");
             }
-            var docPathIsLeaf = bool.Parse(isLeaf); //是否是文件夹
+            bool docPathIsLeaf = bool.Parse(isLeaf); //是否是文件夹
             string extension = null;
             if (docPathIsLeaf)
             {
@@ -83,9 +84,9 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             {
                 docPathId = Guid.Parse(documentId);
             }
-            var parent = _documentPathRepository.Get(parentId);
+            DocumentPath parent = _documentPathRepository.Get(parentId);
 
-            var newDocumentPath = DocumentPathFactory.CreateDocumentPath(name, docPathIsLeaf, extension,
+            DocumentPath newDocumentPath = DocumentPathFactory.CreateDocumentPath(name, docPathIsLeaf, extension,
                 docPathId, parentId, parent.Path + "\\" + name);
             _documentPathRepository.Add(newDocumentPath);
             _documentPathRepository.UnitOfWork.Commit();
@@ -93,7 +94,7 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
 
         public void ModifyDocPath(int documentPathId, string name, int parentId)
         {
-            var documentPath = _documentPathRepository.Get(documentPathId);
+            DocumentPath documentPath = _documentPathRepository.Get(documentPathId);
             string beforePath = documentPath.Path;
             string afterPath = beforePath;
             if (!documentPath.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
@@ -103,8 +104,8 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             }
             if (documentPath.ParentId != parentId)
             {
-                var beforeParent = _documentPathRepository.Get(documentPath.ParentId);
-                var afterParent = _documentPathRepository.Get(parentId);
+                DocumentPath beforeParent = _documentPathRepository.Get(documentPath.ParentId);
+                DocumentPath afterParent = _documentPathRepository.Get(parentId);
                 afterPath = afterPath.Replace(beforeParent.Path, afterParent.Path);
             }
             DocumentPathFactory.ModifyDocumentPath(documentPath, name, parentId, afterPath);
@@ -112,12 +113,13 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
 
             if (!beforePath.Equals(afterPath, StringComparison.OrdinalIgnoreCase))
             {
-                var subItems = _documentPathQuery.FindSubDocumentPaths(documentPathId);
+                List<DocumentPath> subItems = _documentPathQuery.FindSubDocumentPaths(documentPathId);
                 subItems.ForEach(p =>
                 {
                     documentPath = _documentPathRepository.Get(p.Id);
                     string path = documentPath.Path.Replace(beforePath, afterPath);
-                    DocumentPathFactory.ModifyDocumentPath(documentPath, documentPath.Name, (int)documentPath.ParentId, path);
+                    DocumentPathFactory.ModifyDocumentPath(documentPath, documentPath.Name, (int) documentPath.ParentId,
+                        path);
                     _documentPathRepository.Modify(documentPath);
                 });
             }

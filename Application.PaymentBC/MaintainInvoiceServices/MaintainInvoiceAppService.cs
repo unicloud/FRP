@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2013/12/16 11:16:04
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -40,13 +42,16 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
     [LogAOP]
     public class MaintainInvoiceAppService : ContextBoundObject, IMaintainInvoiceAppService
     {
-        private readonly IMaintainInvoiceQuery _maintainInvoiceQuery;
+        private static int _maxInvoiceNumber;
         private readonly IInvoiceRepository _invoiceRepository;
         private readonly MaintainCostAppService _maintainCostAppService;
+        private readonly IMaintainInvoiceQuery _maintainInvoiceQuery;
         private readonly ISupplierRepository _supplierRepository;
- 
-        public MaintainInvoiceAppService(IMaintainInvoiceQuery maintainInvoiceQuery, IInvoiceRepository invoiceRepository,
-           ISupplierRepository supplierRepository, IMaintainCostQuery maintainCostQuery, IMaintainCostRepository maintainCostRepository)
+
+        public MaintainInvoiceAppService(IMaintainInvoiceQuery maintainInvoiceQuery,
+            IInvoiceRepository invoiceRepository,
+            ISupplierRepository supplierRepository, IMaintainCostQuery maintainCostQuery,
+            IMaintainCostRepository maintainCostRepository)
         {
             _maintainInvoiceQuery = maintainInvoiceQuery;
             _invoiceRepository = invoiceRepository;
@@ -65,6 +70,7 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         }
 
         #region EngineMaintainInvoiceDTO
+
         /// <summary>
         ///     获取所有发动机维修发票。
         /// </summary>
@@ -79,27 +85,30 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         ///     新增发动机维修发票。
         /// </summary>
         /// <param name="engineMaintainInvoice">发动机维修发票DTO。</param>
-        [Insert(typeof(EngineMaintainInvoiceDTO))]
+        [Insert(typeof (EngineMaintainInvoiceDTO))]
         public void InsertEngineMaintainInvoice(EngineMaintainInvoiceDTO engineMaintainInvoice)
         {
-            var supplier = _supplierRepository.Get(engineMaintainInvoice.SupplierId);
+            Supplier supplier = _supplierRepository.Get(engineMaintainInvoice.SupplierId);
             engineMaintainInvoice.SupplierName = supplier.CnName;
-            var newEngineMaintainInvoice = MaintainInvoiceFactory.CreateEngineMaintainInvoice();
+            EngineMaintainInvoice newEngineMaintainInvoice = MaintainInvoiceFactory.CreateEngineMaintainInvoice();
             newEngineMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
             MaintainInvoiceFactory.SetMaintainInvoice(newEngineMaintainInvoice, engineMaintainInvoice.SerialNumber,
-                engineMaintainInvoice.InvoideCode, engineMaintainInvoice.InvoiceDate, engineMaintainInvoice.SupplierName, engineMaintainInvoice.SupplierId,
+                engineMaintainInvoice.InvoideCode, engineMaintainInvoice.InvoiceDate, engineMaintainInvoice.SupplierName,
+                engineMaintainInvoice.SupplierId,
                 engineMaintainInvoice.InvoiceValue, engineMaintainInvoice.PaidAmount, engineMaintainInvoice.OperatorName,
                 engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId,
-                engineMaintainInvoice.DocumentName, engineMaintainInvoice.DocumentId, engineMaintainInvoice.PaymentScheduleLineId,
+                engineMaintainInvoice.DocumentName, engineMaintainInvoice.DocumentId,
+                engineMaintainInvoice.PaymentScheduleLineId,
                 engineMaintainInvoice.InMaintainTime, engineMaintainInvoice.OutMaintainTime);
             newEngineMaintainInvoice.SetType(engineMaintainInvoice.Type);
             if (engineMaintainInvoice.MaintainInvoiceLines != null)
             {
-                foreach (var maintainInvoiceLine in engineMaintainInvoice.MaintainInvoiceLines)
+                foreach (MaintainInvoiceLineDTO maintainInvoiceLine in engineMaintainInvoice.MaintainInvoiceLines)
                 {
-                    var newMaintainInvoiceLine = MaintainInvoiceFactory.CreateInvoiceLine();
-                    MaintainInvoiceFactory.SetInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem, maintainInvoiceLine.ItemName, maintainInvoiceLine.UnitPrice, maintainInvoiceLine.Amount,
-                  maintainInvoiceLine.Note);
+                    MaintainInvoiceLine newMaintainInvoiceLine = MaintainInvoiceFactory.CreateInvoiceLine();
+                    MaintainInvoiceFactory.SetInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem,
+                        maintainInvoiceLine.ItemName, maintainInvoiceLine.UnitPrice, maintainInvoiceLine.Amount,
+                        maintainInvoiceLine.Note);
                     newEngineMaintainInvoice.InvoiceLines.Add(newMaintainInvoiceLine);
                 }
             }
@@ -107,13 +116,21 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             _invoiceRepository.Add(newEngineMaintainInvoice);
             if (newEngineMaintainInvoice.Type == EngineMaintainInvoiceType.非FHA超包修)
             {
-                var maintainCost = new NonFhaMaintainCostDTO { MaintainInvoiceId = newEngineMaintainInvoice.Id, Year = newEngineMaintainInvoice.InvoiceDate.Year, SupplierId = newEngineMaintainInvoice.SupplierId };
+                var maintainCost = new NonFhaMaintainCostDTO
+                {
+                    MaintainInvoiceId = newEngineMaintainInvoice.Id,
+                    Year = newEngineMaintainInvoice.InvoiceDate.Year,
+                    SupplierId = newEngineMaintainInvoice.SupplierId
+                };
                 _maintainCostAppService.InsertNonFhaMaintainCost(maintainCost);
-
             }
             else
             {
-                var maintainCost = new FhaMaintainCostDTO { MaintainInvoiceId = newEngineMaintainInvoice.Id, Year = newEngineMaintainInvoice.InvoiceDate.Year };
+                var maintainCost = new FhaMaintainCostDTO
+                {
+                    MaintainInvoiceId = newEngineMaintainInvoice.Id,
+                    Year = newEngineMaintainInvoice.InvoiceDate.Year
+                };
                 _maintainCostAppService.InsertFhaMaintainCost(maintainCost);
             }
         }
@@ -123,19 +140,22 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         ///     更新发动机维修发票。
         /// </summary>
         /// <param name="engineMaintainInvoice">发动机维修发票DTO。</param>
-        [Update(typeof(EngineMaintainInvoiceDTO))]
+        [Update(typeof (EngineMaintainInvoiceDTO))]
         public void ModifyEngineMaintainInvoice(EngineMaintainInvoiceDTO engineMaintainInvoice)
         {
-            var supplier = _supplierRepository.Get(engineMaintainInvoice.SupplierId);
+            Supplier supplier = _supplierRepository.Get(engineMaintainInvoice.SupplierId);
             engineMaintainInvoice.SupplierName = supplier.CnName;
             var updateEngineMaintainInvoice =
-                _invoiceRepository.Get(engineMaintainInvoice.EngineMaintainInvoiceId) as EngineMaintainInvoice; //获取需要更新的对象。
+                _invoiceRepository.Get(engineMaintainInvoice.EngineMaintainInvoiceId) as EngineMaintainInvoice;
+                //获取需要更新的对象。
             MaintainInvoiceFactory.SetMaintainInvoice(updateEngineMaintainInvoice, engineMaintainInvoice.SerialNumber,
-                engineMaintainInvoice.InvoideCode, engineMaintainInvoice.InvoiceDate, engineMaintainInvoice.SupplierName, engineMaintainInvoice.SupplierId,
+                engineMaintainInvoice.InvoideCode, engineMaintainInvoice.InvoiceDate, engineMaintainInvoice.SupplierName,
+                engineMaintainInvoice.SupplierId,
                 engineMaintainInvoice.InvoiceValue, engineMaintainInvoice.PaidAmount, engineMaintainInvoice.OperatorName,
-               engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId,
-               engineMaintainInvoice.DocumentName, engineMaintainInvoice.DocumentId, engineMaintainInvoice.PaymentScheduleLineId,
-               engineMaintainInvoice.InMaintainTime, engineMaintainInvoice.OutMaintainTime);
+                engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId,
+                engineMaintainInvoice.DocumentName, engineMaintainInvoice.DocumentId,
+                engineMaintainInvoice.PaymentScheduleLineId,
+                engineMaintainInvoice.InMaintainTime, engineMaintainInvoice.OutMaintainTime);
             updateEngineMaintainInvoice.SetType(engineMaintainInvoice.Type);
             UpdateMaintainInvoiceLines(engineMaintainInvoice.MaintainInvoiceLines, updateEngineMaintainInvoice);
             _invoiceRepository.Modify(updateEngineMaintainInvoice);
@@ -145,17 +165,19 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         ///     删除发动机维修发票。
         /// </summary>
         /// <param name="engineMaintainInvoice">发动机维修发票DTO。</param>
-        [Delete(typeof(EngineMaintainInvoiceDTO))]
+        [Delete(typeof (EngineMaintainInvoiceDTO))]
         public void DeleteEngineMaintainInvoice(EngineMaintainInvoiceDTO engineMaintainInvoice)
         {
-            var deleteEngineMaintainInvoice =
-                _invoiceRepository.GetMaintainInvoice(engineMaintainInvoice.EngineMaintainInvoiceId);//获取需要删除的对象。
+            MaintainInvoice deleteEngineMaintainInvoice =
+                _invoiceRepository.GetMaintainInvoice(engineMaintainInvoice.EngineMaintainInvoiceId); //获取需要删除的对象。
             UpdateMaintainInvoiceLines(new List<MaintainInvoiceLineDTO>(), deleteEngineMaintainInvoice);
             _invoiceRepository.Remove(deleteEngineMaintainInvoice); //删除发动机维修发票。
         }
+
         #endregion
 
         #region APUMaintainInvoiceDTO
+
         /// <summary>
         ///     获取所有APU维修发票。
         /// </summary>
@@ -167,54 +189,23 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         }
 
         /// <summary>
-        ///     新增APU维修发票。
-        /// </summary>
-        /// <param name="apuMaintainInvoice">APU维修发票DTO。</param>
-        [Insert(typeof(APUMaintainInvoiceDTO))]
-        public void InsertApuMaintainInvoice(APUMaintainInvoiceDTO apuMaintainInvoice)
-        {
-            var supplier = _supplierRepository.Get(apuMaintainInvoice.SupplierId);
-            apuMaintainInvoice.SupplierName = supplier.CnName;
-            var newApuMaintainInvoice = MaintainInvoiceFactory.CreateApuMaintainInvoice();
-            newApuMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
-            MaintainInvoiceFactory.SetMaintainInvoice(newApuMaintainInvoice, apuMaintainInvoice.SerialNumber,
-                apuMaintainInvoice.InvoideCode, apuMaintainInvoice.InvoiceDate, apuMaintainInvoice.SupplierName, apuMaintainInvoice.SupplierId,
-                apuMaintainInvoice.InvoiceValue, apuMaintainInvoice.PaidAmount, apuMaintainInvoice.OperatorName,
-               apuMaintainInvoice.Reviewer, apuMaintainInvoice.Status, apuMaintainInvoice.CurrencyId,
-               apuMaintainInvoice.DocumentName, apuMaintainInvoice.DocumentId, apuMaintainInvoice.PaymentScheduleLineId,
-               apuMaintainInvoice.InMaintainTime, apuMaintainInvoice.OutMaintainTime);
-            if (apuMaintainInvoice.MaintainInvoiceLines != null)
-            {
-                foreach (var maintainInvoiceLine in apuMaintainInvoice.MaintainInvoiceLines)
-                {
-                    var newMaintainInvoiceLine = MaintainInvoiceFactory.CreateInvoiceLine();
-                    MaintainInvoiceFactory.SetInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem, maintainInvoiceLine.ItemName, maintainInvoiceLine.UnitPrice, maintainInvoiceLine.Amount,
-                 maintainInvoiceLine.Note);
-                    newApuMaintainInvoice.InvoiceLines.Add(newMaintainInvoiceLine);
-                }
-            }
-            newApuMaintainInvoice.SetInvoiceValue();
-            _invoiceRepository.Add(newApuMaintainInvoice);
-            var maintainCost = new ApuMaintainCostDTO { MaintainInvoiceId = newApuMaintainInvoice.Id, Year = newApuMaintainInvoice.InvoiceDate.Year };
-            _maintainCostAppService.InsertApuMaintainCost(maintainCost);
-        }
-
-        /// <summary>
         ///     更新APU维修发票。
         /// </summary>
         /// <param name="apuMaintainInvoice">APU维修发票DTO。</param>
-        [Update(typeof(APUMaintainInvoiceDTO))]
+        [Update(typeof (APUMaintainInvoiceDTO))]
         public void ModifyApuMaintainInvoice(APUMaintainInvoiceDTO apuMaintainInvoice)
         {
-            var supplier = _supplierRepository.Get(apuMaintainInvoice.SupplierId);
+            Supplier supplier = _supplierRepository.Get(apuMaintainInvoice.SupplierId);
             apuMaintainInvoice.SupplierName = supplier.CnName;
-            var updateApuMaintainInvoice = _invoiceRepository.GetMaintainInvoice(apuMaintainInvoice.APUMaintainInvoiceId);//获取需要更新的对象。
+            MaintainInvoice updateApuMaintainInvoice =
+                _invoiceRepository.GetMaintainInvoice(apuMaintainInvoice.APUMaintainInvoiceId); //获取需要更新的对象。
             MaintainInvoiceFactory.SetMaintainInvoice(updateApuMaintainInvoice, apuMaintainInvoice.SerialNumber,
-                apuMaintainInvoice.InvoideCode, apuMaintainInvoice.InvoiceDate, apuMaintainInvoice.SupplierName, apuMaintainInvoice.SupplierId,
+                apuMaintainInvoice.InvoideCode, apuMaintainInvoice.InvoiceDate, apuMaintainInvoice.SupplierName,
+                apuMaintainInvoice.SupplierId,
                 apuMaintainInvoice.InvoiceValue, apuMaintainInvoice.PaidAmount, apuMaintainInvoice.OperatorName,
-               apuMaintainInvoice.Reviewer, apuMaintainInvoice.Status, apuMaintainInvoice.CurrencyId,
-               apuMaintainInvoice.DocumentName, apuMaintainInvoice.DocumentId, apuMaintainInvoice.PaymentScheduleLineId,
-               apuMaintainInvoice.InMaintainTime, apuMaintainInvoice.OutMaintainTime);
+                apuMaintainInvoice.Reviewer, apuMaintainInvoice.Status, apuMaintainInvoice.CurrencyId,
+                apuMaintainInvoice.DocumentName, apuMaintainInvoice.DocumentId, apuMaintainInvoice.PaymentScheduleLineId,
+                apuMaintainInvoice.InMaintainTime, apuMaintainInvoice.OutMaintainTime);
             UpdateMaintainInvoiceLines(apuMaintainInvoice.MaintainInvoiceLines, updateApuMaintainInvoice);
 
             _invoiceRepository.Modify(updateApuMaintainInvoice);
@@ -222,20 +213,62 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         }
 
         /// <summary>
+        ///     新增APU维修发票。
+        /// </summary>
+        /// <param name="apuMaintainInvoice">APU维修发票DTO。</param>
+        [Insert(typeof (APUMaintainInvoiceDTO))]
+        public void InsertApuMaintainInvoice(APUMaintainInvoiceDTO apuMaintainInvoice)
+        {
+            Supplier supplier = _supplierRepository.Get(apuMaintainInvoice.SupplierId);
+            apuMaintainInvoice.SupplierName = supplier.CnName;
+            APUMaintainInvoice newApuMaintainInvoice = MaintainInvoiceFactory.CreateApuMaintainInvoice();
+            newApuMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
+            MaintainInvoiceFactory.SetMaintainInvoice(newApuMaintainInvoice, apuMaintainInvoice.SerialNumber,
+                apuMaintainInvoice.InvoideCode, apuMaintainInvoice.InvoiceDate, apuMaintainInvoice.SupplierName,
+                apuMaintainInvoice.SupplierId,
+                apuMaintainInvoice.InvoiceValue, apuMaintainInvoice.PaidAmount, apuMaintainInvoice.OperatorName,
+                apuMaintainInvoice.Reviewer, apuMaintainInvoice.Status, apuMaintainInvoice.CurrencyId,
+                apuMaintainInvoice.DocumentName, apuMaintainInvoice.DocumentId, apuMaintainInvoice.PaymentScheduleLineId,
+                apuMaintainInvoice.InMaintainTime, apuMaintainInvoice.OutMaintainTime);
+            if (apuMaintainInvoice.MaintainInvoiceLines != null)
+            {
+                foreach (MaintainInvoiceLineDTO maintainInvoiceLine in apuMaintainInvoice.MaintainInvoiceLines)
+                {
+                    MaintainInvoiceLine newMaintainInvoiceLine = MaintainInvoiceFactory.CreateInvoiceLine();
+                    MaintainInvoiceFactory.SetInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem,
+                        maintainInvoiceLine.ItemName, maintainInvoiceLine.UnitPrice, maintainInvoiceLine.Amount,
+                        maintainInvoiceLine.Note);
+                    newApuMaintainInvoice.InvoiceLines.Add(newMaintainInvoiceLine);
+                }
+            }
+            newApuMaintainInvoice.SetInvoiceValue();
+            _invoiceRepository.Add(newApuMaintainInvoice);
+            var maintainCost = new ApuMaintainCostDTO
+            {
+                MaintainInvoiceId = newApuMaintainInvoice.Id,
+                Year = newApuMaintainInvoice.InvoiceDate.Year
+            };
+            _maintainCostAppService.InsertApuMaintainCost(maintainCost);
+        }
+
+        /// <summary>
         ///     删除APU维修发票。
         /// </summary>
         /// <param name="apuMaintainInvoice">APU维修发票DTO。</param>
-        [Delete(typeof(APUMaintainInvoiceDTO))]
+        [Delete(typeof (APUMaintainInvoiceDTO))]
         public void DeleteApuMaintainInvoice(APUMaintainInvoiceDTO apuMaintainInvoice)
         {
-            var deleteApuMaintainInvoice = _invoiceRepository.GetMaintainInvoice(apuMaintainInvoice.APUMaintainInvoiceId);
+            MaintainInvoice deleteApuMaintainInvoice =
+                _invoiceRepository.GetMaintainInvoice(apuMaintainInvoice.APUMaintainInvoiceId);
             //获取需要删除的对象。
             UpdateMaintainInvoiceLines(new List<MaintainInvoiceLineDTO>(), deleteApuMaintainInvoice);
             _invoiceRepository.Remove(deleteApuMaintainInvoice); //删除APU维修发票。
         }
+
         #endregion
 
         #region AirframeMaintainInvoiceDTO
+
         /// <summary>
         ///     获取所有机身维修发票。
         /// </summary>
@@ -250,32 +283,40 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         ///     新增机身维修发票。
         /// </summary>
         /// <param name="airframeMaintainInvoice">机身维修发票DTO。</param>
-        [Insert(typeof(AirframeMaintainInvoiceDTO))]
+        [Insert(typeof (AirframeMaintainInvoiceDTO))]
         public void InsertAirframeMaintainInvoice(AirframeMaintainInvoiceDTO airframeMaintainInvoice)
         {
-            var supplier = _supplierRepository.Get(airframeMaintainInvoice.SupplierId);
+            Supplier supplier = _supplierRepository.Get(airframeMaintainInvoice.SupplierId);
             airframeMaintainInvoice.SupplierName = supplier.CnName;
-            var newAirframeMaintainInvoice = MaintainInvoiceFactory.CreateAirframeMaintainInvoice();
+            AirframeMaintainInvoice newAirframeMaintainInvoice = MaintainInvoiceFactory.CreateAirframeMaintainInvoice();
             newAirframeMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
             MaintainInvoiceFactory.SetMaintainInvoice(newAirframeMaintainInvoice, airframeMaintainInvoice.SerialNumber,
-                airframeMaintainInvoice.InvoideCode, airframeMaintainInvoice.InvoiceDate, airframeMaintainInvoice.SupplierName, airframeMaintainInvoice.SupplierId,
-                airframeMaintainInvoice.InvoiceValue, airframeMaintainInvoice.PaidAmount, airframeMaintainInvoice.OperatorName,
+                airframeMaintainInvoice.InvoideCode, airframeMaintainInvoice.InvoiceDate,
+                airframeMaintainInvoice.SupplierName, airframeMaintainInvoice.SupplierId,
+                airframeMaintainInvoice.InvoiceValue, airframeMaintainInvoice.PaidAmount,
+                airframeMaintainInvoice.OperatorName,
                 airframeMaintainInvoice.Reviewer, airframeMaintainInvoice.Status, airframeMaintainInvoice.CurrencyId,
-                airframeMaintainInvoice.DocumentName, airframeMaintainInvoice.DocumentId, airframeMaintainInvoice.PaymentScheduleLineId,
+                airframeMaintainInvoice.DocumentName, airframeMaintainInvoice.DocumentId,
+                airframeMaintainInvoice.PaymentScheduleLineId,
                 airframeMaintainInvoice.InMaintainTime, airframeMaintainInvoice.OutMaintainTime);
             if (airframeMaintainInvoice.MaintainInvoiceLines != null)
             {
-                foreach (var maintainInvoiceLine in airframeMaintainInvoice.MaintainInvoiceLines)
+                foreach (MaintainInvoiceLineDTO maintainInvoiceLine in airframeMaintainInvoice.MaintainInvoiceLines)
                 {
-                    var newMaintainInvoiceLine = MaintainInvoiceFactory.CreateInvoiceLine();
-                    MaintainInvoiceFactory.SetInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem, maintainInvoiceLine.ItemName, maintainInvoiceLine.UnitPrice, maintainInvoiceLine.Amount,
-                 maintainInvoiceLine.Note);
+                    MaintainInvoiceLine newMaintainInvoiceLine = MaintainInvoiceFactory.CreateInvoiceLine();
+                    MaintainInvoiceFactory.SetInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem,
+                        maintainInvoiceLine.ItemName, maintainInvoiceLine.UnitPrice, maintainInvoiceLine.Amount,
+                        maintainInvoiceLine.Note);
                     newAirframeMaintainInvoice.InvoiceLines.Add(newMaintainInvoiceLine);
                 }
             }
             newAirframeMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newAirframeMaintainInvoice);
-            var maintainCost = new RegularCheckMaintainCostDTO { MaintainInvoiceId = newAirframeMaintainInvoice.Id, Year = newAirframeMaintainInvoice.InvoiceDate.Year };
+            var maintainCost = new RegularCheckMaintainCostDTO
+            {
+                MaintainInvoiceId = newAirframeMaintainInvoice.Id,
+                Year = newAirframeMaintainInvoice.InvoiceDate.Year
+            };
             _maintainCostAppService.InsertRegularCheckMaintainCost(maintainCost);
         }
 
@@ -283,18 +324,23 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         ///     更新机身维修发票。
         /// </summary>
         /// <param name="airframeMaintainInvoice">机身维修发票DTO。</param>
-        [Update(typeof(AirframeMaintainInvoiceDTO))]
+        [Update(typeof (AirframeMaintainInvoiceDTO))]
         public void ModifyAirframeMaintainInvoice(AirframeMaintainInvoiceDTO airframeMaintainInvoice)
         {
-            var supplier = _supplierRepository.Get(airframeMaintainInvoice.SupplierId);
+            Supplier supplier = _supplierRepository.Get(airframeMaintainInvoice.SupplierId);
             airframeMaintainInvoice.SupplierName = supplier.CnName;
-            var updateAirframeMaintainInvoice = _invoiceRepository.GetMaintainInvoice(airframeMaintainInvoice.AirframeMaintainInvoiceId);//获取需要更新的对象。
-            MaintainInvoiceFactory.SetMaintainInvoice(updateAirframeMaintainInvoice, airframeMaintainInvoice.SerialNumber,
-                 airframeMaintainInvoice.InvoideCode, airframeMaintainInvoice.InvoiceDate, airframeMaintainInvoice.SupplierName, airframeMaintainInvoice.SupplierId,
-                 airframeMaintainInvoice.InvoiceValue, airframeMaintainInvoice.PaidAmount, airframeMaintainInvoice.OperatorName,
-                 airframeMaintainInvoice.Reviewer, airframeMaintainInvoice.Status, airframeMaintainInvoice.CurrencyId,
-                 airframeMaintainInvoice.DocumentName, airframeMaintainInvoice.DocumentId, airframeMaintainInvoice.PaymentScheduleLineId,
-                 airframeMaintainInvoice.InMaintainTime, airframeMaintainInvoice.OutMaintainTime);
+            MaintainInvoice updateAirframeMaintainInvoice =
+                _invoiceRepository.GetMaintainInvoice(airframeMaintainInvoice.AirframeMaintainInvoiceId); //获取需要更新的对象。
+            MaintainInvoiceFactory.SetMaintainInvoice(updateAirframeMaintainInvoice,
+                airframeMaintainInvoice.SerialNumber,
+                airframeMaintainInvoice.InvoideCode, airframeMaintainInvoice.InvoiceDate,
+                airframeMaintainInvoice.SupplierName, airframeMaintainInvoice.SupplierId,
+                airframeMaintainInvoice.InvoiceValue, airframeMaintainInvoice.PaidAmount,
+                airframeMaintainInvoice.OperatorName,
+                airframeMaintainInvoice.Reviewer, airframeMaintainInvoice.Status, airframeMaintainInvoice.CurrencyId,
+                airframeMaintainInvoice.DocumentName, airframeMaintainInvoice.DocumentId,
+                airframeMaintainInvoice.PaymentScheduleLineId,
+                airframeMaintainInvoice.InMaintainTime, airframeMaintainInvoice.OutMaintainTime);
             UpdateMaintainInvoiceLines(airframeMaintainInvoice.MaintainInvoiceLines, updateAirframeMaintainInvoice);
             _invoiceRepository.Modify(updateAirframeMaintainInvoice);
         }
@@ -303,17 +349,20 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         ///     删除机身维修发票。
         /// </summary>
         /// <param name="airframeMaintainInvoice">机身维修发票DTO。</param>
-        [Delete(typeof(AirframeMaintainInvoiceDTO))]
+        [Delete(typeof (AirframeMaintainInvoiceDTO))]
         public void DeleteAirframeMaintainInvoice(AirframeMaintainInvoiceDTO airframeMaintainInvoice)
         {
-            var deleteAirframeMaintainInvoice = _invoiceRepository.GetMaintainInvoice(airframeMaintainInvoice.AirframeMaintainInvoiceId);
+            MaintainInvoice deleteAirframeMaintainInvoice =
+                _invoiceRepository.GetMaintainInvoice(airframeMaintainInvoice.AirframeMaintainInvoiceId);
             //获取需要删除的对象。
             UpdateMaintainInvoiceLines(new List<MaintainInvoiceLineDTO>(), deleteAirframeMaintainInvoice);
             _invoiceRepository.Remove(deleteAirframeMaintainInvoice); //删除机身维修发票。
         }
+
         #endregion
 
         #region UndercartMaintainInvoiceDTO
+
         /// <summary>
         ///     获取所有起落架维修发票。
         /// </summary>
@@ -328,32 +377,41 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         ///     新增起落架维修发票。
         /// </summary>
         /// <param name="undercartMaintainInvoice">起落架维修发票DTO。</param>
-        [Insert(typeof(UndercartMaintainInvoiceDTO))]
+        [Insert(typeof (UndercartMaintainInvoiceDTO))]
         public void InsertUndercartMaintainInvoice(UndercartMaintainInvoiceDTO undercartMaintainInvoice)
         {
-            var supplier = _supplierRepository.Get(undercartMaintainInvoice.SupplierId);
+            Supplier supplier = _supplierRepository.Get(undercartMaintainInvoice.SupplierId);
             undercartMaintainInvoice.SupplierName = supplier.CnName;
-            var newUndercartMaintainInvoice = MaintainInvoiceFactory.CreateUndercartMaintainInvoice();
+            UndercartMaintainInvoice newUndercartMaintainInvoice =
+                MaintainInvoiceFactory.CreateUndercartMaintainInvoice();
             newUndercartMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
             MaintainInvoiceFactory.SetMaintainInvoice(newUndercartMaintainInvoice, undercartMaintainInvoice.SerialNumber,
-                undercartMaintainInvoice.InvoideCode, undercartMaintainInvoice.InvoiceDate, undercartMaintainInvoice.SupplierName, undercartMaintainInvoice.SupplierId,
-                undercartMaintainInvoice.InvoiceValue, undercartMaintainInvoice.PaidAmount, undercartMaintainInvoice.OperatorName,
-               undercartMaintainInvoice.Reviewer, undercartMaintainInvoice.Status, undercartMaintainInvoice.CurrencyId,
-               undercartMaintainInvoice.DocumentName, undercartMaintainInvoice.DocumentId, undercartMaintainInvoice.PaymentScheduleLineId,
-               undercartMaintainInvoice.InMaintainTime, undercartMaintainInvoice.OutMaintainTime);
+                undercartMaintainInvoice.InvoideCode, undercartMaintainInvoice.InvoiceDate,
+                undercartMaintainInvoice.SupplierName, undercartMaintainInvoice.SupplierId,
+                undercartMaintainInvoice.InvoiceValue, undercartMaintainInvoice.PaidAmount,
+                undercartMaintainInvoice.OperatorName,
+                undercartMaintainInvoice.Reviewer, undercartMaintainInvoice.Status, undercartMaintainInvoice.CurrencyId,
+                undercartMaintainInvoice.DocumentName, undercartMaintainInvoice.DocumentId,
+                undercartMaintainInvoice.PaymentScheduleLineId,
+                undercartMaintainInvoice.InMaintainTime, undercartMaintainInvoice.OutMaintainTime);
             if (undercartMaintainInvoice.MaintainInvoiceLines != null)
             {
-                foreach (var maintainInvoiceLine in undercartMaintainInvoice.MaintainInvoiceLines)
+                foreach (MaintainInvoiceLineDTO maintainInvoiceLine in undercartMaintainInvoice.MaintainInvoiceLines)
                 {
-                    var newMaintainInvoiceLine = MaintainInvoiceFactory.CreateInvoiceLine();
-                    MaintainInvoiceFactory.SetInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem, maintainInvoiceLine.ItemName, maintainInvoiceLine.UnitPrice, maintainInvoiceLine.Amount,
-                 maintainInvoiceLine.Note);
+                    MaintainInvoiceLine newMaintainInvoiceLine = MaintainInvoiceFactory.CreateInvoiceLine();
+                    MaintainInvoiceFactory.SetInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem,
+                        maintainInvoiceLine.ItemName, maintainInvoiceLine.UnitPrice, maintainInvoiceLine.Amount,
+                        maintainInvoiceLine.Note);
                     newUndercartMaintainInvoice.InvoiceLines.Add(newMaintainInvoiceLine);
                 }
             }
             newUndercartMaintainInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newUndercartMaintainInvoice);
-            var maintainCost = new UndercartMaintainCostDTO { MaintainInvoiceId = newUndercartMaintainInvoice.Id, Year = newUndercartMaintainInvoice.InvoiceDate.Year };
+            var maintainCost = new UndercartMaintainCostDTO
+            {
+                MaintainInvoiceId = newUndercartMaintainInvoice.Id,
+                Year = newUndercartMaintainInvoice.InvoiceDate.Year
+            };
             _maintainCostAppService.InsertUndercartMaintainCost(maintainCost);
         }
 
@@ -361,19 +419,23 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         ///     更新起落架维修发票。
         /// </summary>
         /// <param name="undercartMaintainInvoice">起落架维修发票DTO。</param>
-        [Update(typeof(UndercartMaintainInvoiceDTO))]
+        [Update(typeof (UndercartMaintainInvoiceDTO))]
         public void ModifyUndercartMaintainInvoice(UndercartMaintainInvoiceDTO undercartMaintainInvoice)
         {
-            var supplier = _supplierRepository.Get(undercartMaintainInvoice.SupplierId);
+            Supplier supplier = _supplierRepository.Get(undercartMaintainInvoice.SupplierId);
             undercartMaintainInvoice.SupplierName = supplier.CnName;
-            var updateUndercartMaintainInvoice =
-                _invoiceRepository.GetMaintainInvoice(undercartMaintainInvoice.UndercartMaintainInvoiceId);//获取需要更新的对象。
-            MaintainInvoiceFactory.SetMaintainInvoice(updateUndercartMaintainInvoice, undercartMaintainInvoice.SerialNumber,
-                  undercartMaintainInvoice.InvoideCode, undercartMaintainInvoice.InvoiceDate, undercartMaintainInvoice.SupplierName, undercartMaintainInvoice.SupplierId,
-                  undercartMaintainInvoice.InvoiceValue, undercartMaintainInvoice.PaidAmount, undercartMaintainInvoice.OperatorName,
-                 undercartMaintainInvoice.Reviewer, undercartMaintainInvoice.Status, undercartMaintainInvoice.CurrencyId,
-                 undercartMaintainInvoice.DocumentName, undercartMaintainInvoice.DocumentId, undercartMaintainInvoice.PaymentScheduleLineId,
-                 undercartMaintainInvoice.InMaintainTime, undercartMaintainInvoice.OutMaintainTime);
+            MaintainInvoice updateUndercartMaintainInvoice =
+                _invoiceRepository.GetMaintainInvoice(undercartMaintainInvoice.UndercartMaintainInvoiceId); //获取需要更新的对象。
+            MaintainInvoiceFactory.SetMaintainInvoice(updateUndercartMaintainInvoice,
+                undercartMaintainInvoice.SerialNumber,
+                undercartMaintainInvoice.InvoideCode, undercartMaintainInvoice.InvoiceDate,
+                undercartMaintainInvoice.SupplierName, undercartMaintainInvoice.SupplierId,
+                undercartMaintainInvoice.InvoiceValue, undercartMaintainInvoice.PaidAmount,
+                undercartMaintainInvoice.OperatorName,
+                undercartMaintainInvoice.Reviewer, undercartMaintainInvoice.Status, undercartMaintainInvoice.CurrencyId,
+                undercartMaintainInvoice.DocumentName, undercartMaintainInvoice.DocumentId,
+                undercartMaintainInvoice.PaymentScheduleLineId,
+                undercartMaintainInvoice.InMaintainTime, undercartMaintainInvoice.OutMaintainTime);
             UpdateMaintainInvoiceLines(undercartMaintainInvoice.MaintainInvoiceLines, updateUndercartMaintainInvoice);
             _invoiceRepository.Modify(updateUndercartMaintainInvoice);
         }
@@ -382,15 +444,16 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         ///     删除起落架维修发票。
         /// </summary>
         /// <param name="undercartMaintainInvoice">起落架维修发票DTO。</param>
-        [Delete(typeof(UndercartMaintainInvoiceDTO))]
+        [Delete(typeof (UndercartMaintainInvoiceDTO))]
         public void DeleteUndercartMaintainInvoice(UndercartMaintainInvoiceDTO undercartMaintainInvoice)
         {
-            var deleteUndercartMaintainInvoice =
+            MaintainInvoice deleteUndercartMaintainInvoice =
                 _invoiceRepository.GetMaintainInvoice(undercartMaintainInvoice.UndercartMaintainInvoiceId);
             //获取需要删除的对象。
             UpdateMaintainInvoiceLines(new List<MaintainInvoiceLineDTO>(), deleteUndercartMaintainInvoice);
             _invoiceRepository.Remove(deleteUndercartMaintainInvoice); //删除Undercart维修发票。
         }
+
         #endregion
 
         #region SpecialRefitInvoiceDTO
@@ -410,32 +473,39 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         ///     新增特修改装发票。
         /// </summary>
         /// <param name="specialRefitInvoice">特修改装发票DTO。</param>
-        [Insert(typeof(SpecialRefitInvoiceDTO))]
+        [Insert(typeof (SpecialRefitInvoiceDTO))]
         public void InsertSpecialRefitInvoice(SpecialRefitInvoiceDTO specialRefitInvoice)
         {
-            var supplier = _supplierRepository.Get(specialRefitInvoice.SupplierId);
+            Supplier supplier = _supplierRepository.Get(specialRefitInvoice.SupplierId);
             specialRefitInvoice.SupplierName = supplier.CnName;
-            var newSpecialRefitInvoice = MaintainInvoiceFactory.CreateSpecialRefitInvoice();
+            SpecialRefitInvoice newSpecialRefitInvoice = MaintainInvoiceFactory.CreateSpecialRefitInvoice();
             newSpecialRefitInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
             MaintainInvoiceFactory.SetMaintainInvoice(newSpecialRefitInvoice, "0",
-                specialRefitInvoice.InvoideCode, specialRefitInvoice.InvoiceDate, specialRefitInvoice.SupplierName, specialRefitInvoice.SupplierId,
+                specialRefitInvoice.InvoideCode, specialRefitInvoice.InvoiceDate, specialRefitInvoice.SupplierName,
+                specialRefitInvoice.SupplierId,
                 specialRefitInvoice.InvoiceValue, specialRefitInvoice.PaidAmount, specialRefitInvoice.OperatorName,
-               specialRefitInvoice.Reviewer, specialRefitInvoice.Status, specialRefitInvoice.CurrencyId,
-               specialRefitInvoice.DocumentName, specialRefitInvoice.DocumentId, specialRefitInvoice.PaymentScheduleLineId,
-               specialRefitInvoice.InMaintainTime, specialRefitInvoice.OutMaintainTime);
+                specialRefitInvoice.Reviewer, specialRefitInvoice.Status, specialRefitInvoice.CurrencyId,
+                specialRefitInvoice.DocumentName, specialRefitInvoice.DocumentId,
+                specialRefitInvoice.PaymentScheduleLineId,
+                specialRefitInvoice.InMaintainTime, specialRefitInvoice.OutMaintainTime);
             if (specialRefitInvoice.MaintainInvoiceLines != null)
             {
-                foreach (var maintainInvoiceLine in specialRefitInvoice.MaintainInvoiceLines)
+                foreach (MaintainInvoiceLineDTO maintainInvoiceLine in specialRefitInvoice.MaintainInvoiceLines)
                 {
-                    var newMaintainInvoiceLine = MaintainInvoiceFactory.CreateInvoiceLine();
-                    MaintainInvoiceFactory.SetInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem, maintainInvoiceLine.ItemName, 1, maintainInvoiceLine.Amount,
-                 maintainInvoiceLine.Note);
+                    MaintainInvoiceLine newMaintainInvoiceLine = MaintainInvoiceFactory.CreateInvoiceLine();
+                    MaintainInvoiceFactory.SetInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem,
+                        maintainInvoiceLine.ItemName, 1, maintainInvoiceLine.Amount,
+                        maintainInvoiceLine.Note);
                     newSpecialRefitInvoice.InvoiceLines.Add(newMaintainInvoiceLine);
                 }
             }
             newSpecialRefitInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newSpecialRefitInvoice);
-            var maintainCost = new SpecialRefitMaintainCostDTO { MaintainInvoiceId = newSpecialRefitInvoice.Id, Year = newSpecialRefitInvoice.InvoiceDate.Year };
+            var maintainCost = new SpecialRefitMaintainCostDTO
+            {
+                MaintainInvoiceId = newSpecialRefitInvoice.Id,
+                Year = newSpecialRefitInvoice.InvoiceDate.Year
+            };
             _maintainCostAppService.InsertSpecialRefitMaintainCost(maintainCost);
         }
 
@@ -443,19 +513,21 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         ///     更新特修改装发票。
         /// </summary>
         /// <param name="specialRefitInvoice">特修改装发票DTO。</param>
-        [Update(typeof(SpecialRefitInvoiceDTO))]
+        [Update(typeof (SpecialRefitInvoiceDTO))]
         public void ModifySpecialRefitInvoice(SpecialRefitInvoiceDTO specialRefitInvoice)
         {
-            var supplier = _supplierRepository.Get(specialRefitInvoice.SupplierId);
+            Supplier supplier = _supplierRepository.Get(specialRefitInvoice.SupplierId);
             specialRefitInvoice.SupplierName = supplier.CnName;
-            var updateSpecialRefitInvoice =
-               _invoiceRepository.GetMaintainInvoice(specialRefitInvoice.SpecialRefitId);//获取需要更新的对象。
+            MaintainInvoice updateSpecialRefitInvoice =
+                _invoiceRepository.GetMaintainInvoice(specialRefitInvoice.SpecialRefitId); //获取需要更新的对象。
             MaintainInvoiceFactory.SetMaintainInvoice(updateSpecialRefitInvoice, "0",
-                  specialRefitInvoice.InvoideCode, specialRefitInvoice.InvoiceDate, specialRefitInvoice.SupplierName, specialRefitInvoice.SupplierId,
-                  specialRefitInvoice.InvoiceValue, specialRefitInvoice.PaidAmount, specialRefitInvoice.OperatorName,
-                 specialRefitInvoice.Reviewer, specialRefitInvoice.Status, specialRefitInvoice.CurrencyId,
-                 specialRefitInvoice.DocumentName, specialRefitInvoice.DocumentId, specialRefitInvoice.PaymentScheduleLineId,
-                 specialRefitInvoice.InMaintainTime, specialRefitInvoice.OutMaintainTime);
+                specialRefitInvoice.InvoideCode, specialRefitInvoice.InvoiceDate, specialRefitInvoice.SupplierName,
+                specialRefitInvoice.SupplierId,
+                specialRefitInvoice.InvoiceValue, specialRefitInvoice.PaidAmount, specialRefitInvoice.OperatorName,
+                specialRefitInvoice.Reviewer, specialRefitInvoice.Status, specialRefitInvoice.CurrencyId,
+                specialRefitInvoice.DocumentName, specialRefitInvoice.DocumentId,
+                specialRefitInvoice.PaymentScheduleLineId,
+                specialRefitInvoice.InMaintainTime, specialRefitInvoice.OutMaintainTime);
             UpdateMaintainInvoiceLines(specialRefitInvoice.MaintainInvoiceLines, updateSpecialRefitInvoice);
             _invoiceRepository.Modify(updateSpecialRefitInvoice);
         }
@@ -464,14 +536,15 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         ///     删除特修改装发票。
         /// </summary>
         /// <param name="specialRefitInvoice">特修改装发票DTO。</param>
-        [Delete(typeof(SpecialRefitInvoiceDTO))]
+        [Delete(typeof (SpecialRefitInvoiceDTO))]
         public void DeleteSpecialRefitInvoice(SpecialRefitInvoiceDTO specialRefitInvoice)
         {
             if (specialRefitInvoice == null)
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delSpecialRefitInvoice = _invoiceRepository.GetBasePurchaseInvoice(specialRefitInvoice.SpecialRefitId);
+            BasePurchaseInvoice delSpecialRefitInvoice =
+                _invoiceRepository.GetBasePurchaseInvoice(specialRefitInvoice.SpecialRefitId);
             //获取需要删除的对象。
             if (delSpecialRefitInvoice != null)
             {
@@ -482,43 +555,49 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         #endregion
 
         #region 更新发票行集合
+
         /// <summary>
-        /// 更新发票行集合
+        ///     更新发票行集合
         /// </summary>
         /// <param name="sourceMaintainInvoiceLines">客户端集合</param>
         /// <param name="dstMaintainInvoice">数据库集合</param>
-        private void UpdateMaintainInvoiceLines(IEnumerable<MaintainInvoiceLineDTO> sourceMaintainInvoiceLines, MaintainInvoice dstMaintainInvoice)
+        private void UpdateMaintainInvoiceLines(IEnumerable<MaintainInvoiceLineDTO> sourceMaintainInvoiceLines,
+            MaintainInvoice dstMaintainInvoice)
         {
             var maintainInvoiceLines = new List<MaintainInvoiceLine>();
-            foreach (var sourceMaintainInvoiceLine in sourceMaintainInvoiceLines)
+            foreach (MaintainInvoiceLineDTO sourceMaintainInvoiceLine in sourceMaintainInvoiceLines)
             {
-                var result = dstMaintainInvoice.InvoiceLines.FirstOrDefault(p => p.Id == sourceMaintainInvoiceLine.MaintainInvoiceLineId);
+                MaintainInvoiceLine result =
+                    dstMaintainInvoice.InvoiceLines.FirstOrDefault(
+                        p => p.Id == sourceMaintainInvoiceLine.MaintainInvoiceLineId);
                 if (result == null)
                 {
                     result = MaintainInvoiceFactory.CreateInvoiceLine();
                     result.ChangeCurrentIdentity(sourceMaintainInvoiceLine.MaintainInvoiceLineId);
                 }
-                MaintainInvoiceFactory.SetInvoiceLine(result, sourceMaintainInvoiceLine.MaintainItem, sourceMaintainInvoiceLine.ItemName, sourceMaintainInvoiceLine.UnitPrice, sourceMaintainInvoiceLine.Amount,
+                MaintainInvoiceFactory.SetInvoiceLine(result, sourceMaintainInvoiceLine.MaintainItem,
+                    sourceMaintainInvoiceLine.ItemName, sourceMaintainInvoiceLine.UnitPrice,
+                    sourceMaintainInvoiceLine.Amount,
                     sourceMaintainInvoiceLine.Note);
                 maintainInvoiceLines.Add(result);
             }
             dstMaintainInvoice.InvoiceLines.ToList().ForEach(p =>
-                                                                     {
-                                                                         if (maintainInvoiceLines.FirstOrDefault(t => t.Id == p.Id) == null)
-                                                                         {
-                                                                             _invoiceRepository.RemoveInvoiceLine(p);
-                                                                         }
-                                                                     });
+            {
+                if (maintainInvoiceLines.FirstOrDefault(t => t.Id == p.Id) == null)
+                {
+                    _invoiceRepository.RemoveInvoiceLine(p);
+                }
+            });
             dstMaintainInvoice.InvoiceLines = maintainInvoiceLines;
             dstMaintainInvoice.SetInvoiceValue();
         }
+
         #endregion
 
-        private static int _maxInvoiceNumber;
         private int GetMaxInvoiceNumber()
         {
-            var date = DateTime.Now.Date.ToString("yyyyMMdd").Substring(0, 8);
-            var noticeNumber = _invoiceRepository.GetAll().Max(p => p.InvoiceNumber);
+            string date = DateTime.Now.Date.ToString("yyyyMMdd").Substring(0, 8);
+            string noticeNumber = _invoiceRepository.GetAll().Max(p => p.InvoiceNumber);
 
             int seq = 1;
             if (!string.IsNullOrEmpty(noticeNumber) && noticeNumber.StartsWith(date))

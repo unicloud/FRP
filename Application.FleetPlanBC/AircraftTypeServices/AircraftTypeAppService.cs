@@ -32,7 +32,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftTypeServices
     ///     实现机型服务接口。
     ///     用于处理机型相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class AircraftTypeAppService : ContextBoundObject, IAircraftTypeAppService
     {
         private readonly IAircraftTypeQuery _aircraftTypeQuery;

@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,15 +11,16 @@
 // 修改者：linxw 时间：2014/3/12 14:23:19
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftConfigurationQueries;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg;
 
 namespace UniCloud.Application.AircraftConfigBC.AircraftConfigurationServices
@@ -27,13 +29,14 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftConfigurationServices
     ///     实现飞机配置服务接口。
     ///     用于处理飞机配置相关信息的服务，供Distributed Services调用。
     /// </summary>
-  [LogAOP]
+    [LogAOP]
     public class AircraftConfigurationAppService : ContextBoundObject, IAircraftConfigurationAppService
     {
         private readonly IAircraftConfigurationQuery _aircraftConfigurationQuery;
         private readonly IAircraftConfigurationRepository _aircraftConfigurationRepository;
 
-        public AircraftConfigurationAppService(IAircraftConfigurationQuery aircraftConfigurationQuery, IAircraftConfigurationRepository aircraftConfigurationRepository)
+        public AircraftConfigurationAppService(IAircraftConfigurationQuery aircraftConfigurationQuery,
+            IAircraftConfigurationRepository aircraftConfigurationRepository)
         {
             _aircraftConfigurationQuery = aircraftConfigurationQuery;
             _aircraftConfigurationRepository = aircraftConfigurationRepository;
@@ -55,15 +58,21 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftConfigurationServices
         ///     新增飞机配置类型。
         /// </summary>
         /// <param name="aircraftConfiguration">飞机配置类型DTO。</param>
-        [Insert(typeof(AircraftConfigurationDTO))]
+        [Insert(typeof (AircraftConfigurationDTO))]
         public void InsertAircraftConfiguration(AircraftConfigurationDTO aircraftConfiguration)
         {
-            var newAircraftConfiguration = AircraftConfigurationFactory.CreateAircraftConfiguration();
-            AircraftConfigurationFactory.SetAircraftConfiguration(newAircraftConfiguration, aircraftConfiguration.ConfigCode, aircraftConfiguration.AircraftSeriesId, aircraftConfiguration.AircraftTypeId, aircraftConfiguration.BEW,
-                aircraftConfiguration.BW, aircraftConfiguration.BWF, aircraftConfiguration.BWI, aircraftConfiguration.Description, aircraftConfiguration.MCC, aircraftConfiguration.MLW, aircraftConfiguration.MMFW, aircraftConfiguration.MTOW,
-                aircraftConfiguration.MTW, aircraftConfiguration.MZFW, aircraftConfiguration.FileName, aircraftConfiguration.FileContent);
+            AircraftConfiguration newAircraftConfiguration = AircraftConfigurationFactory.CreateAircraftConfiguration();
+            AircraftConfigurationFactory.SetAircraftConfiguration(newAircraftConfiguration,
+                aircraftConfiguration.ConfigCode, aircraftConfiguration.AircraftSeriesId,
+                aircraftConfiguration.AircraftTypeId, aircraftConfiguration.BEW,
+                aircraftConfiguration.BW, aircraftConfiguration.BWF, aircraftConfiguration.BWI,
+                aircraftConfiguration.Description, aircraftConfiguration.MCC, aircraftConfiguration.MLW,
+                aircraftConfiguration.MMFW, aircraftConfiguration.MTOW,
+                aircraftConfiguration.MTW, aircraftConfiguration.MZFW, aircraftConfiguration.FileName,
+                aircraftConfiguration.FileContent);
 
-            aircraftConfiguration.AircraftCabins.ToList().ForEach(aircraftCabin => InsertAircraftCabin(newAircraftConfiguration, aircraftCabin));
+            aircraftConfiguration.AircraftCabins.ToList()
+                .ForEach(aircraftCabin => InsertAircraftCabin(newAircraftConfiguration, aircraftCabin));
             _aircraftConfigurationRepository.Add(newAircraftConfiguration);
         }
 
@@ -71,16 +80,22 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftConfigurationServices
         ///     更新飞机配置类型。
         /// </summary>
         /// <param name="aircraftConfiguration">飞机配置类型DTO。</param>
-        [Update(typeof(AircraftConfigurationDTO))]
+        [Update(typeof (AircraftConfigurationDTO))]
         public void ModifyAircraftConfiguration(AircraftConfigurationDTO aircraftConfiguration)
         {
-            var updateAircraftConfiguration = _aircraftConfigurationRepository.Get(aircraftConfiguration.Id); //获取需要更新的对象。
-            AircraftConfigurationFactory.SetAircraftConfiguration(updateAircraftConfiguration, aircraftConfiguration.ConfigCode, aircraftConfiguration.AircraftSeriesId, aircraftConfiguration.AircraftTypeId, aircraftConfiguration.BEW,
-                aircraftConfiguration.BW, aircraftConfiguration.BWF, aircraftConfiguration.BWI, aircraftConfiguration.Description, aircraftConfiguration.MCC, aircraftConfiguration.MLW, aircraftConfiguration.MMFW, aircraftConfiguration.MTOW,
-                aircraftConfiguration.MTW, aircraftConfiguration.MZFW, aircraftConfiguration.FileName, aircraftConfiguration.FileContent);
+            AircraftConfiguration updateAircraftConfiguration =
+                _aircraftConfigurationRepository.Get(aircraftConfiguration.Id); //获取需要更新的对象。
+            AircraftConfigurationFactory.SetAircraftConfiguration(updateAircraftConfiguration,
+                aircraftConfiguration.ConfigCode, aircraftConfiguration.AircraftSeriesId,
+                aircraftConfiguration.AircraftTypeId, aircraftConfiguration.BEW,
+                aircraftConfiguration.BW, aircraftConfiguration.BWF, aircraftConfiguration.BWI,
+                aircraftConfiguration.Description, aircraftConfiguration.MCC, aircraftConfiguration.MLW,
+                aircraftConfiguration.MMFW, aircraftConfiguration.MTOW,
+                aircraftConfiguration.MTW, aircraftConfiguration.MZFW, aircraftConfiguration.FileName,
+                aircraftConfiguration.FileContent);
 
-            var dtoAircraftCabins = aircraftConfiguration.AircraftCabins;
-            var aircraftCabins = updateAircraftConfiguration.AircraftCabins;
+            List<AircraftCabinDTO> dtoAircraftCabins = aircraftConfiguration.AircraftCabins;
+            ICollection<AircraftCabin> aircraftCabins = updateAircraftConfiguration.AircraftCabins;
             DataHelper.DetailHandle(dtoAircraftCabins.ToArray(),
                 aircraftCabins.ToArray(),
                 c => c.Id, p => p.Id,
@@ -94,10 +109,11 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftConfigurationServices
         ///     删除飞机配置类型。
         /// </summary>
         /// <param name="aircraftConfiguration">飞机配置类型DTO。</param>
-        [Delete(typeof(AircraftConfigurationDTO))]
+        [Delete(typeof (AircraftConfigurationDTO))]
         public void DeleteAircraftConfiguration(AircraftConfigurationDTO aircraftConfiguration)
         {
-            var deleteAircraftConfiguration = _aircraftConfigurationRepository.Get(aircraftConfiguration.Id); //获取需要删除的对象。
+            AircraftConfiguration deleteAircraftConfiguration =
+                _aircraftConfigurationRepository.Get(aircraftConfiguration.Id); //获取需要删除的对象。
             _aircraftConfigurationRepository.DeleteAircraftConfiguration(deleteAircraftConfiguration); //删除飞机配置类型。
         }
 
@@ -109,8 +125,9 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftConfigurationServices
         private void InsertAircraftCabin(AircraftConfiguration aircraftConfiguration, AircraftCabinDTO aircraftCabinDto)
         {
             // 添加舱位
-            var aircraftCabin = aircraftConfiguration.AddNewAircraftCabin();
-            AircraftConfigurationFactory.SetAircraftCabin(aircraftCabin, aircraftCabinDto.AircraftCabinTypeId, aircraftCabinDto.SeatNumber, aircraftCabinDto.Note);
+            AircraftCabin aircraftCabin = aircraftConfiguration.AddNewAircraftCabin();
+            AircraftConfigurationFactory.SetAircraftCabin(aircraftCabin, aircraftCabinDto.AircraftCabinTypeId,
+                aircraftCabinDto.SeatNumber, aircraftCabinDto.Note);
         }
 
         /// <summary>
@@ -121,8 +138,10 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftConfigurationServices
         private void UpdateAircraftCabin(AircraftCabinDTO aircraftCabinDto, AircraftCabin aircraftCabin)
         {
             // 更新舱位
-            AircraftConfigurationFactory.SetAircraftCabin(aircraftCabin, aircraftCabinDto.AircraftCabinTypeId, aircraftCabinDto.SeatNumber, aircraftCabinDto.Note);
+            AircraftConfigurationFactory.SetAircraftCabin(aircraftCabin, aircraftCabinDto.AircraftCabinTypeId,
+                aircraftCabinDto.SeatNumber, aircraftCabinDto.Note);
         }
+
         #endregion
     }
 }

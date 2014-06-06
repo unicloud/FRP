@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2013/12/29 15:28:12
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -43,6 +45,7 @@ namespace UniCloud.Application.BaseManagementBC.XmlSettingServices
         }
 
         #region XmlSettingDTO
+
         /// <summary>
         ///     获取所有配置相关的xml。
         /// </summary>
@@ -57,7 +60,7 @@ namespace UniCloud.Application.BaseManagementBC.XmlSettingServices
         ///     新增配置相关的xml。
         /// </summary>
         /// <param name="xmlSetting">配置相关的xmlDTO。</param>
-        [Insert(typeof(XmlSettingDTO))]
+        [Insert(typeof (XmlSettingDTO))]
         public void InsertXmlSetting(XmlSettingDTO xmlSetting)
         {
             //var newXmlSetting = XmlSettingFactory.CreateXmlSetting();
@@ -86,10 +89,10 @@ namespace UniCloud.Application.BaseManagementBC.XmlSettingServices
         ///     更新配置相关的xml。
         /// </summary>
         /// <param name="xmlSetting">配置相关的xmlDTO。</param>
-        [Update(typeof(XmlSettingDTO))]
+        [Update(typeof (XmlSettingDTO))]
         public void ModifyXmlSetting(XmlSettingDTO xmlSetting)
         {
-            var updateXmlSetting = _xmlSettingRepository.Get(xmlSetting.XmlSettingId); //获取需要更新的对象。
+            XmlSetting updateXmlSetting = _xmlSettingRepository.Get(xmlSetting.XmlSettingId); //获取需要更新的对象。
             XmlSettingFactory.SetXmlSetting(updateXmlSetting, xmlSetting.SettingContent);
             _xmlSettingRepository.Modify(updateXmlSetting);
         }
@@ -98,7 +101,7 @@ namespace UniCloud.Application.BaseManagementBC.XmlSettingServices
         ///     删除配置相关的xml。
         /// </summary>
         /// <param name="xmlSetting">配置相关的xmlDTO。</param>
-        [Delete(typeof(XmlSettingDTO))]
+        [Delete(typeof (XmlSettingDTO))]
         public void DeleteXmlSetting(XmlSettingDTO xmlSetting)
         {
             //var deleteXmlSetting =
@@ -106,6 +109,7 @@ namespace UniCloud.Application.BaseManagementBC.XmlSettingServices
             //UpdateXmlSettingLines(new List<XmlSettingLineDTO>(), deleteXmlSetting);
             //_invoiceRepository.Remove(deleteXmlSetting); //删除配置相关的xml。
         }
+
         #endregion
     }
 }

@@ -32,7 +32,7 @@ namespace UniCloud.Application.FleetPlanBC.EngineTypeServices
     ///     实现发动机型号服务接口。
     ///     用于处理发动机型号相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class EngineTypeAppService : ContextBoundObject, IEngineTypeAppService
     {
         private readonly IEngineTypeQuery _engineTypeQuery;

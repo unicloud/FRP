@@ -17,6 +17,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
@@ -74,15 +75,16 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         public void InsertEnginePurchaseReception(EnginePurchaseReceptionDTO dto)
         {
             //获取供应商
-            var supplier = _supplierRepository.Get(dto.SupplierId);
+            Supplier supplier = _supplierRepository.Get(dto.SupplierId);
 
             //创建接机项目
-            var newReception = ReceptionFactory.CreateEnginePurchaseReception(dto.StartDate, dto.EndDate, dto.SourceId,
+            EnginePurchaseReception newReception = ReceptionFactory.CreateEnginePurchaseReception(dto.StartDate,
+                dto.EndDate, dto.SourceId,
                 dto.Description);
 
             // TODO:设置接机编号,如果当天的记录被删除过，流水号seq可能会重复
-            var date = DateTime.Now.Date;
-            var seq = _receptionRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            DateTime date = DateTime.Now.Date;
+            int seq = _receptionRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
             newReception.SetReceptionNumber(seq);
 
             //设置供应商
@@ -107,7 +109,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         public void ModifyEnginePurchaseReception(EnginePurchaseReceptionDTO dto)
         {
             //获取供应商
-            var supplier = _supplierRepository.Get(dto.SupplierId);
+            Supplier supplier = _supplierRepository.Get(dto.SupplierId);
 
             //获取需要更新的对象
             var updateReception = _receptionRepository.Get(dto.EnginePurchaseReceptionId) as EnginePurchaseReception;
@@ -124,8 +126,8 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
                 updateReception.SourceId = dto.SourceId;
 
                 //更新接机行：
-                var dtoReceptionLines = dto.ReceptionLines;
-                var receptionLines = updateReception.ReceptionLines;
+                List<EnginePurchaseReceptionLineDTO> dtoReceptionLines = dto.ReceptionLines;
+                ICollection<ReceptionLine> receptionLines = updateReception.ReceptionLines;
                 DataHelper.DetailHandle(dtoReceptionLines.ToArray(),
                     receptionLines.OfType<EnginePurchaseReceptionLine>().ToArray(),
                     c => c.EnginePurchaseReceptionLineId, p => p.Id,
@@ -133,8 +135,8 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
                     UpdateReceptionLine,
                     d => _receptionRepository.RemoveReceptionLine(d));
                 //更新交付日程：
-                var dtoReceptionSchedules = dto.ReceptionSchedules;
-                var receptionSchedules = updateReception.ReceptionSchedules;
+                List<ReceptionScheduleDTO> dtoReceptionSchedules = dto.ReceptionSchedules;
+                ICollection<ReceptionSchedule> receptionSchedules = updateReception.ReceptionSchedules;
                 DataHelper.DetailHandle(dtoReceptionSchedules.ToArray(),
                     receptionSchedules.ToArray(),
                     c => c.ReceptionScheduleId, p => p.Id,
@@ -156,7 +158,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delEnginePurchaseReception = _receptionRepository.Get(dto.EnginePurchaseReceptionId);
+            Reception delEnginePurchaseReception = _receptionRepository.Get(dto.EnginePurchaseReceptionId);
             //获取需要删除的对象。
             if (delEnginePurchaseReception != null)
             {
@@ -174,11 +176,12 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         private void InsertReceptionLine(EnginePurchaseReception reception, EnginePurchaseReceptionLineDTO line)
         {
             //获取合同发动机
-            var purchaseConEngine = _contractEngineRepository.GetFiltered(p => p.Id == line.ContractEngineId)
-                .OfType<PurchaseContractEngine>().FirstOrDefault();
+            PurchaseContractEngine purchaseConEngine =
+                _contractEngineRepository.GetFiltered(p => p.Id == line.ContractEngineId)
+                    .OfType<PurchaseContractEngine>().FirstOrDefault();
 
             // 添加接机行
-            var newRecepitonLine =
+            EnginePurchaseReceptionLine newRecepitonLine =
                 reception.AddNewEnginePurchaseReceptionLine(line.ReceivedAmount);
             newRecepitonLine.AcceptedAmount = line.AcceptedAmount;
             newRecepitonLine.SetCompleted();
@@ -196,8 +199,9 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         private void UpdateReceptionLine(EnginePurchaseReceptionLineDTO line, EnginePurchaseReceptionLine receptionLine)
         {
             //获取合同发动机
-            var purchaseConEngine = _contractEngineRepository.GetFiltered(p => p.Id == line.ContractEngineId)
-                .OfType<PurchaseContractEngine>().FirstOrDefault();
+            PurchaseContractEngine purchaseConEngine =
+                _contractEngineRepository.GetFiltered(p => p.Id == line.ContractEngineId)
+                    .OfType<PurchaseContractEngine>().FirstOrDefault();
 
 
             // 更新订单行

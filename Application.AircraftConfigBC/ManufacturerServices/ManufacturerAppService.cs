@@ -32,7 +32,7 @@ namespace UniCloud.Application.AircraftConfigBC.ManufacturerServices
     ///     实现制造商服务接口。
     ///     用于处理制造商相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class ManufacturerAppService : ContextBoundObject, IManufacturerAppService
     {
         private readonly IManufacturerQuery _manufacturerQuery;

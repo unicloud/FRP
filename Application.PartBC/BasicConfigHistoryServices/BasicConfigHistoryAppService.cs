@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.BasicConfigHistoryQueries;
@@ -34,6 +35,7 @@ namespace UniCloud.Application.PartBC.BasicConfigHistoryServices
     ///     实现基本构型历史服务接口。
     ///     用于处理基本构型历史相关信息的服务，供Distributed Services调用。
     /// </summary>
+    [LogAOP]
     public class BasicConfigHistoryAppService : IBasicConfigHistoryAppService
     {
         private readonly IBasicConfigGroupRepository _basicConfigGroupRepository;
@@ -93,7 +95,7 @@ namespace UniCloud.Application.PartBC.BasicConfigHistoryServices
         {
             BasicConfigGroup basicConfigGroup = _basicConfigGroupRepository.Get(dto.BasicConfigGroupId); //获取基本构型组
             ContractAircraft contractAircraft = _contractAircraftRepository.Get(dto.ContractAircraftId); //获取合同飞机
-            
+
             //获取需要更新的对象
             BasicConfigHistory updateBasicConfigHistory = _basicConfigHistoryRepository.Get(dto.Id);
             if (updateBasicConfigHistory != null)

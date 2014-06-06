@@ -75,17 +75,20 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     新增预付款发票。
         /// </summary>
         /// <param name="prepaymentInvoice">预付款发票DTO。</param>
-        [Insert(typeof(PurchasePrepaymentInvoiceDTO))]
+        [Insert(typeof (PurchasePrepaymentInvoiceDTO))]
         public void InsertPurchasePrepaymentInvoice(PurchasePrepaymentInvoiceDTO prepaymentInvoice)
         {
-            var supplier = _supplierRepository.GetFiltered(p => p.Id == prepaymentInvoice.SupplierId).FirstOrDefault();
-            var order = _orderRepository.Get(prepaymentInvoice.OrderId);
-            var currency = _currencyRepository.GetFiltered(p => p.Id == prepaymentInvoice.CurrencyId).FirstOrDefault();
+            Supplier supplier =
+                _supplierRepository.GetFiltered(p => p.Id == prepaymentInvoice.SupplierId).FirstOrDefault();
+            Order order = _orderRepository.Get(prepaymentInvoice.OrderId);
+            Currency currency =
+                _currencyRepository.GetFiltered(p => p.Id == prepaymentInvoice.CurrencyId).FirstOrDefault();
 
-            var newPrepaymentInvoice = InvoiceFactory.CreatePurchasePrepaymentInvoice(prepaymentInvoice.InvoideCode,
-                prepaymentInvoice.InvoiceDate, prepaymentInvoice.OperatorName);
-            var date = DateTime.Now.Date;
-            var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            PurchasePrepaymentInvoice newPrepaymentInvoice =
+                InvoiceFactory.CreatePurchasePrepaymentInvoice(prepaymentInvoice.InvoideCode,
+                    prepaymentInvoice.InvoiceDate, prepaymentInvoice.OperatorName);
+            DateTime date = DateTime.Now.Date;
+            int seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
             newPrepaymentInvoice.SetInvoiceNumber(seq);
             newPrepaymentInvoice.SetSupplier(supplier);
             newPrepaymentInvoice.SetOrder(order);
@@ -93,12 +96,13 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             newPrepaymentInvoice.SetCurrency(currency);
             newPrepaymentInvoice.SetPaymentScheduleLine(prepaymentInvoice.PaymentScheduleLineId);
             newPrepaymentInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
-            foreach (var invoiceLine in prepaymentInvoice.InvoiceLines)
+            foreach (InvoiceLineDTO invoiceLine in prepaymentInvoice.InvoiceLines)
             {
                 if (order != null)
                 {
-                    var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
-                    newPrepaymentInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine, invoiceLine.Note);
+                    OrderLine orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
+                    newPrepaymentInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine,
+                        invoiceLine.Note);
                 }
                 else
                 {
@@ -113,14 +117,17 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     更新预付款发票。
         /// </summary>
         /// <param name="prepaymentInvoice">预付款发票DTO。</param>
-        [Update(typeof(PurchasePrepaymentInvoiceDTO))]
+        [Update(typeof (PurchasePrepaymentInvoiceDTO))]
         public void ModifyPurchasePrepaymentInvoice(PurchasePrepaymentInvoiceDTO prepaymentInvoice)
         {
-            var supplier = _supplierRepository.GetFiltered(p => p.Id == prepaymentInvoice.SupplierId).FirstOrDefault();
-            var order = _orderRepository.Get(prepaymentInvoice.OrderId);
-            var currency = _currencyRepository.GetFiltered(p => p.Id == prepaymentInvoice.CurrencyId).FirstOrDefault();
+            Supplier supplier =
+                _supplierRepository.GetFiltered(p => p.Id == prepaymentInvoice.SupplierId).FirstOrDefault();
+            Order order = _orderRepository.Get(prepaymentInvoice.OrderId);
+            Currency currency =
+                _currencyRepository.GetFiltered(p => p.Id == prepaymentInvoice.CurrencyId).FirstOrDefault();
 
-            var updatePrepaymentInvoice = _invoiceRepository.GetBasePurchaseInvoice(prepaymentInvoice.PrepaymentInvoiceId);
+            BasePurchaseInvoice updatePrepaymentInvoice =
+                _invoiceRepository.GetBasePurchaseInvoice(prepaymentInvoice.PrepaymentInvoiceId);
             //获取需要更新的对象。
             if (updatePrepaymentInvoice != null)
             {
@@ -141,14 +148,15 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     删除预付款发票。
         /// </summary>
         /// <param name="prepaymentInvoice">预付款发票DTO。</param>
-        [Delete(typeof(PurchasePrepaymentInvoiceDTO))]
+        [Delete(typeof (PurchasePrepaymentInvoiceDTO))]
         public void DeletePurchasePrepaymentInvoice(PurchasePrepaymentInvoiceDTO prepaymentInvoice)
         {
             if (prepaymentInvoice == null)
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delPrepaymentInvoice = _invoiceRepository.GetBasePurchaseInvoice(prepaymentInvoice.PrepaymentInvoiceId);
+            BasePurchaseInvoice delPrepaymentInvoice =
+                _invoiceRepository.GetBasePurchaseInvoice(prepaymentInvoice.PrepaymentInvoiceId);
             //获取需要删除的对象。
             if (delPrepaymentInvoice != null)
             {
@@ -175,23 +183,26 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     新增预付款发票。
         /// </summary>
         /// <param name="prepaymentInvoice">预付款发票DTO。</param>
-        [Insert(typeof(MaintainPrepaymentInvoiceDTO))]
+        [Insert(typeof (MaintainPrepaymentInvoiceDTO))]
         public void InsertMaintainPrepaymentInvoice(MaintainPrepaymentInvoiceDTO prepaymentInvoice)
         {
-            var supplier = _supplierRepository.GetFiltered(p => p.Id == prepaymentInvoice.SupplierId).FirstOrDefault();
-            var currency = _currencyRepository.GetFiltered(p => p.Id == prepaymentInvoice.CurrencyId).FirstOrDefault();
+            Supplier supplier =
+                _supplierRepository.GetFiltered(p => p.Id == prepaymentInvoice.SupplierId).FirstOrDefault();
+            Currency currency =
+                _currencyRepository.GetFiltered(p => p.Id == prepaymentInvoice.CurrencyId).FirstOrDefault();
 
-            var newPrepaymentInvoice = InvoiceFactory.CreateMaintainPrepaymentInvoice(prepaymentInvoice.InvoideCode,
-                prepaymentInvoice.InvoiceDate, prepaymentInvoice.OperatorName);
-            var date = DateTime.Now.Date;
-            var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            MaintainPrepaymentInvoice newPrepaymentInvoice =
+                InvoiceFactory.CreateMaintainPrepaymentInvoice(prepaymentInvoice.InvoideCode,
+                    prepaymentInvoice.InvoiceDate, prepaymentInvoice.OperatorName);
+            DateTime date = DateTime.Now.Date;
+            int seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
             newPrepaymentInvoice.SetInvoiceNumber(seq);
             newPrepaymentInvoice.SetSupplier(supplier);
             newPrepaymentInvoice.SetPaidAmount(prepaymentInvoice.PaidAmount);
             newPrepaymentInvoice.SetCurrency(currency);
             newPrepaymentInvoice.SetPaymentScheduleLine(prepaymentInvoice.PaymentScheduleLineId);
             newPrepaymentInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
-            foreach (var invoiceLine in prepaymentInvoice.InvoiceLines)
+            foreach (InvoiceLineDTO invoiceLine in prepaymentInvoice.InvoiceLines)
             {
                 newPrepaymentInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null, invoiceLine.Note);
             }
@@ -203,13 +214,16 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     更新预付款发票。
         /// </summary>
         /// <param name="prepaymentInvoice">预付款发票DTO。</param>
-        [Update(typeof(MaintainPrepaymentInvoiceDTO))]
+        [Update(typeof (MaintainPrepaymentInvoiceDTO))]
         public void ModifyMaintainPrepaymentInvoice(MaintainPrepaymentInvoiceDTO prepaymentInvoice)
         {
-            var supplier = _supplierRepository.GetFiltered(p => p.Id == prepaymentInvoice.SupplierId).FirstOrDefault();
-            var currency = _currencyRepository.GetFiltered(p => p.Id == prepaymentInvoice.CurrencyId).FirstOrDefault();
+            Supplier supplier =
+                _supplierRepository.GetFiltered(p => p.Id == prepaymentInvoice.SupplierId).FirstOrDefault();
+            Currency currency =
+                _currencyRepository.GetFiltered(p => p.Id == prepaymentInvoice.CurrencyId).FirstOrDefault();
 
-            var updatePrepaymentInvoice = _invoiceRepository.GetBasePurchaseInvoice(prepaymentInvoice.PrepaymentInvoiceId);
+            BasePurchaseInvoice updatePrepaymentInvoice =
+                _invoiceRepository.GetBasePurchaseInvoice(prepaymentInvoice.PrepaymentInvoiceId);
             //获取需要更新的对象。
             if (updatePrepaymentInvoice != null)
             {
@@ -230,14 +244,15 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         ///     删除预付款发票。
         /// </summary>
         /// <param name="prepaymentInvoice">预付款发票DTO。</param>
-        [Delete(typeof(MaintainPrepaymentInvoiceDTO))]
+        [Delete(typeof (MaintainPrepaymentInvoiceDTO))]
         public void DeleteMaintainPrepaymentInvoice(MaintainPrepaymentInvoiceDTO prepaymentInvoice)
         {
             if (prepaymentInvoice == null)
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delPrepaymentInvoice = _invoiceRepository.GetBasePurchaseInvoice(prepaymentInvoice.PrepaymentInvoiceId);
+            BasePurchaseInvoice delPrepaymentInvoice =
+                _invoiceRepository.GetBasePurchaseInvoice(prepaymentInvoice.PrepaymentInvoiceId);
             //获取需要删除的对象。
             if (delPrepaymentInvoice != null)
             {
@@ -255,12 +270,14 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         /// <param name="sourceInvoiceLines">客户端集合</param>
         /// <param name="dstInvoice">数据库集合</param>
         /// <param name="order"></param>
-        private void UpdateInvoiceLines(IEnumerable<InvoiceLineDTO> sourceInvoiceLines, BasePurchaseInvoice dstInvoice, Order order)
+        private void UpdateInvoiceLines(IEnumerable<InvoiceLineDTO> sourceInvoiceLines, BasePurchaseInvoice dstInvoice,
+            Order order)
         {
             var invoiceLines = new List<PurchaseInvoiceLine>();
-            foreach (var sourceInvoiceLine in sourceInvoiceLines)
+            foreach (InvoiceLineDTO sourceInvoiceLine in sourceInvoiceLines)
             {
-                var result = dstInvoice.InvoiceLines.FirstOrDefault(p => p.Id == sourceInvoiceLine.InvoiceLineId);
+                PurchaseInvoiceLine result =
+                    dstInvoice.InvoiceLines.FirstOrDefault(p => p.Id == sourceInvoiceLine.InvoiceLineId);
                 if (result == null)
                 {
                     result = InvoiceFactory.CreateInvoiceLine();

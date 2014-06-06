@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
@@ -37,12 +38,12 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
     ///     实现发动机服务接口。
     ///     用于处理发动机相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class EngineAppService : ContextBoundObject, IEngineAppService
     {
-        private readonly IEngineQuery _engineQuery;
         private readonly IActionCategoryRepository _actionCategoryRepository;
         private readonly IAirlinesRepository _airlinesRepository;
+        private readonly IEngineQuery _engineQuery;
         private readonly IEngineRepository _engineRepository;
         private readonly IEngineTypeRepository _engineTypeRepository;
         private readonly ISupplierRepository _supplierRepository;
@@ -76,17 +77,17 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
         ///     新增实际发动机。
         /// </summary>
         /// <param name="dto">实际发动机DTO。</param>
-        [Insert(typeof(EngineDTO))]
+        [Insert(typeof (EngineDTO))]
         public void InsertEngine(EngineDTO dto)
         {
             //获取相关数据
-            var engineType = _engineTypeRepository.Get(dto.EngineTypeId);
-            var airlines = _airlinesRepository.Get(dto.AirlinesId);
-            var importCategory = _actionCategoryRepository.Get(dto.ImportCategoryId);
-            var supplier = _supplierRepository.Get(dto.SupplierId);
+            EngineType engineType = _engineTypeRepository.Get(dto.EngineTypeId);
+            Airlines airlines = _airlinesRepository.Get(dto.AirlinesId);
+            ActionCategory importCategory = _actionCategoryRepository.Get(dto.ImportCategoryId);
+            Supplier supplier = _supplierRepository.Get(dto.SupplierId);
 
             //创建新的实际发动机
-            var newEngine = EngineFactory.CreateEngine();
+            Engine newEngine = EngineFactory.CreateEngine();
             newEngine.SetEngineType(engineType);
             newEngine.SetAirlines(airlines);
             newEngine.SetExportDate(dto.ExportDate);
@@ -111,17 +112,17 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
         ///     更新实际发动机。
         /// </summary>
         /// <param name="dto">实际发动机DTO。</param>
-        [Update(typeof(EngineDTO))]
+        [Update(typeof (EngineDTO))]
         public void ModifyEngine(EngineDTO dto)
         {
             //获取相关数据
-            var engineType = _engineTypeRepository.Get(dto.EngineTypeId);
-            var airlines = _airlinesRepository.Get(dto.AirlinesId);
-            var importCategory = _actionCategoryRepository.Get(dto.ImportCategoryId);
-            var supplier = _supplierRepository.Get(dto.SupplierId);
+            EngineType engineType = _engineTypeRepository.Get(dto.EngineTypeId);
+            Airlines airlines = _airlinesRepository.Get(dto.AirlinesId);
+            ActionCategory importCategory = _actionCategoryRepository.Get(dto.ImportCategoryId);
+            Supplier supplier = _supplierRepository.Get(dto.SupplierId);
 
             //获取
-            var updateEngine = _engineRepository.Get(dto.Id);
+            Engine updateEngine = _engineRepository.Get(dto.Id);
             if (updateEngine != null)
             {
                 //更新实际发动机
@@ -136,8 +137,8 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
                 updateEngine.SetSupplier(supplier);
 
                 //更新商业数据历史：
-                var dtoEngineBusinessHistories = dto.EngineBusinessHistories;
-                var engineBusinessHistories = updateEngine.EngineBusinessHistories;
+                List<EngineBusinessHistoryDTO> dtoEngineBusinessHistories = dto.EngineBusinessHistories;
+                ICollection<EngineBusinessHistory> engineBusinessHistories = updateEngine.EngineBusinessHistories;
                 DataHelper.DetailHandle(dtoEngineBusinessHistories.ToArray(),
                     engineBusinessHistories.ToArray(),
                     c => c.Id, p => p.Id,
@@ -146,8 +147,8 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
                     d => _engineRepository.RemoveEngineBusinessHistory(d));
 
                 //更新所有权历史：
-                var dtoEngineOwnerShipHistories = dto.EngineOwnerShipHistories;
-                var engineOwnerShipHistories = updateEngine.EngineOwnerShipHistories;
+                List<EngineOwnershipHistoryDTO> dtoEngineOwnerShipHistories = dto.EngineOwnerShipHistories;
+                ICollection<EngineOwnershipHistory> engineOwnerShipHistories = updateEngine.EngineOwnerShipHistories;
                 DataHelper.DetailHandle(dtoEngineOwnerShipHistories.ToArray(),
                     engineOwnerShipHistories.ToArray(),
                     c => c.Id, p => p.Id,
@@ -162,14 +163,14 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
         ///     删除实际发动机。
         /// </summary>
         /// <param name="dto">实际发动机DTO。</param>
-        [Delete(typeof(EngineDTO))]
+        [Delete(typeof (EngineDTO))]
         public void DeleteEngine(EngineDTO dto)
         {
             if (dto == null)
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delEngine = _engineRepository.Get(dto.Id);
+            Engine delEngine = _engineRepository.Get(dto.Id);
             //获取需要删除的对象。
             if (delEngine != null)
             {
@@ -187,17 +188,16 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
         private void InsertEngineBusinesHistory(Engine engine, EngineBusinessHistoryDTO engineBhDto)
         {
             //获取相关数据
-            var engineType = _engineTypeRepository.Get(engineBhDto.EngineTypeId);
-            var importCategory = _actionCategoryRepository.Get(engineBhDto.ImportCategoryId);
+            EngineType engineType = _engineTypeRepository.Get(engineBhDto.EngineTypeId);
+            ActionCategory importCategory = _actionCategoryRepository.Get(engineBhDto.ImportCategoryId);
 
             //添加商业数据历史
-            var newEngineBh = engine.AddNewEngineBusinessHistory();
+            EngineBusinessHistory newEngineBh = engine.AddNewEngineBusinessHistory();
             newEngineBh.SetEngineType(engineType);
             newEngineBh.SetEndDate(engineBhDto.EndDate);
             newEngineBh.SetImportCategory(importCategory);
             newEngineBh.SetStartDate(engineBhDto.StartDate);
             newEngineBh.SetMaxThrust(engineBhDto.MaxThrust);
-
         }
 
         /// <summary>
@@ -208,10 +208,10 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
         private void InsertEngineOwnershipHistory(Engine engine, EngineOwnershipHistoryDTO engineOhDto)
         {
             //获取相关数据
-            var supplier = _supplierRepository.Get(engineOhDto.SupplierId);
+            Supplier supplier = _supplierRepository.Get(engineOhDto.SupplierId);
 
             //添加所有权历史
-            var newEngineOh = engine.AddNewEngineOwnershipHistory();
+            EngineOwnershipHistory newEngineOh = engine.AddNewEngineOwnershipHistory();
             newEngineOh.SetEndDate(engineOhDto.EndDate);
             newEngineOh.SetStartDate(engineOhDto.StartDate);
             newEngineOh.SetSupplier(supplier);
@@ -225,8 +225,8 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
         private void UpdateEngineBusinessHistory(EngineBusinessHistoryDTO engineBhDto, EngineBusinessHistory engineBh)
         {
             //获取相关数据
-            var engineType = _engineTypeRepository.Get(engineBhDto.EngineTypeId);
-            var importCategory = _actionCategoryRepository.Get(engineBhDto.ImportCategoryId);
+            EngineType engineType = _engineTypeRepository.Get(engineBhDto.EngineTypeId);
+            ActionCategory importCategory = _actionCategoryRepository.Get(engineBhDto.ImportCategoryId);
 
             //更新商业数据历史
             engineBh.SetEngineType(engineType);
@@ -244,14 +244,16 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
         private void UpdateEngineOwnershipHistory(EngineOwnershipHistoryDTO engineOhDto, EngineOwnershipHistory engineOh)
         {
             //获取相关数据
-            var supplier = _supplierRepository.Get(engineOhDto.SupplierId);
+            Supplier supplier = _supplierRepository.Get(engineOhDto.SupplierId);
 
             //更新所有权历史
             engineOh.SetEndDate(engineOhDto.EndDate);
             engineOh.SetStartDate(engineOhDto.StartDate);
             engineOh.SetSupplier(supplier);
         }
+
         #endregion
+
         #endregion
     }
 }

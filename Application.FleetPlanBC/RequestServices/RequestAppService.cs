@@ -34,10 +34,12 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
     [LogAOP]
     public class RequestAppService : ContextBoundObject, IRequestAppService
     {
+        private readonly IPlanAircraftRepository _planAircraftRepository;
         private readonly IRequestQuery _requestQuery;
         private readonly IRequestRepository _requestRepository;
-        private readonly IPlanAircraftRepository _planAircraftRepository;
-        public RequestAppService(IRequestQuery requestQuery, IRequestRepository requestRepository, IPlanAircraftRepository planAircraftRepository)
+
+        public RequestAppService(IRequestQuery requestQuery, IRequestRepository requestRepository,
+            IPlanAircraftRepository planAircraftRepository)
         {
             _requestQuery = requestQuery;
             _requestRepository = requestRepository;
@@ -58,7 +60,7 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
         ///     新增申请
         /// </summary>
         /// <param name="request">申请</param>
-        [Insert(typeof(RequestDTO))]
+        [Insert(typeof (RequestDTO))]
         public void InsertRequest(RequestDTO request)
         {
             if (request == null)
@@ -66,7 +68,7 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
                 throw new Exception("申请不能为空");
             }
             //新申请
-            var newRequest = RequestFactory.CreateRequest(request.SubmitDate, request.Title,
+            Request newRequest = RequestFactory.CreateRequest(request.SubmitDate, request.Title,
                 request.CaacDocNumber, request.Status, request.LogWriter, request.CaacDocumentName,
                 request.CaacDocumentId, Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"));
             if (request.ApprovalDocId != null) newRequest.SetApprovalDoc(request.ApprovalDocId);
@@ -85,14 +87,14 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
         ///     修改申请
         /// </summary>
         /// <param name="request"></param>
-        [Update(typeof(RequestDTO))]
+        [Update(typeof (RequestDTO))]
         public void ModifyRequest(RequestDTO request)
         {
             if (request == null)
             {
                 throw new Exception("申请不能为空");
             }
-            var pesistRequest = _requestRepository.Get(request.Id);
+            Request pesistRequest = _requestRepository.Get(request.Id);
             if (pesistRequest == null)
             {
                 throw new Exception("找不到需要更新的申请");
@@ -110,9 +112,9 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             {
                 pesistRequest.SetCaacDocNumber(request.CaacDocNumber);
             }
-            if (pesistRequest.Status != (RequestStatus)request.Status)
+            if (pesistRequest.Status != (RequestStatus) request.Status)
             {
-                pesistRequest.SetRequestStatus((RequestStatus)request.Status);
+                pesistRequest.SetRequestStatus((RequestStatus) request.Status);
             }
             if (!string.IsNullOrWhiteSpace(request.LogWriter))
             {
@@ -131,8 +133,8 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
                 DeleteApprovalHistory);
 
             DataHelper.DetailHandle(request.ApprovalHistories.ToArray(), pesistRequest.ApprovalHistories.ToArray(),
-                c => c.Id, c => c.Id, c => InsertLog(pesistRequest, c),(c,p)=> ModifyLog(pesistRequest,c),
-                c=>DeleteLog(pesistRequest,c));
+                c => c.Id, c => c.Id, c => InsertLog(pesistRequest, c), (c, p) => ModifyLog(pesistRequest, c),
+                c => DeleteLog(pesistRequest, c));
 
             _requestRepository.Modify(pesistRequest);
         }
@@ -141,14 +143,14 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
         ///     删除申请
         /// </summary>
         /// <param name="request"></param>
-        [Delete(typeof(RequestDTO))]
+        [Delete(typeof (RequestDTO))]
         public void DeleteRequest(RequestDTO request)
         {
             if (request == null)
             {
                 throw new Exception("申请不能为空");
             }
-            var pesistRequest = _requestRepository.Get(request.Id);
+            Request pesistRequest = _requestRepository.Get(request.Id);
             if (pesistRequest == null)
             {
                 throw new Exception("找不到需要删除的申请");
@@ -217,16 +219,16 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             {
                 pesistApprovalHistory.SetIsApproved(approvalHistory.IsApproved);
             }
-            var persistPlanAircraft = _planAircraftRepository.Get(approvalHistory.PlanAircraftId);
-            if (persistPlanAircraft.Status != (ManageStatus)approvalHistory.PlanAircraftStatus)
+            PlanAircraft persistPlanAircraft = _planAircraftRepository.Get(approvalHistory.PlanAircraftId);
+            if (persistPlanAircraft.Status != (ManageStatus) approvalHistory.PlanAircraftStatus)
             {
                 if (pesistApprovalHistory.PlanAircraft.Status == ManageStatus.申请
-                    && approvalHistory.PlanAircraftStatus == (int)ManageStatus.批文)
+                    && approvalHistory.PlanAircraftStatus == (int) ManageStatus.批文)
                 {
-                    pesistApprovalHistory.PlanAircraft.SetManageStatus(ManageStatus.批文);//修改计划飞机为批文状态
+                    pesistApprovalHistory.PlanAircraft.SetManageStatus(ManageStatus.批文); //修改计划飞机为批文状态
                 }
                 if (pesistApprovalHistory.PlanAircraft.Status == ManageStatus.批文
-                    && approvalHistory.PlanAircraftStatus == (int)ManageStatus.申请)
+                    && approvalHistory.PlanAircraftStatus == (int) ManageStatus.申请)
                 {
                     pesistApprovalHistory.PlanAircraft.SetManageStatus(ManageStatus.申请);
                 }
@@ -250,7 +252,9 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
         /// <param name="approvalHistory"></param>
         private void InsertLog(Request request, ApprovalHistoryDTO approvalHistory)
         {
-            string log = "新增申请明细:" + approvalHistory.RequestDeliverAnnualName + "/" + approvalHistory.RequestDeliverMonth + "|" + approvalHistory.ImportCategoryName + "|" + approvalHistory.AircraftType;
+            string log = "新增申请明细:" + approvalHistory.RequestDeliverAnnualName + "/" +
+                         approvalHistory.RequestDeliverMonth + "|" + approvalHistory.ImportCategoryName + "|" +
+                         approvalHistory.AircraftType;
             request.SetNote(log);
         }
 
@@ -261,7 +265,9 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
         /// <param name="approvalHistory"></param>
         private void ModifyLog(Request request, ApprovalHistoryDTO approvalHistory)
         {
-            string log = "修改申请明细:" + approvalHistory.RequestDeliverAnnualName + "/" + approvalHistory.RequestDeliverMonth + "|" + approvalHistory.ImportCategoryName + "|" + approvalHistory.AircraftType;
+            string log = "修改申请明细:" + approvalHistory.RequestDeliverAnnualName + "/" +
+                         approvalHistory.RequestDeliverMonth + "|" + approvalHistory.ImportCategoryName + "|" +
+                         approvalHistory.AircraftType;
             request.SetNote(log);
         }
 
@@ -272,7 +278,10 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
         /// <param name="approvalHistory">申请明细</param>
         private void DeleteLog(Request request, ApprovalHistory approvalHistory)
         {
-            string log = "删除申请明细:" + approvalHistory.RequestDeliverAnnual.Year + "/" + approvalHistory.RequestDeliverMonth + "|" + approvalHistory.ImportCategory.ActionType + ":" + approvalHistory.ImportCategory.ActionName + "|" + approvalHistory.PlanAircraft.AircraftType.Name;
+            string log = "删除申请明细:" + approvalHistory.RequestDeliverAnnual.Year + "/" +
+                         approvalHistory.RequestDeliverMonth + "|" + approvalHistory.ImportCategory.ActionType + ":" +
+                         approvalHistory.ImportCategory.ActionName + "|" +
+                         approvalHistory.PlanAircraft.AircraftType.Name;
             request.SetNote(log);
         }
     }

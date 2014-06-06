@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Lucene.Net.Search;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.LuceneSearch;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
@@ -45,42 +46,48 @@ namespace UniCloud.Application.PurchaseBC.ContractDocumentServices
             Expression<Func<Order, bool>> orderDocument = p => true;
             Expression<Func<RelatedDoc, bool>> relateDocument = p => true;
             Expression<Func<MaintainContract, bool>> maintainContractDocument = p => true;
-            return _contractDocumentQuery.GetContractDocuments(orderDocument, relateDocument, maintainContractDocument).AsQueryable();
+            return
+                _contractDocumentQuery.GetContractDocuments(orderDocument, relateDocument, maintainContractDocument)
+                    .AsQueryable();
         }
 
         public List<ContractDocumentDTO> Search(string keyword)
         {
             var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
-            var queryResults = LuceneSearch.LuceneSearch.PanguQuery(keyword, "3");
+            TopDocs queryResults = LuceneSearch.LuceneSearch.PanguQuery(keyword, "3");
             if (queryResults == null) return new List<ContractDocumentDTO>();
-            var multiSearcher = IndexManager.GenerateMultiSearcher("3");
-            var documents = queryResults.scoreDocs.Select(a => multiSearcher.Doc(a.doc)).Select(result =>
-                                                                                      {
-                                                                                          Guid documentId = Guid.Parse(result.Get("ID"));
-                                                                                          Expression<Func<Order, bool>> orderDocument = p => p.ContractDocGuid == documentId;
-                                                                                          Expression<Func<RelatedDoc, bool>> relateDocument = p => p.DocumentId == documentId;
-                                                                                          Expression<Func<MaintainContract, bool>> maintainContractDocument = p => p.DocumentId == documentId;
-                                                                                          var document = _contractDocumentQuery.GetContractDocuments(orderDocument, relateDocument, maintainContractDocument).FirstOrDefault();
-                                                                                          var contractDocument = new ContractDocumentDTO
-                                                                                                 {
-                                                                                                     Id = documentId, 
-                                                                                                     DocumentId = documentId,
-                                                                                                     Abstract = ResultHighlighter.HighlightContent(keyword, result.Get("fileContent")),
-                                                                                                     DocumentName = result.Get("fileName"),
-                                                                                                 };
-                                                                                          if (document != null)
-                                                                                          {
-                                                                                              contractDocument.ContractName = document.ContractName;
-                                                                                              contractDocument.ContractNumber = document.ContractName;
-                                                                                              contractDocument.SupplierName = document.SupplierName;
-                                                                                              contractDocument.SubDocuments = document.SubDocuments;
-                                                                                          }
-                                                                                          documentPathAppService.GetDocumentPaths().Where(p => p.DocumentGuid == documentId).ToList()
-                                                                                              .ForEach(p => contractDocument.DocumentPath += p.Path + "\r\n");
-                                                                                          return contractDocument;
-                                                                                      }).ToList();
+            ParallelMultiSearcher multiSearcher = IndexManager.GenerateMultiSearcher("3");
+            List<ContractDocumentDTO> documents =
+                queryResults.scoreDocs.Select(a => multiSearcher.Doc(a.doc)).Select(result =>
+                {
+                    Guid documentId = Guid.Parse(result.Get("ID"));
+                    Expression<Func<Order, bool>> orderDocument = p => p.ContractDocGuid == documentId;
+                    Expression<Func<RelatedDoc, bool>> relateDocument = p => p.DocumentId == documentId;
+                    Expression<Func<MaintainContract, bool>> maintainContractDocument = p => p.DocumentId == documentId;
+                    ContractDocumentDTO document =
+                        _contractDocumentQuery.GetContractDocuments(orderDocument, relateDocument,
+                            maintainContractDocument).FirstOrDefault();
+                    var contractDocument = new ContractDocumentDTO
+                    {
+                        Id = documentId,
+                        DocumentId = documentId,
+                        Abstract = ResultHighlighter.HighlightContent(keyword, result.Get("fileContent")),
+                        DocumentName = result.Get("fileName"),
+                    };
+                    if (document != null)
+                    {
+                        contractDocument.ContractName = document.ContractName;
+                        contractDocument.ContractNumber = document.ContractName;
+                        contractDocument.SupplierName = document.SupplierName;
+                        contractDocument.SubDocuments = document.SubDocuments;
+                    }
+                    documentPathAppService.GetDocumentPaths().Where(p => p.DocumentGuid == documentId).ToList()
+                        .ForEach(p => contractDocument.DocumentPath += p.Path + "\r\n");
+                    return contractDocument;
+                }).ToList();
             return documents;
         }
+
         #endregion
     }
 }

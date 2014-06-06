@@ -32,7 +32,7 @@ namespace UniCloud.Application.PartBC.OilMonitorServices
     /// <summary>
     ///     滑油监控应用服务接口实现
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class OilMonitorAppService : ContextBoundObject, IOilMonitorAppService
     {
         private readonly IOilMonitorQuery _oilMonitorQuery;

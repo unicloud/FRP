@@ -32,7 +32,7 @@ namespace UniCloud.Application.FleetPlanBC.ActionCategoryServices
     ///     实现活动类型服务接口。
     ///     用于处理活动类型相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class ActionCategoryAppService : ContextBoundObject, IActionCategoryAppService
     {
         private readonly IActionCategoryQuery _actionCategoryQuery;

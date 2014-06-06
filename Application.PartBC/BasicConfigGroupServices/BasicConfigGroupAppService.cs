@@ -97,7 +97,7 @@ namespace UniCloud.Application.PartBC.BasicConfigGroupServices
                 updateBasicConfigGroup.SetAircraftType(aircraftType);
                 updateBasicConfigGroup.SetDescription(dto.Description);
                 updateBasicConfigGroup.SetGroupNo(dto.GroupNo);
-                _basicConfigGroupRepository.Modify(updateBasicConfigGroup); 
+                _basicConfigGroupRepository.Modify(updateBasicConfigGroup);
             }
         }
 
