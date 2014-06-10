@@ -105,6 +105,9 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     CanSelectBFEMaterial = !BFEMaterials.HasChanges;
                 }
             };
+
+            Manufacturers=new QueryableDataServiceCollectionView<ManufacturerDTO>(_context,_context.Manufacturers);
+            Manufacturers.FilterDescriptors.Add(new FilterDescriptor("Type",FilterOperator.IsEqualTo,2));
         }
 
         #endregion
@@ -112,7 +115,10 @@ namespace UniCloud.Presentation.Purchase.Supplier
         #region 数据
 
         #region 公共属性
-
+        /// <summary>
+        ///     制造商集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ManufacturerDTO> Manufacturers { get; set; }
         #endregion
 
         #region 加载数据

@@ -273,7 +273,8 @@
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="SupplierCompanyId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ManufacturerId" Type="Edm.Guid" />
+        <Property Name="Manufacturer" Type="Edm.String" />
       </EntityType>
       <EntityType Name="BFEMaterialDTO">
         <Key>
@@ -282,8 +283,9 @@
         <Property Name="BFEMaterialId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
-        <Property Name="PartId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="SupplierCompanyId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="ManufacturerId" Type="Edm.Guid" />
+        <Property Name="Manufacturer" Type="Edm.String" />
       </EntityType>
       <EntityType Name="EngineMaterialDTO">
         <Key>
@@ -292,8 +294,9 @@
         <Property Name="EngineMaterialId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
-        <Property Name="PartId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="SupplierCompanyId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="ManufacturerId" Type="Edm.Guid" />
+        <Property Name="Manufacturer" Type="Edm.String" />
         <Property Name="ListPrice" Type="Edm.Decimal" Nullable="false" />
       </EntityType>
       <EntityType Name="PartDTO">
@@ -796,6 +799,15 @@
         <Property Name="ContractNumber" Type="Edm.String" />
         <Property Name="SupplierName" Type="Edm.String" />
       </ComplexType>
+      <EntityType Name="ManufacturerDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CnName" Type="Edm.String" />
+        <Property Name="EnName" Type="Edm.String" />
+        <Property Name="Type" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
       <Association Name="ContractAircraftDTO_BFEPurchaseOrders">
         <End Type="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO" Role="ContractAircraftDTO" Multiplicity="*" />
         <End Type="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" Role="BFEPurchaseOrders" Multiplicity="*" />
@@ -867,7 +879,7 @@
         <EntitySet Name="ContractEngines" EntityType="UniCloud.Application.PurchaseBC.DTO.ContractEngineDTO" />
         <EntitySet Name="LeaseContractEngines" EntityType="UniCloud.Application.PurchaseBC.DTO.LeaseContractEngineDTO" />
         <EntitySet Name="PurchaseContractEngines" EntityType="UniCloud.Application.PurchaseBC.DTO.PurchaseContractEngineDTO" />
-        <EntitySet Name="AircraftMaterias" EntityType="UniCloud.Application.PurchaseBC.DTO.AircraftMaterialDTO" />
+        <EntitySet Name="AircraftMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.AircraftMaterialDTO" />
         <EntitySet Name="BFEMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.BFEMaterialDTO" />
         <EntitySet Name="EngineMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.EngineMaterialDTO" />
         <EntitySet Name="Parts" EntityType="UniCloud.Application.PurchaseBC.DTO.PartDTO" />
@@ -889,6 +901,7 @@
         <EntitySet Name="Currencies" EntityType="UniCloud.Application.PurchaseBC.DTO.CurrencyDTO" />
         <EntitySet Name="DocumentPaths" EntityType="UniCloud.Application.PurchaseBC.DTO.DocumentPathDTO" />
         <EntitySet Name="ContractDocuments" EntityType="UniCloud.Application.PurchaseBC.DTO.ContractDocumentDTO" />
+        <EntitySet Name="Manufacturers" EntityType="UniCloud.Application.PurchaseBC.DTO.ManufacturerDTO" />
         <FunctionImport Name="AddDocPath" m:HttpMethod="GET">
           <Parameter Name="name" Type="Edm.String" />
           <Parameter Name="isLeaf" Type="Edm.String" />

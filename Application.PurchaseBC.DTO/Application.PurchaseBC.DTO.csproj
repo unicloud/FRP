@@ -77,6 +77,7 @@
     <Compile Include="DocumentPaths\DocumentPathDTO.cs" />
     <Compile Include="DocumentPaths\SubDocumentPathDTO.cs" />
     <Compile Include="ForwarderDTO\ForwarderDTO.cs" />
+    <Compile Include="ManufacturerDTO\ManufacturerDTO.cs" />
     <Compile Include="MaterialDTO\AircraftMaterialDTO.cs" />
     <Compile Include="MaterialDTO\BFEMaterialDTO.cs" />
     <Compile Include="MaterialDTO\EngineMaterialDTO.cs" />

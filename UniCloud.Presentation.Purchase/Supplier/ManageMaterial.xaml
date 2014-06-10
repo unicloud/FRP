@@ -28,6 +28,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="35" />
                         <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1"
                                Text="名称"
@@ -50,8 +51,20 @@
                              Grid.Row="1"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Description, Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Text="制造商"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <telerik:RadComboBox ItemsSource="{Binding Manufacturers}"
+                                         Grid.Row="2"
+                                         Grid.Column="2"
+                                         IsReadOnly="True"
+                                         Height="{StaticResource ControlHeight}"
+                                         SelectedValue="{Binding EngineMaterial.ManufacturerId,Mode=TwoWay}"
+                                         SelectedValuePath="Id"
+                                         DisplayMemberPath="Name" />
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="EngineMaterialEditNewTemplate">
@@ -63,6 +76,7 @@
                         <ColumnDefinition Width="0.1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
                         <RowDefinition Height="35" />
                         <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
@@ -87,6 +101,22 @@
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Description, Mode=TwoWay}">
                     </TextBox>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Text="制造商"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <telerik:RadComboBox ItemsSource="{Binding Manufacturers}"
+                                         Grid.Row="2"
+                                         Grid.Column="2"
+                                         IsEditable="False"
+                                         IsReadOnly="True"
+                                         ClearSelectionButtonVisibility="Visible"
+                                         ClearSelectionButtonContent="清除选择"
+                                         Height="{StaticResource ControlHeight}"
+                                         SelectedValue="{Binding EngineMaterial.ManufacturerId,Mode=TwoWay}"
+                                         SelectedValuePath="Id"
+                                         DisplayMemberPath="Name" />
                 </Grid>
             </DataTemplate>
 
@@ -202,11 +232,11 @@
                                                                  RowIndicatorVisibility="Visible">
                                                 <telerik:RadGridView.Columns>
                                                     <input:DataPageSerialColumn  Header="序号" />
-                                                    <telerik:GridViewDataColumn Header="工作代码"
+                                                    <telerik:GridViewDataColumn Header="名称"
                                                                                 IsSortable="True"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 HeaderTextAlignment="Center"
-                                                                                DataMemberBinding="{Binding WorkCode}" />
+                                                                                DataMemberBinding="{Binding Name}" />
                                                     <telerik:GridViewDataColumn Header="描述"
                                                                                 IsSortable="True"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -214,6 +244,12 @@
                                                                                 MaxWidth="250"
                                                                                 TextWrapping="Wrap"
                                                                                 DataMemberBinding="{Binding Description}" />
+                                                    <telerik:GridViewComboBoxColumn Header="制造商"
+                                                                                    DataMemberBinding="{Binding ManufacturerId}"
+                                                                                    ItemsSource="{Binding Manufacturers}"
+                                                                                    SelectedValueMemberPath="Id"
+                                                                                    DisplayMemberPath="Name"
+                                                                                    IsReadOnly="True" />
                                                 </telerik:RadGridView.Columns>
                                             </telerik:RadGridView>
                                         </Grid>
@@ -230,7 +266,7 @@
                         </telerik:RadSplitContainer>
                         <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
                             <telerik:RadPaneGroup>
-                                <telerik:RadPane Header="编辑工作代码"
+                                <telerik:RadPane Header="编辑发动机物料"
                                                  IsPinned="True"
                                                  CanFloat="False"
                                                  CanDockInDocumentHost="False"
@@ -324,7 +360,7 @@
                         <telerik:RadSplitContainer Visibility="Collapsed"
                                                    telerik:ProportionalStackPanel.RelativeSize="300, 600">
                             <telerik:RadPaneGroup>
-                                <telerik:RadPane Header="编辑控制单位"
+                                <telerik:RadPane Header="编辑BFE物料"
                                                  IsPinned="True"
                                                  CanFloat="False"
                                                  CanDockInDocumentHost="False"

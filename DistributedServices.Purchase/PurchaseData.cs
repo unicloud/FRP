@@ -28,6 +28,7 @@ using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaintainContractServices;
+using UniCloud.Application.PurchaseBC.ManufacturerServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
 using UniCloud.Application.PurchaseBC.PartServices;
 using UniCloud.Application.PurchaseBC.PlanAircraftServices;
@@ -62,6 +63,7 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly ILeaseContractEngineAppService _leaseContractEngineAppService;
         private readonly IMaintainContractAppService _maintainContractAppService;
         private readonly IMaterialAppService _materialAppService;
+        private readonly IManufacturerAppService _manufacturerAppService;
         private readonly IPartAppService _partAppService;
         private readonly IPlanAircraftAppService _planAircraftAppService;
         private readonly IPurchaseContractAircraftAppService _purchaseContractAircraftAppService;
@@ -96,6 +98,7 @@ namespace UniCloud.DistributedServices.Purchase
             _documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
             _contractDocumentAppService = DefaultContainer.Resolve<IContractDocumentAppService>();
             _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
+            _manufacturerAppService = DefaultContainer.Resolve<IManufacturerAppService>();
         }
 
         #region 合作公司相关集合
@@ -267,7 +270,7 @@ namespace UniCloud.DistributedServices.Purchase
         /// <summary>
         ///     飞机物料
         /// </summary>
-        public IQueryable<AircraftMaterialDTO> AircraftMaterias
+        public IQueryable<AircraftMaterialDTO> AircraftMaterials
         {
             get { return _materialAppService.GetAircraftMaterials(); }
         }
@@ -466,6 +469,15 @@ namespace UniCloud.DistributedServices.Purchase
         public IQueryable<ContractDocumentDTO> ContractDocuments
         {
             get { return _contractDocumentAppService.GetContractDocuments(); }
+        }
+
+        #endregion
+        
+        #region 制造商
+
+        public IQueryable<ManufacturerDTO> Manufacturers
+        {
+            get { return _manufacturerAppService.GetManufacturers(); }
         }
 
         #endregion

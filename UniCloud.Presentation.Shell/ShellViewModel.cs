@@ -514,6 +514,7 @@ namespace UniCloud.Presentation.Shell
                 Text = "管理物料",
                 NavUri = "UniCloud.Presentation.Purchase.Supplier.ManageMaterial"
             };
+            menu3.Items.Add(menu36);
 
             var menu31 = new MenuItem
             {
