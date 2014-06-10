@@ -96,32 +96,32 @@ namespace UniCloud.DataService.DataProcess
             while (DateTime.Today > lastDate)
             {
                 decimal qsr;
-                var tsr = flights.TakeWhile(f => f.TakeOff < lastDate.AddDays(1)).Sum(f => f.FlightHours);
+                //var tsr = flights.TakeWhile(f => f.TakeOff < lastDate.AddDays(1)).Sum(f => f.FlightHours);
                 switch (positon)
                 {
                     case Position.发动机1:
-                        qsr =
-                            flights.TakeWhile(f => f.TakeOff < lastDate.AddDays(1))
-                                .Sum(f => f.ENG1OilDep + f.ENG1OilArr);
-                        oilMonitors.Add(CreateOilMonitor(lastDate, tsr, qsr));
+                        //qsr =
+                        //    flights.TakeWhile(f => f.TakeOff < lastDate.AddDays(1))
+                        //        .Sum(f => f.ENG1OilDep + f.ENG1OilArr);
+                        //oilMonitors.Add(CreateOilMonitor(lastDate, tsr, qsr));
                         break;
                     case Position.发动机2:
-                        qsr =
-                            flights.TakeWhile(f => f.TakeOff < lastDate.AddDays(1))
-                                .Sum(f => f.ENG2OilDep + f.ENG2OilArr);
-                        oilMonitors.Add(CreateOilMonitor(lastDate, tsr, qsr));
+                        //qsr =
+                        //    flights.TakeWhile(f => f.TakeOff < lastDate.AddDays(1))
+                        //        .Sum(f => f.ENG2OilDep + f.ENG2OilArr);
+                        //oilMonitors.Add(CreateOilMonitor(lastDate, tsr, qsr));
                         break;
                     case Position.发动机3:
-                        qsr =
-                            flights.TakeWhile(f => f.TakeOff < lastDate.AddDays(1))
-                                .Sum(f => f.ENG3OilDep + f.ENG3OilArr);
-                        oilMonitors.Add(CreateOilMonitor(lastDate, tsr, qsr));
+                        //qsr =
+                        //    flights.TakeWhile(f => f.TakeOff < lastDate.AddDays(1))
+                        //        .Sum(f => f.ENG3OilDep + f.ENG3OilArr);
+                        //oilMonitors.Add(CreateOilMonitor(lastDate, tsr, qsr));
                         break;
                     case Position.发动机4:
-                        qsr =
-                            flights.TakeWhile(f => f.TakeOff < lastDate.AddDays(1))
-                                .Sum(f => f.ENG4OilDep + f.ENG4OilArr);
-                        oilMonitors.Add(CreateOilMonitor(lastDate, tsr, qsr));
+                        //qsr =
+                        //    flights.TakeWhile(f => f.TakeOff < lastDate.AddDays(1))
+                        //        .Sum(f => f.ENG4OilDep + f.ENG4OilArr);
+                        //oilMonitors.Add(CreateOilMonitor(lastDate, tsr, qsr));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -140,7 +140,7 @@ namespace UniCloud.DataService.DataProcess
         /// <returns>滑油监控记录</returns>
         private OilMonitor CreateOilMonitor(DateTime date, decimal tsr, decimal qsr)
         {
-
+            return null;
         }
     }
 }
