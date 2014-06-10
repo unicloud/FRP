@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System.Collections.Generic;
 using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
@@ -33,13 +34,17 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
 
         public override void InitialData()
         {
-            var currency = new Currency
+            var currencies = new List<Currency>
             {
-                CnName = "美元",
-                EnName = "Dollers"
+                CurrencyFactory.CreateCurrency("美元", "USD", "US$"),
+                CurrencyFactory.CreateCurrency("人民币", "CNY", "¥"),
+                CurrencyFactory.CreateCurrency("欧元", "EUR", "€"),
+                CurrencyFactory.CreateCurrency("英镑", "GBP", "£"),
+                CurrencyFactory.CreateCurrency("加元", "CAD", "Can$"),
+                CurrencyFactory.CreateCurrency("澳元", "AUD", "$A"),
+                CurrencyFactory.CreateCurrency("港元", "HKD", "HK$"),
             };
-            currency.GenerateNewIdentity();
-            Context.Currencies.Add(currency);
+            currencies.ForEach(a => Context.Currencies.Add(a));
         }
     }
 }
