@@ -18,6 +18,7 @@ using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
+using UniCloud.Infrastructure.Data;
 
 #endregion
 
@@ -25,11 +26,10 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
 {
     public class MaintainInvoiceQuery : IMaintainInvoiceQuery
     {
-        private readonly IInvoiceRepository _invoiceRepository;
-
-        public MaintainInvoiceQuery(IInvoiceRepository invoiceRepository)
+        private readonly IQueryableUnitOfWork _unitOfWork;
+        public MaintainInvoiceQuery(IQueryableUnitOfWork unitOfWork)
         {
-            _invoiceRepository = invoiceRepository;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
             QueryBuilder<Invoice> query)
         {
             return
-                query.ApplyTo(_invoiceRepository.GetAll().OfType<Invoice>())
+                query.ApplyTo(_unitOfWork.CreateSet<Invoice>())
                     .Select(p => new BaseInvoiceDTO
                     {
                         InvoiceId = p.Id,
@@ -74,7 +74,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
             QueryBuilder<EngineMaintainInvoice> query)
         {
             return
-                query.ApplyTo(_invoiceRepository.GetAll().OfType<EngineMaintainInvoice>())
+                query.ApplyTo(_unitOfWork.CreateSet<EngineMaintainInvoice>())
                     .Select(p => new EngineMaintainInvoiceDTO
                                  {
                                      EngineMaintainInvoiceId = p.Id,
@@ -123,7 +123,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
            QueryBuilder<MaintainInvoice> query)
         {
             return
-                query.ApplyTo(_invoiceRepository.GetAll().OfType<APUMaintainInvoice>())
+                query.ApplyTo(_unitOfWork.CreateSet<APUMaintainInvoice>())
                     .Select(p => new APUMaintainInvoiceDTO
                                  {
                                      APUMaintainInvoiceId = p.Id,
@@ -170,7 +170,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
              QueryBuilder<MaintainInvoice> query)
         {
             return
-                query.ApplyTo(_invoiceRepository.GetAll().OfType<AirframeMaintainInvoice>())
+                query.ApplyTo(_unitOfWork.CreateSet<AirframeMaintainInvoice>())
                     .Select(p => new AirframeMaintainInvoiceDTO
                                  {
                                      AirframeMaintainInvoiceId = p.Id,
@@ -217,7 +217,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
             QueryBuilder<MaintainInvoice> query)
         {
             return
-                query.ApplyTo(_invoiceRepository.GetAll().OfType<UndercartMaintainInvoice>())
+                query.ApplyTo(_unitOfWork.CreateSet<UndercartMaintainInvoice>())
                     .Select(p => new UndercartMaintainInvoiceDTO
                                  {
                                      UndercartMaintainInvoiceId
@@ -265,7 +265,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
             QueryBuilder<SpecialRefitInvoice> query)
         {
             return
-                query.ApplyTo(_invoiceRepository.GetAll().OfType<SpecialRefitInvoice>())
+                query.ApplyTo(_unitOfWork.CreateSet<SpecialRefitInvoice>())
                      .Select(p => new SpecialRefitInvoiceDTO
                      {
                          SpecialRefitId = p.Id,

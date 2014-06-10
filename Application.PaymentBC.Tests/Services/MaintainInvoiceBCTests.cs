@@ -19,9 +19,12 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
+using UniCloud.Application.PaymentBC.Query.MaintainCostQueries;
 using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
@@ -43,6 +46,9 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
                 .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .RegisterType<IInvoiceRepository, InvoiceRepository>()
                 .RegisterType<IMaintainInvoiceAppService, MaintainInvoiceAppService>()
+                .RegisterType<ISupplierRepository, SupplierRepository>()
+                .RegisterType<IMaintainCostQuery, MaintainCostQuery>()
+                .RegisterType<IMaintainCostRepository, MaintainCostRepository>()
                 .RegisterType<IMaintainInvoiceQuery, MaintainInvoiceQuery>();
         }
 
@@ -80,6 +86,19 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
             //service.InsertApuMaintainInvoice(add);
             // Assert
             //Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
+        public void GetInvoices()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<IMaintainInvoiceAppService>();
+
+            // Act
+            var result = service.GetInvoices().ToList();
+
+            // Assert
+            Assert.IsTrue(result.Any());
         }
     }
 }
