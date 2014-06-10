@@ -61,6 +61,7 @@
     <Compile Include="Repositories\BasicConfigRepository.cs" />
     <Compile Include="Repositories\ContractAircraftRepository.cs" />
     <Compile Include="Repositories\CtrlUnitRepository.cs" />
+    <Compile Include="Repositories\FlightLogRepository.cs" />
     <Compile Include="Repositories\InstallControllerRepository.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
     <Compile Include="Repositories\MaintainCtrlRepository.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainPlanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainPlanDetailEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineRegEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\FlightLogEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\InstallControllerEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ItemEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ItemMaintainCtrlEntityConfiguration.cs" />

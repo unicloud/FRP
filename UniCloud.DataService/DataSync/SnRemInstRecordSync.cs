@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -17,12 +19,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.DataService.Connection;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
-using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 
@@ -32,8 +31,9 @@ namespace UniCloud.DataService.DataSync
 {
     public class SnRemInstRecordSync : DataSync
     {
-        private readonly PartBCUnitOfWork _unitOfWork;
         private const int Size = 300;
+        private readonly PartBCUnitOfWork _unitOfWork;
+
         public SnRemInstRecordSync(PartBCUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -43,6 +43,7 @@ namespace UniCloud.DataService.DataSync
         public List<SnRemInstRecordDTO> AmasisDatas { get; protected set; }
         public List<SnRemInstRecord> FrpDatas { get; protected set; }
         public List<Aircraft> AircraftDatas { get; protected set; }
+
         public override void ImportAmasisData()
         {
             const string strSql =
@@ -66,13 +67,13 @@ namespace UniCloud.DataService.DataSync
             ImportFrpData();
             if (AmasisDatas.Any())
             {
-                var times = AmasisDatas.Count / Size;
+                var times = AmasisDatas.Count/Size;
                 for (var i = 0; i < times + 1; i++)
                 {
-                    var count = i == times ? AmasisDatas.Count - i * Size : Size;
-                    foreach (var snRemInstRecord in AmasisDatas.Skip(i * Size).Take(count))
+                    var count = i == times ? AmasisDatas.Count - i*Size : Size;
+                    foreach (var snRemInstRecord in AmasisDatas.Skip(i*Size).Take(count))
                     {
-                        Aircraft aircraft = AircraftDatas.FirstOrDefault(p =>
+                        var aircraft = AircraftDatas.FirstOrDefault(p =>
                             p.RegNumber.Substring(p.RegNumber.Length - 4, 4) ==
                             snRemInstRecord.RegNumber.Substring(snRemInstRecord.RegNumber.Length - 4, 4));
                         var dbSnRemInstRecord = FrpDatas.FirstOrDefault(p => p.ActionNo == snRemInstRecord.ActionNo);
@@ -87,19 +88,18 @@ namespace UniCloud.DataService.DataSync
                             {
                                 dbSnRemInstRecord.SetActionDate(snRemInstRecord.ActionDate); //更新已有拆换记录的拆换时间
                             }
-                            if (aircraft==null)
+                            if (aircraft == null)
                             {
                                 //日志记录“拆装记录关联的飞机出错”
                             }
-                            else if(dbSnRemInstRecord.AircraftId!=aircraft.Id)
+                            else if (dbSnRemInstRecord.AircraftId != aircraft.Id)
                                 dbSnRemInstRecord.SetAircraft(aircraft);
-                            
-                            if(dbSnRemInstRecord.Position!=snRemInstRecord.Position)
-                                dbSnRemInstRecord.SetPosition(snRemInstRecord.Position);
                         }
                         else
                         {
-                            var newSnRemInstRecord = SnRemInstRecordFactory.CreateSnRemInstRecord(snRemInstRecord.ActionNo, DateTime.Now, 1, snRemInstRecord.Position,null,aircraft);//创建新的拆换记录
+                            var newSnRemInstRecord =
+                                SnRemInstRecordFactory.CreateSnRemInstRecord(snRemInstRecord.ActionNo, DateTime.Now, 1,
+                                    null, aircraft); //创建新的拆换记录
                             FrpDatas.Add(newSnRemInstRecord);
                         }
                     }

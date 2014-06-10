@@ -70,6 +70,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnHistoryAgg
         public DateTime ActionDate { get; private set; }
 
         /// <summary>
+        ///     位置信息
+        /// </summary>
+        public Position Position { get; private set; }
+
+        /// <summary>
         /// 操作类型 拆下/装上/非拆换
         /// </summary>
         public ActionType ActionType { get; private set; }
@@ -185,6 +190,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnHistoryAgg
                 default:
                     throw new ArgumentOutOfRangeException("actionType");
             }
+        }
+
+        /// <summary>
+        ///     设置位置信息
+        /// </summary>
+        /// <param name="position">位置信息</param>
+        public void SetPosition(Position position)
+        {
+            Position = position;
         }
 
         /// <summary>

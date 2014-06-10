@@ -62,6 +62,7 @@
     <Compile Include="Connection\SqlServerConn.cs" />
     <Compile Include="Dapper\SqlMapper.cs" />
     <Compile Include="Dapper\SqlMapper_Extensions.cs" />
+    <Compile Include="DataProcess\OilDataProcess.cs" />
     <Compile Include="DataSync\AircraftSeriesSync.cs" />
     <Compile Include="DataSync\AtaSync.cs" />
     <Compile Include="DataSync\DataSync.cs" />

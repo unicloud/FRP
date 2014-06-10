@@ -73,12 +73,12 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
         [Insert(typeof (BasicConfigDTO))]
         public void InsertBasicConfig(BasicConfigDTO dto)
         {
-            Item item = _itemRepository.Get(dto.ItemId);
+            var item = _itemRepository.Get(dto.ItemId);
             AcConfig parentAcConfig = _basicConfigRepository.Get(dto.ParentId);
-            BasicConfigGroup basicConfigGroup = _basicConfigGroupRepository.Get(dto.BasicConfigGroupId);
+            var basicConfigGroup = _basicConfigGroupRepository.Get(dto.BasicConfigGroupId);
 
             //创建基本构型
-            BasicConfig newBasicConfig = BasicConfigFactory.CreateBasicConfig(dto.Position, dto.Description, item,
+            var newBasicConfig = BasicConfigFactory.CreateBasicConfig(dto.Position, dto.Description, item,
                 parentAcConfig, basicConfigGroup);
             newBasicConfig.ChangeCurrentIdentity(dto.Id);
             _basicConfigRepository.Add(newBasicConfig);
@@ -91,11 +91,11 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
         [Update(typeof (BasicConfigDTO))]
         public void ModifyBasicConfig(BasicConfigDTO dto)
         {
-            Item item = _itemRepository.Get(dto.ItemId);
+            var item = _itemRepository.Get(dto.ItemId);
             AcConfig parentAcConfig = _basicConfigRepository.Get(dto.ParentId);
 
             //获取需要更新的对象
-            BasicConfig updateBasicConfig = _basicConfigRepository.Get(dto.Id);
+            var updateBasicConfig = _basicConfigRepository.Get(dto.Id);
 
             if (updateBasicConfig != null)
             {
@@ -118,7 +118,7 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
             {
                 throw new ArgumentException("参数为空！");
             }
-            BasicConfig delBasicConfig = _basicConfigRepository.Get(dto.Id);
+            var delBasicConfig = _basicConfigRepository.Get(dto.Id);
             //获取需要删除的对象。
 
             if (delBasicConfig != null)

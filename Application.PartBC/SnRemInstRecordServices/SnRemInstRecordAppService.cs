@@ -70,11 +70,10 @@ namespace UniCloud.Application.PartBC.SnRemInstRecordServices
         [Insert(typeof (SnRemInstRecordDTO))]
         public void InsertSnRemInstRecord(SnRemInstRecordDTO dto)
         {
-            Aircraft aircraft = _aircraftRepository.Get(dto.AircraftId);
+            var aircraft = _aircraftRepository.Get(dto.AircraftId);
 
-            SnRemInstRecord newSnRemInstRecord = SnRemInstRecordFactory.CreateSnRemInstRecord(dto.ActionNo,
-                dto.ActionDate, dto.ActionType,
-                dto.Position, dto.Reason, aircraft);
+            var newSnRemInstRecord = SnRemInstRecordFactory.CreateSnRemInstRecord(dto.ActionNo,
+                dto.ActionDate, dto.ActionType, dto.Reason, aircraft);
             newSnRemInstRecord.ChangeCurrentIdentity(dto.Id);
 
             _snRemInstRecordRepository.Add(newSnRemInstRecord);
@@ -87,9 +86,9 @@ namespace UniCloud.Application.PartBC.SnRemInstRecordServices
         [Update(typeof (SnRemInstRecordDTO))]
         public void ModifySnRemInstRecord(SnRemInstRecordDTO dto)
         {
-            Aircraft aircraft = _aircraftRepository.Get(dto.AircraftId);
+            var aircraft = _aircraftRepository.Get(dto.AircraftId);
 
-            SnRemInstRecord updateSnRemInstRecord = _snRemInstRecordRepository.Get(dto.Id); //获取需要更新的对象。
+            var updateSnRemInstRecord = _snRemInstRecordRepository.Get(dto.Id); //获取需要更新的对象。
 
             if (updateSnRemInstRecord != null)
             {
@@ -97,7 +96,6 @@ namespace UniCloud.Application.PartBC.SnRemInstRecordServices
                 updateSnRemInstRecord.SetActionNo(dto.ActionNo);
                 updateSnRemInstRecord.SetActionDate(dto.ActionDate);
                 updateSnRemInstRecord.SetActionType((ActionType) dto.ActionType);
-                updateSnRemInstRecord.SetPosition(dto.Position);
                 updateSnRemInstRecord.SetReason(dto.Reason);
                 updateSnRemInstRecord.SetAircraft(aircraft);
                 _snRemInstRecordRepository.Modify(updateSnRemInstRecord);
@@ -111,7 +109,7 @@ namespace UniCloud.Application.PartBC.SnRemInstRecordServices
         [Delete(typeof (SnRemInstRecordDTO))]
         public void DeleteSnRemInstRecord(SnRemInstRecordDTO dto)
         {
-            SnRemInstRecord delSnRemInstRecord = _snRemInstRecordRepository.Get(dto.Id); //获取需要删除的对象。
+            var delSnRemInstRecord = _snRemInstRecordRepository.Get(dto.Id); //获取需要删除的对象。
             _snRemInstRecordRepository.Remove(delSnRemInstRecord); //删除SnRemInstRecord。
         }
 

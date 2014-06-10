@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -60,15 +62,10 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg
         public ActionType ActionType { get; private set; }
 
         /// <summary>
-        ///     拆装位置
-        /// </summary>
-        public string Position { get; private set; }
-
-        /// <summary>
         ///     拆装原因
         /// </summary>
         public string Reason { get; private set; }
-        
+
         #endregion
 
         #region 外键属性
@@ -132,15 +129,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg
                 default:
                     throw new ArgumentOutOfRangeException("actionType");
             }
-        }
-        
-        /// <summary>
-        ///     设置拆装位置
-        /// </summary>
-        /// <param name="position">拆装位置</param>
-        public void SetPosition(string position)
-        {
-            Position = position;
         }
 
         /// <summary>

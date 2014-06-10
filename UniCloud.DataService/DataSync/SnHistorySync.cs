@@ -92,8 +92,9 @@ namespace UniCloud.DataService.DataSync
                             _unitOfWork.CreateSet<SnRemInstRecord>().FirstOrDefault(p => p.ActionNo == move.ActionNo);
                         if (snRemInstRecord != null)
                         {
-                            SnHistory dbSnHistory =
-                                FrpDatas.FirstOrDefault(p => p.Sn == move.Sn && p.RemoveRecordId == snRemInstRecord.Id);
+                            SnHistory dbSnHistory = null;
+                            //SnHistory dbSnHistory =
+                            //    FrpDatas.FirstOrDefault(p => p.Sn == move.Sn && p.RemoveRecordId == snRemInstRecord.Id);
                             var aircraft =
                                 _unitOfWork.CreateSet<Aircraft>()
                                     .FirstOrDefault(p => p.RegNumber == move.RegNumber);
@@ -119,16 +120,16 @@ namespace UniCloud.DataService.DataSync
                                     dbSnHistory.SetPn(pnReg);
                                 }
 
-                                if (dbSnHistory.InstallDate != move.MovementDate)
-                                {
-                                    dbSnHistory.SetInstallDate(move.MovementDate);
-                                }
+                                //if (dbSnHistory.InstallDate != move.MovementDate)
+                                //{
+                                //    dbSnHistory.SetInstallDate(move.MovementDate);
+                                //}
                             }
                             else
                             {
-                                var newSnHistory = SnHistoryFactory.CreateSnHistory(snReg, pnReg, 0, 0, 0, 0, aircraft,
-                                    move.MovementDate, null, snRemInstRecord, null);
-                                _unitOfWork.SnHistories.Add(newSnHistory);
+                                //var newSnHistory = SnHistoryFactory.CreateSnHistory(snReg, pnReg, 0, 0, 0, 0, aircraft,
+                                //    move.MovementDate, null, snRemInstRecord, null);
+                                //_unitOfWork.SnHistories.Add(newSnHistory);
                             }
                         }
                     }
@@ -159,13 +160,13 @@ namespace UniCloud.DataService.DataSync
                             }
                             else
                             {
-                                var dbSnHistory =
-                                    FrpDatas.Where(p => p.Sn == move.Sn && p.AircraftId == aircraft.Id && p.InstallDate <= move.MovementDate).ToList().OrderBy(p => p.InstallDate).LastOrDefault();
-                                if (dbSnHistory != null)//更新这条记录的拆下历史
-                                {
-                                    dbSnHistory.SetRemoveDate(move.MovementDate);
-                                    dbSnHistory.SetRemoveRecord(snRemInstRecord);
-                                }
+                                //var dbSnHistory =
+                                //    FrpDatas.Where(p => p.Sn == move.Sn && p.AircraftId == aircraft.Id && p.InstallDate <= move.MovementDate).ToList().OrderBy(p => p.InstallDate).LastOrDefault();
+                                //if (dbSnHistory != null)//更新这条记录的拆下历史
+                                //{
+                                //    dbSnHistory.SetRemoveDate(move.MovementDate);
+                                //    dbSnHistory.SetRemoveRecord(snRemInstRecord);
+                                //}
                             }
 
                         }

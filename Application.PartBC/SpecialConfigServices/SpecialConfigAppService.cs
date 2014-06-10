@@ -74,11 +74,11 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
         public void InsertSpecialConfig(SpecialConfigDTO dto)
         {
             //获取相关数据
-            Item item = _itemRepository.Get(dto.ItemId);
-            ContractAircraft contractAircraft = _contractAircraftRepository.Get(dto.ContractAircraftId);
-            SpecialConfig parentAcConfig = _specialConfigRepository.Get(dto.ParentId);
+            var item = _itemRepository.Get(dto.ItemId);
+            var contractAircraft = _contractAircraftRepository.Get(dto.ContractAircraftId);
+            var parentAcConfig = _specialConfigRepository.Get(dto.ParentId);
 
-            SpecialConfig newSpecialConfig = SpecialConfigFactory.CreateSpecialConfig(dto.Position, dto.Description,
+            var newSpecialConfig = SpecialConfigFactory.CreateSpecialConfig(dto.Position, dto.Description,
                 item, parentAcConfig,
                 dto.StartDate, dto.EndDate, contractAircraft);
             newSpecialConfig.ChangeCurrentIdentity(dto.Id);
@@ -93,11 +93,11 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
         public void ModifySpecialConfig(SpecialConfigDTO dto)
         {
             //获取相关数据
-            Item item = _itemRepository.Get(dto.ItemId);
-            ContractAircraft contractAircraft = _contractAircraftRepository.Get(dto.ContractAircraftId);
-            SpecialConfig parentAcConfig = _specialConfigRepository.Get(dto.ParentId);
+            var item = _itemRepository.Get(dto.ItemId);
+            var contractAircraft = _contractAircraftRepository.Get(dto.ContractAircraftId);
+            var parentAcConfig = _specialConfigRepository.Get(dto.ParentId);
 
-            SpecialConfig updateSpecialConfig = _specialConfigRepository.Get(dto.Id); //获取需要更新的对象。
+            var updateSpecialConfig = _specialConfigRepository.Get(dto.Id); //获取需要更新的对象。
 
             if (updateSpecialConfig != null)
             {
@@ -119,7 +119,7 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
         [Delete(typeof (SpecialConfigDTO))]
         public void DeleteSpecialConfig(SpecialConfigDTO dto)
         {
-            SpecialConfig delSpecialConfig = _specialConfigRepository.Get(dto.Id); //获取需要删除的对象。
+            var delSpecialConfig = _specialConfigRepository.Get(dto.Id); //获取需要删除的对象。
             _specialConfigRepository.Remove(delSpecialConfig); //删除SpecialConfig。
         }
 

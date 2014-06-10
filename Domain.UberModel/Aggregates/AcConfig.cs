@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.ItemAgg;
 
 namespace UniCloud.Domain.UberModel.Aggregates
@@ -55,7 +56,7 @@ namespace UniCloud.Domain.UberModel.Aggregates
         /// <summary>
         ///     位置信息
         /// </summary>
-        public string Position { get; private set; }
+        public Position Position { get; private set; }
 
         /// <summary>
         ///     描述
@@ -134,12 +135,8 @@ namespace UniCloud.Domain.UberModel.Aggregates
         ///     设置位置信息
         /// </summary>
         /// <param name="position">位置信息</param>
-        public void SetPosition(string position)
+        public void SetPosition(Position position)
         {
-            if (string.IsNullOrWhiteSpace(position))
-            {
-                throw new ArgumentException("位置信息参数为空！");
-            }
             Position = position;
         }
 

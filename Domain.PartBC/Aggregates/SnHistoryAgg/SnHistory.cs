@@ -65,12 +65,17 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
         public DateTime CreateDate { get; internal set; }
 
         /// <summary>
-        /// 操作时间
+        ///     操作时间
         /// </summary>
         public DateTime ActionDate { get; private set; }
 
         /// <summary>
-        /// 操作类型 拆下/装上/非拆换
+        ///     位置信息
+        /// </summary>
+        public Position Position { get; private set; }
+
+        /// <summary>
+        ///     操作类型 拆下/装上/非拆换
         /// </summary>
         public ActionType ActionType { get; private set; }
 
@@ -98,6 +103,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
         ///     序号件在历史节点上的状态
         /// </summary>
         public SnStatus Status { get; private set; }
+
         #endregion
 
         #region 外键属性
@@ -186,6 +192,15 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
                 default:
                     throw new ArgumentOutOfRangeException("actionType");
             }
+        }
+
+        /// <summary>
+        ///     设置位置信息
+        /// </summary>
+        /// <param name="position">位置信息</param>
+        public void SetPosition(Position position)
+        {
+            Position = position;
         }
 
         /// <summary>
@@ -320,6 +335,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
                 RemInstRecord = null;
             }
         }
+
         #endregion
 
         #region IValidatableObject 成员

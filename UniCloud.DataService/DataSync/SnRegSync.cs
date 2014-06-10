@@ -126,8 +126,9 @@ namespace UniCloud.DataService.DataSync
                             if (partSn.Pn != null)
                             {
                                 PnReg pnReg = PnRegDatas.ToList().FirstOrDefault(p => p.Pn == partSn.Pn.Trim());
-                                SnReg newSn = SnRegFactory.CreateSnReg(DateTime.Now, pnReg, partSn.Sn, decimal.Parse(partSn.TSN),
-                                    0, decimal.Parse(partSn.CSN), 0); //创建新的附件
+                                SnReg newSn=null;
+                                //SnReg newSn = SnRegFactory.CreateSnReg(DateTime.Now, pnReg, partSn.Sn, decimal.Parse(partSn.TSN),
+                                //    0, decimal.Parse(partSn.CSN), 0); //创建新的附件
                                 if (partSn.RegNumber != null)
                                 {
                                     Aircraft aircraft = AircraftDatas.FirstOrDefault(p =>
@@ -142,8 +143,8 @@ namespace UniCloud.DataService.DataSync
                                         newSn.SetAircraft(aircraft); //设置序号件的所在飞机
                                     }
                                 }
-                                newSn.SetIsLife(false);//默认设置为非寿控件
-                                newSn.SetIsStop(false);//默认设置为未停用
+                                //newSn.SetIsLife(false);//默认设置为非寿控件
+                                //newSn.SetIsStop(false);//默认设置为未停用
                                 //更新序号件状态
                                 if (partSn.Status != null)
                                 {

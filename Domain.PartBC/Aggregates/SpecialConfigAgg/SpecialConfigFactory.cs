@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 
@@ -55,7 +56,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
         /// <param name="endDate">结束时间</param>
         /// <param name="contractAircraft">合同飞机</param>
         /// <returns></returns>
-        public static SpecialConfig CreateSpecialConfig(string position, string description, Item item,
+        public static SpecialConfig CreateSpecialConfig(Position position, string description, Item item,
             AcConfig parentAcConfig, DateTime startDate, DateTime? endDate, ContractAircraft contractAircraft)
         {
             var specialConfig = new SpecialConfig();

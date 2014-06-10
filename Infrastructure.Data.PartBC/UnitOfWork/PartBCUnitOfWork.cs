@@ -32,6 +32,7 @@ using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
+using UniCloud.Domain.PartBC.Aggregates.FlightLogAgg;
 using UniCloud.Domain.PartBC.Aggregates.InstallControllerAgg;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
@@ -60,64 +61,37 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<AdSb> _adSbs;
         private IDbSet<AirBusScn> _airBusScns;
         private IDbSet<AirStructureDamage> _airStructureDamages;
+        private IDbSet<AircraftMaintainPlan> _aircraftMaintainPlans;
         private IDbSet<AircraftSeries> _aircraftSeries;
         private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<Annual> _annuals;
-        private IDbSet<BasicConfig> _basicConfigs;
         private IDbSet<BasicConfigGroup> _basicConfigGroups;
         private IDbSet<BasicConfigHistory> _basicConfigHistories;
+        private IDbSet<BasicConfig> _basicConfigs;
         private IDbSet<ContractAircraft> _contractAircrafts;
         private IDbSet<CtrlUnit> _ctrlUnits;
-        private IDbSet<Item> _items;
+        private IDbSet<EngineMaintainPlan> _engineMaintainPlans;
+        private IDbSet<FlightLog> _flightLogs;
         private IDbSet<InstallController> _installControllers;
+        private IDbSet<Item> _items;
         private IDbSet<MaintainCtrl> _maintainCtrls;
         private IDbSet<MaintainWork> _maintainWorks;
         private IDbSet<Mod> _mods;
         private IDbSet<OilMonitor> _oilMonitors;
-        private IDbSet<PnReg> _pneRegs;
+        private IDbSet<PnReg> _pnRegs;
         private IDbSet<Scn> _scns;
-        private IDbSet<SnReg> _snRegs;
         private IDbSet<SnHistory> _snHistories;
+        private IDbSet<SnReg> _snRegs;
         private IDbSet<SnRemInstRecord> _snRemInstRecords;
         private IDbSet<SpecialConfig> _specialConfigs;
-        private IDbSet<Threshold> _thresholds; 
+        private IDbSet<Threshold> _thresholds;
         private IDbSet<Thrust> _thrusts;
-        private IDbSet<EngineMaintainPlan> _engineMaintainPlans;
-        private IDbSet<AircraftMaintainPlan> _aircraftMaintainPlans;
 
-        public IDbSet<AircraftMaintainPlan> AircraftMaintainPlans
-        {
-            get { return _aircraftMaintainPlans ?? (_aircraftMaintainPlans = Set<AircraftMaintainPlan>()); }
-        }
 
-        public IDbSet<EngineMaintainPlan> EngineMaintainPlans
-        {
-            get { return _engineMaintainPlans ?? (_engineMaintainPlans = Set<EngineMaintainPlan>()); }
-        }
         public IDbSet<AcDailyUtilization> AcDailyUtilizations
         {
             get { return _acDailyUtilizations ?? (_acDailyUtilizations = Set<AcDailyUtilization>()); }
-        }
-
-        public IDbSet<Aircraft> Aircrafts
-        {
-            get { return _aircrafts ?? (_aircrafts = Set<Aircraft>()); }
-        }
-
-        public IDbSet<AircraftType> AircraftTypes
-        {
-            get { return _aircraftTypes ?? (_aircraftTypes = Set<AircraftType>()); }
-        }
-
-        public IDbSet<AircraftSeries> AircraftSeries
-        {
-            get { return _aircraftSeries ?? (_aircraftSeries = Set<AircraftSeries>()); }
-        }
-
-        public IDbSet<AirStructureDamage> AirStructureDamages
-        {
-            get { return _airStructureDamages ?? (_airStructureDamages = Set<AirStructureDamage>()); }
         }
 
         public IDbSet<AdSb> AdSbs
@@ -125,14 +99,39 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
             get { return _adSbs ?? (_adSbs = Set<AdSb>()); }
         }
 
+        public IDbSet<AirBusScn> AirBusScns
+        {
+            get { return _airBusScns ?? (_airBusScns = Set<AirBusScn>()); }
+        }
+
+        public IDbSet<AirStructureDamage> AirStructureDamages
+        {
+            get { return _airStructureDamages ?? (_airStructureDamages = Set<AirStructureDamage>()); }
+        }
+
+        public IDbSet<AircraftMaintainPlan> AircraftMaintainPlans
+        {
+            get { return _aircraftMaintainPlans ?? (_aircraftMaintainPlans = Set<AircraftMaintainPlan>()); }
+        }
+
+        public IDbSet<AircraftSeries> AircraftSeries
+        {
+            get { return _aircraftSeries ?? (_aircraftSeries = Set<AircraftSeries>()); }
+        }
+
+        public IDbSet<AircraftType> AircraftTypes
+        {
+            get { return _aircraftTypes ?? (_aircraftTypes = Set<AircraftType>()); }
+        }
+
+        public IDbSet<Aircraft> Aircrafts
+        {
+            get { return _aircrafts ?? (_aircrafts = Set<Aircraft>()); }
+        }
+
         public IDbSet<Annual> Annuals
         {
             get { return _annuals ?? (_annuals = Set<Annual>()); }
-        }
-
-        public IDbSet<BasicConfig> BasicConfigs
-        {
-            get { return _basicConfigs ?? (_basicConfigs = Set<BasicConfig>()); }
         }
 
         public IDbSet<BasicConfigGroup> BasicConfigGroups
@@ -145,6 +144,10 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
             get { return _basicConfigHistories ?? (_basicConfigHistories = Set<BasicConfigHistory>()); }
         }
 
+        public IDbSet<BasicConfig> BasicConfigs
+        {
+            get { return _basicConfigs ?? (_basicConfigs = Set<BasicConfig>()); }
+        }
 
         public IDbSet<ContractAircraft> ContractAircrafts
         {
@@ -156,14 +159,24 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
             get { return _ctrlUnits ?? (_ctrlUnits = Set<CtrlUnit>()); }
         }
 
-        public IDbSet<Item> Items
+        public IDbSet<EngineMaintainPlan> EngineMaintainPlans
         {
-            get { return _items ?? (_items = Set<Item>()); }
+            get { return _engineMaintainPlans ?? (_engineMaintainPlans = Set<EngineMaintainPlan>()); }
+        }
+
+        public IDbSet<FlightLog> FlightLogs
+        {
+            get { return _flightLogs ?? (_flightLogs = Set<FlightLog>()); }
         }
 
         public IDbSet<InstallController> InstallControllers
         {
             get { return _installControllers ?? (_installControllers = Set<InstallController>()); }
+        }
+
+        public IDbSet<Item> Items
+        {
+            get { return _items ?? (_items = Set<Item>()); }
         }
 
         public IDbSet<MaintainCtrl> MaintainCtrls
@@ -188,17 +201,12 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
 
         public IDbSet<PnReg> PnRegs
         {
-            get { return _pneRegs ?? (_pneRegs = Set<PnReg>()); }
+            get { return _pnRegs ?? (_pnRegs = Set<PnReg>()); }
         }
 
         public IDbSet<Scn> Scns
         {
             get { return _scns ?? (_scns = Set<Scn>()); }
-        }
-
-        public IDbSet<AirBusScn> AirBusScns
-        {
-            get { return _airBusScns ?? (_airBusScns = Set<AirBusScn>()); }
         }
 
         public IDbSet<SnReg> SnRegs
@@ -221,15 +229,16 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
             get { return _specialConfigs ?? (_specialConfigs = Set<SpecialConfig>()); }
         }
 
+        public IDbSet<Threshold> Thresholds
+        {
+            get { return _thresholds ?? (_thresholds = Set<Threshold>()); }
+        }
+
         public IDbSet<Thrust> Thrusts
         {
             get { return _thrusts ?? (_thrusts = Set<Thrust>()); }
         }
 
-        public IDbSet<Threshold> Thresholds
-        {
-            get { return _thresholds ?? (_thresholds = Set<Threshold>()); }
-        }
         #endregion
 
         #region DbContext 重载
@@ -266,160 +275,167 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         {
             modelBuilder.Configurations
 
-            #region AcDailyUtilizationAgg
+                #region AcDailyUtilizationAgg
 
-.Add(new AcDailyUtilizationEntityConfiguration())
+                .Add(new AcDailyUtilizationEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region AircraftAgg
+                #region AircraftAgg
 
-.Add(new AircraftEntityConfiguration())
+                .Add(new AircraftEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region AircraftTypeAgg
+                #region AircraftTypeAgg
 
-.Add(new AircraftTypeEntityConfiguration())
+                .Add(new AircraftTypeEntityConfiguration())
                 .Add(new AircraftSeriesEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region AnnualMaintainPlan
-.Add(new AnnualEntityConfiguration())
-.Add(new AnnualMaintainPlanEntityConfiguration())
-.Add(new EngineMaintainPlanEntityConfiguration())
-.Add(new EngineMaintainPlanDetailEntityConfiguration())
-.Add(new AircraftMaintainPlanEntityConfiguration())
-.Add(new AircraftMaintainPlanDetailEntityConfiguration())
-            #endregion
+                #region AnnualMaintainPlan
 
-            #region BasicConfigGroupAgg
+                .Add(new AnnualEntityConfiguration())
+                .Add(new AnnualMaintainPlanEntityConfiguration())
+                .Add(new EngineMaintainPlanEntityConfiguration())
+                .Add(new EngineMaintainPlanDetailEntityConfiguration())
+                .Add(new AircraftMaintainPlanEntityConfiguration())
+                .Add(new AircraftMaintainPlanDetailEntityConfiguration())
+                #endregion
 
-.Add(new BasicConfigGroupEntityConfiguration())
+                #region BasicConfigGroupAgg
+
+                .Add(new BasicConfigGroupEntityConfiguration())
                 .Add(new BasicConfigEntityConfiguration())
                 .Add(new BasicConfigHistoryEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region ContractAircraftAgg
+                #region ContractAircraftAgg
 
-.Add(new ContractAircraftEntityConfiguration())
+                .Add(new ContractAircraftEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region CtrlUnitAgg
+                #region CtrlUnitAgg
 
-.Add(new CtrlUnitEntityConfiguration())
+                .Add(new CtrlUnitEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region ItemAgg
+                #region FlightLogAgg
 
-.Add(new ItemEntityConfiguration())
-            #endregion
+                .Add(new FlightLogEntityConfiguration())
 
-            #region ItemAgg
+                #endregion
 
-.Add(new InstallControllerEntityConfiguration())
+                #region ItemAgg
+
+                .Add(new ItemEntityConfiguration())
+                #endregion
+
+                #region ItemAgg
+
+                .Add(new InstallControllerEntityConfiguration())
                 .Add(new DependencyEntityConfiguration())
-            #endregion
+                #endregion
 
-            #region MaintainCtrlAgg
+                #region MaintainCtrlAgg
 
-.Add(new MaintainCtrlEntityConfiguration())
+                .Add(new MaintainCtrlEntityConfiguration())
                 .Add(new ItemMaintainCtrlEntityConfiguration())
                 .Add(new PnMaintainCtrlEntityConfiguration())
                 .Add(new SnMaintainCtrlEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region MaintainWorkAgg
+                #region MaintainWorkAgg
 
-.Add(new MaintainWorkEntityConfiguration())
+                .Add(new MaintainWorkEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region ModAgg
+                #region ModAgg
 
-.Add(new ModEntityConfiguration())
+                .Add(new ModEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region OilMonitorAgg
+                #region OilMonitorAgg
 
-.Add(new OilMonitorEntityConfiguration())
+                .Add(new OilMonitorEntityConfiguration())
 
-            #endregion
+                #endregion
 
 
-            #region PnRegAgg
+                #region PnRegAgg
 
-.Add(new PnRegEntityConfiguration())
-            #endregion
+                .Add(new PnRegEntityConfiguration())
+                #endregion
 
-            #region ScnAgg
+                #region ScnAgg
 
-.Add(new ScnEntityConfiguration())
+                .Add(new ScnEntityConfiguration())
                 .Add(new ApplicableAircraftEntityConfiguration())
                 .Add(new AirBusScnEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region SnRegAgg
+                #region SnRegAgg
 
-.Add(new SnRegEntityConfiguration())
+                .Add(new SnRegEntityConfiguration())
                 .Add(new LifeMonitorEntityConfiguration())
                 .Add(new EngineRegEntityConfiguration())
                 .Add(new APURegEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region SnHistoryAgg
+                #region SnHistoryAgg
 
-.Add(new SnHistoryEntityConfiguration())
+                .Add(new SnHistoryEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region SnRemInstRecordAgg
+                #region SnRemInstRecordAgg
 
-.Add(new SnRemInstRecordEntityConfiguration())
+                .Add(new SnRemInstRecordEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region SpecialConfigAgg
+                #region SpecialConfigAgg
 
-.Add(new AcConfigEntityConfiguration())
+                .Add(new AcConfigEntityConfiguration())
                 .Add(new SpecialConfigEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region ThrustAgg
+                #region ThrustAgg
 
-.Add(new ThrustEntityConfiguration())
+                .Add(new ThrustEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region ThresholdAgg
+                #region ThresholdAgg
 
-            .Add(new ThresholdEntityConfiguration())
+                .Add(new ThresholdEntityConfiguration())
 
-            #endregion
+                #endregion
 
 
-            #region AirStructureDamageAgg
+                #region AirStructureDamageAgg
 
-.Add(new AirStructureDamageEntityConfiguration())
+                .Add(new AirStructureDamageEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region  AdSbAgg
+                #region  AdSbAgg
 
-.Add(new AdSbEntityConfiguration())
+                .Add(new AdSbEntityConfiguration())
 
-            #endregion
+                #endregion
 
-;
+                ;
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -36,7 +38,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.ActionNo).HasColumnName("ActionNo").HasMaxLength(100);
             Property(p => p.ActionDate).HasColumnName("ActionDate").HasColumnType("datetime2");
             Property(p => p.ActionType).HasColumnName("ActionType");
-            Property(p => p.Position).HasColumnName("Position").HasMaxLength(100);
             Property(p => p.Reason).HasColumnName("Reason").HasMaxLength(100);
             Property(p => p.AircraftId).HasColumnName("AircraftId");
         }

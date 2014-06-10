@@ -51,7 +51,6 @@ namespace UniCloud.Application.PartBC.Query.SnRemInstRecordQueries
                 ActionNo = p.ActionNo,
                 ActionDate = p.ActionDate,
                 ActionType = (int)p.ActionType,
-                Position = p.Position,
                 AircraftId = p.AircraftId,
                 Reason = p.Reason,
                 RegNumber = aircrafts.FirstOrDefault(l=>l.Id==p.AircraftId).RegNumber,

@@ -73,6 +73,10 @@
     <Compile Include="Aggregates\BasicConfigHistoryAgg\BasicConfigHistoryFactory.cs" />
     <Compile Include="Aggregates\BasicConfigHistoryAgg\BasicConfigHistorySpecifications.cs" />
     <Compile Include="Aggregates\BasicConfigHistoryAgg\IBasicConfigHistoryRepository.cs" />
+    <Compile Include="Aggregates\FlightLogAgg\FlightLog.cs" />
+    <Compile Include="Aggregates\FlightLogAgg\FlightLogFactory.cs" />
+    <Compile Include="Aggregates\FlightLogAgg\FlightLogSpecifications.cs" />
+    <Compile Include="Aggregates\FlightLogAgg\IFlightLogRepository.cs" />
     <Compile Include="Aggregates\InstallControllerAgg\IInstallControllerRepository.cs" />
     <Compile Include="Aggregates\InstallControllerAgg\InstallController.cs" />
     <Compile Include="Aggregates\InstallControllerAgg\InstallControllerFactory.cs" />

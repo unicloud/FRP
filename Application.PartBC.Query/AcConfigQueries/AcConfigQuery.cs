@@ -22,7 +22,6 @@ using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.PartBC.Aggregates;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
-using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
@@ -42,10 +41,10 @@ namespace UniCloud.Application.PartBC.Query.AcConfigQueries
         }
 
         /// <summary>
-        /// AcConfig查询。
+        ///     AcConfig查询。
         /// </summary>
         /// <param name="query">查询表达式</param>
-        ///  <returns>AcConfigDTO集合</returns>
+        /// <returns>AcConfigDTO集合</returns>
         public IQueryable<AcConfigDTO> AcConfigDTOQuery(QueryBuilder<AcConfig> query)
         {
             return query.ApplyTo(_unitOfWork.CreateSet<AcConfig>()).Select(p => new AcConfigDTO
@@ -60,7 +59,7 @@ namespace UniCloud.Application.PartBC.Query.AcConfigQueries
         }
 
         /// <summary>
-        /// 构型查询。
+        ///     构型查询。
         /// </summary>
         /// <param name="contractAircraftId"></param>
         /// <param name="date"></param>
@@ -81,7 +80,9 @@ namespace UniCloud.Application.PartBC.Query.AcConfigQueries
             var basicConfigHistory =
                 basicConfigHistories.OrderBy(l => l.StartDate)
                     .FirstOrDefault(
-                        p => p.ContractAircraftId == contractAircraftId && p.StartDate.CompareTo(date) < 0 && date.CompareTo(p.EndDate) < 0);
+                        p =>
+                            p.ContractAircraftId == contractAircraftId && p.StartDate.CompareTo(date) < 0 &&
+                            date.CompareTo(p.EndDate) < 0);
             if (basicConfigHistory != null)
             {
                 var basicConfigs =
@@ -113,8 +114,11 @@ namespace UniCloud.Application.PartBC.Query.AcConfigQueries
                 if (p != null && p.EndDate == null)
                     p.SetEndDate(new DateTime(3000, 01, 01));
             });
-            var specialConfigs=
-                    allSpecialConifgs.Where(p => p.ContractAircraftId == contractAircraftId && p.StartDate.CompareTo(date) < 0 && date.CompareTo(p.EndDate) < 0);
+            var specialConfigs =
+                allSpecialConifgs.Where(
+                    p =>
+                        p.ContractAircraftId == contractAircraftId && p.StartDate.CompareTo(date) < 0 &&
+                        date.CompareTo(p.EndDate) < 0);
             specialConfigs.ToList().ForEach(p =>
             {
                 var item = _unitOfWork.CreateSet<Item>().Find(p.ItemId);

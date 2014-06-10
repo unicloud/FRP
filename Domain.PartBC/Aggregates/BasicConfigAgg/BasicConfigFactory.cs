@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 
@@ -50,7 +51,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
         /// <param name="parentAcConfig"></param>
         /// <param name="basicConfigGroup"></param>
         /// <returns></returns>
-        public static BasicConfig CreateBasicConfig(string position, string description, Item item,
+        public static BasicConfig CreateBasicConfig(Position position, string description, Item item,
             AcConfig parentAcConfig, BasicConfigGroup basicConfigGroup)
         {
             var basicConfig = new BasicConfig();

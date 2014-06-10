@@ -83,6 +83,7 @@
     <Compile Include="Enums\PlanStatus.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enums\Position.cs" />
     <Compile Include="Enums\ProjectStatus.cs" />
     <Compile Include="Enums\ProjectTempStatus.cs" />
     <Compile Include="Enums\ReceptionStatus.cs" />

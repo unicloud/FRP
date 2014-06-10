@@ -50,11 +50,6 @@ namespace UniCloud.Application.PartBC.DTO
         public int ActionType { get; set; }
 
         /// <summary>
-        ///     拆装位置
-        /// </summary>
-        public string Position { get; set; }
-
-        /// <summary>
         ///     拆装原因
         /// </summary>
         public string Reason { get; set; }
