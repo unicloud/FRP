@@ -43,6 +43,10 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
         #endregion
 
         #region 属性
+        /// <summary>
+        /// 物料件号
+        /// </summary>
+        public string Pn { get; set; }
 
         /// <summary>
         /// 发动机目录价
@@ -53,37 +57,26 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
 
         #region 外键属性
 
-        /// <summary>
-        ///     附件ID
-        /// </summary>
-        public int PartID { get; internal set; }
-
         #endregion
 
         #region 导航属性
-
-        /// <summary>
-        ///     附件
-        /// </summary>
-        public virtual Part Part { get; private set; }
 
         #endregion
 
         #region 操作
 
         /// <summary>
-        ///     设置附件
+        ///     设置附件件号
         /// </summary>
-        /// <param name="part">附件</param>
-        public void SetPart(Part part)
+        /// <param name="pn">附件件号</param>
+        public void SetPart(string pn)
         {
-            if (part == null || part.IsTransient())
+            if (string.IsNullOrWhiteSpace(pn))
             {
-                throw new ArgumentException("附件参数为空！");
+                throw new ArgumentException("物料件号参数为空！");
             }
 
-            Part = part;
-            PartID = part.Id;
+            Pn = pn;
         }
 
         #endregion

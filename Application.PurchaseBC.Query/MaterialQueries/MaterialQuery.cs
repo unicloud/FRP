@@ -55,6 +55,8 @@ namespace UniCloud.Application.PurchaseBC.Query.MaterialQueries
                         Name = p.Name,
                         Description = p.Description,
                         AircraftTypeId = p.AircraftTypeId,
+                        Manufacturer = p.Manufacturer.CnName,
+                        ManufacturerId = p.ManufacturerID,
                     }
                     );
         }
@@ -75,7 +77,9 @@ namespace UniCloud.Application.PurchaseBC.Query.MaterialQueries
                         EngineMaterialId = p.Id,
                         Name = p.Name,
                         Description = p.Description,
-                        PartId = p.PartID,
+                        Pn = p.Pn,
+                        Manufacturer = p.Manufacturer.CnName,
+                        ManufacturerId = p.ManufacturerID,
                         ListPrice = p.ListPrice,
                     }
                     );
@@ -94,10 +98,12 @@ namespace UniCloud.Application.PurchaseBC.Query.MaterialQueries
                     .OfType<BFEMaterial>()
                     .Select(p => new BFEMaterialDTO
                     {
-                        BFEMaterialId= p.Id,
+                        BFEMaterialId = p.Id,
                         Name = p.Name,
                         Description = p.Description,
-                        PartId = p.PartID
+                        Pn = p.Pn,
+                        Manufacturer = p.Manufacturer.CnName,
+                        ManufacturerId = p.ManufacturerID,
                     }
                     );
         }

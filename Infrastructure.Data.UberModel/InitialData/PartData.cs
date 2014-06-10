@@ -53,13 +53,13 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             {
                 Description = "描述",
                 Name=p.Name,
-                Part =p
+                Pn = p.Pn,
             }));
             parts.ForEach(p => Context.Materials.Add(new EngineMaterial()
             {
                 Description = "描述",
                 Name = p.Name,
-                Part = p
+                Pn = p.Pn,
             }));
         }
     }

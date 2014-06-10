@@ -104,12 +104,13 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             };
             aircraftTypes.ForEach(p => Context.AircraftTypes.Add(p));
 
-            //aircraftTypes.ForEach(p => Context.Materials.Add(new AircraftMaterial
-            //{
-            //    AircraftTypeId = p.Id,
-            //    Description = "备注",
-            //    Name = p.Name
-            //}));
+            aircraftTypes.ForEach(p => Context.Materials.Add(new AircraftMaterial
+            {
+                AircraftTypeId = p.Id,
+                Description = "备注",
+                Name = p.Name,
+                ManufacturerID = p.ManufacturerId
+            }));
         }
     }
 }

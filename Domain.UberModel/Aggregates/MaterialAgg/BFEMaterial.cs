@@ -30,24 +30,17 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaterialAgg
     public class BFEMaterial : Material
     {
         #region 属性
-
+        /// <summary>
+        /// 物料件号
+        /// </summary>
+        public string Pn { get; set; }
         #endregion
 
         #region 外键属性
 
-        /// <summary>
-        ///     附件ID
-        /// </summary>
-        public int PartID { get; set; }
-
         #endregion
 
         #region 导航属性
-
-        /// <summary>
-        ///     附件
-        /// </summary>
-        public virtual Part Part { get; set; }
 
         #endregion
 

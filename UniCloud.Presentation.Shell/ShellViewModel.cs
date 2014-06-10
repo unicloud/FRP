@@ -171,6 +171,96 @@ namespace UniCloud.Presentation.Shell
 
         private void LoadMenuItems()
         {
+            #region 基础管理
+
+            var menu9 = new MenuItem
+            {
+                Text = "基础管理",
+                IsEnabled = true,
+            };
+
+            var menu91 = new MenuItem
+            {
+                Text = "管理授权",
+            };
+            var menu911 = new MenuItem
+            {
+                Text = "管理用户",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUser"
+            };
+            var menu912 = new MenuItem
+            {
+                Text = "管理权限",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageFunctionsInRole"
+            };
+            var menu913 = new MenuItem
+            {
+                Text = "管理用户角色",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUserInRole"
+            };
+            var menu914 = new MenuItem
+            {
+                Text = "管理组织机构角色",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageOrganizationInRole"
+            };
+
+            menu91.Items.Add(menu911);
+            menu91.Items.Add(menu912);
+            menu91.Items.Add(menu913);
+            menu91.Items.Add(menu914);
+            menu9.Items.Add(menu91);
+
+            var menu92 = new MenuItem
+            {
+                Text = "管理运营资质",
+            };
+            var menu921 = new MenuItem
+            {
+                Text = "维护证照种类",
+                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerLicenseType"
+            };
+            var menu922 = new MenuItem
+            {
+                Text = "维护经营证照",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManageOperationQualification.ManageBusinessLicense"
+            };
+            menu92.Items.Add(menu921);
+            menu92.Items.Add(menu922);
+            menu9.Items.Add(menu92);
+
+            var menu93 = new MenuItem
+            {
+                Text = "维护基础配置",
+            };
+            var menu931 = new MenuItem
+            {
+                Text = "维护分支机构",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManageSubsidiary.BranchCompany"
+            };
+            var menu932 = new MenuItem
+            {
+                Text = "管理系统配置",
+                NavUri = "UniCloud.Presentation.BaseManagement.MaintainBaseSettings.ManageSystemConfig",
+            };
+            var menu933 = new MenuItem
+            {
+                Text = "管理提醒策略",
+            };
+            var menu934 = new MenuItem
+            {
+                Text = "配置邮件账号",
+                NavUri = "UniCloud.Presentation.BaseManagement.MaintainBaseSettings.ConfigMailAddress"
+            };
+            menu93.Items.Add(menu931);
+            menu93.Items.Add(menu932);
+            menu93.Items.Add(menu933);
+            menu93.Items.Add(menu934);
+            menu9.Items.Add(menu93);
+
+            _items.Add(menu9);
+
+            #endregion
+
             #region 飞行构型
 
             var menu1 = new MenuItem
@@ -417,6 +507,12 @@ namespace UniCloud.Presentation.Shell
             {
                 Text = "采购合同",
                 IsEnabled = true
+            };
+
+            var menu36 = new MenuItem
+            {
+                Text = "管理物料",
+                NavUri = "UniCloud.Presentation.Purchase.Supplier.ManageMaterial"
             };
 
             var menu31 = new MenuItem
@@ -847,52 +943,97 @@ namespace UniCloud.Presentation.Shell
 
             #region 项目管理
 
-            var menu5 = new MenuItem
-            {
-                Text = "项目管理",
-                IsEnabled = false,
-            };
+            //var menu5 = new MenuItem
+            //{
+            //    Text = "项目管理",
+            //    IsEnabled = false,
+            //};
 
-            var menu51 = new MenuItem
-            {
-                Text = "配置工作组",
-                NavUri = "UniCloud.Presentation.Project.Template.WorkGroup"
-            };
-            var menu52 = new MenuItem
-            {
-                Text = "配置任务模板"
-            };
-            var menu53 = new MenuItem
-            {
-                Text = "配置项目模板"
-            };
-            var menu54 = new MenuItem
-            {
-                Text = "管理项目计划"
-            };
-            menu5.Items.Add(menu51);
-            menu5.Items.Add(menu52);
-            menu5.Items.Add(menu53);
-            menu5.Items.Add(menu54);
+            //var menu51 = new MenuItem
+            //{
+            //    Text = "配置工作组",
+            //    NavUri = "UniCloud.Presentation.Project.Template.WorkGroup"
+            //};
+            //var menu52 = new MenuItem
+            //{
+            //    Text = "配置任务模板"
+            //};
+            //var menu53 = new MenuItem
+            //{
+            //    Text = "配置项目模板"
+            //};
+            //var menu54 = new MenuItem
+            //{
+            //    Text = "管理项目计划"
+            //};
+            //menu5.Items.Add(menu51);
+            //menu5.Items.Add(menu52);
+            //menu5.Items.Add(menu53);
+            //menu5.Items.Add(menu54);
 
-            _items.Add(menu5);
+            //_items.Add(menu5);
 
             #endregion
 
-            #region 适航管理
+            #region 附件管理
 
-            var menu6 = new MenuItem
+            var menu8 = new MenuItem
             {
-                Text = "适航管理",
+                Text = "附件管理",
                 IsEnabled = true,
             };
-            var menu61 = new MenuItem
+
+            var menu81 = new MenuItem
             {
-                Text = "查询AD/SB",
-                NavUri = "UniCloud.Presentation.Part.ManageAdSb.QueryAdSb"
+                Text = "管理SCN/MSCN",
             };
-            menu6.Items.Add(menu61);
-            _items.Add(menu6);
+
+            var menu811 = new MenuItem
+            {
+                Text = "维护SCN/MSCN",
+                NavUri = "UniCloud.Presentation.Part.ManageSCN.MaintainScn"
+            };
+
+            var menu812 = new MenuItem
+            {
+                Text = "对比SCN/MSCN",
+                NavUri = "UniCloud.Presentation.Part.ManageSCN.CompareScn"
+            };
+
+            menu81.Items.Add(menu811);
+            menu81.Items.Add(menu812);
+
+
+            var menu82 = new MenuItem
+            {
+                Text = "维护结构损伤",
+                NavUri = "UniCloud.Presentation.Part.ManageAirStructureDamage.MaintainAirStructureDamage"
+            };
+
+            var menu83 = new MenuItem
+            {
+                Text = "管理年度送修计划",
+            };
+
+            var menu831 = new MenuItem
+            {
+                Text = "管理发动机年度送修计划",
+                NavUri = "UniCloud.Presentation.Part.ManageAnnualMaintainPlan.ManageEngineMaintainPlan"
+            };
+
+            var menu832 = new MenuItem
+            {
+                Text = "管理机身、起落架年度送修计划",
+                NavUri = "UniCloud.Presentation.Part.ManageAnnualMaintainPlan.ManageAircraftMaintainPlan"
+            };
+
+            menu83.Items.Add(menu831);
+            menu83.Items.Add(menu832);
+
+            menu8.Items.Add(menu81);
+            menu8.Items.Add(menu82);
+            menu8.Items.Add(menu83);
+            _items.Add(menu8);
 
             #endregion
 
@@ -1043,156 +1184,20 @@ namespace UniCloud.Presentation.Shell
 
             #endregion
 
+            #region 适航管理
 
-            #region 附件管理
-
-            var menu8 = new MenuItem
+            var menu6 = new MenuItem
             {
-                Text = "附件管理",
+                Text = "适航管理",
                 IsEnabled = true,
             };
-
-            var menu81 = new MenuItem
+            var menu61 = new MenuItem
             {
-                Text = "管理SCN/MSCN",
+                Text = "查询AD/SB",
+                NavUri = "UniCloud.Presentation.Part.ManageAdSb.QueryAdSb"
             };
-
-            var menu811 = new MenuItem
-            {
-                Text = "维护SCN/MSCN",
-                NavUri = "UniCloud.Presentation.Part.ManageSCN.MaintainScn"
-            };
-
-            var menu812 = new MenuItem
-            {
-                Text = "对比SCN/MSCN",
-                NavUri = "UniCloud.Presentation.Part.ManageSCN.CompareScn"
-            };
-
-            menu81.Items.Add(menu811);
-            menu81.Items.Add(menu812);
-
-
-            var menu82 = new MenuItem
-            {
-                Text = "维护结构损伤",
-                NavUri = "UniCloud.Presentation.Part.ManageAirStructureDamage.MaintainAirStructureDamage"
-            };
-
-            var menu83 = new MenuItem
-            {
-                Text = "管理年度送修计划",
-            };
-
-            var menu831 = new MenuItem
-            {
-                Text = "管理发动机年度送修计划",
-                NavUri = "UniCloud.Presentation.Part.ManageAnnualMaintainPlan.ManageEngineMaintainPlan"
-            };
-
-            var menu832 = new MenuItem
-            {
-                Text = "管理机身、起落架年度送修计划",
-                NavUri = "UniCloud.Presentation.Part.ManageAnnualMaintainPlan.ManageAircraftMaintainPlan"
-            };
-
-            menu83.Items.Add(menu831);
-            menu83.Items.Add(menu832);
-
-            menu8.Items.Add(menu81);
-            menu8.Items.Add(menu82);
-            menu8.Items.Add(menu83);
-            _items.Add(menu8);
-
-            #endregion
-
-            #region 基础管理
-
-            var menu9 = new MenuItem
-            {
-                Text = "基础管理",
-                IsEnabled = true,
-            };
-
-            var menu91 = new MenuItem
-            {
-                Text = "管理授权",
-            };
-            var menu911 = new MenuItem
-            {
-                Text = "管理用户",
-                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUser"
-            };
-            var menu912 = new MenuItem
-            {
-                Text = "管理权限",
-                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageFunctionsInRole"
-            };
-            var menu913 = new MenuItem
-            {
-                Text = "管理用户角色",
-                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUserInRole"
-            };
-            var menu914 = new MenuItem
-            {
-                Text = "管理组织机构角色",
-                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageOrganizationInRole"
-            };
-
-            menu91.Items.Add(menu911);
-            menu91.Items.Add(menu912);
-            menu91.Items.Add(menu913);
-            menu91.Items.Add(menu914);
-            menu9.Items.Add(menu91);
-
-            var menu92 = new MenuItem
-            {
-                Text = "管理运营资质",
-            };
-            var menu921 = new MenuItem
-            {
-                Text = "维护证照种类",
-                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerLicenseType"
-            };
-            var menu922 = new MenuItem
-            {
-                Text = "维护经营证照",
-                NavUri = "UniCloud.Presentation.BaseManagement.ManageOperationQualification.ManageBusinessLicense"
-            };
-            menu92.Items.Add(menu921);
-            menu92.Items.Add(menu922);
-            menu9.Items.Add(menu92);
-
-            var menu93 = new MenuItem
-            {
-                Text = "维护基础配置",
-            };
-            var menu931 = new MenuItem
-            {
-                Text = "维护分支机构",
-                NavUri = "UniCloud.Presentation.BaseManagement.ManageSubsidiary.BranchCompany"
-            };
-            var menu932 = new MenuItem
-            {
-                Text = "管理系统配置",
-                NavUri = "UniCloud.Presentation.BaseManagement.MaintainBaseSettings.ManageSystemConfig",
-            };
-            var menu933 = new MenuItem
-            {
-                Text = "管理提醒策略",
-            };
-            var menu934 = new MenuItem
-            {
-                Text = "配置邮件账号",
-                NavUri = "UniCloud.Presentation.BaseManagement.MaintainBaseSettings.ConfigMailAddress"
-            };
-            menu93.Items.Add(menu931);
-            menu93.Items.Add(menu932);
-            menu93.Items.Add(menu933);
-            menu93.Items.Add(menu934);
-            menu9.Items.Add(menu93);
-
-            _items.Add(menu9);
+            menu6.Items.Add(menu61);
+            _items.Add(menu6);
 
             #endregion
 

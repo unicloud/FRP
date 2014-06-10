@@ -44,13 +44,13 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
         ///     创建BFE物料
         /// </summary>
         /// <returns>BFE物料</returns>
-        public static BFEMaterial CreateBFEMaterial(string name, string description, int  partId)
+        public static BFEMaterial CreateBFEMaterial(string name, string description, string pn)
         {
             var bfeMaterial = new BFEMaterial
             {
                 Description = description,
                 Name = name,
-                PartID = partId
+                Pn = pn
             };
             bfeMaterial.GenerateNewIdentity();
             return bfeMaterial;
@@ -60,13 +60,13 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
         ///     创建发动机物料
         /// </summary>
         /// <returns>发动机物料</returns>
-        public static EngineMaterial CreateEngineMaterial(string name, string description, int partId)
+        public static EngineMaterial CreateEngineMaterial(string name, string description, string pn)
         {
             var engineMaterial = new EngineMaterial
             {
                 Description = description,
                 Name = name,
-                PartID = partId
+                Pn = pn
             };
             engineMaterial.GenerateNewIdentity();
             return engineMaterial;
