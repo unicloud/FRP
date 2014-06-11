@@ -8,8 +8,8 @@
                    mc:Ignorable="d"
                    d:DesignHeight="600"
                    d:DesignWidth="800"
-                   Width="800"
-                   Height="600"
+                   Height="500"
+                   Width="700"
                    d:DataContext="{d:DesignInstance uc:BankAccountWindowVm}"
                    Header="银行账户列表">
 

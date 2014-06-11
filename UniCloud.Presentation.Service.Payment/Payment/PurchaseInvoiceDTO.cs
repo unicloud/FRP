@@ -39,13 +39,13 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             }
         }
 
-        partial void OnPaidAmountChanging(decimal value)
-        {
-            if (value == 0)
-            {
-                throw new Exception("已付金额不能为空！");
-            }
-        }
+        //partial void OnPaidAmountChanging(decimal value)
+        //{
+        //    if (value == 0)
+        //    {
+        //        throw new Exception("已付金额不能为空！");
+        //    }
+        //}
 
     }
 }

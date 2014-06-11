@@ -346,6 +346,10 @@
     <Compile Include="Supplier\LinkManManager.xaml.cs">
       <DependentUpon>LinkManManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Supplier\ManageMaterial.xaml.cs">
+      <DependentUpon>ManageMaterial.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier\ManageMaterialVm.cs" />
     <Compile Include="Supplier\MaterialChildView.xaml.cs">
       <DependentUpon>MaterialChildView.xaml</DependentUpon>
     </Compile>
@@ -485,6 +489,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Supplier\LinkManManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Supplier\ManageMaterial.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

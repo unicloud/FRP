@@ -51,8 +51,13 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public Guid AircraftTypeId { get; set; }
 
         /// <summary>
-        /// 合作公司Id
+        /// 制造商Id
         /// </summary>
-        public int SupplierCompanyId { get; set; }
+        public Guid? ManufacturerId { get; set; }
+
+        /// <summary>
+        /// 制造商名称
+        /// </summary>
+        public string Manufacturer { get; set; }
     }
 }

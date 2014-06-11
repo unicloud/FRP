@@ -736,7 +736,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         private void InitialAircraftMaterial()
         {
-            AircraftMaterials = _service.CreateCollection(_context.AircraftMaterias);
+            AircraftMaterials = _service.CreateCollection(_context.AircraftMaterials);
             AircraftMaterials.PageSize = 10;
             _acMaterialFilter = new FilterDescriptor("Name", FilterOperator.IsNotContainedIn, string.Empty);
             AircraftMaterials.FilterDescriptors.Add(_acMaterialFilter);

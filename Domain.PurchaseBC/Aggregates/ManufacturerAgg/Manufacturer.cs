@@ -61,6 +61,10 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ManufacturerAgg
         /// </summary>
         public string Note { get; protected set; }
 
+        /// <summary>
+        ///     制造商类型，1--表示飞机制造商，2--表示发动机制造商
+        /// </summary>
+        public int Type { get; protected set; }
         #endregion
 
         #region 外键属性

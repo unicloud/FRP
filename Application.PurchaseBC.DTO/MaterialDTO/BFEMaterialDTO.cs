@@ -21,6 +21,7 @@
 
 #endregion
 
+using System;
 using System.Data.Services.Common;
 
 namespace UniCloud.Application.PurchaseBC.DTO
@@ -47,14 +48,19 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public string Description { get; set; }
 
         /// <summary>
-        ///     附件ID
+        ///     附件件号
         /// </summary>
-        public int PartId { get; set; }
+        public string Pn { get; set; }
 
         /// <summary>
-        /// 合作公司Id
+        /// 制造商Id
         /// </summary>
-        public int SupplierCompanyId { get; set; }
+        public Guid? ManufacturerId { get; set; }
+
+        /// <summary>
+        /// 制造商名称
+        /// </summary>
+        public string Manufacturer { get; set; }
 
     }
 }

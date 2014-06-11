@@ -27,6 +27,7 @@ using UniCloud.Application.PurchaseBC.CurrencyServices;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaintainContractServices;
+using UniCloud.Application.PurchaseBC.ManufacturerServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
 using UniCloud.Application.PurchaseBC.PartServices;
 using UniCloud.Application.PurchaseBC.PlanAircraftServices;
@@ -39,6 +40,7 @@ using UniCloud.Application.PurchaseBC.Query.CurrencyQueries;
 using UniCloud.Application.PurchaseBC.Query.DocumentQueries;
 using UniCloud.Application.PurchaseBC.Query.ForwarderQueries;
 using UniCloud.Application.PurchaseBC.Query.MaintainContractQueries;
+using UniCloud.Application.PurchaseBC.Query.ManufacturerQueries;
 using UniCloud.Application.PurchaseBC.Query.MaterialQueries;
 using UniCloud.Application.PurchaseBC.Query.PartQueries;
 using UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries;
@@ -61,6 +63,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ForwarderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
@@ -232,6 +235,13 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
 
                 .RegisterType<IContractDocumentAppService, ContractDocumentAppService>()
                 .RegisterType<IContractDocumentQuery, ContractDocumentQuery>()
+                #endregion
+
+                #region   制造商相关配置，包括查询，应用服务，仓储注册
+
+                .RegisterType<IManufacturerQuery, ManufacturerQuery>()
+                .RegisterType<IManufacturerAppService, ManufacturerAppService>()
+                .RegisterType<IManufacturerRepository, ManufacturerRepository>()
                 #endregion
 
                 ;
