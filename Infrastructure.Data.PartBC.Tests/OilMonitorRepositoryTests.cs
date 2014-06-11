@@ -45,8 +45,8 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .RegisterType<ISnRegRepository, SnRegRepository>()
-                .RegisterType<IPnRegRepository,PnRegRepository>()
-                .RegisterType<IThrustRepository,ThrustRepository>()
+                .RegisterType<IPnRegRepository, PnRegRepository>()
+                .RegisterType<IThrustRepository, ThrustRepository>()
                 .RegisterType<IOilMonitorRepository, OilMonitorRepository>();
         }
 
@@ -95,8 +95,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             for (var i = -90; i < 0; i++)
             {
                 var oil = OilMonitorFactory.CreateEngineOil(snReg1, DateTime.Now.AddDays(i), rTsn.Next(90, 110),
-                    rTsr.Next(10, 30), rOil.Next(10, 30), rOil.Next(10, 30), rDelta.Next(-5, 5), rOil.Next(10, 30),
-                    rOil.Next(10, 30));
+                    rTsr.Next(10, 30), rOil.Next(10, 30), rOil.Next(10, 30), rDelta.Next(-5, 5));
                 monitorRep.Add(oil);
             }
 
@@ -104,8 +103,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             for (var i = -90; i < 0; i++)
             {
                 var oil = OilMonitorFactory.CreateEngineOil(snReg2, DateTime.Now.AddDays(i), rTsn.Next(90, 110),
-                    rTsr.Next(10, 30), rOil.Next(10, 30), rOil.Next(10, 30), rDelta.Next(-5, 5), rOil.Next(10, 30),
-                    rOil.Next(10, 30));
+                    rTsr.Next(10, 30), rOil.Next(10, 30), rOil.Next(10, 30), rDelta.Next(-5, 5));
                 monitorRep.Add(oil);
             }
 
@@ -113,8 +111,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             for (var i = -90; i < 0; i++)
             {
                 var oil = OilMonitorFactory.CreateEngineOil(snReg3, DateTime.Now.AddDays(i), rTsn.Next(90, 110),
-                    rTsr.Next(10, 30), rOil.Next(10, 30), rOil.Next(10, 30), rDelta.Next(-5, 5), rOil.Next(10, 30),
-                    rOil.Next(10, 30));
+                    rTsr.Next(10, 30), rOil.Next(10, 30), rOil.Next(10, 30), rDelta.Next(-5, 5));
                 monitorRep.Add(oil);
             }
 

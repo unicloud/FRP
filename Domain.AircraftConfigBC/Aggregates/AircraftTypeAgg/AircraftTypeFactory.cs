@@ -15,7 +15,11 @@
 
 #endregion
 
+#region 命名空间
+
 using System;
+
+#endregion
 
 namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
 {
@@ -25,7 +29,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
     public static class AircraftTypeFactory
     {
         /// <summary>
-        /// 新建机型
+        ///     新建机型
         /// </summary>
         /// <returns></returns>
         public static AircraftType CreateAircraftType()
@@ -36,7 +40,22 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
         }
 
         /// <summary>
-        /// 设置机型属性
+        ///     新建机型
+        /// </summary>
+        /// <param name="name">机型名称</param>
+        /// <returns>机型</returns>
+        public static AircraftType CreateAircraftType(string name)
+        {
+            var aircraftType = new AircraftType
+            {
+                Name = name
+            };
+            aircraftType.ChangeCurrentIdentity(Guid.NewGuid());
+            return aircraftType;
+        }
+
+        /// <summary>
+        ///     设置机型属性
         /// </summary>
         /// <param name="aircraftType">当前机型</param>
         /// <param name="name">机型名称</param>
@@ -45,7 +64,8 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
         /// <param name="manufacturerId">制造商</param>
         /// <param name="aircraftCategoryId">座级</param>
         /// <param name="caacAircraftTypeId">民航机型</param>
-        public static void SetAircraftType(AircraftType aircraftType, string name, string description, Guid aircraftCategoryId, Guid aircraftSeriesId, Guid manufacturerId,Guid caacAircraftTypeId)
+        public static void SetAircraftType(AircraftType aircraftType, string name, string description,
+            Guid aircraftCategoryId, Guid aircraftSeriesId, Guid manufacturerId, Guid caacAircraftTypeId)
         {
             aircraftType.Name = name;
             aircraftType.Description = description;

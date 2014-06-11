@@ -39,8 +39,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
         /// <param name="totalRate">总消耗率</param>
         /// <param name="intervalRate">区间消耗率</param>
         /// <param name="deltaIntervalRate">区间消耗率增量</param>
-        /// <param name="averageRate3">总消耗率3天移动平均</param>
-        /// <param name="averageRate7">总消耗率7天移动平均</param>
         /// <returns>滑油消耗数据</returns>
         public static OilMonitor CreateEngineOil(
             EngineReg engineReg,
@@ -49,9 +47,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
             decimal tsr,
             decimal totalRate,
             decimal intervalRate,
-            decimal deltaIntervalRate,
-            decimal averageRate3,
-            decimal averageRate7)
+            decimal deltaIntervalRate)
         {
             var oilMonitor = new OilMonitor
             {
@@ -61,8 +57,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
                 TotalRate = totalRate,
                 IntervalRate = intervalRate,
                 DeltaIntervalRate = deltaIntervalRate,
-                AverageRate3 = averageRate3,
-                AverageRate7 = averageRate7,
             };
             oilMonitor.GenerateNewIdentity();
 
@@ -83,8 +77,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
         /// <param name="totalRate">总消耗率</param>
         /// <param name="intervalRate">区间消耗率</param>
         /// <param name="deltaIntervalRate">区间消耗率增量</param>
-        /// <param name="averageRate3">总消耗率3天移动平均</param>
-        /// <param name="averageRate7">总消耗率7天移动平均</param>
         /// <returns>滑油消耗数据</returns>
         public static OilMonitor CreateAPUOil(
             APUReg apuReg,
@@ -93,9 +85,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
             decimal tsr,
             decimal totalRate,
             decimal intervalRate,
-            decimal deltaIntervalRate,
-            decimal averageRate3,
-            decimal averageRate7)
+            decimal deltaIntervalRate)
         {
             var oilMonitor = new OilMonitor
             {
@@ -105,8 +95,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
                 TotalRate = totalRate,
                 IntervalRate = intervalRate,
                 DeltaIntervalRate = deltaIntervalRate,
-                AverageRate3 = averageRate3,
-                AverageRate7 = averageRate7,
             };
             oilMonitor.GenerateNewIdentity();
 
