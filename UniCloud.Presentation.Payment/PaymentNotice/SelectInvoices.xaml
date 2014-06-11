@@ -10,8 +10,8 @@
                    d:DesignHeight="600"
                    d:DesignWidth="800"
                    WindowStartupLocation="CenterScreen"
-                   Height="600"
-                   Width="800"
+                   Height="500"
+                   Width="700"
                    Name="InvoicesWindow"
                    Header="选择发票"
                    d:DataContext="{d:DesignInstance uc:SelectInvoicesVm}">

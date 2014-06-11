@@ -8,8 +8,8 @@
                    mc:Ignorable="d"
                    d:DesignHeight="300"
                    d:DesignWidth="400"
-                   Height="600"
-                   Width="800"
+                   Height="500"
+                   Width="700"
                    Header="付款通知">
 
     <Grid x:Name="LayoutRoot"
