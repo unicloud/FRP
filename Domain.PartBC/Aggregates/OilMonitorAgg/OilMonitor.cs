@@ -78,12 +78,12 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
         /// <summary>
         ///     3天移动平均
         /// </summary>
-        public decimal AverageRate3 { get; internal set; }
+        public decimal AverageRate3 { get; private set; }
 
         /// <summary>
         ///     7天移动平均
         /// </summary>
-        public decimal AverageRate7 { get; internal set; }
+        public decimal AverageRate7 { get; private set; }
 
         #endregion
 
@@ -132,6 +132,24 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
 
             SnRegID = snReg.Id;
             return snReg;
+        }
+
+        /// <summary>
+        ///     设置3日均值
+        /// </summary>
+        /// <param name="averageRate3">3日均值</param>
+        public void SetAverageRate3(decimal averageRate3)
+        {
+            AverageRate3 = averageRate3;
+        }
+
+        /// <summary>
+        ///     设置7日均值
+        /// </summary>
+        /// <param name="averageRate7">7日均值</param>
+        public void SetAverageRate7(decimal averageRate7)
+        {
+            AverageRate7 = averageRate7;
         }
 
         #endregion

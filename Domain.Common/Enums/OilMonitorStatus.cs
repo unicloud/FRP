@@ -19,6 +19,7 @@ namespace UniCloud.Domain.Common.Enums
 {
     /// <summary>
     ///     滑油监控状态
+    ///     一周之内有超限情况的，警告；一月之内有超限情况的，关注。
     /// </summary>
     public enum OilMonitorStatus
     {

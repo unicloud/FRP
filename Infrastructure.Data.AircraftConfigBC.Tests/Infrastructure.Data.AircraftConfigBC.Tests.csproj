@@ -68,11 +68,34 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AircraftTypeRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.AircraftConfigBC\Domain.AircraftConfigBC.csproj">
+      <Project>{4D4558F2-9855-4962-8CDC-52BDB85182D4}</Project>
+      <Name>Domain.AircraftConfigBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.AircraftConfigBC\Infrastructure.Data.AircraftConfigBC.csproj">
+      <Project>{7C23A380-593E-4155-B138-B094E1A02711}</Project>
+      <Name>Infrastructure.Data.AircraftConfigBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{CAD91A38-6B90-4A18-83CA-0215CE512F4D}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
+      <Project>{34A8A0E1-3D4A-48CA-9E78-71F88E2D273D}</Project>
+      <Name>Infrastructure.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
