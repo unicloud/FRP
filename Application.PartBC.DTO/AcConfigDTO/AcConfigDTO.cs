@@ -14,13 +14,8 @@
 
 #region 命名空间
 
-using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UniCloud.Domain.Common.Enums;
 
 #endregion
 
@@ -57,7 +52,7 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         ///     位置信息
         /// </summary>
-        public Position Position { get; set; }
+        public int Position { get; set; }
 
         /// <summary>
         ///     描述

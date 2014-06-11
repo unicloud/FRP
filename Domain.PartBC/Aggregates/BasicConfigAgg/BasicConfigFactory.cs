@@ -51,13 +51,13 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
         /// <param name="parentAcConfig"></param>
         /// <param name="basicConfigGroup"></param>
         /// <returns></returns>
-        public static BasicConfig CreateBasicConfig(Position position, string description, Item item,
+        public static BasicConfig CreateBasicConfig(int position, string description, Item item,
             AcConfig parentAcConfig, BasicConfigGroup basicConfigGroup)
         {
             var basicConfig = new BasicConfig();
             basicConfig.GenerateNewIdentity();
             basicConfig.CreateDate = DateTime.Now;
-            basicConfig.SetPosition(position);
+            basicConfig.SetPosition((Position)position);
             basicConfig.SetDescription(description);
             basicConfig.SetItem(item);
             basicConfig.SetParentItem(parentAcConfig);

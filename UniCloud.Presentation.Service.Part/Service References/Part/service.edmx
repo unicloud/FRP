@@ -51,7 +51,7 @@
         <Property Name="FiNumber" Type="Edm.String" />
         <Property Name="ItemNo" Type="Edm.String" />
         <Property Name="ItemName" Type="Edm.String" />
-        <Property Name="Position" Type="Edm.String" />
+        <Property Name="Position" Type="Edm.Int32" Nullable="false" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="ItemId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ParentId" Type="Edm.Int32" />
@@ -78,7 +78,7 @@
         <Property Name="FiNumber" Type="Edm.String" />
         <Property Name="ItemNo" Type="Edm.String" />
         <Property Name="ItemName" Type="Edm.String" />
-        <Property Name="Position" Type="Edm.String" />
+        <Property Name="Position" Type="Edm.Int32" Nullable="false" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="ItemId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ParentId" Type="Edm.Int32" />
@@ -371,7 +371,6 @@
         <Property Name="ActionNo" Type="Edm.String" />
         <Property Name="ActionDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="ActionType" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Position" Type="Edm.String" />
         <Property Name="Reason" Type="Edm.String" />
         <Property Name="RegNumber" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
@@ -387,7 +386,7 @@
         <Property Name="FiNumber" Type="Edm.String" />
         <Property Name="ItemNo" Type="Edm.String" />
         <Property Name="ItemName" Type="Edm.String" />
-        <Property Name="Position" Type="Edm.String" />
+        <Property Name="Position" Type="Edm.Int32" Nullable="false" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="ItemId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ParentId" Type="Edm.Int32" />

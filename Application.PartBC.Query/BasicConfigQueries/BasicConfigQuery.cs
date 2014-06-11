@@ -57,7 +57,7 @@ namespace UniCloud.Application.PartBC.Query.BasicConfigQueries
                 ItemId = p.ItemId,
                 ParentId = p.ParentId,
                 RootId = p.RootId,
-                Position = p.Position,
+                Position = (int)p.Position,
                 Description = p.Description,
             });
         }

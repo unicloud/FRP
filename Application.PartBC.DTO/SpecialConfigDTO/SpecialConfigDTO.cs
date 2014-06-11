@@ -17,7 +17,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
-using UniCloud.Domain.Common.Enums;
 
 #endregion
 
@@ -88,7 +87,7 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         /// 位置信息
         /// </summary>
-        public Position Position
+        public int Position
         {
             get;
             set;

@@ -56,13 +56,13 @@ namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
         /// <param name="endDate">结束时间</param>
         /// <param name="contractAircraft">合同飞机</param>
         /// <returns></returns>
-        public static SpecialConfig CreateSpecialConfig(Position position, string description, Item item,
+        public static SpecialConfig CreateSpecialConfig(int position, string description, Item item,
             AcConfig parentAcConfig, DateTime startDate, DateTime? endDate, ContractAircraft contractAircraft)
         {
             var specialConfig = new SpecialConfig();
             specialConfig.GenerateNewIdentity();
             specialConfig.CreateDate = DateTime.Now;
-            specialConfig.SetPosition(position);
+            specialConfig.SetPosition((Position)position);
             specialConfig.SetDescription(description);
             specialConfig.SetItem(item);
             specialConfig.SetParentItem(parentAcConfig);

@@ -23,6 +23,7 @@ using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.SpecialConfigQueries;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
@@ -106,7 +107,7 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
                 updateSpecialConfig.SetEndDate(dto.EndDate);
                 updateSpecialConfig.SetItem(item);
                 updateSpecialConfig.SetParentItem(parentAcConfig);
-                updateSpecialConfig.SetPosition(dto.Position);
+                updateSpecialConfig.SetPosition((Position)dto.Position);
                 updateSpecialConfig.SetStartDate(dto.StartDate);
                 _specialConfigRepository.Modify(updateSpecialConfig);
             }

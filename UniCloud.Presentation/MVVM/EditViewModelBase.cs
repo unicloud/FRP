@@ -18,11 +18,14 @@
 #region 命名空间
 
 using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.DataServices;
+using Telerik.Windows.Documents.Spreadsheet.Expressions.Functions;
 using UniCloud.Presentation.Service;
 
 #endregion
@@ -78,6 +81,7 @@ namespace UniCloud.Presentation.MVVM
                     {
                         MessageAlert("提示", "保存失败，请检查！");
                         OnSaveFail(collectionView);
+                        MyLog.WriteErrLog(null, sm.Error.ToString());
                     }
                     RefreshCommandState();
                 });
@@ -97,6 +101,7 @@ namespace UniCloud.Presentation.MVVM
                     {
                         MessageAlert("提示", "保存失败，请检查！");
                         OnSaveFail(sender);
+                        MyLog.WriteErrLog(null, sm.Error.ToString());
                     }
                     RefreshCommandState();
                 });
@@ -203,6 +208,39 @@ namespace UniCloud.Presentation.MVVM
             if (gridView != null && addedItem != null) gridView.ScrollIntoView(e.AddedItems[0]);
         }
 
+        public class MyLog
+        {
+            public static void WriteErrLog(string strErrMod, string strErrDesc)
+            {
+                StreamWriter sw;
+                string strErrLog = Assembly.GetExecutingAssembly().Location + @"\Logs\Chient_Error_Log" + string.Format("{0:yyyyMMdd}", DateTime.Now) + ".txt";   //获取写日志的路径
+                if (File.Exists(strErrLog))
+                {
+                    FileInfo oFile = new FileInfo(strErrLog);
+                    if (oFile.Length > 1024000)
+                    {
+                        oFile.Delete();
+                    }
+                }
+                if (File.Exists(strErrLog))
+                {
+                    sw = File.AppendText(strErrLog);
+                }
+                else
+                {
+                    sw = File.CreateText(strErrLog);
+                }
+                string strDate = "出错时间:" + string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
+                string strErrMoudle = "出错模块:" + strErrMod;
+                string strErrDescOut = "错误原因:" + strErrDesc;
+                sw.WriteLine(strDate);
+                sw.WriteLine(strErrMoudle);
+                sw.WriteLine(strErrDescOut);
+                sw.WriteLine("===================================================================");
+                sw.Flush();
+                sw.Close();
+            }
+        }
         #endregion
 
         #region IConfirmNavigationRequest 成员

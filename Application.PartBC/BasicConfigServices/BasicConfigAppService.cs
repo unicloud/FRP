@@ -23,6 +23,7 @@ using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.BasicConfigQueries;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
@@ -102,7 +103,7 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
                 updateBasicConfig.SetDescription(dto.Description);
                 updateBasicConfig.SetItem(item);
                 updateBasicConfig.SetParentItem(parentAcConfig);
-                updateBasicConfig.SetPosition(dto.Position);
+                updateBasicConfig.SetPosition((Position)dto.Position);
                 _basicConfigRepository.Modify(updateBasicConfig);
             }
         }

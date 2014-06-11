@@ -53,7 +53,7 @@ namespace UniCloud.Application.PartBC.Query.AcConfigQueries
                 ItemId = p.ItemId,
                 ParentId = p.ParentId,
                 Description = p.Description,
-                Position = p.Position,
+                Position = (int)p.Position,
                 RootId = p.RootId,
             });
         }
@@ -100,7 +100,7 @@ namespace UniCloud.Application.PartBC.Query.AcConfigQueries
                         FiNumber = item.FiNumber,
                         ParentId = p.ParentId,
                         Description = p.Description,
-                        Position = p.Position,
+                        Position = (int)p.Position,
                         RootId = p.RootId,
                     };
                     result.Add(newAcConfig);
@@ -130,7 +130,7 @@ namespace UniCloud.Application.PartBC.Query.AcConfigQueries
                     FiNumber = item.FiNumber,
                     ParentId = p.ParentId,
                     Description = p.Description,
-                    Position = p.Position,
+                    Position = (int)p.Position,
                     RootId = p.RootId,
                 };
                 result.Add(newAcConfig);
