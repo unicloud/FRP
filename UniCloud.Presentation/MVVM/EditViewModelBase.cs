@@ -213,14 +213,14 @@ namespace UniCloud.Presentation.MVVM
             public static void WriteErrLog(string strErrMod, string strErrDesc)
             {
                 StreamWriter sw;
-                string strErrLog = Assembly.GetExecutingAssembly().Location + @"\Logs\Chient_Error_Log" + string.Format("{0:yyyyMMdd}", DateTime.Now) + ".txt";   //获取写日志的路径
+                string strErrLog = @"F\Logs\Client_Error_Log" + string.Format("{0:yyyyMMdd}", DateTime.Now) + ".txt";   //获取写日志的路径
                 if (File.Exists(strErrLog))
                 {
                     FileInfo oFile = new FileInfo(strErrLog);
                     if (oFile.Length > 1024000)
                     {
                         oFile.Delete();
-                    }
+                    }  
                 }
                 if (File.Exists(strErrLog))
                 {

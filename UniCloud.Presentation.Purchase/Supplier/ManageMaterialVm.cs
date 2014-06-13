@@ -107,7 +107,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
             };
 
             Manufacturers=new QueryableDataServiceCollectionView<ManufacturerDTO>(_context,_context.Manufacturers);
-            Manufacturers.FilterDescriptors.Add(new FilterDescriptor("Type",FilterOperator.IsEqualTo,2));
+            Manufacturers.FilterDescriptors.Add(new FilterDescriptor("Type", FilterOperator.IsEqualTo, 2));
         }
 
         #endregion
@@ -141,6 +141,8 @@ namespace UniCloud.Presentation.Purchase.Supplier
             if (!BFEMaterials.AutoLoad)
                 BFEMaterials.AutoLoad = true;
             BFEMaterials.Load(true);
+
+            Manufacturers.Load(true);
         }
 
         #region EngineMaterial

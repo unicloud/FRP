@@ -67,10 +67,10 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
         /// <param name="pn">附件件号</param>
         public void SetPart(string pn)
         {
-            if (string.IsNullOrWhiteSpace(pn))
-            {
-                throw new ArgumentException("物料件号参数为空！");
-            }
+            //if (string.IsNullOrWhiteSpace(pn))
+            //{
+            //    throw new ArgumentException("物料件号参数为空！");
+            //}
 
             Pn = pn;
         }
