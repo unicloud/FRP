@@ -35,14 +35,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.ManufacturerAgg
         /// </summary>
         /// <param name="id">ID</param>
         /// <param name="cnShortName">制造商简称</param>
+        /// <param name="type">制造商类型</param>
         /// <returns></returns>
-        public static Manufacturer CreateManufacturer(Guid id, string cnShortName)
+        public static Manufacturer CreateManufacturer(Guid id, string cnShortName,int type)
         {
             var manufacturer = new Manufacturer
             {
                 CnName = cnShortName,
                 CnShortName = cnShortName,
-                Type = 1,
+                Type = type,
             };
             manufacturer.ChangeCurrentIdentity(id);
 
