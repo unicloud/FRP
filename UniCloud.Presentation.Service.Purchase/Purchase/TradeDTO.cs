@@ -33,7 +33,7 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         /// </summary>
         public TradeStatus TradeStatus
         {
-            get { return (TradeStatus) Status; }
+            get { return (TradeStatus)Status; }
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
 
         partial void OnNameChanging(string value)
         {
-            if (value.Length < 3)
+            if (value != null && value.Length < 3)
             {
                 throw new Exception("长度不足");
             }

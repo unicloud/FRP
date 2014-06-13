@@ -85,7 +85,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_context, _context.Annuals);
             Annuals.LoadedData += (sender, e) =>
             {
-                if (Annuals.Count != 0 && Annuals.First(p => p.IsOpen) != null)
+                if (Annuals.Count != 0 && Annuals.FirstOrDefault(p => p.IsOpen) != null)
                 {
                     _planDescriptor.Value = Annuals.First(p => p.IsOpen).Year;
                     if (!Plans.AutoLoad)
