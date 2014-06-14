@@ -19,7 +19,9 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Browser;
@@ -112,6 +114,8 @@ namespace UniCloud.Presentation.Shell
                 // report the error to the website and stop the application.
                 e.Handled = true;
                 Deployment.Current.Dispatcher.BeginInvoke(() => ReportErrorToDOM(e));
+                var errorMsg = e.ExceptionObject.Message + e.ExceptionObject.StackTrace;
+                MyLog.WriteErrLog(null, errorMsg);
             }
         }
 
@@ -128,5 +132,40 @@ namespace UniCloud.Presentation.Shell
             {
             }
         }
+
+        public class MyLog
+        {
+            public static void WriteErrLog(string strErrMod, string strErrDesc)
+            {
+                StreamWriter sw;
+                string strErrLog =  @"F\Logs\Client_Error_Log" + string.Format("{0:yyyyMMdd}", DateTime.Now) + ".txt";   //获取写日志的路径
+                if (File.Exists(strErrLog))
+                {
+                    FileInfo oFile = new FileInfo(strErrLog);
+                    if (oFile.Length > 1024000)
+                    {
+                        oFile.Delete();
+                    }
+                }
+                if (File.Exists(strErrLog))
+                {
+                    sw = File.AppendText(strErrLog);
+                }
+                else
+                {
+                    sw = File.CreateText(strErrLog);
+                }
+                string strDate = "出错时间:" + string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
+                string strErrMoudle = "出错模块:" + strErrMod;
+                string strErrDescOut = "错误原因:" + strErrDesc;
+                sw.WriteLine(strDate);
+                sw.WriteLine(strErrMoudle);
+                sw.WriteLine(strErrDescOut);
+                sw.WriteLine("===================================================================");
+                sw.Flush();
+                sw.Close();
+            }
+        }
+
     }
 }

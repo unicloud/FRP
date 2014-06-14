@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class database : DbMigration
     {
         public override void Up()
         {
@@ -564,16 +564,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Index(t => t.ManufacturerID);
             
             CreateTable(
-                "FRP.Part",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        Pn = c.String(),
-                        Name = c.String(),
-                    })
-                .PrimaryKey(t => t.ID);
-            
-            CreateTable(
                 "FRP.AirProgramming",
                 c => new
                     {
@@ -1033,6 +1023,16 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Index(t => t.ImportCategoryId)
                 .Index(t => t.PartID)
                 .Index(t => t.SupplierId);
+            
+            CreateTable(
+                "FRP.Part",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Pn = c.String(),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "FRP.Trade",
@@ -2636,27 +2636,23 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false),
-                        PartID = c.Int(nullable: false),
+                        Pn = c.String(),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Material", t => t.ID)
-                .ForeignKey("FRP.Part", t => t.PartID)
-                .Index(t => t.ID)
-                .Index(t => t.PartID);
+                .Index(t => t.ID);
             
             CreateTable(
                 "FRP.EngineMaterial",
                 c => new
                     {
                         ID = c.Int(nullable: false),
+                        Pn = c.String(),
                         ListPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        PartID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Material", t => t.ID)
-                .ForeignKey("FRP.Part", t => t.PartID)
-                .Index(t => t.ID)
-                .Index(t => t.PartID);
+                .Index(t => t.ID);
             
             CreateTable(
                 "FRP.AircraftLeaseOrder",
@@ -3226,9 +3222,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.AircraftLeaseOrderLine", "AircraftMaterialId", "FRP.AircraftMaterial");
             DropForeignKey("FRP.AircraftLeaseOrderLine", "ID", "FRP.OrderLine");
             DropForeignKey("FRP.AircraftLeaseOrder", "ID", "FRP.Order");
-            DropForeignKey("FRP.EngineMaterial", "PartID", "FRP.Part");
             DropForeignKey("FRP.EngineMaterial", "ID", "FRP.Material");
-            DropForeignKey("FRP.BFEMaterial", "PartID", "FRP.Part");
             DropForeignKey("FRP.BFEMaterial", "ID", "FRP.Material");
             DropForeignKey("FRP.AircraftMaterial", "AircraftTypeId", "FRP.AircraftType");
             DropForeignKey("FRP.AircraftMaterial", "ID", "FRP.Material");
@@ -3480,9 +3474,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.AircraftLeaseOrderLine", new[] { "AircraftMaterialId" });
             DropIndex("FRP.AircraftLeaseOrderLine", new[] { "ID" });
             DropIndex("FRP.AircraftLeaseOrder", new[] { "ID" });
-            DropIndex("FRP.EngineMaterial", new[] { "PartID" });
             DropIndex("FRP.EngineMaterial", new[] { "ID" });
-            DropIndex("FRP.BFEMaterial", new[] { "PartID" });
             DropIndex("FRP.BFEMaterial", new[] { "ID" });
             DropIndex("FRP.AircraftMaterial", new[] { "AircraftTypeId" });
             DropIndex("FRP.AircraftMaterial", new[] { "ID" });
@@ -3824,6 +3816,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.DocumentPath");
             DropTable("FRP.CtrlUnit");
             DropTable("FRP.Trade");
+            DropTable("FRP.Part");
             DropTable("FRP.ContractEngine");
             DropTable("FRP.ContractAircraft");
             DropTable("FRP.OrderLine");
@@ -3848,7 +3841,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.IssuedUnit");
             DropTable("FRP.AirProgrammingLine");
             DropTable("FRP.AirProgramming");
-            DropTable("FRP.Part");
             DropTable("FRP.Material");
             DropTable("FRP.SupplierCompanyMaterial");
             DropTable("FRP.SupplierCompany");

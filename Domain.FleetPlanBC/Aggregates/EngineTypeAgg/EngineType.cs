@@ -43,7 +43,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg
         /// <summary>
         ///     发动机型号名称
         /// </summary>
-        public string Name { get; protected set; }
+        public string Name { get; set; }
 
         #endregion
 
@@ -52,7 +52,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg
         /// <summary>
         ///    制造商
         /// </summary>
-        public Guid ManufacturerId { get; protected set; }
+        public Guid ManufacturerId { get; set; }
 
         #endregion
 

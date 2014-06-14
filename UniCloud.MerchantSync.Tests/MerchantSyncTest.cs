@@ -11,9 +11,9 @@ namespace UniCloud.MerchantSync.Tests
         {
             var sync=new MerchantDataSync();
 
-            //sync.SyncLinkmanInfo();
+            sync.SyncLinkmanInfo();
             sync.SyncMerchantInfo();
-            //sync.SyncBankAccountInfo();
+            sync.SyncBankAccountInfo();
         }
 
     }

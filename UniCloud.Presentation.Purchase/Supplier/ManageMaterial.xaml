@@ -31,7 +31,7 @@
                         <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1"
-                               Text="名称"
+                               Text="件号"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Row="0"
@@ -57,14 +57,14 @@
                                Text="制造商"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <telerik:RadComboBox ItemsSource="{Binding Manufacturers}"
+                    <telerik:RadComboBox ItemsSource="{Binding DataContext.Manufacturers,ElementName=ManageMaterialView,Mode=TwoWay}"
                                          Grid.Row="2"
                                          Grid.Column="2"
                                          IsReadOnly="True"
                                          Height="{StaticResource ControlHeight}"
-                                         SelectedValue="{Binding EngineMaterial.ManufacturerId,Mode=TwoWay}"
+                                         SelectedValue="{Binding ManufacturerId,Mode=TwoWay}"
                                          SelectedValuePath="Id"
-                                         DisplayMemberPath="Name" />
+                                         DisplayMemberPath="CnName" />
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="EngineMaterialEditNewTemplate">
@@ -106,7 +106,7 @@
                                Text="制造商"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <telerik:RadComboBox ItemsSource="{Binding Manufacturers}"
+                    <telerik:RadComboBox ItemsSource="{Binding DataContext.Manufacturers,ElementName=ManageMaterialView,Mode=TwoWay}"
                                          Grid.Row="2"
                                          Grid.Column="2"
                                          IsEditable="False"
@@ -114,9 +114,9 @@
                                          ClearSelectionButtonVisibility="Visible"
                                          ClearSelectionButtonContent="清除选择"
                                          Height="{StaticResource ControlHeight}"
-                                         SelectedValue="{Binding EngineMaterial.ManufacturerId,Mode=TwoWay}"
+                                         SelectedValue="{Binding ManufacturerId,Mode=TwoWay}"
                                          SelectedValuePath="Id"
-                                         DisplayMemberPath="Name" />
+                                         DisplayMemberPath="CnName" />
                 </Grid>
             </DataTemplate>
 
@@ -232,7 +232,7 @@
                                                                  RowIndicatorVisibility="Visible">
                                                 <telerik:RadGridView.Columns>
                                                     <input:DataPageSerialColumn  Header="序号" />
-                                                    <telerik:GridViewDataColumn Header="名称"
+                                                    <telerik:GridViewDataColumn Header="件号"
                                                                                 IsSortable="True"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 HeaderTextAlignment="Center"
@@ -246,9 +246,9 @@
                                                                                 DataMemberBinding="{Binding Description}" />
                                                     <telerik:GridViewComboBoxColumn Header="制造商"
                                                                                     DataMemberBinding="{Binding ManufacturerId}"
-                                                                                    ItemsSource="{Binding Manufacturers}"
+                                                                                    ItemsSource="{Binding DataContext.Manufacturers,ElementName=ManageMaterialView,Mode=TwoWay}"
                                                                                     SelectedValueMemberPath="Id"
-                                                                                    DisplayMemberPath="Name"
+                                                                                    DisplayMemberPath="CnName"
                                                                                     IsReadOnly="True" />
                                                 </telerik:RadGridView.Columns>
                                             </telerik:RadGridView>

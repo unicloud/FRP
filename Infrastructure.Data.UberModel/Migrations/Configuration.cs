@@ -21,11 +21,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
         {
             InitialContainer.CreateInitialContainer()
                 .Register(new FunctionItemData(context))
-                //.Register(new UserData(context))
-                //.Register(new XmlConfigData(context))
-                //.Register(new XmlSettingData(context))
+                .Register(new UserData(context))
+                .Register(new XmlConfigData(context))
+                .Register(new XmlSettingData(context))
                 .Register(new LicenseTypeData(context))
-                //.Register(new SupplierData(context))
+                .Register(new SupplierData(context))
                 .Register(new ManagerData(context))
                 .Register(new ManufacturerData(context))
                 .Register(new ProgrammingData(context))
@@ -37,13 +37,14 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Register(new AircraftSeriesData(context))
                 .Register(new AirlinesData(context))
                 //.Register(new AircraftData(context))
-                //.Register(new ForwardData(context))
-                .Register(new TradeData(context))
+                .Register(new ForwardData(context))
+                //.Register(new TradeData(context))
                 //.Register(new PartData(context))
                 .Register(new ActionCategoryData(context))
                 .Register(new DocumentTypeData(context))
                 .Register(new DocumentData(context))
                 .Register(new IssuedUnitData(context))
+                .Register(new EngineTypeData(context))
                 .InitialData();
         }
     }
