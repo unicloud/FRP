@@ -26,6 +26,7 @@ using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
+using UniCloud.Domain.PartBC.Aggregates.ThresholdAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 
 #endregion
@@ -63,7 +64,8 @@ namespace UniCloud.DataService.DataProcess
                 // 计算3日、7日均值
                 CalAverageRate3(lastTSR, ref newOilMonitors);
                 CalAverageRate7(lastTSR, ref newOilMonitors);
-                // TODO：根据超限情况修改监控对象的滑油监控状态
+                // 根据超限情况修改监控对象的滑油监控状态
+                SetEngineOilStatus(engineReg);
 
                 _unitOfWork.Commit();
             }
@@ -88,8 +90,9 @@ namespace UniCloud.DataService.DataProcess
                 // 计算3日、7日均值
                 CalAverageRate3(lastTSR, ref newOilMonitors);
                 CalAverageRate7(lastTSR, ref newOilMonitors);
-                // TODO：根据超限情况修改监控对象的滑油监控状态
-                
+                // 根据超限情况修改监控对象的滑油监控状态
+                SetAPUOilStatus(apuReg);
+
                 _unitOfWork.Commit();
             }
         }
@@ -394,6 +397,24 @@ namespace UniCloud.DataService.DataProcess
                 var average = oilMonitors.Skip(i - 6).Take(7).Average(o => o.TotalRate);
                 oilMonitors[i].SetAverageRate7(average);
             }
+        }
+
+        /// <summary>
+        ///     设置发动机滑油监控状态
+        /// </summary>
+        /// <param name="engineReg">发动机序号件</param>
+        private void SetEngineOilStatus(EngineReg engineReg)
+        {
+            var threshold = _unitOfWork.CreateSet<Threshold>().FirstOrDefault(t => t.PnRegId == engineReg.PnRegId);
+        }
+
+        /// <summary>
+        ///     设置APU滑油监控状态
+        /// </summary>
+        /// <param name="apuReg">APU序号件</param>
+        private void SetAPUOilStatus(APUReg apuReg)
+        {
+            var threshold = _unitOfWork.CreateSet<Threshold>().FirstOrDefault(t => t.PnRegId == apuReg.PnRegId);
         }
     }
 }
