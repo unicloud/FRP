@@ -67,7 +67,7 @@ namespace UniCloud.Application.PurchaseBC.MaterialServices
         public void InsertAircraftMaterial(AircraftMaterialDTO dto)
         {
             AircraftMaterial aircraftMaterial = MaterialFactory.CreateAircraftMaterial(dto.Name, dto.Description, dto.AircraftTypeId);
-
+            aircraftMaterial.ManufacturerID = dto.ManufacturerId;
             _materialRepository.Add(aircraftMaterial);
         }
 
@@ -113,7 +113,7 @@ namespace UniCloud.Application.PurchaseBC.MaterialServices
                 new QueryBuilder<Material>();
             return _materialQuery.BFEMaterialsQuery(queryBuilder);
         }
-        
+
         /// <summary>
         ///     新增BFEMaterial。
         /// </summary>
@@ -121,9 +121,9 @@ namespace UniCloud.Application.PurchaseBC.MaterialServices
         [Insert(typeof(BFEMaterialDTO))]
         public void InsertBFEMaterial(BFEMaterialDTO dto)
         {
-            BFEMaterial BFEMaterial = MaterialFactory.CreateBFEMaterial(dto.Name, dto.Description,dto.Pn);
-
-            _materialRepository.Add(BFEMaterial);
+            BFEMaterial bFEMaterial = MaterialFactory.CreateBFEMaterial(dto.Name, dto.Description, dto.Pn);
+            bFEMaterial.ManufacturerID = dto.ManufacturerId;
+            _materialRepository.Add(bFEMaterial);
         }
 
         /// <summary>
@@ -174,9 +174,9 @@ namespace UniCloud.Application.PurchaseBC.MaterialServices
         [Insert(typeof(EngineMaterialDTO))]
         public void InsertEngineMaterial(EngineMaterialDTO dto)
         {
-            EngineMaterial EngineMaterial = MaterialFactory.CreateEngineMaterial(dto.Name, dto.Description,dto.Pn);
-
-            _materialRepository.Add(EngineMaterial);
+            EngineMaterial engineMaterial = MaterialFactory.CreateEngineMaterial(dto.Name, dto.Description, dto.Pn);
+            engineMaterial.ManufacturerID = dto.ManufacturerId;
+            _materialRepository.Add(engineMaterial);
         }
 
         /// <summary>
