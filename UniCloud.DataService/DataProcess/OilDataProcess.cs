@@ -406,6 +406,32 @@ namespace UniCloud.DataService.DataProcess
         private void SetEngineOilStatus(EngineReg engineReg)
         {
             var threshold = _unitOfWork.CreateSet<Threshold>().FirstOrDefault(t => t.PnRegId == engineReg.PnRegId);
+            if (threshold == null) return;
+            var weekOils =
+                _unitOfWork.CreateSet<OilMonitor>()
+                    .Where(o => o.SnRegID == engineReg.Id && o.Date > DateTime.Today.AddDays(-8));
+            if (
+                weekOils.Any(
+                    o =>
+                        o.TotalRate > threshold.TotalThreshold || o.IntervalRate > threshold.IntervalThreshold ||
+                        o.DeltaIntervalRate > threshold.DeltaIntervalThreshold ||
+                        o.AverageRate3 > threshold.Average3Threshold || o.AverageRate7 > threshold.Average7Threshold))
+            {
+                engineReg.SetMonitorStatus(OilMonitorStatus.警告);
+                return;
+            }
+            var monthOils =
+                _unitOfWork.CreateSet<OilMonitor>()
+                    .Where(o => o.SnRegID == engineReg.Id && o.Date > DateTime.Today.AddDays(-31));
+            if (
+                monthOils.Any(
+                    o =>
+                        o.TotalRate > threshold.TotalThreshold || o.IntervalRate > threshold.IntervalThreshold ||
+                        o.DeltaIntervalRate > threshold.DeltaIntervalThreshold ||
+                        o.AverageRate3 > threshold.Average3Threshold || o.AverageRate7 > threshold.Average7Threshold))
+            {
+                engineReg.SetMonitorStatus(OilMonitorStatus.关注);
+            }
         }
 
         /// <summary>
@@ -415,6 +441,32 @@ namespace UniCloud.DataService.DataProcess
         private void SetAPUOilStatus(APUReg apuReg)
         {
             var threshold = _unitOfWork.CreateSet<Threshold>().FirstOrDefault(t => t.PnRegId == apuReg.PnRegId);
+            if (threshold == null) return;
+            var weekOils =
+                _unitOfWork.CreateSet<OilMonitor>()
+                    .Where(o => o.SnRegID == apuReg.Id && o.Date > DateTime.Today.AddDays(-8));
+            if (
+                weekOils.Any(
+                    o =>
+                        o.TotalRate > threshold.TotalThreshold || o.IntervalRate > threshold.IntervalThreshold ||
+                        o.DeltaIntervalRate > threshold.DeltaIntervalThreshold ||
+                        o.AverageRate3 > threshold.Average3Threshold || o.AverageRate7 > threshold.Average7Threshold))
+            {
+                apuReg.SetMonitorStatus(OilMonitorStatus.警告);
+                return;
+            }
+            var monthOils =
+                _unitOfWork.CreateSet<OilMonitor>()
+                    .Where(o => o.SnRegID == apuReg.Id && o.Date > DateTime.Today.AddDays(-31));
+            if (
+                monthOils.Any(
+                    o =>
+                        o.TotalRate > threshold.TotalThreshold || o.IntervalRate > threshold.IntervalThreshold ||
+                        o.DeltaIntervalRate > threshold.DeltaIntervalThreshold ||
+                        o.AverageRate3 > threshold.Average3Threshold || o.AverageRate7 > threshold.Average7Threshold))
+            {
+                apuReg.SetMonitorStatus(OilMonitorStatus.关注);
+            }
         }
     }
 }
