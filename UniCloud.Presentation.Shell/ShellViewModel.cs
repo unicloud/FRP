@@ -20,6 +20,7 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Modularity;
@@ -28,29 +29,32 @@ using Microsoft.Practices.Prism.ViewModel;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
 using UniCloud.Presentation.SessionExtension;
+using UniCloud.Presentation.Shell.Login;
 
 #endregion
 
 namespace UniCloud.Presentation.Shell
 {
-    [Export(typeof(ShellViewModel))]
+    [Export(typeof (ShellViewModel))]
     public class ShellViewModel : NotificationObject, IPartImportsSatisfiedNotification
     {
         #region 声明
 
-        [Import]
-        public IModuleManager moduleManager;
-        [Import]
-        public IRegionManager regionManager;
+        [Import] public IModuleManager ModuleManager;
+        [Import] public IRegionManager RegionManager;
+        private bool _isDfFocused;
+        private TextBox _userNameTextBox;
 
         #region IPartImportsSatisfiedNotification 成员
 
         public void OnImportsSatisfied()
         {
             HomeCommand = new DelegateCommand<object>(OnHome, CanHome);
+            LoginOkCommand = new DelegateCommand<object>(OnLoginOk, CanLoginOk);
+            LoginCancelCommand = new DelegateCommand<object>(OnLoginCancel, CanLoginCancel);
 
-            moduleManager.LoadModuleCompleted += moduleManager_LoadModuleCompleted;
-            moduleManager.ModuleDownloadProgressChanged += moduleManager_ModuleDownloadProgressChanged;
+            ModuleManager.LoadModuleCompleted += moduleManager_LoadModuleCompleted;
+            ModuleManager.ModuleDownloadProgressChanged += moduleManager_ModuleDownloadProgressChanged;
 
             InitializeVM();
         }
@@ -69,6 +73,50 @@ namespace UniCloud.Presentation.Shell
         #endregion
 
         #region 数据
+
+        #region 公共属性
+
+        #region 登录实体
+
+        private LoginInfo _loginInfo;
+
+        /// <summary>
+        ///     登录实体
+        /// </summary>
+        public LoginInfo LoginInfo
+        {
+            get { return _loginInfo; }
+            set
+            {
+                if (_loginInfo == value) return;
+                _loginInfo = value;
+                RaisePropertyChanged(() => LoginInfo);
+            }
+        }
+
+        #endregion
+
+        #region 是否已登录
+
+        private bool _isLogined;
+
+        /// <summary>
+        ///     是否已登录
+        /// </summary>
+        public bool IsLogined
+        {
+            get { return _isLogined; }
+            set
+            {
+                if (_isLogined == value) return;
+                _isLogined = value;
+                RaisePropertyChanged(() => IsLogined);
+            }
+        }
+
+        #endregion
+
+        #endregion
 
         #region 应用模块
 
@@ -155,13 +203,11 @@ namespace UniCloud.Presentation.Shell
         public MenuItemsCollection Items
         {
             get { return _items; }
-            private set
+            set
             {
-                if (_items != value)
-                {
-                    _items = value;
-                    RaisePropertyChanged(() => Items);
-                }
+                if (_items == value) return;
+                _items = value;
+                RaisePropertyChanged(() => Items);
             }
         }
 
@@ -483,11 +529,11 @@ namespace UniCloud.Presentation.Shell
                 Text = "分析飞机机龄",
                 NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.FleetAge"
             };
-            var menu258 = new MenuItem
-            {
-                Text = "分析发动机引进方式",
-                NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.EngineImportType"
-            };
+            //var menu258 = new MenuItem
+            //{
+            //    Text = "分析发动机引进方式",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.EngineImportType"
+            //};
 
             menu25.Items.Add(menu251);
             menu25.Items.Add(menu252);
@@ -765,7 +811,7 @@ namespace UniCloud.Presentation.Shell
                 Text = "维护杂项发票",
                 NavUri = "UniCloud.Presentation.Payment.Invoice.SundryInvoiceManager"
             };
-           
+
             menu42.Items.Add(menu421);
             menu42.Items.Add(menu422);
             menu42.Items.Add(menu423);
@@ -926,11 +972,11 @@ namespace UniCloud.Presentation.Shell
                 Text = "分析付款计划执行",
                 NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.PaymentScheduleExecute"
             };
-            var menu484 = new MenuItem
-            {
-                Text = "分析维修成本",
-                NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.AnalyseMaintenanceCosts"
-            };
+            //var menu484 = new MenuItem
+            //{
+            //    Text = "分析维修成本",
+            //    NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.AnalyseMaintenanceCosts"
+            //};
             menu48.Items.Add(menu481);
             menu48.Items.Add(menu482);
             menu48.Items.Add(menu483);
@@ -1245,7 +1291,7 @@ namespace UniCloud.Presentation.Shell
         {
             // TODO：根据角色获取门户并导航
             var uri = new Uri("UniCloud.Presentation.Portal.Manager.ManagerPortal", UriKind.Relative);
-            regionManager.RequestNavigate(RegionNames.MainRegion, uri);
+            RegionManager.RequestNavigate(RegionNames.MainRegion, uri);
         }
 
         private bool CanHome(object obj)
@@ -1263,7 +1309,98 @@ namespace UniCloud.Presentation.Shell
             if (menuItem != null && menuItem.CommandParameter != null)
             {
                 var uri = new Uri(menuItem.CommandParameter.ToString(), UriKind.Relative);
-                regionManager.RequestNavigate(RegionNames.MainRegion, uri);
+                RegionManager.RequestNavigate(RegionNames.MainRegion, uri);
+            }
+        }
+
+        #endregion
+
+        #region 登录
+
+        #region 确认登录
+
+        /// <summary>
+        ///     确认登录
+        /// </summary>
+        public DelegateCommand<object> LoginOkCommand { get; private set; }
+
+        private void OnLoginOk(object obj)
+        {
+            IsLogined = true;
+        }
+
+        private bool CanLoginOk(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 取消登录
+
+        /// <summary>
+        ///     取消登录
+        /// </summary>
+        public DelegateCommand<object> LoginCancelCommand { get; private set; }
+
+        private void OnLoginCancel(object obj)
+        {
+        }
+
+        private bool CanLoginCancel(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        /// <summary>
+        ///     自动生成登录框DataForm
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void LoginForm_AutoGeneratingField(object sender, DataFormAutoGeneratingFieldEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "UserName":
+                    _userNameTextBox = (TextBox) e.Field.Content;
+                    break;
+                case "Password":
+                    var passwordBox = new PasswordBox();
+                    e.Field.ReplaceTextBox(passwordBox, PasswordBox.PasswordProperty);
+                    LoginInfo.PasswordAccessor = () => passwordBox.Password;
+                    break;
+            }
+        }
+
+        /// <summary>
+        ///     把用户输入框设置为焦点
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void LoginForm_ContentLoaded(object sender, DataFormContentLoadEventArgs e)
+        {
+            if (_isDfFocused) return;
+            _userNameTextBox.Focus();
+            _isDfFocused = true;
+        }
+
+        /// <summary>
+        ///     将 Esc 映射到取消按钮，将 Enter 映射到确定按钮。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void LoginForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    OnLoginCancel(sender);
+                    break;
+                case Key.Enter:
+                    OnLoginOk(sender);
+                    break;
             }
         }
 
@@ -1301,4 +1438,3 @@ namespace UniCloud.Presentation.Shell
         #endregion
     }
 }
-
