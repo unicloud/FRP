@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -83,15 +84,16 @@ namespace UniCloud.DataService.DataSync
                             if (pn.Description != dbPn.Description)
                             {
                                 dbPn.SetDescription(pn.Description); //更新已有附件的描述信息
+                                dbPn.UpdateDate = DateTime.Now;
                             }
                         }
                         else
                         {
                             var newPn = PnRegFactory.CreatePnReg(false, pn.Pn, pn.Description);//创建新的附件
-                            FrpDatas.Add(newPn);
+                            _unitOfWork.CreateSet<PnReg>().Add(newPn);
                         }
                     }
-                    _unitOfWork.Commit();
+                    _unitOfWork.SaveChanges();
                 }
             }
         }

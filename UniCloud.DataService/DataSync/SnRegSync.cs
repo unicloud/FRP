@@ -86,7 +86,7 @@ namespace UniCloud.DataService.DataSync
                             //更新飞机
                             if (partSn.RegNumber != null)
                             {
-                                Aircraft aircraft = AircraftDatas.FirstOrDefault(p => 
+                                Aircraft aircraft = AircraftDatas.FirstOrDefault(p =>
                                     p.RegNumber.Substring(p.RegNumber.Length - 4, 4) == partSn.RegNumber.Substring(partSn.RegNumber.Length - 4, 4));
                                 if (aircraft == null)
                                 {
@@ -116,9 +116,21 @@ namespace UniCloud.DataService.DataSync
                             if (partSn.Status != null)
                             {
                                 var statusArray = partSn.Status.ToCharArray();
-                                int status = (statusArray[0] - 48)*10 + (statusArray[1] - 48);
-                                if (status != (int)dbSn.Status)
-                                    dbSn.SetSnStatus((SnStatus)status);
+                                int status = (statusArray[0] - 48) * 10 + (statusArray[1] - 48);
+                                if ((status == 1 || status == 22) && dbSn.Status != SnStatus.在库)
+                                    dbSn.SetSnStatus(SnStatus.在库);
+                                else if ((status == 41 && dbSn.Status != SnStatus.装机))
+                                    dbSn.SetSnStatus(SnStatus.装机);
+                                else if ((status == 11 || status == 12 || status == 13 || status == 46) && dbSn.Status != SnStatus.在修)
+                                    dbSn.SetSnStatus(SnStatus.在修);
+                                else if ((status == 5 && dbSn.Status != SnStatus.出租))
+                                    dbSn.SetSnStatus(SnStatus.出租);
+                                else if ((status == 31 || status == 32) && dbSn.Status != SnStatus.报废)
+                                {
+                                    dbSn.SetSnStatus(SnStatus.报废);
+                                }
+                                else
+                                { if (dbSn.Status != SnStatus.其它) dbSn.SetSnStatus(SnStatus.其它); }
                             }
                         }
                         else
@@ -126,9 +138,11 @@ namespace UniCloud.DataService.DataSync
                             if (partSn.Pn != null)
                             {
                                 PnReg pnReg = PnRegDatas.ToList().FirstOrDefault(p => p.Pn == partSn.Pn.Trim());
-                                SnReg newSn=null;
-                                //SnReg newSn = SnRegFactory.CreateSnReg(DateTime.Now, pnReg, partSn.Sn, decimal.Parse(partSn.TSN),
-                                //    0, decimal.Parse(partSn.CSN), 0); //创建新的附件
+                                var newSn = SnRegFactory.CreateSnReg();
+                                if (pnReg != null)
+                                {
+                                    newSn.SetPnReg(pnReg);
+                                }
                                 if (partSn.RegNumber != null)
                                 {
                                     Aircraft aircraft = AircraftDatas.FirstOrDefault(p =>
@@ -143,20 +157,29 @@ namespace UniCloud.DataService.DataSync
                                         newSn.SetAircraft(aircraft); //设置序号件的所在飞机
                                     }
                                 }
-                                //newSn.SetIsLife(false);//默认设置为非寿控件
-                                //newSn.SetIsStop(false);//默认设置为未停用
+                                newSn.SetIsLife(false,false,0,0);//默认设置为非寿控件
                                 //更新序号件状态
                                 if (partSn.Status != null)
                                 {
                                     var statusArray = partSn.Status.ToCharArray();
-                                    int status = (statusArray[0]-48)*10 + (statusArray[1]-48);
-                                    newSn.SetSnStatus((SnStatus)status);
+                                    int status = (statusArray[0] - 48) * 10 + (statusArray[1] - 48);
+                                    if ((status == 1 || status == 22))
+                                        newSn.SetSnStatus(SnStatus.在库);
+                                    else if (status == 41)
+                                        newSn.SetSnStatus(SnStatus.装机);
+                                    else if (status == 11 || status == 12 || status == 13 || status == 46)
+                                        newSn.SetSnStatus(SnStatus.在修);
+                                    else if (status == 5)
+                                        newSn.SetSnStatus(SnStatus.出租);
+                                    else if (status == 31 || status == 32)
+                                        newSn.SetSnStatus(SnStatus.报废);
+                                    else newSn.SetSnStatus(SnStatus.其它); 
                                 }
-                                _unitOfWork.SnRegs.Add(newSn);
+                                _unitOfWork.CreateSet<SnReg>().Add(newSn);
                             }
                         }
                     }
-                    _unitOfWork.Commit();
+                    _unitOfWork.SaveChanges();
                 }
             }
         }
