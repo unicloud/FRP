@@ -8,21 +8,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
              mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance uc:ShellViewModel}">
 
     <UserControl.Resources>
-        <Style x:Key="MenuItemStyle" TargetType="telerik:RadMenuItem">
-            <Setter Property="IsSeparator" Value="{Binding IsSeparator}" />
-            <Setter Property="IsChecked" Value="{Binding IsChecked}" />
-            <Setter Property="IsCheckable" Value="{Binding IsCheckable}" />
-            <Setter Property="StaysOpenOnClick" Value="{Binding IsCheckable}" />
-            <Setter Property="Header" Value="{Binding Text}" />
-            <Setter Property="ItemsSource" Value="{Binding Items}" />
-            <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
-            <Setter Property="Icon" Value="{Binding Image}" />
-            <Setter Property="CommandParameter" Value="{Binding NavUri}" />
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="MenuItemStyle" TargetType="telerik:RadMenuItem">
+                <Setter Property="IsSeparator" Value="{Binding IsSeparator}" />
+                <Setter Property="IsChecked" Value="{Binding IsChecked}" />
+                <Setter Property="IsCheckable" Value="{Binding IsCheckable}" />
+                <Setter Property="StaysOpenOnClick" Value="{Binding IsCheckable}" />
+                <Setter Property="Header" Value="{Binding Text}" />
+                <Setter Property="ItemsSource" Value="{Binding Items}" />
+                <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
+                <Setter Property="Icon" Value="{Binding Image}" />
+                <Setter Property="CommandParameter" Value="{Binding NavUri}" />
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" Background="White">
@@ -62,5 +68,67 @@
         </StackPanel>
         <ContentControl Grid.Row="1" regions:RegionManager.RegionName="MainRegion" x:Name="MainContent"
                         HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+
+        <!--<Grid Grid.Row="0" x:Name="LoginWindow" d:IsHidden="True"
+              Visibility="{Binding IsLogined, ConverterParameter=Inverse, Converter={StaticResource BooleanToVisibilityConverter}}"
+              Grid.RowSpan="2">-->
+        <Grid Grid.Row="0" x:Name="LoginWindow" d:IsHidden="True"
+              Visibility="Collapsed" Grid.RowSpan="2">
+            <Rectangle Stroke="Black" Margin="-1,-1,0,0" StrokeThickness="0">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White" Offset="0" />
+                        <GradientStop Color="#FF202020" Offset="1" />
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Grid Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="200">
+                <Grid.Effect>
+                    <telerik:ReflectionEffect ReflectionHeight="0.25" ElementHeight="200" />
+                </Grid.Effect>
+                <Border BorderThickness="1" CornerRadius="2" BorderBrush="#14000000" Background="#14000000"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="-1" />
+                <Border BorderThickness="1" CornerRadius="2.25" BorderBrush="#0F000000" Background="#0F000000"
+                        HorizontalAlignment="Stretch" Margin="-2" VerticalAlignment="Stretch" />
+                <Border BorderThickness="1" CornerRadius="2.5" BorderBrush="#0C000000" Background="#0C000000"
+                        HorizontalAlignment="Stretch" Margin="-3" VerticalAlignment="Stretch" />
+                <Border BorderThickness="1" CornerRadius="2.75" BorderBrush="#0A000000" Background="#0A000000"
+                        HorizontalAlignment="Stretch" Margin="-4" VerticalAlignment="Stretch" />
+                <Border BorderBrush="Black" BorderThickness="0" CornerRadius="2" Margin="0" Background="#FF59A5F1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="154" />
+                            <RowDefinition Height="46" />
+                        </Grid.RowDefinitions>
+                        <telerik:RadDataForm Grid.Row="0" x:Name="LoginForm" Padding="30,7,30,0" Background="White"
+                                             CurrentItem="{Binding LoginInfo}" HorizontalContentAlignment="Stretch"
+                                             Margin="6,30,6,0" AutoEdit="True" CommandButtonsVisibility="None">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="AutoGeneratingField">
+                                    <ei:CallMethodAction TargetObject="{Binding ElementName=LoginForm}"
+                                                         MethodName="LoginForm_AutoGeneratingField" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="ContentLoaded">
+                                    <ei:CallMethodAction TargetObject="{Binding ElementName=LoginForm}"
+                                                         MethodName="LoginForm_ContentLoaded" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="KeyDown">
+                                    <ei:CallMethodAction TargetObject="{Binding ElementName=LoginForm}"
+                                                         MethodName="LoginForm_KeyDown" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </telerik:RadDataForm>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,20,10" HorizontalAlignment="Right"
+                                    Grid.Row="1">
+                            <telerik:RadButton x:Name="LoginButton" Content="登录" Margin="10,0,7,0" Width="60"
+                                               Command="{Binding LoginOkCommand}"
+                                               CommandParameter="{Binding ElementName=LoginForm}" />
+                            <telerik:RadButton x:Name="LoginCancel" Content="取消" Margin="7,0,10,0" Width="60"
+                                               Command="{Binding LoginCancelCommand}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

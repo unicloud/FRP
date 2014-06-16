@@ -276,15 +276,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="LoginInfo.cs" />
     <Compile Include="Login\DataFieldExtensions.cs" />
-    <Compile Include="Login\LoginInfo.cs" />
-    <Compile Include="Login\LoginView.xaml.cs">
-      <DependentUpon>LoginView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Login\LoginVm.cs" />
-    <Compile Include="Login\PageSwitcher.xaml.cs">
-      <DependentUpon>PageSwitcher.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MenuItem.cs" />
     <Compile Include="MenuItemsCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -298,14 +291,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Login\LoginView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Login\PageSwitcher.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -368,6 +353,7 @@
   <ItemGroup>
     <None Include="Properties\InBrowserSettings.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -32,7 +32,6 @@ using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Portal;
 using UniCloud.Presentation.Service.Project;
 using UniCloud.Presentation.Service.Purchase;
-using UniCloud.Presentation.Shell.Login;
 
 #endregion
 
@@ -44,22 +43,22 @@ namespace UniCloud.Presentation.Shell
         {
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (Bootstrapper).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (DocViewer).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IService).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ICommonService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (ICommonService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IFleetPlanService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPurchaseService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPaymentService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IProjectService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPortalService).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IAircraftConfigService).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IPartService).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IBaseManagementService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IAircraftConfigService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPartService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IBaseManagementService).Assembly));
         }
 
         protected override void InitializeShell()
         {
             base.InitializeShell();
-            System.Windows.Application.Current.RootVisual = (UIElement) Shell;
+            Application.Current.RootVisual = (UIElement) Shell;
         }
 
         protected override DependencyObject CreateShell()
