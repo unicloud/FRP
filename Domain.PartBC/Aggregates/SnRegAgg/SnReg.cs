@@ -185,6 +185,10 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
                     Status = SnStatus.报废;
                     IsStop = true;
                     break;
+                case SnStatus.其它:
+                    Status = SnStatus.其它;
+                    IsStop = true;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("status");
             }

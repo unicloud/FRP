@@ -40,5 +40,6 @@ namespace UniCloud.Presentation.Service.Part.Part.Enums
         出租 = 3,
         出售 = 4,
         报废 = 5,
+        其它 = 6,
     }
 }

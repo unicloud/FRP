@@ -36,5 +36,6 @@ namespace UniCloud.Domain.Common.Enums
         出租 = 3,
         出售 = 4,
         报废 = 5,
+        其它 = 6,
     }
 }

@@ -31,7 +31,7 @@ namespace TestWindowsService
                 //3、同步SnRegs数据
                 SnRegSync();
                 //4、同步SnRemInstRecord数据(拆换记录)
-                SnRemInstRecordSync();
+                //SnRemInstRecordSync();
                 //5.同步装机历史
                 //SnHistorySync();
                 DisposeContext();

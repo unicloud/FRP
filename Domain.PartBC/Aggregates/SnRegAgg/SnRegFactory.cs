@@ -32,7 +32,19 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
     public static class SnRegFactory
     {
         #region 创建
-
+        /// <summary>
+        ///     创建序号件
+        /// </summary>
+        /// <returns>序号件</returns>
+        public static SnReg CreateSnReg()
+        {
+            var snReg = new SnReg
+            {
+            };
+            snReg.GenerateNewIdentity();
+            snReg.CreateDate = DateTime.Now;
+            return snReg;
+        }
         /// <summary>
         ///     创建序号件
         /// </summary>
