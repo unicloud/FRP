@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/3/14 14:54:36
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -27,18 +29,18 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg
     public static class RoleFactory
     {
         /// <summary>
-        /// 创建角色
+        ///     创建角色
         /// </summary>
         /// <returns></returns>
         public static Role CreateRole()
         {
-            var role = new Role();
+            var role = new Role {CreateDate = DateTime.Now};
             role.GenerateNewIdentity();
             return role;
         }
 
         /// <summary>
-        /// 设置role属性
+        ///     设置role属性
         /// </summary>
         /// <param name="role">角色</param>
         /// <param name="name">名字</param>
@@ -49,7 +51,7 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg
         }
 
         /// <summary>
-        /// 设置RoleFunction
+        ///     设置RoleFunction
         /// </summary>
         /// <param name="roleFunction">角色功能</param>
         /// <param name="roleId">角色</param>
