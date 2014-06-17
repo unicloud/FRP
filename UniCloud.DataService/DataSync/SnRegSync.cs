@@ -138,7 +138,7 @@ namespace UniCloud.DataService.DataSync
                             if (partSn.Pn != null)
                             {
                                 PnReg pnReg = PnRegDatas.ToList().FirstOrDefault(p => p.Pn == partSn.Pn.Trim());
-                                var newSn = SnRegFactory.CreateSnReg();
+                                var newSn = SnRegFactory.CreateSnReg(partSn.Sn);
                                 if (pnReg != null)
                                 {
                                     newSn.SetPnReg(pnReg);
