@@ -277,7 +277,6 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="LoginInfo.cs" />
-    <Compile Include="Login\DataFieldExtensions.cs" />
     <Compile Include="MenuItem.cs" />
     <Compile Include="MenuItemsCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

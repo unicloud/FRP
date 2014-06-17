@@ -72,9 +72,9 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "CommonService.xap",
-                ModuleName = "CommonServiceModule",
+                ModuleName = ModuleNames.CommonService,
                 ModuleType =
                     "UniCloud.Presentation.CommonService.CommonServiceModule, UniCloud.Presentation.CommonService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
             });
@@ -83,16 +83,16 @@ namespace UniCloud.Presentation.Shell
             {
                 InitializationMode = InitializationMode.WhenAvailable,
                 Ref = "BaseManagement.xap",
-                ModuleName = "BaseManagementModule",
+                ModuleName = ModuleNames.BaseManagement,
                 ModuleType =
                     "UniCloud.Presentation.BaseManagement.BaseManagementModule, UniCloud.Presentation.BaseManagement, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
             });
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "AircraftConfig.xap",
-                ModuleName = "AircraftConfigModule",
+                ModuleName = ModuleNames.AircraftConfig,
                 ModuleType =
                     "UniCloud.Presentation.AircraftConfig.AircraftConfigModule, UniCloud.Presentation.AircraftConfig, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
             });
@@ -101,34 +101,34 @@ namespace UniCloud.Presentation.Shell
             {
                 InitializationMode = InitializationMode.OnDemand,
                 Ref = "FlightLog.xap",
-                ModuleName = "FlightLogModule",
+                ModuleName = ModuleNames.FlightLog,
                 ModuleType =
                     "UniCloud.Presentation.FlightLog.FlightLogModule, UniCloud.Presentation.FlightLog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
             });
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "FleetPlan.xap",
-                ModuleName = "FleetPlanModule",
+                ModuleName = ModuleNames.FleetPlan,
                 ModuleType =
                     "UniCloud.Presentation.FleetPlan.FleetPlanModule, UniCloud.Presentation.FleetPlan, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
             });
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "Purchase.xap",
-                ModuleName = "PurchaseModule",
+                ModuleName = ModuleNames.Purchase,
                 ModuleType =
                     "UniCloud.Presentation.Purchase.PurchaseModule, UniCloud.Presentation.Purchase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
             });
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "Payment.xap",
-                ModuleName = "PaymentModule",
+                ModuleName = ModuleNames.Payment,
                 ModuleType =
                     "UniCloud.Presentation.Payment.PaymentModule, UniCloud.Presentation.Payment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
             });
@@ -137,25 +137,25 @@ namespace UniCloud.Presentation.Shell
             {
                 InitializationMode = InitializationMode.OnDemand,
                 Ref = "Project.xap",
-                ModuleName = "ProjectModule",
+                ModuleName = ModuleNames.Project,
                 ModuleType =
                     "UniCloud.Presentation.Project.ProjectModule, UniCloud.Presentation.Project, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
             });
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "Portal.xap",
-                ModuleName = "PortalModule",
+                ModuleName = ModuleNames.Portal,
                 ModuleType =
                     "UniCloud.Presentation.Portal.PortalModule, UniCloud.Presentation.Portal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
             });
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "Part.xap",
-                ModuleName = "PartModule",
+                ModuleName = ModuleNames.Part,
                 ModuleType =
                     "UniCloud.Presentation.Part.PartModule, UniCloud.Presentation.Part, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
             });

@@ -28,8 +28,7 @@ using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Prism.ViewModel;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
-using UniCloud.Presentation.SessionExtension;
-using UniCloud.Presentation.Shell.Login;
+using Telerik.Windows.Controls.Data.DataForm;
 
 #endregion
 
@@ -40,10 +39,13 @@ namespace UniCloud.Presentation.Shell
     {
         #region 声明
 
-        [Import] public IModuleManager ModuleManager;
-        [Import] public IRegionManager RegionManager;
-        private bool _isDfFocused;
-        private TextBox _userNameTextBox;
+        [Import] public IModuleManager moduleManager;
+        [Import] public IRegionManager regionManager;
+
+        public ShellViewModel()
+        {
+            LoginInfo = new LoginInfo();
+        }
 
         #region IPartImportsSatisfiedNotification 成员
 
@@ -53,8 +55,8 @@ namespace UniCloud.Presentation.Shell
             LoginOkCommand = new DelegateCommand<object>(OnLoginOk, CanLoginOk);
             LoginCancelCommand = new DelegateCommand<object>(OnLoginCancel, CanLoginCancel);
 
-            ModuleManager.LoadModuleCompleted += moduleManager_LoadModuleCompleted;
-            ModuleManager.ModuleDownloadProgressChanged += moduleManager_ModuleDownloadProgressChanged;
+            moduleManager.LoadModuleCompleted += moduleManager_LoadModuleCompleted;
+            moduleManager.ModuleDownloadProgressChanged += moduleManager_ModuleDownloadProgressChanged;
 
             InitializeVM();
         }
@@ -66,8 +68,7 @@ namespace UniCloud.Presentation.Shell
         /// </summary>
         private void InitializeVM()
         {
-            LoadMenuItems();
-            InitialSession("123456", "test用户");
+            //InitialSession("123456", "test用户");
         }
 
         #endregion
@@ -119,6 +120,22 @@ namespace UniCloud.Presentation.Shell
         #endregion
 
         #region 应用模块
+
+        /// <summary>
+        ///     根据登录用户加载模块
+        /// </summary>
+        /// <param name="userName">用户</param>
+        private void ModuleLoader(string userName)
+        {
+            moduleManager.LoadModule("CommonServiceModule");
+            moduleManager.LoadModule("BaseManagementModule");
+            moduleManager.LoadModule("AircraftConfigModule");
+            moduleManager.LoadModule("FleetPlanModule");
+            moduleManager.LoadModule("PurchaseModule");
+            moduleManager.LoadModule("PaymentModule");
+            moduleManager.LoadModule("PortalModule");
+            moduleManager.LoadModule("PartModule");
+        }
 
         /// <summary>
         ///     应用模块加载完成后的操作
@@ -1291,7 +1308,7 @@ namespace UniCloud.Presentation.Shell
         {
             // TODO：根据角色获取门户并导航
             var uri = new Uri("UniCloud.Presentation.Portal.Manager.ManagerPortal", UriKind.Relative);
-            RegionManager.RequestNavigate(RegionNames.MainRegion, uri);
+            regionManager.RequestNavigate(RegionNames.MainRegion, uri);
         }
 
         private bool CanHome(object obj)
@@ -1306,11 +1323,9 @@ namespace UniCloud.Presentation.Shell
         public void RadMenu_ItemClick(object sender, RadRoutedEventArgs e)
         {
             var menuItem = (e.OriginalSource as RadMenuItem);
-            if (menuItem != null && menuItem.CommandParameter != null)
-            {
-                var uri = new Uri(menuItem.CommandParameter.ToString(), UriKind.Relative);
-                RegionManager.RequestNavigate(RegionNames.MainRegion, uri);
-            }
+            if (menuItem == null || menuItem.CommandParameter == null) return;
+            var uri = new Uri(menuItem.CommandParameter.ToString(), UriKind.Relative);
+            regionManager.RequestNavigate(RegionNames.MainRegion, uri);
         }
 
         #endregion
@@ -1326,6 +1341,14 @@ namespace UniCloud.Presentation.Shell
 
         private void OnLoginOk(object obj)
         {
+            var loginForm = obj as RadDataForm;
+            // 由于未使用 DataForm 中的标准“确定”按钮，因此需要强制进行验证。
+            // 如果未确保窗体有效，则在实体无效时调用该操作会导致异常。
+            if (loginForm == null || !loginForm.ValidateItem()) return;
+            var logined = loginForm.CurrentItem as LoginInfo;
+            if (logined == null) return;
+            ModuleLoader(logined.UserName);
+            LoadMenuItems();
             IsLogined = true;
         }
 
@@ -1345,6 +1368,7 @@ namespace UniCloud.Presentation.Shell
 
         private void OnLoginCancel(object obj)
         {
+            //_userNameTextBox.Focus();
         }
 
         private bool CanLoginCancel(object obj)
@@ -1359,31 +1383,17 @@ namespace UniCloud.Presentation.Shell
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void LoginForm_AutoGeneratingField(object sender, DataFormAutoGeneratingFieldEventArgs e)
+        public void LoginForm_AutoGeneratingField(object sender, AutoGeneratingFieldEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case "UserName":
-                    _userNameTextBox = (TextBox) e.Field.Content;
-                    break;
                 case "Password":
                     var passwordBox = new PasswordBox();
-                    e.Field.ReplaceTextBox(passwordBox, PasswordBox.PasswordProperty);
+                    //e.DataField.ReplaceTextBox(passwordBox, PasswordBox.PasswordProperty);
+                    e.DataField.Content = passwordBox;
                     LoginInfo.PasswordAccessor = () => passwordBox.Password;
                     break;
             }
-        }
-
-        /// <summary>
-        ///     把用户输入框设置为焦点
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void LoginForm_ContentLoaded(object sender, DataFormContentLoadEventArgs e)
-        {
-            if (_isDfFocused) return;
-            _userNameTextBox.Focus();
-            _isDfFocused = true;
         }
 
         /// <summary>
@@ -1422,16 +1432,16 @@ namespace UniCloud.Presentation.Shell
 
         #region 设置用户Session
 
-        /// <summary>
-        ///     设置用户Session
-        /// </summary>
-        /// <param name="userId">用户Id</param>
-        /// <param name="userName">用户名</param>
-        private void InitialSession(string userId, string userName)
-        {
-            SessionHelper.SetSession("userId", userId);
-            SessionHelper.SetSession("userName", userName);
-        }
+        ///// <summary>
+        /////     设置用户Session
+        ///// </summary>
+        ///// <param name="userId">用户Id</param>
+        ///// <param name="userName">用户名</param>
+        //private void InitialSession(string userId, string userName)
+        //{
+        //    SessionHelper.SetSession("userId", userId);
+        //    SessionHelper.SetSession("userName", userName);
+        //}
 
         #endregion
 

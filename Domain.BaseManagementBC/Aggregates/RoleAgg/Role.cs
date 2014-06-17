@@ -55,7 +55,7 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg
         /// <summary>
         ///     创建日期
         /// </summary>
-        public DateTime CreateDate { get; private set; }
+        public DateTime CreateDate { get; internal set; }
 
         /// <summary>
         ///     顺序
