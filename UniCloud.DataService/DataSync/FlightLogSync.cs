@@ -22,6 +22,7 @@ using System.Data.Entity;
 using System.Linq;
 using UniCloud.DataService.Connection;
 using UniCloud.Domain.FlightLogBC.Aggregates.FlightLogAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork.Mapping;
 
 #endregion
@@ -30,6 +31,7 @@ namespace UniCloud.DataService.DataSync
 {
     public class FlightLogSync : DataSync
     {
+        private const int Size = 1000;
         private readonly FlightLogBCUnitOfWork _unitOfWork;
 
         public FlightLogSync(FlightLogBCUnitOfWork unitOfWork)
@@ -75,43 +77,47 @@ namespace UniCloud.DataService.DataSync
             if (AmasisDatas.Any() && !FrpDatas.Any())
             {
                 DbSet<FlightLog> datas = _unitOfWork.CreateSet<FlightLog>();
-
-                foreach (FlightLog flightLog in AmasisDatas)
+                                int times = AmasisDatas.Count() / Size;
+                for (int i = 0; i < times + 1; i++)
                 {
-                    FlightLog fl = FlightLogFactory.CreateFlightLog();
-                    fl.AcReg = flightLog.AcReg;
-                    fl.ApuCycle = flightLog.ApuCycle;
-                    fl.ApuMM = flightLog.ApuMM;
-                    fl.ApuOilArr = flightLog.ApuOilArr;
-                    fl.ApuOilDep = flightLog.ApuOilDep;
-                    fl.ArrivalAirport = flightLog.ArrivalAirport;
-                    fl.BlockHours = flightLog.BlockHours;
-                    fl.BlockOn = flightLog.BlockOn;
-                    fl.BlockStop = flightLog.BlockStop;
-                    fl.Cycle = flightLog.Cycle;
-                    fl.DepartureAirport = flightLog.DepartureAirport;
-                    fl.ENG1OilArr = flightLog.ENG1OilArr;
-                    fl.ENG1OilDep = flightLog.ENG1OilDep;
-                    fl.ENG2OilArr = flightLog.ENG2OilArr;
-                    fl.ENG2OilDep = flightLog.ENG2OilDep;
-                    fl.FlightDate = flightLog.FlightDate;
-                    fl.FlightHours = flightLog.FlightHours;
-                    fl.FlightNum = flightLog.FlightNum;
-                    fl.FlightType = flightLog.FlightType;
-                    fl.Landing = flightLog.Landing;
-                    fl.LegNo = flightLog.LegNo;
-                    fl.LogNo = flightLog.LogNo;
-                    fl.MSN = flightLog.MSN;
-                    fl.TakeOff = flightLog.TakeOff;
-                    fl.ToGoNumber = flightLog.ToGoNumber;
-                    fl.TotalBH = flightLog.TotalBH;
-                    fl.TotalCycles = flightLog.TotalCycles;
-                    fl.TotalFH = flightLog.TotalFH;
-                    fl.CreateDate = DateTime.Now;
-                    datas.Add(fl);
+                    int count = i == times ? AmasisDatas.Count() - i*Size : Size;
+                    foreach (FlightLog flightLog in AmasisDatas.Skip(i * Size).Take(count))
+                    {
+                        FlightLog fl = FlightLogFactory.CreateFlightLog();
+                        fl.AcReg = flightLog.AcReg;
+                        fl.ApuCycle = flightLog.ApuCycle;
+                        fl.ApuMM = flightLog.ApuMM;
+                        fl.ApuOilArr = flightLog.ApuOilArr;
+                        fl.ApuOilDep = flightLog.ApuOilDep;
+                        fl.ArrivalAirport = flightLog.ArrivalAirport;
+                        fl.BlockHours = flightLog.BlockHours;
+                        fl.BlockOn = flightLog.BlockOn;
+                        fl.BlockStop = flightLog.BlockStop;
+                        fl.Cycle = flightLog.Cycle;
+                        fl.DepartureAirport = flightLog.DepartureAirport;
+                        fl.ENG1OilArr = flightLog.ENG1OilArr;
+                        fl.ENG1OilDep = flightLog.ENG1OilDep;
+                        fl.ENG2OilArr = flightLog.ENG2OilArr;
+                        fl.ENG2OilDep = flightLog.ENG2OilDep;
+                        fl.FlightDate = flightLog.FlightDate;
+                        fl.FlightHours = flightLog.FlightHours;
+                        fl.FlightNum = flightLog.FlightNum;
+                        fl.FlightType = flightLog.FlightType;
+                        fl.Landing = flightLog.Landing;
+                        fl.LegNo = flightLog.LegNo;
+                        fl.LogNo = flightLog.LogNo;
+                        fl.MSN = flightLog.MSN;
+                        fl.TakeOff = flightLog.TakeOff;
+                        fl.ToGoNumber = flightLog.ToGoNumber;
+                        fl.TotalBH = flightLog.TotalBH;
+                        fl.TotalCycles = flightLog.TotalCycles;
+                        fl.TotalFH = flightLog.TotalFH;
+                        fl.CreateDate = DateTime.Now;
+                        _unitOfWork.CreateSet<FlightLog>().Add(fl);
+                    }
                 }
             }
-            _unitOfWork.Commit();
+            _unitOfWork.SaveChanges();
         }
     }
 }

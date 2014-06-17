@@ -25,7 +25,7 @@ namespace TestWindowsService
                 InitialContext();
                 //AircraftSeriesSync();
                 //1、同步FlightLog数据
-                //FlightLogSync();
+                FlightLogSync();
                 //2、同步PnReg数据
                 PnRegSync();
                 //3、同步SnRegs数据

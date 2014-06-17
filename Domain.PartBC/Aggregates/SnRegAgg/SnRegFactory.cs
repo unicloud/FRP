@@ -35,11 +35,13 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// <summary>
         ///     创建序号件
         /// </summary>
+        /// <param name="sn">序号</param>
         /// <returns>序号件</returns>
-        public static SnReg CreateSnReg()
+        public static SnReg CreateSnReg(string sn)
         {
             var snReg = new SnReg
             {
+                Sn = sn,
             };
             snReg.GenerateNewIdentity();
             snReg.CreateDate = DateTime.Now;
