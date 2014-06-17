@@ -42,7 +42,7 @@ namespace UniCloud.DataService.DataSync
         public List<FlightLog> AmasisDatas { get; protected set; }
         public List<FlightLog> FrpDatas { get; protected set; }
 
-        public string QueryStr { get;protected set; }
+        public string QueryStr { get; protected set; }
         public override void ImportAmasisData()
         {
             const int step = 1;
@@ -56,7 +56,7 @@ namespace UniCloud.DataService.DataSync
                 " LEG.VOOILMO1D ENG1OilDep,LEG.VOOILMO1A ENG1OilArr,LEG.VOOILMO2D ENG2OilDep,LEG.VOOILMO2A ENG2OilArr,LEG.VOOILAPUD ApuOilDep," +
                 " LEG.VOOILAPUA ApuOilArr FROM AMSFCSCVAL.FRVO AS LEG LEFT JOIN AMSFCSCVAL.FRRM AS LOG ON  LEG.AVNUMAP = LOG.AVNUMAP AND LEG.RMDOC = LOG.RMDOC Left join" +
                 " AMSFCSCVAL.FRAV A ON LEG.AVNUMAP=A.AVNUMAP";
-            string queryConditionForSeveralDays = "WHERE A.AVNUMAP = LEG.AVNUMAP AND (Char(Date(RTRIM(LEG.RMA4)||'-'||RTRIM(LEG.RMMM)||'-'||RTRIM(LEG.RMJJ)))> Char(current date -"+step+" MONTH))" +
+            string queryConditionForSeveralDays = " WHERE A.AVNUMAP = LEG.AVNUMAP AND (Char(Date(RTRIM(LEG.RMA4)||'-'||RTRIM(LEG.RMMM)||'-'||RTRIM(LEG.RMJJ)))> Char(current date -" + step + " MONTH))" +
                                                   "  ORDER by AcReg,FlightDate desc,TotalFH desc ";
             QueryStr = strSql + queryConditionForSeveralDays;
             using (var conn = new Db2Conn(GetDb2Connection()))
@@ -77,10 +77,10 @@ namespace UniCloud.DataService.DataSync
             if (AmasisDatas.Any() && !FrpDatas.Any())
             {
                 DbSet<FlightLog> datas = _unitOfWork.CreateSet<FlightLog>();
-                                int times = AmasisDatas.Count() / Size;
+                int times = AmasisDatas.Count() / Size;
                 for (int i = 0; i < times + 1; i++)
                 {
-                    int count = i == times ? AmasisDatas.Count() - i*Size : Size;
+                    int count = i == times ? AmasisDatas.Count() - i * Size : Size;
                     foreach (FlightLog flightLog in AmasisDatas.Skip(i * Size).Take(count))
                     {
                         FlightLog fl = FlightLogFactory.CreateFlightLog();
@@ -91,8 +91,8 @@ namespace UniCloud.DataService.DataSync
                         fl.ApuOilDep = flightLog.ApuOilDep;
                         fl.ArrivalAirport = flightLog.ArrivalAirport;
                         fl.BlockHours = flightLog.BlockHours;
-                        fl.BlockOn = flightLog.BlockOn;
-                        fl.BlockStop = flightLog.BlockStop;
+                        fl.BlockOn = ChangeData(flightLog.BlockOn);
+                        fl.BlockStop = ChangeData(flightLog.BlockStop);
                         fl.Cycle = flightLog.Cycle;
                         fl.DepartureAirport = flightLog.DepartureAirport;
                         fl.ENG1OilArr = flightLog.ENG1OilArr;
@@ -103,11 +103,11 @@ namespace UniCloud.DataService.DataSync
                         fl.FlightHours = flightLog.FlightHours;
                         fl.FlightNum = flightLog.FlightNum;
                         fl.FlightType = flightLog.FlightType;
-                        fl.Landing = flightLog.Landing;
+                        fl.Landing = ChangeData(flightLog.Landing);
                         fl.LegNo = flightLog.LegNo;
                         fl.LogNo = flightLog.LogNo;
                         fl.MSN = flightLog.MSN;
-                        fl.TakeOff = flightLog.TakeOff;
+                        fl.TakeOff = ChangeData(flightLog.TakeOff);
                         fl.ToGoNumber = flightLog.ToGoNumber;
                         fl.TotalBH = flightLog.TotalBH;
                         fl.TotalCycles = flightLog.TotalCycles;
@@ -115,9 +115,15 @@ namespace UniCloud.DataService.DataSync
                         fl.CreateDate = DateTime.Now;
                         _unitOfWork.CreateSet<FlightLog>().Add(fl);
                     }
+                    _unitOfWork.SaveChanges();
                 }
             }
-            _unitOfWork.SaveChanges();
+        }
+
+        private string ChangeData(string source)
+        {
+            string full = "0000" + source;
+            return full.Substring(full.Length - 4);
         }
     }
 }
