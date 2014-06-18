@@ -115,6 +115,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                     SpecialRefitMaintainCost = SpecialRefitMaintainCosts.FirstOrDefault();
                 RefreshCommandState();
             };
+            _service.RegisterCollectionView(SpecialRefitInvoices);
 
             Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
             Annuals.LoadedData += (o, e) =>

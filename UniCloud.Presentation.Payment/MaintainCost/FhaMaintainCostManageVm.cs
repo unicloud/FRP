@@ -118,6 +118,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                     FhaMaintainCost = FhaMaintainCosts.FirstOrDefault();
                 RefreshCommandState();
             };
+            _service.RegisterCollectionView(FhaMaintainCosts);
 
             Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
             Annuals.LoadedData += (o, e) =>

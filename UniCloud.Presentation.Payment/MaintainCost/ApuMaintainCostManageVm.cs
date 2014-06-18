@@ -128,6 +128,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                     ApuMaintainCost = ApuMaintainCosts.FirstOrDefault();
                 RefreshCommandState();
             };
+            _service.RegisterCollectionView(ApuMaintainCosts);
 
             Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
             Annuals.LoadedData += (o, e) =>

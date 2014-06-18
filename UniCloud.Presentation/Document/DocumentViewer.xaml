@@ -11,8 +11,8 @@
                    mc:Ignorable="d"
                    d:DataContext="{d:DesignInstance uc:DocumentViewerVm }"
                    x:Name="RadDocumentViewer"
-                   Height="600"
-                   Width="800"
+                   Height="500"
+                   Width="700"
                    Header="编辑文档">
 
     <telerik:RadWindow.Resources>

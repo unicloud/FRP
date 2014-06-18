@@ -70,8 +70,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                                              };
             _service.RegisterCollectionView(PrepaymentInvoices); //注册查询集合。
 
-            MaintainPaymentSchedules = _service.CreateCollection(_context.MaintainPaymentSchedules, o => o.PaymentScheduleLines);
-            _service.RegisterCollectionView(MaintainPaymentSchedules); //注册查询集合。
+            MaintainPaymentSchedules = new QueryableDataServiceCollectionView<MaintainPaymentScheduleDTO>(_context, _context.MaintainPaymentSchedules);
 
             PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context, _context.PaymentSchedules);
         }

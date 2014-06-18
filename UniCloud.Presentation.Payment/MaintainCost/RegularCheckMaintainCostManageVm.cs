@@ -128,6 +128,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                     RegularCheckMaintainCost = RegularCheckMaintainCosts.FirstOrDefault();
                 RefreshCommandState();
             };
+            _service.RegisterCollectionView(RegularCheckMaintainCosts);
 
             Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Aircrafts);
             AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_fleetPlanService.Context, _fleetPlanService.Context.AircraftTypes);

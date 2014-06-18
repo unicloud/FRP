@@ -10,8 +10,8 @@
                    WindowStartupLocation="CenterScreen"
                    Header="{Binding Title}"
                    mc:Ignorable="d"
-                   Height="600"
-                   Width="900"
+                   Height="500"
+                   Width="700"
                    d:DataContext="{d:DesignInstance uc:DocViewerVM}"
                    Name="DocViewerView">
 

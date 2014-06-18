@@ -136,6 +136,7 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                     NonFhaMaintainCost = NonFhaMaintainCosts.FirstOrDefault();
                 RefreshCommandState();
             };
+            _service.RegisterCollectionView(NonFhaMaintainCosts);
 
             Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Aircrafts);
             AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_fleetPlanService.Context, _fleetPlanService.Context.AircraftTypes);

@@ -72,14 +72,11 @@ namespace UniCloud.Presentation.Payment.Invoice
                                              };
             _service.RegisterCollectionView(PrepaymentInvoices); //注册查询集合。
 
-            AcPaymentSchedules = _service.CreateCollection(_context.AcPaymentSchedules, o => o.PaymentScheduleLines);
-            _service.RegisterCollectionView(AcPaymentSchedules); //注册查询集合。
+            AcPaymentSchedules = new QueryableDataServiceCollectionView<AcPaymentScheduleDTO>(_context, _context.AcPaymentSchedules);
 
-            EnginePaymentSchedules = _service.CreateCollection(_context.EnginePaymentSchedules, o => o.PaymentScheduleLines);
-            _service.RegisterCollectionView(EnginePaymentSchedules); //注册查询集合。
+            EnginePaymentSchedules = new QueryableDataServiceCollectionView<EnginePaymentScheduleDTO>(_context, _context.EnginePaymentSchedules);
 
-            StandardPaymentSchedules = _service.CreateCollection(_context.StandardPaymentSchedules, o => o.PaymentScheduleLines);
-            _service.RegisterCollectionView(StandardPaymentSchedules); //注册查询集合。
+            StandardPaymentSchedules = new QueryableDataServiceCollectionView<StandardPaymentScheduleDTO>(_context, _context.StandardPaymentSchedules);
 
             AircraftPurchaseOrders = new QueryableDataServiceCollectionView<AircraftPurchaseOrderDTO>(_context, _context.AircraftPurchaseOrders);
 
