@@ -138,10 +138,6 @@
                                                                         IsComboBoxEditable="True"
                                                                         EditorStyle="{StaticResource EditComboBox}" 
                                                                         UniqueName="Aircraft"/>
-                                        <telerik:GridViewDataColumn Header="拆装位置"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding Position}" />
                                         <telerik:GridViewDataColumn Header="拆装原因"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -238,6 +234,15 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Pn}" />
+                                        <telerik:GridViewComboBoxColumn Header="拆下位置"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.Positions, ElementName=ReInstallUserControl}"
+                                                                        SelectedValueMemberPath="Key"
+                                                                        DisplayMemberPath="Value"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding Position,Mode=TwoWay}"
+                                                                        EditorStyle="{StaticResource EditComboBox}"
+                                                                        UniqueName="Status" />
                                         <telerik:GridViewDataColumn Header="拆下日期"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -343,6 +348,15 @@
                                                                         DataMemberBinding="{Binding PnRegId}"
                                                                         SelectedValueMemberPath="Id" 
                                                                         UniqueName="PnReg"/>
+                                        <telerik:GridViewComboBoxColumn Header="装上位置"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.Positions, ElementName=ReInstallUserControl}"
+                                                                        SelectedValueMemberPath="Key"
+                                                                        DisplayMemberPath="Value"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding Position,Mode=TwoWay}"
+                                                                        EditorStyle="{StaticResource EditComboBox}"
+                                                                        UniqueName="Status" />
                                         <telerik:GridViewDataColumn Header="装上日期"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"

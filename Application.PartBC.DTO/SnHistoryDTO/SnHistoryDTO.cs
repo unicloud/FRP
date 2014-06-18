@@ -92,6 +92,11 @@ namespace UniCloud.Application.PartBC.DTO
         public int Status { get; set; }
 
         /// <summary>
+        ///     拆装位置
+        /// </summary>
+        public int Position { get; set; }
+
+        /// <summary>
         ///     装机机号
         /// </summary>
         public string RegNumber { get; set; }

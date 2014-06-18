@@ -357,6 +357,7 @@
         <Property Name="CSN2" Type="Edm.Int32" Nullable="false" />
         <Property Name="TSN2" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Position" Type="Edm.Int32" Nullable="false" />
         <Property Name="RegNumber" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="SnRegId" Type="Edm.Int32" Nullable="false" />

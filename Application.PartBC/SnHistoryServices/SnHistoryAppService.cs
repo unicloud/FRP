@@ -89,7 +89,7 @@ namespace UniCloud.Application.PartBC.SnHistoryServices
 
             SnHistory newSnHistory = SnHistoryFactory.CreateSnHistory(snReg, pnReg,
                 dto.CSN, dto.TSN, dto.CSN2, dto.TSN2, dto.ActionType, aircraft, dto.ActionDate, remInstRecord,
-                dto.Status);
+                dto.Status,dto.Position);
 
             _snHistoryRepository.Add(newSnHistory);
         }
@@ -119,6 +119,7 @@ namespace UniCloud.Application.PartBC.SnHistoryServices
                 updateSnHistory.SetCSN(dto.CSN);
                 updateSnHistory.SetTSN(dto.TSN);
                 updateSnHistory.SetRemInstRecord(remInstRecord);
+                updateSnHistory.SetPosition((Position)dto.Position);
                 _snHistoryRepository.Modify(updateSnHistory);
             }
         }

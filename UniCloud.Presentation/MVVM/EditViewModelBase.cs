@@ -81,7 +81,7 @@ namespace UniCloud.Presentation.MVVM
                     {
                         MessageAlert("提示", "保存失败，请检查！");
                         OnSaveFail(collectionView);
-                        MyLog.WriteErrLog(null, sm.Error.ToString());
+                        //MyLog.WriteErrLog(null, sm.Error.ToString());
                     }
                     RefreshCommandState();
                 });
@@ -101,7 +101,7 @@ namespace UniCloud.Presentation.MVVM
                     {
                         MessageAlert("提示", "保存失败，请检查！");
                         OnSaveFail(sender);
-                        MyLog.WriteErrLog(null, sm.Error.ToString());
+                        //MyLog.WriteErrLog(null, sm.Error.ToString());
                     }
                     RefreshCommandState();
                 });
@@ -213,7 +213,7 @@ namespace UniCloud.Presentation.MVVM
             public static void WriteErrLog(string strErrMod, string strErrDesc)
             {
                 StreamWriter sw;
-                string strErrLog = @"F\Logs\Client_Error_Log" + string.Format("{0:yyyyMMdd}", DateTime.Now) + ".txt";   //获取写日志的路径
+                string strErrLog = @"F:\Logs\Client_Error_Log" + string.Format("{0:yyyyMMdd}", DateTime.Now) + ".txt";   //获取写日志的路径
                 if (File.Exists(strErrLog))
                 {
                     FileInfo oFile = new FileInfo(strErrLog);

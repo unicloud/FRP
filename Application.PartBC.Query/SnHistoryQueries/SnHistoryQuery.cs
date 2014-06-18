@@ -57,6 +57,7 @@ namespace UniCloud.Application.PartBC.Query.SnHistoryQueries
                 CSN2 = p.CSN2,
                 TSN2 = p.TSN2,
                 Status = (int)p.Status,
+                Position = (int)p.Position,
                 AircraftId = p.AircraftId,
                 ActionDate = p.ActionDate,
                 ActionType = (int)p.ActionType,

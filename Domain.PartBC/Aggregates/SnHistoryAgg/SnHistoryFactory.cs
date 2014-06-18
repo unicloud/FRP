@@ -54,9 +54,13 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
         /// <param name="aircraft">装机所在飞机</param>
         /// <param name="actionDate">操作日期</param>
         /// <param name="remInstRecord">拆换记录</param>
+        /// <param name="csn2">的基础上再累加在库时间折算的使用循环数</param>
+        /// <param name="tsn2">的基础上再累加在库时间折算的使用小时数</param>
+        /// <param name="status">序号件在历史节点上的状态</param>
+        /// <param name="position">位置信息</param>
         /// <returns></returns>
         public static SnHistory CreateSnHistory(SnReg snReg, PnReg pnReg, int csn, decimal tsn,int csn2,decimal tsn2, int actionType,
-             Aircraft aircraft,DateTime actionDate, SnRemInstRecord remInstRecord,int status)
+             Aircraft aircraft,DateTime actionDate, SnRemInstRecord remInstRecord,int status,int position)
         {
             var snHistory = new SnHistory();
             snHistory.CreateDate = DateTime.Now;
@@ -72,6 +76,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg
             snHistory.SetTSN2(tsn2);
             snHistory.SetSnStatus((SnStatus)status);
             snHistory.SetRemInstRecord(remInstRecord);
+            snHistory.SetPosition((Position)position);
             return snHistory;
         }
     }

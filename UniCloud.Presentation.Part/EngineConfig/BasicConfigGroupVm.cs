@@ -31,6 +31,7 @@ using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Part;
 using UniCloud.Presentation.Service.Part.Part;
+using UniCloud.Presentation.Service.Part.Part.Enums;
 
 #endregion
 
@@ -113,6 +114,18 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         #region 公共属性
 
+        /// <summary>
+        ///     装机位置
+        /// </summary>
+        public Dictionary<int, Position> Positions
+        {
+            get
+            {
+                return Enum.GetValues(typeof(Position))
+                    .Cast<object>()
+                    .ToDictionary(value => (int)value, value => (Position)value);
+            }
+        }
         #endregion
 
         #region 加载数据

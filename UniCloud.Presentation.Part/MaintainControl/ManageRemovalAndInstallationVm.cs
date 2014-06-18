@@ -137,6 +137,14 @@ namespace UniCloud.Presentation.Part.MaintainControl
         }
 
         /// <summary>
+        ///     拆换位置
+        /// </summary>
+        public Dictionary<int, Position> Positions
+        {
+            get { return Enum.GetValues(typeof(Position)).Cast<object>().ToDictionary(value => (int)value, value => (Position)value); }
+        }
+
+        /// <summary>
         ///     所有的件号集合
         /// </summary>
         public QueryableDataServiceCollectionView<PnRegDTO> PnRegs { get; set; }

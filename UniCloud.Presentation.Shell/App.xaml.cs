@@ -115,7 +115,7 @@ namespace UniCloud.Presentation.Shell
                 e.Handled = true;
                 Deployment.Current.Dispatcher.BeginInvoke(() => ReportErrorToDOM(e));
                 var errorMsg = e.ExceptionObject.Message + e.ExceptionObject.StackTrace;
-                MyLog.WriteErrLog(null, errorMsg);
+                //MyLog.WriteErrLog(null, errorMsg);
             }
         }
 
@@ -138,7 +138,7 @@ namespace UniCloud.Presentation.Shell
             public static void WriteErrLog(string strErrMod, string strErrDesc)
             {
                 StreamWriter sw;
-                string strErrLog =  @"F\Logs\Client_Error_Log" + string.Format("{0:yyyyMMdd}", DateTime.Now) + ".txt";   //获取写日志的路径
+                string strErrLog =  @"F:\Logs\Client_Error_Log" + string.Format("{0:yyyyMMdd}", DateTime.Now) + ".txt";   //获取写日志的路径
                 if (File.Exists(strErrLog))
                 {
                     FileInfo oFile = new FileInfo(strErrLog);
