@@ -85,6 +85,7 @@ namespace UniCloud.Application.PartBC.Query.PnRegQueries
                             ItemId = pnReg.ItemId,
                         };
                         if (dbItem != null) pn.ItemNo = dbItem.ItemNo;
+                        result.Add(pn);
                     }
                 }
             });

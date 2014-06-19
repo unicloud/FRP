@@ -28,12 +28,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using Microsoft.Data.OData.Query.SemanticAst;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Part.ManageItem;
 using UniCloud.Presentation.Service.Part;
 using UniCloud.Presentation.Service.Part.Part;
+using UniCloud.Presentation.Service.Part.Part.Enums;
 
 #endregion
 
@@ -49,6 +53,8 @@ namespace UniCloud.Presentation.Part.MaintainControl
         private readonly IPartService _service;
         private readonly PartData _context;
         private FilterDescriptor _snDescriptor;
+        private FilterDescriptor _itemCtrlDescriptor;
+        private FilterDescriptor _pnCtrlDescriptor;
 
         [ImportingConstructor]
         public QueryMaintainCtrlVm(IRegionManager regionManager, IPartService service)
@@ -80,6 +86,16 @@ namespace UniCloud.Presentation.Part.MaintainControl
             _snDescriptor = new FilterDescriptor("PnRegId", FilterOperator.IsEqualTo, -1);
             SnRegs.FilterDescriptors.Add(_snDescriptor);
 
+            ItemMaintainCtrls = new QueryableDataServiceCollectionView<ItemMaintainCtrlDTO>(_context, _context.ItemMaintainCtrls);
+            _itemCtrlDescriptor = new FilterDescriptor("ItemId", FilterOperator.IsEqualTo, -1);
+            ItemMaintainCtrls.FilterDescriptors.Add(_itemCtrlDescriptor);
+
+            PnMaintainCtrls = new QueryableDataServiceCollectionView<PnMaintainCtrlDTO>(_context, _context.PnMaintainCtrls);
+            _pnCtrlDescriptor = new FilterDescriptor("PnRegId", FilterOperator.IsEqualTo, -1);
+            PnMaintainCtrls.FilterDescriptors.Add(_pnCtrlDescriptor);
+
+            CtrlUnits = new QueryableDataServiceCollectionView<CtrlUnitDTO>(_context, _context.CtrlUnits);
+            MaintainWorks = new QueryableDataServiceCollectionView<MaintainWorkDTO>(_context, _context.MaintainWorks);
         }
 
         #endregion
@@ -88,6 +104,28 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         #region 公共属性
 
+        /// <summary>
+        ///     控制单位集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<CtrlUnitDTO> CtrlUnits { get; set; }
+
+        /// <summary>
+        ///     维修工作集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<MaintainWorkDTO> MaintainWorks { get; set; }
+
+        /// <summary>
+        ///     维修控制策略
+        /// </summary>
+        public Dictionary<int, ControlStrategy> ControlStrategies
+        {
+            get
+            {
+                return Enum.GetValues(typeof(ControlStrategy))
+                    .Cast<object>()
+                    .ToDictionary(value => (int)value, value => (ControlStrategy)value);
+            }
+        }
         #endregion
 
         #region 加载数据
@@ -101,6 +139,9 @@ namespace UniCloud.Presentation.Part.MaintainControl
         /// </summary>
         public override void LoadData()
         {
+            CtrlUnits.Load(true);
+            MaintainWorks.Load(true);
+
             if (!Items.AutoLoad)
                 Items.AutoLoad = true;
         }
@@ -147,6 +188,100 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         #endregion
 
+        #region 项维修控制组集合
+
+        /// <summary>
+        ///     项维修控制组集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ItemMaintainCtrlDTO> ItemMaintainCtrls { get; set; }
+
+
+        private ItemMaintainCtrlDTO _selItemMaintainCtrl;
+        private IEnumerable<ItemVm.CtrlLine> _itemCtrlLines; 
+
+        /// <summary>
+        ///     选择的项维修控制组
+        /// </summary>
+        public ItemMaintainCtrlDTO SelItemMaintainCtrl
+        {
+            get { return _selItemMaintainCtrl; }
+            set
+            {
+                if (_selItemMaintainCtrl != value)
+                {
+                    _selItemMaintainCtrl = value;
+                    ItemCtrlLines = null;
+                    if (value != null && value.XmlContent != null)
+                    {
+                        ItemCtrlLines = ConvertXmlToString(value.XmlContent);
+                    }
+                    RaisePropertyChanged(() => ItemCtrlLines);
+                    RaisePropertyChanged(() => SelItemMaintainCtrl);
+                }
+            }
+        }
+
+
+        public IEnumerable<ItemVm.CtrlLine> ItemCtrlLines
+        {
+            get { return _itemCtrlLines; }
+            private set
+            {
+                if (_itemCtrlLines != value)
+                {
+                    _itemCtrlLines = value;
+                    RaisePropertyChanged(() => ItemCtrlLines);
+                }
+            }
+        }
+        #endregion
+
+        #region 部件维修控制组集合
+
+        /// <summary>
+        ///     部件维修控制组集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PnMaintainCtrlDTO> PnMaintainCtrls { get; set; }
+
+        private PnMaintainCtrlDTO _selPnMaintainCtrl;
+        private IEnumerable<ItemVm.CtrlLine> _pnCtrlLines; 
+
+        /// <summary>
+        ///     选择的部件维修控制组
+        /// </summary>
+        public PnMaintainCtrlDTO SelPnMaintainCtrl
+        {
+            get { return _selPnMaintainCtrl; }
+            set
+            {
+                if (_selPnMaintainCtrl != value)
+                {
+                    _selPnMaintainCtrl = value;
+                    PnCtrlLines = null;
+                    if (value != null && value.XmlContent != null)
+                    {
+                        PnCtrlLines = ConvertXmlToString(value.XmlContent);
+                    }
+                    RaisePropertyChanged(() => PnCtrlLines);
+                    RaisePropertyChanged(() => SelPnMaintainCtrl);
+                }
+            }
+        }
+
+        public IEnumerable<ItemVm.CtrlLine> PnCtrlLines
+        {
+            get { return _pnCtrlLines; }
+            private set
+            {
+                if (_pnCtrlLines != value)
+                {
+                    _pnCtrlLines = value;
+                    RaisePropertyChanged(() => PnCtrlLines);
+                }
+            }
+        }
+        #endregion
+
         #region 选择的附件项
 
         private ItemDTO _selItem;
@@ -166,7 +301,8 @@ namespace UniCloud.Presentation.Part.MaintainControl
                     {
                         var path = CreatePnRegQueryPath(value.Id);
                         LoadPnRegs(path);
-                        //TODO:带出附件项的维修控制组及明细
+                        _itemCtrlDescriptor.Value = value.Id;
+                        ItemMaintainCtrls.Load(true);
                     }
                     RaisePropertyChanged(() => SelItem);
                 }
@@ -195,7 +331,8 @@ namespace UniCloud.Presentation.Part.MaintainControl
                         //附件的序号集合
                         _snDescriptor.Value = value.Id;
                         SnRegs.Load(true);
-                        //TODO:带出附件的维修控制组及明细
+                        _pnCtrlDescriptor.Value = value.Id;
+                        PnMaintainCtrls.Load(true);
                     }
                     RaisePropertyChanged(() => SelPnReg);
                 }
@@ -245,6 +382,66 @@ namespace UniCloud.Presentation.Part.MaintainControl
         #endregion
         #endregion
 
+        #endregion
+
+        #region 方法
+        private IEnumerable<ItemVm.CtrlLine> ConvertXmlToString(XElement xmlContent)
+        {
+            if (xmlContent != null)
+            {
+                var result = new List<ItemVm.CtrlLine>();
+                foreach (var ctrlType in xmlContent.Descendants("CtrlType"))
+                {
+                    foreach (var ctrlDetail in ctrlType.Descendants("CtrlDetail"))
+                    {
+                        string str = null;
+                        if (ctrlType.Attribute("Name").Value == "StartDate")
+                        {
+                            str += "自" + ctrlType.Attribute("Value").Value + "起，当";
+                        }
+                        else if (ctrlType.Attribute("Name").Value == "Action")
+                        {
+                            var maintainWork =
+                                MaintainWorks.FirstOrDefault(p => p.Id.ToString() == ctrlType.Attribute("Value").Value);
+                            if (maintainWork != null)
+                                str += "自上次" + maintainWork.WorkCode + "起，当";
+                        }
+
+                        //控制单位
+                        var ctrlUnit = CtrlUnits.FirstOrDefault(p => p.Id.ToString() == ctrlDetail.Attribute("Type").Value);
+                        if (ctrlUnit != null)
+                            str += ctrlUnit.Name + "(" + ctrlUnit.Description + ")";
+                        else str += ctrlDetail.Attribute("Type").Value;
+
+                        //间隔
+                        if (ctrlDetail.Descendants("Max").Count() != 0 && ctrlDetail.Descendants("Min").Count() != 0)
+                        {
+                            var max = ctrlDetail.Descendants("Max").First();
+                            var min = ctrlDetail.Descendants("Min").First();
+
+                            str += "处于(最小间隔)" + min.Attribute("Value").Value + "和(最大间隔)" + max.Attribute("Value").Value + "之间";
+                        }
+                        else if (ctrlDetail.Descendants("Standard").Count() != 0)
+                        {
+                            var standard = ctrlDetail.Descendants("Standard").First();
+                            str += "的基准间隔为" + standard.Attribute("Value").Value;
+                        }
+                        if (ctrlDetail.Descendants("Rate").Count() != 0)
+                        {
+                            var rate = ctrlDetail.Descendants("Rate").First();
+                            str += "(浮动比率为" + rate.Attribute("Value").Value + ")";
+                        }
+                        str += "时";
+                        var ctrlLine = new ItemVm.CtrlLine();
+                        ctrlLine.Id = RandomHelper.Next();
+                        ctrlLine.Description = str;
+                        result.Add(ctrlLine);
+                    }
+                }
+                return result;
+            }
+            return null;
+        }
         #endregion
 
         #endregion
