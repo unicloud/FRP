@@ -93,24 +93,19 @@
                                                 <telerik:GridViewDataColumn Header="当前状态"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding Status}" />
-                                                <telerik:GridViewDataColumn Header="CSN"
+                                                                            DataMemberBinding="{Binding SnStatus}" />
+                                                <telerik:GridViewCheckBoxColumn Header="在库是否累计寿命"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding IsLifeCst}" />
+                                                <telerik:GridViewDataColumn Header="在库时间换算成装机时间比率"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding CSN}" />
-                                                <telerik:GridViewDataColumn Header="CSR"
+                                                                            DataMemberBinding="{Binding TimeRate}" />
+                                                <telerik:GridViewDataColumn Header="在库时间换算成装机循环比率"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding CSR}" />
-                                                <telerik:GridViewDataColumn Header="TSN"
-                                                                            IsReadOnly="True"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding TSN}" />
-                                                <telerik:GridViewDataColumn Header="TSR"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding TSR}" />
+                                                                            DataMemberBinding="{Binding CycleRate}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>
@@ -162,7 +157,7 @@
                                             <telerik:GridViewDataColumn Header="维修工作"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding WorkCode}" />
+                                                                        DataMemberBinding="{Binding WorkDescription}" />
                                             <telerik:GridViewDataColumn Header="装机序号"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"

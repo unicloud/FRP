@@ -68,6 +68,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         private void InitializeVM()
         {
             SnRegs = new QueryableDataServiceCollectionView<SnRegDTO>(_context, _context.SnRegs);
+            SnRegs.PageSize = 20;
             var snDescriptor = new FilterDescriptor("IsLife", FilterOperator.IsEqualTo, true);
             SnRegs.FilterDescriptors.Add(snDescriptor);
             SnRegs.LoadedData += (s, e) => SelSnReg = SnRegs.FirstOrDefault();
