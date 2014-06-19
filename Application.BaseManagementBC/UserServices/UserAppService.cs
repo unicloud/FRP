@@ -67,10 +67,10 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         [Insert(typeof (UserDTO))]
         public void InsertUser(UserDTO user)
         {
-            User newUser = UserFactory.CreateUser(user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty,
-                user.DisplayName, user.Password, user.Email,
-                user.Mobile, user.Description, true);
-            _userRepository.Add(newUser);
+            //User newUser = UserFactory.CreateUser(user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty,
+            //    user.DisplayName, user.Password, user.Email,
+            //    user.Mobile, user.Description, true);
+            //_userRepository.Add(newUser);
         }
 
 
@@ -81,20 +81,20 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         [Update(typeof (UserDTO))]
         public void ModifyUser(UserDTO user)
         {
-            User updateUser = _userRepository.Get(user.Id); //获取需要更新的对象。
-            UserFactory.SetUser(updateUser, user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty,
-                user.DisplayName, user.Password, user.Email,
-                user.Mobile, user.Description, true);
+            //User updateUser = _userRepository.Get(user.Id); //获取需要更新的对象。
+            //UserFactory.SetUser(updateUser, user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty,
+            //    user.DisplayName, user.Password, user.Email,
+            //    user.Mobile, user.Description, true);
 
-            List<UserRoleDTO> dtoUserRoles = user.UserRoles;
-            ICollection<UserRole> userRoles = updateUser.UserRoles;
-            DataHelper.DetailHandle(dtoUserRoles.ToArray(),
-                userRoles.ToArray(),
-                c => c.Id, p => p.Id,
-                i => InsertUserRole(updateUser, i),
-                UpdateUserRole,
-                d => _userRepository.DeleteUserRole(d));
-            _userRepository.Modify(updateUser);
+            //List<UserRoleDTO> dtoUserRoles = user.UserRoles;
+            //ICollection<UserRole> userRoles = updateUser.UserRoles;
+            //DataHelper.DetailHandle(dtoUserRoles.ToArray(),
+            //    userRoles.ToArray(),
+            //    c => c.Id, p => p.Id,
+            //    i => InsertUserRole(updateUser, i),
+            //    UpdateUserRole,
+            //    d => _userRepository.DeleteUserRole(d));
+            //_userRepository.Modify(updateUser);
         }
 
         /// <summary>
@@ -116,8 +116,8 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         private void InsertUserRole(User user, UserRoleDTO userRoleDto)
         {
             // 添加UserRole
-            UserRole userRole = user.AddNewUserRole();
-            UserFactory.SetUserRole(userRole, userRoleDto.UserId, userRoleDto.RoleId);
+            //UserRole userRole = user.AddNewUserRole();
+            //UserFactory.SetUserRole(userRole, userRoleDto.UserId, userRoleDto.RoleId);
         }
 
         /// <summary>
@@ -128,29 +128,29 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         private void UpdateUserRole(UserRoleDTO userRoleDto, UserRole userRole)
         {
             // 更新UserRole
-            UserFactory.SetUserRole(userRole, userRoleDto.UserId, userRoleDto.RoleId);
+            //UserFactory.SetUserRole(userRole, userRoleDto.UserId, userRoleDto.RoleId);
         }
 
         public void SyncUserInfo(List<UserDTO> users)
         {
-            foreach (UserDTO user in users)
-            {
-                Expression<Func<User, bool>> condition = p => p.EmployeeCode == user.EmployeeCode;
+            //foreach (UserDTO user in users)
+            //{
+            //    Expression<Func<User, bool>> condition = p => p.EmployeeCode == user.EmployeeCode;
 
-                User tempUser = _userRepository.GetUser(condition);
-                if (tempUser != null)
-                {
-                    UserFactory.SetUser(tempUser, user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty,
-                        user.DisplayName, user.Password, user.Email,
-                        user.Mobile, user.Description, true);
-                    _userRepository.Modify(tempUser);
-                }
-                else
-                {
-                    InsertUser(user);
-                }
-            }
-            _userRepository.UnitOfWork.CommitAndRefreshChanges();
+            //    User tempUser = _userRepository.GetUser(condition);
+            //    if (tempUser != null)
+            //    {
+            //        UserFactory.SetUser(tempUser, user.EmployeeCode, user.OrganizationNo, string.Empty, string.Empty,
+            //            user.DisplayName, user.Password, user.Email,
+            //            user.Mobile, user.Description, true);
+            //        _userRepository.Modify(tempUser);
+            //    }
+            //    else
+            //    {
+            //        InsertUser(user);
+            //    }
+            //}
+            //_userRepository.UnitOfWork.CommitAndRefreshChanges();
         }
 
         #endregion

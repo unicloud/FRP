@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class database : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -2108,17 +2108,31 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        EmployeeCode = c.String(maxLength: 100),
+                        UserName = c.String(maxLength: 100),
+                        LoweredUserName = c.String(maxLength: 100),
                         OrganizationNo = c.String(),
                         FirstName = c.String(maxLength: 100),
                         LastName = c.String(maxLength: 100),
                         DisplayName = c.String(maxLength: 100),
                         Password = c.String(maxLength: 100),
-                        Email = c.String(maxLength: 100),
-                        Mobile = c.String(maxLength: 100),
-                        Description = c.String(maxLength: 100),
+                        PasswordFormat = c.Int(nullable: false),
+                        PasswordQuestion = c.String(maxLength: 100),
+                        PasswordAnswer = c.String(maxLength: 100),
+                        Email = c.String(maxLength: 50),
+                        Mobile = c.String(maxLength: 50),
+                        Comment = c.String(maxLength: 200),
+                        IsApproved = c.Boolean(nullable: false),
                         IsValid = c.Boolean(nullable: false),
+                        IsLockedOut = c.Boolean(nullable: false),
+                        FailedPasswordAttemptCount = c.Int(nullable: false),
+                        FailedPasswordAnswerAttemptCount = c.Int(nullable: false),
                         CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        LastPasswordChangedDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        LastLockoutDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        FailedPasswordAttemptWindowStart = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        FailedPasswordAnswerAttemptWindowStart = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        LastActivityDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        LastLoginDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                     })
                 .PrimaryKey(t => t.ID);
             
