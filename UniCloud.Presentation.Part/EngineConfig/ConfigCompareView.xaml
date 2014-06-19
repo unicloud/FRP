@@ -25,8 +25,8 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding ItemNo}"
                                FontWeight="Black"
-                               Foreground="{Binding Color}" 
-                               FontSize="13"/>
+                               Foreground="{Binding Color}"
+                               FontSize="13" />
                     <TextBlock Text="{Binding FiNumber}"
                                FontWeight="Black"
                                Foreground="{Binding Color}"
@@ -43,8 +43,8 @@
                     <TextBlock Text="  描述:  "
                                FontSize="13" />
                     <TextBlock Text="{Binding Description,Mode=TwoWay}"
-                             MinWidth="60"
-                             FontSize="13" />
+                               MinWidth="60"
+                               FontSize="13" />
                 </StackPanel>
             </telerik:HierarchicalDataTemplate>
             <Style x:Key="ItemContainerStyle"
@@ -55,187 +55,195 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <telerik:RadButton Grid.Row="0" Width="70" Content="比较构型" Command="{Binding CompareCommand}" FontSize="15" Background="DarkTurquoise"/>
-        <telerik:RadDocking Grid.Row="1"
-                            BorderThickness="0"
-                            Padding="0"
-                            HasDocumentHost="False"
-                            telerik:ProportionalStackPanel.RelativeSize="500,600"
-                            FlowDirection="LeftToRight">
-            <telerik:RadSplitContainer Orientation="Horizontal"
-                                       telerik:ProportionalStackPanel.RelativeSize="400,300">
-                <telerik:RadPaneGroup>
-                    <telerik:RadPane  Header="功能构型"
-                                      PaneHeaderVisibility="Collapsed"
-                                      FontSize="{StaticResource HeaderFontSize}"
-                                      IsPinned="True"
-                                      CanFloat="False"
-                                      CanDockInDocumentHost="False"
-                                      CanUserClose="False"
-                                      CanUserPin="False"
-                                      ContextMenuTemplate="{x:Null}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition  MaxWidth="150" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition MaxWidth="150" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition MaxWidth="100" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal"
-                                            Grid.Column="0"
-                                            Grid.Row="0"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch">
-                                    <TextBlock Text="合同飞机"
-                                               TextAlignment="Left"
-                                               FontSize="{StaticResource TextFontSize}" />
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
+                              BusyContent="{Binding BusyContent,Mode=TwoWay}">
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <telerik:RadButton Grid.Row="0"
+                               Width="70"
+                               Content="比较构型"
+                               Command="{Binding CompareCommand}"
+                               FontSize="15"
+                               Background="DarkTurquoise" />
+            <telerik:RadDocking Grid.Row="1"
+                                BorderThickness="0"
+                                Padding="0"
+                                HasDocumentHost="False"
+                                telerik:ProportionalStackPanel.RelativeSize="500,600"
+                                FlowDirection="LeftToRight">
+                <telerik:RadSplitContainer Orientation="Horizontal"
+                                           telerik:ProportionalStackPanel.RelativeSize="400,300">
+                    <telerik:RadPaneGroup>
+                        <telerik:RadPane  Header="功能构型"
+                                          PaneHeaderVisibility="Collapsed"
+                                          FontSize="{StaticResource HeaderFontSize}"
+                                          IsPinned="True"
+                                          CanFloat="False"
+                                          CanDockInDocumentHost="False"
+                                          CanUserClose="False"
+                                          CanUserPin="False"
+                                          ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition  MaxWidth="150" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition MaxWidth="150" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition MaxWidth="100" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal"
+                                                Grid.Column="0"
+                                                Grid.Row="0"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch">
+                                        <TextBlock Text="合同飞机"
+                                                   TextAlignment="Left"
+                                                   FontSize="{StaticResource TextFontSize}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="0"
+                                                Grid.Column="1"
+                                                VerticalAlignment="Center">
+                                        <telerik:RadComboBox ItemsSource="{Binding ContractAircrafts}"
+                                                             Height="{StaticResource ControlHeight}"
+                                                             OpenDropDownOnFocus="False"
+                                                             IsEditable="True"
+                                                             IsReadOnly="True"
+                                                             ClearSelectionButtonVisibility="Visible"
+                                                             ClearSelectionButtonContent="清除选择"
+                                                             SelectedItem="{Binding LeftContractAircraft,Mode=TwoWay}"
+                                                             DisplayMemberPath="SerialNumber">
+                                        </telerik:RadComboBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"
+                                                Grid.Column="2"
+                                                Grid.Row="0"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch">
+                                        <TextBlock Text="日期"
+                                                   TextAlignment="Left"
+                                                   FontSize="{StaticResource TextFontSize}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="0"
+                                                Grid.Column="3"
+                                                VerticalAlignment="Center">
+                                        <telerik:RadTimePicker InputMode="DatePicker"
+                                                               SelectedValue="{Binding LeftDate, Mode=TwoWay}" />
+                                    </StackPanel>
+                                </Grid>
+                                <StackPanel Grid.Row="1"
+                                            Orientation="Horizontal">
+                                    <TextBlock Text="{Binding LeftContractAircraft.SerialNumber}"
+                                               Foreground="Blue"
+                                               FontSize="18" />
+                                    <TextBlock Text="功能构型:"
+                                               Foreground="Blue"
+                                               FontSize="18" />
                                 </StackPanel>
-                                <StackPanel Grid.Row="0"
-                                            Grid.Column="1"
-                                            VerticalAlignment="Center">
-                                    <telerik:RadComboBox ItemsSource="{Binding ContractAircrafts}"
-                                                         Height="{StaticResource ControlHeight}"
-                                                         OpenDropDownOnFocus="False"
-                                                         IsEditable="True"
-                                                         IsReadOnly="True"
-                                                         ClearSelectionButtonVisibility="Visible"
-                                                         ClearSelectionButtonContent="清除选择"
-                                                         SelectedItem="{Binding LeftContractAircraft,Mode=TwoWay}"
-                                                         DisplayMemberPath="SerialNumber">
-                                    </telerik:RadComboBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal"
-                                            Grid.Column="2"
-                                            Grid.Row="0"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch">
-                                    <TextBlock Text="日期"
-                                               TextAlignment="Left"
-                                               FontSize="{StaticResource TextFontSize}" />
-                                </StackPanel>
-                                <StackPanel Grid.Row="0"
-                                            Grid.Column="3"
-                                            VerticalAlignment="Center">
-                                    <telerik:RadTimePicker InputMode="DatePicker"
-                                                           SelectedValue="{Binding LeftDate, Mode=TwoWay}"/>
-                                </StackPanel>
+                                <telerik:RadTreeView  x:Name="LeftAcConfigsTreeView"
+                                                      Grid.Row="2"
+                                                      IsLineEnabled="True"
+                                                      ItemTemplate="{StaticResource AcConfigTemplate}"
+                                                      ItemsSource="{Binding LeftViewAcConfigs,Mode=TwoWay}"
+                                                      ItemContainerStyle="{StaticResource ItemContainerStyle}">
+                                </telerik:RadTreeView>
                             </Grid>
-                            <StackPanel Grid.Row="1"
-                                        Orientation="Horizontal">
-                                <TextBlock Text="{Binding LeftContractAircraft.SerialNumber}"
-                                           Foreground="Blue"
-                                           FontSize="18" />
-                                <TextBlock Text="功能构型:"
-                                           Foreground="Blue"
-                                           FontSize="18" />
-                            </StackPanel>
-                            <telerik:RadTreeView  x:Name="LeftAcConfigsTreeView"
-                                                  Grid.Row="2"
-                                                  IsLineEnabled="True"
-                                                  ItemTemplate="{StaticResource AcConfigTemplate}"
-                                                  ItemsSource="{Binding LeftViewAcConfigs,Mode=TwoWay}"
-                                                  ItemContainerStyle="{StaticResource ItemContainerStyle}">
-                            </telerik:RadTreeView>
-                        </Grid>
-                    </telerik:RadPane>
-                </telerik:RadPaneGroup>
-                <telerik:RadPaneGroup>
-                    <telerik:RadPane  Header="功能构型"
-                                      PaneHeaderVisibility="Collapsed"
-                                      FontSize="{StaticResource HeaderFontSize}"
-                                      IsPinned="True"
-                                      CanFloat="False"
-                                      CanDockInDocumentHost="False"
-                                      CanUserClose="False"
-                                      CanUserPin="False"
-                                      ContextMenuTemplate="{x:Null}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition  MaxWidth="150" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition MaxWidth="150" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition MaxWidth="100" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal"
-                                            Grid.Column="0"
-                                            Grid.Row="0"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch">
-                                    <TextBlock Text="合同飞机"
-                                               TextAlignment="Left"
-                                               FontSize="{StaticResource TextFontSize}" />
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                    <telerik:RadPaneGroup>
+                        <telerik:RadPane  Header="功能构型"
+                                          PaneHeaderVisibility="Collapsed"
+                                          FontSize="{StaticResource HeaderFontSize}"
+                                          IsPinned="True"
+                                          CanFloat="False"
+                                          CanDockInDocumentHost="False"
+                                          CanUserClose="False"
+                                          CanUserPin="False"
+                                          ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition  MaxWidth="150" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition MaxWidth="150" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition MaxWidth="100" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal"
+                                                Grid.Column="0"
+                                                Grid.Row="0"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch">
+                                        <TextBlock Text="合同飞机"
+                                                   TextAlignment="Left"
+                                                   FontSize="{StaticResource TextFontSize}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="0"
+                                                Grid.Column="1"
+                                                VerticalAlignment="Center">
+                                        <telerik:RadComboBox ItemsSource="{Binding ContractAircrafts}"
+                                                             Height="{StaticResource ControlHeight}"
+                                                             OpenDropDownOnFocus="False"
+                                                             IsEditable="True"
+                                                             IsReadOnly="True"
+                                                             ClearSelectionButtonVisibility="Visible"
+                                                             ClearSelectionButtonContent="清除选择"
+                                                             SelectedItem="{Binding RightContractAircraft,Mode=TwoWay}"
+                                                             DisplayMemberPath="SerialNumber">
+                                        </telerik:RadComboBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"
+                                                Grid.Column="2"
+                                                Grid.Row="0"
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch">
+                                        <TextBlock Text="日期"
+                                                   TextAlignment="Left"
+                                                   FontSize="{StaticResource TextFontSize}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="0"
+                                                Grid.Column="3"
+                                                VerticalAlignment="Center">
+                                        <telerik:RadTimePicker InputMode="DatePicker"
+                                                               SelectedValue="{Binding RightDate, Mode=TwoWay}" />
+                                    </StackPanel>
+                                </Grid>
+                                <StackPanel Grid.Row="1"
+                                            Orientation="Horizontal">
+                                    <TextBlock Text="{Binding RightContractAircraft.SerialNumber}"
+                                               Foreground="Blue"
+                                               FontSize="18" />
+                                    <TextBlock Text="功能构型:"
+                                               Foreground="Blue"
+                                               FontSize="18" />
                                 </StackPanel>
-                                <StackPanel Grid.Row="0"
-                                            Grid.Column="1"
-                                            VerticalAlignment="Center">
-                                    <telerik:RadComboBox ItemsSource="{Binding ContractAircrafts}"
-                                                         Height="{StaticResource ControlHeight}"
-                                                         OpenDropDownOnFocus="False"
-                                                         IsEditable="True"
-                                                         IsReadOnly="True"
-                                                         ClearSelectionButtonVisibility="Visible"
-                                                         ClearSelectionButtonContent="清除选择"
-                                                         SelectedItem="{Binding RightContractAircraft,Mode=TwoWay}"
-                                                         DisplayMemberPath="SerialNumber">
-                                    </telerik:RadComboBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal"
-                                            Grid.Column="2"
-                                            Grid.Row="0"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch">
-                                    <TextBlock Text="日期"
-                                               TextAlignment="Left"
-                                               FontSize="{StaticResource TextFontSize}" />
-                                </StackPanel>
-                                <StackPanel Grid.Row="0"
-                                            Grid.Column="3"
-                                            VerticalAlignment="Center">
-                                    <telerik:RadTimePicker InputMode="DatePicker"
-                                                           SelectedValue="{Binding RightDate, Mode=TwoWay}" />
-                                </StackPanel>
+                                <telerik:RadTreeView  x:Name="RightAcConfigsTreeView"
+                                                      Grid.Row="2"
+                                                      IsLineEnabled="True"
+                                                      ItemTemplate="{StaticResource AcConfigTemplate}"
+                                                      ItemsSource="{Binding RightViewAcConfigs,Mode=TwoWay}"
+                                                      ItemContainerStyle="{StaticResource ItemContainerStyle}">
+                                </telerik:RadTreeView>
                             </Grid>
-                            <StackPanel Grid.Row="1"
-                                        Orientation="Horizontal">
-                                <TextBlock Text="{Binding RightContractAircraft.SerialNumber}"
-                                           Foreground="Blue"
-                                           FontSize="18" />
-                                <TextBlock Text="功能构型:"
-                                           Foreground="Blue"
-                                           FontSize="18" />
-                            </StackPanel>
-                            <telerik:RadTreeView  x:Name="RightAcConfigsTreeView"
-                                                  Grid.Row="2"
-                                                  IsLineEnabled="True"
-                                                  ItemTemplate="{StaticResource AcConfigTemplate}"
-                                                  ItemsSource="{Binding RightViewAcConfigs,Mode=TwoWay}"
-                                                  ItemContainerStyle="{StaticResource ItemContainerStyle}">
-                            </telerik:RadTreeView>
-                        </Grid>
-                    </telerik:RadPane>
-                </telerik:RadPaneGroup>
-            </telerik:RadSplitContainer>
-        </telerik:RadDocking>
-    </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
+            </telerik:RadDocking>
+        </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

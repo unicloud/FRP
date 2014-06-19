@@ -69,7 +69,8 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <telerik:RadBusyIndicator>
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
+                              BusyContent="{Binding BusyContent,Mode=TwoWay}">
         <Grid x:Name="UserLayoutRoot"
               Background="White">
             <telerik:RadDocking BorderThickness="0"

@@ -20,344 +20,347 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <telerik:RadDocking BorderThickness="0"
-                            Padding="0"
-                            HasDocumentHost="False">
-            <telerik:RadSplitContainer>
-                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600"
-                                           Orientation="Vertical">
-                    <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="合同飞机信息"
-                                         IsPinned="True"
-                                         CanFloat="False"
-                                         CanDockInDocumentHost="False"
-                                         CanUserClose="False"
-                                         CanUserPin="False"
-                                         ContextMenuTemplate="{x:Null}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <telerik:RadGridView ItemsSource="{Binding ContractAircraftsView}"
-                                                     IsBusy="{Binding ContractAircraftsView.IsBusy}"
-                                                     SelectedItem="{Binding SelectedContractAircraft, Mode=TwoWay}"
-                                                     AutoExpandGroups="True"
-                                                     ShowGroupPanel="True"
-                                                     CanUserSortColumns="True"
-                                                     RowIndicatorVisibility="Visible"
-                                                     CanUserFreezeColumns="False">
-                                    <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号"
-                                                                 CellStyle="{StaticResource CellStyle}" />
-                                        <telerik:GridViewDataColumn Header="机型"
-                                                                    IsReadOnly="True"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding AircraftTypeName}" />
-                                        <telerik:GridViewDataColumn Header="引进方式"
-                                                                    IsReadOnly="True"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding ImportType}" />
-                                        <telerik:GridViewDataColumn Header="序列号"
-                                                                    IsReadOnly="True"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding SerialNumber}" />
-                                        <telerik:GridViewDataColumn Header="合同名称"
-                                                                    IsReadOnly="True"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding ContractName}" />
-                                        <telerik:GridViewDataColumn Header="合同编号"
-                                                                    IsReadOnly="True"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding ContractNumber}" />
-                                        <telerik:GridViewDataColumn Header="合同Rank号"
-                                                                    IsReadOnly="True"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding RankNumber}" />
-                                        <telerik:GridViewDataColumn Header="批次号"
-                                                                    IsReadOnly="True"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding CSCNumber}" />
-                                    </telerik:RadGridView.Columns>
-                                </telerik:RadGridView>
-                                <telerik:RadDataPager BorderThickness="1,0,1,1"
-                                                      AutoEllipsisMode="Both"
-                                                      DisplayMode="All"
-                                                      Source="{Binding ContractAircraftsView}"
-                                                      Grid.Row="1" />
-                            </Grid>
-                        </telerik:RadPane>
-                    </telerik:RadPaneGroup>
-                    <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="付款计划"
-                                         IsPinned="True"
-                                         CanFloat="False"
-                                         CanUserClose="False"
-                                         CanUserPin="False"
-                                         ContextMenuTemplate="{x:Null}">
-                            <telerik:RadBusyIndicator BusyContent=""
-                                                      IsBusy="{Binding AcPaymentSchedulesView.IsBusy}">
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
+                              BusyContent="{Binding BusyContent,Mode=TwoWay}">
+        <Grid Background="White">
+            <telerik:RadDocking BorderThickness="0"
+                                Padding="0"
+                                HasDocumentHost="False">
+                <telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600"
+                                               Orientation="Vertical">
+                        <telerik:RadPaneGroup>
+                            <telerik:RadPane Header="合同飞机信息"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanDockInDocumentHost="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                        Margin="0 0 0 -1"
-                                                        OverflowButtonVisibility="Collapsed">
-                                        <telerik:RadButton Margin="4,2,2,-2"
-                                                           Command="{Binding SaveCommand}"
-                                                           CommandParameter="{Binding AcPaymentSchedulesView}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/Save.png"
-                                                   Stretch="Fill"
-                                                   ToolTipService.ToolTip="保存" />
-                                        </telerik:RadButton>
-                                        <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding AbortCommand}"
-                                                           CommandParameter="{Binding AcPaymentSchedulesView}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
-                                                   Stretch="Fill"
-                                                   ToolTipService.ToolTip="放弃更改" />
-                                        </telerik:RadButton>
-                                        <telerik:RadToolBarSeparator />
-                                        <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding AddPaymentScheduleCommand}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/New.png"
-                                                   Stretch="Fill"
-                                                   ToolTipService.ToolTip="创建付款计划" />
-                                        </telerik:RadButton>
-                                        <telerik:RadToolBarSeparator />
-                                        <telerik:RadButton Margin="4,2,2,-2"
-                                                           Command="{Binding AddPaymentScheduleLineCommand}"
-                                                           CommandParameter="{Binding ElementName=PaymentScheduleView}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/Add.png"
-                                                   Stretch="Fill"
-                                                   ToolTipService.ToolTip="新增计划明细" />
-                                        </telerik:RadButton>
-                                    </telerik:RadToolBar>
-                                    <telerik:GroupBox Grid.Row="1"
-                                                      Margin="8"
-                                                      Header="付款计划">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="15" />
-                                                <ColumnDefinition Width="65" />
-                                                <ColumnDefinition Width="3*" />
-                                                <ColumnDefinition Width="0.1*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="35" />
-                                                <RowDefinition Height="35" />
-                                                <RowDefinition Height="35" />
-                                                <RowDefinition Height="35" />
-                                                <RowDefinition Height="35" />
-                                            </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="0"
-                                                       Grid.Column="1"
-                                                       Text="币种"
-                                                       TextAlignment="Left"
-                                                       VerticalAlignment="Center" />
-                                            <telerik:RadComboBox Grid.Column="2"
-                                                                 Margin="0,3"
-                                                                 Grid.Row="0"
-                                                                 telerik:StyleManager.Theme="Windows8"
-                                                                 ItemsSource="{Binding CurrencysView}"
-                                                                 DisplayMemberPath="Name"
-                                                                 SelectedValue="{Binding SelectedAcPaymentSchedule.CurrencyId,Mode=TwoWay}"
-                                                                 SelectedValuePath="Id" />
-                                            <TextBlock Grid.Column="1"
-                                                       Grid.Row="1"
-                                                       Text="供应商"
-                                                       TextAlignment="Left"
-                                                       VerticalAlignment="Center" />
-                                            <TextBox Grid.Column="2"
-                                                     Grid.Row="1"
-                                                     Margin="0,3"
-                                                     Text="{Binding SelectedAcPaymentSchedule.SupplierName, Mode=TwoWay}"
-                                                     telerik:StyleManager.Theme="Windows8"
-                                                     IsReadOnly="True" />
-                                            <TextBlock Grid.Row="2"
-                                                       Grid.Column="1"
-                                                       Text="创建时间"
-                                                       TextAlignment="Left"
-                                                       VerticalAlignment="Center" />
-                                            <TextBox Grid.Column="2"
-                                                     Margin="0,3"
-                                                     Grid.Row="2"
-                                                     Text="{Binding SelectedAcPaymentSchedule.CreateDate ,Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}"
-                                                     telerik:StyleManager.Theme="Windows8"
-                                                     IsReadOnly="True" />
-                                            <TextBlock Grid.Row="3"
-                                                       Grid.Column="1"
-                                                       Text="状态"
-                                                       TextAlignment="Left"
-                                                       VerticalAlignment="Center" />
-                                            <TextBox Grid.Column="2"
-                                                     Margin="1,3"
-                                                     Grid.Row="3"
-                                                     BorderThickness="1"
-                                                     BorderBrush="Gray"
-                                                     Text="{Binding SelectedAcPaymentSchedule.CompletedString}"
-                                                     telerik:StyleManager.Theme="Windows8"
-                                                     IsReadOnly="True" />
-                                        </Grid>
-                                    </telerik:GroupBox>
+                                    <telerik:RadGridView ItemsSource="{Binding ContractAircraftsView}"
+                                                         IsBusy="{Binding ContractAircraftsView.IsBusy}"
+                                                         SelectedItem="{Binding SelectedContractAircraft, Mode=TwoWay}"
+                                                         AutoExpandGroups="True"
+                                                         ShowGroupPanel="True"
+                                                         CanUserSortColumns="True"
+                                                         RowIndicatorVisibility="Visible"
+                                                         CanUserFreezeColumns="False">
+                                        <telerik:RadGridView.Columns>
+                                            <uc:DataPageSerialColumn Header="序号"
+                                                                     CellStyle="{StaticResource CellStyle}" />
+                                            <telerik:GridViewDataColumn Header="机型"
+                                                                        IsReadOnly="True"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding AircraftTypeName}" />
+                                            <telerik:GridViewDataColumn Header="引进方式"
+                                                                        IsReadOnly="True"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding ImportType}" />
+                                            <telerik:GridViewDataColumn Header="序列号"
+                                                                        IsReadOnly="True"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding SerialNumber}" />
+                                            <telerik:GridViewDataColumn Header="合同名称"
+                                                                        IsReadOnly="True"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding ContractName}" />
+                                            <telerik:GridViewDataColumn Header="合同编号"
+                                                                        IsReadOnly="True"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding ContractNumber}" />
+                                            <telerik:GridViewDataColumn Header="合同Rank号"
+                                                                        IsReadOnly="True"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding RankNumber}" />
+                                            <telerik:GridViewDataColumn Header="批次号"
+                                                                        IsReadOnly="True"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding CSCNumber}" />
+                                        </telerik:RadGridView.Columns>
+                                    </telerik:RadGridView>
+                                    <telerik:RadDataPager BorderThickness="1,0,1,1"
+                                                          AutoEllipsisMode="Both"
+                                                          DisplayMode="All"
+                                                          Source="{Binding ContractAircraftsView}"
+                                                          Grid.Row="1" />
                                 </Grid>
-                            </telerik:RadBusyIndicator>
-                        </telerik:RadPane>
-                    </telerik:RadPaneGroup>
-
-                </telerik:RadSplitContainer>
-                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600"
-                                           Orientation="Vertical">
-                    <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="300, 600">
-                        <telerik:RadPane Header="付款计划"
-                                         IsPinned="True"
-                                         CanFloat="False"
-                                         CanUserClose="False"
-                                         CanUserPin="False"
-                                         ContextMenuTemplate="{x:Null}">
-                            <telerik:RadTabControl TabStripPlacement="Bottom">
-                                <telerik:RadTabItem Header="日程视图">
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                        <telerik:RadPaneGroup>
+                            <telerik:RadPane Header="付款计划"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
+                                <telerik:RadBusyIndicator BusyContent=""
+                                                          IsBusy="{Binding AcPaymentSchedulesView.IsBusy}">
                                     <Grid>
-                                        <telerik:RadScheduleView Name="PaymentScheduleView"
-                                                                 SnapAppointments="True"
-                                                                 AppointmentsSource="{Binding PaymentAppointmentCollection,Mode=TwoWay}"
-                                                                 CategoriesSource="{Binding Categories}"
-                                                                 EditAppointmentDialogStyle="{StaticResource EditAppointmentDialogStyle}"
-                                                                 EditRecurrenceDialogStyle="{StaticResource EditRecurrenceDialogStyle}"
-                                                                 IsEnabled="{Binding ScheduleViewEnable}"
-                                                                 ToolTipTemplate="{StaticResource AppointmentToolTipTemplate}"
-                                                                 MinAppointmentHeight="100"
-                                                                 telerik:StyleManager.Theme="Windows8">
-
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Loaded">
-                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                         MethodName="PaymentScheduleView_OnLoaded" />
-                                                </i:EventTrigger>
-                                                <i:EventTrigger EventName="ShowDialog">
-                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                         MethodName="PaymentScheduleView_OnShowDialog" />
-                                                </i:EventTrigger>
-                                                <i:EventTrigger EventName="AppointmentDeleted">
-                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                         MethodName="PaymentScheduleView_OnAppointmentDeleted" />
-                                                </i:EventTrigger>
-                                                <i:EventTrigger EventName="AppointmentEdited">
-                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                         MethodName="PaymentScheduleView_OnAppointmentEdited" />
-                                                </i:EventTrigger>
-                                                <i:EventTrigger EventName="AppointmentCreated">
-                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                         MethodName="PaymentScheduleView_OnAppointmentCreated" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                            <telerik:RadScheduleView.AppointmentItemContentTemplate>
-                                                <DataTemplate>
-                                                    <StackPanel Margin="3,0">
-                                                        <TextBlock Text="{Binding Subject}"
-                                                                   FontWeight="Bold" />
-                                                        <StackPanel Orientation="Vertical">
-                                                            <TextBlock Text="付款金额:"
-                                                                       FontSize="10" />
-                                                            <TextBlock Text="{Binding Appointment.Amount,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                       TextWrapping="Wrap"
-                                                                       FontSize="10" />
-                                                        </StackPanel>
-                                                    </StackPanel>
-                                                </DataTemplate>
-                                            </telerik:RadScheduleView.AppointmentItemContentTemplate>
-                                            <telerik:RadScheduleView.ViewDefinitions>
-                                                <telerik:MonthViewDefinition GroupHeaderDateStringFormat="{}{0:MMM d} - {1:MMM d}" />
-                                            </telerik:RadScheduleView.ViewDefinitions>
-                                        </telerik:RadScheduleView>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                            Margin="0 0 0 -1"
+                                                            OverflowButtonVisibility="Collapsed">
+                                            <telerik:RadButton Margin="4,2,2,-2"
+                                                               Command="{Binding SaveCommand}"
+                                                               CommandParameter="{Binding AcPaymentSchedulesView}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="保存" />
+                                            </telerik:RadButton>
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding AbortCommand}"
+                                                               CommandParameter="{Binding AcPaymentSchedulesView}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="放弃更改" />
+                                            </telerik:RadButton>
+                                            <telerik:RadToolBarSeparator />
+                                            <telerik:RadButton Margin="2,2,2,-2"
+                                                               Command="{Binding AddPaymentScheduleCommand}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="创建付款计划" />
+                                            </telerik:RadButton>
+                                            <telerik:RadToolBarSeparator />
+                                            <telerik:RadButton Margin="4,2,2,-2"
+                                                               Command="{Binding AddPaymentScheduleLineCommand}"
+                                                               CommandParameter="{Binding ElementName=PaymentScheduleView}">
+                                                <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="新增计划明细" />
+                                            </telerik:RadButton>
+                                        </telerik:RadToolBar>
+                                        <telerik:GroupBox Grid.Row="1"
+                                                          Margin="8"
+                                                          Header="付款计划">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="15" />
+                                                    <ColumnDefinition Width="65" />
+                                                    <ColumnDefinition Width="3*" />
+                                                    <ColumnDefinition Width="0.1*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="35" />
+                                                    <RowDefinition Height="35" />
+                                                    <RowDefinition Height="35" />
+                                                    <RowDefinition Height="35" />
+                                                    <RowDefinition Height="35" />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Row="0"
+                                                           Grid.Column="1"
+                                                           Text="币种"
+                                                           TextAlignment="Left"
+                                                           VerticalAlignment="Center" />
+                                                <telerik:RadComboBox Grid.Column="2"
+                                                                     Margin="0,3"
+                                                                     Grid.Row="0"
+                                                                     telerik:StyleManager.Theme="Windows8"
+                                                                     ItemsSource="{Binding CurrencysView}"
+                                                                     DisplayMemberPath="Name"
+                                                                     SelectedValue="{Binding SelectedAcPaymentSchedule.CurrencyId,Mode=TwoWay}"
+                                                                     SelectedValuePath="Id" />
+                                                <TextBlock Grid.Column="1"
+                                                           Grid.Row="1"
+                                                           Text="供应商"
+                                                           TextAlignment="Left"
+                                                           VerticalAlignment="Center" />
+                                                <TextBox Grid.Column="2"
+                                                         Grid.Row="1"
+                                                         Margin="0,3"
+                                                         Text="{Binding SelectedAcPaymentSchedule.SupplierName, Mode=TwoWay}"
+                                                         telerik:StyleManager.Theme="Windows8"
+                                                         IsReadOnly="True" />
+                                                <TextBlock Grid.Row="2"
+                                                           Grid.Column="1"
+                                                           Text="创建时间"
+                                                           TextAlignment="Left"
+                                                           VerticalAlignment="Center" />
+                                                <TextBox Grid.Column="2"
+                                                         Margin="0,3"
+                                                         Grid.Row="2"
+                                                         Text="{Binding SelectedAcPaymentSchedule.CreateDate ,Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}"
+                                                         telerik:StyleManager.Theme="Windows8"
+                                                         IsReadOnly="True" />
+                                                <TextBlock Grid.Row="3"
+                                                           Grid.Column="1"
+                                                           Text="状态"
+                                                           TextAlignment="Left"
+                                                           VerticalAlignment="Center" />
+                                                <TextBox Grid.Column="2"
+                                                         Margin="1,3"
+                                                         Grid.Row="3"
+                                                         BorderThickness="1"
+                                                         BorderBrush="Gray"
+                                                         Text="{Binding SelectedAcPaymentSchedule.CompletedString}"
+                                                         telerik:StyleManager.Theme="Windows8"
+                                                         IsReadOnly="True" />
+                                            </Grid>
+                                        </telerik:GroupBox>
                                     </Grid>
-                                </telerik:RadTabItem>
-                                <telerik:RadTabItem Header="数据视图">
-                                    <Grid>
-                                        <telerik:RadGridView ItemsSource="{Binding SelectedAcPaymentSchedule.PaymentScheduleLines}"
-                                                             IsBusy="{Binding AcPaymentSchedulesView.IsBusy}"
-                                                             SelectedItem="{Binding SelectPaymentScheduleLine, Mode=TwoWay}"
-                                                             AutoExpandGroups="True"
-                                                             CanUserSortColumns="True"
-                                                             RowIndicatorVisibility="Visible"
-                                                             CanUserFreezeColumns="False"
-                                                             IsReadOnly="True">
-                                            <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号"
-                                                                         IsGroupable="False"
-                                                                         CellStyle="{StaticResource CellStyle}" />
-                                                <telerik:GridViewDataColumn Header="操作"
-                                                                            IsGroupable="False"
-                                                                            IsFilterable="False"
-                                                                            IsSortable="False"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            HeaderTextAlignment="Center">
-                                                    <telerik:GridViewDataColumn.CellTemplate>
-                                                        <DataTemplate>
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <HyperlinkButton Content="编辑"
-                                                                                 Name="EditHyperlinkButton"
-                                                                                 Command="{Binding DataContext.EditPaymentScheduleLineCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
-                                                                                 CommandParameter="{Binding }" />
-                                                                <HyperlinkButton Content="删除"
-                                                                                 Command="{Binding DataContext.DelPaymentScheduleLineCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
-                                                                                 CommandParameter="{Binding}" />
+                                </telerik:RadBusyIndicator>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+
+                    </telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600"
+                                               Orientation="Vertical">
+                        <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="300, 600">
+                            <telerik:RadPane Header="付款计划"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
+                                <telerik:RadTabControl TabStripPlacement="Bottom">
+                                    <telerik:RadTabItem Header="日程视图">
+                                        <Grid>
+                                            <telerik:RadScheduleView Name="PaymentScheduleView"
+                                                                     SnapAppointments="True"
+                                                                     AppointmentsSource="{Binding PaymentAppointmentCollection,Mode=TwoWay}"
+                                                                     CategoriesSource="{Binding Categories}"
+                                                                     EditAppointmentDialogStyle="{StaticResource EditAppointmentDialogStyle}"
+                                                                     EditRecurrenceDialogStyle="{StaticResource EditRecurrenceDialogStyle}"
+                                                                     IsEnabled="{Binding ScheduleViewEnable}"
+                                                                     ToolTipTemplate="{StaticResource AppointmentToolTipTemplate}"
+                                                                     MinAppointmentHeight="100"
+                                                                     telerik:StyleManager.Theme="Windows8">
+
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Loaded">
+                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                                             MethodName="PaymentScheduleView_OnLoaded" />
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="ShowDialog">
+                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                                             MethodName="PaymentScheduleView_OnShowDialog" />
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="AppointmentDeleted">
+                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                                             MethodName="PaymentScheduleView_OnAppointmentDeleted" />
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="AppointmentEdited">
+                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                                             MethodName="PaymentScheduleView_OnAppointmentEdited" />
+                                                    </i:EventTrigger>
+                                                    <i:EventTrigger EventName="AppointmentCreated">
+                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                                             MethodName="PaymentScheduleView_OnAppointmentCreated" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <telerik:RadScheduleView.AppointmentItemContentTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Margin="3,0">
+                                                            <TextBlock Text="{Binding Subject}"
+                                                                       FontWeight="Bold" />
+                                                            <StackPanel Orientation="Vertical">
+                                                                <TextBlock Text="付款金额:"
+                                                                           FontSize="10" />
+                                                                <TextBlock Text="{Binding Appointment.Amount,StringFormat={StaticResource CurrencyStringFormat}}"
+                                                                           TextWrapping="Wrap"
+                                                                           FontSize="10" />
                                                             </StackPanel>
-                                                        </DataTemplate>
-                                                    </telerik:GridViewDataColumn.CellTemplate>
-                                                </telerik:GridViewDataColumn>
-                                                <telerik:GridViewDataColumn Header="主题"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            DataMemberBinding="{Binding Subject}"
-                                                                            DataFormatString="{StaticResource DateStringFormat}" />
-                                                <telerik:GridViewDataColumn Header="内容"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding Body}"
-                                                                            DataFormatString="{StaticResource DateStringFormat}" />
-                                                <telerik:GridViewDataColumn Header="付款开始时间"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding Start}"
-                                                                            DataFormatString="{StaticResource DateStringFormat}" />
-                                                <telerik:GridViewDataColumn Header="付款结束时间"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding End}"
-                                                                            DataFormatString="{StaticResource DateStringFormat}" />
-                                                <telerik:GridViewDataColumn Header="付款金额"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            TextAlignment="Right"
-                                                                            DataMemberBinding="{Binding Amount}"
-                                                                            DataFormatString="{StaticResource CurrencyStringFormat}" />
-                                                <telerik:GridViewDataColumn Header="付款状态"
-                                                                            IsReadOnly="True"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding ControlStatus}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </telerik:RadScheduleView.AppointmentItemContentTemplate>
+                                                <telerik:RadScheduleView.ViewDefinitions>
+                                                    <telerik:MonthViewDefinition GroupHeaderDateStringFormat="{}{0:MMM d} - {1:MMM d}" />
+                                                </telerik:RadScheduleView.ViewDefinitions>
+                                            </telerik:RadScheduleView>
+                                        </Grid>
+                                    </telerik:RadTabItem>
+                                    <telerik:RadTabItem Header="数据视图">
+                                        <Grid>
+                                            <telerik:RadGridView ItemsSource="{Binding SelectedAcPaymentSchedule.PaymentScheduleLines}"
+                                                                 IsBusy="{Binding AcPaymentSchedulesView.IsBusy}"
+                                                                 SelectedItem="{Binding SelectPaymentScheduleLine, Mode=TwoWay}"
+                                                                 AutoExpandGroups="True"
+                                                                 CanUserSortColumns="True"
+                                                                 RowIndicatorVisibility="Visible"
+                                                                 CanUserFreezeColumns="False"
+                                                                 IsReadOnly="True">
+                                                <telerik:RadGridView.Columns>
+                                                    <uc:DataPageSerialColumn Header="序号"
+                                                                             IsGroupable="False"
+                                                                             CellStyle="{StaticResource CellStyle}" />
+                                                    <telerik:GridViewDataColumn Header="操作"
+                                                                                IsGroupable="False"
+                                                                                IsFilterable="False"
+                                                                                IsSortable="False"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                HeaderTextAlignment="Center">
+                                                        <telerik:GridViewDataColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <HyperlinkButton Content="编辑"
+                                                                                     Name="EditHyperlinkButton"
+                                                                                     Command="{Binding DataContext.EditPaymentScheduleLineCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                                     CommandParameter="{Binding }" />
+                                                                    <HyperlinkButton Content="删除"
+                                                                                     Command="{Binding DataContext.DelPaymentScheduleLineCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                                     CommandParameter="{Binding}" />
+                                                                </StackPanel>
+                                                            </DataTemplate>
+                                                        </telerik:GridViewDataColumn.CellTemplate>
+                                                    </telerik:GridViewDataColumn>
+                                                    <telerik:GridViewDataColumn Header="主题"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                IsReadOnly="True"
+                                                                                DataMemberBinding="{Binding Subject}"
+                                                                                DataFormatString="{StaticResource DateStringFormat}" />
+                                                    <telerik:GridViewDataColumn Header="内容"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding Body}"
+                                                                                DataFormatString="{StaticResource DateStringFormat}" />
+                                                    <telerik:GridViewDataColumn Header="付款开始时间"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding Start}"
+                                                                                DataFormatString="{StaticResource DateStringFormat}" />
+                                                    <telerik:GridViewDataColumn Header="付款结束时间"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding End}"
+                                                                                DataFormatString="{StaticResource DateStringFormat}" />
+                                                    <telerik:GridViewDataColumn Header="付款金额"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                IsReadOnly="True"
+                                                                                TextAlignment="Right"
+                                                                                DataMemberBinding="{Binding Amount}"
+                                                                                DataFormatString="{StaticResource CurrencyStringFormat}" />
+                                                    <telerik:GridViewDataColumn Header="付款状态"
+                                                                                IsReadOnly="True"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding ControlStatus}" />
 
-                                            </telerik:RadGridView.Columns>
-                                        </telerik:RadGridView>
-                                    </Grid>
+                                                </telerik:RadGridView.Columns>
+                                            </telerik:RadGridView>
+                                        </Grid>
 
-                                </telerik:RadTabItem>
-                            </telerik:RadTabControl>
-                        </telerik:RadPane>
-                    </telerik:RadPaneGroup>
+                                    </telerik:RadTabItem>
+                                </telerik:RadTabControl>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
                 </telerik:RadSplitContainer>
-            </telerik:RadSplitContainer>
-        </telerik:RadDocking>
-    </Grid>
+            </telerik:RadDocking>
+        </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

@@ -32,233 +32,236 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
-        <telerik:RadDocking BorderThickness="0"
-                            Padding="0"
-                            HasDocumentHost="False"
-                            telerik:ProportionalStackPanel.RelativeSize="500,600"
-                            FlowDirection="LeftToRight">
-            <telerik:RadSplitContainer Orientation="Vertical"
-                                       telerik:ProportionalStackPanel.RelativeSize="500, 600">
-                <telerik:RadPaneGroup>
-                    <telerik:RadPane Header="备发计划"
-                                     IsPinned="True"
-                                     CanFloat="False"
-                                     CanUserClose="False"
-                                     CanUserPin="False"
-                                     FontSize="{StaticResource TextFontSize}"
-                                     ContextMenuTemplate="{x:Null}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                Margin="-1 -2 -1 0"
-                                                OverflowButtonVisibility="Collapsed">
-                                <telerik:RadButton Margin="4,2,2,-2"
-                                                   Command="{Binding SaveCommand}"
-                                                   CommandParameter="{Binding EnginePlans}">
-                                    <Image Source="/UniCloud.Presentation;component/Images/Save.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="保存" />
-                                </telerik:RadButton>
-                                <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding AbortCommand}"
-                                                   CommandParameter="{Binding EnginePlans}">
-                                    <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="放弃更改" />
-                                </telerik:RadButton>
-                                <telerik:RadToolBarSeparator />
-                                <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding NewCommand}">
-                                    <Image Source="/UniCloud.Presentation;component/Images/New.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="新增备发计划" />
-                                </telerik:RadButton>
-                                <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding RemoveCommand}">
-                                    <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="删除备发计划" />
-                                </telerik:RadButton>
-                                <telerik:RadToolBarSeparator />
-                                <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding CommitCommand}">
-                                    <Image Source="/UniCloud.Presentation;component/Images/Up.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="提交审核" />
-                                </telerik:RadButton>
-                                <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding CheckCommand}">
-                                    <Image Source="/UniCloud.Presentation;component/Images/Check.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="审核" />
-                                </telerik:RadButton>
-                            </telerik:RadToolBar>
-                            <telerik:RadGridView x:Name="EnginePlans"
-                                                 Grid.Row="1"
-                                                 AutoExpandGroups="True"
-                                                 ShowGroupPanel="False"
-                                                 AutoGenerateColumns="False"
-                                                 CanUserSortColumns="True"
-                                                 CanUserFreezeColumns="False"
-                                                 RowIndicatorVisibility="Collapsed"
-                                                 CanUserResizeColumns="False"
-                                                 IsFilteringAllowed="True"
-                                                 IsReadOnly="False"
-                                                 ItemsSource="{Binding EnginePlans,Mode=TwoWay}"
-                                                 SelectedItem="{Binding SelEnginePlan,Mode=TwoWay}"
-                                                 IsBusy="{Binding EnginePlans.IsBusy}">
-                                <telerik:RadContextMenu.ContextMenu>
-                                    <telerik:RadContextMenu>
-                                        <telerik:RadMenuItem Header="导出Excel"
-                                                             Command="{Binding ExcelExportCommand}"
-                                                             CommandParameter="{Binding ElementName=EnginePlans, Mode=OneWay}" />
-                                        <telerik:RadMenuItem Header="导出Word"
-                                                             Command="{Binding WordExportCommand}"
-                                                             CommandParameter="{Binding ElementName=EnginePlans, Mode=OneWay}" />
-                                    </telerik:RadContextMenu>
-                                </telerik:RadContextMenu.ContextMenu>
-                                <telerik:RadGridView.Columns>
-                                    <input:DataPageSerialColumn Header="序号"
-                                                                HeaderTextAlignment="Center" />
-                                    <telerik:GridViewComboBoxColumn Header="年度"
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
+                              BusyContent="{Binding BusyContent,Mode=TwoWay}">
+        <Grid Background="White">
+            <telerik:RadDocking BorderThickness="0"
+                                Padding="0"
+                                HasDocumentHost="False"
+                                telerik:ProportionalStackPanel.RelativeSize="500,600"
+                                FlowDirection="LeftToRight">
+                <telerik:RadSplitContainer Orientation="Vertical"
+                                           telerik:ProportionalStackPanel.RelativeSize="500, 600">
+                    <telerik:RadPaneGroup>
+                        <telerik:RadPane Header="备发计划"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                    Margin="-1 -2 -1 0"
+                                                    OverflowButtonVisibility="Collapsed">
+                                    <telerik:RadButton Margin="4,2,2,-2"
+                                                       Command="{Binding SaveCommand}"
+                                                       CommandParameter="{Binding EnginePlans}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="保存" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding AbortCommand}"
+                                                       CommandParameter="{Binding EnginePlans}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="放弃更改" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding NewCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="新增备发计划" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding RemoveCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="删除备发计划" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding CommitCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Up.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="提交审核" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding CheckCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Check.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="审核" />
+                                    </telerik:RadButton>
+                                </telerik:RadToolBar>
+                                <telerik:RadGridView x:Name="EnginePlans"
+                                                     Grid.Row="1"
+                                                     AutoExpandGroups="True"
+                                                     ShowGroupPanel="False"
+                                                     AutoGenerateColumns="False"
+                                                     CanUserSortColumns="True"
+                                                     CanUserFreezeColumns="False"
+                                                     RowIndicatorVisibility="Collapsed"
+                                                     CanUserResizeColumns="False"
+                                                     IsFilteringAllowed="True"
+                                                     IsReadOnly="False"
+                                                     ItemsSource="{Binding EnginePlans,Mode=TwoWay}"
+                                                     SelectedItem="{Binding SelEnginePlan,Mode=TwoWay}"
+                                                     IsBusy="{Binding EnginePlans.IsBusy}">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=EnginePlans, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=EnginePlans, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
+                                    <telerik:RadGridView.Columns>
+                                        <input:DataPageSerialColumn Header="序号"
+                                                                    HeaderTextAlignment="Center" />
+                                        <telerik:GridViewComboBoxColumn Header="年度"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.Annuals, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        DisplayMemberPath="Year"
+                                                                        DataMemberBinding="{Binding AnnualId,Mode=TwoWay}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        EditorStyle="{StaticResource EditComboBox}" />
+                                        <telerik:GridViewDataColumn Header="创建日期"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    ItemsSource="{Binding DataContext.Annuals, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                                                    DisplayMemberPath="Year"
-                                                                    DataMemberBinding="{Binding AnnualId,Mode=TwoWay}"
-                                                                    SelectedValueMemberPath="Id"
-                                                                    EditorStyle="{StaticResource EditComboBox}" />
-                                    <telerik:GridViewDataColumn Header="创建日期"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding CreateDate}"
-                                                                DataFormatString="{StaticResource DateStringFormat}" />
-                                    <telerik:GridViewDataColumn Header="计划状态"
-                                                                IsReadOnly="True"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding EnginePlanStatus}" />
-                                    <telerik:GridViewCheckBoxColumn Header="是否有效"
+                                                                    DataMemberBinding="{Binding CreateDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
+                                        <telerik:GridViewDataColumn Header="计划状态"
                                                                     IsReadOnly="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding IsValid}">
-                                    </telerik:GridViewCheckBoxColumn>
-                                    <telerik:GridViewDataColumn Header="备注"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding Note}" />
-                                </telerik:RadGridView.Columns>
-                            </telerik:RadGridView>
-                        </Grid>
-                    </telerik:RadPane>
-                </telerik:RadPaneGroup>
-                <telerik:RadPaneGroup VerticalAlignment="Stretch">
-                    <telerik:RadPane Header="计划明细"
-                                     CanFloat="False"
-                                     CanUserClose="False"
-                                     CanUserPin="False"
-                                     FontSize="{StaticResource TextFontSize}"
-                                     ContextMenuTemplate="{x:Null}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                Margin="-1 -2 -1 0"
-                                                OverflowButtonVisibility="Collapsed">
-                                <telerik:RadButton Margin="4,2,2,-2"
-                                                   Command="{Binding AddEntityCommand}">
-                                    <Image Source="/UniCloud.Presentation;component/Images/Add.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="添加计划行" />
-                                </telerik:RadButton>
-                                <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding RemoveEntityCommand}">
-                                    <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="移除计划行" />
-                                </telerik:RadButton>
-                            </telerik:RadToolBar>
-                            <telerik:RadGridView x:Name="EnginePlanDetail"
-                                                 ShowGroupPanel="False"
-                                                 AutoExpandGroups="True"
-                                                 IsReadOnly="False"
-                                                 Grid.Row="1"
-                                                 CanUserFreezeColumns="False"
-                                                 RowIndicatorVisibility="Collapsed"
-                                                 CanUserResizeColumns="False"
-                                                 IsFilteringAllowed="False"
-                                                 ItemsSource="{Binding EnginePlanHistories,Mode=TwoWay}"
-                                                 SelectedItem="{Binding SelEnginePlanHistory,Mode=TwoWay}"
-                                                 IsBusy="{Binding EnginePlans.IsBusy}"
-                                                 AutoGenerateColumns="False"
-                                                 ShowColumnFooters="True">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="CellEditEnded">
-                                        <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
-                                                               CommandParameter="{Binding ElementName=EnginePlanDetail}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                <telerik:RadContextMenu.ContextMenu>
-                                    <telerik:RadContextMenu>
-                                        <telerik:RadMenuItem Header="导出Excel"
-                                                             Command="{Binding ExcelExportCommand}"
-                                                             CommandParameter="{Binding ElementName=EnginePlanDetail, Mode=OneWay}" />
-                                        <telerik:RadMenuItem Header="导出Word"
-                                                             Command="{Binding WordExportCommand}"
-                                                             CommandParameter="{Binding ElementName=EnginePlanDetail, Mode=OneWay}" />
-                                    </telerik:RadContextMenu>
-                                </telerik:RadContextMenu.ContextMenu>
-                                <telerik:RadGridView.Columns>
-                                    <input:DataPageSerialColumn Header="序号"
-                                                                HeaderTextAlignment="Center" />
-                                    <telerik:GridViewComboBoxColumn Header="发动机型号"
+                                                                    DataMemberBinding="{Binding EnginePlanStatus}" />
+                                        <telerik:GridViewCheckBoxColumn Header="是否有效"
+                                                                        IsReadOnly="True"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding IsValid}">
+                                        </telerik:GridViewCheckBoxColumn>
+                                        <telerik:GridViewDataColumn Header="备注"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    ItemsSource="{Binding DataContext.EngineTypes, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                                                    DisplayMemberPath="Name"
-                                                                    DataMemberBinding="{Binding EngineTypeId,Mode=TwoWay}"
-                                                                    SelectedValueMemberPath="Id"
-                                                                    EditorStyle="{StaticResource EditComboBox}" 
-                                                                    UniqueName="EngineType"/>
-                                    <telerik:GridViewComboBoxColumn Header="引进方式"
+                                                                    DataMemberBinding="{Binding Note}" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                    <telerik:RadPaneGroup VerticalAlignment="Stretch">
+                        <telerik:RadPane Header="计划明细"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                    Margin="-1 -2 -1 0"
+                                                    OverflowButtonVisibility="Collapsed">
+                                    <telerik:RadButton Margin="4,2,2,-2"
+                                                       Command="{Binding AddEntityCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="添加计划行" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding RemoveEntityCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="移除计划行" />
+                                    </telerik:RadButton>
+                                </telerik:RadToolBar>
+                                <telerik:RadGridView x:Name="EnginePlanDetail"
+                                                     ShowGroupPanel="False"
+                                                     AutoExpandGroups="True"
+                                                     IsReadOnly="False"
+                                                     Grid.Row="1"
+                                                     CanUserFreezeColumns="False"
+                                                     RowIndicatorVisibility="Collapsed"
+                                                     CanUserResizeColumns="False"
+                                                     IsFilteringAllowed="False"
+                                                     ItemsSource="{Binding EnginePlanHistories,Mode=TwoWay}"
+                                                     SelectedItem="{Binding SelEnginePlanHistory,Mode=TwoWay}"
+                                                     IsBusy="{Binding EnginePlans.IsBusy}"
+                                                     AutoGenerateColumns="False"
+                                                     ShowColumnFooters="True">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="CellEditEnded">
+                                            <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
+                                                                   CommandParameter="{Binding ElementName=EnginePlanDetail}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=EnginePlanDetail, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=EnginePlanDetail, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
+                                    <telerik:RadGridView.Columns>
+                                        <input:DataPageSerialColumn Header="序号"
+                                                                    HeaderTextAlignment="Center" />
+                                        <telerik:GridViewComboBoxColumn Header="发动机型号"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.EngineTypes, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        DisplayMemberPath="Name"
+                                                                        DataMemberBinding="{Binding EngineTypeId,Mode=TwoWay}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        EditorStyle="{StaticResource EditComboBox}"
+                                                                        UniqueName="EngineType" />
+                                        <telerik:GridViewComboBoxColumn Header="引进方式"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.ActionCategories, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        DisplayMemberPath="ActionCategoryOperation"
+                                                                        DataMemberBinding="{Binding ActionCategoryId,Mode=TwoWay}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        EditorStyle="{StaticResource EditComboBox}" />
+                                        <telerik:GridViewComboBoxColumn Header="执行年度"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.Annuals, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        DisplayMemberPath="Year"
+                                                                        DataMemberBinding="{Binding PerformAnnualId,Mode=TwoWay}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        EditorStyle="{StaticResource EditComboBox}" />
+                                        <telerik:GridViewDataColumn Header="执行月份"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    ItemsSource="{Binding DataContext.ActionCategories, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                                                    DisplayMemberPath="ActionCategoryOperation"
-                                                                    DataMemberBinding="{Binding ActionCategoryId,Mode=TwoWay}"
-                                                                    SelectedValueMemberPath="Id"
-                                                                    EditorStyle="{StaticResource EditComboBox}" />
-                                    <telerik:GridViewComboBoxColumn Header="执行年度"
+                                                                    UniqueName="PerformMonth"
+                                                                    DataMemberBinding="{Binding PerformMonth}" />
+                                        <telerik:GridViewDataColumn Header="最大推力"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    ItemsSource="{Binding DataContext.Annuals, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                                                    DisplayMemberPath="Year"
-                                                                    DataMemberBinding="{Binding PerformAnnualId,Mode=TwoWay}"
-                                                                    SelectedValueMemberPath="Id"
-                                                                    EditorStyle="{StaticResource EditComboBox}" />
-                                    <telerik:GridViewDataColumn Header="执行月份"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                UniqueName="PerformMonth"
-                                                                DataMemberBinding="{Binding PerformMonth}" />
-                                    <telerik:GridViewDataColumn Header="最大推力"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding MaxThrust}" />
-                                    <telerik:GridViewDataColumn Header="管理状态"
-                                                                IsReadOnly="True"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding DeliverStatus}" />
-                                    <telerik:GridViewDataColumn Header="实际引进日期"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding ImportDate}" 
-                                                                DataFormatString="{StaticResource DateStringFormat}"/>
-                                    <telerik:GridViewDataColumn Header="引进发动机详细信息"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding Note}" />
-                                </telerik:RadGridView.Columns>
-                            </telerik:RadGridView>
-                        </Grid>
-                    </telerik:RadPane>
-                </telerik:RadPaneGroup>
-            </telerik:RadSplitContainer>
-        </telerik:RadDocking>
-    </Grid>
+                                                                    DataMemberBinding="{Binding MaxThrust}" />
+                                        <telerik:GridViewDataColumn Header="管理状态"
+                                                                    IsReadOnly="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding DeliverStatus}" />
+                                        <telerik:GridViewDataColumn Header="实际引进日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding ImportDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
+                                        <telerik:GridViewDataColumn Header="引进发动机详细信息"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Note}" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
+            </telerik:RadDocking>
+        </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

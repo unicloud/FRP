@@ -20,7 +20,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
-                              BusyContent="">
+                              BusyContent="{Binding BusyContent,Mode=TwoWay}">
         <Grid Background="White">
             <telerik:RadDocking BorderThickness="0"
                                 Padding="0"
