@@ -261,6 +261,10 @@
     <Compile Include="ManageItem\PnRegsChildView.xaml.cs">
       <DependentUpon>PnRegsChildView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManageOnBoardSn\ManageOnBoardSn.xaml.cs">
+      <DependentUpon>ManageOnBoardSn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageOnBoardSn\ManageOnBoardSnVm.cs" />
     <Compile Include="ManageSCN\SelectAircrafts.xaml.cs">
       <DependentUpon>SelectAircrafts.xaml</DependentUpon>
     </Compile>
@@ -392,6 +396,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManageItem\PnRegsChildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageOnBoardSn\ManageOnBoardSn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1210,6 +1210,7 @@ namespace UniCloud.Presentation.Shell
             var menu78 = new MenuItem
             {
                 Text = "维护在位信息",
+                NavUri = "UniCloud.Presentation.Part.ManageOnBoardSn.ManageOnBoardSn"
             };
             menu7.Items.Add(menu78);
 
