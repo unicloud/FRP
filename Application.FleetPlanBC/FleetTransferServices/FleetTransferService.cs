@@ -59,7 +59,7 @@ using Request = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.Request;
 namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
 {
     [LogAOP]
-    public class FleetTransferService : IFleetTransferService
+    public class FleetTransferService : ContextBoundObject, IFleetTransferService
     {
         private readonly IAircraftRepository _aircraftRepository;
         private readonly IAirlinesRepository _airlinesRepository;

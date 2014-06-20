@@ -34,7 +34,7 @@ namespace UniCloud.Application.PartBC.AcConfigServices
     ///     用于处理飞机构型相关信息的服务，供Distributed Services调用。
     /// </summary>
     [LogAOP]
-    public class AcConfigAppService : IAcConfigAppService
+    public class AcConfigAppService : ContextBoundObject, IAcConfigAppService
     {
         private readonly IAcConfigQuery _acConfigQuery;
 

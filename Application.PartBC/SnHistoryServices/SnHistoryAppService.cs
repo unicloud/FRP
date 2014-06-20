@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
@@ -38,7 +39,7 @@ namespace UniCloud.Application.PartBC.SnHistoryServices
     ///     用于处理序号件装机历史相关信息的服务，供Distributed Services调用。
     /// </summary>
     [LogAOP]
-    public class SnHistoryAppService : ISnHistoryAppService
+    public class SnHistoryAppService : ContextBoundObject, ISnHistoryAppService
     {
         private readonly IAircraftRepository _aircraftRepository;
         private readonly IPnRegRepository _pnRegRepository;

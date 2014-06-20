@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.FleetPlanBC.DTO;
@@ -32,7 +33,7 @@ namespace UniCloud.Application.FleetPlanBC.IssuedUnitServices
     ///     用于处理发文单位相关信息的服务，供Distributed Services调用。
     /// </summary>
     [LogAOP]
-    public class IssuedUnitAppService : IIssuedUnitAppService
+    public class IssuedUnitAppService : ContextBoundObject, IIssuedUnitAppService
     {
         private readonly IIssuedUnitQuery _issuedUnitQuery;
 

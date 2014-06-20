@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
@@ -35,7 +36,7 @@ namespace UniCloud.Application.PartBC.SnRemInstRecordServices
     ///     用于处理拆换记录相关信息的服务，供Distributed Services调用。
     /// </summary>
     [LogAOP]
-    public class SnRemInstRecordAppService : ISnRemInstRecordAppService
+    public class SnRemInstRecordAppService : ContextBoundObject, ISnRemInstRecordAppService
     {
         private readonly IAircraftRepository _aircraftRepository;
         private readonly ISnRemInstRecordQuery _snRemInstRecordQuery;

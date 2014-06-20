@@ -35,7 +35,7 @@ namespace UniCloud.Application.PartBC.ItemServices
     ///     用于处理附件项相关信息的服务，供Distributed Services调用。
     /// </summary>
     [LogAOP]
-    public class ItemAppService : IItemAppService
+    public class ItemAppService : ContextBoundObject, IItemAppService
     {
         private readonly IItemQuery _itemQuery;
         private readonly IItemRepository _itemRepository;
