@@ -24,34 +24,27 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserRoleAgg
             UserId = userId;
             RoleId = roleId;
         }
+
         #endregion
 
         #region 属性
 
-        public  int UserId
-        {
-            get;
-            internal set;
-        }
+        #endregion
 
-        public int RoleId
-        {
-            get;
-            internal set;
-        }
+        #region 外键
+
+        public int UserId { get; internal set; }
+
+        public int RoleId { get; internal set; }
 
         #endregion
 
-        #region 方法
+        #region 导航
 
-        /// <summary>
-        /// 设置角色Id
-        /// </summary>
-        /// <param name="roleId"></param>
-        public void SetRoleId(int roleId)
-        {
-            RoleId = roleId;
-        }
+        #endregion
+
+        #region 操作
+
         #endregion
 
         #region IValidatableObject 成员

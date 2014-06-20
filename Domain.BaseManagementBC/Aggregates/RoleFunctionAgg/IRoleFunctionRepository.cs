@@ -16,6 +16,10 @@
 
 namespace UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg
 {
+    /// <summary>
+    ///     RoleFunction仓储接口
+    ///     <see cref="UniCloud.Domain.IRepository{RoleFunction}" />
+    /// </summary>
     public interface IRoleFunctionRepository : IRepository<RoleFunction>
     {
     }

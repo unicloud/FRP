@@ -1,55 +1,56 @@
-﻿#region Version Info
-/* ========================================================================
+﻿#region 版本控制
+
+// =====================================================
 // 版权所有 (C) 2014 UniCloud 
-//【本类功能概述】
+// 【本类功能概述】
 // 
-// 作者：linxw 时间：2014/3/17 16:30:27
-// 文件名：UserFactory
+// 作者：丁志浩 时间：2014/03/27，09:03
+// 方案：FRP
+// 项目：Domain.UberModel
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2014/3/17 16:30:27
+// 修改者： 时间： 
 // 修改说明：
-// ========================================================================*/
+// =====================================================
+
 #endregion
+
+#region 命名空间
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+#endregion
 
 namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
 {
-   public static class UserFactory
+    /// <summary>
+    ///     User工厂
+    /// </summary>
+    public static class UserFactory
     {
-        /// <summary>
-        /// 创建用户
-        /// </summary>
-        /// <param name="employeeCode">员工号</param>
-        /// <param name="firstName">名</param>
-        /// <param name="lastName">姓</param>
-        /// <param name="displayName">全名</param>
-        /// <param name="password">密码</param>
-        /// <param name="email">邮箱</param>
-        /// <param name="mobile">手机号</param>
-        /// <param name="description">描述</param>
-        /// <param name="isValid">是否有效</param>
-        /// <returns></returns>
-        public static User CreateUser(string employeeCode, string firstName, string lastName, string displayName, string password,
-            string email, string mobile, string description, bool isValid)
+        public static User CreateUser(string username, string password, string email, int passwordFormat,
+            string passwordQuestion, string passwordAnswer, DateTime createDate)
         {
             var user = new User
             {
-                EmployeeCode = employeeCode,
-                FirstName = firstName,
-                LastName = lastName,
-                CreateDate = DateTime.Now,
-                Description = description,
-                DisplayName = displayName,
+                UserName = username,
+                LoweredUserName = username.ToLower(),
                 Email = email,
-                IsValid = isValid,
-                Mobile = mobile,
+                PasswordFormat = passwordFormat,
+                CreateDate = DateTime.Now,
+                IsLockedOut = false,
+                IsValid = true,
+                LastLockoutDate = createDate,
+                FailedPasswordAttemptCount = 0,
+                FailedPasswordAttemptWindowStart = createDate,
+                FailedPasswordAnswerAttemptCount = 0,
+                FailedPasswordAnswerAttemptWindowStart = createDate,
+                LastActivityDate = DateTime.Now,
+                LastLoginDate = DateTime.Now,
             };
             user.GenerateNewIdentity();
+            user.SetPassword(password);
+            user.SetPasswordQuestionAndAnswer(passwordQuestion, passwordAnswer);
             return user;
         }
     }

@@ -21,7 +21,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
         {
             InitialContainer.CreateInitialContainer()
                 .Register(new FunctionItemData(context))
-                .Register(new UserData(context))
                 .Register(new XmlConfigData(context))
                 .Register(new XmlSettingData(context))
                 .Register(new LicenseTypeData(context))

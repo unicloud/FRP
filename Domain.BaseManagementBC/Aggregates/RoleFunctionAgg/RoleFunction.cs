@@ -1,4 +1,21 @@
-﻿#region 命名空间
+﻿#region 版本控制
+
+// =====================================================
+// 版权所有 (C) 2014 UniCloud 
+// 【本类功能概述】
+// 
+// 作者：丁志浩 时间：2014/03/27，09:03
+// 方案：FRP
+// 项目：Domain.BaseManagementBC
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// =====================================================
+
+#endregion
+
+#region 命名空间
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,46 +37,40 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg
         {
         }
 
-        public RoleFunction(int functionItemId,int roleId)
+        public RoleFunction(int roleId, int functionItemId)
         {
-            FunctionItemId = functionItemId;
             RoleId = roleId;
+            FunctionItemId = functionItemId;
         }
-
 
         #endregion
 
         #region 属性
 
-        public int FunctionItemId
-        {
-            get;
-            internal set;
-        }
+        #endregion
 
-        public int RoleId
-        {
-            get;
-            internal set;
-        }
+        #region 外键
 
+        public int FunctionItemId { get; internal set; }
+
+        public int RoleId { get; internal set; }
+
+        #endregion
+
+        #region 导航
 
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        /// 功能项
+        ///     功能项
         /// </summary>
         public virtual FunctionItem FunctionItem { get; set; }
+
         #endregion
 
-        #region 方法
-
-        public void SetRoleId(int roleId)
-        {
-            RoleId = roleId;
-        }
+        #region 操作
 
         #endregion
 
