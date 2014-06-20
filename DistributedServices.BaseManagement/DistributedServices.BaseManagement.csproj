@@ -102,9 +102,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AuthenticationService.svc" />
     <Content Include="BaseManagementDataService.svc" />
     <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
+    <Content Include="RoleService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

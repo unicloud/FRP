@@ -231,7 +231,6 @@ namespace UniCloud.Application.BaseManagementBC
                 var user = _userRepository.GetFiltered(u => u.UserName == username).FirstOrDefault();
                 if (user == null) throw new Exception("未取到用户！");
                 user.SetPassword(EncodePassword(newPassword));
-                _userRepository.UnitOfWork.Commit();
                 return true;
             }
             catch (Exception ex)
@@ -252,7 +251,6 @@ namespace UniCloud.Application.BaseManagementBC
                 var user = _userRepository.GetFiltered(u => u.UserName == username).FirstOrDefault();
                 if (user == null) throw new Exception("未取到用户！");
                 user.SetPasswordQuestionAndAnswer(newPasswordQuestion, EncodePassword(newPasswordAnswer));
-                _userRepository.UnitOfWork.Commit();
                 return true;
             }
             catch (Exception ex)
@@ -305,7 +303,6 @@ namespace UniCloud.Application.BaseManagementBC
                     var user = UserFactory.CreateUser(username, EncodePassword(password), email, passwordFormat,
                         passwordQuestion, passwordAnswer, createDate);
                     _userRepository.Add(user);
-                    _userRepository.UnitOfWork.Commit();
                     status = MembershipCreateStatus.Success;
                 }
                 catch (Exception ex)
@@ -335,7 +332,6 @@ namespace UniCloud.Application.BaseManagementBC
                         .ToList()
                         .ForEach(ur => _userRoleRepository.Remove(ur));
                 }
-                _userRepository.UnitOfWork.Commit();
                 return true;
             }
             catch (Exception ex)
@@ -564,7 +560,6 @@ namespace UniCloud.Application.BaseManagementBC
             try
             {
                 user.SetPassword(newPassword);
-                _userRepository.UnitOfWork.Commit();
                 return newPassword;
             }
             catch (Exception ex)
@@ -581,7 +576,6 @@ namespace UniCloud.Application.BaseManagementBC
                 var user = _userRepository.GetFiltered(u => u.UserName == userName).FirstOrDefault();
                 if (user == null) throw new Exception("未取到用户！");
                 user.Unlock();
-                _userRepository.UnitOfWork.Commit();
                 return true;
             }
             catch (Exception ex)
@@ -596,7 +590,6 @@ namespace UniCloud.Application.BaseManagementBC
             var mu = _userRepository.GetFiltered(u => u.UserName == user.UserName).FirstOrDefault();
             if (mu == null) throw new Exception("未取到用户！");
             mu.UpdateUser(user.Email, user.Comment, user.IsApproved);
-            _userRepository.UnitOfWork.Commit();
         }
 
         public override bool ValidateUser(string username, string password)

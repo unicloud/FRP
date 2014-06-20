@@ -154,7 +154,6 @@ namespace UniCloud.Application.BaseManagementBC
 
                 var role = RoleFactory.CreateRole(roleName);
                 _roleRepository.Add(role);
-                _roleRepository.UnitOfWork.Commit();
             }
             catch (Exception ex)
             {
@@ -173,7 +172,6 @@ namespace UniCloud.Application.BaseManagementBC
                     throw new ProviderException("无法删除在用的角色！");
                 var role = _roleRepository.GetFiltered(r => r.Name == roleName).FirstOrDefault();
                 _roleRepository.Remove(role);
-                _roleRepository.UnitOfWork.Commit();
                 return true;
             }
             catch (Exception ex)
@@ -241,7 +239,6 @@ namespace UniCloud.Application.BaseManagementBC
                 _userRoleRepository.GetFiltered(ur => userIds.Contains(ur.UserId) && roleIds.Contains(ur.RoleId))
                     .ToList()
                     .ForEach(ur => _userRoleRepository.Remove(ur));
-                _userRoleRepository.UnitOfWork.Commit();
             }
             catch (Exception ex)
             {
