@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -28,15 +29,16 @@ namespace UniCloud.Infrastructure.Data
 {
     public class BaseContext<TContext> : DbContext, IQueryableUnitOfWork where TContext : DbContext
     {
-        static string connectStr = ConnectionStringCryptography.DecryptConnectionString(System.Configuration.ConfigurationManager.ConnectionStrings[DbConfig.DbUniCloud].ToString());
+        private static readonly string connectStr =
+            ConnectionStringCryptography.DecryptConnectionString(
+                ConfigurationManager.ConnectionStrings[DbConfig.DbUniCloud].ToString());
 
         static BaseContext()
         {
             Database.SetInitializer<TContext>(null);
         }
 
-        protected BaseContext()
-            : base(connectStr)
+        protected BaseContext(): base(connectStr)
         {
         }
 
@@ -44,22 +46,22 @@ namespace UniCloud.Infrastructure.Data
 
         public DbSet<TEntity> CreateSet<TEntity>() where TEntity : class
         {
-            return base.Set<TEntity>();
+            return Set<TEntity>();
         }
 
         public void Attach<TEntity>(TEntity item) where TEntity : class
         {
-            base.Entry<TEntity>(item).State = (EntityState) System.Data.EntityState.Unchanged;
+            Entry(item).State = EntityState.Unchanged;
         }
 
         public void SetModified<TEntity>(TEntity item) where TEntity : class
         {
-            base.Entry<TEntity>(item).State = (EntityState) System.Data.EntityState.Modified;
+            Entry(item).State = EntityState.Modified;
         }
 
         public void ApplyCurrentValues<TEntity>(TEntity original, TEntity current) where TEntity : class
         {
-            base.Entry<TEntity>(original).CurrentValues.SetValues(current);
+            Entry(original).CurrentValues.SetValues(current);
         }
 
         #endregion
@@ -93,9 +95,9 @@ namespace UniCloud.Infrastructure.Data
 
         public void RollbackChanges()
         {
-            base.ChangeTracker.Entries()
+            ChangeTracker.Entries()
                 .ToList()
-                .ForEach(entry => entry.State = (EntityState) System.Data.EntityState.Unchanged);
+                .ForEach(entry => entry.State = EntityState.Unchanged);
         }
 
         #endregion
@@ -104,12 +106,12 @@ namespace UniCloud.Infrastructure.Data
 
         public IQueryable<TEntity> ExecuteQuery<TEntity>(string sqlQuery, params object[] parameters)
         {
-            return base.Database.SqlQuery<TEntity>(sqlQuery, parameters).AsQueryable<TEntity>();
+            return Database.SqlQuery<TEntity>(sqlQuery, parameters).AsQueryable<TEntity>();
         }
 
         public int ExecuteCommand(string sqlCommand, params object[] parameters)
         {
-            return base.Database.ExecuteSqlCommand(sqlCommand, parameters);
+            return Database.ExecuteSqlCommand(sqlCommand, parameters);
         }
 
         #endregion
