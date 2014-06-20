@@ -1,4 +1,21 @@
-﻿#region 命名空间
+﻿#region 版本控制
+
+// =====================================================
+// 版权所有 (C) 2014 UniCloud 
+// 【本类功能概述】
+// 
+// 作者：丁志浩 时间：2014/03/27，09:03
+// 方案：FRP
+// 项目：Domain.BaseManagementBC
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// =====================================================
+
+#endregion
+
+#region 命名空间
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,34 +41,27 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg
             UserId = userId;
             RoleId = roleId;
         }
+
         #endregion
 
         #region 属性
 
-        public  int UserId
-        {
-            get;
-            internal set;
-        }
+        #endregion
 
-        public int RoleId
-        {
-            get;
-            internal set;
-        }
+        #region 外键
+
+        public int UserId { get; internal set; }
+
+        public int RoleId { get; internal set; }
 
         #endregion
 
-        #region 方法
+        #region 导航
 
-        /// <summary>
-        /// 设置角色Id
-        /// </summary>
-        /// <param name="roleId"></param>
-        public void SetRoleId(int roleId)
-        {
-            RoleId = roleId;
-        }
+        #endregion
+
+        #region 操作
+
         #endregion
 
         #region IValidatableObject 成员

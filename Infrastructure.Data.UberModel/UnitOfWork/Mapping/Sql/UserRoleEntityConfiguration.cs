@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,6 +12,7 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -23,20 +25,20 @@ using UniCloud.Domain.UberModel.Aggregates.UserRoleAgg;
 
 namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 {
-   /// <summary>
-   /// UserRole实体相关配置
-   /// </summary>
-   internal class UserRoleEntityConfiguration: EntityTypeConfiguration<UserRole>
-   {
-      public UserRoleEntityConfiguration()
-      {
-         ToTable("UserRole", DbConfig.Schema);
-         
-         HasKey(p => p.Id);
-         Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-         Property(p => p.UserId).HasColumnName("UserId");
-         Property(p => p.RoleId).HasColumnName("RoleId");
-      }
-      
-   }
+    /// <summary>
+    ///     UserRole实体相关配置
+    /// </summary>
+    internal class UserRoleEntityConfiguration : EntityTypeConfiguration<UserRole>
+    {
+        public UserRoleEntityConfiguration()
+        {
+            ToTable("UserRole", DbConfig.Schema);
+
+            HasKey(p => p.Id);
+            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            Property(p => p.UserId).HasColumnName("UserId");
+            Property(p => p.RoleId).HasColumnName("RoleId");
+        }
+    }
 }

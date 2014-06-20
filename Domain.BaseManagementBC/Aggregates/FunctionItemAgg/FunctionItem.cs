@@ -10,6 +10,8 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg
 {
     public class FunctionItem : EntityInt, IValidatableObject
     {
+        private ICollection<FunctionItem> _subFunctionItems;
+
         #region 构造函数
 
         /// <summary>
@@ -20,37 +22,9 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg
         {
         }
 
-        public FunctionItem(string name,int? parentItemId,bool isLeaf,bool isButtion,
-            string naviUrl,string description=null
-            ,bool isvalid=true,string imageUrl=null)
-        {
-            Name = name;
-            ParentItemId = parentItemId;
-            IsLeaf = isLeaf;
-            IsButton = isButtion;
-            NaviUrl= naviUrl;
-            Description = description;
-            IsValid = isvalid;
-            ImageUrl = imageUrl;
-        }
         #endregion
 
         #region 属性
-
-        /// <summary>
-        ///     父亲节点
-        /// </summary>
-        public  int? ParentItemId { get; internal set; }
-
-        /// <summary>
-        ///     是否是叶子节点
-        /// </summary>
-        public bool IsLeaf { get; internal set; }
-
-        /// <summary>
-        ///     排序
-        /// </summary>
-        public int Sort { get; internal set; }
 
         /// <summary>
         ///     名称
@@ -80,23 +54,45 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg
         /// <summary>
         ///     图片地址
         /// </summary>
-        public  string ImageUrl { get; internal set; }
+        public string ImageUrl { get; internal set; }
 
         /// <summary>
-        /// 是否是按钮
+        ///     是否是按钮
         /// </summary>
-        public  bool IsButton { get; internal set; }
+        public bool IsButton { get; internal set; }
 
+        /// <summary>
+        ///     是否是叶子节点
+        /// </summary>
+        public bool IsLeaf { get; internal set; }
 
-        private ICollection<FunctionItem> _subFunctionItems;
+        /// <summary>
+        ///     排序
+        /// </summary>
+        public int Sort { get; internal set; }
+
+        #endregion
+
+        #region 外键
+
+        /// <summary>
+        ///     父亲节点
+        /// </summary>
+        public int? ParentItemId { get; internal set; }
+
+        #endregion
+
+        #region 导航
+
         /// <summary>
         ///     子项集合
         /// </summary>
-        public ICollection<FunctionItem> SubFunctionItems
+        public virtual ICollection<FunctionItem> SubFunctionItems
         {
             get { return _subFunctionItems ?? (_subFunctionItems = new HashSet<FunctionItem>()); }
             set { _subFunctionItems = new HashSet<FunctionItem>(value); }
         }
+
         #endregion
 
         #region IValidatableObject 成员

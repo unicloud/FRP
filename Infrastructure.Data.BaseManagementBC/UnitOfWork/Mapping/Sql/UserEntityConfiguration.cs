@@ -37,6 +37,9 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            //Property(p => p.UserName).HasColumnName("UserName")
+            //    .HasMaxLength(100)
+            //    .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute("UserName") { IsUnique = true }));
             Property(p => p.UserName).HasColumnName("UserName").HasMaxLength(100);
             Property(p => p.LoweredUserName).HasColumnName("LoweredUserName").HasMaxLength(100);
             Property(p => p.OrganizationNo).HasColumnName("OrganizationNo");

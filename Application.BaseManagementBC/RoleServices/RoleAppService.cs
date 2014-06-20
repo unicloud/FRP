@@ -65,11 +65,11 @@ namespace UniCloud.Application.BaseManagementBC.RoleServices
         [Insert(typeof (RoleDTO))]
         public void InsertRole(RoleDTO role)
         {
-            Role newRole = RoleFactory.CreateRole();
-            RoleFactory.SetRole(newRole, role.Name, role.Name);
+            //Role newRole = RoleFactory.CreateRole();
+            //RoleFactory.SetRole(newRole, role.Name, role.Name);
 
-            role.RoleFunctions.ToList().ForEach(roleFunction => InsertRoleFunction(newRole, roleFunction));
-            _roleRepository.Add(newRole);
+            //role.RoleFunctions.ToList().ForEach(roleFunction => InsertRoleFunction(newRole, roleFunction));
+            //_roleRepository.Add(newRole);
         }
 
 
@@ -80,18 +80,18 @@ namespace UniCloud.Application.BaseManagementBC.RoleServices
         [Update(typeof (RoleDTO))]
         public void ModifyRole(RoleDTO role)
         {
-            Role updateRole = _roleRepository.Get(role.Id); //获取需要更新的对象。
-            RoleFactory.SetRole(updateRole, role.Name, role.Name);
+            //Role updateRole = _roleRepository.Get(role.Id); //获取需要更新的对象。
+            //RoleFactory.SetRole(updateRole, role.Name, role.Name);
 
-            List<RoleFunctionDTO> dtoRoleFunctions = role.RoleFunctions;
-            ICollection<RoleFunction> roleFunctions = updateRole.RoleFunctions;
-            DataHelper.DetailHandle(dtoRoleFunctions.ToArray(),
-                roleFunctions.ToArray(),
-                c => c.Id, p => p.Id,
-                i => InsertRoleFunction(updateRole, i),
-                UpdateRoleFunction,
-                d => _roleRepository.DeleteRoleFunction(d));
-            _roleRepository.Modify(updateRole);
+            //List<RoleFunctionDTO> dtoRoleFunctions = role.RoleFunctions;
+            //ICollection<RoleFunction> roleFunctions = updateRole.RoleFunctions;
+            //DataHelper.DetailHandle(dtoRoleFunctions.ToArray(),
+            //    roleFunctions.ToArray(),
+            //    c => c.Id, p => p.Id,
+            //    i => InsertRoleFunction(updateRole, i),
+            //    UpdateRoleFunction,
+            //    d => _roleRepository.DeleteRoleFunction(d));
+            //_roleRepository.Modify(updateRole);
         }
 
         /// <summary>
@@ -101,8 +101,8 @@ namespace UniCloud.Application.BaseManagementBC.RoleServices
         [Delete(typeof (RoleDTO))]
         public void DeleteRole(RoleDTO role)
         {
-            Role deleteRole = _roleRepository.Get(role.Id); //获取需要删除的对象。
-            _roleRepository.DeleteRole(deleteRole); //删除Role。
+            //Role deleteRole = _roleRepository.Get(role.Id); //获取需要删除的对象。
+            //_roleRepository.DeleteRole(deleteRole); //删除Role。
         }
 
         /// <summary>
@@ -113,8 +113,8 @@ namespace UniCloud.Application.BaseManagementBC.RoleServices
         private void InsertRoleFunction(Role role, RoleFunctionDTO roleFunctionDto)
         {
             // 添加RoleFunction
-            RoleFunction roleFunction = role.AddNewRoleFunction();
-            RoleFactory.SetRoleFunction(roleFunction, roleFunctionDto.RoleId, roleFunctionDto.FunctionItemId);
+            //RoleFunction roleFunction = role.AddNewRoleFunction();
+            //RoleFactory.SetRoleFunction(roleFunction, roleFunctionDto.RoleId, roleFunctionDto.FunctionItemId);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace UniCloud.Application.BaseManagementBC.RoleServices
         private void UpdateRoleFunction(RoleFunctionDTO roleFunctionDto, RoleFunction roleFunction)
         {
             // 更新RoleFunction
-            RoleFactory.SetRoleFunction(roleFunction, roleFunctionDto.RoleId, roleFunctionDto.FunctionItemId);
+            //RoleFactory.SetRoleFunction(roleFunction, roleFunctionDto.RoleId, roleFunctionDto.FunctionItemId);
         }
 
         #endregion

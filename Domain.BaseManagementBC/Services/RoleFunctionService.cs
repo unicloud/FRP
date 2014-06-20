@@ -35,7 +35,7 @@ namespace UniCloud.Domain.BaseManagementBC.Services
             }
             else
             {
-                roleFunction.SetRoleId(role.Id);
+                //roleFunction.SetRoleId(role.Id);
                 _roleFunctionRepository.Modify(roleFunction);
             }
             return roleFunction;

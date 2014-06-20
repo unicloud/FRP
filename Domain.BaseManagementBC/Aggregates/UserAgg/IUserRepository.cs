@@ -16,22 +16,17 @@
 
 #region 命名空间
 
-using System;
-using System.Linq.Expressions;
-using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
+
 
 #endregion
 
 namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
 {
+    /// <summary>
+    ///     User仓储接口
+    ///     <see cref="UniCloud.Domain.IRepository{User}" />
+    /// </summary>
     public interface IUserRepository : IRepository<User>
     {
-        /// <summary>
-        /// 删除UserRole
-        /// </summary>
-        /// <param name="userRole"></param>
-        void DeleteUserRole(UserRole userRole);
-
-        User GetUser(Expression<Func<User, bool>> condition);
     }
 }
