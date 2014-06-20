@@ -36,7 +36,7 @@ namespace UniCloud.Application.PartBC.BasicConfigHistoryServices
     ///     用于处理基本构型历史相关信息的服务，供Distributed Services调用。
     /// </summary>
     [LogAOP]
-    public class BasicConfigHistoryAppService : IBasicConfigHistoryAppService
+    public class BasicConfigHistoryAppService : ContextBoundObject, IBasicConfigHistoryAppService
     {
         private readonly IBasicConfigGroupRepository _basicConfigGroupRepository;
         private readonly IBasicConfigHistoryQuery _basicConfigHistoryQuery;

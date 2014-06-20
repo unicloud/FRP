@@ -16,6 +16,7 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
@@ -28,7 +29,7 @@ using UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg;
 namespace UniCloud.Application.PaymentBC.MaintainCostServices
 {
     [LogAOP]
-    public class MaintainCostAppService : IMaintainCostAppService
+    public class MaintainCostAppService : ContextBoundObject, IMaintainCostAppService
     {
         private readonly IMaintainCostQuery _maintainCostQuery;
         private readonly IMaintainCostRepository _maintainCostRepository;

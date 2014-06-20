@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
@@ -37,7 +38,7 @@ namespace UniCloud.Application.PartBC.InstallControllerServices
     ///     用于处理装机控制相关信息的服务，供Distributed Services调用。
     /// </summary>
     [LogAOP]
-    public class InstallControllerAppService : IInstallControllerAppService
+    public class InstallControllerAppService : ContextBoundObject, IInstallControllerAppService
     {
         private readonly IAircraftTypeRepository _aircraftTypeRepository;
         private readonly IInstallControllerQuery _installControllerQuery;
