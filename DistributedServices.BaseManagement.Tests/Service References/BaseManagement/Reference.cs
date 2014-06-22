@@ -9,8 +9,8 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/6/22 18:55:17
-namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
+// 生成日期: 2014/6/22 18:40:01
+namespace UniCloud.DistributedServices.BaseManagement.Tests.BaseManagement
 {
     
     /// <summary>
@@ -39,7 +39,7 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         protected global::System.Type ResolveTypeFromName(string typeName)
         {
-            global::System.Type resolvedType = this.DefaultResolveType(typeName, "UniCloud.Application.BaseManagementBC.DTO", "UniCloud.Presentation.Service.BaseManagement.BaseManagement");
+            global::System.Type resolvedType = this.DefaultResolveType(typeName, "UniCloud.Application.BaseManagementBC.DTO", "UniCloud.DistributedServices.BaseManagement.Tests.BaseManagement");
             if ((resolvedType != null))
             {
                 return resolvedType;
@@ -54,7 +54,7 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         protected string ResolveNameFromType(global::System.Type clientType)
         {
-            if (clientType.Namespace.Equals("UniCloud.Presentation.Service.BaseManagement.BaseManagement", global::System.StringComparison.Ordinal))
+            if (clientType.Namespace.Equals("UniCloud.DistributedServices.BaseManagement.Tests.BaseManagement", global::System.StringComparison.Ordinal))
             {
                 return string.Concat("UniCloud.Application.BaseManagementBC.DTO.", clientType.Name);
             }

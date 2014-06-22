@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="7d825075-8695-4b66-afdd-adfdca67539d" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1fa28e76-324e-40ae-bbe3-d6dc889d449c" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
   <MetadataSources>
     <MetadataSource Address="http://localhost/DistributedServices.FlightLog/FlightLogDataService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="594713ae-110f-49b4-9b9e-a65abf1793a2" SourceId="1" SourceUrl="http://localhost/DistributedServices.FlightLog/FlightLogDataService.svc" />
+    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="2f1a2411-db9b-4d40-b21e-f26ea9cdbe47" SourceId="1" SourceUrl="http://localhost/DistributedServices.FlightLog/FlightLogDataService.svc" />
   </Metadata>
   <Extensions />
   <Parameters>

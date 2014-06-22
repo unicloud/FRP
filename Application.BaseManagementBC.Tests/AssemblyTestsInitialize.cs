@@ -20,6 +20,7 @@ using UniCloud.Application.BaseManagementBC.Query.UserQueries;
 using UniCloud.Application.BaseManagementBC.UserServices;
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.BaseManagementBC.Repositories;
 using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork;
@@ -46,7 +47,8 @@ namespace UniCloud.Application.BaseManagementBC.Tests
                 .Register<IFunctionItemRepository, FunctionItemRepository>()
                 .Register<IUserAppService, UserAppService>()
                 .Register<IUserQuery, UserQuery>()
-                .Register<IUserRepository, UserRepository>();
+                .Register<IUserRepository, UserRepository>()
+                .Register<IUserRoleRepository,UserRoleRepository>();
         }
 
         /// <summary>

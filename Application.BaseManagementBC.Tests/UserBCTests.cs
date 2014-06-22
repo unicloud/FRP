@@ -19,6 +19,7 @@
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.BaseManagementBC.UserServices;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -45,12 +46,6 @@ namespace UniCloud.Application.BaseManagementBC.Tests
             }
 
             var first = result.FirstOrDefault(p => p.UserName == "010768" && p.Password == outString);
-        }
-
-        [TestMethod]
-        public void CreateUserTest()
-        {
-            
         }
     }
 }

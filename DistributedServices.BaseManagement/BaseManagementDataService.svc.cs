@@ -51,6 +51,7 @@ namespace UniCloud.DistributedServices.BaseManagement
 
             #region 服务操作访问控制
 
+            config.SetServiceOperationAccessRule("*", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("GetFunctionItemsWithHierarchy", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("GetFunctionItemsByUser", ServiceOperationRights.All);
 
@@ -86,7 +87,13 @@ namespace UniCloud.DistributedServices.BaseManagement
 
         #region 服务操作
 
-        [WebInvoke]
+        [WebGet]
+        public void CreateAUser(string userName,string password)
+        {
+            var svc = UniContainer.Resolve<IUserAppService>();
+        }
+
+        [WebGet]
         public void CreateUser(string userName, string password, string email, string question, string answer)
         {
             var svc = UniContainer.Resolve<IUserAppService>();
