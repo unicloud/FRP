@@ -25,7 +25,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
@@ -38,11 +38,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
-                .RegisterType<IMaterialRepository, MaterialRepository>()
-                .RegisterType<ISupplierCompanyRepository, SupplierCompanyRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
+                .Register<IMaterialRepository, MaterialRepository>()
+                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>();
         }
 
         [TestCleanup]
@@ -56,7 +57,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void GetSupplierWithMaterial()
         {
             // Arrange
-            var materialRep = DefaultContainer.Resolve<IMaterialRepository>();
+            var materialRep = UniContainer.Resolve<IMaterialRepository>();
 
             // Act
             var result = materialRep.Get(2).SupplierCompanyMaterials.Select(m => m.SupplierCompany);

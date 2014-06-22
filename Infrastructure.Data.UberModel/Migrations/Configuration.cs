@@ -5,6 +5,7 @@ using UniCloud.Infrastructure.Data.UberModel.InitialData;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 //using UniCloud.Infrastructure.Data.UberModel.InitialData;
+using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
 
@@ -15,6 +16,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            UniContainer.Create()
+              .Register<IQueryableUnitOfWork, UberModelUnitOfWork>(new WcfPerRequestLifetimeManager())
+              .Register<IModelConfiguration, SqlConfigurations>("Sql");
         }
 
         protected override void Seed(UberModelUnitOfWork context)

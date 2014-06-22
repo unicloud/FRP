@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,13 +11,14 @@
 // 修改者：linxw 时间：2014/1/15 13:55:41
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
+#region 命名空间
+
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
@@ -28,28 +30,29 @@ using UniCloud.Domain.AircraftConfigBC.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.SupplierAgg;
-using UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork.Mapping.Sql;
+
+#endregion
 
 namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
 {
-    public class AircraftConfigBCUnitOfWork : BaseContext<AircraftConfigBCUnitOfWork>
+    public class AircraftConfigBCUnitOfWork : UniContext<AircraftConfigBCUnitOfWork>
     {
         #region IDbSet成员
 
         private IDbSet<ActionCategory> _actionCategories;
-        private IDbSet<AircraftSeries> _aircraftSeries;
+        private IDbSet<AircraftCabin> _aircraftCabins;
         private IDbSet<AircraftCategory> _aircraftCategories;
-        private IDbSet<Aircraft> _aircrafts;
+        private IDbSet<AircraftConfiguration> _aircraftConfigurations;
+        private IDbSet<AircraftLicense> _aircraftLicenses;
+        private IDbSet<AircraftSeries> _aircraftSeries;
         private IDbSet<AircraftType> _aircraftTypes;
-        private IDbSet<CAACAircraftType> _caacAircraftTypes;
+        private IDbSet<Aircraft> _aircrafts;
         private IDbSet<Airlines> _airlineses;
+        private IDbSet<Ata> _atas;
+        private IDbSet<CAACAircraftType> _caacAircraftTypes;
+        private IDbSet<LicenseType> _licenseTypes;
         private IDbSet<Manufacturer> _manufacturers;
         private IDbSet<Supplier> _suppliers;
-        private IDbSet<LicenseType> _licenseTypes;
-        private IDbSet<AircraftLicense> _aircraftLicenses;
-        private IDbSet<Ata> _atas;
-        private IDbSet<AircraftConfiguration> _aircraftConfigurations;
-        private IDbSet<AircraftCabin> _aircraftCabins;
 
         public IDbSet<ActionCategory> ActionCategories
         {
@@ -80,6 +83,7 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         {
             get { return _caacAircraftTypes ?? (_caacAircraftTypes = Set<CAACAircraftType>()); }
         }
+
         public IDbSet<Airlines> Airlineses
         {
             get { return _airlineses ?? (_airlineses = Set<Airlines>()); }
@@ -118,105 +122,6 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         public IDbSet<AircraftCabin> AircraftCabins
         {
             get { return _aircraftCabins ?? (_aircraftCabins = Set<AircraftCabin>()); }
-        }
-
-        #endregion
-
-        #region DbContext 重载
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            // 移除不需要的公约
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-
-            // 添加通过“TypeConfiguration”类的方式建立的配置
-            if (DbConfig.DbUniCloud.Contains("Oracle"))
-            {
-                OracleConfigurations(modelBuilder);
-            }
-            else if (DbConfig.DbUniCloud.Contains("Sql"))
-            {
-                SqlConfigurations(modelBuilder);
-            }
-        }
-
-        /// <summary>
-        ///     Oracle数据库
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private static void OracleConfigurations(DbModelBuilder modelBuilder)
-        {
-        }
-
-        /// <summary>
-        ///     SqlServer数据库
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private static void SqlConfigurations(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Configurations
-
-            #region ActionCategoryAgg
-
-.Add(new ActionCategoryEntityConfiguration())
-
-            #endregion
-
-            #region AircraftSeriesAgg
-
-.Add(new AircraftSeriesEntityConfiguration())
-                .Add(new AtaEntityConfiguration())
-            #endregion
-
-            #region AircraftCategoryAgg
-
-.Add(new AircraftCategoryEntityConfiguration())
-
-            #endregion
-
-            #region AircraftAgg
-
-.Add(new AircraftEntityConfiguration())
-
-            #endregion
-
-            #region AircraftTypeAgg
-
-.Add(new AircraftTypeEntityConfiguration())
-                .Add(new CAACAircraftTypeEntityConfiguration())
-            #endregion
-
-            #region AirlinesAgg
-
-.Add(new AirlinesEntityConfiguration())
-
-            #endregion
-
-            #region ManufacturerAgg
-
-.Add(new ManufacturerEntityConfiguration())
-
-            #endregion
-
-            #region SupplierAgg
-
-.Add(new SupplierEntityConfiguration())
-
-            #endregion
-
-            #region AircraftLicenseAgg
-
-.Add(new LicenseTypeEntityConfiguration())
-                .Add(new AircraftLicenseEntityConfiguration())
-            #endregion
-
-            #region AircraftConfigurationAgg
-
-.Add(new AircraftConfigurationEntityConfiguration())
-                .Add(new AircraftCabinEntityConfiguration())
-            #endregion
-
-;
         }
 
         #endregion

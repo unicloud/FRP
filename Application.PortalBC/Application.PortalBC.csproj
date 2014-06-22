@@ -47,6 +47,28 @@
     <Compile Include="Services\IPortalAppService.cs" />
     <Compile Include="Services\PortalAppService.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.PortalBC.DTO\Application.PortalBC.DTO.csproj">
+      <Project>{6E28019A-83DE-472C-B849-0FE32ACBECF4}</Project>
+      <Name>Application.PortalBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.PortalBC.Query\Application.PortalBC.Query.csproj">
+      <Project>{E97CB20A-DAA9-4D2C-90E2-43C23A8A6931}</Project>
+      <Name>Application.PortalBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{C926E107-6971-4B5C-8E00-DB7761EEAC8E}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.PortalBC\Domain.PortalBC.csproj">
+      <Project>{1E9DD41E-34B8-4E96-850B-5D6B4E69D505}</Project>
+      <Name>Domain.PortalBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

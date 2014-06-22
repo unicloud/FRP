@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,13 +11,11 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
-using System.Linq;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
@@ -37,11 +36,12 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests.BasicConfigGroupRepositoryTe
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IBasicConfigGroupRepository, BasicConfigGroupRepository>()
-                         .RegisterType<IBasicConfigRepository, BasicConfigRepository>()
-       .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IBasicConfigGroupRepository, BasicConfigGroupRepository>()
+                .Register<IBasicConfigRepository, BasicConfigRepository>()
+                .Register<IAircraftTypeRepository, AircraftTypeRepository>();
         }
 
         [TestCleanup]
@@ -55,10 +55,10 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests.BasicConfigGroupRepositoryTe
         public void CreateBasicConfigGroupTest()
         {
             // Arrange
-            //var bcGroupRep = DefaultContainer.Resolve<IBasicConfigGroupRepository>();
-            //var bcRep = DefaultContainer.Resolve<IBasicConfigRepository>();
-            //var tsRep = DefaultContainer.Resolve<ITechnicalSolutionRepository>();
-            //var acTypeRep = DefaultContainer.Resolve<IAircraftTypeRepository>();
+            //var bcGroupRep = UniContainer.Resolve<IBasicConfigGroupRepository>();
+            //var bcRep = UniContainer.Resolve<IBasicConfigRepository>();
+            //var tsRep = UniContainer.Resolve<ITechnicalSolutionRepository>();
+            //var acTypeRep = UniContainer.Resolve<IAircraftTypeRepository>();
             //var ts = tsRep.GetAll().FirstOrDefault();
             //var acType = acTypeRep.GetAll().FirstOrDefault();
             //// Act

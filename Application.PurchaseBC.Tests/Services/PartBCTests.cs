@@ -24,7 +24,7 @@ using UniCloud.Application.PurchaseBC.Query.PartQueries;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -37,13 +37,14 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-            
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+
                 #region 部件相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IPartQuery, PartQuery>()
-                .RegisterType<IPartAppService, PartAppService>()
+                .Register<IPartQuery, PartQuery>()
+                .Register<IPartAppService, PartAppService>()
                 #endregion
 
                 ;
@@ -63,7 +64,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void TestGetParts()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IPartAppService>();
+            var service = UniContainer.Resolve<IPartAppService>();
             // Act
             var result = service.GetParts().ToList();
             // Assert

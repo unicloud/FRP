@@ -28,12 +28,11 @@ using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
@@ -46,17 +45,18 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IOrderRepository, OrderRepository>()
-                .RegisterType<ICurrencyRepository, CurrencyRepository>()
-                .RegisterType<ITradeRepository, TradeRepository>()
-                .RegisterType<IContractAircraftRepository, ContractAircraftRepository>()
-                .RegisterType<IContractAircraftBFERepository, ContractAircraftBFERepository>()
-                .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
-                .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
-                .RegisterType<IRelatedDocRepository, RelatedDocRepository>()
-                .RegisterType<ILinkmanRepository, LinkmanRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IOrderRepository, OrderRepository>()
+                .Register<ICurrencyRepository, CurrencyRepository>()
+                .Register<ITradeRepository, TradeRepository>()
+                .Register<IContractAircraftRepository, ContractAircraftRepository>()
+                .Register<IContractAircraftBFERepository, ContractAircraftBFERepository>()
+                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
+                .Register<IActionCategoryRepository, ActionCategoryRepository>()
+                .Register<IRelatedDocRepository, RelatedDocRepository>()
+                .Register<ILinkmanRepository, LinkmanRepository>();
         }
 
         [TestCleanup]
@@ -70,7 +70,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void GetAllOrders()
         {
             // Arrange
-            var orderRep = DefaultContainer.Resolve<IOrderRepository>();
+            var orderRep = UniContainer.Resolve<IOrderRepository>();
 
             // Act
             var result = orderRep.GetAll().OfType<AircraftPurchaseOrder>().ToList();
@@ -83,12 +83,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void CreateOrder()
         {
             // Arrange
-            var orderRep = DefaultContainer.Resolve<IOrderRepository>();
-            var tradeRep = DefaultContainer.Resolve<ITradeRepository>();
-            var currencyRep = DefaultContainer.Resolve<ICurrencyRepository>();
-            var linkmanRep = DefaultContainer.Resolve<ILinkmanRepository>();
-            var acTypeRep = DefaultContainer.Resolve<IAircraftTypeRepository>();
-            var impTypeRep = DefaultContainer.Resolve<IActionCategoryRepository>();
+            var orderRep = UniContainer.Resolve<IOrderRepository>();
+            var tradeRep = UniContainer.Resolve<ITradeRepository>();
+            var currencyRep = UniContainer.Resolve<ICurrencyRepository>();
+            var linkmanRep = UniContainer.Resolve<ILinkmanRepository>();
+            var acTypeRep = UniContainer.Resolve<IAircraftTypeRepository>();
+            var impTypeRep = UniContainer.Resolve<IActionCategoryRepository>();
 
             var trade = tradeRep.GetAll().FirstOrDefault();
             var currency = currencyRep.GetAll().FirstOrDefault();
@@ -128,7 +128,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void AddOrderLine()
         {
             // Arrange
-            var orderRep = DefaultContainer.Resolve<IOrderRepository>();
+            var orderRep = UniContainer.Resolve<IOrderRepository>();
             var order = orderRep.GetAll().OfType<AircraftPurchaseOrder>().FirstOrDefault();
             if (order != null)
             {
@@ -143,7 +143,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void RemoveOrder()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IOrderRepository>();
+            var service = UniContainer.Resolve<IOrderRepository>();
             var order = service.GetAll().OfType<AircraftPurchaseOrder>().FirstOrDefault(o => o.OrderLines.Any());
             if (order != null)
             {
@@ -158,12 +158,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void AddContractAircraftWithBFEOrder()
         {
             // Arrange
-            var orderRep = DefaultContainer.Resolve<IOrderRepository>();
-            var acTypeRep = DefaultContainer.Resolve<IAircraftTypeRepository>();
-            var impRep = DefaultContainer.Resolve<IActionCategoryRepository>();
-            var tradeRep = DefaultContainer.Resolve<ITradeRepository>();
-            var currencyRep = DefaultContainer.Resolve<ICurrencyRepository>();
-            var linkmanRep = DefaultContainer.Resolve<ILinkmanRepository>();
+            var orderRep = UniContainer.Resolve<IOrderRepository>();
+            var acTypeRep = UniContainer.Resolve<IAircraftTypeRepository>();
+            var impRep = UniContainer.Resolve<IActionCategoryRepository>();
+            var tradeRep = UniContainer.Resolve<ITradeRepository>();
+            var currencyRep = UniContainer.Resolve<ICurrencyRepository>();
+            var linkmanRep = UniContainer.Resolve<ILinkmanRepository>();
 
             var trade = tradeRep.GetAll().FirstOrDefault();
             var currency = currencyRep.GetAll().FirstOrDefault();
@@ -192,9 +192,9 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void DeleteContractAircraftFromBFEOrder()
         {
             // Arrange
-            var orderRep = DefaultContainer.Resolve<IOrderRepository>();
-            var caRep = DefaultContainer.Resolve<IContractAircraftRepository>();
-            var cabRep = DefaultContainer.Resolve<IContractAircraftBFERepository>();
+            var orderRep = UniContainer.Resolve<IOrderRepository>();
+            var caRep = UniContainer.Resolve<IContractAircraftRepository>();
+            var cabRep = UniContainer.Resolve<IContractAircraftBFERepository>();
 
             var order = orderRep.GetAll().OfType<BFEPurchaseOrder>().FirstOrDefault(o => o.ContractAircraftBfes.Any());
             if (order == null)
@@ -221,7 +221,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void GetRelatedDocByOrder()
         {
             // Arrange
-            var docRep = DefaultContainer.Resolve<IRelatedDocRepository>();
+            var docRep = UniContainer.Resolve<IRelatedDocRepository>();
             var orderId = Guid.Parse("066157a2-bf6c-4c7d-86e1-adfd7b725f72");
 
             // Act

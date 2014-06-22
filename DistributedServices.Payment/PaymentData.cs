@@ -44,21 +44,21 @@ namespace UniCloud.DistributedServices.Payment
         public PaymentData()
             : base("UniCloud.Application.PaymentBC.DTO")
         {
-            _creditNoteAppService = DefaultContainer.Resolve<ICreditNoteAppService>();
-            _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
-            _leaseInvoiceAppService = DefaultContainer.Resolve<ILeaseInvoiceAppService>();
-            _prepaymentInvoiceAppService = DefaultContainer.Resolve<IPrepaymentInvoiceAppService>();
-            _purchaseInvoiceAppService = DefaultContainer.Resolve<IPurchaseInvoiceAppService>();
-            _maintainInvoiceAppService = DefaultContainer.Resolve<IMaintainInvoiceAppService>();
-            _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
-            _contractEngineAppService = DefaultContainer.Resolve<IContractEngineAppService>();
-            _orderAppService = DefaultContainer.Resolve<IOrderAppService>();
-            _paymentScheduleAppService = DefaultContainer.Resolve<IPaymentScheduleAppService>();
-            _paymentNoticeAppService = DefaultContainer.Resolve<IPaymentNoticeAppService>();
-            _guaranteeAppService = DefaultContainer.Resolve<IGuaranteeAppService>();
-            _maintainContractAppService = DefaultContainer.Resolve<IMaintainContractAppService>();
-            _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
-            _maintainCostAppService = DefaultContainer.Resolve<IMaintainCostAppService>();
+            _creditNoteAppService = UniContainer.Resolve<ICreditNoteAppService>();
+            _currencyAppService = UniContainer.Resolve<ICurrencyAppService>();
+            _leaseInvoiceAppService = UniContainer.Resolve<ILeaseInvoiceAppService>();
+            _prepaymentInvoiceAppService = UniContainer.Resolve<IPrepaymentInvoiceAppService>();
+            _purchaseInvoiceAppService = UniContainer.Resolve<IPurchaseInvoiceAppService>();
+            _maintainInvoiceAppService = UniContainer.Resolve<IMaintainInvoiceAppService>();
+            _contractAircraftAppService = UniContainer.Resolve<IContractAircraftAppService>();
+            _contractEngineAppService = UniContainer.Resolve<IContractEngineAppService>();
+            _orderAppService = UniContainer.Resolve<IOrderAppService>();
+            _paymentScheduleAppService = UniContainer.Resolve<IPaymentScheduleAppService>();
+            _paymentNoticeAppService = UniContainer.Resolve<IPaymentNoticeAppService>();
+            _guaranteeAppService = UniContainer.Resolve<IGuaranteeAppService>();
+            _maintainContractAppService = UniContainer.Resolve<IMaintainContractAppService>();
+            _supplierAppService = UniContainer.Resolve<ISupplierAppService>();
+            _maintainCostAppService = UniContainer.Resolve<IMaintainCostAppService>();
         }
 
         #region Invoice集合

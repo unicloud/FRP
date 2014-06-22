@@ -120,7 +120,7 @@ namespace UniCloud.Presentation.MVVM
             }
         }
 
-        private string _busyContent = "正在加载，请稍后...";
+        private string _busyContent = "";
         public string BusyContent
         {
             get { return _busyContent; }

@@ -34,7 +34,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -45,22 +45,23 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void Initialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
 
                 #region 供应商相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<ISupplierQuery, SupplierQuery>()
-                .RegisterType<ISupplierAppService, SupplierAppService>()
-                .RegisterType<ISupplierCompanyRepository, SupplierCompanyRepository>()
-                .RegisterType<ISupplierRepository, SupplierRepository>()
-                .RegisterType<ILinkmanRepository, LinkmanRepository>()
-                .RegisterType<ISupplierRoleRepository, SupplierRoleRepository>()
-                .RegisterType<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
-                .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
-                .RegisterType<ICurrencyRepository,CurrencyRepository>()
-                .RegisterType<ICurrencyQuery,CurrencyQuery>()
-                .RegisterType<IBankAccountRepository, BankAccountRepository>()
+                .Register<ISupplierQuery, SupplierQuery>()
+                .Register<ISupplierAppService, SupplierAppService>()
+                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
+                .Register<ISupplierRepository, SupplierRepository>()
+                .Register<ILinkmanRepository, LinkmanRepository>()
+                .Register<ISupplierRoleRepository, SupplierRoleRepository>()
+                .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
+                .Register<IAircraftTypeQuery, AircraftTypeQuery>()
+                .Register<ICurrencyRepository, CurrencyRepository>()
+                .Register<ICurrencyQuery, CurrencyQuery>()
+                .Register<IBankAccountRepository, BankAccountRepository>()
                 #endregion
 
                 ;
@@ -77,7 +78,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestMethod]
         public void GetSupplierCompany()
         {
-            var service = DefaultContainer.Resolve<ISupplierAppService>();
+            var service = UniContainer.Resolve<ISupplierAppService>();
             var result = service.GetSupplierCompanys().ToList();
             Assert.IsNotNull(result);
         }
@@ -88,7 +89,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestMethod]
         public void ModifySupplierCompany()
         {
-            var service = DefaultContainer.Resolve<ISupplierAppService>();
+            var service = UniContainer.Resolve<ISupplierAppService>();
             var supplierCompany = service.GetSupplierCompanys().FirstOrDefault();
             if (supplierCompany != null)
             {
@@ -103,7 +104,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestMethod]
         public void GetSupplier()
         {
-            var service = DefaultContainer.Resolve<ISupplierAppService>();
+            var service = UniContainer.Resolve<ISupplierAppService>();
             var result = service.GetSuppliers().ToList();
             Assert.IsNotNull(result);
         }
@@ -115,7 +116,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void GetLinkmans()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<ISupplierAppService>();
+            var service = UniContainer.Resolve<ISupplierAppService>();
 
             // Act
             var result = service.GetLinkmans().ToList();
@@ -131,7 +132,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void GetSupplierCompanyMaterials()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<ISupplierAppService>();
+            var service = UniContainer.Resolve<ISupplierAppService>();
             // Act
             var result = service.GetSupplierCompanyAcMaterials().ToList();
             // Assert
@@ -145,7 +146,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void GetSupplierCompanyEngineMaterials()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<ISupplierAppService>();
+            var service = UniContainer.Resolve<ISupplierAppService>();
             // Act
             var result = service.GetSupplierCompanyEngineMaterials().ToList();
             // Assert
@@ -159,7 +160,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void GetSupplierCompanyBFEMaterials()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<ISupplierAppService>();
+            var service = UniContainer.Resolve<ISupplierAppService>();
             // Act
             var result = service.GetSupplierCompanyBFEMaterials().ToList();
             // Assert

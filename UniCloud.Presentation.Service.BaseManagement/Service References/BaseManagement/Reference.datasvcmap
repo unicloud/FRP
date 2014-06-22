@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d39afe59-3861-4652-97ab-4d0f222e9651" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e1fb8464-8755-49a4-994f-44136be5b489" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
   <MetadataSources>
-    <MetadataSource Address="http://localhost:20082/BaseManagementDataService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost/DistributedServices.BaseManagement/BaseManagementDataService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="a25e6603-0706-4efa-afe1-a3e36796357d" SourceId="1" SourceUrl="http://localhost:20082/BaseManagementDataService.svc" />
+    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="88fb30b6-76bf-4ce7-af58-1a2a922e0a74" SourceId="1" SourceUrl="http://localhost/DistributedServices.BaseManagement/BaseManagementDataService.svc" />
   </Metadata>
   <Extensions />
   <Parameters>

@@ -81,38 +81,38 @@ namespace UniCloud.DistributedServices.FleetPlan
         public FleetPlanData()
             : base("UniCloud.Application.FleetPlanBC.DTO")
         {
-            _actionCategoryAppService = DefaultContainer.Resolve<IActionCategoryAppService>();
-            _aircraftSeriesAppService = DefaultContainer.Resolve<IAircraftSeriesAppService>();
-            _aircraftCategoryAppService = DefaultContainer.Resolve<IAircraftCategoryAppService>();
-            _aircraftConfigurationAppService = DefaultContainer.Resolve<IAircraftConfigurationAppService>();
-            _aircraftAppService = DefaultContainer.Resolve<IAircraftAppService>();
-            _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
-            _airlinesAppService = DefaultContainer.Resolve<IAirlinesAppService>();
-            _airProgrammingAppService = DefaultContainer.Resolve<IAirProgrammingAppService>();
-            _annualAppService = DefaultContainer.Resolve<IAnnualAppService>();
-            _approvalDocAppService = DefaultContainer.Resolve<IApprovalDocAppService>();
-            _caacAircraftTypeAppService = DefaultContainer.Resolve<ICAACAircraftTypeAppService>();
-            _caacProgrammingAppService = DefaultContainer.Resolve<ICaacProgrammingAppService>();
-            _engineAppService = DefaultContainer.Resolve<IEngineAppService>();
-            _enginePlanAppService = DefaultContainer.Resolve<IEnginePlanAppService>();
-            _engineTypeAppService = DefaultContainer.Resolve<IEngineTypeAppService>();
-            _issuedUnitAppService = DefaultContainer.Resolve<IIssuedUnitAppService>();
-            _mailAddressAppService = DefaultContainer.Resolve<IMailAddressAppService>();
-            _managerAppService = DefaultContainer.Resolve<IManagerAppService>();
-            _manufacturerAppService = DefaultContainer.Resolve<IManufacturerAppService>();
-            _planAppService = DefaultContainer.Resolve<IPlanAppService>();
-            _planHistoryAppService = DefaultContainer.Resolve<IPlanHistoryAppService>();
-            _planAircraftAppService = DefaultContainer.Resolve<IPlanAircraftAppService>();
-            _planEngineAppService = DefaultContainer.Resolve<IPlanEngineAppService>();
-            _programmingAppService = DefaultContainer.Resolve<IProgrammingAppService>();
-            _programmingFileAppService = DefaultContainer.Resolve<IProgrammingFileAppService>();
-            _relatedDocAppService = DefaultContainer.Resolve<IRelatedDocAppService>();
-            _requestAppService = DefaultContainer.Resolve<IRequestAppService>();
-            _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
-            _xmlConfigAppService = DefaultContainer.Resolve<IXmlConfigAppService>();
-            _requestAppService = DefaultContainer.Resolve<IRequestAppService>();
-            _approvalDocAppService = DefaultContainer.Resolve<IApprovalDocAppService>();
-            _fleetTransferService = DefaultContainer.Resolve<IFleetTransferService>();
+            _actionCategoryAppService = UniContainer.Resolve<IActionCategoryAppService>();
+            _aircraftSeriesAppService = UniContainer.Resolve<IAircraftSeriesAppService>();
+            _aircraftCategoryAppService = UniContainer.Resolve<IAircraftCategoryAppService>();
+            _aircraftConfigurationAppService = UniContainer.Resolve<IAircraftConfigurationAppService>();
+            _aircraftAppService = UniContainer.Resolve<IAircraftAppService>();
+            _aircraftTypeAppService = UniContainer.Resolve<IAircraftTypeAppService>();
+            _airlinesAppService = UniContainer.Resolve<IAirlinesAppService>();
+            _airProgrammingAppService = UniContainer.Resolve<IAirProgrammingAppService>();
+            _annualAppService = UniContainer.Resolve<IAnnualAppService>();
+            _approvalDocAppService = UniContainer.Resolve<IApprovalDocAppService>();
+            _caacAircraftTypeAppService = UniContainer.Resolve<ICAACAircraftTypeAppService>();
+            _caacProgrammingAppService = UniContainer.Resolve<ICaacProgrammingAppService>();
+            _engineAppService = UniContainer.Resolve<IEngineAppService>();
+            _enginePlanAppService = UniContainer.Resolve<IEnginePlanAppService>();
+            _engineTypeAppService = UniContainer.Resolve<IEngineTypeAppService>();
+            _issuedUnitAppService = UniContainer.Resolve<IIssuedUnitAppService>();
+            _mailAddressAppService = UniContainer.Resolve<IMailAddressAppService>();
+            _managerAppService = UniContainer.Resolve<IManagerAppService>();
+            _manufacturerAppService = UniContainer.Resolve<IManufacturerAppService>();
+            _planAppService = UniContainer.Resolve<IPlanAppService>();
+            _planHistoryAppService = UniContainer.Resolve<IPlanHistoryAppService>();
+            _planAircraftAppService = UniContainer.Resolve<IPlanAircraftAppService>();
+            _planEngineAppService = UniContainer.Resolve<IPlanEngineAppService>();
+            _programmingAppService = UniContainer.Resolve<IProgrammingAppService>();
+            _programmingFileAppService = UniContainer.Resolve<IProgrammingFileAppService>();
+            _relatedDocAppService = UniContainer.Resolve<IRelatedDocAppService>();
+            _requestAppService = UniContainer.Resolve<IRequestAppService>();
+            _supplierAppService = UniContainer.Resolve<ISupplierAppService>();
+            _xmlConfigAppService = UniContainer.Resolve<IXmlConfigAppService>();
+            _requestAppService = UniContainer.Resolve<IRequestAppService>();
+            _approvalDocAppService = UniContainer.Resolve<IApprovalDocAppService>();
+            _fleetTransferService = UniContainer.Resolve<IFleetTransferService>();
         }
 
         #region 活动类型

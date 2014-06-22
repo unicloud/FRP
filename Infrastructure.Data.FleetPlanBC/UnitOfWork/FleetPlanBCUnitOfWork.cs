@@ -17,7 +17,6 @@
 #region 命名空间
 
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
@@ -48,13 +47,12 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.XmlConfigAgg;
-using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql;
 
 #endregion
 
 namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
 {
-    public class FleetPlanBCUnitOfWork : BaseContext<FleetPlanBCUnitOfWork>
+    public class FleetPlanBCUnitOfWork : UniContext<FleetPlanBCUnitOfWork>
     {
         #region IDbSet成员
 
@@ -70,18 +68,18 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         private IDbSet<ApprovalDoc> _approvalDocs;
         private IDbSet<CAACAircraftType> _caacAircraftTypes;
         private IDbSet<CaacProgramming> _caacProgrammings;
-        private IDbSet<Document> _documents; 
+        private IDbSet<Document> _documents;
         private IDbSet<EnginePlan> _enginePlans;
         private IDbSet<EngineType> _engineTypes;
         private IDbSet<Engine> _engines;
-        private IDbSet<IssuedUnit> _issuedUnits; 
+        private IDbSet<IssuedUnit> _issuedUnits;
         private IDbSet<MailAddress> _mailAddresses;
         private IDbSet<Manager> _managers;
         private IDbSet<Manufacturer> _manufacturers;
         private IDbSet<PlanAircraft> _planAircrafts;
         private IDbSet<PlanEngine> _planEngines;
-        private IDbSet<Plan> _plans;
         private IDbSet<PlanHistory> _planHistories;
+        private IDbSet<Plan> _plans;
         private IDbSet<ProgrammingFile> _programmingFiles;
         private IDbSet<Programming> _programmings;
         private IDbSet<RelatedDoc> _relatedDocs;
@@ -237,233 +235,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         public IDbSet<XmlConfig> XmlConfigs
         {
             get { return _xmlConfigs ?? (_xmlConfigs = base.Set<XmlConfig>()); }
-        }
-
-        #endregion
-
-        #region DbContext 重载
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            // 移除不需要的公约
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-
-            // 添加通过“TypeConfiguration”类的方式建立的配置
-            if (DbConfig.DbUniCloud.Contains("Oracle"))
-            {
-                OracleConfigurations(modelBuilder);
-            }
-            else if (DbConfig.DbUniCloud.Contains("Sql"))
-            {
-                SqlConfigurations(modelBuilder);
-            }
-        }
-
-        /// <summary>
-        ///     Oracle数据库
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private static void OracleConfigurations(DbModelBuilder modelBuilder)
-        {
-        }
-
-        /// <summary>
-        ///     SqlServer数据库
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private static void SqlConfigurations(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Configurations
-
-                #region ActionCategoryAgg
-
-                .Add(new ActionCategoryEntityConfiguration())
-
-                #endregion
-
-                #region AircraftSeriesAgg
-
-                .Add(new AircraftSeriesEntityConfiguration())
-
-                #endregion
-
-                #region AircraftCategoryAgg
-
-                .Add(new AircraftCategoryEntityConfiguration())
-
-                #endregion
-
-                #region AircraftCategoryAgg
-
-                .Add(new AircraftConfigurationEntityConfiguration())
-
-                #endregion
-
-                #region AircraftAgg
-
-                .Add(new AircraftEntityConfiguration())
-                .Add(new AircraftBusinessEntityConfiguration())
-                .Add(new OperationHistoryEntityConfiguration())
-                .Add(new OwnershipHistoryEntityConfiguration())
-                .Add(new AcConfigHistoryEntityConfiguration())
-                #endregion
-
-                #region AircraftPlanAgg
-
-                .Add(new PlanEntityConfiguration())
-                .Add(new PlanHistoryEntityConfiguration())
-                .Add(new ChangePlanEntityConfiguration())
-                .Add(new OperationPlanEntityConfiguration())
-
-                #endregion
-
-                #region AircraftTypeAgg
-
-                .Add(new AircraftTypeEntityConfiguration())
-
-                #endregion
-
-                #region AirlinesAgg
-
-                .Add(new AirlinesEntityConfiguration())
-
-                #endregion
-
-                #region AirProgrammingAgg
-
-                .Add(new AirProgrammingEntityConfiguration())
-                .Add(new AirProgrammingLineEntityConfiguration())
-                #endregion
-
-                #region AnnualAgg
-
-                .Add(new AnnualEntityConfiguration())
-
-                #endregion
-
-                #region ApprovalDocAgg
-
-                .Add(new ApprovalDocEntityConfiguration())
-
-                #endregion
-
-                #region CAACAircraftTypeAgg
-
-                .Add(new CAACAircraftTypeEntityConfiguration())
-
-                #endregion
-
-                #region CaacProgrammingAgg
-
-                .Add(new CaacProgrammingEntityConfiguration())
-                .Add(new CaacProgrammingLineEntityConfiguration())
-
-                #endregion
-
-                #region DocumentAgg
-
-                .Add(new DocumentEntityConfiguration())
-
-                #endregion
-
-                #region EngineAgg
-
-                .Add(new EngineEntityConfiguration())
-                .Add(new EngineBusinessHistoryEntityConfiguration())
-                .Add(new EngineOwnershipHistoryEntityConfiguration())
-
-                #endregion
-
-                #region EnginePlanAgg
-
-                .Add(new EnginePlanEntityConfiguration())
-                .Add(new EnginePlanHistoryEntityConfiguration())
-
-                #endregion
-
-                #region EngineTypeAgg
-
-                .Add(new EngineTypeEntityConfiguration())
-
-                #endregion
-                 
-                #region IssuedUnitAgg
-
-                .Add(new IssuedUnitEntityConfiguration())
-                #endregion
-
-                #region MailAddressAgg
-
-                .Add(new MailAddressEntityConfiguration())
-
-                #endregion
-
-                #region ManagerAgg
-
-                .Add(new ManagerEntityConfiguration())
-
-                #endregion
-
-                #region ManufacturerAgg
-
-                .Add(new ManufacturerEntityConfiguration())
-
-                #endregion
-
-                #region PlanAircraftAgg
-
-                .Add(new PlanAircraftEntityConfiguration())
-
-                #endregion
-
-                #region PlanEngineAgg
-
-                .Add(new PlanEngineEntityConfiguration())
-
-                #endregion
-
-                #region ProgrammingAgg
-
-                .Add(new ProgrammingEntityConfiguration())
-
-                #endregion
-
-                #region ProgrammingAgg
-
-                .Add(new ProgrammingFileEntityConfiguration())
-
-                #endregion
-
-                #region RelatedDocAgg
-
-                .Add(new RelatedDocEntityConfiguration())
-
-                #endregion
-
-                #region RequestAgg
-
-                .Add(new RequestEntityConfiguration())
-                .Add(new ApprovalHistoryEntityConfiguration())
-
-                #endregion
-
-                #region SupplierAgg
-
-                .Add(new SupplierEntityConfiguration())
-
-                #endregion
-
-                #region XmlConfigAgg
-
-                .Add(new XmlConfigEntityConfiguration())
-
-                #endregion
-
-                #region XmlSettingAgg
-
-                #endregion
-
-                ;
         }
 
         #endregion

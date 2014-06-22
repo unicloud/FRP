@@ -87,7 +87,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         public PerformPlan PerformPlanQuery(string planHistoryId, string approvalHistoryId, int planType,
             string relatedGuid)
         {
-         var  planAppService = DefaultContainer.Resolve<IPlanAppService>();
+         var  planAppService = UniContainer.Resolve<IPlanAppService>();
           return  planAppService.PerformPlanQuery(planHistoryId, approvalHistoryId, planType, relatedGuid);
         }
 
@@ -103,7 +103,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         {
             Guid airlinesId = Guid.Parse(currentAirlines);
             Guid id = Guid.Parse(currentRequest);
-            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferRequest(airlinesId, id);
         }
 
@@ -117,7 +117,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         {
             Guid airlinesId = Guid.Parse(currentAirlines);
             Guid id = Guid.Parse(currentPlan);
-            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferPlan(airlinesId, id);
 
         }
@@ -135,7 +135,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             Guid airlinesId = Guid.Parse(currentAirlines);
             Guid planId = Guid.Parse(currentPlan);
             Guid requestId = Guid.Parse(currentRequest);
-            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferPlanAndRequest(airlinesId, planId, requestId);
         }
         
@@ -155,7 +155,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             Guid planId = Guid.Parse(currentPlan);
             Guid requestId = Guid.Parse(currentRequest);
             Guid approvalDocId = Guid.Parse(currentApprovalDoc);
-            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferApprovalRequest(airlinesId, planId, requestId, approvalDocId);
         }
 
@@ -169,7 +169,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         {
             Guid airlinesId = Guid.Parse(currentAirlines);
             Guid id = Guid.Parse(currentApprovalDoc);
-            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferApprovalDoc(airlinesId, id);
         }
 
@@ -184,7 +184,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         {
             Guid airlinesId = Guid.Parse(currentAirlines);
             Guid id = Guid.Parse(currentOperationHistory);
-            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferOperationHistory(airlinesId, id);
         }
 
@@ -199,7 +199,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         {
             Guid airlinesId = Guid.Parse(currentAirlines);
             Guid id = Guid.Parse(currentAircraftBusiness);
-            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferAircraftBusiness(airlinesId, id);
         }
 
@@ -213,7 +213,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         {
             Guid airlinesId = Guid.Parse(currentAirlines);
             Guid id = Guid.Parse(currentOwnershipHistory);
-            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferOwnershipHistory(airlinesId, id);
         }
 
@@ -228,7 +228,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         {
             Guid airlinesId = Guid.Parse(currentAirlines);
             Guid id = Guid.Parse(currentPlanHistory);
-            var transferService = DefaultContainer.Resolve<IFleetTransferService>();
+            var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferPlanHistory(airlinesId, id);
         }
 

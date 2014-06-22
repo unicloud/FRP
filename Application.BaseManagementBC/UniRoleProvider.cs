@@ -50,9 +50,9 @@ namespace UniCloud.Application.BaseManagementBC
         {
             _pApplicationName = "unicloud";
             _pName = "UniRoleProvider";
-            _userRepository = DefaultContainer.Resolve<IUserRepository>();
-            _userRoleRepository = DefaultContainer.Resolve<IUserRoleRepository>();
-            _roleRepository = DefaultContainer.Resolve<IRoleRepository>();
+            _userRepository = UniContainer.Resolve<IUserRepository>();
+            _userRoleRepository = UniContainer.Resolve<IUserRoleRepository>();
+            _roleRepository = UniContainer.Resolve<IRoleRepository>();
         }
 
         #endregion

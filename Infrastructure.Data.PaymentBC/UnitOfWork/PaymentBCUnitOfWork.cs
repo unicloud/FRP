@@ -18,7 +18,6 @@
 #region 命名空间
 
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.PaymentBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.BankAccountAgg;
@@ -37,41 +36,41 @@ using UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.TradeAgg;
-using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql;
 
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
 {
-    public class PaymentBCUnitOfWork : BaseContext<PaymentBCUnitOfWork>
+    public class PaymentBCUnitOfWork : UniContext<PaymentBCUnitOfWork>
     {
         #region IDbSet成员
 
         private IDbSet<ActionCategory> _actionCategories;
         private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<BankAccount> _bankAccounts;
+        private IDbSet<BasePurchaseInvoice> _basePurchaseInvoices;
         private IDbSet<ContractAircraft> _contractAircrafts;
         private IDbSet<ContractEngine> _contractEngines;
         private IDbSet<Currency> _currencies;
         private IDbSet<Guarantee> _guarantees;
         private IDbSet<Invoice> _invoices;
-        private IDbSet<BasePurchaseInvoice> _basePurchaseInvoices;
         private IDbSet<Linkman> _linkmen;
         private IDbSet<MaintainContract> _maintainContracts;
+        private IDbSet<MaintainCost> _maintainCosts;
         private IDbSet<MaintainInvoice> _maintainInvoices;
         private IDbSet<Order> _orders;
         private IDbSet<Part> _parts;
         private IDbSet<PaymentNotice> _paymentNotices;
         private IDbSet<PaymentSchedule> _paymentSchedules;
+        private IDbSet<SupplierRole> _supplierRoles;
         private IDbSet<Supplier> _suppliers;
         private IDbSet<Trade> _trades;
-        private IDbSet<SupplierRole> _supplierRoles;
-        private IDbSet<MaintainCost> _maintainCosts;
 
         public IDbSet<MaintainCost> MaintainCosts
         {
             get { return _maintainCosts ?? (_maintainCosts = Set<MaintainCost>()); }
         }
+
         public IDbSet<ActionCategory> ActionCategories
         {
             get { return _actionCategories ?? (_actionCategories = Set<ActionCategory>()); }
@@ -165,201 +164,6 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
         public IDbSet<SupplierRole> SupplierRoles
         {
             get { return _supplierRoles ?? (_supplierRoles = Set<SupplierRole>()); }
-        }
-        #endregion
-
-        #region DbContext 重载
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            // 移除不需要的公约
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-
-            // 添加通过“TypeConfiguration”类的方式建立的配置
-            if (DbConfig.DbUniCloud.Contains("Oracle"))
-            {
-                OracleConfigurations(modelBuilder);
-            }
-            else if (DbConfig.DbUniCloud.Contains("Sql"))
-            {
-                SqlConfigurations(modelBuilder);
-            }
-        }
-
-        /// <summary>
-        ///     Oracle数据库
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private static void OracleConfigurations(DbModelBuilder modelBuilder)
-        {
-        }
-
-        /// <summary>
-        ///     SqlServer数据库
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private static void SqlConfigurations(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Configurations
-
-            #region ActionCategoryAgg
-
-.Add(new ActionCategoryEntityConfiguration())
-
-            #endregion
-
-            #region AircraftTypeAgg
-
-.Add(new AircraftTypeEntityConfiguration())
-
-            #endregion
-
-            #region BankAccountAgg
-
-.Add(new BankAccountEntityConfiguration())
-
-            #endregion
-
-            #region ContractAircraftAgg
-
-.Add(new ContractAircraftEntityConfiguration())
-                .Add(new LeaseContractAircraftEntityConfiguration())
-                .Add(new PurchaseContractAircraftEntityConfiguration())
-
-            #endregion
-
-            #region ContractEngineAgg
-
-.Add(new ContractEngineEntityConfiguration())
-                .Add(new LeaseContractEngineEntityConfiguration())
-                .Add(new PurchaseContractEngineEntityConfiguration())
-
-            #endregion
-
-            #region CurrencyAgg
-
-.Add(new CurrencyEntityConfiguration())
-
-            #endregion
-
-            #region GuaranteeAgg
-
-.Add(new GuaranteeEntityConfiguration())
-                .Add(new LeaseGuaranteeEntityConfiguration())
-                .Add(new MaintainGuaranteeEntityConfiguration())
-
-            #endregion
-
-            #region InvoiceAgg
-
-.Add(new InvoiceEntityConfiguration())
-                .Add(new InvoiceLineEntityConfiguration())
-                .Add(new PurchaseCreditNoteInvoiceEntityConfiguration())
-                 .Add(new MaintainCreditNoteInvoiceEntityConfiguration())
-                .Add(new LeaseInvoiceEntityConfiguration())
-                .Add(new PurchaseInvoiceEntityConfiguration())
-                .Add(new PurchasePrepaymentInvoiceEntityConfiguration())
-                .Add(new MaintainPrepaymentInvoiceEntityConfiguration())
-                .Add(new PurchaseInvoiceLineEntityConfiguration())
-                 .Add(new BasePurchaseInvoiceEntityConfiguration())
-                 .Add(new SundryInvoiceEntityConfiguration())
-                 .Add(new SpecialRefitInvoiceEntityConfiguration())
-            #endregion
-
-            #region LinkmanAgg
-
-.Add(new LinkmanEntityConfiguration())
-
-            #endregion
-
-            #region MaintainContractAgg
-
-.Add(new MaintainContractEntityConfiguration())
-                .Add(new APUMaintainContractEntityConfiguration())
-                .Add(new EngineMaintainContractEntityConfiguration())
-                .Add(new UndercartMaintainContractEntityConfiguration())
-
-            #endregion
-
-            #region MaintainInvoiceAgg
-
-.Add(new MaintainInvoiceEntityConfiguration())
-                .Add(new AirframeMaintainInvoiceEntityConfiguration())
-                .Add(new APUMaintainInvoiceEntityConfiguration())
-                .Add(new EngineMaintainInvoiceEntityConfiguration())
-                .Add(new UndercartMaintainInvoiceEntityConfiguration())
-                .Add(new MaintainInvoiceLineEntityConfiguration())
-            #endregion
-
-            #region OrderAgg
-
-.Add(new OrderEntityConfiguration())
-                .Add(new OrderLineEntityConfiguration())
-                .Add(new AircraftLeaseOrderEntityConfiguration())
-                .Add(new AircraftLeaseOrderLineEntityConfiguration())
-                .Add(new AircraftPurchaseOrderEntityConfiguration())
-                .Add(new AircraftPurchaseOrderLineEntityConfiguration())
-                .Add(new BFEPurchaseOrderEntityConfiguration())
-                .Add(new BFEPurchaseOrderLineEntityConfiguration())
-                .Add(new EngineLeaseOrderEntityConfiguration())
-                .Add(new EngineLeaseOrderLineEntityConfiguration())
-                .Add(new EnginePurchaseOrderEntityConfiguration())
-                .Add(new EnginePurchaseOrderLineEntityConfiguration())
-
-            #endregion
-
-            #region PartAgg
-
-.Add(new PartEntityConfiguration())
-
-            #endregion
-
-            #region PaymentNoticeAgg
-
-.Add(new PaymentNoticeEntityConfiguration())
-                .Add(new PaymentNoticeLineEntityConfiguration())
-
-            #endregion
-
-            #region PaymentScheduleAgg
-
-.Add(new PaymentScheduleEntityConfiguration())
-                .Add(new PaymentScheduleLineEntityConfiguration())
-                .Add(new AircraftPaymentScheduleEntityConfiguration())
-                .Add(new EnginePaymentScheduleEntityConfiguration())
-                .Add(new StandardPaymentScheduleEntityConfiguration())
-                .Add(new MaintainPaymentScheduleEntityConfiguration())
-            #endregion
-
-            #region TradeAgg
-
-.Add(new TradeEntityConfiguration())
-
-            #endregion
-
-#region MaintainCostAgg
-.Add(new MaintainCostEntityConfiguration())
-.Add(new RegularCheckMaintainCostEntityConfiguration())
-.Add(new UndercartMaintainCostEntityConfiguration())
-.Add(new SpecialRefitMaintainCostEntityConfiguration())
-.Add(new NonFhaMaintainCostEntityConfiguration())
-.Add(new ApuMaintainCostEntityConfiguration())
-.Add(new FhaMaintainCostEntityConfiguration())
-#endregion
-
-            #region
-.Add(new SupplierEntityConfiguration())
-                 .Add(new SupplierRoleEntityConfiguration())
-                .Add(new AircraftLeaseSupplierEntityConfiguration())
-                .Add(new AircraftPurchaseSupplierEntityConfiguration())
-                .Add(new BFEPurchaseSupplierEntityConfiguration())
-                .Add(new EngineLeaseSupplierEntityConfiguration())
-                .Add(new EnginePurchaseSupplierEntityConfiguration())
-                .Add(new MaintainSupplierEntityConfiguration())
-                .Add(new OtherSupplierEntityConfiguration())
-                .Add(new SupplierCompanyEntityConfiguration())
-            #endregion
-;
         }
 
         #endregion

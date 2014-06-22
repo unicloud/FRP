@@ -19,7 +19,6 @@
 
 using System;
 using System.Linq;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
@@ -42,12 +41,13 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<ISnRegRepository, SnRegRepository>()
-                .RegisterType<IPnRegRepository, PnRegRepository>()
-                .RegisterType<IThrustRepository, ThrustRepository>()
-                .RegisterType<IOilMonitorRepository, OilMonitorRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<ISnRegRepository, SnRegRepository>()
+                .Register<IPnRegRepository, PnRegRepository>()
+                .Register<IThrustRepository, ThrustRepository>()
+                .Register<IOilMonitorRepository, OilMonitorRepository>();
         }
 
         [TestCleanup]
@@ -61,9 +61,9 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         public void CreateEngineRegTest()
         {
             // Arrange
-            var pnRep = DefaultContainer.Resolve<IPnRegRepository>();
-            var thrustRep = DefaultContainer.Resolve<IThrustRepository>();
-            var snRep = DefaultContainer.Resolve<ISnRegRepository>();
+            var pnRep = UniContainer.Resolve<IPnRegRepository>();
+            var thrustRep = UniContainer.Resolve<IThrustRepository>();
+            var snRep = UniContainer.Resolve<ISnRegRepository>();
             var pn = pnRep.GetAll().FirstOrDefault();
             var thrust = thrustRep.GetAll().FirstOrDefault();
 
@@ -84,8 +84,8 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         public void CreateOilMonitor()
         {
             // Arrange
-            var monitorRep = DefaultContainer.Resolve<IOilMonitorRepository>();
-            var snRep = DefaultContainer.Resolve<ISnRegRepository>();
+            var monitorRep = UniContainer.Resolve<IOilMonitorRepository>();
+            var snRep = UniContainer.Resolve<ISnRegRepository>();
             var rTsn = new Random();
             var rTsr = new Random();
             var rOil = new Random();

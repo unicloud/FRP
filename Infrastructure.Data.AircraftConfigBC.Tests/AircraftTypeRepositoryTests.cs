@@ -17,7 +17,6 @@
 
 #region 命名空间
 
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Infrastructure.Data.AircraftConfigBC.Repositories;
@@ -36,9 +35,10 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IAircraftTypeRepository, AircraftTypeRepository>();
         }
 
         [TestCleanup]

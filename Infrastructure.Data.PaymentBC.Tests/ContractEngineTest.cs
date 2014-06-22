@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region 命名空间
+
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCloud.Domain.PaymentBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.ContractEngineAgg;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
+#endregion
+
 namespace UniCloud.Infrastructure.Data.PaymentBC.Tests
 {
     [TestClass]
-  public   class ContractEngineTest
+    public class ContractEngineTest
     {
         #region 基础配置
 
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IContractEngineRepository, ContractEngineRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IContractEngineRepository, ContractEngineRepository>();
         }
 
         [TestCleanup]
@@ -36,12 +36,9 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.Tests
         public void GetAllContractEngine()
         {
             // Arrange
-            var contractEngineRepository = DefaultContainer.Resolve<IContractEngineRepository>();
-          var retsult= contractEngineRepository.GetAll().ToList();
-          Assert.IsTrue(retsult.Any());
+            var contractEngineRepository = UniContainer.Resolve<IContractEngineRepository>();
+            var retsult = contractEngineRepository.GetAll().ToList();
+            Assert.IsTrue(retsult.Any());
         }
-
-     
-
     }
 }

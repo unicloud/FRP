@@ -27,7 +27,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.CommonServiceBC.Repositories;
 using UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.DistributedServices.CommonService.InstanceProviders
@@ -41,18 +41,21 @@ namespace UniCloud.DistributedServices.CommonService.InstanceProviders
 
         public static void ConfigureContainer()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-            #region 文档相关配置，包括查询，应用服务，仓储注册
-.RegisterType<IDocumentAppService, DocumentAppService>()
-                         .RegisterType<IDocumentQuery, DocumentQuery>()
-                         .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
-                         .RegisterType<IDocumentRepository, DocumentRepository>()
-                         .RegisterType<IDocumentTypeRepository, DocumentTypeRepository>()
-                         .RegisterType<IDocumentSearchAppService, DocumentSearchAppService>()
-            #endregion
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
 
-;
+                #region 文档相关配置，包括查询，应用服务，仓储注册
+
+                .Register<IDocumentAppService, DocumentAppService>()
+                .Register<IDocumentQuery, DocumentQuery>()
+                .Register<IDocumentPathRepository, DocumentPathRepository>()
+                .Register<IDocumentRepository, DocumentRepository>()
+                .Register<IDocumentTypeRepository, DocumentTypeRepository>()
+                .Register<IDocumentSearchAppService, DocumentSearchAppService>()
+                #endregion
+
+                ;
         }
 
         #endregion

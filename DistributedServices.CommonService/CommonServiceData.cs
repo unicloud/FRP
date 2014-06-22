@@ -36,7 +36,7 @@ namespace UniCloud.DistributedServices.CommonService
         public CommonServiceData()
             : base("UniCloud.Application.CommonServiceBC.DTO")
         {
-            _documentAppService = DefaultContainer.Resolve<IDocumentAppService>();
+            _documentAppService = UniContainer.Resolve<IDocumentAppService>();
         }
 
         #region 文档相关集合

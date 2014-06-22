@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,7 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonServiceBCUnitOfWork.cs" />
+    <Compile Include="UnitOfWork\CommonServiceBCUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DocumentPathRepository.cs" />
     <Compile Include="Repositories\DocumentRepository.cs" />
@@ -63,6 +64,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\OfficialDocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\RelatedDocEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\StandardDocumentEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\OracleConfigurations.cs" />
+    <Compile Include="UnitOfWork\SqlConfigurations.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UnitOfWork\Mapping\Oracle\" />

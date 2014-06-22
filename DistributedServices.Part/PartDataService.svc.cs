@@ -84,7 +84,7 @@ namespace UniCloud.DistributedServices.Part
         public List<ItemDTO> GetItemsByAircraftType(string aircraftTypeId)
         {
             Guid id = Guid.Parse(aircraftTypeId);
-            var itemService = DefaultContainer.Resolve<IItemAppService>();
+            var itemService = UniContainer.Resolve<IItemAppService>();
             List<ItemDTO> result = itemService.GetItemsByAircraftType(id);
             return result;
         }
@@ -97,7 +97,7 @@ namespace UniCloud.DistributedServices.Part
         public List<AcConfigDTO> QueryAcConfigs(int contractAircraftId, string date)
         {
             var dateTime = DateTime.Parse(date);
-            var acConfigService = DefaultContainer.Resolve<IAcConfigAppService>();
+            var acConfigService = UniContainer.Resolve<IAcConfigAppService>();
             List<AcConfigDTO> result = acConfigService.QueryAcConfigs(contractAircraftId, dateTime);
             return result;
         }
@@ -109,7 +109,7 @@ namespace UniCloud.DistributedServices.Part
         [WebGet]
         public List<PnRegDTO> GetPnRegsByItem(int itemId)
         {
-            var pnRegService = DefaultContainer.Resolve<IPnRegAppService>();
+            var pnRegService = UniContainer.Resolve<IPnRegAppService>();
             List<PnRegDTO> result = pnRegService.GetPnRegsByItem(itemId);
             return result;
         }

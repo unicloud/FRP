@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -23,7 +25,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -36,12 +38,12 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
-                .RegisterType<IActionCategoryAppService, ActionCategoryAppService>()
-                .RegisterType<IActionCategoryQuery, ActionCategoryQuery>();
-
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IActionCategoryRepository, ActionCategoryRepository>()
+                .Register<IActionCategoryAppService, ActionCategoryAppService>()
+                .Register<IActionCategoryQuery, ActionCategoryQuery>();
         }
 
         [TestCleanup]
@@ -55,7 +57,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void TestGetActionCategorys()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IActionCategoryAppService>();
+            var service = UniContainer.Resolve<IActionCategoryAppService>();
 
             // Act
             var result = service.GetActionCategories().ToList();

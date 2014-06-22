@@ -28,7 +28,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
@@ -41,15 +41,16 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
-                .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
-                .RegisterType<ICurrencyRepository, CurrencyRepository>()
-                .RegisterType<ITradeRepository, TradeRepository>()
-                .RegisterType<ILinkmanRepository, LinkmanRepository>()
-                .RegisterType<IOrderRepository, OrderRepository>()
-                .RegisterType<IContractAircraftRepository, ContractAircraftRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
+                .Register<IActionCategoryRepository, ActionCategoryRepository>()
+                .Register<ICurrencyRepository, CurrencyRepository>()
+                .Register<ITradeRepository, TradeRepository>()
+                .Register<ILinkmanRepository, LinkmanRepository>()
+                .Register<IOrderRepository, OrderRepository>()
+                .Register<IContractAircraftRepository, ContractAircraftRepository>();
         }
 
         [TestCleanup]

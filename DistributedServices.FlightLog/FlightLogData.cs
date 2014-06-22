@@ -22,7 +22,7 @@ namespace UniCloud.DistributedServices.FlightLog
         public FlightLogData()
             : base("UniCloud.Application.FlightLogBC.DTO")
         {
-            _flightLogAppService = DefaultContainer.Resolve<IFlightLogAppService>();
+            _flightLogAppService = UniContainer.Resolve<IFlightLogAppService>();
         }
 
         #region 飞行日志

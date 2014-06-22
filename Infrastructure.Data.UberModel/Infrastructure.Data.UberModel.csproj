@@ -42,8 +42,16 @@
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -86,9 +94,9 @@
     <Compile Include="InitialData\TradeData.cs" />
     <Compile Include="InitialData\XmlConfigData.cs" />
     <Compile Include="InitialData\XmlSettingData.cs" />
-    <Compile Include="Migrations\201406200657106_Initial.cs" />
-    <Compile Include="Migrations\201406200657106_Initial.Designer.cs">
-      <DependentUpon>201406200657106_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201406210902042_Initial.cs" />
+    <Compile Include="Migrations\201406210902042_Initial.Designer.cs">
+      <DependentUpon>201406210902042_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -294,6 +302,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\WorkGroupEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\XmlConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\XmlSettingEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\OracleConfigurations.cs" />
+    <Compile Include="UnitOfWork\SqlConfigurations.cs" />
     <Compile Include="UnitOfWork\UberModelUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -320,10 +330,14 @@
       <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
       <Name>Infrastructure.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
+      <Project>{34A8A0E1-3D4A-48CA-9E78-71F88E2D273D}</Project>
+      <Name>Infrastructure.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406200657106_Initial.resx">
-      <DependentUpon>201406200657106_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406210902042_Initial.resx">
+      <DependentUpon>201406210902042_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="66942ad7-ab98-4b43-8a1c-f8f9d14ffa1a" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="94980015-276d-474b-ba4f-0d6556886312" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
   <MetadataSources>
-    <MetadataSource Address="http://localhost:20088/AircraftConfigDataService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost/DistributedServices.AircraftConfig/AircraftConfigDataService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="b86a56b2-8911-4764-afcf-168656262e1d" SourceId="1" SourceUrl="http://localhost:20088/AircraftConfigDataService.svc" />
+    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="00d33891-b9bc-4368-918b-e826f855ac2e" SourceId="1" SourceUrl="http://localhost/DistributedServices.AircraftConfig/AircraftConfigDataService.svc" />
   </Metadata>
   <Extensions />
   <Parameters>

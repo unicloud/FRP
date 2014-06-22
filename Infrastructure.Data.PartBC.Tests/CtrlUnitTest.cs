@@ -17,7 +17,6 @@
 #region 命名空间
 
 using System.Collections.Generic;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
@@ -36,9 +35,10 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<ICtrlUnitRepository, CtrlUnitRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<ICtrlUnitRepository, CtrlUnitRepository>();
         }
 
         [TestCleanup]
@@ -52,15 +52,15 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         public void CreateCtrlUnits()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<ICtrlUnitRepository>();
+            var service = UniContainer.Resolve<ICtrlUnitRepository>();
 
             // Act
             var ctrlUnits = new List<CtrlUnit>
             {
-                CtrlUnitFactory.CreateCtrlUnit("FH","飞行小时"),
-                CtrlUnitFactory.CreateCtrlUnit("FC","飞行循环"),
-                CtrlUnitFactory.CreateCtrlUnit("Day","日历天"),
-                CtrlUnitFactory.CreateCtrlUnit("Month","日历月"),
+                CtrlUnitFactory.CreateCtrlUnit("FH", "飞行小时"),
+                CtrlUnitFactory.CreateCtrlUnit("FC", "飞行循环"),
+                CtrlUnitFactory.CreateCtrlUnit("Day", "日历天"),
+                CtrlUnitFactory.CreateCtrlUnit("Month", "日历月"),
             };
             ctrlUnits.ForEach(service.Add);
             service.UnitOfWork.Commit();

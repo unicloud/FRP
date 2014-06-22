@@ -17,9 +17,7 @@
 
 #region 命名空间
 
-using System;
 using System.Linq;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices;
@@ -62,54 +60,55 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-            #region 飞机计划相关配置，包括查询，应用服务，仓储注册
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                #region 飞机计划相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IPlanQuery, PlanQuery>()
-                .RegisterType<IPlanAppService, PlanAppService>()
-                .RegisterType<IPlanRepository, PlanRepository>()
-                .RegisterType<IPlanHistoryQuery, PlanHistoryQuery>()
-                .RegisterType<IPlanHistoryAppService, PlanHistoryAppService>()
-                .RegisterType<IPlanHistoryRepository, PlanHistoryRepository>()
-            #endregion
+                .Register<IPlanQuery, PlanQuery>()
+                .Register<IPlanAppService, PlanAppService>()
+                .Register<IPlanRepository, PlanRepository>()
+                .Register<IPlanHistoryQuery, PlanHistoryQuery>()
+                .Register<IPlanHistoryAppService, PlanHistoryAppService>()
+                .Register<IPlanHistoryRepository, PlanHistoryRepository>()
+                #endregion
 
-            #region 活动类型相关配置，包括查询，应用服务，仓储注册
+                #region 活动类型相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IActionCategoryQuery, ActionCategoryQuery>()
-                .RegisterType<IActionCategoryAppService, ActionCategoryAppService>()
-                .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
-            #endregion
-            #region 机型相关配置，包括查询，应用服务，仓储注册
+                .Register<IActionCategoryQuery, ActionCategoryQuery>()
+                .Register<IActionCategoryAppService, ActionCategoryAppService>()
+                .Register<IActionCategoryRepository, ActionCategoryRepository>()
+                #endregion
+                #region 机型相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
-                .RegisterType<IAircraftTypeAppService, AircraftTypeAppService>()
-                .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
-            #endregion
-            #region 航空公司相关配置，包括查询，应用服务，仓储注册
+                .Register<IAircraftTypeQuery, AircraftTypeQuery>()
+                .Register<IAircraftTypeAppService, AircraftTypeAppService>()
+                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
+                #endregion
+                #region 航空公司相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IAirlinesQuery, AirlinesQuery>()
-                .RegisterType<IAirlinesAppService, AirlinesAppService>()
-                .RegisterType<IAirlinesRepository, AirlinesRepository>()
-            #endregion
-            #region 计划年度相关配置，包括查询，应用服务，仓储注册
+                .Register<IAirlinesQuery, AirlinesQuery>()
+                .Register<IAirlinesAppService, AirlinesAppService>()
+                .Register<IAirlinesRepository, AirlinesRepository>()
+                #endregion
+                #region 计划年度相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IAnnualQuery, AnnualQuery>()
-                .RegisterType<IAnnualAppService, AnnualAppService>()
-                .RegisterType<IAnnualRepository, AnnualRepository>()
-            #endregion
+                .Register<IAnnualQuery, AnnualQuery>()
+                .Register<IAnnualAppService, AnnualAppService>()
+                .Register<IAnnualRepository, AnnualRepository>()
+                #endregion
 
-            #region 计划飞相关配置，包括查询，应用服务，仓储注册
+                #region 计划飞相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IPlanAircraftQuery, PlanAircraftQuery>()
-                .RegisterType<IPlanAircraftAppService, PlanAircraftAppService>()
-                .RegisterType<IPlanAircraftRepository, PlanAircraftRepository>()
-                .RegisterType<IAircraftQuery, AircraftQuery>()
-                .RegisterType<IAircraftAppService, AircraftAppService>()
-                .RegisterType<IAircraftRepository, AircraftRepository>()
-            #endregion
+                .Register<IPlanAircraftQuery, PlanAircraftQuery>()
+                .Register<IPlanAircraftAppService, PlanAircraftAppService>()
+                .Register<IPlanAircraftRepository, PlanAircraftRepository>()
+                .Register<IAircraftQuery, AircraftQuery>()
+                .Register<IAircraftAppService, AircraftAppService>()
+                .Register<IAircraftRepository, AircraftRepository>()
+                #endregion
 
-;
+                ;
         }
 
         [TestCleanup]
@@ -123,7 +122,7 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         public void GetPlans()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IPlanHistoryAppService>();
+            var service = UniContainer.Resolve<IPlanHistoryAppService>();
 
             // Act
             var result = service.GetPlanHistories().ToList();
@@ -135,7 +134,7 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestMethod]
         public void ModefyPlans()
         {
-            //var context = DefaultContainer.Resolve<IPlanRepository>();
+            //var context = UniContainer.Resolve<IPlanRepository>();
             //var plan = context.GetAll().ToList().FirstOrDefault();
             //if (plan != null)
             //{

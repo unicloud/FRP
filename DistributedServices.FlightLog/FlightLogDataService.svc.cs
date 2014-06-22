@@ -76,7 +76,7 @@ namespace UniCloud.DistributedServices.FlightLog
         public List<AcFlightDataDTO> QueryAcFlightData(string regNumber, string date)
         {
             var dateTime = DateTime.Parse(date);
-            var flightLogService = DefaultContainer.Resolve<IFlightLogAppService>();
+            var flightLogService = UniContainer.Resolve<IFlightLogAppService>();
             List<AcFlightDataDTO> result = flightLogService.QueryAcFlightData(regNumber, dateTime);
             return result;
         }

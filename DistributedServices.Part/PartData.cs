@@ -85,31 +85,31 @@ namespace UniCloud.DistributedServices.Part
         public PartData()
             : base("UniCloud.Application.PartBC.DTO")
         {
-            _acDailyUtilizationAppService = DefaultContainer.Resolve<IAcDailyUtilizationAppService>();
-            _acConfigAppService = DefaultContainer.Resolve<IAcConfigAppService>();
-            _aircraftAppService = DefaultContainer.Resolve<IAircraftAppService>();
-            _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
-            _basicConfigAppService = DefaultContainer.Resolve<IBasicConfigAppService>();
-            _basicConfigGroupAppService = DefaultContainer.Resolve<IBasicConfigGroupAppService>();
-            _basicConfigHistoryAppService = DefaultContainer.Resolve<IBasicConfigHistoryAppService>();
-            _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
-            _ctrlUnitAppService = DefaultContainer.Resolve<ICtrlUnitAppService>();
-            _itemAppService = DefaultContainer.Resolve<IItemAppService>();
-            _installControllerAppService = DefaultContainer.Resolve<IInstallControllerAppService>();
-            _maintainCtrlAppService = DefaultContainer.Resolve<IMaintainCtrlAppService>();
-            _maintainWorkAppService = DefaultContainer.Resolve<IMaintainWorkAppService>();
-            _modAppService = DefaultContainer.Resolve<IModAppService>();
-            _oilMonitorAppService = DefaultContainer.Resolve<IOilMonitorAppService>();
-            _pnRegAppService = DefaultContainer.Resolve<IPnRegAppService>();
-            _scnAppService = DefaultContainer.Resolve<IScnAppService>();
-            _snRegAppService = DefaultContainer.Resolve<ISnRegAppService>();
-            _snHistoryAppService = DefaultContainer.Resolve<ISnHistoryAppService>();
-            _snRemInstRecordAppService = DefaultContainer.Resolve<ISnRemInstRecordAppService>();
-            _specialConfigAppService = DefaultContainer.Resolve<ISpecialConfigAppService>();
-            _airStructureDamageAppService = DefaultContainer.Resolve<IAirStructureDamageAppService>();
-            _adSbAppService = DefaultContainer.Resolve<IAdSbAppService>();
-            _annualMaintainPlanAppService = DefaultContainer.Resolve<IAnnualMaintainPlanAppService>();
-            _thresholdAppService = DefaultContainer.Resolve<IThresholdAppService>();
+            _acDailyUtilizationAppService = UniContainer.Resolve<IAcDailyUtilizationAppService>();
+            _acConfigAppService = UniContainer.Resolve<IAcConfigAppService>();
+            _aircraftAppService = UniContainer.Resolve<IAircraftAppService>();
+            _aircraftTypeAppService = UniContainer.Resolve<IAircraftTypeAppService>();
+            _basicConfigAppService = UniContainer.Resolve<IBasicConfigAppService>();
+            _basicConfigGroupAppService = UniContainer.Resolve<IBasicConfigGroupAppService>();
+            _basicConfigHistoryAppService = UniContainer.Resolve<IBasicConfigHistoryAppService>();
+            _contractAircraftAppService = UniContainer.Resolve<IContractAircraftAppService>();
+            _ctrlUnitAppService = UniContainer.Resolve<ICtrlUnitAppService>();
+            _itemAppService = UniContainer.Resolve<IItemAppService>();
+            _installControllerAppService = UniContainer.Resolve<IInstallControllerAppService>();
+            _maintainCtrlAppService = UniContainer.Resolve<IMaintainCtrlAppService>();
+            _maintainWorkAppService = UniContainer.Resolve<IMaintainWorkAppService>();
+            _modAppService = UniContainer.Resolve<IModAppService>();
+            _oilMonitorAppService = UniContainer.Resolve<IOilMonitorAppService>();
+            _pnRegAppService = UniContainer.Resolve<IPnRegAppService>();
+            _scnAppService = UniContainer.Resolve<IScnAppService>();
+            _snRegAppService = UniContainer.Resolve<ISnRegAppService>();
+            _snHistoryAppService = UniContainer.Resolve<ISnHistoryAppService>();
+            _snRemInstRecordAppService = UniContainer.Resolve<ISnRemInstRecordAppService>();
+            _specialConfigAppService = UniContainer.Resolve<ISpecialConfigAppService>();
+            _airStructureDamageAppService = UniContainer.Resolve<IAirStructureDamageAppService>();
+            _adSbAppService = UniContainer.Resolve<IAdSbAppService>();
+            _annualMaintainPlanAppService = UniContainer.Resolve<IAnnualMaintainPlanAppService>();
+            _thresholdAppService = UniContainer.Resolve<IThresholdAppService>();
         }
 
         #region 飞机日利用率集合

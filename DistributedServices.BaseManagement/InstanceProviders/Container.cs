@@ -17,7 +17,6 @@
 
 #region 命名空间
 
-using Microsoft.Practices.Unity;
 using UniCloud.Application.BaseManagementBC.AircraftCabinTypeServices;
 using UniCloud.Application.BaseManagementBC.BusinessLicenseServices;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
@@ -59,64 +58,65 @@ namespace UniCloud.DistributedServices.BaseManagement.InstanceProviders
 
         public static void ConfigureContainer()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, BaseManagementBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, BaseManagementBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
 
                 #region User相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IUserAppService, UserAppService>()
-                .RegisterType<IUserQuery, UserQuery>()
-                .RegisterType<IUserRepository, UserRepository>()
-                .RegisterType<IUserRoleRepository, UserRoleRepository>()
+                .Register<IUserAppService, UserAppService>()
+                .Register<IUserQuery, UserQuery>()
+                .Register<IUserRepository, UserRepository>()
+                .Register<IUserRoleRepository, UserRoleRepository>()
 
                 #endregion
 
                 #region Organization相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IOrganizationAppService, OrganizationAppService>()
-                .RegisterType<IOrganizationQuery, OrganizationQuery>()
-                .RegisterType<IOrganizationRepository, OrganizationRepository>()
+                .Register<IOrganizationAppService, OrganizationAppService>()
+                .Register<IOrganizationQuery, OrganizationQuery>()
+                .Register<IOrganizationRepository, OrganizationRepository>()
 
                 #endregion
 
                 #region FunctionItem相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IFunctionItemAppService, FunctionItemAppService>()
-                .RegisterType<IFunctionItemQuery, FunctionItemQuery>()
-                .RegisterType<IFunctionItemRepository, FunctionItemRepository>()
-                .RegisterType<IRoleFunctionRepository, RoleFunctionRepository>()
+                .Register<IFunctionItemAppService, FunctionItemAppService>()
+                .Register<IFunctionItemQuery, FunctionItemQuery>()
+                .Register<IFunctionItemRepository, FunctionItemRepository>()
+                .Register<IRoleFunctionRepository, RoleFunctionRepository>()
 
                 #endregion
 
                 #region Role相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IRoleAppService, RoleAppService>()
-                .RegisterType<IRoleQuery, RoleQuery>()
-                .RegisterType<IRoleRepository, RoleRepository>()
+                .Register<IRoleAppService, RoleAppService>()
+                .Register<IRoleQuery, RoleQuery>()
+                .Register<IRoleRepository, RoleRepository>()
 
                 #endregion
 
                 #region BusinessLicense相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IBusinessLicenseAppService, BusinessLicenseAppService>()
-                .RegisterType<IBusinessLicenseQuery, BusinessLicenseQuery>()
-                .RegisterType<IBusinessLicenseRepository, BusinessLicenseRepository>()
+                .Register<IBusinessLicenseAppService, BusinessLicenseAppService>()
+                .Register<IBusinessLicenseQuery, BusinessLicenseQuery>()
+                .Register<IBusinessLicenseRepository, BusinessLicenseRepository>()
 
                 #endregion
 
                 #region AircraftCabinType相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IAircraftCabinTypeAppService, AircraftCabinTypeAppService>()
-                .RegisterType<IAircraftCabinTypeQuery, AircraftCabinTypeQuery>()
-                .RegisterType<IAircraftCabinTypeRepository, AircraftCabinTypeRepository>()
+                .Register<IAircraftCabinTypeAppService, AircraftCabinTypeAppService>()
+                .Register<IAircraftCabinTypeQuery, AircraftCabinTypeQuery>()
+                .Register<IAircraftCabinTypeRepository, AircraftCabinTypeRepository>()
 
                 #endregion
 
                 #region 配置相关的xml相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IXmlSettingQuery, XmlSettingQuery>()
-                .RegisterType<IXmlSettingAppService, XmlSettingAppService>()
-                .RegisterType<IXmlSettingRepository, XmlSettingRepository>()
+                .Register<IXmlSettingQuery, XmlSettingQuery>()
+                .Register<IXmlSettingAppService, XmlSettingAppService>()
+                .Register<IXmlSettingRepository, XmlSettingRepository>()
 
                 #endregion
 

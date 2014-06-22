@@ -53,7 +53,7 @@ namespace UniCloud.Application.PurchaseBC.ContractDocumentServices
 
         public List<ContractDocumentDTO> Search(string keyword)
         {
-            var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
+            var documentPathAppService = UniContainer.Resolve<IDocumentPathAppService>();
             TopDocs queryResults = LuceneSearch.LuceneSearch.PanguQuery(keyword, "3");
             if (queryResults == null) return new List<ContractDocumentDTO>();
             ParallelMultiSearcher multiSearcher = IndexManager.GenerateMultiSearcher("3");

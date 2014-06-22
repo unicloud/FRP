@@ -18,20 +18,18 @@
 #region 命名空间
 
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.ProjectBC.Aggregates.ProjectAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.UserAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg;
-using UniCloud.Infrastructure.Data.ProjectBC.UnitOfWork.Mapping.Sql;
 
 #endregion
 
 namespace UniCloud.Infrastructure.Data.ProjectBC.UnitOfWork
 {
-    public class ProjectBCUnitOfWork : BaseContext<ProjectBCUnitOfWork>
+    public class ProjectBCUnitOfWork : UniContext<ProjectBCUnitOfWork>
     {
         #region IDbSet成员
 
@@ -70,83 +68,6 @@ namespace UniCloud.Infrastructure.Data.ProjectBC.UnitOfWork
         public IDbSet<WorkGroup> WorkGroups
         {
             get { return _workGroups ?? (_workGroups = base.Set<WorkGroup>()); }
-        }
-
-        #endregion
-
-        #region DbContext 重载
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            // 移除不需要的公约
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-
-            // 添加通过“TypeConfiguration”类的方式建立的配置
-            if (DbConfig.DbUniCloud.Contains("Oracle"))
-            {
-                OracleConfigurations(modelBuilder);
-            }
-            else if (DbConfig.DbUniCloud.Contains("Sql"))
-            {
-                SqlConfigurations(modelBuilder);
-            }
-        }
-
-        /// <summary>
-        ///     Oracle数据库
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private static void OracleConfigurations(DbModelBuilder modelBuilder)
-        {
-        }
-
-        /// <summary>
-        ///     SqlServer数据库
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private static void SqlConfigurations(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Configurations
-
-                #region ProjectAgg
-
-                .Add(new ProjectEntityConfiguration())
-                .Add(new TaskEntityConfiguration())
-
-                #endregion
-
-                #region ProjectTempAgg
-
-                .Add(new ProjectTempEntityConfiguration())
-                .Add(new TaskTempEntityConfiguration())
-
-                #endregion
-
-                #region RelatedDocAgg
-
-                .Add(new RelatedDocEntityConfiguration())
-
-                #endregion
-
-                #region TaskStandardAgg
-
-                .Add(new TaskStandardEntityConfiguration())
-                .Add(new TaskCaseEntityConfiguration())
-
-                #endregion
-
-                #region UserAgg
-
-                .Add(new UserEntityConfiguration())
-
-                #endregion
-
-                #region WorkGroupAgg
-
-                .Add(new WorkGroupEntityConfiguration())
-                .Add(new MemberEntityConfiguration());
-
-            #endregion
         }
 
         #endregion

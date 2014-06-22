@@ -10,7 +10,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.FleetPlanBC.Tests.Services
@@ -23,17 +23,17 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
       
 
                 #region 申请相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IRequestQuery, RequestQuery>()
-                .RegisterType<IRequestAppService, RequestAppService>()
-                .RegisterType<IRequestRepository, RequestRepository>()
-                .RegisterType<IPlanAircraftRepository, PlanAircraftRepository>()
+                .Register<IRequestQuery, RequestQuery>()
+                .Register<IRequestAppService, RequestAppService>()
+                .Register<IRequestRepository, RequestRepository>()
+                .Register<IPlanAircraftRepository, PlanAircraftRepository>()
                 #endregion
 
                 ;
@@ -48,7 +48,7 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         public void GetRequests()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IRequestAppService>();
+            var service = UniContainer.Resolve<IRequestAppService>();
 
             // Act
             var result = service.GetRequests().ToList();
@@ -56,6 +56,7 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
             // Assert
             Assert.IsTrue(result.Any());
         }
+
         #endregion
     }
 }

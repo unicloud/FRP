@@ -1,7 +1,6 @@
 ﻿#region 命名空间
 
 using System;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.CommonServiceBC.DocumentServices;
 using UniCloud.Application.CommonServiceBC.Query.DocumentQueries;
@@ -12,7 +11,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.CommonServiceBC.Repositories;
 using UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.CommonServiceBC.Tests
@@ -25,15 +24,16 @@ namespace UniCloud.Application.CommonServiceBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                         .RegisterType<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
                 #region 文档相关配置，包括查询，应用服务，仓储注册
 
-                         .RegisterType<IDocumentAppService, DocumentAppService>()
-                         .RegisterType<IDocumentQuery, DocumentQuery>()
-                         .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
-                         .RegisterType<IDocumentRepository, DocumentRepository>()
-                          .RegisterType<IDocumentTypeRepository, DocumentTypeRepository>()
+                .Register<IDocumentAppService, DocumentAppService>()
+                .Register<IDocumentQuery, DocumentQuery>()
+                .Register<IDocumentPathRepository, DocumentPathRepository>()
+                .Register<IDocumentRepository, DocumentRepository>()
+                .Register<IDocumentTypeRepository, DocumentTypeRepository>()
                 #endregion
 
                 ;
@@ -49,9 +49,8 @@ namespace UniCloud.Application.CommonServiceBC.Tests
         [TestMethod]
         public void TestGet()
         {
-            var service = DefaultContainer.Resolve<IDocumentAppService>();
+            var service = UniContainer.Resolve<IDocumentAppService>();
             var result = service.GetSingleDocument(new Guid("C2830DD6-AF4C-4726-9922-22A6F798BCDE"));
         }
-     
     }
 }

@@ -121,6 +121,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Project\Enums\" />
+  </ItemGroup>
+  <ItemGroup>
     <ServiceReferenceMetadataStorage Include="Service References\Project\">
       <Type>datasvcmap</Type>
     </ServiceReferenceMetadataStorage>
@@ -130,9 +133,6 @@
       <Generator>DataServicesCoreClientGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Project\Enums\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>

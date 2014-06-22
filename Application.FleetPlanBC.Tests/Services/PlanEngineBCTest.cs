@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,25 +11,25 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System.Linq;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.FleetPlanBC.AirlinesServices;
-using UniCloud.Application.FleetPlanBC.PlanEngineServices;
 using UniCloud.Application.FleetPlanBC.EngineServices;
 using UniCloud.Application.FleetPlanBC.EngineTypeServices;
+using UniCloud.Application.FleetPlanBC.PlanEngineServices;
 using UniCloud.Application.FleetPlanBC.Query.AirlinesQueries;
-using UniCloud.Application.FleetPlanBC.Query.PlanEngineQueries;
 using UniCloud.Application.FleetPlanBC.Query.EngineQueries;
 using UniCloud.Application.FleetPlanBC.Query.EngineTypeQueries;
+using UniCloud.Application.FleetPlanBC.Query.PlanEngineQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
@@ -46,28 +47,29 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IPlanEngineRepository, PlanEngineRepository>()
-                .RegisterType<IPlanEngineAppService, PlanEngineAppService>()
-                .RegisterType<IPlanEngineQuery, PlanEngineQuery>()
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IPlanEngineRepository, PlanEngineRepository>()
+                .Register<IPlanEngineAppService, PlanEngineAppService>()
+                .Register<IPlanEngineQuery, PlanEngineQuery>()
 
-            #region 机型相关配置，包括查询，应用服务，仓储注册
+                #region 机型相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IEngineTypeQuery, EngineTypeQuery>()
-                .RegisterType<IEngineTypeAppService, EngineTypeAppService>()
-                .RegisterType<IEngineTypeRepository, EngineTypeRepository>()
-            #endregion
-            #region 航空公司相关配置，包括查询，应用服务，仓储注册
+                .Register<IEngineTypeQuery, EngineTypeQuery>()
+                .Register<IEngineTypeAppService, EngineTypeAppService>()
+                .Register<IEngineTypeRepository, EngineTypeRepository>()
+                #endregion
+                #region 航空公司相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IAirlinesQuery, AirlinesQuery>()
-                .RegisterType<IAirlinesAppService, AirlinesAppService>()
-                .RegisterType<IAirlinesRepository, AirlinesRepository>()
-            #endregion
+                .Register<IAirlinesQuery, AirlinesQuery>()
+                .Register<IAirlinesAppService, AirlinesAppService>()
+                .Register<IAirlinesRepository, AirlinesRepository>()
+                #endregion
 
-.RegisterType<IEngineRepository, EngineRepository>()
-                .RegisterType<IEngineAppService, EngineAppService>()
-                .RegisterType<IEngineQuery, EngineQuery>();
+                .Register<IEngineRepository, EngineRepository>()
+                .Register<IEngineAppService, EngineAppService>()
+                .Register<IEngineQuery, EngineQuery>();
         }
 
         [TestCleanup]
@@ -81,7 +83,7 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         public void TestGetPlanEngines()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IPlanEngineAppService>();
+            var service = UniContainer.Resolve<IPlanEngineAppService>();
 
             // Act
             var result = service.GetPlanEngines().ToList();
@@ -93,9 +95,9 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestMethod]
         public void AddPlanEngines()
         {
-            var context = DefaultContainer.Resolve<IPlanEngineRepository>();
-            var airlinesContext = DefaultContainer.Resolve<IAirlinesRepository>();
-            var engineTypeContext = DefaultContainer.Resolve<IEngineTypeRepository>();
+            var context = UniContainer.Resolve<IPlanEngineRepository>();
+            var airlinesContext = UniContainer.Resolve<IAirlinesRepository>();
+            var engineTypeContext = UniContainer.Resolve<IEngineTypeRepository>();
             //获取
             var engineType = engineTypeContext.GetAll().ToList().First();
             var airlines = airlinesContext.GetAll().ToList().First(p => p.IsCurrent);

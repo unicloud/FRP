@@ -15,27 +15,23 @@
 
 #endregion
 
-using System;
-using System.Collections.Generic;
+#region 命名空间
+
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCloud.Application.FleetPlanBC.AnnualServices;
 using UniCloud.Application.FleetPlanBC.ApprovalDocServices;
-using UniCloud.Application.FleetPlanBC.Query.AnnualQueries;
 using UniCloud.Application.FleetPlanBC.Query.ApprovalDocQueries;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
 
+#endregion
+
 namespace UniCloud.Application.FleetPlanBC.Tests.Services
 {
-        [TestClass]
+    [TestClass]
     public class ApprovalBCTest
     {
         #region 基础配置
@@ -43,17 +39,17 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
                 #region 批文相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IApprovalDocQuery, ApprovalDocQuery>()
-                .RegisterType<IApprovalDocAppService, ApprovalDocAppService>()
-                .RegisterType<IApprovalDocRepository, ApprovalDocRepository>()
+                .Register<IApprovalDocQuery, ApprovalDocQuery>()
+                .Register<IApprovalDocAppService, ApprovalDocAppService>()
+                .Register<IApprovalDocRepository, ApprovalDocRepository>()
                 #endregion
 
                 ;
-
         }
 
         [TestCleanup]
@@ -67,13 +63,13 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         public void GetApprovalDocs()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IApprovalDocAppService>();
+            var service = UniContainer.Resolve<IApprovalDocAppService>();
 
             // Act
             var result = service.GetApprovalDocs().ToList();
 
             // Assert
-           Assert.IsTrue(result.Any());
+            Assert.IsTrue(result.Any());
         }
     }
 }

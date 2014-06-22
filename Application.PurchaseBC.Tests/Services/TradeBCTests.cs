@@ -19,7 +19,6 @@
 
 using System;
 using System.Linq;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
 using UniCloud.Application.PurchaseBC.Query.TradeQueries;
@@ -53,32 +52,33 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IPurchaseEvent, PurchaseEvent>(new WcfPerRequestLifetimeManager())
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
+                .Register<IPurchaseEvent, PurchaseEvent>(new WcfPerRequestLifetimeManager())
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<ITradeQuery, TradeQuery>()
-                .RegisterType<IOrderQuery, OrderQuery>()
-                .RegisterType<ITradeAppService, TradeAppService>()
-                .RegisterType<ITradeRepository, TradeRepository>()
-                .RegisterType<IOrderRepository, OrderRepository>()
-                .RegisterType<IMaterialRepository, MaterialRepository>()
-                .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
-                .RegisterType<IRelatedDocRepository, RelatedDocRepository>()
-                .RegisterType<IContractAircraftRepository, ContractAircraftRepository>()
-                .RegisterType<IContractEngineRepository, ContractEngineRepository>()
+                .Register<ITradeQuery, TradeQuery>()
+                .Register<IOrderQuery, OrderQuery>()
+                .Register<ITradeAppService, TradeAppService>()
+                .Register<ITradeRepository, TradeRepository>()
+                .Register<IOrderRepository, OrderRepository>()
+                .Register<IMaterialRepository, MaterialRepository>()
+                .Register<IActionCategoryRepository, ActionCategoryRepository>()
+                .Register<IRelatedDocRepository, RelatedDocRepository>()
+                .Register<IContractAircraftRepository, ContractAircraftRepository>()
+                .Register<IContractEngineRepository, ContractEngineRepository>()
 
                 #endregion
 
                 #region 供应商相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<ISupplierQuery, SupplierQuery>()
-                .RegisterType<ISupplierAppService, SupplierAppService>()
-                .RegisterType<ISupplierCompanyRepository, SupplierCompanyRepository>()
-                .RegisterType<ISupplierRepository, SupplierRepository>();
+                .Register<ISupplierQuery, SupplierQuery>()
+                .Register<ISupplierAppService, SupplierAppService>()
+                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
+                .Register<ISupplierRepository, SupplierRepository>();
 
             #endregion
         }
@@ -94,7 +94,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void GetTrades()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<ITradeAppService>();
+            var service = UniContainer.Resolve<ITradeAppService>();
 
             // Act
             var result = service.GetTrades().ToList();
@@ -107,7 +107,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void GetOrders()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<ITradeAppService>();
+            var service = UniContainer.Resolve<ITradeAppService>();
 
             // Act
             var result = service.GetAircraftPurchaseOrders().ToList();
@@ -120,7 +120,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void GetAircraftPurchaseOrderWithOrderLine()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<ITradeAppService>();
+            var service = UniContainer.Resolve<ITradeAppService>();
 
             // Act
             var result = service.GetAircraftPurchaseOrders().ToList();
@@ -133,7 +133,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void GetTradWithOrderAndOrderLine()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<ITradeAppService>();
+            var service = UniContainer.Resolve<ITradeAppService>();
 
             // Act
             var result1 = service.GetTrades().ToList();
@@ -148,8 +148,8 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void CreateTrade()
         {
             // Arrange
-            var supplierRep = DefaultContainer.Resolve<ISupplierRepository>();
-            var tradeRep = DefaultContainer.Resolve<ITradeRepository>();
+            var supplierRep = UniContainer.Resolve<ISupplierRepository>();
+            var tradeRep = UniContainer.Resolve<ITradeRepository>();
 
             var supplier = supplierRep.GetAll().FirstOrDefault();
             var trade1 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now, "购买飞机");
@@ -173,8 +173,8 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void FulfilOrderEventTest()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IOrderRepository>();
-            DefaultContainer.Resolve<IPurchaseEvent>();
+            var service = UniContainer.Resolve<IOrderRepository>();
+            UniContainer.Resolve<IPurchaseEvent>();
             var order = service.GetAll().FirstOrDefault();
 
             // Act

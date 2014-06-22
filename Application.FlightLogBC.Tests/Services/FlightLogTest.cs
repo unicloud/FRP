@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,21 +11,22 @@
 // 修改者：  时间：2014/5/26 14:57:53
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
 using System.Linq;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.FlightLogBC.FlightLogServices;
 using UniCloud.Application.FlightLogBC.Query.FlightLogQueries;
 using UniCloud.Domain.FlightLogBC.Aggregates.FlightLogAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FlightLogBC.Repositories;
-using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork.Mapping;
+using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
+using FlightLogBCUnitOfWork = UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork.Mapping.FlightLogBCUnitOfWork;
 
 #endregion
 
@@ -38,11 +40,12 @@ namespace UniCloud.Application.FlightLogBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, FlightLogBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IFlightLogRepository, FlightLogRepository>()
-                .RegisterType<IFlightLogAppService, FlightLogAppService>()
-                .RegisterType<IFlightLogQuery, FlightLogQuery>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, FlightLogBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IFlightLogRepository, FlightLogRepository>()
+                .Register<IFlightLogAppService, FlightLogAppService>()
+                .Register<IFlightLogQuery, FlightLogQuery>();
         }
 
         [TestCleanup]
@@ -55,7 +58,7 @@ namespace UniCloud.Application.FlightLogBC.Tests.Services
         public void TestGetFlightLogs()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IFlightLogAppService>();
+            var service = UniContainer.Resolve<IFlightLogAppService>();
 
             // Act
             var result = service.GetFlightLogs().ToList();
@@ -69,7 +72,7 @@ namespace UniCloud.Application.FlightLogBC.Tests.Services
         public void TestQueryAcFlightData()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IFlightLogAppService>();
+            var service = UniContainer.Resolve<IFlightLogAppService>();
 
             var date = new DateTime(2014, 2, 28);
             const string regNum = "B-2286";
@@ -79,6 +82,7 @@ namespace UniCloud.Application.FlightLogBC.Tests.Services
             // Assert
             Assert.IsTrue(result.Any());
         }
+
         #endregion
     }
 }

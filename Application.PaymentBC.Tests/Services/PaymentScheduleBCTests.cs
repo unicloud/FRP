@@ -17,18 +17,15 @@
 #region 命名空间
 
 using System.Linq;
-using Microsoft.Practices.Unity.InterceptionExtension;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PaymentBC.PaymentScheduleServices;
 using UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries;
-using UniCloud.Domain;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
-using UniCloud.Infrastructure.Crosscutting.InterceptionBehaviors;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PaymentBC.Tests.Services
@@ -41,18 +38,19 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IPaymentScheduleRepository, PaymentScheduleRepository>()
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IPaymentScheduleRepository, PaymentScheduleRepository>()
                 #region   付款计划相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IPaymentScheduleQuery, PaymentScheduleQuery>()
-                .RegisterType<IPaymentScheduleAppService, PaymentScheduleAppService>()
-                .RegisterType<IPaymentScheduleRepository, PaymentScheduleRepository>()
+                .Register<IPaymentScheduleQuery, PaymentScheduleQuery>()
+                .Register<IPaymentScheduleAppService, PaymentScheduleAppService>()
+                .Register<IPaymentScheduleRepository, PaymentScheduleRepository>()
 
                 #endregion
 
-                .RegisterType<IPaymentScheduleQuery, PaymentScheduleQuery>();
+                .Register<IPaymentScheduleQuery, PaymentScheduleQuery>();
         }
 
         [TestCleanup]
@@ -66,7 +64,7 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         public void GetPaymentSchedules()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IPaymentScheduleAppService>();
+            var service = UniContainer.Resolve<IPaymentScheduleAppService>();
 
             // Act
             var result = service.GetPaymentSchedules().ToList();
@@ -79,7 +77,7 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         public void GetAcPaymentSchedules()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IPaymentScheduleAppService>();
+            var service = UniContainer.Resolve<IPaymentScheduleAppService>();
             // Act
             var result = service.GetAcPaymentSchedules().ToList();
             // Assert

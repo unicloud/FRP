@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -17,16 +19,11 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PaymentBC.ContractEngineServices;
-using UniCloud.Application.PaymentBC.OrderServices;
 using UniCloud.Application.PaymentBC.Query.ContractEngineQueries;
-using UniCloud.Application.PaymentBC.Query.OrderQueries;
-using UniCloud.Domain.PaymentBC.Aggregates.ContractEngineAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 using UniCloud.Infrastructure.Data;
-using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PaymentBC.Tests.Services
@@ -39,12 +36,13 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
                 #region 合同发动机相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IContractEngineQuery, ContractEngineQuery>()
-                .RegisterType<IContractEngineAppService, ContractEngineAppService>()
+                .Register<IContractEngineQuery, ContractEngineQuery>()
+                .Register<IContractEngineAppService, ContractEngineAppService>()
                 #endregion
 
                 ;
@@ -61,8 +59,8 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         public void GetContractEngines()
         {
             // Arrange
-            
-            var service = DefaultContainer.Resolve<IContractEngineAppService>();
+
+            var service = UniContainer.Resolve<IContractEngineAppService>();
 
             // Act
             var result = service.GetContractEngines().ToList();

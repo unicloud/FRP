@@ -1,7 +1,6 @@
 ﻿#region 命名空间
 
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.BaseManagementBC.Aggregates.AircraftCabinTypeAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.BusinessLicenseAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
@@ -13,16 +12,17 @@ using UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.XmlSettingAgg;
-using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql;
 
 #endregion
 
 namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork
 {
-    public class BaseManagementBCUnitOfWork : BaseContext<BaseManagementBCUnitOfWork>
+    public class BaseManagementBCUnitOfWork : UniContext<BaseManagementBCUnitOfWork>
     {
         #region IDbSet成员
 
+        private IDbSet<AircraftCabinType> _aircraftCabinTypes;
+        private IDbSet<BusinessLicense> _businessLicenses;
         private IDbSet<FunctionItem> _functionItems;
         private IDbSet<OrganizationRole> _organizationRoles;
         private IDbSet<OrganizationUser> _organizationUsers;
@@ -31,8 +31,6 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork
         private IDbSet<Role> _roles;
         private IDbSet<UserRole> _userRoles;
         private IDbSet<User> _users;
-        private IDbSet<BusinessLicense> _businessLicenses;
-        private IDbSet<AircraftCabinType> _aircraftCabinTypes;
         private IDbSet<XmlSetting> _xmlSettings;
 
         public IDbSet<FunctionItem> FunctionItems
@@ -88,93 +86,6 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork
         public IDbSet<XmlSetting> XmlSettings
         {
             get { return _xmlSettings ?? (_xmlSettings = base.Set<XmlSetting>()); }
-        }
-        #endregion
-
-        #region DbContext 重载
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            // 移除不需要的公约
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-
-            // 添加通过“TypeConfiguration”类的方式建立的配置
-            if (DbConfig.DbUniCloud.Contains("Oracle"))
-            {
-                OracleConfigurations(modelBuilder);
-            }
-            else if (DbConfig.DbUniCloud.Contains("Sql"))
-            {
-                SqlConfigurations(modelBuilder);
-            }
-        }
-
-        /// <summary>
-        ///     Oracle数据库
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private static void OracleConfigurations(DbModelBuilder modelBuilder)
-        {
-        }
-
-        /// <summary>
-        ///     SqlServer数据库
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private static void SqlConfigurations(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Configurations
-
-                #region FunctionItemAgg
-
-                .Add(new FunctionItemEntityConfiguration())
-
-                #endregion
-                #region OrganizationUserAgg
-
-                .Add(new OrganizationUserEntityConfiguration())
-
-                #endregion
-                #region OrganizationRoleAgg
-
-                .Add(new OrganizationRoleEntityConfiguration())
-
-                #endregion
-                #region OrganizationAgg
-
-                .Add(new OrganizationEntityConfiguration())
-
-                #endregion
-                #region RoleFunctionAgg
-
-                .Add(new RoleFunctionEntityConfiguration())
-
-                #endregion
-                #region RoleAgg
-
-                .Add(new RoleEntityConfiguration())
-
-                #endregion
-                #region UserRoleAgg
-
-                .Add(new UserRoleEntityConfiguration())
-
-                #endregion
-                #region UserAgg
-
-                .Add(new UserEntityConfiguration())
-
-                #endregion
-                #region BusinessLicenseAgg
-                .Add(new BusinessLicenseEntityConfiguration())
-                #endregion
-            #region XmlSettingAgg
-
-.Add(new XmlSettingEntityConfiguration())
-
-            #endregion
-.Add(new AircraftCabinTypeEntityConfiguration())
-                ;
         }
 
         #endregion

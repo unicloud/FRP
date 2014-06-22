@@ -1,64 +1,59 @@
-﻿//------------------------------------------------------------------------------
+﻿#region 版本控制
+
+// =====================================================
+// 版权所有 (C) 2014 UniCloud 
+// 【本类功能概述】
 // 
-//------------------------------------------------------------------------------
+// 作者：丁志浩 时间：2013/11/29，13:11
+// 方案：FRP
+// 项目：DistributedServices.Portal
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// =====================================================
+
+#endregion
+
+#region 命名空间
+
+using UniCloud.Application.PortalBC.Query;
+using UniCloud.Application.PortalBC.Services;
+using UniCloud.Domain.Events;
+using UniCloud.Domain.PortalBC.Aggregates.AircraftSeriesAgg;
+using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Data.PortalBC.Repositories;
+using UniCloud.Infrastructure.Data.PortalBC.UnitOfWork;
+using UniCloud.Infrastructure.Utilities.Container;
+
+#endregion
+
 namespace UniCloud.DistributedServices.Portal.InstanceProviders
 {
-    using Application.PortalBC.Services;
-    using Infrastructure.Crosscutting.Logging;
-    using Infrastructure.Crosscutting.NetFramework.Logging;
-    using Microsoft.Practices.Unity;
-
     /// <summary>
-    /// DI 容器
+    ///     DI 容器
     /// </summary>
     public static class Container
     {
-        #region 属性
-
-        /// <summary>
-        /// 当前 DI 容器
-        /// </summary>
-        public static IUnityContainer Current { get; private set; }
-
-        #endregion
-
-        #region 构造函数
-
-        static Container()
-        {
-            ConfigureContainer();
-            ConfigureFactories();
-        }
-
-        #endregion
-
         #region 方法
 
-        static void ConfigureContainer()
+        public static void ConfigureContainer()
         {
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PortalBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
 
-            Current = new UnityContainer();
+                #region 飞机系列相关配置，包括查询，应用服务，仓储注册
 
+                .Register<IPortalAppService, PortalAppService>()
+                .Register<IPortalQuery, PortalQuery>()
+                .Register<IAircraftSeriesRepository, AircraftSeriesRepository>()
 
-            //-> Unit of Work与仓储
+                #endregion
 
-            //-> 领域服务
-
-
-            //-> 应用服务
-            Current.RegisterType<IPortalAppService, PortalAppService>();
-            //-> 分布式服务
-
+                .Register<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager());
         }
 
-
-        static void ConfigureFactories()
-        {
-            LoggerFactory.SetCurrent(new UniCloudLogFactory());
-        }
-
-      
         #endregion
-
     }
 }

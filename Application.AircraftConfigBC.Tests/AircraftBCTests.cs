@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,25 +11,24 @@
 // 修改者：linxw 时间：2014/1/17 11:29:57
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
+#region 命名空间
+
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCloud.Application.AircraftConfigBC.AircraftLicenseServices;
 using UniCloud.Application.AircraftConfigBC.AircraftServices;
 using UniCloud.Application.AircraftConfigBC.DTO;
-using UniCloud.Application.AircraftConfigBC.Query.AircraftLicenseQueries;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftQueries;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.AircraftConfigBC.Repositories;
 using UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
+
+#endregion
 
 namespace Application.AircraftConfigBC.Tests
 {
@@ -40,12 +40,12 @@ namespace Application.AircraftConfigBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IAircraftQuery, AircraftQuery>()
-                .RegisterType<IAircraftAppService, AircraftAppService>()
-                .RegisterType<IAircraftRepository, AircraftRepository>();
-
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IAircraftQuery, AircraftQuery>()
+                .Register<IAircraftAppService, AircraftAppService>()
+                .Register<IAircraftRepository, AircraftRepository>();
         }
 
         [TestCleanup]
@@ -59,12 +59,12 @@ namespace Application.AircraftConfigBC.Tests
         public void TestGetAircrafts()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IAircraftAppService>();
+            var service = UniContainer.Resolve<IAircraftAppService>();
 
             // Act
             var result = service.GetAircrafts().ToList();
             var first = result.FirstOrDefault();
-            AircraftLicenseDTO aircraftLicense = new AircraftLicenseDTO();
+            var aircraftLicense = new AircraftLicenseDTO();
             aircraftLicense.AircraftLicenseId = 1;
             aircraftLicense.Name = "123";
             aircraftLicense.LicenseTypeId = 1;

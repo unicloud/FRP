@@ -71,8 +71,8 @@ namespace UniCloud.Application.BaseManagementBC
             _pName = "UniMembershipProvider";
             var cfg = WebConfigurationManager.OpenWebConfiguration(HostingEnvironment.ApplicationVirtualPath);
             _machineKey = (MachineKeySection) cfg.GetSection("system.web/machineKey");
-            _userRepository = DefaultContainer.Resolve<IUserRepository>();
-            _userRoleRepository = DefaultContainer.Resolve<IUserRoleRepository>();
+            _userRepository = UniContainer.Resolve<IUserRepository>();
+            _userRoleRepository = UniContainer.Resolve<IUserRoleRepository>();
         }
 
         #endregion

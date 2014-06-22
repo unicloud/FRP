@@ -17,7 +17,6 @@
 #region 命名空间
 
 using System.Collections.Generic;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
@@ -36,9 +35,10 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IItemRepository, ItemRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IItemRepository, ItemRepository>();
         }
 
         [TestCleanup]
@@ -52,7 +52,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         public void CreateItems()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IItemRepository>();
+            var service = UniContainer.Resolve<IItemRepository>();
 
             // Act
             var items = new List<Item>

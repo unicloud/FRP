@@ -36,13 +36,13 @@ namespace UniCloud.DistributedServices.BaseManagement
         public BaseManagementData()
             : base("UniCloud.Application.BaseManagementBC.DTO")
         {
-            _userAppService = DefaultContainer.Resolve<IUserAppService>();
-            _functionItemAppService = DefaultContainer.Resolve<IFunctionItemAppService>();
-            _roleAppService = DefaultContainer.Resolve<IRoleAppService>();
-            _organizationAppService = DefaultContainer.Resolve<IOrganizationAppService>();
-            _businessLicenseAppService = DefaultContainer.Resolve<IBusinessLicenseAppService>();
-            _aircraftCabinTypeAppService = DefaultContainer.Resolve<IAircraftCabinTypeAppService>();
-            _xmlSettingAppService = DefaultContainer.Resolve<IXmlSettingAppService>();
+            _userAppService = UniContainer.Resolve<IUserAppService>();
+            _functionItemAppService = UniContainer.Resolve<IFunctionItemAppService>();
+            _roleAppService = UniContainer.Resolve<IRoleAppService>();
+            _organizationAppService = UniContainer.Resolve<IOrganizationAppService>();
+            _businessLicenseAppService = UniContainer.Resolve<IBusinessLicenseAppService>();
+            _aircraftCabinTypeAppService = UniContainer.Resolve<IAircraftCabinTypeAppService>();
+            _xmlSettingAppService = UniContainer.Resolve<IXmlSettingAppService>();
         }
 
 

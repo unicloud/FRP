@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,15 +11,12 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.FleetPlanBC.ProgrammingServices;
 using UniCloud.Application.FleetPlanBC.Query.ProgrammingQueries;
@@ -27,7 +25,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.FleetPlanBC.Tests.Services
@@ -40,12 +38,12 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IProgrammingRepository, ProgrammingRepository>()
-                .RegisterType<IProgrammingAppService, ProgrammingAppService>()
-                .RegisterType<IProgrammingQuery, ProgrammingQuery>();
-
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IProgrammingRepository, ProgrammingRepository>()
+                .Register<IProgrammingAppService, ProgrammingAppService>()
+                .Register<IProgrammingQuery, ProgrammingQuery>();
         }
 
         [TestCleanup]
@@ -59,7 +57,7 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         public void TestGetProgrammings()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IProgrammingAppService>();
+            var service = UniContainer.Resolve<IProgrammingAppService>();
 
             // Act
             var result = service.GetProgrammings().ToList();

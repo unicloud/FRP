@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,13 +11,13 @@
 // 修改者：linxw 时间：2014/3/13 20:32:30
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System.Data.Entity;
 using System.Linq;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
 using UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries;
@@ -38,16 +39,17 @@ namespace UniCloud.Application.BaseManagementBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                         .RegisterType<IQueryableUnitOfWork, BaseManagementBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-            #region 相关配置，包括查询，应用服务，仓储注册
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, BaseManagementBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                #region 相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IFunctionItemAppService, FunctionItemAppService>()
-                         .RegisterType<IFunctionItemQuery, FunctionItemQuery>()
-                         .RegisterType<IFunctionItemRepository, FunctionItemRepository>()
-            #endregion
+                .Register<IFunctionItemAppService, FunctionItemAppService>()
+                .Register<IFunctionItemQuery, FunctionItemQuery>()
+                .Register<IFunctionItemRepository, FunctionItemRepository>()
+                #endregion
 
-;
+                ;
         }
 
         [TestCleanup]
@@ -60,9 +62,9 @@ namespace UniCloud.Application.BaseManagementBC.Tests
         [TestMethod]
         public void TestGetFunctionItems()
         {
-            var work = DefaultContainer.Resolve<BaseManagementBCUnitOfWork>();
+            var work = UniContainer.Resolve<BaseManagementBCUnitOfWork>();
             var aaa = work.FunctionItems.Include(p => p.SubFunctionItems).Where(p => p.ParentItemId == null).ToList();
-            var service = DefaultContainer.Resolve<IFunctionItemAppService>();
+            var service = UniContainer.Resolve<IFunctionItemAppService>();
             var result = service.GetFunctionItemsWithHierarchy();
         }
     }

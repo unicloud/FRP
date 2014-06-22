@@ -17,7 +17,6 @@
 #region 命名空间
 
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg;
 using UniCloud.Domain.PartBC.Aggregates.AdSbAgg;
 using UniCloud.Domain.PartBC.Aggregates.AirBusScnAgg;
@@ -47,13 +46,12 @@ using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.ThresholdAgg;
 using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
-using UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql;
 
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
 {
-    public class PartBCUnitOfWork : BaseContext<PartBCUnitOfWork>
+    public class PartBCUnitOfWork : UniContext<PartBCUnitOfWork>
     {
         #region IDbSet成员
 
@@ -237,205 +235,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         public IDbSet<Thrust> Thrusts
         {
             get { return _thrusts ?? (_thrusts = Set<Thrust>()); }
-        }
-
-        #endregion
-
-        #region DbContext 重载
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            // 移除不需要的公约
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-
-            // 添加通过“TypeConfiguration”类的方式建立的配置
-            if (DbConfig.DbUniCloud.Contains("Oracle"))
-            {
-                OracleConfigurations(modelBuilder);
-            }
-            else if (DbConfig.DbUniCloud.Contains("Sql"))
-            {
-                SqlConfigurations(modelBuilder);
-            }
-        }
-
-        /// <summary>
-        ///     Oracle数据库
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private static void OracleConfigurations(DbModelBuilder modelBuilder)
-        {
-        }
-
-        /// <summary>
-        ///     SqlServer数据库
-        /// </summary>
-        /// <param name="modelBuilder"></param>
-        private static void SqlConfigurations(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Configurations
-
-                #region AcDailyUtilizationAgg
-
-                .Add(new AcDailyUtilizationEntityConfiguration())
-
-                #endregion
-
-                #region AircraftAgg
-
-                .Add(new AircraftEntityConfiguration())
-
-                #endregion
-
-                #region AircraftTypeAgg
-
-                .Add(new AircraftTypeEntityConfiguration())
-                .Add(new AircraftSeriesEntityConfiguration())
-
-                #endregion
-
-                #region AnnualMaintainPlan
-
-                .Add(new AnnualEntityConfiguration())
-                .Add(new AnnualMaintainPlanEntityConfiguration())
-                .Add(new EngineMaintainPlanEntityConfiguration())
-                .Add(new EngineMaintainPlanDetailEntityConfiguration())
-                .Add(new AircraftMaintainPlanEntityConfiguration())
-                .Add(new AircraftMaintainPlanDetailEntityConfiguration())
-                #endregion
-
-                #region BasicConfigGroupAgg
-
-                .Add(new BasicConfigGroupEntityConfiguration())
-                .Add(new BasicConfigEntityConfiguration())
-                .Add(new BasicConfigHistoryEntityConfiguration())
-
-                #endregion
-
-                #region ContractAircraftAgg
-
-                .Add(new ContractAircraftEntityConfiguration())
-
-                #endregion
-
-                #region CtrlUnitAgg
-
-                .Add(new CtrlUnitEntityConfiguration())
-
-                #endregion
-
-                #region FlightLogAgg
-
-                .Add(new FlightLogEntityConfiguration())
-
-                #endregion
-
-                #region ItemAgg
-
-                .Add(new ItemEntityConfiguration())
-                #endregion
-
-                #region ItemAgg
-
-                .Add(new InstallControllerEntityConfiguration())
-                .Add(new DependencyEntityConfiguration())
-                #endregion
-
-                #region MaintainCtrlAgg
-
-                .Add(new MaintainCtrlEntityConfiguration())
-                .Add(new ItemMaintainCtrlEntityConfiguration())
-                .Add(new PnMaintainCtrlEntityConfiguration())
-                .Add(new SnMaintainCtrlEntityConfiguration())
-
-                #endregion
-
-                #region MaintainWorkAgg
-
-                .Add(new MaintainWorkEntityConfiguration())
-
-                #endregion
-
-                #region ModAgg
-
-                .Add(new ModEntityConfiguration())
-
-                #endregion
-
-                #region OilMonitorAgg
-
-                .Add(new OilMonitorEntityConfiguration())
-
-                #endregion
-
-
-                #region PnRegAgg
-
-                .Add(new PnRegEntityConfiguration())
-                #endregion
-
-                #region ScnAgg
-
-                .Add(new ScnEntityConfiguration())
-                .Add(new ApplicableAircraftEntityConfiguration())
-                .Add(new AirBusScnEntityConfiguration())
-
-                #endregion
-
-                #region SnRegAgg
-
-                .Add(new SnRegEntityConfiguration())
-                .Add(new LifeMonitorEntityConfiguration())
-                .Add(new EngineRegEntityConfiguration())
-                .Add(new APURegEntityConfiguration())
-
-                #endregion
-
-                #region SnHistoryAgg
-
-                .Add(new SnHistoryEntityConfiguration())
-
-                #endregion
-
-                #region SnRemInstRecordAgg
-
-                .Add(new SnRemInstRecordEntityConfiguration())
-
-                #endregion
-
-                #region SpecialConfigAgg
-
-                .Add(new AcConfigEntityConfiguration())
-                .Add(new SpecialConfigEntityConfiguration())
-
-                #endregion
-
-                #region ThrustAgg
-
-                .Add(new ThrustEntityConfiguration())
-
-                #endregion
-
-                #region ThresholdAgg
-
-                .Add(new ThresholdEntityConfiguration())
-
-                #endregion
-
-
-                #region AirStructureDamageAgg
-
-                .Add(new AirStructureDamageEntityConfiguration())
-
-                #endregion
-
-                #region  AdSbAgg
-
-                .Add(new AdSbEntityConfiguration())
-
-                #endregion
-
-                ;
         }
 
         #endregion

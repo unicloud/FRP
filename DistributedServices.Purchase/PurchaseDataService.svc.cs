@@ -99,7 +99,7 @@ namespace UniCloud.DistributedServices.Purchase
         [WebGet]
         public void AddDocPath(string name, string isLeaf, string documentId, int parentId)
         {
-            var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
+            var documentPathAppService = UniContainer.Resolve<IDocumentPathAppService>();
             documentPathAppService.AddDocPath(name, isLeaf, documentId, parentId);
         }
 
@@ -110,28 +110,28 @@ namespace UniCloud.DistributedServices.Purchase
         [WebGet]
         public void DelDocPath(int docPathId)
         {
-            var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
+            var documentPathAppService = UniContainer.Resolve<IDocumentPathAppService>();
             documentPathAppService.DelDocPath(docPathId);
         }
 
         [WebGet]
         public void ModifyDocPath(int docPathId, string name, int parentId)
         {
-            var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
+            var documentPathAppService = UniContainer.Resolve<IDocumentPathAppService>();
             documentPathAppService.ModifyDocPath(docPathId, name, parentId);
         }
 
         [WebGet]
         public IEnumerable<DocumentPathDTO> SearchDocumentPath(int documentPathId, string name)
         {
-            var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
+            var documentPathAppService = UniContainer.Resolve<IDocumentPathAppService>();
             return documentPathAppService.SearchDocumentPath(documentPathId, name);
         }
 
         [WebGet]
         public List<ContractDocumentDTO> SearchContractDocument(string keyword)
         {
-            var searchDocument = DefaultContainer.Resolve<IContractDocumentAppService>();
+            var searchDocument = UniContainer.Resolve<IContractDocumentAppService>();
             return searchDocument.Search(keyword);
         }
         #endregion

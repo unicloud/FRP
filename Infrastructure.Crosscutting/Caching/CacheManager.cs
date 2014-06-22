@@ -35,7 +35,7 @@ namespace UniCloud.Infrastructure.Crosscutting.Caching
 
         private CacheManager()
         {
-            _cacheProvider = DefaultContainer.Resolve<ICacheProvider>();
+            _cacheProvider = UniContainer.Resolve<ICacheProvider>();
         }
         #endregion
 

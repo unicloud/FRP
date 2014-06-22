@@ -19,7 +19,6 @@
 
 using System;
 using System.Linq;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
@@ -40,10 +39,11 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<ITradeRepository, TradeRepository>()
-                .RegisterType<ISupplierRepository, SupplierRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<ITradeRepository, TradeRepository>()
+                .Register<ISupplierRepository, SupplierRepository>();
         }
 
         [TestCleanup]
@@ -57,7 +57,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void GetAllTrade()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<ITradeRepository>();
+            var service = UniContainer.Resolve<ITradeRepository>();
 
             // Act
             var result = service.GetAll().ToList();
@@ -70,8 +70,8 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void CreateTrade()
         {
             // Arrange
-            var supplierRep = DefaultContainer.Resolve<ISupplierRepository>();
-            var tradeRep = DefaultContainer.Resolve<ITradeRepository>();
+            var supplierRep = UniContainer.Resolve<ISupplierRepository>();
+            var tradeRep = UniContainer.Resolve<ITradeRepository>();
 
             var supplier = supplierRep.GetAll().FirstOrDefault();
             var trade = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now, "购买飞机");

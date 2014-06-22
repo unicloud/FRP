@@ -17,7 +17,6 @@
 
 #region 命名空间
 
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
@@ -36,9 +35,10 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IThrustRepository, ThrustRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IThrustRepository, ThrustRepository>();
         }
 
         [TestCleanup]
@@ -52,7 +52,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         public void CreateThrustTest()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IThrustRepository>();
+            var service = UniContainer.Resolve<IThrustRepository>();
 
             // Act
             var thrust = ThrustFactory.CreateThrust("24K", "推力24K");

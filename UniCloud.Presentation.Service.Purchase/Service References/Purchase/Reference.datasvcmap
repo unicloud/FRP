@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="21b259d8-d99d-4864-87aa-62bb998beb27" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d30aec76-dfb6-46f5-8093-748138e718ee" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
   <MetadataSources>
-    <MetadataSource Address="http://localhost:20059/PurchaseDataService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost/DistributedServices.Purchase/PurchaseDataService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="10d9138c-919a-45b2-b69a-1858dc71725a" SourceId="1" SourceUrl="http://localhost:20059/PurchaseDataService.svc" />
+    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="ab2f8460-f568-4e6f-ad6c-8f65a7e6b5c9" SourceId="1" SourceUrl="http://localhost/DistributedServices.Purchase/PurchaseDataService.svc" />
   </Metadata>
   <Extensions />
   <Parameters>

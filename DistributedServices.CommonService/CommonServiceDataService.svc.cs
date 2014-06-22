@@ -85,14 +85,14 @@ namespace UniCloud.DistributedServices.CommonService
         [WebGet]
         public List<DocumentDTO> SearchDocument(string keyword, string documentType)
         {
-            var searchDocument = DefaultContainer.Resolve<IDocumentSearchAppService>();
+            var searchDocument = UniContainer.Resolve<IDocumentSearchAppService>();
             return searchDocument.Search(keyword, documentType);
         }
 
         [WebGet]
         public DocumentDTO GetSingleDocument(string documentId)
         {
-            var documentService = DefaultContainer.Resolve<IDocumentAppService>();
+            var documentService = UniContainer.Resolve<IDocumentAppService>();
             return documentService.GetSingleDocument(Guid.Parse(documentId));
         }
         #endregion

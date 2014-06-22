@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -126,6 +127,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\RequestEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\XmlConfigEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\OracleConfigurations.cs" />
+    <Compile Include="UnitOfWork\SqlConfigurations.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UnitOfWork\Mapping\Oracle\" />

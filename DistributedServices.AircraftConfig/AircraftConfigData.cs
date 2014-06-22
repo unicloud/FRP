@@ -33,14 +33,14 @@ namespace UniCloud.DistributedServices.AircraftConfig
         public AircraftConfigData()
             : base("UniCloud.Application.AircraftConfigBC.DTO")
         {
-            _actionCategoryAppService = DefaultContainer.Resolve<IActionCategoryAppService>();
-            _aircraftSeriesAppService = DefaultContainer.Resolve<IAircraftSeriesAppService>();
-            _aircraftCategoryAppService = DefaultContainer.Resolve<IAircraftCategoryAppService>();
-            _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
-            _manufacturerAppService = DefaultContainer.Resolve<IManufacturerAppService>();
-            _aircraftLicenseAppService = DefaultContainer.Resolve<IAircraftLicenseAppService>();
-            _aircraftAppService = DefaultContainer.Resolve<IAircraftAppService>();
-            _aircraftConfigurationAppService = DefaultContainer.Resolve<IAircraftConfigurationAppService>();
+            _actionCategoryAppService = UniContainer.Resolve<IActionCategoryAppService>();
+            _aircraftSeriesAppService = UniContainer.Resolve<IAircraftSeriesAppService>();
+            _aircraftCategoryAppService = UniContainer.Resolve<IAircraftCategoryAppService>();
+            _aircraftTypeAppService = UniContainer.Resolve<IAircraftTypeAppService>();
+            _manufacturerAppService = UniContainer.Resolve<IManufacturerAppService>();
+            _aircraftLicenseAppService = UniContainer.Resolve<IAircraftLicenseAppService>();
+            _aircraftAppService = UniContainer.Resolve<IAircraftAppService>();
+            _aircraftConfigurationAppService = UniContainer.Resolve<IAircraftConfigurationAppService>();
         }
 
         #region 活动类型

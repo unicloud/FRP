@@ -30,7 +30,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -43,19 +43,20 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IReceptionRepository, ReceptionRepository>()
-                .RegisterType<ISupplierRepository, SupplierRepository>()
-                .RegisterType<IContractAircraftRepository, ContractAircraftRepository>()
-                .RegisterType<IAircraftLeaseReceptionAppService, AircraftLeaseReceptionAppService>()
-                .RegisterType<IAircraftPurchaseReceptionAppService, AircraftPurchaseReceptionAppService>()
-                .RegisterType<IEngineLeaseReceptionAppService, EngineLeaseReceptionAppService>()
-                .RegisterType<IEnginePurchaseReceptionAppService, EnginePurchaseReceptionAppService>()
-                .RegisterType<IAircraftLeaseReceptionQuery, AircraftLeaseReceptionQuery>()
-                .RegisterType<IAircraftPurchaseReceptionQuery, AircraftPurchaseReceptionQuery>()
-                .RegisterType<IEngineLeaseReceptionQuery, EngineLeaseReceptionQuery>()
-                .RegisterType<IEnginePurchaseReceptionQuery, EnginePurchaseReceptionQuery>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IReceptionRepository, ReceptionRepository>()
+                .Register<ISupplierRepository, SupplierRepository>()
+                .Register<IContractAircraftRepository, ContractAircraftRepository>()
+                .Register<IAircraftLeaseReceptionAppService, AircraftLeaseReceptionAppService>()
+                .Register<IAircraftPurchaseReceptionAppService, AircraftPurchaseReceptionAppService>()
+                .Register<IEngineLeaseReceptionAppService, EngineLeaseReceptionAppService>()
+                .Register<IEnginePurchaseReceptionAppService, EnginePurchaseReceptionAppService>()
+                .Register<IAircraftLeaseReceptionQuery, AircraftLeaseReceptionQuery>()
+                .Register<IAircraftPurchaseReceptionQuery, AircraftPurchaseReceptionQuery>()
+                .Register<IEngineLeaseReceptionQuery, EngineLeaseReceptionQuery>()
+                .Register<IEnginePurchaseReceptionQuery, EnginePurchaseReceptionQuery>();
         }
 
         [TestCleanup]
@@ -69,7 +70,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void TestGetAircraftLeaseReceptions()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IAircraftLeaseReceptionAppService>();
+            var service = UniContainer.Resolve<IAircraftLeaseReceptionAppService>();
 
             // Act
             var result = service.GetAircraftLeaseReceptions().ToList();
@@ -82,7 +83,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void TestModifyAircraftLeaseReception()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IAircraftLeaseReceptionAppService>();
+            var service = UniContainer.Resolve<IAircraftLeaseReceptionAppService>();
 
             // Act
             var result = service.GetAircraftLeaseReceptions().ToList();
@@ -95,9 +96,9 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void TesInsertAircraftLeaseReception()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IAircraftLeaseReceptionAppService>();
+            var service = UniContainer.Resolve<IAircraftLeaseReceptionAppService>();
             //Data
-            var reception = new AircraftLeaseReceptionDTO()
+            var reception = new AircraftLeaseReceptionDTO
             {
                 ReceptionNumber = "20131209001",
                 Description = "miaoshu",
@@ -108,9 +109,9 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                 CloseDate = DateTime.Now,
                 SupplierName = "空客",
                 SupplierId = 2,
-                ReceptionLines = new List<AircraftLeaseReceptionLineDTO>()
+                ReceptionLines = new List<AircraftLeaseReceptionLineDTO>
                 {
-                    new AircraftLeaseReceptionLineDTO()
+                    new AircraftLeaseReceptionLineDTO
                     {
                         MSN = "1231",
                         ReceivedAmount = 123,
@@ -122,14 +123,14 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                         ContractAircraftId = 2,
                     }
                 },
-                ReceptionSchedules = new List<ReceptionScheduleDTO>()
+                ReceptionSchedules = new List<ReceptionScheduleDTO>
                 {
-                    new ReceptionScheduleDTO()
+                    new ReceptionScheduleDTO
                     {
                         Subject = "123",
-                        Body ="123453",
+                        Body = "123453",
                         Importance = "高级别",
-                        Start =new DateTime(2013,09,01),
+                        Start = new DateTime(2013, 09, 01),
                         End = DateTime.Now,
                         Group = "机务组",
                         Tempo = "已完成",

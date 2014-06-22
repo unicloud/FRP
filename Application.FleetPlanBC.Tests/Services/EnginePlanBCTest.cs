@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,13 +11,13 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
 using System.Linq;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
 using UniCloud.Application.FleetPlanBC.AirlinesServices;
@@ -53,48 +54,49 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-            #region 飞机计划相关配置，包括查询，应用服务，仓储注册
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                #region 飞机计划相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IEnginePlanQuery, EnginePlanQuery>()
-                .RegisterType<IEnginePlanAppService, EnginePlanAppService>()
-                .RegisterType<IEnginePlanRepository, EnginePlanRepository>()
-            #endregion
+                .Register<IEnginePlanQuery, EnginePlanQuery>()
+                .Register<IEnginePlanAppService, EnginePlanAppService>()
+                .Register<IEnginePlanRepository, EnginePlanRepository>()
+                #endregion
 
-            #region 活动类型相关配置，包括查询，应用服务，仓储注册
+                #region 活动类型相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IActionCategoryQuery, ActionCategoryQuery>()
-                .RegisterType<IActionCategoryAppService, ActionCategoryAppService>()
-                .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
-            #endregion
-            #region 机型相关配置，包括查询，应用服务，仓储注册
+                .Register<IActionCategoryQuery, ActionCategoryQuery>()
+                .Register<IActionCategoryAppService, ActionCategoryAppService>()
+                .Register<IActionCategoryRepository, ActionCategoryRepository>()
+                #endregion
+                #region 机型相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IEngineTypeQuery, EngineTypeQuery>()
-                .RegisterType<IEngineTypeAppService, EngineTypeAppService>()
-                .RegisterType<IEngineTypeRepository, EngineTypeRepository>()
-            #endregion
-            #region 航空公司相关配置，包括查询，应用服务，仓储注册
+                .Register<IEngineTypeQuery, EngineTypeQuery>()
+                .Register<IEngineTypeAppService, EngineTypeAppService>()
+                .Register<IEngineTypeRepository, EngineTypeRepository>()
+                #endregion
+                #region 航空公司相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IAirlinesQuery, AirlinesQuery>()
-                .RegisterType<IAirlinesAppService, AirlinesAppService>()
-                .RegisterType<IAirlinesRepository, AirlinesRepository>()
-            #endregion
-            #region 计划年度相关配置，包括查询，应用服务，仓储注册
+                .Register<IAirlinesQuery, AirlinesQuery>()
+                .Register<IAirlinesAppService, AirlinesAppService>()
+                .Register<IAirlinesRepository, AirlinesRepository>()
+                #endregion
+                #region 计划年度相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IAnnualQuery, AnnualQuery>()
-                .RegisterType<IAnnualAppService, AnnualAppService>()
-                .RegisterType<IAnnualRepository, AnnualRepository>()
-            #endregion
+                .Register<IAnnualQuery, AnnualQuery>()
+                .Register<IAnnualAppService, AnnualAppService>()
+                .Register<IAnnualRepository, AnnualRepository>()
+                #endregion
 
-            #region 计划飞相关配置，包括查询，应用服务，仓储注册
+                #region 计划飞相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IPlanEngineQuery, PlanEngineQuery>()
-                .RegisterType<IPlanEngineAppService, PlanEngineAppService>()
-                .RegisterType<IPlanEngineRepository, PlanEngineRepository>()
-            #endregion
+                .Register<IPlanEngineQuery, PlanEngineQuery>()
+                .Register<IPlanEngineAppService, PlanEngineAppService>()
+                .Register<IPlanEngineRepository, PlanEngineRepository>()
+                #endregion
 
-;
+                ;
         }
 
         [TestCleanup]
@@ -108,7 +110,7 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         public void GetEnginePlans()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IEnginePlanAppService>();
+            var service = UniContainer.Resolve<IEnginePlanAppService>();
 
             // Act
             var result = service.GetEnginePlans().ToList();
@@ -120,11 +122,11 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestMethod]
         public void AddEnginePlans()
         {
-            var context = DefaultContainer.Resolve<IEnginePlanRepository>();
-            var airlinesContext = DefaultContainer.Resolve<IAirlinesRepository>();
-            var annualContext = DefaultContainer.Resolve<IAnnualRepository>();
-            var engineTypeContext = DefaultContainer.Resolve<IEngineTypeRepository>();
-            var actionCategoryContext = DefaultContainer.Resolve<IActionCategoryRepository>();
+            var context = UniContainer.Resolve<IEnginePlanRepository>();
+            var airlinesContext = UniContainer.Resolve<IAirlinesRepository>();
+            var annualContext = UniContainer.Resolve<IAnnualRepository>();
+            var engineTypeContext = UniContainer.Resolve<IEngineTypeRepository>();
+            var actionCategoryContext = UniContainer.Resolve<IActionCategoryRepository>();
             //获取
             var actionCategory = actionCategoryContext.GetAll().ToList().First();
             var engineType = engineTypeContext.GetAll().ToList().First();

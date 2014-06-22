@@ -1,25 +1,33 @@
-//------------------------------------------------------------------------------
+#region 版本控制
+
+// =====================================================
+// 版权所有 (C) 2014 UniCloud 
+// 【本类功能概述】
 // 
-//------------------------------------------------------------------------------
+// 作者：丁志浩 时间：2013/11/29，13:11
+// 方案：FRP
+// 项目：DistributedServices.Portal
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// =====================================================
+
+#endregion
+
+#region 命名空间
+
+using System.Data.Services;
+using System.Data.Services.Common;
+
+#endregion
+
 namespace UniCloud.DistributedServices.Portal
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Services;
-    using System.Data.Services.Common;
-    using System.Linq;
-    using System.ServiceModel.Web;
-    using System.Web;
-    using Application.PortalBC.Services;
-    using InstanceProviders;
-    using Microsoft.Practices.Unity;
-
     public class PortalDataService : DataService<PortalData>
     {
-        private readonly IPortalAppService _flightLogAppService = Container.Current.Resolve<IPortalAppService>();
-
         /// <summary>
-        /// 初始化服务端策略
+        ///     初始化服务端策略
         /// </summary>
         /// <param name="config">数据服务配置</param>
         public static void InitializeService(DataServiceConfiguration config)

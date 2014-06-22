@@ -17,11 +17,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.FleetPlanBC.FleetTransferServices;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
@@ -50,23 +45,23 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
 
 
                 #region 申请相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IFleetTransferService, FleetTransferService>()
-                .RegisterType<IAirlinesRepository, AirlinesRepository>()
-                .RegisterType<IAircraftRepository, AircraftRepository>()
-                .RegisterType<IApprovalDocRepository, ApprovalDocRepository>()
-                .RegisterType<IDocumentRepository, DocumentRepository>()
-                .RegisterType<IMailAddressRepository, MailAddressRepository>()
-                .RegisterType<IPlanRepository, PlanRepository>()
-                .RegisterType<IPlanAircraftRepository, PlanAircraftRepository>()
-                .RegisterType<IPlanHistoryRepository, PlanHistoryRepository>()
-                .RegisterType<IRequestRepository, RequestRepository>()
+                .Register<IFleetTransferService, FleetTransferService>()
+                .Register<IAirlinesRepository, AirlinesRepository>()
+                .Register<IAircraftRepository, AircraftRepository>()
+                .Register<IApprovalDocRepository, ApprovalDocRepository>()
+                .Register<IDocumentRepository, DocumentRepository>()
+                .Register<IMailAddressRepository, MailAddressRepository>()
+                .Register<IPlanRepository, PlanRepository>()
+                .Register<IPlanAircraftRepository, PlanAircraftRepository>()
+                .Register<IPlanHistoryRepository, PlanHistoryRepository>()
+                .Register<IRequestRepository, RequestRepository>()
                 #endregion
 
                 ;
@@ -81,9 +76,9 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         public void GetRequests()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IFleetTransferService>();
-            Guid curAirlines = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F");
-            Guid curReq = Guid.Parse("A729C166-BA4B-401D-BD72-B5A3DC6B44F1");
+            var service = UniContainer.Resolve<IFleetTransferService>();
+            var curAirlines = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F");
+            var curReq = Guid.Parse("A729C166-BA4B-401D-BD72-B5A3DC6B44F1");
             // Act
             var result = service.TransferRequest(curAirlines, curReq);
 

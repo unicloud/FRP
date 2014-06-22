@@ -75,30 +75,30 @@ namespace UniCloud.DistributedServices.Purchase
         public PurchaseData()
             : base("UniCloud.Application.PurchaseBC.DTO")
         {
-            _actionCategoryAppService = DefaultContainer.Resolve<IActionCategoryAppService>();
-            _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
-            _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
-            _contractEngineAppService = DefaultContainer.Resolve<IContractEngineAppService>();
-            _forwarderAppService = DefaultContainer.Resolve<IForwarderAppService>();
-            _maintainContractAppService = DefaultContainer.Resolve<IMaintainContractAppService>();
-            _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
-            _tradeAppService = DefaultContainer.Resolve<ITradeAppService>();
-            _aircraftLeaseReceptionAppService = DefaultContainer.Resolve<IAircraftLeaseReceptionAppService>();
-            _aircraftPurchaseReceptionAppService = DefaultContainer.Resolve<IAircraftPurchaseReceptionAppService>();
-            _engineLeaseReceptionAppService = DefaultContainer.Resolve<IEngineLeaseReceptionAppService>();
-            _enginePurchaseReceptionAppService = DefaultContainer.Resolve<IEnginePurchaseReceptionAppService>();
-            _materialAppService = DefaultContainer.Resolve<IMaterialAppService>();
-            _leaseContractAircraftAppService = DefaultContainer.Resolve<ILeaseContractAircraftAppService>();
-            _leaseContractEngineAppService = DefaultContainer.Resolve<ILeaseContractEngineAppService>();
-            _partAppService = DefaultContainer.Resolve<IPartAppService>();
-            _planAircraftAppService = DefaultContainer.Resolve<IPlanAircraftAppService>();
-            _purchaseContractAircraftAppService = DefaultContainer.Resolve<IPurchaseContractAircraftAppService>();
-            _purchaseContractEngineAppService = DefaultContainer.Resolve<IPurchaseContractEngineAppService>();
-            _relatedDocAppService = DefaultContainer.Resolve<IRelatedDocAppService>();
-            _documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
-            _contractDocumentAppService = DefaultContainer.Resolve<IContractDocumentAppService>();
-            _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
-            _manufacturerAppService = DefaultContainer.Resolve<IManufacturerAppService>();
+            _actionCategoryAppService = UniContainer.Resolve<IActionCategoryAppService>();
+            _contractAircraftAppService = UniContainer.Resolve<IContractAircraftAppService>();
+            _aircraftTypeAppService = UniContainer.Resolve<IAircraftTypeAppService>();
+            _contractEngineAppService = UniContainer.Resolve<IContractEngineAppService>();
+            _forwarderAppService = UniContainer.Resolve<IForwarderAppService>();
+            _maintainContractAppService = UniContainer.Resolve<IMaintainContractAppService>();
+            _supplierAppService = UniContainer.Resolve<ISupplierAppService>();
+            _tradeAppService = UniContainer.Resolve<ITradeAppService>();
+            _aircraftLeaseReceptionAppService = UniContainer.Resolve<IAircraftLeaseReceptionAppService>();
+            _aircraftPurchaseReceptionAppService = UniContainer.Resolve<IAircraftPurchaseReceptionAppService>();
+            _engineLeaseReceptionAppService = UniContainer.Resolve<IEngineLeaseReceptionAppService>();
+            _enginePurchaseReceptionAppService = UniContainer.Resolve<IEnginePurchaseReceptionAppService>();
+            _materialAppService = UniContainer.Resolve<IMaterialAppService>();
+            _leaseContractAircraftAppService = UniContainer.Resolve<ILeaseContractAircraftAppService>();
+            _leaseContractEngineAppService = UniContainer.Resolve<ILeaseContractEngineAppService>();
+            _partAppService = UniContainer.Resolve<IPartAppService>();
+            _planAircraftAppService = UniContainer.Resolve<IPlanAircraftAppService>();
+            _purchaseContractAircraftAppService = UniContainer.Resolve<IPurchaseContractAircraftAppService>();
+            _purchaseContractEngineAppService = UniContainer.Resolve<IPurchaseContractEngineAppService>();
+            _relatedDocAppService = UniContainer.Resolve<IRelatedDocAppService>();
+            _documentPathAppService = UniContainer.Resolve<IDocumentPathAppService>();
+            _contractDocumentAppService = UniContainer.Resolve<IContractDocumentAppService>();
+            _currencyAppService = UniContainer.Resolve<ICurrencyAppService>();
+            _manufacturerAppService = UniContainer.Resolve<IManufacturerAppService>();
         }
 
         #region 合作公司相关集合

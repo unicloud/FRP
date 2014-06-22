@@ -17,7 +17,6 @@
 
 #region 命名空间
 
-using Microsoft.Practices.Unity;
 using UniCloud.Application.PurchaseBC.ActionCategoryServices;
 using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
@@ -93,155 +92,156 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
 
         public static void ConfigureContainer()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
 
                 #region 领域事件相关配置
 
-                .RegisterType<IPurchaseEvent, PurchaseEvent>(new WcfPerRequestLifetimeManager())
+                .Register<IPurchaseEvent, PurchaseEvent>(new WcfPerRequestLifetimeManager())
 
                 #endregion
 
                 #region 承运人相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IForwarderQuery, ForwarderQuery>()
-                .RegisterType<IForwarderAppService, ForwarderAppService>()
-                .RegisterType<IForwarderRepository, ForwarderRepository>()
+                .Register<IForwarderQuery, ForwarderQuery>()
+                .Register<IForwarderAppService, ForwarderAppService>()
+                .Register<IForwarderRepository, ForwarderRepository>()
                 #endregion
 
                 #region 维修合同相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IMaintainContractQuery, MaintainContractQuery>()
-                .RegisterType<IMaintainContractAppService, MaintainContractAppService>()
-                .RegisterType<IMaintainContractRepository, MaintainContractRepository>()
+                .Register<IMaintainContractQuery, MaintainContractQuery>()
+                .Register<IMaintainContractAppService, MaintainContractAppService>()
+                .Register<IMaintainContractRepository, MaintainContractRepository>()
 
                 #endregion
 
                 #region 供应商相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<ISupplierQuery, SupplierQuery>()
-                .RegisterType<ISupplierAppService, SupplierAppService>()
-                .RegisterType<ISupplierCompanyRepository, SupplierCompanyRepository>()
-                .RegisterType<ISupplierRepository, SupplierRepository>()
-                .RegisterType<ILinkmanRepository, LinkmanRepository>()
-                .RegisterType<IBankAccountRepository, BankAccountRepository>()
-                .RegisterType<ISupplierRoleRepository, SupplierRoleRepository>()
-                .RegisterType<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
+                .Register<ISupplierQuery, SupplierQuery>()
+                .Register<ISupplierAppService, SupplierAppService>()
+                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
+                .Register<ISupplierRepository, SupplierRepository>()
+                .Register<ILinkmanRepository, LinkmanRepository>()
+                .Register<IBankAccountRepository, BankAccountRepository>()
+                .Register<ISupplierRoleRepository, SupplierRoleRepository>()
+                .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
                 #endregion
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<ITradeQuery, TradeQuery>()
-                .RegisterType<IOrderQuery, OrderQuery>()
-                .RegisterType<ITradeAppService, TradeAppService>()
-                .RegisterType<ITradeRepository, TradeRepository>()
-                .RegisterType<IOrderRepository, OrderRepository>()
+                .Register<ITradeQuery, TradeQuery>()
+                .Register<IOrderQuery, OrderQuery>()
+                .Register<ITradeAppService, TradeAppService>()
+                .Register<ITradeRepository, TradeRepository>()
+                .Register<IOrderRepository, OrderRepository>()
 
                 #endregion
 
                 #region 接机项目相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IAircraftLeaseReceptionQuery, AircraftLeaseReceptionQuery>()
-                .RegisterType<IAircraftPurchaseReceptionQuery, AircraftPurchaseReceptionQuery>()
-                .RegisterType<IEngineLeaseReceptionQuery, EngineLeaseReceptionQuery>()
-                .RegisterType<IEnginePurchaseReceptionQuery, EnginePurchaseReceptionQuery>()
-                .RegisterType<IAircraftLeaseReceptionAppService, AircraftLeaseReceptionAppService>()
-                .RegisterType<IAircraftPurchaseReceptionAppService, AircraftPurchaseReceptionAppService>()
-                .RegisterType<IEngineLeaseReceptionAppService, EngineLeaseReceptionAppService>()
-                .RegisterType<IEnginePurchaseReceptionAppService, EnginePurchaseReceptionAppService>()
-                .RegisterType<IReceptionRepository, ReceptionRepository>()
+                .Register<IAircraftLeaseReceptionQuery, AircraftLeaseReceptionQuery>()
+                .Register<IAircraftPurchaseReceptionQuery, AircraftPurchaseReceptionQuery>()
+                .Register<IEngineLeaseReceptionQuery, EngineLeaseReceptionQuery>()
+                .Register<IEnginePurchaseReceptionQuery, EnginePurchaseReceptionQuery>()
+                .Register<IAircraftLeaseReceptionAppService, AircraftLeaseReceptionAppService>()
+                .Register<IAircraftPurchaseReceptionAppService, AircraftPurchaseReceptionAppService>()
+                .Register<IEngineLeaseReceptionAppService, EngineLeaseReceptionAppService>()
+                .Register<IEnginePurchaseReceptionAppService, EnginePurchaseReceptionAppService>()
+                .Register<IReceptionRepository, ReceptionRepository>()
                 #endregion
 
                 #region 机型相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
-                .RegisterType<IAircraftTypeAppService, AircraftTypeAppService>()
-                .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
+                .Register<IAircraftTypeQuery, AircraftTypeQuery>()
+                .Register<IAircraftTypeAppService, AircraftTypeAppService>()
+                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
                 #endregion                
 
                 #region 物料相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IMaterialQuery, MaterialQuery>()
-                .RegisterType<IMaterialAppService, MaterialAppService>()
-                .RegisterType<IMaterialRepository, MaterialRepository>()
+                .Register<IMaterialQuery, MaterialQuery>()
+                .Register<IMaterialAppService, MaterialAppService>()
+                .Register<IMaterialRepository, MaterialRepository>()
                 #endregion
 
                 #region 部件相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IPartQuery, PartQuery>()
-                .RegisterType<IPartAppService, PartAppService>()
+                .Register<IPartQuery, PartQuery>()
+                .Register<IPartAppService, PartAppService>()
                 #endregion
 
                 #region 活动类型相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IActionCategoryQuery, ActionCategoryQuery>()
-                .RegisterType<IActionCategoryAppService, ActionCategoryAppService>()
-                .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
+                .Register<IActionCategoryQuery, ActionCategoryQuery>()
+                .Register<IActionCategoryAppService, ActionCategoryAppService>()
+                .Register<IActionCategoryRepository, ActionCategoryRepository>()
                 #endregion
 
                 #region 计划飞机相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IPlanAircraftQuery, PlanAircraftQuery>()
-                .RegisterType<IPlanAircraftAppService, PlanAircraftAppService>()
-                .RegisterType<IPlanAircraftRepository, PlanAircraftRepository>()
+                .Register<IPlanAircraftQuery, PlanAircraftQuery>()
+                .Register<IPlanAircraftAppService, PlanAircraftAppService>()
+                .Register<IPlanAircraftRepository, PlanAircraftRepository>()
                 #endregion
 
                 #region 合同飞机相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IContractAircraftQuery, ContractAircraftQuery>()
-                .RegisterType<IContractAircraftAppService, ContractAircraftAppService>()
-                .RegisterType<ILeaseContractAircraftQuery, LeaseContractAircraftQuery>()
-                .RegisterType<IPurchaseContractAircraftQuery, PurchaseContractAircraftQuery>()
-                .RegisterType<ILeaseContractAircraftAppService, LeaseContractAircraftAppService>()
-                .RegisterType<IPurchaseContractAircraftAppService, PurchaseContractAircraftAppService>()
-                .RegisterType<IContractAircraftRepository, ContractAircraftRepository>()
+                .Register<IContractAircraftQuery, ContractAircraftQuery>()
+                .Register<IContractAircraftAppService, ContractAircraftAppService>()
+                .Register<ILeaseContractAircraftQuery, LeaseContractAircraftQuery>()
+                .Register<IPurchaseContractAircraftQuery, PurchaseContractAircraftQuery>()
+                .Register<ILeaseContractAircraftAppService, LeaseContractAircraftAppService>()
+                .Register<IPurchaseContractAircraftAppService, PurchaseContractAircraftAppService>()
+                .Register<IContractAircraftRepository, ContractAircraftRepository>()
                 #endregion 
 
                 #region 合同发动机相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IContractEngineQuery, ContractEngineQuery>()
-                .RegisterType<IContractEngineAppService, ContractEngineAppService>()
-                .RegisterType<ILeaseContractEngineQuery, LeaseContractEngineQuery>()
-                .RegisterType<IPurchaseContractEngineQuery, PurchaseContractEngineQuery>()
-                .RegisterType<ILeaseContractEngineAppService, LeaseContractEngineAppService>()
-                .RegisterType<IPurchaseContractEngineAppService, PurchaseContractEngineAppService>()
-                .RegisterType<IContractEngineRepository, ContractEngineRepository>()
+                .Register<IContractEngineQuery, ContractEngineQuery>()
+                .Register<IContractEngineAppService, ContractEngineAppService>()
+                .Register<ILeaseContractEngineQuery, LeaseContractEngineQuery>()
+                .Register<IPurchaseContractEngineQuery, PurchaseContractEngineQuery>()
+                .Register<ILeaseContractEngineAppService, LeaseContractEngineAppService>()
+                .Register<IPurchaseContractEngineAppService, PurchaseContractEngineAppService>()
+                .Register<IContractEngineRepository, ContractEngineRepository>()
                 #endregion 
 
                 #region   关联文档相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IRelatedDocQuery, RelatedDocQuery>()
-                .RegisterType<IRelatedDocAppService, RelatedDocAppService>()
-                .RegisterType<IRelatedDocRepository, RelatedDocRepository>()
+                .Register<IRelatedDocQuery, RelatedDocQuery>()
+                .Register<IRelatedDocAppService, RelatedDocAppService>()
+                .Register<IRelatedDocRepository, RelatedDocRepository>()
                 #endregion 
 
                 #region   币种相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<ICurrencyQuery, CurrencyQuery>()
-                .RegisterType<ICurrencyAppService, CurrencyAppService>()
-                .RegisterType<ICurrencyRepository, CurrencyRepository>()
+                .Register<ICurrencyQuery, CurrencyQuery>()
+                .Register<ICurrencyAppService, CurrencyAppService>()
+                .Register<ICurrencyRepository, CurrencyRepository>()
                 #endregion
 
                 #region 文档相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IDocumentPathAppService, DocumentPathAppService>()
-                .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
-                .RegisterType<IDocumentPathQuery, DocumentPathQuery>()
+                .Register<IDocumentPathAppService, DocumentPathAppService>()
+                .Register<IDocumentPathRepository, DocumentPathRepository>()
+                .Register<IDocumentPathQuery, DocumentPathQuery>()
 
                 #endregion
 
                 #region 订单文档相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IContractDocumentAppService, ContractDocumentAppService>()
-                .RegisterType<IContractDocumentQuery, ContractDocumentQuery>()
+                .Register<IContractDocumentAppService, ContractDocumentAppService>()
+                .Register<IContractDocumentQuery, ContractDocumentQuery>()
                 #endregion
 
                 #region   制造商相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IManufacturerQuery, ManufacturerQuery>()
-                .RegisterType<IManufacturerAppService, ManufacturerAppService>()
-                .RegisterType<IManufacturerRepository, ManufacturerRepository>()
+                .Register<IManufacturerQuery, ManufacturerQuery>()
+                .Register<IManufacturerAppService, ManufacturerAppService>()
+                .Register<IManufacturerRepository, ManufacturerRepository>()
                 #endregion
 
                 ;

@@ -17,7 +17,6 @@
 
 #region 命名空间
 
-using Microsoft.Practices.Unity;
 using UniCloud.Application.ProjectBC.Query.RelatedDocQueries;
 using UniCloud.Application.ProjectBC.Query.TemplateQueries;
 using UniCloud.Application.ProjectBC.RelatedDocServices;
@@ -28,8 +27,6 @@ using UniCloud.Domain.ProjectBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.UserAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg;
-using UniCloud.Infrastructure.Crosscutting.Logging;
-using UniCloud.Infrastructure.Crosscutting.NetFramework.Logging;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.ProjectBC.Repositories;
 using UniCloud.Infrastructure.Data.ProjectBC.UnitOfWork;
@@ -46,17 +43,18 @@ namespace UniCloud.DistributedServices.Project.InstanceProviders
     {
         public static void ConfigureContainer()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, ProjectBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, ProjectBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
 
                 #region 模板管理相关配置注册
 
-                .RegisterType<IProjectTempRepository, ProjectTempRepository>()
-                .RegisterType<ITaskStandardRepository, TaskStandardRepository>()
-                .RegisterType<IWorkGroupRepository, WorkGroupRepository>()
-                .RegisterType<IUserRepository, UserRepository>()
-                .RegisterType<ITemplateQuery, TemplateQuery>()
-                .RegisterType<ITemplateAppService, TemplateAppService>()
+                .Register<IProjectTempRepository, ProjectTempRepository>()
+                .Register<ITaskStandardRepository, TaskStandardRepository>()
+                .Register<IWorkGroupRepository, WorkGroupRepository>()
+                .Register<IUserRepository, UserRepository>()
+                .Register<ITemplateQuery, TemplateQuery>()
+                .Register<ITemplateAppService, TemplateAppService>()
                 
                 #endregion
 
@@ -67,19 +65,13 @@ namespace UniCloud.DistributedServices.Project.InstanceProviders
 
                 #region 关联文档相关配置注册
 
-                .RegisterType<IRelatedDocRepository, RelatedDocRepository>()
-                .RegisterType<IRelatedDocQuery, RelatedDocQuery>()
-                .RegisterType<IRelatedDocAppService, RelatedDocAppService>()
+                .Register<IRelatedDocRepository, RelatedDocRepository>()
+                .Register<IRelatedDocQuery, RelatedDocQuery>()
+                .Register<IRelatedDocAppService, RelatedDocAppService>()
 
                 #endregion
 
-                .RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager());
-        }
-
-
-        private static void ConfigureFactories()
-        {
-            LoggerFactory.SetCurrent(new UniCloudLogFactory());
+                .Register<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager());
         }
     }
 }

@@ -16,7 +16,6 @@
 
 #region 命名空间
 
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PaymentBC.CurrencyServices;
 using UniCloud.Application.PaymentBC.Query.CurrencyQueries;
@@ -41,14 +40,15 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<ICurrencyRepository, CurrencyRepository>()
-                .RegisterType<ICurrencyAppService, CurrencyAppService>()
-                .RegisterType<ICurrencyQuery, CurrencyQuery>()
-                .RegisterType<ISupplierRepository, SupplierRepository>()
-                .RegisterType<ISupplierAppService, SupplierAppService>()
-                .RegisterType<ISupplierQuery, SupplierQuery>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<ICurrencyRepository, CurrencyRepository>()
+                .Register<ICurrencyAppService, CurrencyAppService>()
+                .Register<ICurrencyQuery, CurrencyQuery>()
+                .Register<ISupplierRepository, SupplierRepository>()
+                .Register<ISupplierAppService, SupplierAppService>()
+                .Register<ISupplierQuery, SupplierQuery>();
         }
 
         [TestCleanup]

@@ -17,7 +17,6 @@
 #region 命名空间
 
 using System.Collections.Generic;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
@@ -36,9 +35,10 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IMaintainWorkRepository, MaintainWorkRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IMaintainWorkRepository, MaintainWorkRepository>();
         }
 
         [TestCleanup]
@@ -52,7 +52,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         public void CreateCtrlUnits()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IMaintainWorkRepository>();
+            var service = UniContainer.Resolve<IMaintainWorkRepository>();
 
             // Act
             var maintainWorks = new List<MaintainWork>

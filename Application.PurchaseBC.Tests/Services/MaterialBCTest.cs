@@ -9,7 +9,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -22,14 +22,14 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                         .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>
-                (new WcfPerRequestLifetimeManager())
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
                 #region 物料相关配置，包括查询，应用服务，仓储注册
 
-                         .RegisterType<IMaterialQuery, MaterialQuery>()
-                         .RegisterType<IMaterialAppService, MaterialAppService>()
-                         .RegisterType<IMaterialRepository, MaterialRepository>()
+                .Register<IMaterialQuery, MaterialQuery>()
+                .Register<IMaterialAppService, MaterialAppService>()
+                .Register<IMaterialRepository, MaterialRepository>()
                 #endregion
 
                 ;
@@ -46,7 +46,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void TestGetEngineMaterials()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IMaterialAppService>();
+            var service = UniContainer.Resolve<IMaterialAppService>();
             // Act
             var result = service.GetEngineMaterials().ToList();
             // Assert
@@ -57,7 +57,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void TestGetBFEMaterials()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IMaterialAppService>();
+            var service = UniContainer.Resolve<IMaterialAppService>();
             // Act
             var result = service.GetBFEMaterials().ToList();
             // Assert

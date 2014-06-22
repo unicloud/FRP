@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,14 +11,13 @@
 // 修改者：linxw 时间：2014/1/21 10:50:58
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System.IO;
-using Microsoft.Practices.Unity;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 //using OfficeFiles.Reader;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.CommonServiceBC.DocumentServices;
 using UniCloud.Application.CommonServiceBC.DocumnetSearch;
 using UniCloud.Application.CommonServiceBC.Query.DocumentQueries;
@@ -41,37 +41,38 @@ namespace UniCloud.Application.CommonServiceBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                         .RegisterType<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-            #region 文档相关配置，包括查询，应用服务，仓储注册
-.RegisterType<IDocumentAppService, DocumentAppService>()
-                         .RegisterType<IDocumentQuery, DocumentQuery>()
-                         .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
-                         .RegisterType<IDocumentRepository, DocumentRepository>()
-                          .RegisterType<IDocumentTypeRepository, DocumentTypeRepository>()
-.RegisterType<IDocumentSearchAppService, DocumentSearchAppService>()
-            #endregion
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                #region 文档相关配置，包括查询，应用服务，仓储注册
 
-;
+                .Register<IDocumentAppService, DocumentAppService>()
+                .Register<IDocumentQuery, DocumentQuery>()
+                .Register<IDocumentPathRepository, DocumentPathRepository>()
+                .Register<IDocumentRepository, DocumentRepository>()
+                .Register<IDocumentTypeRepository, DocumentTypeRepository>()
+                .Register<IDocumentSearchAppService, DocumentSearchAppService>()
+                #endregion
+
+                ;
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-
         }
 
         [TestMethod]
         public void TestSearch()
         {
-            var service = DefaultContainer.Resolve<IDocumentSearchAppService>();
+            var service = UniContainer.Resolve<IDocumentSearchAppService>();
             var result = service.Search("之", "1");
         }
 
         [TestMethod]
         public void AddIndex()
         {
-            var service = DefaultContainer.Resolve<IQueryableUnitOfWork>();
+            var service = UniContainer.Resolve<IQueryableUnitOfWork>();
             var documents = service.CreateSet<Document>();
             //foreach (var document in documents)
             //{
@@ -97,6 +98,7 @@ namespace UniCloud.Application.CommonServiceBC.Tests
             //    }
             //}
         }
+
         #endregion
     }
 }

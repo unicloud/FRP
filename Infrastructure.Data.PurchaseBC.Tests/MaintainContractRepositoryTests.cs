@@ -22,7 +22,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
@@ -35,9 +35,10 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IMaintainContractRepository, MaintainContractRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IMaintainContractRepository, MaintainContractRepository>();
         }
 
         [TestCleanup]
@@ -51,7 +52,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void CreateMaintainContractTest()
         {
             // Arrange
-            var contractRep = DefaultContainer.Resolve<IMaintainContractRepository>();
+            var contractRep = UniContainer.Resolve<IMaintainContractRepository>();
             var maintainContract = MaintainContractFactory.CreateEngineMaintainContract();
             MaintainContractFactory.SetMaintainContract(maintainContract, "12", "12", "12", DateTime.Now, "12", 1,
                 new Guid(), "aa.docx");

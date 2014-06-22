@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonExtension\CommonExtension.cs" />
-    <Compile Include="Container\DefaultContainer.cs" />
+    <Compile Include="Container\UniContainer.cs" />
     <Compile Include="Container\WcfPerRequestLifetimeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

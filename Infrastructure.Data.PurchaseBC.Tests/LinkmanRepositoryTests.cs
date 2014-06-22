@@ -25,7 +25,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
@@ -38,9 +38,10 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<ILinkmanRepository, LinkmanRepository>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<ILinkmanRepository, LinkmanRepository>();
         }
 
         [TestCleanup]
@@ -54,7 +55,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void CreateLinkmanTest()
         {
             // Arrange
-            var linkmanRep = DefaultContainer.Resolve<ILinkmanRepository>();
+            var linkmanRep = UniContainer.Resolve<ILinkmanRepository>();
             var linkman = LinkmanFactory.CreateLinkman("DDD", true, "12345", "3333", null,
                 "abc@3g", "", new Address("成都", null, null, null), Guid.NewGuid(), "", DateTime.Now);
 
@@ -67,7 +68,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void GetLinkman()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<ILinkmanRepository>();
+            var service = UniContainer.Resolve<ILinkmanRepository>();
 
             // Act
             var result = service.GetAll().ToList();

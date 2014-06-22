@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -23,7 +25,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PaymentBC.Tests.Services
@@ -36,11 +38,12 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IOrderRepository, OrderRepository>()
-                .RegisterType<IOrderAppService, OrderAppService>()
-                .RegisterType<IOrderQuery, OrderQuery>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IOrderRepository, OrderRepository>()
+                .Register<IOrderAppService, OrderAppService>()
+                .Register<IOrderQuery, OrderQuery>();
         }
 
         [TestCleanup]
@@ -54,7 +57,7 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         public void GetAircraftPurchaseOrders()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IOrderAppService>();
+            var service = UniContainer.Resolve<IOrderAppService>();
 
             // Act
             var result = service.GetAircraftPurchaseOrders().ToList();
@@ -67,7 +70,7 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         public void TestGetAllOrders()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IOrderAppService>();
+            var service = UniContainer.Resolve<IOrderAppService>();
 
             // Act
             var result = service.GetOrders().ToList();
@@ -80,7 +83,7 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         public void TestGetPurchaseOrders()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IOrderAppService>();
+            var service = UniContainer.Resolve<IOrderAppService>();
 
             // Act
             var result = service.GetPurchaseOrders().ToList();

@@ -25,7 +25,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -38,11 +38,12 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IMaintainContractRepository, MaintainContractRepository>()
-                .RegisterType<IMaintainContractAppService, MaintainContractAppService>()
-                .RegisterType<IMaintainContractQuery, MaintainContractQuery>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IMaintainContractRepository, MaintainContractRepository>()
+                .Register<IMaintainContractAppService, MaintainContractAppService>()
+                .Register<IMaintainContractQuery, MaintainContractQuery>();
         }
 
         [TestCleanup]
@@ -56,7 +57,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void GetApuMaintainContracts()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IMaintainContractAppService>();
+            var service = UniContainer.Resolve<IMaintainContractAppService>();
 
             // Act
             //var result = service.GetApuMaintainContracts().ToList();

@@ -13,7 +13,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -26,16 +26,17 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                         .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
                 #region 订单文档相关配置，包括查询，应用服务，仓储注册
 
-                         .RegisterType<IContractDocumentAppService, ContractDocumentAppService>()
-                         .RegisterType<IContractDocumentQuery, ContractDocumentQuery>()
-                          .RegisterType<IMaintainContractRepository, MaintainContractRepository>()
-                          .RegisterType<IDocumentPathAppService, DocumentPathAppService>()
-                         .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
-                         .RegisterType<IDocumentPathQuery, DocumentPathQuery>()
+                .Register<IContractDocumentAppService, ContractDocumentAppService>()
+                .Register<IContractDocumentQuery, ContractDocumentQuery>()
+                .Register<IMaintainContractRepository, MaintainContractRepository>()
+                .Register<IDocumentPathAppService, DocumentPathAppService>()
+                .Register<IDocumentPathRepository, DocumentPathRepository>()
+                .Register<IDocumentPathQuery, DocumentPathQuery>()
 
                 #endregion
 
@@ -53,18 +54,16 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
             try
             {
                 // Arrange
-                var service = DefaultContainer.Resolve<IContractDocumentAppService>();
-              var aaa=  service.Search("会议纪要");
+                var service = UniContainer.Resolve<IContractDocumentAppService>();
+                var aaa = service.Search("会议纪要");
                 var bbb = service.Search("的");
                 var result = service.GetContractDocuments();
                 Assert.IsTrue(result.Any());
             }
             catch (Exception)
             {
-
                 throw;
             }
-
         }
 
         #endregion

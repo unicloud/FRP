@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,25 +11,21 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
 using UniCloud.Application.PurchaseBC.Query.ContractAircraftQueries;
-using UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -41,16 +38,16 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IContractAircraftRepository, ContractAircraftRepository>()
-                .RegisterType<IContractAircraftAppService, ContractAircraftAppService>()
-                .RegisterType<ILeaseContractAircraftAppService, LeaseContractAircraftAppService>()
-                .RegisterType<IPurchaseContractAircraftAppService, PurchaseContractAircraftAppService>()
-                .RegisterType<IContractAircraftQuery, ContractAircraftQuery>()
-                .RegisterType<ILeaseContractAircraftQuery, LeaseContractAircraftQuery>()
-                .RegisterType<IPurchaseContractAircraftQuery, PurchaseContractAircraftQuery>();
-
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IContractAircraftRepository, ContractAircraftRepository>()
+                .Register<IContractAircraftAppService, ContractAircraftAppService>()
+                .Register<ILeaseContractAircraftAppService, LeaseContractAircraftAppService>()
+                .Register<IPurchaseContractAircraftAppService, PurchaseContractAircraftAppService>()
+                .Register<IContractAircraftQuery, ContractAircraftQuery>()
+                .Register<ILeaseContractAircraftQuery, LeaseContractAircraftQuery>()
+                .Register<IPurchaseContractAircraftQuery, PurchaseContractAircraftQuery>();
         }
 
         [TestCleanup]
@@ -64,7 +61,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void TestGeContractAircrafts()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IContractAircraftAppService>();
+            var service = UniContainer.Resolve<IContractAircraftAppService>();
 
             // Act
             var result = service.GetContractAircrafts().ToList();
@@ -77,7 +74,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void TestGetLeaseContractAircrafts()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<ILeaseContractAircraftAppService>();
+            var service = UniContainer.Resolve<ILeaseContractAircraftAppService>();
 
             // Act
             var result = service.GetLeaseContractAircrafts().ToList();
@@ -91,7 +88,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void TestGetPurchaseContractAircrafts()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IPurchaseContractAircraftAppService>();
+            var service = UniContainer.Resolve<IPurchaseContractAircraftAppService>();
 
             // Act
             var result = service.GetPurchaseContractAircrafts().ToList();

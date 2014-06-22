@@ -38,8 +38,8 @@ namespace UniCloud.DistributedServices.Project
         public ProjectData()
             : base("UniCloud.Application.ProjectBC.DTO")
         {
-            _templateAppService = DefaultContainer.Resolve<ITemplateAppService>();
-            _relatedDocAppService = DefaultContainer.Resolve<IRelatedDocAppService>();
+            _templateAppService = UniContainer.Resolve<ITemplateAppService>();
+            _relatedDocAppService = UniContainer.Resolve<IRelatedDocAppService>();
         }
 
         #region 关联文档

@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2013/12/31 14:32:36
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -23,7 +25,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.FleetPlanBC.Tests.Services
@@ -36,11 +38,12 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IAircraftRepository, AircraftRepository>()
-                .RegisterType<IAircraftAppService, AircraftAppService>()
-                .RegisterType<IAircraftQuery, AircraftQuery>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IAircraftRepository, AircraftRepository>()
+                .Register<IAircraftAppService, AircraftAppService>()
+                .Register<IAircraftQuery, AircraftQuery>();
         }
 
         [TestCleanup]
@@ -54,7 +57,7 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         public void GetAircrafts()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IAircraftAppService>();
+            var service = UniContainer.Resolve<IAircraftAppService>();
 
             // Act
             var result = service.GetAircrafts().ToList();

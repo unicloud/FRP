@@ -29,16 +29,16 @@ namespace UniCloud.Infrastructure.Data
 {
     public class BaseContext<TContext> : DbContext, IQueryableUnitOfWork where TContext : DbContext
     {
-        private static readonly string connectStr =
-            ConnectionStringCryptography.DecryptConnectionString(
-                ConfigurationManager.ConnectionStrings[DbConfig.DbUniCloud].ToString());
+        private static readonly string connectStr;
 
         static BaseContext()
         {
+            connectStr = ConnectionStringCryptography.DecryptConnectionString(
+                ConfigurationManager.ConnectionStrings[DbConfig.DbUniCloud].ToString());
             Database.SetInitializer<TContext>(null);
         }
 
-        protected BaseContext(): base(connectStr)
+        protected BaseContext() : base(connectStr)
         {
         }
 

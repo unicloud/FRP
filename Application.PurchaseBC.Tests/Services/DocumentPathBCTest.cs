@@ -27,7 +27,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -40,14 +40,15 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                         .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
 
                 #region 文档相关配置，包括查询，应用服务，仓储注册
 
-                         .RegisterType<IDocumentPathAppService, DocumentPathAppService>()
-                         .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
-                         .RegisterType<IDocumentPathQuery, DocumentPathQuery>()
+                .Register<IDocumentPathAppService, DocumentPathAppService>()
+                .Register<IDocumentPathRepository, DocumentPathRepository>()
+                .Register<IDocumentPathQuery, DocumentPathQuery>()
                 #endregion
 
                 ;
@@ -64,20 +65,18 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
             try
             {
                 // Arrange
-                var service = DefaultContainer.Resolve<IDocumentPathAppService>();
+                var service = UniContainer.Resolve<IDocumentPathAppService>();
 
                 // Act
-                var result = service.SearchDocumentPath(2,"飞机");
+                var result = service.SearchDocumentPath(2, "飞机");
 
                 // Assert
                 Assert.IsTrue(result.Any());
             }
             catch (Exception)
             {
-                
                 throw;
             }
-          
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,25 +11,18 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PartBC.AcConfigServices;
-using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.ItemServices;
-using UniCloud.Application.PartBC.PnRegServices;
 using UniCloud.Application.PartBC.Query.AcConfigQueries;
-using UniCloud.Application.PartBC.Query.AcDailyUtilizationQueries;
 using UniCloud.Application.PartBC.Query.ItemQueries;
-using UniCloud.Application.PartBC.Query.PnRegQueries;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
@@ -49,21 +43,22 @@ namespace UniCloud.Application.PartBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
 
-            #region 附件相关配置，包括查询，应用服务，仓储注册
+                #region 附件相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IItemQuery, ItemQuery>()
-                .RegisterType<IItemAppService, ItemAppService>()
-                .RegisterType<IItemRepository, ItemRepository>()
-                .RegisterType<IMaintainCtrlRepository, MaintainCtrlRepository>()
-                .RegisterType<IPnRegRepository, PnRegRepository >()
-            #endregion
+                .Register<IItemQuery, ItemQuery>()
+                .Register<IItemAppService, ItemAppService>()
+                .Register<IItemRepository, ItemRepository>()
+                .Register<IMaintainCtrlRepository, MaintainCtrlRepository>()
+                .Register<IPnRegRepository, PnRegRepository>()
+                #endregion
 
-.RegisterType<IAcConfigQuery, AcConfigQuery>()
-                .RegisterType<IAcConfigAppService, AcConfigAppService>()
-;
+                .Register<IAcConfigQuery, AcConfigQuery>()
+                .Register<IAcConfigAppService, AcConfigAppService>()
+                ;
         }
 
         [TestCleanup]
@@ -77,12 +72,12 @@ namespace UniCloud.Application.PartBC.Tests.Services
         public void GetItems()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IItemAppService>();
+            var service = UniContainer.Resolve<IItemAppService>();
 
-            Guid aircraftTypeId = Guid.Parse("5C690CB2-2D33-4006-858B-0BE610E9CB47");
+            var aircraftTypeId = Guid.Parse("5C690CB2-2D33-4006-858B-0BE610E9CB47");
 
             // Act
-            List<ItemDTO> result = service.GetItemsByAircraftType(aircraftTypeId);
+            var result = service.GetItemsByAircraftType(aircraftTypeId);
 
             // Assert
             Assert.IsTrue(result.Any());
@@ -92,11 +87,11 @@ namespace UniCloud.Application.PartBC.Tests.Services
         public void GetAcConfigs()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IAcConfigAppService>();
-            
-            DateTime date = new DateTime(2014, 04, 14);
+            var service = UniContainer.Resolve<IAcConfigAppService>();
+
+            var date = new DateTime(2014, 04, 14);
             // Act
-            List<AcConfigDTO> result = service.QueryAcConfigs(5,date);
+            var result = service.QueryAcConfigs(5, date);
 
             // Assert
             Assert.IsTrue(result.Any());

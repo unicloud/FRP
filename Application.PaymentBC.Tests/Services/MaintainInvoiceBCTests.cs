@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,26 +11,24 @@
 // 修改者：linxw 时间：2013/12/16 17:18:03
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
 using UniCloud.Application.PaymentBC.Query.MaintainCostQueries;
 using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PaymentBC.Tests.Services
@@ -42,14 +41,15 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            DefaultContainer.CreateContainer()
-                .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IInvoiceRepository, InvoiceRepository>()
-                .RegisterType<IMaintainInvoiceAppService, MaintainInvoiceAppService>()
-                .RegisterType<ISupplierRepository, SupplierRepository>()
-                .RegisterType<IMaintainCostQuery, MaintainCostQuery>()
-                .RegisterType<IMaintainCostRepository, MaintainCostRepository>()
-                .RegisterType<IMaintainInvoiceQuery, MaintainInvoiceQuery>();
+            UniContainer.Create()
+                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IInvoiceRepository, InvoiceRepository>()
+                .Register<IMaintainInvoiceAppService, MaintainInvoiceAppService>()
+                .Register<ISupplierRepository, SupplierRepository>()
+                .Register<IMaintainCostQuery, MaintainCostQuery>()
+                .Register<IMaintainCostRepository, MaintainCostRepository>()
+                .Register<IMaintainInvoiceQuery, MaintainInvoiceQuery>();
         }
 
         [TestCleanup]
@@ -63,7 +63,7 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         public void GetApuMaintainInvoices()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IMaintainInvoiceAppService>();
+            var service = UniContainer.Resolve<IMaintainInvoiceAppService>();
 
             // Act
             var result = service.GetApuMaintainInvoices().FirstOrDefault();
@@ -92,7 +92,7 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         public void GetInvoices()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IMaintainInvoiceAppService>();
+            var service = UniContainer.Resolve<IMaintainInvoiceAppService>();
 
             // Act
             var result = service.GetInvoices().ToList();
