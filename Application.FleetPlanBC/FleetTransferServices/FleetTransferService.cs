@@ -17,15 +17,12 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mail;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.FleetPlanBC.DTO.DataTransfer;
-using UniCloud.Cryptography;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
@@ -36,14 +33,13 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
+using UniCloud.Infrastructure.Data;
 using UniCloud.Mail;
 using Aircraft = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.Aircraft;
 using AircraftBusiness = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.AircraftBusiness;
-using Airlines = UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg.Airlines;
 using ApprovalDoc = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.ApprovalDoc;
 using ApprovalHistory = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.ApprovalHistory;
 using ChangePlan = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.ChangePlan;
-using MailAddress = UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg.MailAddress;
 using OperationHistory = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.OperationHistory;
 using OperationPlan = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.OperationPlan;
 using OwnershipHistory = UniCloud.Application.FleetPlanBC.DTO.DataTransfer.OwnershipHistory;
@@ -102,8 +98,8 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
         public bool TransferRequest(Guid currentAirlines, Guid currentRequest)
         {
             // 获取需要发送的对象
-            Domain.FleetPlanBC.Aggregates.RequestAgg.Request req = _requestRepository.Get(currentRequest);
-            Request obj = TransformRequest(req);
+            var req = _requestRepository.Get(currentRequest);
+            var obj = TransformRequest(req);
             return obj != null && TransferMail(currentAirlines, obj, obj.Title, "Request");
         }
 
@@ -115,8 +111,8 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
         public bool TransferPlan(Guid currentAirlines, Guid currentPlan)
         {
             // 获取需要发送的对象
-            Domain.FleetPlanBC.Aggregates.AircraftPlanAgg.Plan plan = _planRepository.Get(currentPlan);
-            Plan obj = TransformPlan(plan);
+            var plan = _planRepository.Get(currentPlan);
+            var obj = TransformPlan(plan);
             return obj != null && TransferMail(currentAirlines, obj, obj.Title, "Plan");
         }
 
@@ -157,9 +153,9 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
         public bool TransferApprovalDoc(Guid currentAirlines, Guid currentApprovalDoc)
         {
             // 获取需要发送的对象
-            Domain.FleetPlanBC.Aggregates.ApprovalDocAgg.ApprovalDoc approvalDoc =
+            var approvalDoc =
                 _approvalDocRepository.Get(currentApprovalDoc);
-            ApprovalDoc obj = TransformApprovalDoc(approvalDoc);
+            var obj = TransformApprovalDoc(approvalDoc);
             return TransferMail(currentAirlines, obj, "批文", "ApprovalDoc");
         }
 
@@ -172,9 +168,9 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
         public bool TransferOperationHistory(Guid currentAirlines, Guid currentOperationHistory)
         {
             // 获取需要发送的对象
-            Domain.FleetPlanBC.Aggregates.AircraftAgg.OperationHistory operationHistory =
+            var operationHistory =
                 _aircraftRepository.GetPh(currentOperationHistory);
-            OperationHistory obj = TransformOperationHistory(operationHistory);
+            var obj = TransformOperationHistory(operationHistory);
             return TransferMail(currentAirlines, obj, "运营历史", "OperationHistory");
         }
 
@@ -187,9 +183,9 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
         public bool TransferAircraftBusiness(Guid currentAirlines, Guid currentAircraftBusiness)
         {
             // 获取需要发送的对象
-            Domain.FleetPlanBC.Aggregates.AircraftAgg.AircraftBusiness aircraftBusiness =
+            var aircraftBusiness =
                 _aircraftRepository.GetAb(currentAircraftBusiness);
-            AircraftBusiness obj = TransformAircraftBusiness(aircraftBusiness);
+            var obj = TransformAircraftBusiness(aircraftBusiness);
             return TransferMail(currentAirlines, obj, "商业数据", "AircraftBusiness");
         }
 
@@ -201,29 +197,29 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
         public bool TransferOwnershipHistory(Guid currentAirlines, Guid currentOwnershipHistory)
         {
             // 获取需要发送的对象
-            Domain.FleetPlanBC.Aggregates.AircraftAgg.OwnershipHistory ownershipHistory =
+            var ownershipHistory =
                 _aircraftRepository.GetOh(currentOwnershipHistory);
-            OwnershipHistory obj = TransformOwnershipHistory(ownershipHistory);
+            var obj = TransformOwnershipHistory(ownershipHistory);
             return TransferMail(currentAirlines, obj, "所有权历史", "OwnershipHistory");
         }
 
         public bool TransferPlanHistory(Guid currentAirlines, Guid currentPlanHistory)
         {
             //获取计划历史
-            Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg.PlanHistory dbPlanHistory =
+            var dbPlanHistory =
                 _planHistoryRepository.Get(currentPlanHistory);
-            PlanHistory planHistory = TransformPlanHistory(dbPlanHistory);
+            var planHistory = TransformPlanHistory(dbPlanHistory);
             if (planHistory != null && planHistory.GetType() != typeof (OperationPlan))
             {
                 //获取商业数据Id
                 var changePlan = planHistory as ChangePlan;
                 if (changePlan != null)
                 {
-                    Guid? aircraftBusinessId = changePlan.AircraftBusinessID;
+                    var aircraftBusinessId = changePlan.AircraftBusinessID;
                     //获取商业数据
-                    Domain.FleetPlanBC.Aggregates.AircraftAgg.AircraftBusiness dbAirBusiness =
+                    var dbAirBusiness =
                         _aircraftRepository.GetAb(aircraftBusinessId);
-                    AircraftBusiness airBusiness = TransformAircraftBusiness(dbAirBusiness);
+                    var airBusiness = TransformAircraftBusiness(dbAirBusiness);
                     //发送数据
                     return TransferMail(currentAirlines, planHistory, "计划历史", "PlanHistory")
                            && TransferMail(currentAirlines, airBusiness, "商业数据", "AircraftBusinesses");
@@ -236,25 +232,25 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 var operationPlan = planHistory as OperationPlan;
                 if (operationPlan != null)
                 {
-                    Guid? operationHistoryId = operationPlan.OperationHistoryID;
+                    var operationHistoryId = operationPlan.OperationHistoryID;
                     //获取运营历史
-                    Domain.FleetPlanBC.Aggregates.AircraftAgg.OperationHistory dbOperationHistory =
+                    var dbOperationHistory =
                         _aircraftRepository.GetPh(operationHistoryId);
                     if (dbOperationHistory != null)
                     {
-                        OperationHistory operationHistory = TransformOperationHistory(dbOperationHistory);
-                        Domain.FleetPlanBC.Aggregates.AircraftAgg.Aircraft dbAircraft =
+                        var operationHistory = TransformOperationHistory(dbOperationHistory);
+                        var dbAircraft =
                             _aircraftRepository.Get(operationHistory.AircraftID);
                         if (dbAircraft.AircraftBusinesses.Count == 1)
                         {
-                            Domain.FleetPlanBC.Aggregates.AircraftAgg.AircraftBusiness aircraftBusiness =
+                            var aircraftBusiness =
                                 dbAircraft.AircraftBusinesses.FirstOrDefault();
                             if (aircraftBusiness != null)
                             {
-                                Guid aircraftBusinessId = aircraftBusiness.Id;
-                                Domain.FleetPlanBC.Aggregates.AircraftAgg.AircraftBusiness dbAirBusiness =
+                                var aircraftBusinessId = aircraftBusiness.Id;
+                                var dbAirBusiness =
                                     _aircraftRepository.GetAb(aircraftBusinessId);
-                                AircraftBusiness airBusiness = TransformAircraftBusiness(dbAirBusiness);
+                                var airBusiness = TransformAircraftBusiness(dbAirBusiness);
                                 return TransferMail(currentAirlines, planHistory, "计划历史", "PlanHistory")
                                        && TransferMail(currentAirlines, operationHistory, "运营历史", "OperationHistory")
                                        && TransferMail(currentAirlines, airBusiness, "商业数据", "AircraftBusinesses");
@@ -282,9 +278,9 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
         /// <param name="attName">附件的名称</param>
         private bool TransferMail(Guid currentAirlines, object obj, string mailSubject, string attName)
         {
-            Guid caacGuid = Guid.Parse("31A9DE51-C207-4A73-919C-21521F17FEF9");
-            MailAddress dbSender = _mailAddressRepository.Get(currentAirlines);
-            MailAddress dbreceiver = _mailAddressRepository.Get(caacGuid);
+            var caacGuid = Guid.Parse("31A9DE51-C207-4A73-919C-21521F17FEF9");
+            var dbSender = _mailAddressRepository.Get(currentAirlines);
+            var dbreceiver = _mailAddressRepository.Get(caacGuid);
             if (dbSender == null)
             {
                 return false;
@@ -296,16 +292,16 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
             var sender = new System.Net.Mail.MailAddress(dbSender.Address, dbSender.DisplayName);
             var receive = new System.Net.Mail.MailAddress(dbreceiver.Address, dbreceiver.DisplayName);
             //邮件中增加航空公司信息
-            Airlines airlines = _airlinesRepository.Get(currentAirlines);
+            var airlines = _airlinesRepository.Get(currentAirlines);
             if (airlines != null)
             {
                 mailSubject = airlines.CnName + "发送" + mailSubject;
             }
-            Stream stream = ModelObjToAttachmentStream(obj);
+            var stream = ModelObjToAttachmentStream(obj);
             //发送
             var sm = new SendMail();
-            MailMessage message = sm.GenMail(sender, receive, stream, mailSubject, attName);
-            int blSend = sm.SendNormalMail(TransformMailAddress(dbSender), message);
+            var message = sm.GenMail(sender, receive, stream, mailSubject, attName);
+            var blSend = sm.SendNormalMail(TransformMailAddress(dbSender), message);
             if (blSend == -1)
             {
                 return sm.SendNormalMail(TransformMailAddress(dbSender), message) == 0;
@@ -322,7 +318,7 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 formatter.Serialize(ms, obj);
                 ms.Position = 0;
                 //加密
-                DESCryptography.EncryptStream(ref ms);
+                Cryptography.EncryptStream(ref ms);
                 return ms;
             }
             return null;
@@ -334,7 +330,7 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
 
         private BaseMailAccount TransformMailAddress(MailAddress dbMail)
         {
-            BaseMailAccount mailAddress = MailAccountHelper.GetMailAccountFromAddr(dbMail.Address, dbMail.DisplayName,
+            var mailAddress = MailAccountHelper.GetMailAccountFromAddr(dbMail.Address, dbMail.DisplayName,
                 dbMail.LoginUser, dbMail.LoginPassword,
                 dbMail.Pop3Host, dbMail.ReceivePort, dbMail.ReceiveSSL, dbMail.SmtpHost, dbMail.SendPort, dbMail.SendSSL,
                 dbMail.StartTLS);
@@ -481,12 +477,12 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 PublishStatus = (int) dbPlan.PublishStatus,
                 PlanPublishStatus = (PlanPublishStatus) dbPlan.PublishStatus,
             };
-            Document document = _documentRepository.Get(dbPlan.DocumentId);
+            var document = _documentRepository.Get(dbPlan.DocumentId);
             if (document != null)
             {
                 plan.AttachDoc = document.FileStorage;
             }
-            List<Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg.PlanHistory> planHistories =
+            var planHistories =
                 _planHistoryRepository.GetAll().Where(p => p.PlanId == dbPlan.Id && p.IsSubmit).ToList(); //只提交需要上报的计划明细
             if (planHistories.Any())
             {
@@ -511,7 +507,7 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 Status = (int) dbReq.Status,
                 ReqStatus = (ReqStatus) dbReq.Status,
             };
-            Document document = _documentRepository.Get(dbReq.CaacDocumentId);
+            var document = _documentRepository.Get(dbReq.CaacDocumentId);
             if (document != null)
             {
                 request.AttachDoc = document.FileStorage;
@@ -534,14 +530,14 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 };
                 if (approvalHistory.PlanAircraftID != Guid.Empty)
                 {
-                    Domain.FleetPlanBC.Aggregates.PlanAircraftAgg.PlanAircraft dbPlanAircraft =
+                    var dbPlanAircraft =
                         _planAircraftRepository.Get(approvalHistory.PlanAircraftID);
                     if (dbPlanAircraft != null)
                     {
                         approvalHistory.PlanAircraft = TransformPlanAircraft(dbPlanAircraft);
                         if (approvalHistory.PlanAircraft != null && dbPlanAircraft.AircraftId != null)
                         {
-                            Domain.FleetPlanBC.Aggregates.AircraftAgg.Aircraft dbAircraft =
+                            var dbAircraft =
                                 _aircraftRepository.Get(dbPlanAircraft.AircraftId);
                             if (dbAircraft != null)
                             {
@@ -567,12 +563,12 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 Status = (int) dbApprovalDoc.Status,
                 OpStatus = (OpStatus) dbApprovalDoc.Status,
             };
-            Document document = _documentRepository.Get(dbApprovalDoc.CaacDocumentId);
+            var document = _documentRepository.Get(dbApprovalDoc.CaacDocumentId);
             if (document != null)
             {
                 approvalDoc.AttachDoc = document.FileStorage;
             }
-            List<Domain.FleetPlanBC.Aggregates.RequestAgg.Request> requests =
+            var requests =
                 _requestRepository.GetAll().Where(p => p.ApprovalDocId == dbApprovalDoc.Id).ToList();
             if (requests.Any())
             {
@@ -603,12 +599,12 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 Status = (int) dbOperationHistory.Status,
                 OpStatus = (OpStatus) dbOperationHistory.Status,
             };
-            Domain.FleetPlanBC.Aggregates.AircraftAgg.Aircraft aircraft =
+            var aircraft =
                 _aircraftRepository.Get(dbOperationHistory.AircraftId);
             if (aircraft != null)
             {
                 operationHistory.Aircraft = TransformAircraft(aircraft);
-                List<Domain.FleetPlanBC.Aggregates.PlanAircraftAgg.PlanAircraft> planAircrafts =
+                var planAircrafts =
                     _planAircraftRepository.GetAll().Where(p => p.AircraftId == aircraft.Id).ToList();
                 if (operationHistory.Aircraft != null && planAircrafts.Any())
                 {
@@ -634,12 +630,12 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
                 Status = (int) dbAircraftBusiness.Status,
                 OpStatus = (OpStatus) dbAircraftBusiness.Status,
             };
-            Domain.FleetPlanBC.Aggregates.AircraftAgg.Aircraft aircraft =
+            var aircraft =
                 _aircraftRepository.Get(dbAircraftBusiness.AircraftId);
             if (aircraft != null)
             {
                 aircraftBusiness.Aircraft = TransformAircraft(aircraft);
-                List<Domain.FleetPlanBC.Aggregates.PlanAircraftAgg.PlanAircraft> planAircrafts =
+                var planAircrafts =
                     _planAircraftRepository.GetAll().Where(p => p.AircraftId == aircraft.Id).ToList();
                 if (planAircrafts.Any())
                 {
@@ -669,12 +665,12 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
             {
                 ownershipHistory.OwnerID = Guid.Parse("5256C5F4-CC0E-49E6-A382-903B031BFC12"); //民航局数据库Owner表中国外供应商外键
             }
-            Domain.FleetPlanBC.Aggregates.AircraftAgg.Aircraft aircraft =
+            var aircraft =
                 _aircraftRepository.Get(dbOwnershipHistory.AircraftId);
             if (aircraft != null)
             {
                 ownershipHistory.Aircraft = TransformAircraft(aircraft);
-                List<Domain.FleetPlanBC.Aggregates.PlanAircraftAgg.PlanAircraft> planAircrafts =
+                var planAircrafts =
                     _planAircraftRepository.GetAll().Where(p => p.AircraftId == aircraft.Id).ToList();
                 if (planAircrafts.Any())
                 {

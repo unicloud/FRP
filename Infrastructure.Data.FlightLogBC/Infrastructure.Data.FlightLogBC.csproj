@@ -56,7 +56,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FlightLogRepository.cs" />
     <Compile Include="UnitOfWork\FlightLogBCUnitOfWork.cs" />
-    <Compile Include="UnitOfWork\Mapping\FlightLogBCUnitOfWork.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\FlightLogEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\OracleConfigurations.cs" />
     <Compile Include="UnitOfWork\SqlConfigurations.cs" />

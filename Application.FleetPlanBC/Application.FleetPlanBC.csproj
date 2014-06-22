@@ -139,13 +139,13 @@
       <Project>{340e4cf3-f789-4ae1-bc04-96040995859c}</Project>
       <Name>Infrastructure.Crosscutting</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{CAD91A38-6B90-4A18-83CA-0215CE512F4D}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
       <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
       <Name>Infrastructure.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UniCloud.Cryptography\UniCloud.Cryptography.csproj">
-      <Project>{f63c4b93-d765-4d1d-bfac-7d74c6c6dfc4}</Project>
-      <Name>UniCloud.Cryptography</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniCloud.Mail\UniCloud.Mail.csproj">
       <Project>{b62b8724-4e02-4a04-ab83-c0c6ec236a75}</Project>

@@ -1,12 +1,16 @@
-﻿using System;
+﻿#region 命名空间
+
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.ServiceProcess;
 using System.Timers;
 using UniCloud.DataService.DataSync;
 using UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork;
-using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork.Mapping;
+using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+
+#endregion
 
 namespace AmasisSyncWinService
 {

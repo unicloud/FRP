@@ -1,17 +1,21 @@
-﻿using System;
+﻿#region 命名空间
+
+using System;
 using System.Windows.Forms;
 using UniCloud.DataService.DataSync;
 using UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork;
-using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork.Mapping;
+using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+
+#endregion
 
 namespace TestWindowsService
 {
     public partial class Form1 : Form
     {
         private AircraftConfigBCUnitOfWork _acConfigUnitOfWork;
-        private PartBCUnitOfWork _partUnitofWork;
         private FlightLogBCUnitOfWork _flightLogUnitofWork;
+        private PartBCUnitOfWork _partUnitofWork;
 
         public Form1()
         {
@@ -58,6 +62,7 @@ namespace TestWindowsService
         }
 
         #region
+
         private void ItemSync()
         {
             var dataSync = new ItemSync(_partUnitofWork);
@@ -99,6 +104,7 @@ namespace TestWindowsService
             var dataSync = new SnHistorySync(_partUnitofWork);
             dataSync.DataSynchronous();
         }
+
         #endregion
     }
 }

@@ -18,12 +18,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using UniCloud.DataService.Connection;
 using UniCloud.Domain.FlightLogBC.Aggregates.FlightLogAgg;
-using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
-using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork.Mapping;
+using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork;
 
 #endregion
 
@@ -43,6 +41,7 @@ namespace UniCloud.DataService.DataSync
         public List<FlightLog> FrpDatas { get; protected set; }
 
         public string QueryStr { get; protected set; }
+
         public override void ImportAmasisData()
         {
             const int step = 1;
@@ -56,8 +55,10 @@ namespace UniCloud.DataService.DataSync
                 " LEG.VOOILMO1D ENG1OilDep,LEG.VOOILMO1A ENG1OilArr,LEG.VOOILMO2D ENG2OilDep,LEG.VOOILMO2A ENG2OilArr,LEG.VOOILAPUD ApuOilDep," +
                 " LEG.VOOILAPUA ApuOilArr FROM AMSFCSCVAL.FRVO AS LEG LEFT JOIN AMSFCSCVAL.FRRM AS LOG ON  LEG.AVNUMAP = LOG.AVNUMAP AND LEG.RMDOC = LOG.RMDOC Left join" +
                 " AMSFCSCVAL.FRAV A ON LEG.AVNUMAP=A.AVNUMAP";
-            string queryConditionForSeveralDays = " WHERE A.AVNUMAP = LEG.AVNUMAP AND (Char(Date(RTRIM(LEG.RMA4)||'-'||RTRIM(LEG.RMMM)||'-'||RTRIM(LEG.RMJJ)))> Char(current date -" + step + " MONTH))" +
-                                                  "  ORDER by AcReg,FlightDate desc,TotalFH desc ";
+            var queryConditionForSeveralDays =
+                " WHERE A.AVNUMAP = LEG.AVNUMAP AND (Char(Date(RTRIM(LEG.RMA4)||'-'||RTRIM(LEG.RMMM)||'-'||RTRIM(LEG.RMJJ)))> Char(current date -" +
+                step + " MONTH))" +
+                "  ORDER by AcReg,FlightDate desc,TotalFH desc ";
             QueryStr = strSql + queryConditionForSeveralDays;
             using (var conn = new Db2Conn(GetDb2Connection()))
             {
@@ -76,14 +77,14 @@ namespace UniCloud.DataService.DataSync
             ImportFrpData();
             if (AmasisDatas.Any() && !FrpDatas.Any())
             {
-                DbSet<FlightLog> datas = _unitOfWork.CreateSet<FlightLog>();
-                int times = AmasisDatas.Count() / Size;
-                for (int i = 0; i < times + 1; i++)
+                var datas = _unitOfWork.CreateSet<FlightLog>();
+                var times = AmasisDatas.Count()/Size;
+                for (var i = 0; i < times + 1; i++)
                 {
-                    int count = i == times ? AmasisDatas.Count() - i * Size : Size;
-                    foreach (FlightLog flightLog in AmasisDatas.Skip(i * Size).Take(count))
+                    var count = i == times ? AmasisDatas.Count() - i*Size : Size;
+                    foreach (var flightLog in AmasisDatas.Skip(i*Size).Take(count))
                     {
-                        FlightLog fl = FlightLogFactory.CreateFlightLog();
+                        var fl = FlightLogFactory.CreateFlightLog();
                         fl.AcReg = flightLog.AcReg;
                         fl.ApuCycle = flightLog.ApuCycle;
                         fl.ApuMM = flightLog.ApuMM;
@@ -122,7 +123,7 @@ namespace UniCloud.DataService.DataSync
 
         private string ChangeData(string source)
         {
-            string full = "0000" + source;
+            var full = "0000" + source;
             return full.Substring(full.Length - 4);
         }
     }

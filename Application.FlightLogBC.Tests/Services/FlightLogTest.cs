@@ -26,7 +26,6 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FlightLogBC.Repositories;
 using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using FlightLogBCUnitOfWork = UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork.Mapping.FlightLogBCUnitOfWork;
 
 #endregion
 
