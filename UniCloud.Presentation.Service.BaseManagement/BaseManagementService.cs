@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,14 +11,19 @@
 // 修改者：linxw 时间：2014/3/13 16:38:03
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
+#region 命名空间
 
 using System.ComponentModel.Composition;
 using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 
+#endregion
+
 namespace UniCloud.Presentation.Service.BaseManagement
 {
-    [Export(typeof(IBaseManagementService))]
+    [Export(typeof (IBaseManagementService))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class BaseManagementService : ServiceBase, IBaseManagementService
     {

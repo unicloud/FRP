@@ -54,7 +54,7 @@ namespace UniCloud.Application.BaseManagementBC.Query.UserQueries
                 CreateDate = p.CreateDate,
                 Description = p.Comment,
                 Email = p.Email,
-                EmployeeCode = p.UserName,
+                UserName = p.UserName,
                 OrganizationNo = p.OrganizationNo,
                 Mobile = p.Mobile,
                 Password = p.Password,

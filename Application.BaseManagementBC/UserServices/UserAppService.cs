@@ -20,7 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
+using System.Web.Security;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.BaseManagementBC.DTO;
@@ -55,9 +55,15 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         /// </summary>
         public IQueryable<UserDTO> GetUsers()
         {
-            var queryBuilder =
-                new QueryBuilder<User>();
+            var queryBuilder = new QueryBuilder<User>();
             return _userQuery.UsersQuery(queryBuilder);
+        }
+
+        public void CreateUser(string userName, string password, string email, string question, string answer)
+        {
+            MembershipCreateStatus createStatus;
+            Membership.CreateUser(userName, password, email, question, answer, true, null, out createStatus);
+            _userRepository.UnitOfWork.Commit();
         }
 
         /// <summary>
@@ -104,7 +110,7 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         [Delete(typeof (UserDTO))]
         public void DeleteUser(UserDTO user)
         {
-            User deleteUser = _userRepository.Get(user.Id); //获取需要删除的对象。
+            var deleteUser = _userRepository.Get(user.Id); //获取需要删除的对象。
             _userRepository.Remove(deleteUser); //删除User。
         }
 

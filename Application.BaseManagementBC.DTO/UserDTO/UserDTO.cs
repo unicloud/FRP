@@ -17,14 +17,22 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         #region 属性
 
         /// <summary>
+        ///     UserRole集合
+        /// </summary>
+        private List<UserRoleDTO> _userRoles;
+
+        /// <summary>
         ///     主键
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        ///     员工号
+        ///     用户名称
         /// </summary>
-        public string EmployeeCode { get; set; }
+        /// <remarks>
+        ///     员工号
+        /// </remarks>
+        public string UserName { get; set; }
 
         /// <summary>
         ///     组织机构编号
@@ -40,6 +48,16 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         ///     密码
         /// </summary>
         public string Password { get; set; }
+
+        /// <summary>
+        ///     密码问题
+        /// </summary>
+        public string Question { get; set; }
+
+        /// <summary>
+        ///     密码问题答案
+        /// </summary>
+        public string Answer { get; set; }
 
         /// <summary>
         ///     邮件
@@ -66,15 +84,12 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         /// </summary>
         public string OrganizationName { get; set; }
 
-        /// <summary>
-        /// UserRole集合
-        /// </summary>
-        private List<UserRoleDTO> _userRoles;
         public List<UserRoleDTO> UserRoles
         {
             get { return _userRoles ?? new List<UserRoleDTO>(); }
             set { _userRoles = value; }
         }
+
         #endregion
     }
 }

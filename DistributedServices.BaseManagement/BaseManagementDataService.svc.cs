@@ -1,3 +1,19 @@
+#region 版本控制
+
+// =====================================================
+// 版权所有 (C) 2014 UniCloud 
+// 【本类功能概述】
+// 
+// 作者：丁志浩 时间：2013/11/29，13:11
+// 方案：FRP
+// 项目：DistributedServices.BaseManagement
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// =====================================================
+
+#endregion
 
 #region 命名空间
 
@@ -20,9 +36,8 @@ namespace UniCloud.DistributedServices.BaseManagement
 {
     public class BaseManagementDataService : DataService<BaseManagementData>
     {
-
         /// <summary>
-        /// 初始化服务端策略
+        ///     初始化服务端策略
         /// </summary>
         /// <param name="config">数据服务配置</param>
         public static void InitializeService(DataServiceConfiguration config)
@@ -38,6 +53,7 @@ namespace UniCloud.DistributedServices.BaseManagement
 
             config.SetServiceOperationAccessRule("GetFunctionItemsWithHierarchy", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("GetFunctionItemsByUser", ServiceOperationRights.All);
+
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
@@ -69,6 +85,14 @@ namespace UniCloud.DistributedServices.BaseManagement
         }
 
         #region 服务操作
+
+        [WebInvoke]
+        public void CreateUser(string userName, string password, string email, string question, string answer)
+        {
+            var svc = UniContainer.Resolve<IUserAppService>();
+            svc.CreateUser(userName, password, email, question, answer);
+        }
+
         [WebGet]
         public List<FunctionItemDTO> GetFunctionItemsWithHierarchy()
         {
@@ -80,36 +104,42 @@ namespace UniCloud.DistributedServices.BaseManagement
         public List<FunctionItemDTO> GetFunctionItemsByUser(string userId)
         {
             var userService = UniContainer.Resolve<IUserAppService>();
-            int id = int.Parse(userId);
+            var id = int.Parse(userId);
             var user = userService.GetUsers().FirstOrDefault(p => p.Id == id);
             if (user == null)
             {
                 return null;
             }
             var organizationService = UniContainer.Resolve<IOrganizationAppService>();
-            var organization = organizationService.GetOrganizations().FirstOrDefault(p => p.Code.Equals(user.OrganizationNo));
+            var organization =
+                organizationService.GetOrganizations().FirstOrDefault(p => p.Code.Equals(user.OrganizationNo));
             var roleService = UniContainer.Resolve<IRoleAppService>();
             var functionItemIds = new List<int>();
-            user.UserRoles.ForEach(p => roleService.GetRoles().FirstOrDefault(t => t.Id == p.RoleId).RoleFunctions.ForEach(
-                u =>
-                {
-                    if (!functionItemIds.Contains(u.FunctionItemId))
+            user.UserRoles.ForEach(
+                p => roleService.GetRoles().FirstOrDefault(t => t.Id == p.RoleId).RoleFunctions.ForEach(
+                    u =>
                     {
-                        functionItemIds.Add(u.FunctionItemId);
-                    }
-                }));
-            organization.OrganizationRoles.ForEach(p => roleService.GetRoles().FirstOrDefault(t => t.Id == p.RoleId).RoleFunctions.ForEach(
-                u =>
-                {
-                    if (!functionItemIds.Contains(u.FunctionItemId))
+                        if (!functionItemIds.Contains(u.FunctionItemId))
+                        {
+                            functionItemIds.Add(u.FunctionItemId);
+                        }
+                    }));
+            organization.OrganizationRoles.ForEach(
+                p => roleService.GetRoles().FirstOrDefault(t => t.Id == p.RoleId).RoleFunctions.ForEach(
+                    u =>
                     {
-                        functionItemIds.Add(u.FunctionItemId);
-                    }
-                }));
+                        if (!functionItemIds.Contains(u.FunctionItemId))
+                        {
+                            functionItemIds.Add(u.FunctionItemId);
+                        }
+                    }));
             var functionItemService = UniContainer.Resolve<IFunctionItemAppService>();
-            return functionItemIds.Select(functionItemId => functionItemService.GetFunctionItems().FirstOrDefault(p => p.Id == functionItemId)).ToList();
+            return
+                functionItemIds.Select(
+                    functionItemId => functionItemService.GetFunctionItems().FirstOrDefault(p => p.Id == functionItemId))
+                    .ToList();
         }
-        #endregion
 
+        #endregion
     }
 }

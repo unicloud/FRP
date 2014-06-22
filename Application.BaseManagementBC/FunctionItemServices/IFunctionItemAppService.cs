@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/3/13 17:38:35
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -23,17 +25,17 @@ using UniCloud.Application.BaseManagementBC.DTO;
 namespace UniCloud.Application.BaseManagementBC.FunctionItemServices
 {
     /// <summary>
-    /// FunctionItem的服务接口。
+    ///     FunctionItem的服务接口。
     /// </summary>
     public interface IFunctionItemAppService
     {
         /// <summary>
-        /// 获取所有FunctionItem。
+        ///     获取所有FunctionItem。
         /// </summary>
         IQueryable<FunctionItemDTO> GetFunctionItems();
 
         /// <summary>
-        /// 获取所有FunctionItemWithHierarchy
+        ///     获取所有FunctionItemWithHierarchy
         /// </summary>
         /// <returns>所有的FunctionItemWithHierarchy。</returns>
         IEnumerable<FunctionItemDTO> GetFunctionItemsWithHierarchy();

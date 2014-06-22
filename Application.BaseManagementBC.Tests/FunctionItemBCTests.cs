@@ -16,15 +16,9 @@
 
 #region 命名空间
 
-using System.Data.Entity;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
-using UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries;
-using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
-using UniCloud.Infrastructure.Data;
-using UniCloud.Infrastructure.Data.BaseManagementBC.Repositories;
-using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -34,38 +28,17 @@ namespace UniCloud.Application.BaseManagementBC.Tests
     [TestClass]
     public class FunctionItemBCTests
     {
-        #region 基础配置
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            UniContainer.Create()
-                .Register<IQueryableUnitOfWork, BaseManagementBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IModelConfiguration, SqlConfigurations>("Sql")
-                #region 相关配置，包括查询，应用服务，仓储注册
-
-                .Register<IFunctionItemAppService, FunctionItemAppService>()
-                .Register<IFunctionItemQuery, FunctionItemQuery>()
-                .Register<IFunctionItemRepository, FunctionItemRepository>()
-                #endregion
-
-                ;
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-        }
-
-        #endregion
-
         [TestMethod]
         public void TestGetFunctionItems()
         {
-            var work = UniContainer.Resolve<BaseManagementBCUnitOfWork>();
-            var aaa = work.FunctionItems.Include(p => p.SubFunctionItems).Where(p => p.ParentItemId == null).ToList();
-            var service = UniContainer.Resolve<IFunctionItemAppService>();
-            var result = service.GetFunctionItemsWithHierarchy();
+            // Arrange
+            var svc = UniContainer.Resolve<IFunctionItemAppService>();
+
+            // Act
+            var result = svc.GetFunctionItemsWithHierarchy();
+
+            // Assert
+            Assert.IsTrue(result.Any());
         }
     }
 }

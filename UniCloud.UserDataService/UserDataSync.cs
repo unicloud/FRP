@@ -56,7 +56,7 @@ namespace UniCloud.UserDataService
                                         user.Id = Int32.Parse(childElement.InnerText);
                                         break;
                                     case "empno":
-                                        user.EmployeeCode = childElement.InnerText;
+                                        user.UserName = childElement.InnerText;
                                         break;
                                     case "empname":
                                         user.DisplayName = childElement.InnerText;

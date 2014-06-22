@@ -19,14 +19,8 @@
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using log4net.Config;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCloud.Application.BaseManagementBC.Query.UserQueries;
 using UniCloud.Application.BaseManagementBC.UserServices;
-using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
-using UniCloud.Infrastructure.Data;
-using UniCloud.Infrastructure.Data.BaseManagementBC.Repositories;
-using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -36,32 +30,6 @@ namespace UniCloud.Application.BaseManagementBC.Tests
     [TestClass]
     public class UserBCTests
     {
-        #region 基础配置
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            XmlConfigurator.Configure();
-            UniContainer.Create()
-                .Register<IQueryableUnitOfWork, BaseManagementBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IModelConfiguration, SqlConfigurations>("Sql")
-                #region 相关配置，包括查询，应用服务，仓储注册
-
-                .Register<IUserAppService, UserAppService>()
-                .Register<IUserQuery, UserQuery>()
-                .Register<IUserRepository, UserRepository>()
-                #endregion
-
-                ;
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-        }
-
-        #endregion
-
         [TestMethod]
         public void TestGetUsers()
         {
@@ -76,7 +44,13 @@ namespace UniCloud.Application.BaseManagementBC.Tests
                 outString += outBytes[i].ToString("x2");
             }
 
-            var first = result.FirstOrDefault(p => p.EmployeeCode == "010768" && p.Password == outString);
+            var first = result.FirstOrDefault(p => p.UserName == "010768" && p.Password == outString);
+        }
+
+        [TestMethod]
+        public void CreateUserTest()
+        {
+            
         }
     }
 }

@@ -51,8 +51,7 @@ namespace UniCloud.Application.BaseManagementBC.FunctionItemServices
         /// </summary>
         public IQueryable<FunctionItemDTO> GetFunctionItems()
         {
-            var queryBuilder =
-                new QueryBuilder<FunctionItem>();
+            var queryBuilder = new QueryBuilder<FunctionItem>();
             return _functionItemQuery.FunctionItemsQuery(queryBuilder);
         }
 
