@@ -51,7 +51,6 @@
     <Compile Include="Enums\ContractRepairtType.cs" />
     <Compile Include="Enums\ControlStatus.cs" />
     <Compile Include="Enums\ControlStrategy.cs" />
-    <Compile Include="Enums\CreateUserStatus.cs" />
     <Compile Include="Enums\DependencyType.cs" />
     <Compile Include="Enums\EngineMaintainInvoiceType.cs" />
     <Compile Include="Enums\EnginePlanDeliverStatus.cs">
