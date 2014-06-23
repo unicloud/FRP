@@ -749,7 +749,7 @@ namespace UniCloud.Application.BaseManagementBC
                             Convert.ToBase64String(EncryptPassword(Encoding.Unicode.GetBytes(password)));
                         break;
                     case MembershipPasswordFormat.Hashed:
-                        var hash = new HMACSHA1 {Key = HexToByte(_machineKey.ValidationKey)};
+                        var hash = new HMACSHA1 {Key = HexToByte(_machineKey.ValidationKey + "C50B3C89")};
                         encodedPassword =
                             Convert.ToBase64String(hash.ComputeHash(Encoding.Unicode.GetBytes(password)));
                         break;

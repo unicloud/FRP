@@ -74,7 +74,7 @@
     <Compile Include="InitialData\DocumentTypeData.cs" />
     <Compile Include="InitialData\EngineTypeData.cs" />
     <Compile Include="InitialData\ForwardData.cs" />
-    <Compile Include="InitialData\FunctionItemData.cs" />
+    <Compile Include="InitialData\AuthData.cs" />
     <Compile Include="InitialData\InitialBase\IInitialData.cs" />
     <Compile Include="InitialData\InitialBase\InitialContainer.cs" />
     <Compile Include="InitialData\InitialBase\InitialDataBase.cs" />
@@ -88,7 +88,6 @@
     <Compile Include="InitialData\ReceptionData.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="InitialData\RoleData.cs" />
     <Compile Include="InitialData\SupplierData.cs">
       <SubType>Code</SubType>
     </Compile>

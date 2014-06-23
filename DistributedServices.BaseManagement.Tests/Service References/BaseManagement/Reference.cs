@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/6/22 21:01:29
+// 生成日期: 2014/6/23 10:34:28
 namespace UniCloud.DistributedServices.BaseManagement.Tests.BaseManagement
 {
     

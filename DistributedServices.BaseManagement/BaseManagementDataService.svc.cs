@@ -28,7 +28,6 @@ using UniCloud.Application.BaseManagementBC.FunctionItemServices;
 using UniCloud.Application.BaseManagementBC.OrganizationServices;
 using UniCloud.Application.BaseManagementBC.RoleServices;
 using UniCloud.Application.BaseManagementBC.UserServices;
-using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -87,13 +86,6 @@ namespace UniCloud.DistributedServices.BaseManagement
         }
 
         #region ·þÎñ²Ù×÷
-
-        [WebGet]
-        public void CreateUser(string userName, string password, string email, string question, string answer)
-        {
-            var svc = UniContainer.Resolve<IUserAppService>();
-            svc.CreateUser(userName, password, email, question, answer);
-        }
 
         [WebGet]
         public List<FunctionItemDTO> GetFunctionItemsWithHierarchy()
