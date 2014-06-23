@@ -21,7 +21,7 @@ using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 #endregion
 
-namespace UniCloud.Infrastructure.Data.UberModel.InitialData
+namespace UniCloud.Infrastructure.Data.UberModel.InitialData.InitialBase
 {
     public abstract class InitialDataBase : IInitialData
     {

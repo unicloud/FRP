@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,45 +11,35 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.UberModel.Aggregates.ReceptionAgg;
+using UniCloud.Infrastructure.Data.UberModel.InitialData.InitialBase;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 #endregion
 
 namespace UniCloud.Infrastructure.Data.UberModel.InitialData
 {
-    public class ReceptionData
+    public class ReceptionData : InitialDataBase
     {
-        private readonly UberModelUnitOfWork _context;
-
         public ReceptionData(UberModelUnitOfWork context)
+            : base(context)
         {
-            _context = context;
         }
 
-        public void InitialReceptionData()
+        public override void InitialData()
         {
-            var Recetptions = new List<AircraftLeaseReception>
-                {
-                    new AircraftLeaseReception()
-                        {
-                            //Description = "描述字段",
-                            //CreateDate=
-
-                        },
-                };
-           Recetptions.ForEach(m => _context.Receptions.AddOrUpdate(u => u.ReceptionNumber, m));
+            var recetptions = new List<AircraftLeaseReception>
+            {
+                new AircraftLeaseReception(),
+            };
+            recetptions.ForEach(m => Context.Receptions.AddOrUpdate(u => u.ReceptionNumber, m));
         }
-
     }
 }

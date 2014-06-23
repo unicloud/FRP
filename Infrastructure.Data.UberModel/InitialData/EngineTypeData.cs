@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using UniCloud.Domain.UberModel.Aggregates.EngineTypeAgg;
+using UniCloud.Infrastructure.Data.UberModel.InitialData.InitialBase;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 #endregion

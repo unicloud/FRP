@@ -38,6 +38,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.Name).HasColumnName("Name").HasMaxLength(100);
+            Property(p => p.IsSystemRole).HasColumnName("IsSystemRole");
             Property(p => p.Description).HasColumnName("Description").HasMaxLength(100);
             Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
             Property(p => p.LevelCode).HasColumnName("LevelCode").HasMaxLength(100);

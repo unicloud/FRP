@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.MaterialAgg;
+using UniCloud.Infrastructure.Data.UberModel.InitialData.InitialBase;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 #endregion

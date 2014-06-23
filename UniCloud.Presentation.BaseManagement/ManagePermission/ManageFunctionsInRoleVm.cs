@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/2/11 15:23:19
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -30,7 +32,7 @@ using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 
 namespace UniCloud.Presentation.BaseManagement.ManagePermission
 {
-    [Export(typeof(ManageFunctionsInRoleVm))]
+    [Export(typeof (ManageFunctionsInRoleVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ManageFunctionsInRoleVm : EditViewModelBase
     {
@@ -40,8 +42,8 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         private readonly IRegionManager _regionManager;
         private readonly IBaseManagementService _service;
         private bool _enableTreeViewCheck = true;
-        [Import]
-        public ManageFunctionsInRole CurrentManageFunctionsInRole;
+        [Import] public ManageFunctionsInRole currentManageFunctionsInRole;
+
         [ImportingConstructor]
         public ManageFunctionsInRoleVm(IRegionManager regionManager, IBaseManagementService service)
             : base(service)
@@ -67,17 +69,17 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             //创建并注册CollectionView
             FunctionItems = _service.CreateCollection(_context.FunctionItems);
             FunctionItems.LoadedData += (o, e) =>
-                                        {
-                                            FunctionItems.ToList().ForEach(GenerateFunctionItemStructure);
-                                            Applications = FunctionItems.Where(p => p.ParentItemId == null).ToList();
-                                        };
+            {
+                FunctionItems.ToList().ForEach(GenerateFunctionItemStructure);
+                Applications = FunctionItems.Where(p => p.ParentItemId == null).ToList();
+            };
             Roles = _service.CreateCollection(_context.Roles, o => o.RoleFunctions);
             Roles.PageSize = 6;
             Roles.LoadedData += (o, e) =>
-                                {
-                                    if (Role == null)
-                                        Role = Roles.FirstOrDefault();
-                                };
+            {
+                if (Role == null)
+                    Role = Roles.FirstOrDefault();
+            };
             _service.RegisterCollectionView(Roles);
         }
 
@@ -111,13 +113,16 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             }
             Roles.Load(true);
         }
+
         #region 角色
-        public QueryableDataServiceCollectionView<RoleDTO> Roles { get; set; }
 
         /// <summary>
-        /// 选中的角色
+        ///     选中的角色
         /// </summary>
         private RoleDTO _role;
+
+        public QueryableDataServiceCollectionView<RoleDTO> Roles { get; set; }
+
         public RoleDTO Role
         {
             get { return _role; }
@@ -125,15 +130,20 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             {
                 _role = value;
                 SetCheckedState();
+                RemoveRoleCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged(() => Role);
             }
         }
+
         #endregion
 
         #region 功能菜单
+
+        private ObservableCollection<FunctionItemDTO> _functionItemStructures =
+            new ObservableCollection<FunctionItemDTO>();
+
         public QueryableDataServiceCollectionView<FunctionItemDTO> FunctionItems { get; set; }
 
-        private ObservableCollection<FunctionItemDTO> _functionItemStructures = new ObservableCollection<FunctionItemDTO>();
         public ObservableCollection<FunctionItemDTO> FunctionItemStructures
         {
             get { return _functionItemStructures; }
@@ -143,13 +153,21 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 RaisePropertyChanged(() => FunctionItemStructures);
             }
         }
+
         #endregion
 
         #region 应用集合
+
         /// <summary>
-        /// 应用集合
+        ///     选中的应用
+        /// </summary>
+        private FunctionItemDTO _application;
+
+        /// <summary>
+        ///     应用集合
         /// </summary>
         private List<FunctionItemDTO> _applications;
+
         public List<FunctionItemDTO> Applications
         {
             get { return _applications; }
@@ -160,10 +178,6 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             }
         }
 
-        /// <summary>
-        /// 选中的应用
-        /// </summary>
-        private FunctionItemDTO _application;
         public FunctionItemDTO Application
         {
             get { return _application; }
@@ -179,6 +193,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 RaisePropertyChanged(() => Application);
             }
         }
+
         #endregion
 
         #endregion
@@ -198,9 +213,11 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 GenerateFunctionItemStructure(subItem);
             }
         }
+
         #endregion
 
         #region 新增角色
+
         public DelegateCommand<object> AddRoleCommand { get; set; }
 
         protected void OnAddRole(object obj)
@@ -216,9 +233,11 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         {
             return true;
         }
+
         #endregion
 
         #region 删除角色
+
         public DelegateCommand<object> RemoveRoleCommand { get; set; }
 
         protected void OnRemoveRole(object obj)
@@ -238,13 +257,16 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
 
         protected bool CanRemoveRole(object obj)
         {
+            if (_role != null && _role.IsSystemRole) return false;
             return true;
         }
+
         #endregion
 
         #region 功能选中
 
         public DelegateCommand<object> CheckedCommand { get; set; }
+
         private void FunctionItemChecked(object e)
         {
             if (!_enableTreeViewCheck)
@@ -252,45 +274,47 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 return;
             }
             if (Role != null)
-                CurrentManageFunctionsInRole.FunctionRole.CheckedItems.ToList().ForEach(p =>
-                                                                                        {
-                                                                                            var functionItem = p as FunctionItemDTO;
-                                                                                            if (functionItem != null && Role.RoleFunctions.All(t => t.FunctionItemId != functionItem.Id))
-                                                                                            {
-                                                                                                var roleFunction = new RoleFunctionDTO
-                                                                                                                   {
-                                                                                                                       Id = RandomHelper.Next(),
-                                                                                                                       RoleId = Role.Id,
-                                                                                                                       FunctionItemId = functionItem.Id
-                                                                                                                   };
-                                                                                                Role.RoleFunctions.Add(roleFunction);
-                                                                                            }
-                                                                                        });
+                currentManageFunctionsInRole.FunctionRole.CheckedItems.ToList().ForEach(p =>
+                {
+                    var functionItem = p as FunctionItemDTO;
+                    if (functionItem != null && Role.RoleFunctions.All(t => t.FunctionItemId != functionItem.Id))
+                    {
+                        var roleFunction = new RoleFunctionDTO
+                        {
+                            Id = RandomHelper.Next(),
+                            RoleId = Role.Id,
+                            FunctionItemId = functionItem.Id
+                        };
+                        Role.RoleFunctions.Add(roleFunction);
+                    }
+                });
         }
 
         #endregion
 
         #region 功能反选处理
+
         public DelegateCommand<object> UncheckedCommand { get; set; }
+
         private void FunctionItemUnchecked(object e)
         {
             if (!_enableTreeViewCheck)
             {
                 return;
             }
-            var unCheckedItems =new  List<FunctionItemDTO>();
+            var unCheckedItems = new List<FunctionItemDTO>();
             var rootItem = FunctionItemStructures.First();
-            CurrentManageFunctionsInRole.FunctionRole.CheckedItems.ToList().ForEach(p =>
-                                                                                    {
-                                                                                        if (p is FunctionItemDTO)
-                                                                                        {
-                                                                                            var temp = p as FunctionItemDTO;
-                                                                                            if (rootItem.Id!=temp.Id)
-                                                                                            {
-                                                                                                unCheckedItems.Add(temp); 
-                                                                                            }
-                                                                                        }
-                                                                                    });
+            currentManageFunctionsInRole.FunctionRole.CheckedItems.ToList().ForEach(p =>
+            {
+                if (p is FunctionItemDTO)
+                {
+                    var temp = p as FunctionItemDTO;
+                    if (rootItem.Id != temp.Id)
+                    {
+                        unCheckedItems.Add(temp);
+                    }
+                }
+            });
 
             if (Role != null)
             {
@@ -308,6 +332,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         #endregion
 
         #region 设置TreeView选中状态
+
         private void SetCheckedState()
         {
             _enableTreeViewCheck = false;
@@ -325,7 +350,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
 
         private void SetCheckedState(IEnumerable<RoleFunctionDTO> sourceItems, FunctionItemDTO item)
         {
-            item.IsChecked = sourceItems.Any(p => p.FunctionItemId == item.Id) ;
+            item.IsChecked = sourceItems.Any(p => p.FunctionItemId == item.Id);
             item.SubFunctionItems.ToList().ForEach(p => SetCheckedState(Role.RoleFunctions, p));
         }
 
@@ -334,7 +359,9 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             item.IsChecked = false;
             item.SubFunctionItems.ToList().ForEach(ClearCheckedState);
         }
+
         #endregion
+
         #endregion
     }
 }

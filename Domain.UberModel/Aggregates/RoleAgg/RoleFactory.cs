@@ -32,10 +32,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.RoleAgg
         ///     创建角色
         /// </summary>
         /// <param name="name">名称</param>
+        /// <param name="isSystemRole">是否系统角色</param>
         /// <param name="code">代码</param>
         /// <param name="levelCode">层级代码</param>
         /// <param name="decription">描述</param>
-        public static Role CreateRole(string name, string code = null, string levelCode = null, string decription = null)
+        public static Role CreateRole(string name, bool isSystemRole = false, string code = null,
+            string levelCode = null, string decription = null)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -44,6 +46,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.RoleAgg
             var role = new Role
             {
                 Name = name,
+                IsSystemRole = isSystemRole,
                 Code = code,
                 LevelCode = levelCode,
                 Description = decription,

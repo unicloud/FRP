@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Generic;
 using UniCloud.Domain.UberModel.Aggregates.CAACAircraftTypeAgg;
+using UniCloud.Infrastructure.Data.UberModel.InitialData.InitialBase;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 namespace UniCloud.Infrastructure.Data.UberModel.InitialData

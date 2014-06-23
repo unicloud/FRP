@@ -64,14 +64,14 @@
                                                Orientation="Vertical"
                                                telerik:ProportionalStackPanel.RelativeSize="300,300">
                         <telerik:RadPaneGroup>
-                            <telerik:RadPane  Header="管理权限"
-                                              FontSize="{StaticResource HeaderFontSize}"
-                                              IsPinned="True"
-                                              CanFloat="False"
-                                              CanDockInDocumentHost="False"
-                                              CanUserClose="False"
-                                              CanUserPin="False"
-                                              ContextMenuTemplate="{x:Null}">
+                            <telerik:RadPane Header="管理权限"
+                                             FontSize="{StaticResource HeaderFontSize}"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanDockInDocumentHost="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -111,16 +111,16 @@
                                         </telerik:RadButton>
                                     </telerik:RadToolBar>
                                     <Grid Row="1">
-                                        <telerik:RadGridView  AutoExpandGroups="True"
-                                                              AutoGenerateColumns="False"
-                                                              CanUserSortColumns="True"
-                                                              RowIndicatorVisibility="Visible"
-                                                              CanUserFreezeColumns="False"
-                                                              EditTriggers="CellClick"
-                                                              FontSize="{StaticResource TextFontSize}"
-                                                              ValidatesOnDataErrors="InEditMode"
-                                                              ItemsSource="{Binding Roles,Mode=TwoWay}"
-                                                              SelectedItem="{Binding Role,Mode=TwoWay}">
+                                        <telerik:RadGridView AutoExpandGroups="True"
+                                                             AutoGenerateColumns="False"
+                                                             CanUserSortColumns="True"
+                                                             RowIndicatorVisibility="Visible"
+                                                             CanUserFreezeColumns="False"
+                                                             EditTriggers="CellClick"
+                                                             FontSize="{StaticResource TextFontSize}"
+                                                             ValidatesOnDataErrors="InEditMode"
+                                                             ItemsSource="{Binding Roles,Mode=TwoWay}"
+                                                             SelectedItem="{Binding Role,Mode=TwoWay}">
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
                                                                          HeaderTextAlignment="Center" />
@@ -132,6 +132,11 @@
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             DataMemberBinding="{Binding Description}" />
+                                                <telerik:GridViewCheckBoxColumn Header="是否系统角色"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding IsSystemRole}"
+                                                                            IsReadOnlyBinding="{Binding IsSystemRole}"/>
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>
@@ -182,23 +187,23 @@
                                                Orientation="Vertical"
                                                telerik:ProportionalStackPanel.RelativeSize="450,300">
                         <telerik:RadPaneGroup>
-                            <telerik:RadPane  Header="角色功能"
-                                              FontSize="{StaticResource HeaderFontSize}"
-                                              IsPinned="True"
-                                              CanFloat="False"
-                                              CanDockInDocumentHost="False"
-                                              CanUserClose="False"
-                                              CanUserPin="False"
-                                              ContextMenuTemplate="{x:Null}">
-                                <telerik:RadTreeView  x:Name="FunctionRole"
-                                                      SelectionMode="Multiple"
-                                                      ItemTemplate="{StaticResource ApplicationTemplate}"
-                                                      ItemsSource="{Binding FunctionItemStructures,Mode=TwoWay}"
-                                                      ItemContainerStyle="{StaticResource ItemContainerStyle}"
-                                                      FontSize="13"
-                                                      IsOptionElementsEnabled="True"
-                                                      IsRootLinesEnabled="True"
-                                                      IsTriStateMode="True">
+                            <telerik:RadPane Header="角色功能"
+                                             FontSize="{StaticResource HeaderFontSize}"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanDockInDocumentHost="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
+                                <telerik:RadTreeView x:Name="FunctionRole"
+                                                     SelectionMode="Multiple"
+                                                     ItemTemplate="{StaticResource ApplicationTemplate}"
+                                                     ItemsSource="{Binding FunctionItemStructures,Mode=TwoWay}"
+                                                     ItemContainerStyle="{StaticResource ItemContainerStyle}"
+                                                     FontSize="13"
+                                                     IsOptionElementsEnabled="True"
+                                                     IsRootLinesEnabled="True"
+                                                     IsTriStateMode="True">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="Checked">
                                             <i:InvokeCommandAction Command="{Binding CheckedCommand}" />
@@ -212,7 +217,7 @@
                         </telerik:RadPaneGroup>
                     </telerik:RadSplitContainer>
                 </telerik:RadSplitContainer>
-            </telerik:RadDocking >
+            </telerik:RadDocking>
         </Grid>
     </telerik:RadBusyIndicator>
 </UserControl>

@@ -1873,6 +1873,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         LevelCode = c.String(maxLength: 100),
                         Code = c.String(maxLength: 100),
+                        IsSystemRole = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             

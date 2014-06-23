@@ -88,15 +88,16 @@
     <Compile Include="InitialData\ReceptionData.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="InitialData\RoleData.cs" />
     <Compile Include="InitialData\SupplierData.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="InitialData\TradeData.cs" />
     <Compile Include="InitialData\XmlConfigData.cs" />
     <Compile Include="InitialData\XmlSettingData.cs" />
-    <Compile Include="Migrations\201406210902042_Initial.cs" />
-    <Compile Include="Migrations\201406210902042_Initial.Designer.cs">
-      <DependentUpon>201406210902042_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201406221221055_Initial.cs" />
+    <Compile Include="Migrations\201406221221055_Initial.Designer.cs">
+      <DependentUpon>201406221221055_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -336,8 +337,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406210902042_Initial.resx">
-      <DependentUpon>201406210902042_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406221221055_Initial.resx">
+      <DependentUpon>201406221221055_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

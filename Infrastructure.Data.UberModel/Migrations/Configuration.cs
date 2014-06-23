@@ -1,10 +1,9 @@
 #region ÃüÃû¿Õ¼ä
 
+//using UniCloud.Infrastructure.Data.UberModel.InitialData;
 using System.Data.Entity.Migrations;
 using UniCloud.Infrastructure.Data.UberModel.InitialData;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
-
-//using UniCloud.Infrastructure.Data.UberModel.InitialData;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -17,13 +16,14 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
         {
             AutomaticMigrationsEnabled = false;
             UniContainer.Create()
-              .Register<IQueryableUnitOfWork, UberModelUnitOfWork>(new WcfPerRequestLifetimeManager())
-              .Register<IModelConfiguration, SqlConfigurations>("Sql");
+                .Register<IQueryableUnitOfWork, UberModelUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql");
         }
 
         protected override void Seed(UberModelUnitOfWork context)
         {
             InitialContainer.CreateInitialContainer()
+                .Register(new RoleData(context))
                 .Register(new FunctionItemData(context))
                 .Register(new XmlConfigData(context))
                 .Register(new XmlSettingData(context))

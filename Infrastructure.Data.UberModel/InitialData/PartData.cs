@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Domain.UberModel.Aggregates.MaterialAgg;
 using UniCloud.Domain.UberModel.Aggregates.PartAgg;
+using UniCloud.Infrastructure.Data.UberModel.InitialData.InitialBase;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 #endregion

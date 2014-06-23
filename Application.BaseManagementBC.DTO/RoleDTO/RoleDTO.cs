@@ -17,6 +17,11 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         #region 属性
 
         /// <summary>
+        ///     功能项集合
+        /// </summary>
+        private List<RoleFunctionDTO> _roleFunctions;
+
+        /// <summary>
         ///     主键
         /// </summary>
         public int Id { get; set; }
@@ -37,9 +42,10 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         public DateTime CreateDate { get; set; }
 
         /// <summary>
-        /// 功能项集合
+        ///     是否系统角色
         /// </summary>
-        private List<RoleFunctionDTO> _roleFunctions;
+        public bool IsSystemRole { get; set; }
+
         public List<RoleFunctionDTO> RoleFunctions
         {
             get { return _roleFunctions ?? new List<RoleFunctionDTO>(); }

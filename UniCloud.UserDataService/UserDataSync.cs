@@ -20,7 +20,7 @@ namespace UniCloud.UserDataService
         private readonly OrganizationAppService _organizationApp;
         public UserDataSync()
         {
-            _userAppService = new UserAppService(new UserQuery(new BaseManagementBCUnitOfWork()), new UserRepository(new BaseManagementBCUnitOfWork()));
+            //_userAppService = new UserAppService(new UserQuery(new BaseManagementBCUnitOfWork()), new UserRepository(new BaseManagementBCUnitOfWork()));
             _organizationApp = new OrganizationAppService(new OrganizationQuery(new BaseManagementBCUnitOfWork()), new OrganizationRepository(new BaseManagementBCUnitOfWork()));
         }
 

@@ -19,6 +19,7 @@
 
 using System.Collections.Generic;
 using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
+using UniCloud.Infrastructure.Data.UberModel.InitialData.InitialBase;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 #endregion

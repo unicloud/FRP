@@ -52,6 +52,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.RoleAgg
         /// </summary>
         public string Code { get; internal set; }
 
+        /// <summary>
+        ///     是否系统角色
+        /// </summary>
+        public bool IsSystemRole { get;internal set; }
+
         #endregion
 
         #region 外键

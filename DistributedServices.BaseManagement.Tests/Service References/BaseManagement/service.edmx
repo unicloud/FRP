@@ -70,6 +70,7 @@
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="IsSystemRole" Type="Edm.Boolean" Nullable="false" />
         <Property Name="RoleFunctions" Type="Collection(UniCloud.Application.BaseManagementBC.DTO.RoleFunctionDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="RoleFunctionDTO">
@@ -122,10 +123,6 @@
         <EntitySet Name="BusinessLicenses" EntityType="UniCloud.Application.BaseManagementBC.DTO.BusinessLicenseDTO" />
         <EntitySet Name="AircraftCabinTypes" EntityType="UniCloud.Application.BaseManagementBC.DTO.AircraftCabinTypeDTO" />
         <EntitySet Name="XmlSettings" EntityType="UniCloud.Application.BaseManagementBC.DTO.XmlSettingDTO" />
-        <FunctionImport Name="CreateAUser" m:HttpMethod="GET">
-          <Parameter Name="userName" Type="Edm.String" />
-          <Parameter Name="password" Type="Edm.String" />
-        </FunctionImport>
         <FunctionImport Name="CreateUser" m:HttpMethod="GET">
           <Parameter Name="userName" Type="Edm.String" />
           <Parameter Name="password" Type="Edm.String" />

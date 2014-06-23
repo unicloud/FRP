@@ -18,7 +18,6 @@
 #region 命名空间
 
 using System;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.DistributedServices.BaseManagement.Tests.BaseManagement;
 
@@ -33,22 +32,12 @@ namespace UniCloud.DistributedServices.BaseManagement.Tests
         public void CreateUserTest()
         {
             // Arrange
-            var queryString = "CreateAUser?userName='01104'&password='1'";
+            const string queryString = "CreateUser?userName='admin'&password='1'&email=''&question='first'&answer='first'";
             var uri = new Uri("http://localhost/DistributedServices.BaseManagement/BaseManagementDataService.svc/");
             var context = new BaseManagementData(uri);
 
             // Act
-            //var result =
-            //    context.CreateQuery<string>("CreateUser")
-            //        .AddQueryOption("userName", "01104")
-            //        .AddQueryOption("password", "1")
-            //        .AddQueryOption("email", "dingzi@xiamenair.com")
-            //        .AddQueryOption("question", "first")
-            //        .AddQueryOption("answer", "first");
             context.Execute<string>(new Uri(queryString, UriKind.Relative));
-
-            // Assert
-
         }
     }
 }

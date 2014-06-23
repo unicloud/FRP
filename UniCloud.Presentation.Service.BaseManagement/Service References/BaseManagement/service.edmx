@@ -70,6 +70,7 @@
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="IsSystemRole" Type="Edm.Boolean" Nullable="false" />
         <Property Name="RoleFunctions" Type="Collection(UniCloud.Application.BaseManagementBC.DTO.RoleFunctionDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="RoleFunctionDTO">

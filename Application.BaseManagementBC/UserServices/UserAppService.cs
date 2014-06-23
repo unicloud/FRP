@@ -25,6 +25,7 @@ using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.Query.UserQueries;
+using UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
 
@@ -39,13 +40,18 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
     [LogAOP]
     public class UserAppService : ContextBoundObject, IUserAppService
     {
+        private readonly IRoleRepository _roleRepository;
         private readonly IUserQuery _userQuery;
         private readonly IUserRepository _userRepository;
+        private readonly IUserRoleRepository _userRoleRepository;
 
-        public UserAppService(IUserQuery userQuery, IUserRepository userRepository)
+        public UserAppService(IUserQuery userQuery, IUserRepository userRepository,
+            IUserRoleRepository userRoleRepository, IRoleRepository roleRepository)
         {
             _userQuery = userQuery;
             _userRepository = userRepository;
+            _userRoleRepository = userRoleRepository;
+            _roleRepository = roleRepository;
         }
 
         #region UserDTO
@@ -63,6 +69,13 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         {
             MembershipCreateStatus createStatus;
             Membership.CreateUser(userName, password, email, question, answer, true, null, out createStatus);
+            _userRepository.UnitOfWork.Commit();
+            var user = _userRepository.GetFiltered(r => r.UserName == userName).FirstOrDefault();
+            var role = _roleRepository.GetFiltered(r => r.Name == "系统管理员").FirstOrDefault();
+            if (user == null) return;
+            user.UpdateUser(null, null, true);
+            if (user.LoweredUserName == "admin" && role != null)
+                _userRoleRepository.Add(new UserRole(user.Id, role.Id));
             _userRepository.UnitOfWork.Commit();
         }
 
