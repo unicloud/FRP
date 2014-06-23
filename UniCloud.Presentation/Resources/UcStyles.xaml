@@ -130,6 +130,159 @@
 
     <!--ListBox相关样式-->
 
+    <!--RadTreeView相关样式-->
+    <Style x:Key="ExpanderStyle"
+           TargetType="ToggleButton">
+        <Setter Property="IsEnabled"
+                Value="True" />
+        <Setter Property="IsTabStop"
+                Value="False" />
+        <Setter Property="Cursor"
+                Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                                       Storyboard.TargetName="ButtonOver"
+                                                                       Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00.2000000"
+                                                                  Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                                       Storyboard.TargetName="Button"
+                                                                       Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00.2000000"
+                                                                  Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CheckStates">
+                                <VisualState x:Name="Unchecked">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                                       Storyboard.TargetName="CollapsedVisual"
+                                                                       Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00.2000000"
+                                                                  Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                                       Storyboard.TargetName="CollapsedVisualOver"
+                                                                       Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00.2000000"
+                                                                  Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                                       Storyboard.TargetName="CollapsedVisualOver"
+                                                                       Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00.2000000"
+                                                                  Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                                       Storyboard.TargetName="CollapsedVisual"
+                                                                       Storyboard.TargetProperty="(UIElement.Opacity)">
+                                            <EasingDoubleKeyFrame KeyTime="00:00:00.2000000"
+                                                                  Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="ButtonOver"
+                              Opacity="0"
+                              Margin="0,4,0,0"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Top"
+                              Width="16"
+                              Height="16">
+                            <Rectangle Stroke="#FF027BA6"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Width="Auto"
+                                       Height="Auto"
+                                       RadiusX="3"
+                                       RadiusY="3">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0.5,1"
+                                                         StartPoint="0.5,0">
+                                        <GradientStop Color="#FF00BCFF"
+                                                      Offset="0" />
+                                        <GradientStop Color="#FF027BA6"
+                                                      Offset="1" />
+                                        <GradientStop Color="#FF00A5E0"
+                                                      Offset="0.5" />
+                                        <GradientStop Color="#FF005674"
+                                                      Offset="0.501" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle x:Name="CollapsedVisualOver"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Width="2"
+                                       Height="8"
+                                       RadiusX="0"
+                                       RadiusY="0"
+                                       Fill="#FFFFFFFF"
+                                       Margin="7,4,0,0" />
+                            <Rectangle RadiusX="0"
+                                       RadiusY="0"
+                                       Fill="#FFFFFFFF"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Width="8"
+                                       Height="2"
+                                       Margin="4,7,0,0" />
+                        </Grid>
+                        <Grid x:Name="Button"
+                              Margin="0,4,0,0"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Top"
+                              Width="16"
+                              Height="16">
+                            <Rectangle Stroke="#FF027BA6"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Width="Auto"
+                                       Height="Auto"
+                                       RadiusX="3"
+                                       RadiusY="3"
+                                       Fill="#FF00A2DC" />
+                            <Rectangle x:Name="CollapsedVisual"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Width="2"
+                                       Height="8"
+                                       RadiusX="0"
+                                       RadiusY="0"
+                                       Fill="#FFFFFFFF"
+                                       Margin="7,4,0,0" />
+                            <Rectangle RadiusX="0"
+                                       RadiusY="0"
+                                       Fill="#FFFFFFFF"
+                                       HorizontalAlignment="Left"
+                                       Margin="4,7,0,0"
+                                       VerticalAlignment="Top"
+                                       Width="8"
+                                       Height="2" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--RadTreeView相关样式-->
+
     <!--RibbonView相关样式-->
     <Style TargetType="telerik:RadRibbonBackstageItem" x:Key="BaseRadRibbonBackstageItem" />
     <Style TargetType="telerik:RadRibbonBackstageItem" BasedOn="{StaticResource BaseRadRibbonBackstageItem}">

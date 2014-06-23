@@ -8,7 +8,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
              d:DataContext="{d:DesignInstance uc:ShellViewModel}">
 
     <UserControl.Resources>
@@ -16,90 +18,200 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="MenuItemStyle" TargetType="telerik:RadMenuItem">
-                <Setter Property="IsSeparator" Value="{Binding IsSeparator}" />
-                <Setter Property="IsChecked" Value="{Binding IsChecked}" />
-                <Setter Property="IsCheckable" Value="{Binding IsCheckable}" />
-                <Setter Property="StaysOpenOnClick" Value="{Binding IsCheckable}" />
-                <Setter Property="Header" Value="{Binding Text}" />
-                <Setter Property="ItemsSource" Value="{Binding Items}" />
-                <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
-                <Setter Property="Icon" Value="{Binding Image}" />
-                <Setter Property="CommandParameter" Value="{Binding NavUri}" />
+            <telerik:HierarchicalDataTemplate x:Key="MenuItemTemplate"
+                                              ItemsSource="{Binding Items}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Text}"
+                               FontWeight="Black" 
+                               FontSize="10"/>
+                </StackPanel>
+            </telerik:HierarchicalDataTemplate>
+            <Style x:Key="ItemContainerStyle"
+                   TargetType="telerik:RadTreeViewItem">
+                <!--<Setter Property="IsExpanded"
+                        Value="True" />-->
+            </Style>
+            <Style x:Key="MenuItemStyle"
+                   TargetType="telerik:RadMenuItem">
+                <Setter Property="IsSeparator"
+                        Value="{Binding IsSeparator}" />
+                <Setter Property="IsChecked"
+                        Value="{Binding IsChecked}" />
+                <Setter Property="IsCheckable"
+                        Value="{Binding IsCheckable}" />
+                <Setter Property="StaysOpenOnClick"
+                        Value="{Binding IsCheckable}" />
+                <Setter Property="Header"
+                        Value="{Binding Text}" />
+                <Setter Property="ItemsSource"
+                        Value="{Binding Items}" />
+                <Setter Property="IsEnabled"
+                        Value="{Binding IsEnabled}" />
+                <Setter Property="Icon"
+                        Value="{Binding Image}" />
+                <Setter Property="CommandParameter"
+                        Value="{Binding NavUri}" />
+                <Setter Property="IsSubmenuOpen"
+                        Value="True" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-
-    <Grid x:Name="LayoutRoot" Background="White">
+    <Grid x:Name="LayoutRoot"
+          Background="White">
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="MouseRightButtonDown">
                 <ei:CallMethodAction MethodName="MouseRightButtonDown"
                                      TargetObject="{Binding}" />
             </i:EventTrigger>
         </i:Interaction.Triggers>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <StackPanel x:Name="Toolbar" Orientation="Horizontal">
-            <telerik:RadButton x:Name="BtnHome" Margin="7,0,4,0" VerticalAlignment="Center" HorizontalAlignment="Left"
-                               BorderThickness="0" Command="{Binding HomeCommand}">
-                <Path
-                    Data="M11.440582,3.9660034 L18.735001,9.5578079 L18.735001,18.813202 L13.465415,18.813202 L13.474515,13.149039 C13.474515,13.149039 9.4405298,13.149039 9.4405298,13.149039 L9.432169,18.828903 L4.1620026,18.838001 L4.1620026,9.5578079 z M11.514402,0 L22.822001,9.5100002 L20.189154,9.5100002 L11.514402,2.4784653 L2.5077338,9.3914757 L0,9.3914757 z"
-                    Stretch="Fill" UseLayoutRounding="False" HorizontalAlignment="Center"
-                    Height="16" VerticalAlignment="Center" Width="17" Margin="0">
-                    <Path.Fill>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF0096FF" Offset="1" />
-                            <GradientStop Color="#FF19A0EA" />
-                        </LinearGradientBrush>
-                    </Path.Fill>
-                </Path>
-            </telerik:RadButton>
-            <telerik:RadMenu ItemsSource="{Binding Items}" ItemContainerStyle="{StaticResource MenuItemStyle}"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0"
+                      telerik:StyleManager.Theme="Windows8"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="Toolbar"
+                        Orientation="Vertical">
+                <telerik:RadButton x:Name="BtnHome"
+                                   Margin="7,0,4,0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   BorderThickness="0"
+                                   Command="{Binding HomeCommand}">
+                    <Path Data="M11.440582,3.9660034 L18.735001,9.5578079 L18.735001,18.813202 L13.465415,18.813202 L13.474515,13.149039 C13.474515,13.149039 9.4405298,13.149039 9.4405298,13.149039 L9.432169,18.828903 L4.1620026,18.838001 L4.1620026,9.5578079 z M11.514402,0 L22.822001,9.5100002 L20.189154,9.5100002 L11.514402,2.4784653 L2.5077338,9.3914757 L0,9.3914757 z"
+                          Stretch="Fill"
+                          UseLayoutRounding="False"
+                          HorizontalAlignment="Center"
+                          Height="16"
+                          VerticalAlignment="Center"
+                          Width="17"
+                          Margin="0">
+                        <Path.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1"
+                                                 StartPoint="0.5,0">
+                                <GradientStop Color="#FF0096FF"
+                                              Offset="1" />
+                                <GradientStop Color="#FF19A0EA" />
+                            </LinearGradientBrush>
+                        </Path.Fill>
+                    </Path>
+                </telerik:RadButton>
+                <!--<telerik:RadMenu ItemsSource="{Binding Items}" Orientation="Vertical"  ItemContainerStyle="{StaticResource MenuItemStyle}"
                              BorderThickness="0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="ItemClick">
                         <ei:CallMethodAction TargetObject="{Binding}" MethodName="RadMenu_ItemClick" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-            </telerik:RadMenu>
-        </StackPanel>
-        <ContentControl Grid.Row="1" regions:RegionManager.RegionName="MainRegion" x:Name="MainContent"
-                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
-
-        <Grid Grid.Row="0" x:Name="LoginWindow" d:IsHidden="True"
+            </telerik:RadMenu>-->
+                <telerik:RadTreeView  x:Name="SpecialConfigsTreeView"
+                                      IsEditable="True"
+                                      IsLineEnabled="True"
+                                      AllowDrop="True"
+                                      IsDragDropEnabled="False"
+                                      ItemTemplate="{StaticResource MenuItemTemplate}"
+                                      ItemsSource="{Binding Items,Mode=TwoWay}"
+                                      ItemContainerStyle="{StaticResource ItemContainerStyle}"
+                                      ExpanderStyle="{StaticResource ExpanderStyle}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="ItemClick">
+                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                 MethodName="RadMenu_ItemClick" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </telerik:RadTreeView>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal">
+                <TextBlock Text="当前位置：" />
+                <TextBlock Text="{Binding CurMenu,Mode=TwoWay}" />
+            </StackPanel>
+            <ContentControl Grid.Row="1"
+                            regions:RegionManager.RegionName="MainRegion"
+                            x:Name="MainContent"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch" />
+        </Grid>
+        <Grid Grid.Column="0"
+              x:Name="LoginWindow"
+              d:IsHidden="True"
               Visibility="{Binding IsLogined, ConverterParameter=Inverse, Converter={StaticResource BooleanToVisibilityConverter}}"
-              Grid.RowSpan="2">
-            <Rectangle Stroke="Black" Margin="-1,-1,0,0" StrokeThickness="0">
+              Grid.ColumnSpan="2">
+            <Rectangle Stroke="Black"
+                       Margin="-1,-1,0,0"
+                       StrokeThickness="0">
                 <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="White" Offset="0" />
-                        <GradientStop Color="#FF202020" Offset="1" />
+                    <LinearGradientBrush EndPoint="0.5,1"
+                                         StartPoint="0.5,0">
+                        <GradientStop Color="White"
+                                      Offset="0" />
+                        <GradientStop Color="#FF202020"
+                                      Offset="1" />
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Grid Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="200">
+            <Grid Margin="0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Width="300"
+                  Height="200">
                 <Grid.Effect>
-                    <telerik:ReflectionEffect ReflectionHeight="0.25" ElementHeight="200" />
+                    <telerik:ReflectionEffect ReflectionHeight="0.25"
+                                              ElementHeight="200" />
                 </Grid.Effect>
-                <Border BorderThickness="1" CornerRadius="2" BorderBrush="#14000000" Background="#14000000"
-                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="-1" />
-                <Border BorderThickness="1" CornerRadius="2.25" BorderBrush="#0F000000" Background="#0F000000"
-                        HorizontalAlignment="Stretch" Margin="-2" VerticalAlignment="Stretch" />
-                <Border BorderThickness="1" CornerRadius="2.5" BorderBrush="#0C000000" Background="#0C000000"
-                        HorizontalAlignment="Stretch" Margin="-3" VerticalAlignment="Stretch" />
-                <Border BorderThickness="1" CornerRadius="2.75" BorderBrush="#0A000000" Background="#0A000000"
-                        HorizontalAlignment="Stretch" Margin="-4" VerticalAlignment="Stretch" />
-                <Border BorderBrush="Black" BorderThickness="0" CornerRadius="2" Margin="0" Background="#FF59A5F1">
+                <Border BorderThickness="1"
+                        CornerRadius="2"
+                        BorderBrush="#14000000"
+                        Background="#14000000"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Margin="-1" />
+                <Border BorderThickness="1"
+                        CornerRadius="2.25"
+                        BorderBrush="#0F000000"
+                        Background="#0F000000"
+                        HorizontalAlignment="Stretch"
+                        Margin="-2"
+                        VerticalAlignment="Stretch" />
+                <Border BorderThickness="1"
+                        CornerRadius="2.5"
+                        BorderBrush="#0C000000"
+                        Background="#0C000000"
+                        HorizontalAlignment="Stretch"
+                        Margin="-3"
+                        VerticalAlignment="Stretch" />
+                <Border BorderThickness="1"
+                        CornerRadius="2.75"
+                        BorderBrush="#0A000000"
+                        Background="#0A000000"
+                        HorizontalAlignment="Stretch"
+                        Margin="-4"
+                        VerticalAlignment="Stretch" />
+                <Border BorderBrush="Black"
+                        BorderThickness="0"
+                        CornerRadius="2"
+                        Margin="0"
+                        Background="#FF59A5F1">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="46" />
                         </Grid.RowDefinitions>
-                        <telerik:RadDataForm x:Name="LoginForm" Padding="30,7,30,0" Margin="0,30,0,0"
-                                             Background="White" CurrentItem="{Binding LoginInfo}"
-                                             HorizontalContentAlignment="Stretch" AutoEdit="True"
+                        <telerik:RadDataForm x:Name="LoginForm"
+                                             Padding="30,7,30,0"
+                                             Margin="0,30,0,0"
+                                             Background="White"
+                                             CurrentItem="{Binding LoginInfo}"
+                                             HorizontalContentAlignment="Stretch"
+                                             AutoEdit="True"
                                              CommandButtonsVisibility="None">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="AutoGeneratingField">
@@ -107,16 +219,25 @@
                                                          MethodName="LoginForm_AutoGeneratingField" />
                                 </i:EventTrigger>
                                 <i:EventTrigger EventName="KeyDown">
-                                    <ei:CallMethodAction TargetObject="{Binding}" MethodName="LoginForm_KeyDown" />
+                                    <ei:CallMethodAction TargetObject="{Binding}"
+                                                         MethodName="LoginForm_KeyDown" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </telerik:RadDataForm>
-                        <StackPanel Orientation="Horizontal" Margin="0,10,20,10" HorizontalAlignment="Right"
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0,10,20,10"
+                                    HorizontalAlignment="Right"
                                     Grid.Row="1">
-                            <telerik:RadButton x:Name="LoginButton" Content="登录" Margin="10,0,5,0" Width="60"
+                            <telerik:RadButton x:Name="LoginButton"
+                                               Content="登录"
+                                               Margin="10,0,5,0"
+                                               Width="60"
                                                Command="{Binding LoginOkCommand}"
                                                CommandParameter="{Binding ElementName=LoginForm}" />
-                            <telerik:RadButton x:Name="LoginCancel" Content="取消" Margin="5,0,10,0" Width="60"
+                            <telerik:RadButton x:Name="LoginCancel"
+                                               Content="取消"
+                                               Margin="5,0,10,0"
+                                               Width="60"
                                                Command="{Binding LoginCancelCommand}" />
                         </StackPanel>
                     </Grid>

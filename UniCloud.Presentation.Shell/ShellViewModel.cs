@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Controls;
@@ -34,14 +35,17 @@ using Telerik.Windows.Controls.Data.DataForm;
 
 namespace UniCloud.Presentation.Shell
 {
-    [Export(typeof (ShellViewModel))]
+    [Export(typeof(ShellViewModel))]
     public class ShellViewModel : NotificationObject, IPartImportsSatisfiedNotification
     {
         #region 声明
 
-        [Import] public IModuleManager moduleManager;
-        [Import] public IRegionManager regionManager;
+        [Import]
+        public IModuleManager moduleManager;
+        [Import]
+        public IRegionManager regionManager;
 
+        public List<string> items;
         public ShellViewModel()
         {
             LoginInfo = new LoginInfo();
@@ -1323,10 +1327,53 @@ namespace UniCloud.Presentation.Shell
 
         public void RadMenu_ItemClick(object sender, RadRoutedEventArgs e)
         {
-            var menuItem = (e.OriginalSource as RadMenuItem);
-            if (menuItem == null || menuItem.CommandParameter == null) return;
-            var uri = new Uri(menuItem.CommandParameter.ToString(), UriKind.Relative);
-            regionManager.RequestNavigate(RegionNames.MainRegion, uri);
+            var radTreeView = sender as RadTreeView;
+            if (radTreeView != null)
+            {
+                var menuItem = radTreeView.SelectedItem as MenuItem;
+                if (menuItem == null || menuItem.NavUri == null) return;
+                CurMenu = "";
+                items = new List<string>();
+                GenerateMenu(menuItem);
+                items.ForEach(p => CurMenu = p + ">>" + CurMenu);
+                var uri = new Uri(menuItem.NavUri, UriKind.Relative);
+                regionManager.RequestNavigate(RegionNames.MainRegion, uri);
+            }
+        }
+
+        public void GenerateMenu(MenuItem menuItem)
+        {
+            if (menuItem.Parent != null)
+            {
+                items.Add(menuItem.Text);
+                GenerateMenu(menuItem.Parent);
+            }
+            else
+            {
+                items.Add(menuItem.Text);
+            }
+        }
+
+        #endregion
+
+        #region 当前位置
+
+        private string _curMenu;
+
+        /// <summary>
+        /// 当前位置
+        /// </summary>
+        public string CurMenu
+        {
+            get { return this._curMenu; }
+            private set
+            {
+                if (this._curMenu != value)
+                {
+                    this._curMenu = value;
+                    this.RaisePropertyChanged(() => this.CurMenu);
+                }
+            }
         }
 
         #endregion
