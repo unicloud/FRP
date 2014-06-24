@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
+using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries;
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
@@ -76,5 +77,24 @@ namespace UniCloud.Application.BaseManagementBC.FunctionItemServices
         {
             return _functionItemQuery.GetFunctionItemsByUser(userName);
         }
+
+        #region FunctionItemDTO
+
+        [Insert(typeof (FunctionItemDTO))]
+        public void InsertFunctionItem(FunctionItemDTO dto)
+        {
+        }
+
+        [Update(typeof (FunctionItemDTO))]
+        public void UpdateFunctionItem(FunctionItemDTO dto)
+        {
+        }
+
+        [Delete(typeof (FunctionItemDTO))]
+        public void DeleteFunctionItem(FunctionItemDTO dto)
+        {
+        }
+
+        #endregion
     }
 }
