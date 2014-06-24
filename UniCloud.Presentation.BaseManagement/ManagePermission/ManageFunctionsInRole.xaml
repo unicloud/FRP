@@ -133,10 +133,10 @@
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             DataMemberBinding="{Binding Description}" />
                                                 <telerik:GridViewCheckBoxColumn Header="是否系统角色"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            DataMemberBinding="{Binding IsSystemRole}"
-                                                                            IsReadOnlyBinding="{Binding IsSystemRole}"/>
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding IsSystemRole}"
+                                                                                IsReadOnly="True" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>

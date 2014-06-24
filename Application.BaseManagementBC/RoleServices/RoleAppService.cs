@@ -81,7 +81,7 @@ namespace UniCloud.Application.BaseManagementBC.RoleServices
         [Update(typeof (RoleDTO))]
         public void ModifyRole(RoleDTO role)
         {
-            var updateRole = RoleFactory.CreateRole(role.Name);
+            var updateRole = RoleFactory.UpdateRole(role.Name, role.Description);
             updateRole.ChangeCurrentIdentity(role.Id);
 
             var dtoRoleFunctions = role.RoleFunctions;
