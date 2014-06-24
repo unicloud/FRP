@@ -21,19 +21,17 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.Repositories
         }
 
         #region 方法重载
+
         public override Role Get(object id)
         {
             var currentUnitOfWork = UnitOfWork as BaseManagementBCUnitOfWork;
             if (currentUnitOfWork == null) return null;
             var set = currentUnitOfWork.CreateSet<Role>();
-            return set.Include(t => t.RoleFunctions).FirstOrDefault(p => p.Id == (int)id);
+            return set.Include(t => t.RoleFunctions).FirstOrDefault(p => p.Id == (int) id);
         }
+
         #endregion
 
-        /// <summary>
-        /// 删除Role
-        /// </summary>
-        /// <param name="role"></param>
         public void DeleteRole(Role role)
         {
             var currentUnitOfWork = UnitOfWork as BaseManagementBCUnitOfWork;
@@ -43,10 +41,6 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.Repositories
             roles.Remove(role);
         }
 
-        /// <summary>
-        /// 删除RoleFunction
-        /// </summary>
-        /// <param name="roleFunction"></param>
         public void DeleteRoleFunction(RoleFunction roleFunction)
         {
             var currentUnitOfWork = UnitOfWork as BaseManagementBCUnitOfWork;

@@ -44,6 +44,8 @@ using UniCloud.Application.PartBC.SnRegServices;
 using UniCloud.Application.PartBC.SnRemInstRecordServices;
 using UniCloud.Application.PartBC.SpecialConfigServices;
 using UniCloud.Application.PartBC.ThresholdServices;
+using UniCloud.DistributedServices.Data;
+using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -53,7 +55,7 @@ namespace UniCloud.DistributedServices.Part
     /// <summary>
     ///     附件管理模块数据类
     /// </summary>
-    public class PartData : ExposeData.ExposeData
+    public class PartData : ServiceData
     {
         private readonly IAcConfigAppService _acConfigAppService;
         private readonly IAcDailyUtilizationAppService _acDailyUtilizationAppService;
@@ -82,7 +84,7 @@ namespace UniCloud.DistributedServices.Part
         private readonly IThresholdAppService _thresholdAppService;
 
         public PartData()
-            : base("UniCloud.Application.PartBC.DTO")
+            : base("UniCloud.Application.PartBC.DTO", UniContainer.Resolve<IQueryableUnitOfWork>())
         {
             _acDailyUtilizationAppService = UniContainer.Resolve<IAcDailyUtilizationAppService>();
             _acConfigAppService = UniContainer.Resolve<IAcConfigAppService>();

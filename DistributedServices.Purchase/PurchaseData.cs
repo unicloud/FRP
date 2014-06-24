@@ -36,6 +36,8 @@ using UniCloud.Application.PurchaseBC.ReceptionServices;
 using UniCloud.Application.PurchaseBC.RelatedDocServices;
 using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Application.PurchaseBC.TradeServices;
+using UniCloud.DistributedServices.Data;
+using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -45,7 +47,7 @@ namespace UniCloud.DistributedServices.Purchase
     /// <summary>
     ///     采购模块数据类
     /// </summary>
-    public class PurchaseData : ExposeData.ExposeData
+    public class PurchaseData : ServiceData
     {
         private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAircraftLeaseReceptionAppService _aircraftLeaseReceptionAppService;
@@ -73,7 +75,7 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly ITradeAppService _tradeAppService;
 
         public PurchaseData()
-            : base("UniCloud.Application.PurchaseBC.DTO")
+            : base("UniCloud.Application.PurchaseBC.DTO", UniContainer.Resolve<IQueryableUnitOfWork>())
         {
             _actionCategoryAppService = UniContainer.Resolve<IActionCategoryAppService>();
             _contractAircraftAppService = UniContainer.Resolve<IContractAircraftAppService>();

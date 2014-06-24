@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Data.Services;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Caching;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Domain;
 using UniCloud.Infrastructure.FastReflection;
@@ -51,6 +52,7 @@ namespace UniCloud.DistributedServices.Data
         /// <param name="unitOfWork">UnitOfWork实例</param>
         protected ServiceData(string dtoAssemblies, IUnitOfWork unitOfWork)
         {
+            Initialize();
             _dtoAssemblies = dtoAssemblies;
             _methodInfos = new List<MethodInfo>();
             _insertCollection = new List<object>();
@@ -193,14 +195,14 @@ namespace UniCloud.DistributedServices.Data
         /// <returns>表示指定类型的资源的不透明对象（由指定查询引用）。</returns>
         public object GetResource(IQueryable query, string fullTypeName)
         {
-            var resource = (query as IQueryable<object>).ToList().SingleOrDefault();
-
-            if (fullTypeName != null)
-            {
-                if (resource.GetType().FullName != fullTypeName)
-                    throw new ApplicationException("不是期望的资源类型！");
-                _updateCollection.Add(resource);
-            }
+            var q = query as IQueryable<object>;
+            if (q == null) throw new Exception("查询串为空！");
+            var resource = q.ToList().SingleOrDefault();
+            if (resource == null) throw new Exception("未能查到资源！");
+            if (fullTypeName == null) return resource;
+            if (resource.GetType().FullName != fullTypeName)
+                throw new ApplicationException("不是期望的资源类型！");
+            _updateCollection.Add(resource);
 
             return resource;
         }
@@ -307,27 +309,82 @@ namespace UniCloud.DistributedServices.Data
                         targetType = listType.MakeGenericType(value.GetType());
                     listObject.Add(value);
                 }
-                if (targetType != null)
+                if (targetType == null) return;
+                var addMethod = targetType.GetMethod("Add", BindingFlags.Instance | BindingFlags.Public);
+                var constructor = targetType.GetConstructor(new Type[] {});
+                if (constructor == null) return;
+                var list = constructor.FastInvoke(new object[] {});
+                foreach (var value in listObject)
                 {
-                    var addMethod = targetType.GetMethod("Add", BindingFlags.Instance | BindingFlags.Public);
-                    var constructor = targetType.GetConstructor(new Type[] {});
-                    if (constructor != null)
-                    {
-                        var list = constructor.FastInvoke(new object[] {});
-                        foreach (var value in listObject)
-                        {
-                            addMethod.FastInvoke(list, new[] {value});
-                        }
-                        var propertyInfo = targetResource.GetType().GetProperty(propertyName);
-                        propertyInfo.FastSetValue(targetResource, propertyValue);
-                    }
+                    addMethod.FastInvoke(list, new[] {value});
                 }
+                var propertyInfo = targetResource
+                    .GetType()
+                    .GetProperties()
+                    .FirstOrDefault(p => p.Name == propertyName);
+                propertyInfo.FastSetValue(targetResource, list);
             }
             else
             {
-                var propertyInfo = targetResource.GetType().GetProperty(propertyName);
+                var propertyInfo = targetResource
+                    .GetType()
+                    .GetProperties()
+                    .FirstOrDefault(p => p.Name == propertyName);
                 propertyInfo.FastSetValue(targetResource, propertyValue);
             }
+        }
+
+        #endregion
+
+        #region 缓存管理
+
+        private TimeSpan _expiration;
+        protected ObjectCache cache;
+
+        /// <summary>
+        ///     初始化缓存
+        /// </summary>
+        /// <param name="cacheExpiration">过期时间间隔</param>
+        private void Initialize(TimeSpan? cacheExpiration = null)
+        {
+            cache = MemoryCache.Default;
+            _expiration = cacheExpiration ?? new TimeSpan(2, 0, 0);
+        }
+
+        /// <summary>
+        ///     获取过期策略
+        /// </summary>
+        /// <returns>过期策略</returns>
+        private CacheItemPolicy GetExpiration()
+        {
+            var policy = new CacheItemPolicy();
+
+            if (_expiration > TimeSpan.Zero &&
+                _expiration < TimeSpan.MaxValue)
+            {
+                policy.AbsoluteExpiration = DateTimeOffset.UtcNow.Add(_expiration);
+            }
+
+            return policy;
+        }
+
+        /// <summary>
+        ///     获取静态数据
+        /// </summary>
+        /// <typeparam name="TDTO">DTO类型</typeparam>
+        /// <param name="key">缓存键值</param>
+        /// <param name="getData">获取数据委托</param>
+        /// <returns>数据集合对象</returns>
+        protected IQueryable<TDTO> GetStaticData<TDTO>(string key, Func<IQueryable<TDTO>> getData) where TDTO : class
+        {
+            var result = cache.Get(key) as IQueryable<TDTO>;
+            if (result != null) return result;
+            result = getData();
+            if (result != null)
+            {
+                cache.Add(key, result, GetExpiration());
+            }
+            return result;
         }
 
         #endregion

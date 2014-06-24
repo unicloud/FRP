@@ -52,8 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ServiceData.cs" />
-    <Compile Include="ExposeData\ExposeData.cs" />
-    <Compile Include="ExposeData\IExposeData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

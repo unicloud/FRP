@@ -75,22 +75,6 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg
 
         #region 操作
 
-        /// <summary>
-        ///     新增角色功能
-        /// </summary>
-        /// <returns>角色功能</returns>
-        public RoleFunction AddNewRoleFunction()
-        {
-            var roleFunction = new RoleFunction
-            {
-                RoleId = Id,
-            };
-            roleFunction.GenerateNewIdentity();
-            RoleFunctions.Add(roleFunction);
-
-            return roleFunction;
-        }
-
         #endregion
 
         #region IValidatableObject 成员

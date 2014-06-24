@@ -1,6 +1,19 @@
-﻿//------------------------------------------------------------------------------
+﻿#region 版本控制
+
+// =====================================================
+// 版权所有 (C) 2014 UniCloud 
+// 【本类功能概述】
 // 
-//------------------------------------------------------------------------------
+// 作者：丁志浩 时间：2013/11/29，13:11
+// 方案：FRP
+// 项目：DistributedServices.AircraftConfig
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// =====================================================
+
+#endregion
 
 #region 命名空间
 
@@ -14,6 +27,8 @@ using UniCloud.Application.AircraftConfigBC.AircraftServices;
 using UniCloud.Application.AircraftConfigBC.AircraftTypeServices;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Application.AircraftConfigBC.ManufacturerServices;
+using UniCloud.DistributedServices.Data;
+using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -23,7 +38,7 @@ namespace UniCloud.DistributedServices.AircraftConfig
     /// <summary>
     ///     飞机构型模块数据类
     /// </summary>
-    public class AircraftConfigData : ExposeData.ExposeData
+    public class AircraftConfigData : ServiceData
     {
         private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAircraftAppService _aircraftAppService;
@@ -35,7 +50,7 @@ namespace UniCloud.DistributedServices.AircraftConfig
         private readonly IManufacturerAppService _manufacturerAppService;
 
         public AircraftConfigData()
-            : base("UniCloud.Application.AircraftConfigBC.DTO")
+            : base("UniCloud.Application.AircraftConfigBC.DTO", UniContainer.Resolve<IQueryableUnitOfWork>())
         {
             _actionCategoryAppService = UniContainer.Resolve<IActionCategoryAppService>();
             _aircraftSeriesAppService = UniContainer.Resolve<IAircraftSeriesAppService>();

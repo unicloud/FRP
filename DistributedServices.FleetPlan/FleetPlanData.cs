@@ -1,6 +1,19 @@
-﻿//------------------------------------------------------------------------------
+﻿#region 版本控制
+
+// =====================================================
+// 版权所有 (C) 2014 UniCloud 
+// 【本类功能概述】
 // 
-//------------------------------------------------------------------------------
+// 作者：丁志浩 时间：2013/11/29，13:11
+// 方案：FRP
+// 项目：DistributedServices.FleetPlan
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// =====================================================
+
+#endregion
 
 #region 命名空间
 
@@ -36,6 +49,8 @@ using UniCloud.Application.FleetPlanBC.RelatedDocServices;
 using UniCloud.Application.FleetPlanBC.RequestServices;
 using UniCloud.Application.FleetPlanBC.SupplierServices;
 using UniCloud.Application.FleetPlanBC.XmlConfigServices;
+using UniCloud.DistributedServices.Data;
+using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -45,7 +60,7 @@ namespace UniCloud.DistributedServices.FleetPlan
     /// <summary>
     ///     运力规划模块数据类
     /// </summary>
-    public class FleetPlanData : ExposeData.ExposeData
+    public class FleetPlanData : ServiceData
     {
         private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAirProgrammingAppService _airProgrammingAppService;
@@ -79,7 +94,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         private readonly IXmlConfigAppService _xmlConfigAppService;
 
         public FleetPlanData()
-            : base("UniCloud.Application.FleetPlanBC.DTO")
+            : base("UniCloud.Application.FleetPlanBC.DTO", UniContainer.Resolve<IQueryableUnitOfWork>())
         {
             _actionCategoryAppService = UniContainer.Resolve<IActionCategoryAppService>();
             _aircraftSeriesAppService = UniContainer.Resolve<IAircraftSeriesAppService>();

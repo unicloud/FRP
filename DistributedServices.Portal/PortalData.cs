@@ -20,6 +20,8 @@
 using System.Linq;
 using UniCloud.Application.PortalBC.DTO;
 using UniCloud.Application.PortalBC.Services;
+using UniCloud.DistributedServices.Data;
+using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -29,12 +31,12 @@ namespace UniCloud.DistributedServices.Portal
     /// <summary>
     ///     管理门户模块数据类
     /// </summary>
-    public class PortalData : ExposeData.ExposeData
+    public class PortalData : ServiceData
     {
         private readonly IPortalAppService _portalAppService;
 
         public PortalData()
-            : base("UniCloud.Application.PortalBC.DTO")
+            : base("UniCloud.Application.PortalBC.DTO", UniContainer.Resolve<IQueryableUnitOfWork>())
         {
             _portalAppService = UniContainer.Resolve<IPortalAppService>();
         }

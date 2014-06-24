@@ -1,6 +1,19 @@
-﻿//------------------------------------------------------------------------------
+﻿#region 版本控制
+
+// =====================================================
+// 版权所有 (C) 2014 UniCloud 
+// 【本类功能概述】
 // 
-//------------------------------------------------------------------------------
+// 作者：丁志浩 时间：2013/11/29，13:11
+// 方案：FRP
+// 项目：DistributedServices.BaseManagement
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// =====================================================
+
+#endregion
 
 #region 命名空间
 
@@ -13,6 +26,8 @@ using UniCloud.Application.BaseManagementBC.OrganizationServices;
 using UniCloud.Application.BaseManagementBC.RoleServices;
 using UniCloud.Application.BaseManagementBC.UserServices;
 using UniCloud.Application.BaseManagementBC.XmlSettingServices;
+using UniCloud.DistributedServices.Data;
+using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -22,7 +37,7 @@ namespace UniCloud.DistributedServices.BaseManagement
     /// <summary>
     ///     基础管理模块数据类
     /// </summary>
-    public class BaseManagementData : ExposeData.ExposeData
+    public class BaseManagementData : ServiceData
     {
         private readonly IAircraftCabinTypeAppService _aircraftCabinTypeAppService;
         private readonly IBusinessLicenseAppService _businessLicenseAppService;
@@ -33,7 +48,7 @@ namespace UniCloud.DistributedServices.BaseManagement
         private readonly IXmlSettingAppService _xmlSettingAppService;
 
         public BaseManagementData()
-            : base("UniCloud.Application.BaseManagementBC.DTO")
+            : base("UniCloud.Application.BaseManagementBC.DTO", UniContainer.Resolve<IQueryableUnitOfWork>())
         {
             _userAppService = UniContainer.Resolve<IUserAppService>();
             _functionItemAppService = UniContainer.Resolve<IFunctionItemAppService>();

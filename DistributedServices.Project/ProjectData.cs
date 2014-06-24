@@ -21,6 +21,8 @@ using System.Linq;
 using UniCloud.Application.ProjectBC.DTO;
 using UniCloud.Application.ProjectBC.RelatedDocServices;
 using UniCloud.Application.ProjectBC.TemplateServices;
+using UniCloud.DistributedServices.Data;
+using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -30,13 +32,13 @@ namespace UniCloud.DistributedServices.Project
     /// <summary>
     ///     项目管理模块数据类
     /// </summary>
-    public class ProjectData : ExposeData.ExposeData
+    public class ProjectData : ServiceData
     {
         private readonly IRelatedDocAppService _relatedDocAppService;
         private readonly ITemplateAppService _templateAppService;
 
         public ProjectData()
-            : base("UniCloud.Application.ProjectBC.DTO")
+            : base("UniCloud.Application.ProjectBC.DTO", UniContainer.Resolve<IQueryableUnitOfWork>())
         {
             _templateAppService = UniContainer.Resolve<ITemplateAppService>();
             _relatedDocAppService = UniContainer.Resolve<IRelatedDocAppService>();

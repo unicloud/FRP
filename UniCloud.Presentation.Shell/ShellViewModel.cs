@@ -135,7 +135,12 @@ namespace UniCloud.Presentation.Shell
         /// <param name="moduleItems">模块功能项</param>
         private void ModuleLoader(List<FunctionItemDTO> moduleItems)
         {
-            moduleItems.ForEach(m => moduleManager.LoadModule(GetModuleName(m)));
+            //moduleItems.ForEach(m => moduleManager.LoadModule(GetModuleName(m)));
+            moduleManager.LoadModule(ModuleNames.Portal);
+            moduleManager.LoadModule(ModuleNames.BaseManagement);
+            moduleManager.LoadModule(ModuleNames.Purchase);
+            moduleManager.LoadModule(ModuleNames.Payment);
+            moduleManager.LoadModule(ModuleNames.Part);
         }
 
         private static string GetModuleName(FunctionItemDTO moduleItem)
@@ -1421,7 +1426,8 @@ namespace UniCloud.Presentation.Shell
                             var context = result.AsyncState as BaseManagementData;
                             if (context == null) return;
                             var retMenu = context.EndExecute<FunctionItemDTO>(result).ToList();
-                            LoadMenuItems(retMenu);
+                            //LoadMenuItems(retMenu);
+                            LoadMenuItems();
                             ModuleLoader(retMenu.Where(m => m.ParentItemId == null).ToList());
                         }), _context);
 

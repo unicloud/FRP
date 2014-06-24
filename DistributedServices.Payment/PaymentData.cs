@@ -14,6 +14,8 @@ using UniCloud.Application.PaymentBC.OrderServices;
 using UniCloud.Application.PaymentBC.PaymentNoticeServices;
 using UniCloud.Application.PaymentBC.PaymentScheduleServices;
 using UniCloud.Application.PaymentBC.SupplierServices;
+using UniCloud.DistributedServices.Data;
+using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -23,7 +25,7 @@ namespace UniCloud.DistributedServices.Payment
     /// <summary>
     ///     应付款模块数据类
     /// </summary>
-    public class PaymentData : ExposeData.ExposeData
+    public class PaymentData : ServiceData
     {
         private readonly IContractAircraftAppService _contractAircraftAppService;
         private readonly IContractEngineAppService _contractEngineAppService;
@@ -42,7 +44,7 @@ namespace UniCloud.DistributedServices.Payment
         private readonly ISupplierAppService _supplierAppService;
 
         public PaymentData()
-            : base("UniCloud.Application.PaymentBC.DTO")
+            : base("UniCloud.Application.PaymentBC.DTO", UniContainer.Resolve<IQueryableUnitOfWork>())
         {
             _creditNoteAppService = UniContainer.Resolve<ICreditNoteAppService>();
             _currencyAppService = UniContainer.Resolve<ICurrencyAppService>();

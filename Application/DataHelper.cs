@@ -65,7 +65,7 @@ namespace UniCloud.Application
 
         /// <summary>
         ///     从表数据处理
-        ///     主键为int类型
+        ///     主键为Guid类型
         /// </summary>
         /// <typeparam name="TCurrent">DTO实体类型</typeparam>
         /// <typeparam name="TPersist">领域模型实体类型</typeparam>
