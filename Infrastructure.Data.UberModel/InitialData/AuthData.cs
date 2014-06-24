@@ -57,7 +57,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
 
             var functionItems = new List<FunctionItem>();
 
-            #region 飞行构型
+            #region 飞机构型
 
             var menu1 = FunctionItemFactory.CreateFunctionItem("飞机构型", null, 1, false, false, string.Empty);
             functionItems.Add(menu1);

@@ -113,6 +113,8 @@ namespace UniCloud.Application.BaseManagementBC.RoleServices
         /// <param name="roleFunctionDto">角色功能DTO</param>
         private void InsertRoleFunction(Role role, RoleFunctionDTO roleFunctionDto)
         {
+            var persist = _roleFunctionRepository.Get(roleFunctionDto.Id);
+            if (persist != null) return;
             var roleFunction = new RoleFunction(role.Id, roleFunctionDto.FunctionItemId);
             _roleFunctionRepository.Add(roleFunction);
         }
@@ -123,7 +125,6 @@ namespace UniCloud.Application.BaseManagementBC.RoleServices
         /// <param name="roleFunctionDto">RoleFunctionDTO</param>
         private void UpdateRoleFunction(RoleFunctionDTO roleFunctionDto)
         {
-            // 更新RoleFunction
             var roleFunction = new RoleFunction(roleFunctionDto.RoleId, roleFunctionDto.FunctionItemId);
             roleFunction.ChangeCurrentIdentity(roleFunctionDto.Id);
             _roleFunctionRepository.Modify(roleFunction);
