@@ -1,4 +1,5 @@
 ﻿#region 版本控制
+
 // =====================================================
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
@@ -11,7 +12,10 @@
 // 修改者： 时间： 
 // 修改说明：
 // =====================================================
+
 #endregion
+
+#region 命名空间
 
 using System;
 using System.Collections.Specialized;
@@ -23,7 +27,9 @@ using System.Web.Security;
 using UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
+
+#endregion
 
 namespace UniCloud.Application.BaseManagementBC
 {
@@ -227,9 +233,9 @@ namespace UniCloud.Application.BaseManagementBC
                     throw new ProviderException("角色不存在！");
                 if (
                     (from username in usernames
-                     from rolename in roleNames
-                     where !IsUserInRole(username, rolename)
-                     select username).Any())
+                        from rolename in roleNames
+                        where !IsUserInRole(username, rolename)
+                        select username).Any())
                     throw new ProviderException("用户不在角色中！");
 
                 var userIds =
@@ -263,7 +269,7 @@ namespace UniCloud.Application.BaseManagementBC
         /// <param name="e">异常</param>
         private static void WriteToEventLog(string action, Exception e)
         {
-            var log = new EventLog { Source = "UniMembershipProvider", Log = "Application" };
+            var log = new EventLog {Source = "UniMembershipProvider", Log = "Application"};
 
             var message = "发生异常。\n\n";
             message += "操作: " + action + "\n\n";

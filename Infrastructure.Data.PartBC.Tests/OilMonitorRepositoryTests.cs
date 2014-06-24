@@ -27,7 +27,7 @@ using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

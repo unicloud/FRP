@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Lucene.Net.Search;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.LuceneSearch;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
@@ -13,7 +12,7 @@ using UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -54,17 +53,17 @@ namespace UniCloud.Application.PurchaseBC.ContractDocumentServices
         public List<ContractDocumentDTO> Search(string keyword)
         {
             var documentPathAppService = UniContainer.Resolve<IDocumentPathAppService>();
-            TopDocs queryResults = LuceneSearch.LuceneSearch.PanguQuery(keyword, "3");
+            var queryResults = LuceneSearch.LuceneSearch.PanguQuery(keyword, "3");
             if (queryResults == null) return new List<ContractDocumentDTO>();
-            ParallelMultiSearcher multiSearcher = IndexManager.GenerateMultiSearcher("3");
-            List<ContractDocumentDTO> documents =
+            var multiSearcher = IndexManager.GenerateMultiSearcher("3");
+            var documents =
                 queryResults.scoreDocs.Select(a => multiSearcher.Doc(a.doc)).Select(result =>
                 {
-                    Guid documentId = Guid.Parse(result.Get("ID"));
+                    var documentId = Guid.Parse(result.Get("ID"));
                     Expression<Func<Order, bool>> orderDocument = p => p.ContractDocGuid == documentId;
                     Expression<Func<RelatedDoc, bool>> relateDocument = p => p.DocumentId == documentId;
                     Expression<Func<MaintainContract, bool>> maintainContractDocument = p => p.DocumentId == documentId;
-                    ContractDocumentDTO document =
+                    var document =
                         _contractDocumentQuery.GetContractDocuments(orderDocument, relateDocument,
                             maintainContractDocument).FirstOrDefault();
                     var contractDocument = new ContractDocumentDTO

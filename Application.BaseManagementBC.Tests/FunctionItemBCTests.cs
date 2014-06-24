@@ -19,7 +19,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

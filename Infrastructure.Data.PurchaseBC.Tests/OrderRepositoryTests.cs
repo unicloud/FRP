@@ -31,7 +31,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

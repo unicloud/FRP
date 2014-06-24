@@ -21,7 +21,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

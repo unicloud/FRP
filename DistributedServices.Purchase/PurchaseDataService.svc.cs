@@ -25,7 +25,7 @@ using System.Web;
 using UniCloud.Application.PurchaseBC.ContractDocumentServices;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.DTO;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -52,6 +52,7 @@ namespace UniCloud.DistributedServices.Purchase
             config.SetServiceOperationAccessRule("ModifyDocPath", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("SearchDocumentPath", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("SearchContractDocument", ServiceOperationRights.All);
+
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
@@ -68,7 +69,7 @@ namespace UniCloud.DistributedServices.Purchase
         {
             base.OnStartProcessingRequest(args);
 
-            HttpCachePolicy cachePolicy = HttpContext.Current.Response.Cache;
+            var cachePolicy = HttpContext.Current.Response.Cache;
 
             // no-cache是会被缓存的，只不过每次在向客户端（浏览器）提供响应数据时，缓存都要向服务器评估缓存响应的有效性。 
             cachePolicy.SetCacheability(HttpCacheability.NoCache);
@@ -134,6 +135,7 @@ namespace UniCloud.DistributedServices.Purchase
             var searchDocument = UniContainer.Resolve<IContractDocumentAppService>();
             return searchDocument.Search(keyword);
         }
+
         #endregion
     }
 }

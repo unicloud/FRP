@@ -26,7 +26,7 @@ using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentTypeAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.CommonServiceBC.Repositories;
 using UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

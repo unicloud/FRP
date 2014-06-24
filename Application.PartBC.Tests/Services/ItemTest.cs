@@ -29,7 +29,7 @@ using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

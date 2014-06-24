@@ -2,23 +2,26 @@
 // 
 //------------------------------------------------------------------------------
 
+#region 命名空间
+
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.Services;
 using System.Data.Services.Common;
 using System.ServiceModel.Web;
 using System.Web;
 using UniCloud.Application.FlightLogBC.DTO;
 using UniCloud.Application.FlightLogBC.FlightLogServices;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
+
+#endregion
 
 namespace UniCloud.DistributedServices.FlightLog
 {
     public class FlightLogDataService : DataService<FlightLogData>
     {
         /// <summary>
-        /// 初始化服务端策略
+        ///     初始化服务端策略
         /// </summary>
         /// <param name="config">数据服务配置</param>
         public static void InitializeService(DataServiceConfiguration config)
@@ -37,20 +40,19 @@ namespace UniCloud.DistributedServices.FlightLog
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
-
         }
 
         #region 服务操作
 
         /// <summary>
-        /// 控制生成的服务是否需要缓存
+        ///     控制生成的服务是否需要缓存
         /// </summary>
         /// <param name="args"></param>
         protected override void OnStartProcessingRequest(ProcessRequestArgs args)
         {
             base.OnStartProcessingRequest(args);
 
-            HttpCachePolicy cachePolicy = HttpContext.Current.Response.Cache;
+            var cachePolicy = HttpContext.Current.Response.Cache;
 
             // no-cache是会被缓存的，只不过每次在向客户端（浏览器）提供响应数据时，缓存都要向服务器评估缓存响应的有效性。 
             cachePolicy.SetCacheability(HttpCacheability.NoCache);
@@ -67,7 +69,6 @@ namespace UniCloud.DistributedServices.FlightLog
             cachePolicy.SetValidUntilExpires(true);
         }
 
-
         #endregion
 
         #region 飞机飞行数据查询
@@ -77,7 +78,7 @@ namespace UniCloud.DistributedServices.FlightLog
         {
             var dateTime = DateTime.Parse(date);
             var flightLogService = UniContainer.Resolve<IFlightLogAppService>();
-            List<AcFlightDataDTO> result = flightLogService.QueryAcFlightData(regNumber, dateTime);
+            var result = flightLogService.QueryAcFlightData(regNumber, dateTime);
             return result;
         }
 

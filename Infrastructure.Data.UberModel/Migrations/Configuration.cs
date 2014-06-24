@@ -4,7 +4,7 @@
 using System.Data.Entity.Migrations;
 using UniCloud.Infrastructure.Data.UberModel.InitialData;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

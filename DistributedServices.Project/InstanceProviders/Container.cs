@@ -30,7 +30,7 @@ using UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.ProjectBC.Repositories;
 using UniCloud.Infrastructure.Data.ProjectBC.UnitOfWork;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

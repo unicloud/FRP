@@ -22,7 +22,7 @@ using UniCloud.Application.PaymentBC.ContractEngineServices;
 using UniCloud.Application.PaymentBC.Query.ContractEngineQueries;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

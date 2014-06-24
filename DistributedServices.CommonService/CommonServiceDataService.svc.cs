@@ -26,7 +26,7 @@ using System.Web;
 using UniCloud.Application.CommonServiceBC.DocumentServices;
 using UniCloud.Application.CommonServiceBC.DocumnetSearch;
 using UniCloud.Application.CommonServiceBC.DTO;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -51,6 +51,7 @@ namespace UniCloud.DistributedServices.CommonService
 
             config.SetServiceOperationAccessRule("SearchDocument", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("GetSingleDocument", ServiceOperationRights.All);
+
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
@@ -82,6 +83,7 @@ namespace UniCloud.DistributedServices.CommonService
         }
 
         #region ·þÎñ²Ù×÷
+
         [WebGet]
         public List<DocumentDTO> SearchDocument(string keyword, string documentType)
         {
@@ -95,6 +97,7 @@ namespace UniCloud.DistributedServices.CommonService
             var documentService = UniContainer.Resolve<IDocumentAppService>();
             return documentService.GetSingleDocument(Guid.Parse(documentId));
         }
+
         #endregion
     }
 }

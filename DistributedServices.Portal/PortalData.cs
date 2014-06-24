@@ -20,7 +20,7 @@
 using System.Linq;
 using UniCloud.Application.PortalBC.DTO;
 using UniCloud.Application.PortalBC.Services;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

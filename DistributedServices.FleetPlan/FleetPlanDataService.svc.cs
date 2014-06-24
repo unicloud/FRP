@@ -2,24 +2,26 @@
 // 
 //------------------------------------------------------------------------------
 
+#region 命名空间
+
 using System;
+using System.Data.Services;
+using System.Data.Services.Common;
 using System.ServiceModel.Web;
+using System.Web;
 using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
-using UniCloud.Application.FleetPlanBC.ApprovalDocServices;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.FleetTransferServices;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
+
+#endregion
 
 namespace UniCloud.DistributedServices.FleetPlan
 {
-    using System.Data.Services;
-    using System.Data.Services.Common;
-    using System.Web;
-
     public class FleetPlanDataService : DataService<FleetPlanData>
     {
         /// <summary>
-        /// 初始化服务端策略
+        ///     初始化服务端策略
         /// </summary>
         /// <param name="config">数据服务配置</param>
         public static void InitializeService(DataServiceConfiguration config)
@@ -48,20 +50,19 @@ namespace UniCloud.DistributedServices.FleetPlan
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
-          
         }
 
         #region 服务操作
 
         /// <summary>
-        /// 控制生成的服务是否需要缓存
+        ///     控制生成的服务是否需要缓存
         /// </summary>
         /// <param name="args"></param>
         protected override void OnStartProcessingRequest(ProcessRequestArgs args)
         {
             base.OnStartProcessingRequest(args);
 
-            HttpCachePolicy cachePolicy = HttpContext.Current.Response.Cache;
+            var cachePolicy = HttpContext.Current.Response.Cache;
 
             // no-cache是会被缓存的，只不过每次在向客户端（浏览器）提供响应数据时，缓存都要向服务器评估缓存响应的有效性。 
             cachePolicy.SetCacheability(HttpCacheability.NoCache);
@@ -78,7 +79,6 @@ namespace UniCloud.DistributedServices.FleetPlan
             cachePolicy.SetValidUntilExpires(true);
         }
 
-
         #endregion
 
         #region 计划执行情况查询 
@@ -87,43 +87,42 @@ namespace UniCloud.DistributedServices.FleetPlan
         public PerformPlan PerformPlanQuery(string planHistoryId, string approvalHistoryId, int planType,
             string relatedGuid)
         {
-         var  planAppService = UniContainer.Resolve<IPlanAppService>();
-          return  planAppService.PerformPlanQuery(planHistoryId, approvalHistoryId, planType, relatedGuid);
+            var planAppService = UniContainer.Resolve<IPlanAppService>();
+            return planAppService.PerformPlanQuery(planHistoryId, approvalHistoryId, planType, relatedGuid);
         }
 
         #region 数据传输
 
         /// <summary>
-        /// 传输申请
+        ///     传输申请
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentRequest"></param>
         [WebGet]
         public bool TransferRequest(string currentAirlines, string currentRequest)
         {
-            Guid airlinesId = Guid.Parse(currentAirlines);
-            Guid id = Guid.Parse(currentRequest);
+            var airlinesId = Guid.Parse(currentAirlines);
+            var id = Guid.Parse(currentRequest);
             var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferRequest(airlinesId, id);
         }
 
         /// <summary>
-        /// 传输计划
+        ///     传输计划
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentPlan"></param>
         [WebGet]
         public bool TransferPlan(string currentAirlines, string currentPlan)
         {
-            Guid airlinesId = Guid.Parse(currentAirlines);
-            Guid id = Guid.Parse(currentPlan);
+            var airlinesId = Guid.Parse(currentAirlines);
+            var id = Guid.Parse(currentPlan);
             var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferPlan(airlinesId, id);
-
         }
 
         /// <summary>
-        /// 传输计划申请
+        ///     传输计划申请
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentPlan"></param>
@@ -132,15 +131,15 @@ namespace UniCloud.DistributedServices.FleetPlan
         [WebGet]
         public bool TransferPlanAndRequest(string currentAirlines, string currentPlan, string currentRequest)
         {
-            Guid airlinesId = Guid.Parse(currentAirlines);
-            Guid planId = Guid.Parse(currentPlan);
-            Guid requestId = Guid.Parse(currentRequest);
+            var airlinesId = Guid.Parse(currentAirlines);
+            var planId = Guid.Parse(currentPlan);
+            var requestId = Guid.Parse(currentRequest);
             var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferPlanAndRequest(airlinesId, planId, requestId);
         }
-        
+
         /// <summary>
-        /// 传输计划申请批文（针对指标飞机数据）
+        ///     传输计划申请批文（针对指标飞机数据）
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentPlan"></param>
@@ -151,30 +150,30 @@ namespace UniCloud.DistributedServices.FleetPlan
         public bool TransferApprovalRequest(string currentAirlines, string currentPlan, string currentRequest,
             string currentApprovalDoc)
         {
-            Guid airlinesId = Guid.Parse(currentAirlines);
-            Guid planId = Guid.Parse(currentPlan);
-            Guid requestId = Guid.Parse(currentRequest);
-            Guid approvalDocId = Guid.Parse(currentApprovalDoc);
+            var airlinesId = Guid.Parse(currentAirlines);
+            var planId = Guid.Parse(currentPlan);
+            var requestId = Guid.Parse(currentRequest);
+            var approvalDocId = Guid.Parse(currentApprovalDoc);
             var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferApprovalRequest(airlinesId, planId, requestId, approvalDocId);
         }
 
         /// <summary>
-        /// 传输批文
+        ///     传输批文
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentApprovalDoc"></param>
         [WebGet]
         public bool TransferApprovalDoc(string currentAirlines, string currentApprovalDoc)
         {
-            Guid airlinesId = Guid.Parse(currentAirlines);
-            Guid id = Guid.Parse(currentApprovalDoc);
+            var airlinesId = Guid.Parse(currentAirlines);
+            var id = Guid.Parse(currentApprovalDoc);
             var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferApprovalDoc(airlinesId, id);
         }
 
         /// <summary>
-        /// 传输运营历史
+        ///     传输运营历史
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentOperationHistory"></param>
@@ -182,43 +181,43 @@ namespace UniCloud.DistributedServices.FleetPlan
         [WebGet]
         public bool TransferOperationHistory(string currentAirlines, string currentOperationHistory)
         {
-            Guid airlinesId = Guid.Parse(currentAirlines);
-            Guid id = Guid.Parse(currentOperationHistory);
+            var airlinesId = Guid.Parse(currentAirlines);
+            var id = Guid.Parse(currentOperationHistory);
             var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferOperationHistory(airlinesId, id);
         }
 
 
         /// <summary>
-        /// 传输商业数据
+        ///     传输商业数据
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentAircraftBusiness"></param>
         [WebGet]
         public bool TransferAircraftBusiness(string currentAirlines, string currentAircraftBusiness)
         {
-            Guid airlinesId = Guid.Parse(currentAirlines);
-            Guid id = Guid.Parse(currentAircraftBusiness);
+            var airlinesId = Guid.Parse(currentAirlines);
+            var id = Guid.Parse(currentAircraftBusiness);
             var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferAircraftBusiness(airlinesId, id);
         }
 
         /// <summary>
-        /// 传输所有权历史
+        ///     传输所有权历史
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentOwnershipHistory"></param>
         [WebGet]
         public bool TransferOwnershipHistory(string currentAirlines, string currentOwnershipHistory)
         {
-            Guid airlinesId = Guid.Parse(currentAirlines);
-            Guid id = Guid.Parse(currentOwnershipHistory);
+            var airlinesId = Guid.Parse(currentAirlines);
+            var id = Guid.Parse(currentOwnershipHistory);
             var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferOwnershipHistory(airlinesId, id);
         }
 
         /// <summary>
-        /// 传输计划明细
+        ///     传输计划明细
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentPlanHistory"></param>
@@ -226,8 +225,8 @@ namespace UniCloud.DistributedServices.FleetPlan
         [WebGet]
         public bool TransferPlanHistory(string currentAirlines, string currentPlanHistory)
         {
-            Guid airlinesId = Guid.Parse(currentAirlines);
-            Guid id = Guid.Parse(currentPlanHistory);
+            var airlinesId = Guid.Parse(currentAirlines);
+            var id = Guid.Parse(currentPlanHistory);
             var transferService = UniContainer.Resolve<IFleetTransferService>();
             return transferService.TransferPlanHistory(airlinesId, id);
         }

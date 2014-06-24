@@ -21,7 +21,7 @@ using System.Linq;
 using UniCloud.Application.ProjectBC.DTO;
 using UniCloud.Application.ProjectBC.RelatedDocServices;
 using UniCloud.Application.ProjectBC.TemplateServices;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

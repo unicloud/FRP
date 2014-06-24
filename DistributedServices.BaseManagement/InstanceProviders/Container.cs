@@ -43,7 +43,7 @@ using UniCloud.Domain.BaseManagementBC.Aggregates.XmlSettingAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.BaseManagementBC.Repositories;
 using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

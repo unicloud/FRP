@@ -83,9 +83,9 @@
       <Project>{340e4cf3-f789-4ae1-bc04-96040995859c}</Project>
       <Name>Infrastructure.Crosscutting</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
-      <Project>{34A8A0E1-3D4A-48CA-9E78-71F88E2D273D}</Project>
-      <Name>Infrastructure.Utilities</Name>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}</Project>
+      <Name>Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

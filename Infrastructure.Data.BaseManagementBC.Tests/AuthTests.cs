@@ -22,7 +22,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

@@ -18,9 +18,11 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.CommonServiceBC.DTO;
 using UniCloud.Application.CommonServiceBC.DocumentServices;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Application.CommonServiceBC.DTO;
+using UniCloud.DistributedServices.Data;
+using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -29,12 +31,12 @@ namespace UniCloud.DistributedServices.CommonService
     /// <summary>
     ///     公共服务模块数据类
     /// </summary>
-    public class CommonServiceData : ExposeData.ExposeData
+    public class CommonServiceData : ServiceData
     {
         private readonly IDocumentAppService _documentAppService;
 
         public CommonServiceData()
-            : base("UniCloud.Application.CommonServiceBC.DTO")
+            : base("UniCloud.Application.CommonServiceBC.DTO", UniContainer.Resolve<IQueryableUnitOfWork>())
         {
             _documentAppService = UniContainer.Resolve<IDocumentAppService>();
         }
@@ -48,16 +50,19 @@ namespace UniCloud.DistributedServices.CommonService
         {
             get { return _documentAppService.GetDocuments(); }
         }
+
         #endregion
 
         #region 文档类型集合
+
         /// <summary>
-        /// 文档类型集合
+        ///     文档类型集合
         /// </summary>
         public IQueryable<DocumentTypeDTO> DocumentTypes
         {
             get { return _documentAppService.GetDocumentTypes(); }
         }
+
         #endregion
     }
 }

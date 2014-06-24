@@ -18,7 +18,6 @@
 #region 命名空间
 
 using System.Linq;
-using System.ServiceModel.Channels;
 using UniCloud.Application.PartBC.AcConfigServices;
 using UniCloud.Application.PartBC.AcDailyUtilizationServices;
 using UniCloud.Application.PartBC.AdSbServices;
@@ -45,7 +44,7 @@ using UniCloud.Application.PartBC.SnRegServices;
 using UniCloud.Application.PartBC.SnRemInstRecordServices;
 using UniCloud.Application.PartBC.SpecialConfigServices;
 using UniCloud.Application.PartBC.ThresholdServices;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -56,19 +55,20 @@ namespace UniCloud.DistributedServices.Part
     /// </summary>
     public class PartData : ExposeData.ExposeData
     {
+        private readonly IAcConfigAppService _acConfigAppService;
         private readonly IAcDailyUtilizationAppService _acDailyUtilizationAppService;
         private readonly IAdSbAppService _adSbAppService;
-        private readonly IAcConfigAppService _acConfigAppService;
         private readonly IAirStructureDamageAppService _airStructureDamageAppService;
         private readonly IAircraftAppService _aircraftAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
+        private readonly IAnnualMaintainPlanAppService _annualMaintainPlanAppService;
         private readonly IBasicConfigAppService _basicConfigAppService;
         private readonly IBasicConfigGroupAppService _basicConfigGroupAppService;
         private readonly IBasicConfigHistoryAppService _basicConfigHistoryAppService;
         private readonly IContractAircraftAppService _contractAircraftAppService;
         private readonly ICtrlUnitAppService _ctrlUnitAppService;
-        private readonly IItemAppService _itemAppService;
         private readonly IInstallControllerAppService _installControllerAppService;
+        private readonly IItemAppService _itemAppService;
         private readonly IMaintainCtrlAppService _maintainCtrlAppService;
         private readonly IMaintainWorkAppService _maintainWorkAppService;
         private readonly IModAppService _modAppService;
@@ -76,10 +76,9 @@ namespace UniCloud.DistributedServices.Part
         private readonly IPnRegAppService _pnRegAppService;
         private readonly IScnAppService _scnAppService;
         private readonly ISnHistoryAppService _snHistoryAppService;
-        private readonly ISnRemInstRecordAppService _snRemInstRecordAppService;
         private readonly ISnRegAppService _snRegAppService;
+        private readonly ISnRemInstRecordAppService _snRemInstRecordAppService;
         private readonly ISpecialConfigAppService _specialConfigAppService;
-        private readonly IAnnualMaintainPlanAppService _annualMaintainPlanAppService;
         private readonly IThresholdAppService _thresholdAppService;
 
         public PartData()
@@ -445,22 +444,17 @@ namespace UniCloud.DistributedServices.Part
         #endregion
 
         #region 年度送修计划集合
+
         public IQueryable<EngineMaintainPlanDTO> EngineMaintainPlans
         {
-            get
-            {
-                return _annualMaintainPlanAppService.GetEngineMaintainPlans();
-            }
+            get { return _annualMaintainPlanAppService.GetEngineMaintainPlans(); }
         }
 
         public IQueryable<AircraftMaintainPlanDTO> AircraftMaintainPlans
         {
-            get
-            {
-                return _annualMaintainPlanAppService.GetAircraftMaintainPlans();
-                
-            }
+            get { return _annualMaintainPlanAppService.GetAircraftMaintainPlans(); }
         }
+
         #endregion
 
         public IQueryable<UtilizationReportDTO> UtilizationReports
@@ -469,13 +463,12 @@ namespace UniCloud.DistributedServices.Part
         }
 
         #region 阀值集合
+
         public IQueryable<ThresholdDTO> Thresholds
         {
-            get
-            {
-                return _thresholdAppService.GetThresholds();
-            }
+            get { return _thresholdAppService.GetThresholds(); }
         }
+
         #endregion
     }
 }

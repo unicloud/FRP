@@ -1,4 +1,5 @@
 ﻿#region 版本控制
+
 // =====================================================
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
@@ -11,7 +12,10 @@
 // 修改者： 时间： 
 // 修改说明：
 // =====================================================
+
 #endregion
+
+#region 命名空间
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
@@ -24,7 +28,9 @@ using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.BaseManagementBC.Repositories;
 using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
+
+#endregion
 
 namespace UniCloud.Application.BaseManagementBC.Tests
 {
@@ -41,14 +47,13 @@ namespace UniCloud.Application.BaseManagementBC.Tests
             UniContainer.Create()
                 .Register<IQueryableUnitOfWork, BaseManagementBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .Register<IModelConfiguration, SqlConfigurations>("Sql")
-
                 .Register<IFunctionItemAppService, FunctionItemAppService>()
                 .Register<IFunctionItemQuery, FunctionItemQuery>()
                 .Register<IFunctionItemRepository, FunctionItemRepository>()
                 .Register<IUserAppService, UserAppService>()
                 .Register<IUserQuery, UserQuery>()
                 .Register<IUserRepository, UserRepository>()
-                .Register<IUserRoleRepository,UserRoleRepository>();
+                .Register<IUserRoleRepository, UserRoleRepository>();
         }
 
         /// <summary>

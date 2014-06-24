@@ -29,7 +29,7 @@ using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Infrastructure.Data;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

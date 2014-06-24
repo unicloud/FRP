@@ -129,9 +129,9 @@
       <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
-      <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
-      <Name>Infrastructure.Utilities</Name>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}</Project>
+      <Name>Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

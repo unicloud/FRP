@@ -29,7 +29,7 @@ using System.Web.Hosting;
 using System.Web.Security;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

@@ -4,25 +4,24 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+#region 命名空间
+
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.Data.Services;
+using System.Data.Services.Common;
 using System.ServiceModel.Web;
 using System.Web;
 using UniCloud.Application.PartBC.AcConfigServices;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.ItemServices;
 using UniCloud.Application.PartBC.PnRegServices;
-using UniCloud.Domain.PartBC.Aggregates;
-using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
+
+#endregion
 
 namespace UniCloud.DistributedServices.Part
 {
-    using System.Data.Services;
-    using System.Data.Services.Common;
-
-
     public class PartDataService : DataService<PartData>
     {
         /// <summary>
@@ -59,7 +58,7 @@ namespace UniCloud.DistributedServices.Part
         {
             base.OnStartProcessingRequest(args);
 
-            HttpCachePolicy cachePolicy = HttpContext.Current.Response.Cache;
+            var cachePolicy = HttpContext.Current.Response.Cache;
 
             // no-cache是会被缓存的，只不过每次在向客户端（浏览器）提供响应数据时，缓存都要向服务器评估缓存响应的有效性。 
             cachePolicy.SetCacheability(HttpCacheability.NoCache);
@@ -83,9 +82,9 @@ namespace UniCloud.DistributedServices.Part
         [WebGet]
         public List<ItemDTO> GetItemsByAircraftType(string aircraftTypeId)
         {
-            Guid id = Guid.Parse(aircraftTypeId);
+            var id = Guid.Parse(aircraftTypeId);
             var itemService = UniContainer.Resolve<IItemAppService>();
-            List<ItemDTO> result = itemService.GetItemsByAircraftType(id);
+            var result = itemService.GetItemsByAircraftType(id);
             return result;
         }
 
@@ -98,7 +97,7 @@ namespace UniCloud.DistributedServices.Part
         {
             var dateTime = DateTime.Parse(date);
             var acConfigService = UniContainer.Resolve<IAcConfigAppService>();
-            List<AcConfigDTO> result = acConfigService.QueryAcConfigs(contractAircraftId, dateTime);
+            var result = acConfigService.QueryAcConfigs(contractAircraftId, dateTime);
             return result;
         }
 
@@ -110,9 +109,10 @@ namespace UniCloud.DistributedServices.Part
         public List<PnRegDTO> GetPnRegsByItem(int itemId)
         {
             var pnRegService = UniContainer.Resolve<IPnRegAppService>();
-            List<PnRegDTO> result = pnRegService.GetPnRegsByItem(itemId);
+            var result = pnRegService.GetPnRegsByItem(itemId);
             return result;
         }
+
         #endregion
     }
 }

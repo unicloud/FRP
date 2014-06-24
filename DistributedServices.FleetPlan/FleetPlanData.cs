@@ -36,7 +36,7 @@ using UniCloud.Application.FleetPlanBC.RelatedDocServices;
 using UniCloud.Application.FleetPlanBC.RequestServices;
 using UniCloud.Application.FleetPlanBC.SupplierServices;
 using UniCloud.Application.FleetPlanBC.XmlConfigServices;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -47,12 +47,12 @@ namespace UniCloud.DistributedServices.FleetPlan
     /// </summary>
     public class FleetPlanData : ExposeData.ExposeData
     {
-        private readonly IAircraftSeriesAppService _aircraftSeriesAppService;
         private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAirProgrammingAppService _airProgrammingAppService;
         private readonly IAircraftAppService _aircraftAppService;
         private readonly IAircraftCategoryAppService _aircraftCategoryAppService;
         private readonly IAircraftConfigurationAppService _aircraftConfigurationAppService;
+        private readonly IAircraftSeriesAppService _aircraftSeriesAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IAirlinesAppService _airlinesAppService;
         private readonly IAnnualAppService _annualAppService;
@@ -62,21 +62,21 @@ namespace UniCloud.DistributedServices.FleetPlan
         private readonly IEngineAppService _engineAppService;
         private readonly IEnginePlanAppService _enginePlanAppService;
         private readonly IEngineTypeAppService _engineTypeAppService;
+        private readonly IFleetTransferService _fleetTransferService;
         private readonly IIssuedUnitAppService _issuedUnitAppService;
         private readonly IMailAddressAppService _mailAddressAppService;
         private readonly IManagerAppService _managerAppService;
         private readonly IManufacturerAppService _manufacturerAppService;
         private readonly IPlanAircraftAppService _planAircraftAppService;
         private readonly IPlanAppService _planAppService;
-        private readonly IPlanHistoryAppService _planHistoryAppService;
         private readonly IPlanEngineAppService _planEngineAppService;
+        private readonly IPlanHistoryAppService _planHistoryAppService;
         private readonly IProgrammingAppService _programmingAppService;
         private readonly IProgrammingFileAppService _programmingFileAppService;
         private readonly IRelatedDocAppService _relatedDocAppService;
         private readonly IRequestAppService _requestAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly IXmlConfigAppService _xmlConfigAppService;
-        private readonly IFleetTransferService _fleetTransferService;
 
         public FleetPlanData()
             : base("UniCloud.Application.FleetPlanBC.DTO")
@@ -128,7 +128,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             }
         }
 
-        #endregion   
+        #endregion
 
         #region 飞机配置
 
@@ -137,10 +137,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// </summary>
         public IQueryable<AircraftConfigurationDTO> AircraftConfigurations
         {
-            get
-            {
-                return _aircraftConfigurationAppService.GetAircraftConfigurations();
-            }
+            get { return _aircraftConfigurationAppService.GetAircraftConfigurations(); }
         }
 
         #endregion
@@ -152,7 +149,10 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// </summary>
         public IQueryable<AircraftSeriesDTO> AircraftSeries
         {
-            get { return GetStaticData("AircraftSeriesFleetPlan", () => _aircraftSeriesAppService.GetAircraftSeries()); }
+            get
+            {
+                return GetStaticData("AircraftSeriesFleetPlan", () => _aircraftSeriesAppService.GetAircraftSeries());
+            }
         }
 
         #endregion
@@ -201,8 +201,13 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// </summary>
         public IQueryable<CAACAircraftTypeDTO> CaacAircraftTypes
         {
-            get { return GetStaticData("caacAircraftTypesFleetPlan", () => _caacAircraftTypeAppService.GetCAACAircraftTypes()); }
+            get
+            {
+                return GetStaticData("caacAircraftTypesFleetPlan",
+                    () => _caacAircraftTypeAppService.GetCAACAircraftTypes());
+            }
         }
+
         #endregion
 
         #region 航空公司
@@ -320,7 +325,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         }
 
         #endregion
-        
+
         #region 发文单位
 
         /// <summary>
@@ -374,6 +379,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         {
             get { return _planHistoryAppService.GetPlanHistories(); }
         }
+
         #endregion
 
         #region 计划飞机
@@ -435,14 +441,11 @@ namespace UniCloud.DistributedServices.FleetPlan
         }
 
         /// <summary>
-        /// 获取带有申请的批文
+        ///     获取带有申请的批文
         /// </summary>
         public IQueryable<ApprovalRequestDTO> ApprovalRequests
         {
-            get
-            {
-                return _requestAppService.GetApprovalRequests();
-            }
+            get { return _requestAppService.GetApprovalRequests(); }
         }
 
         #endregion
@@ -482,6 +485,5 @@ namespace UniCloud.DistributedServices.FleetPlan
         }
 
         #endregion
-
     }
 }

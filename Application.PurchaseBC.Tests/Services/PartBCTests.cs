@@ -23,7 +23,7 @@ using UniCloud.Application.PurchaseBC.PartServices;
 using UniCloud.Application.PurchaseBC.Query.PartQueries;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

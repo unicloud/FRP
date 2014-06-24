@@ -19,10 +19,9 @@
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.BaseManagementBC.UserServices;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 

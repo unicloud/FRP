@@ -14,7 +14,7 @@ using UniCloud.Application.PaymentBC.OrderServices;
 using UniCloud.Application.PaymentBC.PaymentNoticeServices;
 using UniCloud.Application.PaymentBC.PaymentScheduleServices;
 using UniCloud.Application.PaymentBC.SupplierServices;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -32,6 +32,7 @@ namespace UniCloud.DistributedServices.Payment
         private readonly IGuaranteeAppService _guaranteeAppService;
         private readonly ILeaseInvoiceAppService _leaseInvoiceAppService;
         private readonly IMaintainContractAppService _maintainContractAppService;
+        private readonly IMaintainCostAppService _maintainCostAppService;
         private readonly IMaintainInvoiceAppService _maintainInvoiceAppService;
         private readonly IOrderAppService _orderAppService;
         private readonly IPaymentNoticeAppService _paymentNoticeAppService;
@@ -39,7 +40,6 @@ namespace UniCloud.DistributedServices.Payment
         private readonly IPrepaymentInvoiceAppService _prepaymentInvoiceAppService;
         private readonly IPurchaseInvoiceAppService _purchaseInvoiceAppService;
         private readonly ISupplierAppService _supplierAppService;
-        private readonly IMaintainCostAppService _maintainCostAppService;
 
         public PaymentData()
             : base("UniCloud.Application.PaymentBC.DTO")
@@ -70,6 +70,7 @@ namespace UniCloud.DistributedServices.Payment
         {
             get { return _creditNoteAppService.GetPurchaseCreditNoteInvoices(); }
         }
+
         public IQueryable<MaintainCreditNoteDTO> MaintainCreditNotes
         {
             get { return _creditNoteAppService.GetMaintainCreditNoteInvoices(); }
@@ -90,6 +91,7 @@ namespace UniCloud.DistributedServices.Payment
         {
             get { return _prepaymentInvoiceAppService.GetPurchasePrepaymentInvoices(); }
         }
+
         public IQueryable<MaintainPrepaymentInvoiceDTO> MaintainPrepaymentInvoices
         {
             get { return _prepaymentInvoiceAppService.GetMaintainPrepaymentInvoices(); }
@@ -118,6 +120,7 @@ namespace UniCloud.DistributedServices.Payment
         {
             get { return _maintainInvoiceAppService.GetSpecialRefitInvoices(); }
         }
+
         #endregion
 
         #region 维修发票
@@ -242,6 +245,7 @@ namespace UniCloud.DistributedServices.Payment
         {
             get { return _paymentScheduleAppService.GetMaintainPaymentSchedules(); }
         }
+
         #endregion
 
         #region 付款通知
@@ -407,6 +411,7 @@ namespace UniCloud.DistributedServices.Payment
         {
             get { return _maintainCostAppService.GetFhaMaintainCosts(); }
         }
+
         #endregion
     }
 }

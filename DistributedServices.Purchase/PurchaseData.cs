@@ -36,7 +36,7 @@ using UniCloud.Application.PurchaseBC.ReceptionServices;
 using UniCloud.Application.PurchaseBC.RelatedDocServices;
 using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Application.PurchaseBC.TradeServices;
-using UniCloud.Infrastructure.Utilities.Container;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -62,8 +62,8 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly ILeaseContractAircraftAppService _leaseContractAircraftAppService;
         private readonly ILeaseContractEngineAppService _leaseContractEngineAppService;
         private readonly IMaintainContractAppService _maintainContractAppService;
-        private readonly IMaterialAppService _materialAppService;
         private readonly IManufacturerAppService _manufacturerAppService;
+        private readonly IMaterialAppService _materialAppService;
         private readonly IPartAppService _partAppService;
         private readonly IPlanAircraftAppService _planAircraftAppService;
         private readonly IPurchaseContractAircraftAppService _purchaseContractAircraftAppService;
@@ -338,6 +338,7 @@ namespace UniCloud.DistributedServices.Purchase
         {
             get { return _maintainContractAppService.GetAirframeMaintainContracts(); }
         }
+
         #endregion
 
         #region Reception
@@ -472,7 +473,7 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         #endregion
-        
+
         #region 制造商
 
         public IQueryable<ManufacturerDTO> Manufacturers
