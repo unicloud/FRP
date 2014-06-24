@@ -29,7 +29,6 @@ namespace UniCloud.Presentation.Shell
         public ShellView()
         {
             InitializeComponent();
-            ViewModel = new ShellViewModel();
         }
 
         [Import(typeof(ShellViewModel))]

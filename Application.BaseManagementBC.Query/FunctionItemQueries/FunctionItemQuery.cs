@@ -16,10 +16,13 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -62,18 +65,80 @@ namespace UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries
         }
 
         /// <summary>
-        ///     获取所有FunctionItemWithHierarchy
+        ///     获取FunctionItemWithHierarchy集合。
+        ///     如果userName为空，则返回所有。
         /// </summary>
-        /// <returns>所有的FunctionItemWithHierarchy。</returns>
-        public IEnumerable<FunctionItemDTO> GetFunctionItemsWithHierarchy()
+        /// <param name="userName">用户名</param>
+        /// <returns>FunctionItemWithHierarchy集合。</returns>
+        public IEnumerable<FunctionItemDTO> GetFunctionItemsWithHierarchy(string userName = null)
         {
-            var applications = _unitOfWork.CreateSet<FunctionItem>().Where(p => p.ParentItemId == null).ToList();
             var tempFunctionItems = new List<FunctionItemDTO>();
+            List<FunctionItem> applications;
+            if (userName == null)
+            {
+                applications = _unitOfWork.CreateSet<FunctionItem>().Where(p => p.ParentItemId == null).ToList();
+            }
+            else
+            {
+                var roleIds =
+                    _unitOfWork.CreateSet<User>()
+                        .Where(u => u.UserName == userName)
+                        .SelectMany(u => u.UserRoles)
+                        .Select(ur => ur.RoleId)
+                        .ToList();
+                applications =
+                    _unitOfWork.CreateSet<RoleFunction>()
+                        .Where(rf => roleIds.Contains(rf.RoleId))
+                        .Select(rf => rf.FunctionItem)
+                        .Where(f => f.ParentItemId == null)
+                        .ToList();
+            }
             applications.ForEach(p =>
             {
                 var temp = GenerateFunctionItem(p);
                 tempFunctionItems.Add(temp);
             });
+
+            return tempFunctionItems;
+        }
+
+        /// <summary>
+        ///     <see cref="UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries.IFunctionItemQuery" />
+        /// </summary>
+        /// <param name="userName">
+        ///     <see cref="UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries.IFunctionItemQuery" />
+        /// </param>
+        /// <returns>
+        ///     <see cref="UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries.IFunctionItemQuery" />
+        /// </returns>
+        public IEnumerable<FunctionItemDTO> GetFunctionItemsByUser(string userName)
+        {
+            if (userName == null) throw new ArgumentNullException("userName");
+            var tempFunctionItems = new List<FunctionItemDTO>();
+            var roleIds =
+                _unitOfWork.CreateSet<User>()
+                    .Where(u => u.UserName == userName)
+                    .SelectMany(u => u.UserRoles)
+                    .Select(ur => ur.RoleId)
+                    .ToList();
+            var applications = _unitOfWork.CreateSet<RoleFunction>()
+                .Where(rf => roleIds.Contains(rf.RoleId))
+                .Select(rf => rf.FunctionItem)
+                .ToList();
+            applications.ForEach(functionItem => tempFunctionItems.Add(new FunctionItemDTO
+            {
+                Id = functionItem.Id,
+                CreateDate = functionItem.CreateDate,
+                Description = functionItem.Description,
+                ImageUrl = functionItem.ImageUrl,
+                IsButton = functionItem.IsButton,
+                IsLeaf = functionItem.IsLeaf,
+                IsValid = functionItem.IsValid,
+                Name = functionItem.Name,
+                NaviUrl = functionItem.NaviUrl,
+                ParentItemId = functionItem.ParentItemId,
+                Sort = functionItem.Sort,
+            }));
 
             return tempFunctionItems;
         }

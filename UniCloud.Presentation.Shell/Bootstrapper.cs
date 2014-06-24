@@ -45,14 +45,14 @@ namespace UniCloud.Presentation.Shell
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (DocViewer).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (ICommonService).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IFleetPlanService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IBaseManagementService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IAircraftConfigService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IFleetPlanService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPurchaseService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPaymentService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IProjectService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPortalService).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IAircraftConfigService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPartService).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IBaseManagementService).Assembly));
         }
 
         protected override void InitializeShell()
@@ -81,7 +81,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "BaseManagement.xap",
                 ModuleName = ModuleNames.BaseManagement,
                 ModuleType =

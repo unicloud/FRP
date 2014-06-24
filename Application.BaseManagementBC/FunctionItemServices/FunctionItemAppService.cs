@@ -36,13 +36,10 @@ namespace UniCloud.Application.BaseManagementBC.FunctionItemServices
     public class FunctionItemAppService : ContextBoundObject, IFunctionItemAppService
     {
         private readonly IFunctionItemQuery _functionItemQuery;
-        private readonly IFunctionItemRepository _functionItemRepository;
 
-        public FunctionItemAppService(IFunctionItemQuery functionItemQuery,
-            IFunctionItemRepository functionItemRepository)
+        public FunctionItemAppService(IFunctionItemQuery functionItemQuery)
         {
             _functionItemQuery = functionItemQuery;
-            _functionItemRepository = functionItemRepository;
         }
 
 
@@ -56,12 +53,28 @@ namespace UniCloud.Application.BaseManagementBC.FunctionItemServices
         }
 
         /// <summary>
-        ///     获取所有FunctionItemWithHierarchy
+        ///     获取FunctionItemWithHierarchy集合。
+        ///     如果userName为空，则返回所有。
         /// </summary>
-        /// <returns>所有的FunctionItemWithHierarchy。</returns>
-        public IEnumerable<FunctionItemDTO> GetFunctionItemsWithHierarchy()
+        /// <param name="userName">用户名</param>
+        /// <returns>FunctionItemWithHierarchy集合。</returns>
+        public IEnumerable<FunctionItemDTO> GetFunctionItemsWithHierarchy(string userName = null)
         {
-            return _functionItemQuery.GetFunctionItemsWithHierarchy();
+            return _functionItemQuery.GetFunctionItemsWithHierarchy(userName);
+        }
+
+        /// <summary>
+        ///     <see cref="UniCloud.Application.BaseManagementBC.FunctionItemServices.IFunctionItemAppService" />
+        /// </summary>
+        /// <param name="userName">
+        ///     <see cref="UniCloud.Application.BaseManagementBC.FunctionItemServices.IFunctionItemAppService" />
+        /// </param>
+        /// <returns>
+        ///     <see cref="UniCloud.Application.BaseManagementBC.FunctionItemServices.IFunctionItemAppService" />
+        /// </returns>
+        public IEnumerable<FunctionItemDTO> GetFunctionItemsByUser(string userName)
+        {
+            return _functionItemQuery.GetFunctionItemsByUser(userName);
         }
     }
 }

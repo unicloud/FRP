@@ -35,9 +35,18 @@ namespace UniCloud.Application.BaseManagementBC.FunctionItemServices
         IQueryable<FunctionItemDTO> GetFunctionItems();
 
         /// <summary>
-        ///     获取所有FunctionItemWithHierarchy
+        ///     获取FunctionItemWithHierarchy集合。
+        ///     如果userName为空，则返回所有。
         /// </summary>
-        /// <returns>所有的FunctionItemWithHierarchy。</returns>
-        IEnumerable<FunctionItemDTO> GetFunctionItemsWithHierarchy();
+        /// <param name="userName">用户名</param>
+        /// <returns>FunctionItemWithHierarchy集合。</returns>
+        IEnumerable<FunctionItemDTO> GetFunctionItemsWithHierarchy(string userName = null);
+
+        /// <summary>
+        ///     根据用户名称获取FunctionItemWithHierarchy集合。
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <returns>FunctionItemWithHierarchy集合。</returns>
+        IEnumerable<FunctionItemDTO> GetFunctionItemsByUser(string userName);
     }
 }

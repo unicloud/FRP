@@ -592,6 +592,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var hash = new HMACSHA1 {Key = HexToByte(validationKey + "C50B3C89")};
             var encodedPassword = Convert.ToBase64String(hash.ComputeHash(Encoding.Unicode.GetBytes(password)));
             var user = UserFactory.CreateUser("admin", encodedPassword, null, 1, "First User", "3U", DateTime.Now);
+            user.UpdateUser(null, null, true);
             Context.Users.Add(user);
 
             #endregion

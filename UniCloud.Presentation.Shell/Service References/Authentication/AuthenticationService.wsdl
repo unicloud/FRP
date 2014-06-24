@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://asp.net/ApplicationServices/v200" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AuthenticationService" targetNamespace="http://asp.net/ApplicationServices/v200" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://asp.net/ApplicationServices/v200/Imports">
+      <xsd:import schemaLocation="http://localhost/DistributedServices.BaseManagement/AuthenticationService.svc?xsd=xsd0" namespace="http://asp.net/ApplicationServices/v200" />
+      <xsd:import schemaLocation="http://localhost/DistributedServices.BaseManagement/AuthenticationService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="AuthenticationService_ValidateUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateUser" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticationService_ValidateUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticationService_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticationService_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticationService_IsLoggedIn_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsLoggedIn" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticationService_IsLoggedIn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsLoggedInResponse" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticationService_Logout_InputMessage">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticationService_Logout_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AuthenticationService">
+    <wsdl:operation name="ValidateUser">
+      <wsdl:input wsaw:Action="http://asp.net/ApplicationServices/v200/AuthenticationService/ValidateUser" message="tns:AuthenticationService_ValidateUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://asp.net/ApplicationServices/v200/AuthenticationService/ValidateUserResponse" message="tns:AuthenticationService_ValidateUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://asp.net/ApplicationServices/v200/AuthenticationService/Login" message="tns:AuthenticationService_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://asp.net/ApplicationServices/v200/AuthenticationService/LoginResponse" message="tns:AuthenticationService_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsLoggedIn">
+      <wsdl:input wsaw:Action="http://asp.net/ApplicationServices/v200/AuthenticationService/IsLoggedIn" message="tns:AuthenticationService_IsLoggedIn_InputMessage" />
+      <wsdl:output wsaw:Action="http://asp.net/ApplicationServices/v200/AuthenticationService/IsLoggedInResponse" message="tns:AuthenticationService_IsLoggedIn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input wsaw:Action="http://asp.net/ApplicationServices/v200/AuthenticationService/Logout" message="tns:AuthenticationService_Logout_InputMessage" />
+      <wsdl:output wsaw:Action="http://asp.net/ApplicationServices/v200/AuthenticationService/LogoutResponse" message="tns:AuthenticationService_Logout_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_AuthenticationService" type="tns:AuthenticationService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ValidateUser">
+      <soap:operation soapAction="http://asp.net/ApplicationServices/v200/AuthenticationService/ValidateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://asp.net/ApplicationServices/v200/AuthenticationService/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsLoggedIn">
+      <soap:operation soapAction="http://asp.net/ApplicationServices/v200/AuthenticationService/IsLoggedIn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="http://asp.net/ApplicationServices/v200/AuthenticationService/Logout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AuthenticationService">
+    <wsdl:port name="BasicHttpBinding_AuthenticationService" binding="tns:BasicHttpBinding_AuthenticationService">
+      <soap:address location="http://localhost/DistributedServices.BaseManagement/AuthenticationService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

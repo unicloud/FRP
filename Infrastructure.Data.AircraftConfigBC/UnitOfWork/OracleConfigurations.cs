@@ -16,6 +16,7 @@
 using System.Configuration;
 using System.Data.Common;
 using System.Data.Entity;
+using UniCloud.Infrastructure.Security;
 
 namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
 {

@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/6/22 20:27:47
+// 生成日期: 2014/6/24 10:00:02
 namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
 {
     
@@ -319,22 +319,17 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
                 "lication.BaseManagementBC.DTO.BusinessLicenseDTO\" /><EntitySet Name=\"AircraftCab" +
                 "inTypes\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.AircraftCabinType" +
                 "DTO\" /><EntitySet Name=\"XmlSettings\" EntityType=\"UniCloud.Application.BaseManage" +
-                "mentBC.DTO.XmlSettingDTO\" /><FunctionImport Name=\"CreateAUser\" m:HttpMethod=\"GET" +
-                "\"><Parameter Name=\"userName\" Type=\"Edm.String\" /><Parameter Name=\"password\" Type" +
-                "=\"Edm.String\" /></FunctionImport><FunctionImport Name=\"CreateUser\" m:HttpMethod=" +
-                "\"GET\"><Parameter Name=\"userName\" Type=\"Edm.String\" /><Parameter Name=\"password\" " +
-                "Type=\"Edm.String\" /><Parameter Name=\"email\" Type=\"Edm.String\" /><Parameter Name=" +
-                "\"question\" Type=\"Edm.String\" /><Parameter Name=\"answer\" Type=\"Edm.String\" /></Fu" +
-                "nctionImport><FunctionImport Name=\"GetFunctionItemsWithHierarchy\" ReturnType=\"Co" +
-                "llection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySet=\"" +
-                "FunctionItems\" m:HttpMethod=\"GET\" /><FunctionImport Name=\"GetFunctionItemsByUser" +
-                "\" ReturnType=\"Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemD" +
-                "TO)\" EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\"><Parameter Name=\"userId\" Type=" +
-                "\"Edm.String\" /></FunctionImport><AssociationSet Name=\"FunctionItemDTO_SubFunctio" +
-                "nItems\" Association=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_S" +
-                "ubFunctionItems\"><End Role=\"FunctionItemDTO\" EntitySet=\"FunctionItems\" /><End Ro" +
-                "le=\"SubFunctionItems\" EntitySet=\"FunctionItems\" /></AssociationSet></EntityConta" +
-                "iner></Schema></edmx:DataServices></edmx:Edmx>";
+                "mentBC.DTO.XmlSettingDTO\" /><FunctionImport Name=\"GetFunctionItemsWithHierarchy\"" +
+                " ReturnType=\"Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDT" +
+                "O)\" EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\"><Parameter Name=\"userName\" Type" +
+                "=\"Edm.String\" /></FunctionImport><FunctionImport Name=\"GetFunctionItemsByUser\" R" +
+                "eturnType=\"Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)" +
+                "\" EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\"><Parameter Name=\"userName\" Type=\"" +
+                "Edm.String\" /></FunctionImport><AssociationSet Name=\"FunctionItemDTO_SubFunction" +
+                "Items\" Association=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_Su" +
+                "bFunctionItems\"><End Role=\"FunctionItemDTO\" EntitySet=\"FunctionItems\" /><End Rol" +
+                "e=\"SubFunctionItems\" EntitySet=\"FunctionItems\" /></AssociationSet></EntityContai" +
+                "ner></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {

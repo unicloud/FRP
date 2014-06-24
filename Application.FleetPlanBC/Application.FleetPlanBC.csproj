@@ -147,6 +147,10 @@
       <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
       <Name>Infrastructure.Utilities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Mail\UniCloud.Mail.csproj">
       <Project>{b62b8724-4e02-4a04-ab83-c0c6ec236a75}</Project>
       <Name>UniCloud.Mail</Name>

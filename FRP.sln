@@ -340,6 +340,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal", "UniCloud.Presentation.Portal\Portal.csproj", "{98102B2F-9697-46F6-8B6B-445F3D386EAA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell", "UniCloud.Presentation.Shell\Shell.csproj", "{CE8C67E6-49C2-4860-B0D3-6889DEC50048}"
+	ProjectSection(ProjectDependencies) = postProject
+		{86380D6A-1B3B-4833-8807-77DFB6A4E53B} = {86380D6A-1B3B-4833-8807-77DFB6A4E53B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell.Web", "UniCloud.Presentation.Shell.Web\Shell.Web.csproj", "{91C6DDC3-AE69-48B7-91CE-F2CE20EB2542}"
 EndProject
@@ -368,6 +371,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.CommonService", "UniCloud.Presentation.Service.CommonService\Service.CommonService.csproj", "{E182CB39-CB47-4A7A-BF2D-0094D38D24FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.BaseManagement", "UniCloud.Presentation.Service.BaseManagement\Service.BaseManagement.csproj", "{EDC31656-0F6E-4E1E-A047-A65CFF2EE2E6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{86380D6A-1B3B-4833-8807-77DFB6A4E53B} = {86380D6A-1B3B-4833-8807-77DFB6A4E53B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.AircraftConfig", "UniCloud.Presentation.Service.AircraftConfig\Service.AircraftConfig.csproj", "{45CDCA5D-F98E-4E03-ACE1-02F45C62C8F0}"
 EndProject
@@ -478,6 +484,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniCloud.Mail", "UniCloud.Mail\UniCloud.Mail.csproj", "{B62B8724-4E02-4A04-AB83-C0C6EC236A75}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedServices.BaseManagement.Tests", "DistributedServices.BaseManagement.Tests\DistributedServices.BaseManagement.Tests.csproj", "{3D2368B0-9E27-4DC8-997D-DF7A07503D82}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.00-Seedwork", "5.00-Seedwork", "{C00860FF-D2D2-4E42-9A93-B98082079F8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1057,6 +1067,10 @@ Global
 		{3D2368B0-9E27-4DC8-997D-DF7A07503D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D2368B0-9E27-4DC8-997D-DF7A07503D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D2368B0-9E27-4DC8-997D-DF7A07503D82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1288,5 +1302,7 @@ Global
 		{6AB55CC3-1482-4141-AF60-8CF3CF2ED567} = {68D6369D-AD6B-4C3A-86FC-C7478C2C47C6}
 		{B62B8724-4E02-4A04-AB83-C0C6EC236A75} = {6AB55CC3-1482-4141-AF60-8CF3CF2ED567}
 		{3D2368B0-9E27-4DC8-997D-DF7A07503D82} = {7977609C-5235-42F2-8986-916B9FB166BB}
+		{C00860FF-D2D2-4E42-9A93-B98082079F8D} = {AEBED98E-12A5-45D6-AD8C-FA6326592688}
+		{865EC95E-3EFF-4DFE-B45A-B9238FB731B4} = {C00860FF-D2D2-4E42-9A93-B98082079F8D}
 	EndGlobalSection
 EndGlobal

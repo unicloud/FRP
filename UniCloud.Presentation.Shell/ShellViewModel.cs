@@ -18,8 +18,10 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
@@ -29,6 +31,9 @@ using Microsoft.Practices.Prism.ViewModel;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.Data.DataForm;
+using UniCloud.Presentation.Service.BaseManagement;
+using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
+using UniCloud.Presentation.Shell.Authentication;
 
 #endregion
 
@@ -39,11 +44,14 @@ namespace UniCloud.Presentation.Shell
     {
         #region 声明
 
+        private readonly BaseManagementData _context;
         [Import] public IModuleManager moduleManager;
         [Import] public IRegionManager regionManager;
 
-        public ShellViewModel()
+        [ImportingConstructor]
+        public ShellViewModel(IBaseManagementService service)
         {
+            _context = service.Context;
             LoginInfo = new LoginInfo();
         }
 
@@ -124,17 +132,40 @@ namespace UniCloud.Presentation.Shell
         /// <summary>
         ///     根据登录用户加载模块
         /// </summary>
-        /// <param name="userName">用户</param>
-        private void ModuleLoader(string userName)
+        /// <param name="moduleItems">模块功能项</param>
+        private void ModuleLoader(List<FunctionItemDTO> moduleItems)
         {
-            moduleManager.LoadModule("CommonServiceModule");
-            moduleManager.LoadModule("BaseManagementModule");
-            moduleManager.LoadModule("AircraftConfigModule");
-            moduleManager.LoadModule("FleetPlanModule");
-            moduleManager.LoadModule("PurchaseModule");
-            moduleManager.LoadModule("PaymentModule");
-            moduleManager.LoadModule("PortalModule");
-            moduleManager.LoadModule("PartModule");
+            moduleItems.ForEach(m => moduleManager.LoadModule(GetModuleName(m)));
+        }
+
+        private static string GetModuleName(FunctionItemDTO moduleItem)
+        {
+            var item = moduleItem.Name;
+            switch (item)
+            {
+                case "文档库":
+                    return ModuleNames.CommonService;
+                case "基础管理":
+                    return ModuleNames.BaseManagement;
+                case "管理门户":
+                    return ModuleNames.Portal;
+                case "运力规划":
+                    return ModuleNames.FleetPlan;
+                case "采购合同":
+                    return ModuleNames.Purchase;
+                case "应付款":
+                    return ModuleNames.Payment;
+                case "项目管理":
+                    return ModuleNames.Project;
+                case "飞机构型":
+                    return ModuleNames.AircraftConfig;
+                case "附件管理":
+                    return ModuleNames.Part;
+                case "发动机管理":
+                    return ModuleNames.Part;
+                default:
+                    throw new ArgumentException("没有匹配的模块名称！");
+            }
         }
 
         /// <summary>
@@ -231,6 +262,33 @@ namespace UniCloud.Presentation.Shell
         #endregion
 
         #region 加载
+
+        private void LoadMenuItems(List<FunctionItemDTO> functionItems)
+        {
+            var module = functionItems.Where(f => f.ParentItemId == null).ToList();
+            module.ForEach(m =>
+            {
+                var menu = new MenuItem {Text = m.Name, IsEnabled = false, NavUri = m.NaviUrl};
+                _items.Add(menu);
+                functionItems.Where(f => f.ParentItemId == m.Id)
+                    .ToList()
+                    .ForEach(fi => GenerateMenu(functionItems, fi, menu));
+            });
+        }
+
+        private static void GenerateMenu(List<FunctionItemDTO> functionItems, FunctionItemDTO functionItem,
+            MenuItem menuItem)
+        {
+            var fis = functionItems.Where(fi => fi.ParentItemId == functionItem.Id).ToList();
+            fis.ForEach(fi =>
+            {
+                var menu = new MenuItem {Text = fi.Name, NavUri = fi.NaviUrl};
+                menuItem.Items.Add(menu);
+                functionItems.Where(f => f.ParentItemId == fi.Id)
+                    .ToList()
+                    .ForEach(func => GenerateMenu(functionItems, func, menu));
+            });
+        }
 
         private void LoadMenuItems()
         {
@@ -1342,14 +1400,31 @@ namespace UniCloud.Presentation.Shell
 
         private void OnLoginOk(object obj)
         {
+            var client = new AuthenticationServiceClient();
             var loginForm = obj as RadDataForm;
             // 由于未使用 DataForm 中的标准“确定”按钮，因此需要强制进行验证。
             // 如果未确保窗体有效，则在实体无效时调用该操作会导致异常。
             if (loginForm == null || !loginForm.ValidateItem()) return;
-            var logined = loginForm.CurrentItem as LoginInfo;
-            if (logined == null) return;
-            ModuleLoader(logined.UserName);
-            LoadMenuItems();
+            client.LoginCompleted += client_LoginCompleted;
+            client.LoginAsync(LoginInfo.UserName, LoginInfo.Password, null, true);
+        }
+
+        private void client_LoginCompleted(object sender, LoginCompletedEventArgs e)
+        {
+            if (!e.Result) return;
+            var queryString = string.Format("GetFunctionItemsByUser?userName='{0}'", LoginInfo.UserName);
+            _context.BeginExecute<FunctionItemDTO>(new Uri(queryString, UriKind.Relative),
+                result =>
+                    Deployment.Current.Dispatcher.BeginInvoke(
+                        () =>
+                        {
+                            var context = result.AsyncState as BaseManagementData;
+                            if (context == null) return;
+                            var retMenu = context.EndExecute<FunctionItemDTO>(result).ToList();
+                            LoadMenuItems(retMenu);
+                            ModuleLoader(retMenu.Where(m => m.ParentItemId == null).ToList());
+                        }), _context);
+
             IsLogined = true;
         }
 
