@@ -20,10 +20,10 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
     {
         partial void OnNameChanging(string value)
         {
-            if (string.IsNullOrEmpty(value))
-            {
-                throw new Exception("名称不能为空!");
-            }
+            //if (string.IsNullOrEmpty(value))
+            //{
+            //    throw new Exception("名称不能为空!");
+            //}
         }
     }
 }

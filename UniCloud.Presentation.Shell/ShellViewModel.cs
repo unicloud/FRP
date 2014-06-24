@@ -39,7 +39,7 @@ using UniCloud.Presentation.Shell.Authentication;
 
 namespace UniCloud.Presentation.Shell
 {
-    [Export(typeof (ShellViewModel))]
+    [Export(typeof(ShellViewModel))]
     public class ShellViewModel : NotificationObject, IPartImportsSatisfiedNotification
     {
         #region 声明
@@ -1386,10 +1386,53 @@ namespace UniCloud.Presentation.Shell
 
         public void RadMenu_ItemClick(object sender, RadRoutedEventArgs e)
         {
-            var menuItem = (e.OriginalSource as RadMenuItem);
-            if (menuItem == null || menuItem.CommandParameter == null) return;
-            var uri = new Uri(menuItem.CommandParameter.ToString(), UriKind.Relative);
+            var radTreeView = sender as RadTreeView;
+            if (radTreeView != null)
+            {
+                var menuItem = radTreeView.SelectedItem as MenuItem;
+                if (menuItem == null || menuItem.NavUri == null) return;
+                CurMenu = "";
+                items = new List<string>();
+                GenerateMenu(menuItem);
+                items.ForEach(p => CurMenu = p + ">>" + CurMenu);
+                var uri = new Uri(menuItem.NavUri, UriKind.Relative);
             regionManager.RequestNavigate(RegionNames.MainRegion, uri);
+        }
+        }
+
+        public void GenerateMenu(MenuItem menuItem)
+        {
+            if (menuItem.Parent != null)
+            {
+                items.Add(menuItem.Text);
+                GenerateMenu(menuItem.Parent);
+            }
+            else
+            {
+                items.Add(menuItem.Text);
+            }
+        }
+
+        #endregion
+
+        #region 当前位置
+
+        private string _curMenu;
+
+        /// <summary>
+        /// 当前位置
+        /// </summary>
+        public string CurMenu
+        {
+            get { return this._curMenu; }
+            private set
+            {
+                if (this._curMenu != value)
+                {
+                    this._curMenu = value;
+                    this.RaisePropertyChanged(() => this.CurMenu);
+                }
+            }
         }
 
         #endregion
@@ -1427,7 +1470,7 @@ namespace UniCloud.Presentation.Shell
                             if (context == null) return;
                             var retMenu = context.EndExecute<FunctionItemDTO>(result).ToList();
                             //LoadMenuItems(retMenu);
-                            LoadMenuItems();
+            LoadMenuItems();
                             ModuleLoader(retMenu.Where(m => m.ParentItemId == null).ToList());
                         }), _context);
 
