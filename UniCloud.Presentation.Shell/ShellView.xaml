@@ -98,14 +98,6 @@
                         </Path.Fill>
                     </Path>
                 </telerik:RadButton>
-                <!--<telerik:RadMenu ItemsSource="{Binding Items}" Orientation="Vertical"  ItemContainerStyle="{StaticResource MenuItemStyle}"
-                             BorderThickness="0">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="ItemClick">
-                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="RadMenu_ItemClick" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </telerik:RadMenu>-->
                 <telerik:RadTreeView  x:Name="SpecialConfigsTreeView"
                                       IsEditable="True"
                                       IsLineEnabled="True"
