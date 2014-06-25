@@ -210,6 +210,7 @@ namespace UniCloud.MerchantDataService
             UniContainer.Create()
                 .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<ISupplierAppService, SupplierAppService>()
                 .Register<ISupplierQuery, SupplierQuery>()
                 .Register<ISupplierRepository, SupplierRepository>()
                 .Register<ISupplierRoleRepository, SupplierRoleRepository>()
