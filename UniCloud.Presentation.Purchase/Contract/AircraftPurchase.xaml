@@ -181,7 +181,7 @@
                                     </telerik:RadToolBar>
                                     <telerik:RadGridView Grid.Row="1"
                                                          x:Name="Order"
-                                                         ItemsSource="{Binding ViewAircraftPurchaseOrderDTO}"
+                                                         ItemsSource="{Binding ViewAircraftPurchaseOrderDTO,Mode=TwoWay}"
                                                          SelectedItem="{Binding SelAircraftPurchaseOrderDTO,Mode=TwoWay}"
                                                          ShowGroupPanel="False"
                                                          IsFilteringAllowed="False"
@@ -339,7 +339,7 @@
                                             <telerik:GridViewComboBoxColumn Header="机型"
                                                                             DataMemberBinding="{Binding AircraftMaterialId}"
                                                                             ItemsSource="{Binding DataContext.AircraftMaterials, ElementName=LayoutRoot}"
-                                                                            SelectedValueMemberPath="SupplierCompanyMaterialId"
+                                                                            SelectedValueMemberPath="MaterialId"
                                                                             DisplayMemberPath="Name"
                                                                             EditTriggers="CellClick" />
                                             <telerik:GridViewDataColumn Header="RANK号"

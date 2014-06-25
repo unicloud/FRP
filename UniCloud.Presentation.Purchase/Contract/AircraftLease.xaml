@@ -338,7 +338,7 @@
                                         <telerik:GridViewComboBoxColumn Header="机型"
                                                                         DataMemberBinding="{Binding AircraftMaterialId}"
                                                                         ItemsSource="{Binding DataContext.AircraftMaterials, ElementName=LayoutRoot}"
-                                                                        SelectedValueMemberPath="SupplierCompanyMaterialId"
+                                                                        SelectedValueMemberPath="MaterialId"
                                                                         DisplayMemberPath="Name"
                                                                         EditTriggers="CellClick" />
                                         <telerik:GridViewDataColumn Header="RANK号"

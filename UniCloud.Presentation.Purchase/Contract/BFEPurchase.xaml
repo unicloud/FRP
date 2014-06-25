@@ -338,7 +338,7 @@
                                         <telerik:GridViewComboBoxColumn Header="BFE件号"
                                                                         DataMemberBinding="{Binding BFEMaterialId}"
                                                                         ItemsSource="{Binding DataContext.BFEMaterials, ElementName=LayoutRoot}"
-                                                                        SelectedValueMemberPath="SupplierCompanyMaterialId"
+                                                                        SelectedValueMemberPath="MaterialId"
                                                                         DisplayMemberPath="Name"
                                                                         EditTriggers="CellClick" />
                                         <telerik:GridViewMaskedInputColumn Header="单价"

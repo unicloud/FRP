@@ -444,13 +444,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             if (category != null)
                 SelEnginePlanHistory.ActionCategoryId = category.Id;
             var engineType = EngineTypes.FirstOrDefault();
-            if (engineType != null)
-                SelEnginePlanHistory.EngineTypeId = engineType.Id;
             var planEngine = new PlanEngineDTO
             {
                 Id = Guid.NewGuid(),
                 AirlinesId = _curAirlines.Id,
             };
+            if (engineType != null)
+            {
+                SelEnginePlanHistory.EngineTypeId = engineType.Id;
+                planEngine.EngineTypeId = engineType.Id;
+            }
             SelEnginePlanHistory.PlanEngineId = planEngine.Id;
             PlanEngines.AddNew(planEngine);
             EnginePlanHistories.Add(SelEnginePlanHistory);
