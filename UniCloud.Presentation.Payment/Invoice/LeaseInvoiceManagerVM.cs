@@ -596,9 +596,12 @@ namespace UniCloud.Presentation.Payment.Invoice
                 {
                     _selContractAircraft = value;
                     _curAcPaymentSchedule.Clear();
-                    CurAcPaymentSchedule.Add(
-                        AcPaymentSchedules.FirstOrDefault(p => p.ContractAcId == value.ContractAircrafId));
-                    SelAcPaymentSchedule = CurAcPaymentSchedule.FirstOrDefault();
+                    if (value != null)
+                    {
+                        CurAcPaymentSchedule.Add(
+                            AcPaymentSchedules.FirstOrDefault(p => p.ContractAcId == value.ContractAircrafId));
+                        SelAcPaymentSchedule = CurAcPaymentSchedule.FirstOrDefault();
+                    }
                     RaisePropertyChanged(() => SelContractAircraft);
                 }
             }
@@ -627,10 +630,12 @@ namespace UniCloud.Presentation.Payment.Invoice
                 {
                     _selContractEngine = value;
                     _curEnginePaymentSchedule.Clear();
-                    CurEnginePaymentSchedule.Add(
-                        EnginePaymentSchedules.FirstOrDefault(p => p.ContractEngineId == value.ContractEngineId));
-                    SelEnginePaymentSchedule = CurEnginePaymentSchedule.FirstOrDefault();
-
+                    if (value != null)
+                    {
+                        CurEnginePaymentSchedule.Add(
+                            EnginePaymentSchedules.FirstOrDefault(p => p.ContractEngineId == value.ContractEngineId));
+                        SelEnginePaymentSchedule = CurEnginePaymentSchedule.FirstOrDefault();
+                    }
                     RaisePropertyChanged(() => SelContractEngine);
                 }
             }

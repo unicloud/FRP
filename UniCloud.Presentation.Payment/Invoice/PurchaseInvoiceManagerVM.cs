@@ -35,7 +35,7 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(PurchaseInvoiceManagerVM))]
+    [Export(typeof (PurchaseInvoiceManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class PurchaseInvoiceManagerVM : EditViewModelBase
     {
@@ -66,25 +66,32 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             PurchaseInvoices = _service.CreateCollection(_context.PurchaseInvoices, o => o.InvoiceLines);
             PurchaseInvoices.LoadedData += (o, e) =>
-                                           {
-                                               if (SelPurchaseInvoice == null)
-                                                   SelPurchaseInvoice = PurchaseInvoices.FirstOrDefault();
-                                           };
+            {
+                if (SelPurchaseInvoice == null)
+                    SelPurchaseInvoice = PurchaseInvoices.FirstOrDefault();
+            };
             _service.RegisterCollectionView(PurchaseInvoices); //注册查询集合。
 
-            AcPaymentSchedules = new QueryableDataServiceCollectionView<AcPaymentScheduleDTO>(_context, _context.AcPaymentSchedules);
+            AcPaymentSchedules = new QueryableDataServiceCollectionView<AcPaymentScheduleDTO>(_context,
+                _context.AcPaymentSchedules);
 
-            EnginePaymentSchedules = new QueryableDataServiceCollectionView<EnginePaymentScheduleDTO>(_context, _context.EnginePaymentSchedules);
+            EnginePaymentSchedules = new QueryableDataServiceCollectionView<EnginePaymentScheduleDTO>(_context,
+                _context.EnginePaymentSchedules);
 
-            StandardPaymentSchedules = new QueryableDataServiceCollectionView<StandardPaymentScheduleDTO>(_context, _context.StandardPaymentSchedules);
+            StandardPaymentSchedules = new QueryableDataServiceCollectionView<StandardPaymentScheduleDTO>(_context,
+                _context.StandardPaymentSchedules);
 
-            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context, _context.PaymentSchedules);
+            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context,
+                _context.PaymentSchedules);
 
-            AircraftPurchaseOrders = new QueryableDataServiceCollectionView<AircraftPurchaseOrderDTO>(_context, _context.AircraftPurchaseOrders);
+            AircraftPurchaseOrders = new QueryableDataServiceCollectionView<AircraftPurchaseOrderDTO>(_context,
+                _context.AircraftPurchaseOrders);
 
-            EnginePurchaseOrders = new QueryableDataServiceCollectionView<EnginePurchaseOrderDTO>(_context, _context.EnginePurchaseOrders);
+            EnginePurchaseOrders = new QueryableDataServiceCollectionView<EnginePurchaseOrderDTO>(_context,
+                _context.EnginePurchaseOrders);
 
-            BFEPurchaseOrders = new QueryableDataServiceCollectionView<BFEPurchaseOrderDTO>(_context, _context.BFEPurchaseOrders);
+            BFEPurchaseOrders = new QueryableDataServiceCollectionView<BFEPurchaseOrderDTO>(_context,
+                _context.BFEPurchaseOrders);
 
             var fd = new FilterDescriptor("ImportType", FilterOperator.Contains, "购买");
 
@@ -116,13 +123,20 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 数据
 
         #region 公共属性
+
         /// <summary>
         ///   项名称
         /// </summary>
         public Dictionary<int, ItemNameType> ItemNameTypes
         {
-            get { return Enum.GetValues(typeof(ItemNameType)).Cast<object>().ToDictionary(value => (int)value, value => (ItemNameType)value); }
+            get
+            {
+                return Enum.GetValues(typeof (ItemNameType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (ItemNameType) value);
+            }
         }
+
         #region 币种集合
 
         /// <summary>
@@ -404,17 +418,17 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void OnDelete(object obj)
         {
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                PurchaseInvoices.Remove(SelPurchaseInvoice);
-                                                SelPurchaseInvoice = PurchaseInvoices.FirstOrDefault();
-                                                if (SelPurchaseInvoice == null)
-                                                {
-                                                    //删除完，若没有记录了，则也要删除界面明细
-                                                    InvoiceLines.Clear();
-                                                    RelatedPaymentSchedule.Clear();
-                                                }
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                PurchaseInvoices.Remove(SelPurchaseInvoice);
+                SelPurchaseInvoice = PurchaseInvoices.FirstOrDefault();
+                if (SelPurchaseInvoice == null)
+                {
+                    //删除完，若没有记录了，则也要删除界面明细
+                    InvoiceLines.Clear();
+                    RelatedPaymentSchedule.Clear();
+                }
+            });
         }
 
         private bool CanDelete(object obj)
@@ -475,12 +489,12 @@ namespace UniCloud.Presentation.Payment.Invoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SelPurchaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
-                                                InvoiceLines.Remove(SelInvoiceLine);
-                                                SelInvoiceLine = SelPurchaseInvoice.InvoiceLines.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SelPurchaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
+                InvoiceLines.Remove(SelInvoiceLine);
+                SelInvoiceLine = SelPurchaseInvoice.InvoiceLines.FirstOrDefault();
+            });
         }
 
         private bool CanRemove(object obj)
@@ -557,8 +571,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 子窗体相关操作
 
-        [Import]
-        public PurchasePayscheduleChildView PurchasePayscheduleChildView; //初始化子窗体
+        [Import] public PurchasePayscheduleChildView PurchasePayscheduleChildView; //初始化子窗体
 
         #region 付款计划集合
 
@@ -605,9 +618,12 @@ namespace UniCloud.Presentation.Payment.Invoice
                 {
                     _selContractAircraft = value;
                     _curAcPaymentSchedule.Clear();
-                    CurAcPaymentSchedule.Add(
-                        AcPaymentSchedules.FirstOrDefault(p => p.ContractAcId == value.ContractAircrafId));
-                    SelAcPaymentSchedule = CurAcPaymentSchedule.FirstOrDefault();
+                    if (value != null)
+                    {
+                        CurAcPaymentSchedule.Add(
+                            AcPaymentSchedules.FirstOrDefault(p => p.ContractAcId == value.ContractAircrafId));
+                        SelAcPaymentSchedule = CurAcPaymentSchedule.FirstOrDefault();
+                    }
                     RaisePropertyChanged(() => SelContractAircraft);
                 }
             }
@@ -636,10 +652,12 @@ namespace UniCloud.Presentation.Payment.Invoice
                 {
                     _selContractEngine = value;
                     _curEnginePaymentSchedule.Clear();
-                    CurEnginePaymentSchedule.Add(
-                        EnginePaymentSchedules.FirstOrDefault(p => p.ContractEngineId == value.ContractEngineId));
-                    SelEnginePaymentSchedule = CurEnginePaymentSchedule.FirstOrDefault();
-
+                    if (value != null)
+                    {
+                        CurEnginePaymentSchedule.Add(
+                            EnginePaymentSchedules.FirstOrDefault(p => p.ContractEngineId == value.ContractEngineId));
+                        SelEnginePaymentSchedule = CurEnginePaymentSchedule.FirstOrDefault();
+                    }
                     RaisePropertyChanged(() => SelContractEngine);
                 }
             }
