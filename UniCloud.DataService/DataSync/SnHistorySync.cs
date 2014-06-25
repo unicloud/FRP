@@ -26,6 +26,7 @@ using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -36,11 +37,10 @@ namespace UniCloud.DataService.DataSync
         private const int Size = 300;
         private readonly PartBCUnitOfWork _unitOfWork;
 
-        public SnHistorySync(PartBCUnitOfWork unitOfWork)
+        public SnHistorySync()
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork = UniContainer.Resolve<PartBCUnitOfWork>();
         }
-
 
         public List<Movement> Removals { get; protected set; }
 
@@ -81,11 +81,11 @@ namespace UniCloud.DataService.DataSync
             //现将获取的装机记录更新到数据库
             if (Installations.Any())
             {
-                int times = Installations.Count / Size;
-                for (int i = 0; i < times + 1; i++)
+                var times = Installations.Count/Size;
+                for (var i = 0; i < times + 1; i++)
                 {
-                    int count = i == times ? Installations.Count - i * Size : Size;
-                    foreach (var move in Installations.Skip(i * Size).Take(count))
+                    var count = i == times ? Installations.Count - i*Size : Size;
+                    foreach (var move in Installations.Skip(i*Size).Take(count))
                     {
                         //装机对应的拆换指令
                         var snRemInstRecord =
@@ -125,50 +125,34 @@ namespace UniCloud.DataService.DataSync
                                 //    dbSnHistory.SetInstallDate(move.MovementDate);
                                 //}
                             }
-                            else
-                            {
-                                //var newSnHistory = SnHistoryFactory.CreateSnHistory(snReg, pnReg, 0, 0, 0, 0, aircraft,
-                                //    move.MovementDate, null, snRemInstRecord, null);
-                                //_unitOfWork.SnHistories.Add(newSnHistory);
-                            }
                         }
                     }
                     _unitOfWork.Commit();
                 }
             }
 
-            ImportFrpData();//重新获取数据库中的所有装机历史
+            ImportFrpData(); //重新获取数据库中的所有装机历史
             //拆下的记录需要从数据库找到相同拆换指令号、相同飞机的的装机历史，再更新这个装机历史的拆下记录
             if (Removals.Any())
             {
-                int times = Removals.Count / Size;
-                for (int i = 0; i < times + 1; i++)
+                var times = Removals.Count/Size;
+                for (var i = 0; i < times + 1; i++)
                 {
-                    int count = i == times ? Removals.Count - i * Size : Size;
-                    foreach (Movement move in Removals.Skip(i * Size).Take(count))
+                    var count = i == times ? Removals.Count - i*Size : Size;
+                    foreach (var move in Removals.Skip(i*Size).Take(count))
                     {
                         //拆件对应的拆换指令
                         var snRemInstRecord =
                             _unitOfWork.CreateSet<SnRemInstRecord>().FirstOrDefault(p => p.ActionNo == move.ActionNo);
                         if (snRemInstRecord != null)
                         {
-                            var aircraft = _unitOfWork.CreateSet<Aircraft>().FirstOrDefault(p => p.RegNumber == move.RegNumber);
+                            var aircraft =
+                                _unitOfWork.CreateSet<Aircraft>().FirstOrDefault(p => p.RegNumber == move.RegNumber);
                             //根据序号件、飞机和拆下时间，先找到所有在这个拆下时间之前的装上记录，按时间排序，选择最接近这次拆下的上次装机记录
                             if (aircraft == null)
                             {
                                 //记录错误日志
                             }
-                            else
-                            {
-                                //var dbSnHistory =
-                                //    FrpDatas.Where(p => p.Sn == move.Sn && p.AircraftId == aircraft.Id && p.InstallDate <= move.MovementDate).ToList().OrderBy(p => p.InstallDate).LastOrDefault();
-                                //if (dbSnHistory != null)//更新这条记录的拆下历史
-                                //{
-                                //    dbSnHistory.SetRemoveDate(move.MovementDate);
-                                //    dbSnHistory.SetRemoveRecord(snRemInstRecord);
-                                //}
-                            }
-
                         }
                     }
                     _unitOfWork.Commit();

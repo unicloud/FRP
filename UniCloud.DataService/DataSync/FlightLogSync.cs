@@ -22,6 +22,7 @@ using System.Linq;
 using UniCloud.DataService.Connection;
 using UniCloud.Domain.FlightLogBC.Aggregates.FlightLogAgg;
 using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -32,9 +33,9 @@ namespace UniCloud.DataService.DataSync
         private const int Size = 1000;
         private readonly FlightLogBCUnitOfWork _unitOfWork;
 
-        public FlightLogSync(FlightLogBCUnitOfWork unitOfWork)
+        public FlightLogSync()
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork = UniContainer.Resolve<FlightLogBCUnitOfWork>();
         }
 
         public List<FlightLog> AmasisDatas { get; protected set; }

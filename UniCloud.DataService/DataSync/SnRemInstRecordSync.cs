@@ -24,6 +24,7 @@ using UniCloud.DataService.Connection;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -34,11 +35,10 @@ namespace UniCloud.DataService.DataSync
         private const int Size = 300;
         private readonly PartBCUnitOfWork _unitOfWork;
 
-        public SnRemInstRecordSync(PartBCUnitOfWork unitOfWork)
+        public SnRemInstRecordSync()
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork = UniContainer.Resolve<PartBCUnitOfWork>();
         }
-
 
         public List<SnRemInstRecordDTO> AmasisDatas { get; protected set; }
         public List<SnRemInstRecord> FrpDatas { get; protected set; }

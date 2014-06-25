@@ -65,43 +65,43 @@ namespace TestWindowsService
 
         private void ItemSync()
         {
-            var dataSync = new ItemSync(_partUnitofWork);
+            var dataSync = new ItemSync();
             dataSync.DataSynchronous();
         }
 
         private void FlightLogSync()
         {
-            var dataSync = new FlightLogSync(_flightLogUnitofWork);
+            var dataSync = new FlightLogSync();
             dataSync.DataSynchronous();
         }
 
         private void AircraftSeriesSync()
         {
-            var dataSync = new AircraftSeriesSync(_acConfigUnitOfWork);
+            var dataSync = new AircraftSeriesSync();
             dataSync.DataSynchronous();
         }
 
         private void PnRegSync()
         {
-            var dataSync = new PnRegSync(_partUnitofWork);
+            var dataSync = new PnRegSync();
             dataSync.DataSynchronous();
         }
 
         private void SnRegSync()
         {
-            var dataSync = new SnRegSync(_partUnitofWork);
+            var dataSync = new SnRegSync();
             dataSync.DataSynchronous();
         }
 
         private void SnRemInstRecordSync()
         {
-            var dataSync = new SnRemInstRecordSync(_partUnitofWork);
+            var dataSync = new SnRemInstRecordSync();
             dataSync.DataSynchronous();
         }
 
         private void SnHistorySync()
         {
-            var dataSync = new SnHistorySync(_partUnitofWork);
+            var dataSync = new SnHistorySync();
             dataSync.DataSynchronous();
         }
 

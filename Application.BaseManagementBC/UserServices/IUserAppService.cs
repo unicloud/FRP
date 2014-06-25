@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.BaseManagementBC.DTO;
 
@@ -33,5 +34,11 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         ///     获取所有User。
         /// </summary>
         IQueryable<UserDTO> GetUsers();
+
+        /// <summary>
+        ///     同步用户数据。
+        /// </summary>
+        /// <param name="users">用户集合</param>
+        void SyncUserInfo(List<UserDTO> users);
     }
 }

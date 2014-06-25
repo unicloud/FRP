@@ -1,34 +1,36 @@
-﻿using System;
+﻿#region 命名空间
+
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Xml;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.OrganizationServices;
-using UniCloud.Application.BaseManagementBC.Query.OrganizationQueries;
-using UniCloud.Application.BaseManagementBC.Query.UserQueries;
 using UniCloud.Application.BaseManagementBC.UserServices;
-using UniCloud.Infrastructure.Data.BaseManagementBC.Repositories;
-using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork;
+using UniCloud.Infrastructure.Unity;
 using UniCloud.UserDataService.FoundLdapGroupInfo;
 using UniCloud.UserDataService.FoundLdapUserInfo;
+
+#endregion
 
 namespace UniCloud.UserDataService
 {
     public class UserDataSync
     {
-        private readonly UserAppService _userAppService;
-        private readonly OrganizationAppService _organizationApp;
+        private readonly IOrganizationAppService _organizationApp;
+        private readonly IUserAppService _userAppService;
+
         public UserDataSync()
         {
-            //_userAppService = new UserAppService(new UserQuery(new BaseManagementBCUnitOfWork()), new UserRepository(new BaseManagementBCUnitOfWork()));
-            _organizationApp = new OrganizationAppService(new OrganizationQuery(new BaseManagementBCUnitOfWork()), new OrganizationRepository(new BaseManagementBCUnitOfWork()));
+            _userAppService = UniContainer.Resolve<IUserAppService>();
+            _organizationApp = UniContainer.Resolve<IOrganizationAppService>();
         }
 
         public void SyncUserInfo()
         {
             var users = new List<UserDTO>();
             var found = new FoundLdapUserInfoClient();
-            string message = found.foundLdapUsers(ConfigurationManager.AppSettings["SyncUserLdapHost"],
+            var message = found.foundLdapUsers(ConfigurationManager.AppSettings["SyncUserLdapHost"],
                 ConfigurationManager.AppSettings["SyncUserLdapPort"],
                 ConfigurationManager.AppSettings["SyncUserAdminAccount"],
                 ConfigurationManager.AppSettings["SyncUserAdminPwd"], ConfigurationManager.AppSettings["SyncUserOrgNo"]);
@@ -38,7 +40,7 @@ namespace UniCloud.UserDataService
             }
             var doc = new XmlDocument();
             doc.LoadXml(message);
-            XmlNodeList userNodeList = doc.SelectNodes("/root/row");
+            var userNodeList = doc.SelectNodes("/root/row");
             if (userNodeList != null)
             {
                 foreach (var userNode in userNodeList)
@@ -79,15 +81,17 @@ namespace UniCloud.UserDataService
         {
             var organizations = new List<OrganizationDTO>();
             var found = new FoundLdapGroupInfoClient();
-            string message = found.foundLdapGroup(ConfigurationManager.AppSettings["SyncUserLdapHost"], ConfigurationManager.AppSettings["SyncUserLdapPort"],
-                ConfigurationManager.AppSettings["SyncUserAdminAccount"], ConfigurationManager.AppSettings["SyncUserAdminPwd"], ConfigurationManager.AppSettings["SyncUserOrgNo"]);
+            var message = found.foundLdapGroup(ConfigurationManager.AppSettings["SyncUserLdapHost"],
+                ConfigurationManager.AppSettings["SyncUserLdapPort"],
+                ConfigurationManager.AppSettings["SyncUserAdminAccount"],
+                ConfigurationManager.AppSettings["SyncUserAdminPwd"], ConfigurationManager.AppSettings["SyncUserOrgNo"]);
             if (string.IsNullOrEmpty(message))
             {
                 return;
             }
             var doc = new XmlDocument();
             doc.LoadXml(message);
-            XmlNodeList organizationNodeList = doc.SelectNodes("/root/row");
+            var organizationNodeList = doc.SelectNodes("/root/row");
             if (organizationNodeList != null)
             {
                 foreach (var organizationNode in organizationNodeList)
@@ -101,10 +105,18 @@ namespace UniCloud.UserDataService
                             if (childElement != null)
                                 switch (childElement.Name.ToLower())
                                 {
-                                    case "empid": organization.Id = Int32.Parse(childElement.InnerText); break;
-                                    case "deptno": organization.Code = childElement.InnerText; break;
-                                    case "deptname": organization.Name = childElement.InnerText; break;
-                                    case "deptsortno": organization.Sort = Int32.Parse(childElement.InnerText); break;
+                                    case "empid":
+                                        organization.Id = Int32.Parse(childElement.InnerText);
+                                        break;
+                                    case "deptno":
+                                        organization.Code = childElement.InnerText;
+                                        break;
+                                    case "deptname":
+                                        organization.Name = childElement.InnerText;
+                                        break;
+                                    case "deptsortno":
+                                        organization.Sort = Int32.Parse(childElement.InnerText);
+                                        break;
                                 }
                         }
                     organizations.Add(organization);

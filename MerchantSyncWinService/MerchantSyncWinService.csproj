@@ -32,7 +32,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -61,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProjectInstaller.resx">
@@ -68,6 +84,34 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Application.PurchaseBC.Query\Application.PurchaseBC.Query.csproj">
+      <Project>{930C8964-6610-4CA9-86E0-6AFAF5BC8CE5}</Project>
+      <Name>Application.PurchaseBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.PurchaseBC\Application.PurchaseBC.csproj">
+      <Project>{D9238400-4124-4E2A-ACFF-3248E31EBA98}</Project>
+      <Name>Application.PurchaseBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.PurchaseBC\Domain.PurchaseBC.csproj">
+      <Project>{E9ACA390-1996-406B-98BF-B331ACF024D0}</Project>
+      <Name>Domain.PurchaseBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.PurchaseBC\Infrastructure.Data.PurchaseBC.csproj">
+      <Project>{91016BA0-9A89-4EA8-94E1-27BBB66CF2BA}</Project>
+      <Name>Infrastructure.Data.PurchaseBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{CAD91A38-6B90-4A18-83CA-0215CE512F4D}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.MerchantDataService\UniCloud.MerchantDataService.csproj">
       <Project>{184c4828-8549-4c83-8ae0-afbfc33fd1b6}</Project>
       <Name>UniCloud.MerchantDataService</Name>

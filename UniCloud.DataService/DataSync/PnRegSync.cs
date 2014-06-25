@@ -18,15 +18,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Linq;
-using UniCloud.Application.PartBC.DTO;
 using UniCloud.DataService.Connection;
 using UniCloud.DataService.DataSync.Model;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -34,15 +31,13 @@ namespace UniCloud.DataService.DataSync
 {
     public class PnRegSync : DataSync
     {
-        private readonly PartBCUnitOfWork _unitOfWork;
         private const int Size = 300;
+        private readonly PartBCUnitOfWork _unitOfWork;
 
-        public PnRegSync(PartBCUnitOfWork unitOfWork)
+        public PnRegSync()
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork = UniContainer.Resolve<PartBCUnitOfWork>();
         }
-
-
         public IEnumerable<PartPn> AmasisDatas { get; protected set; }
         public List<PnReg> FrpDatas { get; protected set; }
 
@@ -72,11 +67,11 @@ namespace UniCloud.DataService.DataSync
             ImportFrpData();
             if (AmasisDatas.Any())
             {
-                var times = AmasisDatas.Count() / Size;
+                var times = AmasisDatas.Count()/Size;
                 for (var i = 0; i < times + 1; i++)
                 {
-                    var count = i == times ? AmasisDatas.Count() - i * Size : Size;
-                    foreach (var pn in AmasisDatas.Skip(i * Size).Take(count))
+                    var count = i == times ? AmasisDatas.Count() - i*Size : Size;
+                    foreach (var pn in AmasisDatas.Skip(i*Size).Take(count))
                     {
                         var dbPn = FrpDatas.FirstOrDefault(p => p.Pn == pn.Pn);
                         if (dbPn != null) //数据库已有对应的件号
@@ -89,7 +84,7 @@ namespace UniCloud.DataService.DataSync
                         }
                         else
                         {
-                            var newPn = PnRegFactory.CreatePnReg(false, pn.Pn, pn.Description);//创建新的附件
+                            var newPn = PnRegFactory.CreatePnReg(false, pn.Pn, pn.Description); //创建新的附件
                             _unitOfWork.CreateSet<PnReg>().Add(newPn);
                         }
                     }

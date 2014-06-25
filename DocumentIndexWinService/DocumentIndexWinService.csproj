@@ -32,7 +32,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -61,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProjectInstaller.resx">
@@ -68,6 +84,34 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Application.CommonServiceBC.Query\Application.CommonServiceBC.Query.csproj">
+      <Project>{36F56238-ED3D-4D98-B48A-0A19C6242A00}</Project>
+      <Name>Application.CommonServiceBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.CommonServiceBC\Application.CommonServiceBC.csproj">
+      <Project>{1C12C9A7-DAD2-47C2-9722-4AA6D40EBC03}</Project>
+      <Name>Application.CommonServiceBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.CommonServiceBC\Domain.CommonServiceBC.csproj">
+      <Project>{951A0799-0E74-4EFF-AF8A-D6A94FC8586F}</Project>
+      <Name>Domain.CommonServiceBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.CommonServiceBC\Infrastructure.Data.CommonServiceBC.csproj">
+      <Project>{C28ED932-4CFA-45D2-9826-C23A2DDE7A53}</Project>
+      <Name>Infrastructure.Data.CommonServiceBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{CAD91A38-6B90-4A18-83CA-0215CE512F4D}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Unicloud.DocumentIndexService\Unicloud.DocumentIndexService.csproj">
       <Project>{de1322ce-5910-4179-824e-48de9fc6aad6}</Project>
       <Name>Unicloud.DocumentIndexService</Name>

@@ -32,7 +32,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -61,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProjectInstaller.resx">
@@ -68,6 +84,34 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Application.BaseManagementBC.Query\Application.BaseManagementBC.Query.csproj">
+      <Project>{5EF65814-7983-4E09-AE07-5272D3477CF9}</Project>
+      <Name>Application.BaseManagementBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.BaseManagementBC\Application.BaseManagementBC.csproj">
+      <Project>{BE5C2D0D-9747-4C1C-B127-04E4338D0E7B}</Project>
+      <Name>Application.BaseManagementBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.BaseManagementBC\Domain.BaseManagementBC.csproj">
+      <Project>{169FA81A-B240-422A-AEBF-756BE4A98B03}</Project>
+      <Name>Domain.BaseManagementBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.BaseManagementBC\Infrastructure.Data.BaseManagementBC.csproj">
+      <Project>{D23925A6-6E00-4BCF-A403-BECC631480FD}</Project>
+      <Name>Infrastructure.Data.BaseManagementBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{CAD91A38-6B90-4A18-83CA-0215CE512F4D}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.UserDataService\UniCloud.UserDataService.csproj">
       <Project>{01fad990-51b2-4963-b08f-0492ec8d9b00}</Project>
       <Name>UniCloud.UserDataService</Name>

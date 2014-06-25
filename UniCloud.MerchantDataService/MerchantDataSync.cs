@@ -5,18 +5,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.OracleClient;
 using UniCloud.Application.PurchaseBC.DTO;
-using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
 using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Domain.Common.Enums;
-using UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
-using UniCloud.Infrastructure.Data;
-using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
-using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -29,7 +19,6 @@ namespace UniCloud.MerchantDataService
 
         public MerchantDataSync()
         {
-            InitializeContainer();
             _supplierAppService = UniContainer.Resolve<ISupplierAppService>();
         }
 
@@ -203,21 +192,6 @@ namespace UniCloud.MerchantDataService
                 bankAccountUpdateTime.ToString("yyyy-MM-dd HH:mm:ss");
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
-        }
-
-        private static void InitializeContainer()
-        {
-            UniContainer.Create()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IModelConfiguration, SqlConfigurations>("Sql")
-                .Register<ISupplierAppService, SupplierAppService>()
-                .Register<ISupplierQuery, SupplierQuery>()
-                .Register<ISupplierRepository, SupplierRepository>()
-                .Register<ISupplierRoleRepository, SupplierRoleRepository>()
-                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
-                .Register<ILinkmanRepository, LinkmanRepository>()
-                .Register<IBankAccountRepository, BankAccountRepository>()
-                .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>();
         }
     }
 }

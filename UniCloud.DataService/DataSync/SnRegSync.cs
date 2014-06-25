@@ -16,18 +16,16 @@
 
 #region 命名空间
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UniCloud.DataService.Connection;
 using UniCloud.DataService.DataSync.Model;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
-using Aircraft = UniCloud.Domain.PartBC.Aggregates.AircraftAgg.Aircraft;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -38,11 +36,10 @@ namespace UniCloud.DataService.DataSync
         private const int Size = 300;
         private readonly PartBCUnitOfWork _unitOfWork;
 
-        public SnRegSync(PartBCUnitOfWork unitOfWork)
+        public SnRegSync()
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork = UniContainer.Resolve<PartBCUnitOfWork>();
         }
-
 
         public IEnumerable<PartSn> AmasisDatas { get; protected set; }
         public List<SnReg> FrpDatas { get; protected set; }
@@ -74,20 +71,21 @@ namespace UniCloud.DataService.DataSync
             ImportFrpData();
             if (AmasisDatas.Any())
             {
-                int times = AmasisDatas.Count() / Size;
-                for (int i = 0; i < times + 1; i++)
+                var times = AmasisDatas.Count()/Size;
+                for (var i = 0; i < times + 1; i++)
                 {
-                    int count = i == times ? AmasisDatas.Count() - i * Size : Size;
-                    foreach (PartSn partSn in AmasisDatas.Skip(i * Size).Take(count))
+                    var count = i == times ? AmasisDatas.Count() - i*Size : Size;
+                    foreach (var partSn in AmasisDatas.Skip(i*Size).Take(count))
                     {
-                        SnReg dbSn = FrpDatas.FirstOrDefault(p => p.Sn == partSn.Sn);
+                        var dbSn = FrpDatas.FirstOrDefault(p => p.Sn == partSn.Sn);
                         if (dbSn != null) //数据库已有对应的序号件
                         {
                             //更新飞机
                             if (partSn.RegNumber != null)
                             {
-                                Aircraft aircraft = AircraftDatas.FirstOrDefault(p =>
-                                    p.RegNumber.Substring(p.RegNumber.Length - 4, 4) == partSn.RegNumber.Substring(partSn.RegNumber.Length - 4, 4));
+                                var aircraft = AircraftDatas.FirstOrDefault(p =>
+                                    p.RegNumber.Substring(p.RegNumber.Length - 4, 4) ==
+                                    partSn.RegNumber.Substring(partSn.RegNumber.Length - 4, 4));
                                 if (aircraft == null)
                                 {
                                     //记录日志“飞机为空”
@@ -101,7 +99,7 @@ namespace UniCloud.DataService.DataSync
                             //更新部件
                             if (partSn.Pn != null)
                             {
-                                PnReg pnReg = PnRegDatas.ToList().FirstOrDefault(p => p.Pn == partSn.Pn.Trim());
+                                var pnReg = PnRegDatas.ToList().FirstOrDefault(p => p.Pn == partSn.Pn.Trim());
 
                                 if (pnReg == null)
                                 {
@@ -116,12 +114,13 @@ namespace UniCloud.DataService.DataSync
                             if (partSn.Status != null)
                             {
                                 var statusArray = partSn.Status.ToCharArray();
-                                int status = (statusArray[0] - 48) * 10 + (statusArray[1] - 48);
+                                var status = (statusArray[0] - 48)*10 + (statusArray[1] - 48);
                                 if ((status == 1 || status == 22) && dbSn.Status != SnStatus.在库)
                                     dbSn.SetSnStatus(SnStatus.在库);
                                 else if ((status == 41 && dbSn.Status != SnStatus.装机))
                                     dbSn.SetSnStatus(SnStatus.装机);
-                                else if ((status == 11 || status == 12 || status == 13 || status == 46) && dbSn.Status != SnStatus.在修)
+                                else if ((status == 11 || status == 12 || status == 13 || status == 46) &&
+                                         dbSn.Status != SnStatus.在修)
                                     dbSn.SetSnStatus(SnStatus.在修);
                                 else if ((status == 5 && dbSn.Status != SnStatus.出租))
                                     dbSn.SetSnStatus(SnStatus.出租);
@@ -130,14 +129,16 @@ namespace UniCloud.DataService.DataSync
                                     dbSn.SetSnStatus(SnStatus.报废);
                                 }
                                 else
-                                { if (dbSn.Status != SnStatus.其它) dbSn.SetSnStatus(SnStatus.其它); }
+                                {
+                                    if (dbSn.Status != SnStatus.其它) dbSn.SetSnStatus(SnStatus.其它);
+                                }
                             }
                         }
                         else
                         {
                             if (partSn.Pn != null)
                             {
-                                PnReg pnReg = PnRegDatas.ToList().FirstOrDefault(p => p.Pn == partSn.Pn.Trim());
+                                var pnReg = PnRegDatas.ToList().FirstOrDefault(p => p.Pn == partSn.Pn.Trim());
                                 var newSn = SnRegFactory.CreateSnReg(partSn.Sn);
                                 if (pnReg != null)
                                 {
@@ -145,7 +146,7 @@ namespace UniCloud.DataService.DataSync
                                 }
                                 if (partSn.RegNumber != null)
                                 {
-                                    Aircraft aircraft = AircraftDatas.FirstOrDefault(p =>
+                                    var aircraft = AircraftDatas.FirstOrDefault(p =>
                                         p.RegNumber.Substring(p.RegNumber.Length - 4, 4) ==
                                         partSn.RegNumber.Substring(partSn.RegNumber.Length - 4, 4));
                                     if (aircraft == null)
@@ -157,12 +158,12 @@ namespace UniCloud.DataService.DataSync
                                         newSn.SetAircraft(aircraft); //设置序号件的所在飞机
                                     }
                                 }
-                                newSn.SetIsLife(false,false,0,0);//默认设置为非寿控件
+                                newSn.SetIsLife(false, false, 0, 0); //默认设置为非寿控件
                                 //更新序号件状态
                                 if (partSn.Status != null)
                                 {
                                     var statusArray = partSn.Status.ToCharArray();
-                                    int status = (statusArray[0] - 48) * 10 + (statusArray[1] - 48);
+                                    var status = (statusArray[0] - 48)*10 + (statusArray[1] - 48);
                                     if ((status == 1 || status == 22))
                                         newSn.SetSnStatus(SnStatus.在库);
                                     else if (status == 41)
@@ -173,7 +174,7 @@ namespace UniCloud.DataService.DataSync
                                         newSn.SetSnStatus(SnStatus.出租);
                                     else if (status == 31 || status == 32)
                                         newSn.SetSnStatus(SnStatus.报废);
-                                    else newSn.SetSnStatus(SnStatus.其它); 
+                                    else newSn.SetSnStatus(SnStatus.其它);
                                 }
                                 _unitOfWork.CreateSet<SnReg>().Add(newSn);
                             }

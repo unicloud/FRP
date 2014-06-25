@@ -30,12 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\packages\Lucene\itextsharp.dll</HintPath>
     </Reference>
@@ -100,15 +94,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application.CommonServiceBC.DTO\Application.CommonServiceBC.DTO.csproj">
-      <Project>{3b0ac71a-617f-4743-8e70-0ea1aa328b99}</Project>
+      <Project>{3B0AC71A-617F-4743-8E70-0EA1AA328B99}</Project>
       <Name>Application.CommonServiceBC.DTO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Application.CommonServiceBC.Query\Application.CommonServiceBC.Query.csproj">
-      <Project>{36f56238-ed3d-4d98-b48a-0a19c6242a00}</Project>
-      <Name>Application.CommonServiceBC.Query</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Application.CommonServiceBC\Application.CommonServiceBC.csproj">
-      <Project>{1c12c9a7-dad2-47c2-9722-4aa6d40ebc03}</Project>
+      <Project>{1C12C9A7-DAD2-47C2-9722-4AA6D40EBC03}</Project>
       <Name>Application.CommonServiceBC</Name>
     </ProjectReference>
     <ProjectReference Include="..\Application\Application.csproj">
@@ -119,29 +109,9 @@
       <Project>{c22ee02e-8694-4ebe-86be-78b5c7476d5e}</Project>
       <Name>DistributedServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Domain.CommonServiceBC\Domain.CommonServiceBC.csproj">
-      <Project>{951a0799-0e74-4eff-af8a-d6a94fc8586f}</Project>
-      <Name>Domain.CommonServiceBC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Crosscutting.NetFramework\Infrastructure.Crosscutting.NetFramework.csproj">
-      <Project>{a0251720-e467-468c-9316-72c47a12cf39}</Project>
-      <Name>Infrastructure.Crosscutting.NetFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Crosscutting\Infrastructure.Crosscutting.csproj">
-      <Project>{340e4cf3-f789-4ae1-bc04-96040995859c}</Project>
-      <Name>Infrastructure.Crosscutting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Data.CommonServiceBC\Infrastructure.Data.CommonServiceBC.csproj">
-      <Project>{c28ed932-4cfa-45d2-9826-c23a2dde7a53}</Project>
-      <Name>Infrastructure.Data.CommonServiceBC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
-      <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
-      <Name>Infrastructure.Data</Name>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}</Project>
+      <Name>Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

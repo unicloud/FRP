@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,20 +11,17 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UniCloud.Application.PartBC.DTO;
 using UniCloud.DataService.Connection;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
-using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -31,12 +29,7 @@ namespace UniCloud.DataService.DataSync
 {
     public class ItemSync : DataSync
     {
-        private readonly PartBCUnitOfWork _unitOfWork;
-
-        public ItemSync(PartBCUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        private readonly PartBCUnitOfWork _unitOfWork = UniContainer.Resolve<PartBCUnitOfWork>();
 
 
         public List<Item> AmasisDatas { get; protected set; }
@@ -72,9 +65,10 @@ namespace UniCloud.DataService.DataSync
             {
                 var datas = _unitOfWork.CreateSet<Item>();
 
-                foreach (Item amasisItem in AmasisDatas)
+                foreach (var amasisItem in AmasisDatas)
                 {
-                    Item item = ItemFactory.CreateItem(amasisItem.Name, amasisItem.ItemNo, amasisItem.FiNumber, amasisItem.Description, amasisItem.IsLife);
+                    var item = ItemFactory.CreateItem(amasisItem.Name, amasisItem.ItemNo, amasisItem.FiNumber,
+                        amasisItem.Description, amasisItem.IsLife);
                     datas.Add(item);
                 }
             }

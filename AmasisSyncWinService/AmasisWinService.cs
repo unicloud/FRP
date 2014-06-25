@@ -6,9 +6,12 @@ using System.Diagnostics;
 using System.ServiceProcess;
 using System.Timers;
 using UniCloud.DataService.DataSync;
+using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork;
 using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+using UniCloud.Infrastructure.Unity;
+using SqlConfigurations = UniCloud.Infrastructure.Data.PartBC.UnitOfWork.SqlConfigurations;
 
 #endregion
 
@@ -16,13 +19,10 @@ namespace AmasisSyncWinService
 {
     public partial class AmasisWinService : ServiceBase
     {
-        private AircraftConfigBCUnitOfWork _acConfigUnitOfWork;
-        private FlightLogBCUnitOfWork _flightLogUnitofWork;
-        private PartBCUnitOfWork _partUnitofWork;
-
         public AmasisWinService()
         {
             InitializeComponent();
+            InitializeContainer();
         }
 
         protected override void OnStart(string[] args)
@@ -74,10 +74,8 @@ namespace AmasisSyncWinService
         {
             try
             {
-                _flightLogUnitofWork = new FlightLogBCUnitOfWork();
                 //同步Flight数据
                 FlightLogSync();
-                _flightLogUnitofWork.Dispose();
             }
             catch (Exception ex)
             {
@@ -91,8 +89,6 @@ namespace AmasisSyncWinService
             try
             {
                 timer2.Enabled = false;
-                _acConfigUnitOfWork = new AircraftConfigBCUnitOfWork();
-                _partUnitofWork = new PartBCUnitOfWork();
                 //同步附件数据
                 PnRegSync();
                 //同步序号件数据
@@ -102,8 +98,6 @@ namespace AmasisSyncWinService
                 //同步拆换历史记录
                 SnHistorySync();
                 timer2.Enabled = true;
-                _acConfigUnitOfWork.Dispose();
-                _partUnitofWork.Dispose();
             }
             catch (Exception ex)
             {
@@ -115,33 +109,42 @@ namespace AmasisSyncWinService
 
         private void FlightLogSync()
         {
-            var dataSync = new FlightLogSync(_flightLogUnitofWork);
+            var dataSync = new FlightLogSync();
             dataSync.DataSynchronous();
         }
 
 
         private void PnRegSync()
         {
-            var dataSync = new PnRegSync(_partUnitofWork);
+            var dataSync = new PnRegSync();
             dataSync.DataSynchronous();
         }
 
         private void SnRegSync()
         {
-            var dataSync = new SnRegSync(_partUnitofWork);
+            var dataSync = new SnRegSync();
             dataSync.DataSynchronous();
         }
 
         private void SnRemInstRecordSync()
         {
-            var dataSync = new SnRemInstRecordSync(_partUnitofWork);
+            var dataSync = new SnRemInstRecordSync();
             dataSync.DataSynchronous();
         }
 
         private void SnHistorySync()
         {
-            var dataSync = new SnHistorySync(_partUnitofWork);
+            var dataSync = new SnHistorySync();
             dataSync.DataSynchronous();
+        }
+
+        private static void InitializeContainer()
+        {
+            UniContainer.Create()
+                .Register<AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<FlightLogBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql");
         }
     }
 }

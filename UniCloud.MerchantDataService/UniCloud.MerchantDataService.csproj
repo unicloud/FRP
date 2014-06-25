@@ -30,12 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.dll</HintPath>
@@ -125,15 +119,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application.PurchaseBC.DTO\Application.PurchaseBC.DTO.csproj">
-      <Project>{060ccd93-bfb4-448a-8fdc-dd3d6762ec41}</Project>
+      <Project>{060CCD93-BFB4-448A-8FDC-DD3D6762EC41}</Project>
       <Name>Application.PurchaseBC.DTO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Application.PurchaseBC.Query\Application.PurchaseBC.Query.csproj">
-      <Project>{930c8964-6610-4ca9-86e0-6afaf5bc8ce5}</Project>
-      <Name>Application.PurchaseBC.Query</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Application.PurchaseBC\Application.PurchaseBC.csproj">
-      <Project>{d9238400-4124-4e2a-acff-3248e31eba98}</Project>
+      <Project>{D9238400-4124-4E2A-ACFF-3248E31EBA98}</Project>
       <Name>Application.PurchaseBC</Name>
     </ProjectReference>
     <ProjectReference Include="..\DistributedServices\DistributedServices.csproj">
@@ -141,32 +131,8 @@
       <Name>DistributedServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
-      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
+      <Project>{E48E84DE-5A91-4D16-84E5-CFFC4C7E7657}</Project>
       <Name>Domain.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Domain.PurchaseBC\Domain.PurchaseBC.csproj">
-      <Project>{e9aca390-1996-406b-98bf-b331acf024d0}</Project>
-      <Name>Domain.PurchaseBC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Crosscutting.NetFramework\Infrastructure.Crosscutting.NetFramework.csproj">
-      <Project>{a0251720-e467-468c-9316-72c47a12cf39}</Project>
-      <Name>Infrastructure.Crosscutting.NetFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Crosscutting\Infrastructure.Crosscutting.csproj">
-      <Project>{340e4cf3-f789-4ae1-bc04-96040995859c}</Project>
-      <Name>Infrastructure.Crosscutting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Data.PurchaseBC\Infrastructure.Data.PurchaseBC.csproj">
-      <Project>{91016ba0-9a89-4ea8-94e1-27bbb66cf2ba}</Project>
-      <Name>Infrastructure.Data.PurchaseBC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
-      <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
-      <Name>Infrastructure.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}</Project>

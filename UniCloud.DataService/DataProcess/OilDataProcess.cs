@@ -28,6 +28,7 @@ using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.ThresholdAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -38,12 +39,7 @@ namespace UniCloud.DataService.DataProcess
     /// </summary>
     public class OilDataProcess
     {
-        private readonly PartBCUnitOfWork _unitOfWork;
-
-        public OilDataProcess(PartBCUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        private readonly PartBCUnitOfWork _unitOfWork = UniContainer.Resolve<PartBCUnitOfWork>();
 
         public void ProcessEngine()
         {

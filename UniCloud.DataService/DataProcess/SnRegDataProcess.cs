@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,15 +11,13 @@
 // 修改者：  时间：2014/6/24 11:41:08
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.InstallControllerAgg;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
@@ -27,6 +26,7 @@ using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+using UniCloud.Infrastructure.Unity;
 
 #endregion
 
@@ -37,27 +37,25 @@ namespace UniCloud.DataService.DataProcess
     /// </summary>
     public class SnRegDataProcess
     {
-        private readonly PartBCUnitOfWork _unitOfWork;
-
-        public SnRegDataProcess(PartBCUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        private readonly PartBCUnitOfWork _unitOfWork = UniContainer.Resolve<PartBCUnitOfWork>();
 
         /// <summary>
-        /// 计算到寿日期
+        ///     计算到寿日期
         /// </summary>
         public void ProcessLifeMointor()
         {
             //1、获取需要计算的寿控件SnReg\SnHistory
-            var snRegs = _unitOfWork.CreateSet<SnReg>().Where(s => s.IsLife == true).ToList();
+            var snRegs = _unitOfWork.CreateSet<SnReg>().Where(s => s.IsLife).ToList();
             if (snRegs.Count == 0) return;
             snRegs.ForEach(p =>
             {
                 //2、遍历SnReg,如果最近一条SnHistory的TSN2及CSN2为空，则需要计算最近一条SnHistory与上一段历史之间这段时间的飞行小时和飞行循环数据。
                 if (p.IsLifeCst == false)
                 {
-                    var snHistories = _unitOfWork.CreateSet<SnHistory>().Where(sh => sh.SnRegId == p.Id && (sh.TSN != sh.TSN2 || sh.CSN != sh.CSN2)).ToList();
+                    var snHistories =
+                        _unitOfWork.CreateSet<SnHistory>()
+                            .Where(sh => sh.SnRegId == p.Id && (sh.TSN != sh.TSN2 || sh.CSN != sh.CSN2))
+                            .ToList();
                     //2.1、如果此SnReg不计算在库存放的寿命，则TSN2=TSN，CSN2=CSN
                     if (snHistories.Count != 0)
                     {
@@ -81,7 +79,8 @@ namespace UniCloud.DataService.DataProcess
                     }
                 }
 
-                if (p.Status == SnStatus.装机 || (p.Status == SnStatus.在库 && p.IsLifeCst))//只有装机的件或者在库且需要计算在库寿命的件才需要更新寿命预测
+                if (p.Status == SnStatus.装机 || (p.Status == SnStatus.在库 && p.IsLifeCst))
+                    //只有装机的件或者在库且需要计算在库寿命的件才需要更新寿命预测
                 {
                     //3、在SnReg的TSN\CSN及TSN2\CSN2数据完整之后，计算到寿日期，首先取出SnReg的维修控制组数据
                     var pnReg = GetPnReg(p.PnRegId);
@@ -113,7 +112,6 @@ namespace UniCloud.DataService.DataProcess
                                 maintainCtrls.ForEach(mc =>
                                 {
                                     //根据每个SnReg对应的MaintainCtrl计算到寿监控 TODO
-
                                 });
                             }
                         }
@@ -139,14 +137,14 @@ namespace UniCloud.DataService.DataProcess
         }
 
         /// <summary>
-        /// 由维修控制组计算
+        ///     由维修控制组计算
         /// </summary>
         /// <param name="sn"></param>
         /// <param name="mc"></param>
         /// <returns></returns>
         private LifeMonitor CreateLifeMonitor(SnReg sn, MaintainCtrl mc)
         {
-            string workDescription="";
+            var workDescription = "";
             if (mc.MaintainWork != null)
                 workDescription = mc.MaintainWork.WorkCode;
             else workDescription = mc.Description;
@@ -162,5 +160,4 @@ namespace UniCloud.DataService.DataProcess
             return null;
         }
     }
-
 }
