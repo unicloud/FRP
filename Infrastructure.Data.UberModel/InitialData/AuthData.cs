@@ -174,35 +174,21 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var menu3 = FunctionItemFactory.CreateFunctionItem("采购合同", null, 3, false, false, string.Empty);
             functionItems.Add(menu3);
 
-            var menu31 = FunctionItemFactory.CreateFunctionItem("管理合作公司", menu3.Id, 301, false, false, string.Empty);
-            var menu311 = FunctionItemFactory.CreateFunctionItem("维护供应商类别", menu31.Id, 30101, true, false,
-                "UniCloud.Presentation.Purchase.Supplier.SupplierRoleManager");
-            var menu312 = FunctionItemFactory.CreateFunctionItem("维护供应商可供物料", menu31.Id, 30102, true, false,
-                "UniCloud.Presentation.Purchase.Supplier.SupplierMaterialManager");
-            var menu313 = FunctionItemFactory.CreateFunctionItem("维护联系人", menu31.Id, 30103, true, false,
-                "UniCloud.Presentation.Purchase.Supplier.LinkManManager");
-            var menu314 = FunctionItemFactory.CreateFunctionItem("查询供应商", menu31.Id, 30104, true, false,
-                "UniCloud.Presentation.Purchase.Supplier.QuerySupplier");
-            var menu315 = FunctionItemFactory.CreateFunctionItem("维护BFE承运人", menu31.Id, 30105, true, false,
-                "UniCloud.Presentation.Purchase.Forwarder.ForwarderManager");
-            menu31.SubFunctionItems.Add(menu311);
-            menu31.SubFunctionItems.Add(menu312);
-            menu31.SubFunctionItems.Add(menu313);
-            menu31.SubFunctionItems.Add(menu314);
-            menu31.SubFunctionItems.Add(menu315);
+            var menu31 = FunctionItemFactory.CreateFunctionItem("维护物料", menu3.Id, 301, false, false,
+                "UniCloud.Presentation.Purchase.Supplier.ManageMaterial");
             menu3.SubFunctionItems.Add(menu31);
 
-            var menu32 = FunctionItemFactory.CreateFunctionItem("管理采购合同", menu3.Id, 302, false, false, string.Empty);
-            var menu321 = FunctionItemFactory.CreateFunctionItem("管理飞机购买合同", menu32.Id, 30201, true, false,
-                "UniCloud.Presentation.Purchase.Contract.AircraftPurchase");
-            var menu322 = FunctionItemFactory.CreateFunctionItem("管理飞机租赁合同", menu32.Id, 30202, true, false,
-                "UniCloud.Presentation.Purchase.Contract.AircraftLease");
-            var menu323 = FunctionItemFactory.CreateFunctionItem("管理发动机购买合同", menu32.Id, 30203, true, false,
-                "UniCloud.Presentation.Purchase.Contract.EnginePurchase");
-            var menu324 = FunctionItemFactory.CreateFunctionItem("管理发动机租赁合同", menu32.Id, 30204, true, false,
-                "UniCloud.Presentation.Purchase.Contract.EngineLease");
-            var menu325 = FunctionItemFactory.CreateFunctionItem("管理BFE合同", menu32.Id, 30205, true, false,
-                "UniCloud.Presentation.Purchase.Contract.BFEPurchase");
+            var menu32 = FunctionItemFactory.CreateFunctionItem("管理合作公司", menu3.Id, 302, false, false, string.Empty);
+            var menu321 = FunctionItemFactory.CreateFunctionItem("维护供应商类别", menu32.Id, 30201, true, false,
+                "UniCloud.Presentation.Purchase.Supplier.SupplierRoleManager");
+            var menu322 = FunctionItemFactory.CreateFunctionItem("维护供应商可供物料", menu32.Id, 30202, true, false,
+                "UniCloud.Presentation.Purchase.Supplier.SupplierMaterialManager");
+            var menu323 = FunctionItemFactory.CreateFunctionItem("维护联系人", menu32.Id, 30203, true, false,
+                "UniCloud.Presentation.Purchase.Supplier.LinkManManager");
+            var menu324 = FunctionItemFactory.CreateFunctionItem("查询供应商", menu32.Id, 30204, true, false,
+                "UniCloud.Presentation.Purchase.Supplier.QuerySupplier");
+            var menu325 = FunctionItemFactory.CreateFunctionItem("维护BFE承运人", menu32.Id, 30205, true, false,
+                "UniCloud.Presentation.Purchase.Forwarder.ForwarderManager");
             menu32.SubFunctionItems.Add(menu321);
             menu32.SubFunctionItems.Add(menu322);
             menu32.SubFunctionItems.Add(menu323);
@@ -210,52 +196,70 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu32.SubFunctionItems.Add(menu325);
             menu3.SubFunctionItems.Add(menu32);
 
-            var menu33 = FunctionItemFactory.CreateFunctionItem("管理维修合同", menu3.Id, 303, false, false, string.Empty);
-            var menu331 = FunctionItemFactory.CreateFunctionItem("管理发动机维修合同", menu33.Id, 30301, true, false,
-                "UniCloud.Presentation.Purchase.Contract.EngineMaintain");
-            var menu332 = FunctionItemFactory.CreateFunctionItem("管理APU维修合同", menu33.Id, 30302, true, false,
-                "UniCloud.Presentation.Purchase.Contract.ApuMaintain");
-            var menu333 = FunctionItemFactory.CreateFunctionItem("管理起落架维修合同", menu33.Id, 30303, true, false,
-                "UniCloud.Presentation.Purchase.Contract.UndercartMaintain");
-            var menu334 = FunctionItemFactory.CreateFunctionItem("管理机身维修合同", menu33.Id, 30304, true, false,
-                "UniCloud.Presentation.Purchase.Contract.AirframeMaintain");
+            var menu33 = FunctionItemFactory.CreateFunctionItem("管理采购合同", menu3.Id, 303, false, false, string.Empty);
+            var menu331 = FunctionItemFactory.CreateFunctionItem("管理飞机购买合同", menu33.Id, 30301, true, false,
+                "UniCloud.Presentation.Purchase.Contract.AircraftPurchase");
+            var menu332 = FunctionItemFactory.CreateFunctionItem("管理飞机租赁合同", menu33.Id, 30302, true, false,
+                "UniCloud.Presentation.Purchase.Contract.AircraftLease");
+            var menu333 = FunctionItemFactory.CreateFunctionItem("管理发动机购买合同", menu33.Id, 30303, true, false,
+                "UniCloud.Presentation.Purchase.Contract.EnginePurchase");
+            var menu334 = FunctionItemFactory.CreateFunctionItem("管理发动机租赁合同", menu33.Id, 30304, true, false,
+                "UniCloud.Presentation.Purchase.Contract.EngineLease");
+            var menu335 = FunctionItemFactory.CreateFunctionItem("管理BFE合同", menu33.Id, 30305, true, false,
+                "UniCloud.Presentation.Purchase.Contract.BFEPurchase");
             menu33.SubFunctionItems.Add(menu331);
             menu33.SubFunctionItems.Add(menu332);
             menu33.SubFunctionItems.Add(menu333);
             menu33.SubFunctionItems.Add(menu334);
+            menu33.SubFunctionItems.Add(menu335);
             menu3.SubFunctionItems.Add(menu33);
 
-            var menu34 = FunctionItemFactory.CreateFunctionItem("管理接机", menu3.Id, 304, false, false, string.Empty);
-            var menu341 = FunctionItemFactory.CreateFunctionItem("匹配计划飞机", menu34.Id, 30401, true, false,
-                "UniCloud.Presentation.Purchase.Reception.MatchingPlanAircraftManager");
-            var menu342 = FunctionItemFactory.CreateFunctionItem("维护租赁飞机交付项目", menu34.Id, 30402, true, false,
-                "UniCloud.Presentation.Purchase.Reception.AircraftLeaseReceptionManager");
-            var menu343 = FunctionItemFactory.CreateFunctionItem("维护采购飞机交付项目", menu34.Id, 30403, true, false,
-                "UniCloud.Presentation.Purchase.Reception.AircraftPurchaseReceptionManager");
-            var menu344 = FunctionItemFactory.CreateFunctionItem("维护租赁发动机交付项目", menu34.Id, 30404, true, false,
-                "UniCloud.Presentation.Purchase.Reception.EngineLeaseReceptionManager");
-            var menu345 = FunctionItemFactory.CreateFunctionItem("维护采购发动机交付项目", menu34.Id, 30405, true, false,
-                "UniCloud.Presentation.Purchase.Reception.EnginePurchaseReceptionManager");
+            var menu34 = FunctionItemFactory.CreateFunctionItem("管理维修合同", menu3.Id, 304, false, false, string.Empty);
+            var menu341 = FunctionItemFactory.CreateFunctionItem("管理发动机维修合同", menu34.Id, 30401, true, false,
+                "UniCloud.Presentation.Purchase.Contract.EngineMaintain");
+            var menu342 = FunctionItemFactory.CreateFunctionItem("管理APU维修合同", menu34.Id, 30402, true, false,
+                "UniCloud.Presentation.Purchase.Contract.ApuMaintain");
+            var menu343 = FunctionItemFactory.CreateFunctionItem("管理起落架维修合同", menu34.Id, 30403, true, false,
+                "UniCloud.Presentation.Purchase.Contract.UndercartMaintain");
+            var menu344 = FunctionItemFactory.CreateFunctionItem("管理机身维修合同", menu34.Id, 30404, true, false,
+                "UniCloud.Presentation.Purchase.Contract.AirframeMaintain");
             menu34.SubFunctionItems.Add(menu341);
             menu34.SubFunctionItems.Add(menu342);
             menu34.SubFunctionItems.Add(menu343);
             menu34.SubFunctionItems.Add(menu344);
-            menu34.SubFunctionItems.Add(menu345);
             menu3.SubFunctionItems.Add(menu34);
 
-            var menu35 = FunctionItemFactory.CreateFunctionItem("查询分析", menu3.Id, 305, false, false, string.Empty);
-            var menu351 = FunctionItemFactory.CreateFunctionItem("合同管理", menu35.Id, 30501, true, false,
-                "UniCloud.Presentation.Purchase.Contract.ManageContracts.ManageContract");
-            var menu352 = FunctionItemFactory.CreateFunctionItem("查询合同", menu35.Id, 30502, true, false,
-                "UniCloud.Presentation.Purchase.Contract.QueryContracts.QueryContractMain");
-            var menu353 = FunctionItemFactory.CreateFunctionItem("分析飞机价格", menu35.Id, 30503, true, false,
-                "UniCloud.Presentation.Purchase.QueryAnalyse.AnalyseAircraftPrice");
-            var menu354 = FunctionItemFactory.CreateFunctionItem("分析发动机价格", menu35.Id, 30504, true, false, string.Empty);
+            var menu35 = FunctionItemFactory.CreateFunctionItem("管理接机", menu3.Id, 305, false, false, string.Empty);
+            var menu351 = FunctionItemFactory.CreateFunctionItem("匹配计划飞机", menu35.Id, 30501, true, false,
+                "UniCloud.Presentation.Purchase.Reception.MatchingPlanAircraftManager");
+            var menu352 = FunctionItemFactory.CreateFunctionItem("维护租赁飞机交付项目", menu35.Id, 30502, true, false,
+                "UniCloud.Presentation.Purchase.Reception.AircraftLeaseReceptionManager");
+            var menu353 = FunctionItemFactory.CreateFunctionItem("维护采购飞机交付项目", menu35.Id, 30503, true, false,
+                "UniCloud.Presentation.Purchase.Reception.AircraftPurchaseReceptionManager");
+            var menu354 = FunctionItemFactory.CreateFunctionItem("维护租赁发动机交付项目", menu35.Id, 30504, true, false,
+                "UniCloud.Presentation.Purchase.Reception.EngineLeaseReceptionManager");
+            var menu355 = FunctionItemFactory.CreateFunctionItem("维护采购发动机交付项目", menu35.Id, 30505, true, false,
+                "UniCloud.Presentation.Purchase.Reception.EnginePurchaseReceptionManager");
             menu35.SubFunctionItems.Add(menu351);
             menu35.SubFunctionItems.Add(menu352);
             menu35.SubFunctionItems.Add(menu353);
             menu35.SubFunctionItems.Add(menu354);
+            menu35.SubFunctionItems.Add(menu355);
             menu3.SubFunctionItems.Add(menu35);
+
+            var menu36 = FunctionItemFactory.CreateFunctionItem("查询分析", menu3.Id, 306, false, false, string.Empty);
+            var menu361 = FunctionItemFactory.CreateFunctionItem("合同管理", menu36.Id, 30601, true, false,
+                "UniCloud.Presentation.Purchase.Contract.ManageContracts.ManageContract");
+            var menu362 = FunctionItemFactory.CreateFunctionItem("查询合同", menu36.Id, 30602, true, false,
+                "UniCloud.Presentation.Purchase.Contract.QueryContracts.QueryContractMain");
+            var menu363 = FunctionItemFactory.CreateFunctionItem("分析飞机价格", menu36.Id, 30603, true, false,
+                "UniCloud.Presentation.Purchase.QueryAnalyse.AnalyseAircraftPrice");
+            var menu364 = FunctionItemFactory.CreateFunctionItem("分析发动机价格", menu36.Id, 30604, true, false, string.Empty);
+            menu36.SubFunctionItems.Add(menu361);
+            menu36.SubFunctionItems.Add(menu362);
+            menu36.SubFunctionItems.Add(menu363);
+            menu36.SubFunctionItems.Add(menu364);
+            menu3.SubFunctionItems.Add(menu36);
 
             #endregion
 
