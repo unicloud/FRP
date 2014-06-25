@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 
@@ -46,6 +47,20 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         /// </summary>
         /// <param name="supplierCompany">合作公司DTO。</param>
         void ModifySupplierCompany(SupplierCompanyDTO supplierCompany);
+
+        /// <summary>
+        ///     同步联系人信息。
+        /// </summary>
+        /// <param name="linkmen">联系人集合</param>
+        void SyncLinkmanInfo(List<LinkmanDTO> linkmen);
+
+        /// <summary>
+        ///     同步供应商信息。
+        /// </summary>
+        /// <param name="suppliers">供应商集合</param>
+        void SyncSupplierInfo(List<SupplierDTO> suppliers);
+
+        void SyncBankAccountInfo(List<BankAccountDTO> bankAccounts);
 
         #region 联系人相关操作
 
@@ -132,7 +147,6 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         /// <param name="supplierCompanyBfeMaterial">合作公司BFE物料DTO。</param>
         void DeleteSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBfeMaterial);
 
-
-#endregion
+        #endregion
     }
 }
