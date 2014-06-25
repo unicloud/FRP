@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
@@ -55,8 +56,13 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             var service = UniContainer.Resolve<IThrustRepository>();
 
             // Act
-            var thrust = ThrustFactory.CreateThrust("24K", "推力24K");
-            service.Add(thrust);
+            var thrusts = new List<Thrust>
+            {
+                ThrustFactory.CreateThrust("24K", "推力24K"),
+                ThrustFactory.CreateThrust("25K", "推力25K"),
+                ThrustFactory.CreateThrust("27K", "推力27K"),
+            };
+            thrusts.ForEach(service.Add);
             service.UnitOfWork.Commit();
         }
     }
