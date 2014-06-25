@@ -17,7 +17,6 @@
 
 #region 命名空间
 
-using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -40,7 +39,7 @@ namespace UniCloud.Infrastructure.Security
         /// <summary>
         ///     IV
         /// </summary>
-        public static string desIV = "UniCloud";
+        public static string desIV = "qwertyui";
 
         /// <summary>
         ///     加密数组。
@@ -69,12 +68,10 @@ namespace UniCloud.Infrastructure.Security
         public static Stream EncryptStream(ref MemoryStream ms)
         {
             var buffer = EncryptByte(ms.ToArray());
-            if (buffer != null)
-            {
-                ms.SetLength(buffer.Length);
-                ms.Write(buffer, 0, buffer.Length);
-                ms.Position = 0L;
-            }
+            if (buffer == null) return ms;
+            ms.SetLength(buffer.Length);
+            ms.Write(buffer, 0, buffer.Length);
+            ms.Position = 0L;
             return ms;
         }
 
@@ -89,8 +86,8 @@ namespace UniCloud.Infrastructure.Security
                 return string.Empty;
             try
             {
-                var buffer = EncryptByte(Encoding.UTF8.GetBytes(str));
-                return buffer != null ? Convert.ToBase64String(buffer) : str;
+                var bt = EncryptByte(ConvertHelper.Str2AscArr(str));
+                return bt != null ? ConvertHelper.HexAscArr2Str(bt) : str;
             }
             catch
             {
@@ -128,8 +125,8 @@ namespace UniCloud.Infrastructure.Security
                 return string.Empty;
             try
             {
-                var buffer = DecryptByte(Convert.FromBase64String(str));
-                return buffer != null ? Encoding.UTF8.GetString(buffer) : str;
+                var bt = DecryptByte(ConvertHelper.Str2HexAscArr(str));
+                return bt != null ? ConvertHelper.AscArr2Str(bt) : str;
             }
             catch
             {
