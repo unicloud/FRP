@@ -136,6 +136,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AssemblyTestsInitialize.cs" />
     <Compile Include="MerchantSyncTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -179,6 +180,10 @@
     <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
       <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
       <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}</Project>
+      <Name>Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniCloud.MerchantDataService\UniCloud.MerchantDataService.csproj">
       <Project>{184c4828-8549-4c83-8ae0-afbfc33fd1b6}</Project>

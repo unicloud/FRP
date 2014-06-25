@@ -1,5 +1,8 @@
-﻿using System;
+﻿#region 命名空间
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+#endregion
 
 namespace Unicloud.DocumentIndex.Tests
 {
