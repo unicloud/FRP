@@ -70,11 +70,35 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AircraftTests.cs" />
+    <Compile Include="AssemblyTestsInitialize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.FleetPlanBC\Domain.FleetPlanBC.csproj">
+      <Project>{EAE70E2D-1C23-45C9-A9A9-695DFF09B7AB}</Project>
+      <Name>Domain.FleetPlanBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.FleetPlanBC\Infrastructure.Data.FleetPlanBC.csproj">
+      <Project>{EA442277-80D8-4E88-823D-C75581E953D7}</Project>
+      <Name>Infrastructure.Data.FleetPlanBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{CAD91A38-6B90-4A18-83CA-0215CE512F4D}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
