@@ -38,14 +38,12 @@ namespace UniCloud.Presentation.MVVM
     /// </summary>
     public abstract class ViewModelBase : NotificationObject, INavigationAware, ILoadData
     {
-        [Import]
-        public DocViewer docViewer;
-        [Import]
-        public DocViewerVM docViewerVM;
-
         //[Import]
-        public ListDocuments ListDocuments;
-        protected Action<DocumentDTO> _windowClosed;
+        public ListDocuments listDocuments;
+        protected Action<DocumentDTO> windowClosed;
+        [Import] public DocViewer docViewer;
+        [Import] public DocViewerVM docViewerVM;
+
         #region ctor
 
         protected ViewModelBase(IService service)
@@ -96,14 +94,15 @@ namespace UniCloud.Presentation.MVVM
 
         protected virtual void SetIsBusy()
         {
-
         }
 
         #endregion
 
         #region Protected Properties
 
+        private string _busyContent = "";
         private bool _isBusy;
+
         /// <summary>
         ///     界面是否繁忙
         /// </summary>
@@ -120,7 +119,6 @@ namespace UniCloud.Presentation.MVVM
             }
         }
 
-        private string _busyContent = "";
         public string BusyContent
         {
             get { return _busyContent; }
@@ -130,6 +128,7 @@ namespace UniCloud.Presentation.MVVM
                 RaisePropertyChanged(() => BusyContent);
             }
         }
+
         #endregion
 
         #region ViewModel
@@ -144,22 +143,22 @@ namespace UniCloud.Presentation.MVVM
         /// <param name="sender">命令参数</param>
         protected void OnAddAttach(object sender)
         {
-            ListDocuments = ServiceLocator.Current.GetInstance<ListDocuments>();
-            if ((sender is Guid) && (Guid)sender != Guid.Empty)
+            listDocuments = ServiceLocator.Current.GetInstance<ListDocuments>();
+            if ((sender is Guid) && (Guid) sender != Guid.Empty)
             {
                 MessageConfirm("附件已存在，继续操作将有可能替换当前附件。是否继续？", (o, e) =>
                 {
                     if (e.DialogResult != null && e.DialogResult == true)
                     {
-                        ListDocuments.ViewModel.InitData(d => WindowClosed(d, sender));
-                        ListDocuments.ShowDialog();
+                        listDocuments.ViewModel.InitData(d => WindowClosed(d, sender));
+                        listDocuments.ShowDialog();
                     }
                 });
             }
             else
             {
-                ListDocuments.ViewModel.InitData(d => WindowClosed(d, sender));
-                ListDocuments.ShowDialog();
+                listDocuments.ViewModel.InitData(d => WindowClosed(d, sender));
+                listDocuments.ShowDialog();
             }
         }
 
@@ -190,14 +189,14 @@ namespace UniCloud.Presentation.MVVM
         /// <param name="sender">命令参数</param>
         protected void OnAddLocalAttach(object sender)
         {
-            var openFileDialog = new OpenFileDialog { Filter = "可用文档|*.docx;*.pdf" };
+            var openFileDialog = new OpenFileDialog {Filter = "可用文档|*.docx;*.pdf"};
             if (openFileDialog.ShowDialog() == true)
             {
-                ListDocuments = ServiceLocator.Current.GetInstance<ListDocuments>();
-                ListDocuments.Close();
+                listDocuments = ServiceLocator.Current.GetInstance<ListDocuments>();
+                listDocuments.Close();
 
                 docViewer.ShowDialog();
-                docViewerVM.InitDocument(openFileDialog.File, _windowClosed);
+                docViewerVM.InitDocument(openFileDialog.File, windowClosed);
             }
         }
 
@@ -206,6 +205,7 @@ namespace UniCloud.Presentation.MVVM
         {
             return true;
         }
+
         #endregion
 
         #region 查看附件
@@ -221,7 +221,7 @@ namespace UniCloud.Presentation.MVVM
             if (sender is Guid)
             {
                 docViewer.ShowDialog();
-                docViewerVM.InitDocument((Guid)sender);
+                docViewerVM.InitDocument((Guid) sender);
             }
             else
             {

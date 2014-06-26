@@ -20,12 +20,10 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.DataServices;
-using Telerik.Windows.Documents.Spreadsheet.Expressions.Functions;
 using UniCloud.Presentation.Service;
 
 #endregion
@@ -213,14 +211,15 @@ namespace UniCloud.Presentation.MVVM
             public static void WriteErrLog(string strErrMod, string strErrDesc)
             {
                 StreamWriter sw;
-                string strErrLog = @"F:\Logs\Client_Error_Log" + string.Format("{0:yyyyMMdd}", DateTime.Now) + ".txt";   //获取写日志的路径
+                var strErrLog = @"F:\Logs\Client_Error_Log" + string.Format("{0:yyyyMMdd}", DateTime.Now) + ".txt";
+                    //获取写日志的路径
                 if (File.Exists(strErrLog))
                 {
-                    FileInfo oFile = new FileInfo(strErrLog);
+                    var oFile = new FileInfo(strErrLog);
                     if (oFile.Length > 1024000)
                     {
                         oFile.Delete();
-                    }  
+                    }
                 }
                 if (File.Exists(strErrLog))
                 {
@@ -230,9 +229,9 @@ namespace UniCloud.Presentation.MVVM
                 {
                     sw = File.CreateText(strErrLog);
                 }
-                string strDate = "出错时间:" + string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
-                string strErrMoudle = "出错模块:" + strErrMod;
-                string strErrDescOut = "错误原因:" + strErrDesc;
+                var strDate = "出错时间:" + string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
+                var strErrMoudle = "出错模块:" + strErrMod;
+                var strErrDescOut = "错误原因:" + strErrDesc;
                 sw.WriteLine(strDate);
                 sw.WriteLine(strErrMoudle);
                 sw.WriteLine(strErrDescOut);
@@ -241,6 +240,7 @@ namespace UniCloud.Presentation.MVVM
                 sw.Close();
             }
         }
+
         #endregion
 
         #region IConfirmNavigationRequest 成员

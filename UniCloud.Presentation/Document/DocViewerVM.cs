@@ -290,7 +290,7 @@ namespace UniCloud.Presentation.Document
         {
             if (_fromServer)
             {
-                _windowClosed(_loadedDocument);
+                windowClosed(_loadedDocument);
                 MessageAlert("提示", "保存成功。");
             }
             else
@@ -305,7 +305,7 @@ namespace UniCloud.Presentation.Document
                 _service.SubmitChanges(sm =>
                                        {
                                            IsBusy = false;
-                                           _windowClosed(_addedDocument);
+                                           windowClosed(_addedDocument);
                                            MessageAlert("提示", sm.Error == null ? "保存成功。" : "保存失败，请检查！");
                                        });
             }
@@ -330,7 +330,7 @@ namespace UniCloud.Presentation.Document
             _fromServer = false;
             DocumentTypeVisibility = Visibility.Visible;
             DocumentTypes.Load();
-            _windowClosed = callback;
+            windowClosed = callback;
             ViewDocument(fi);
         }
 
@@ -358,7 +358,7 @@ namespace UniCloud.Presentation.Document
         {
             DocumentTypeVisibility = Visibility.Collapsed;
             _fromServer = fromServer;
-            _windowClosed = callback;
+            windowClosed = callback;
             if (_loadedDocument != null && document.DocumentId == _loadedDocument.DocumentId)
             {
                 ViewDocument(_loadedDocument);

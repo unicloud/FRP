@@ -293,6 +293,10 @@
     <Compile Include="Contract\ManageContracts\SearchResultsWindow.xaml.cs">
       <DependentUpon>SearchResultsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Contract\MatchPlanAircraft.xaml.cs">
+      <DependentUpon>MatchPlanAircraft.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contract\MatchPlanAircraftVM.cs" />
     <Compile Include="Contract\QueryContracts\QueryContract.xaml.cs">
       <DependentUpon>QueryContract.xaml</DependentUpon>
     </Compile>
@@ -441,6 +445,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contract\ManageContracts\SearchResultsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contract\MatchPlanAircraft.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
