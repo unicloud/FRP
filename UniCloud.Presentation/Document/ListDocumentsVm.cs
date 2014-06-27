@@ -81,8 +81,8 @@ namespace UniCloud.Presentation.Document
 
         public void InitData(Action<DocumentDTO> callback)
         {
-            _windowClosed = callback;
-            DocumentDoubleClickHelper.WindowClosed = _windowClosed;
+            windowClosed = callback;
+            DocumentDoubleClickHelper.WindowClosed = windowClosed;
             DocumentTypes.Load(true);
             Documents.Load(true);
         }
