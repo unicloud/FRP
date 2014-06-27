@@ -87,8 +87,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         public void InitData(Action<PlanAircraftDTO> callback, IEnumerable<PlanAircraftDTO> planAircraftDtos)
         {
             _winClosed = callback;
-            //ViewPlanAircraftDTO.Clear();
-            //ViewPlanAircraftDTO = new RadObservableCollection<PlanAircraftDTO>(planAircraftDtos);
             ViewPlanAircraftDTO = planAircraftDtos.ToList();
             RaisePropertyChanged(() => ViewPlanAircraftDTO);
         }
