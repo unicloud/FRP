@@ -104,6 +104,7 @@
   <ItemGroup>
     <Content Include="AuthenticationService.svc" />
     <Content Include="BaseManagementDataService.svc" />
+    <Content Include="clientaccesspolicy.xml" />
     <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
     <Content Include="RoleService.svc" />
