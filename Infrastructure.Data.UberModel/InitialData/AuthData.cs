@@ -429,12 +429,22 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
                 "UniCloud.Presentation.Part.BaseConfigurations.BaseConfiguration");
             menu7.SubFunctionItems.Add(menu71);
 
-            var menu72 = FunctionItemFactory.CreateFunctionItem("维护件序号", menu7.Id, 702, true, false,
-                "UniCloud.Presentation.Part.PnRegAndSnReg.ManagePnAndSnView");
+            var menu72 = FunctionItemFactory.CreateFunctionItem("管理附件项", menu7.Id, 702, false, false,string.Empty);
+            var menu721 = FunctionItemFactory.CreateFunctionItem("维护附件项", menu72.Id, 70201, true, false,
+                "UniCloud.Presentation.Part.PnRegAndSnReg.PnRegView");
+            var menu722 = FunctionItemFactory.CreateFunctionItem("管理装机控制信息", menu72.Id, 70202, true, false,
+                "UniCloud.Presentation.Part.PnRegAndSnReg.SnRegView");
+            menu72.SubFunctionItems.Add(menu721);
+            menu72.SubFunctionItems.Add(menu722);
             menu7.SubFunctionItems.Add(menu72);
 
-            var menu73 = FunctionItemFactory.CreateFunctionItem("管理技术解决方案", menu7.Id, 703, true, false,
-                "UniCloud.Presentation.Part.ManageTS.TechnicalSolutionView");
+            var menu73 = FunctionItemFactory.CreateFunctionItem("管理件序号", menu7.Id, 703, false, false, string.Empty);
+            var menu731=FunctionItemFactory.CreateFunctionItem("管理件号",menu73.Id,70301,true,false,
+                "UniCloud.Presentation.Part.PnRegAndSnReg.PnRegView");
+            var menu732 = FunctionItemFactory.CreateFunctionItem("管理序号", menu73.Id, 70302, true, false,
+                "UniCloud.Presentation.Part.PnRegAndSnReg.SnRegView");
+            menu73.SubFunctionItems.Add(menu731);
+            menu73.SubFunctionItems.Add(menu732);
             menu7.SubFunctionItems.Add(menu73);
 
             var menu74 = FunctionItemFactory.CreateFunctionItem("管理发动机构型", menu7.Id, 704, false, false, string.Empty);
@@ -462,19 +472,22 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu7.SubFunctionItems.Add(menu76);
 
             var menu77 = FunctionItemFactory.CreateFunctionItem("维护拆换记录", menu7.Id, 707, true, false,
-                "UniCloud.Presentation.Part.SnHistories.SnHistory");
+                "UniCloud.Presentation.Part.MaintainControl.ManageRemovalAndInstallationView");
             menu7.SubFunctionItems.Add(menu77);
 
-            var menu78 = FunctionItemFactory.CreateFunctionItem("维护在位信息", menu7.Id, 708, true, false, string.Empty);
+            var menu78 = FunctionItemFactory.CreateFunctionItem("维护在位信息", menu7.Id, 708, true, false, 
+                "UniCloud.Presentation.Part.ManageOnBoardSn.ManageOnBoardSn");
             menu7.SubFunctionItems.Add(menu78);
 
-            var menu79 = FunctionItemFactory.CreateFunctionItem("查询拆装历史", menu7.Id, 709, true, false,
-                "UniCloud.Presentation.Part.SnHistories.QuerySnHistory");
-            menu7.SubFunctionItems.Add(menu79);
+            //var menu79 = FunctionItemFactory.CreateFunctionItem("查询拆装历史", menu7.Id, 709, true, false,
+            //    "UniCloud.Presentation.Part.SnHistories.QuerySnHistory");
+            //menu7.SubFunctionItems.Add(menu79);
 
             var menu710 = FunctionItemFactory.CreateFunctionItem("控制维修", menu7.Id, 710, false, false, string.Empty);
-            var menu7101 = FunctionItemFactory.CreateFunctionItem("查看控制方案", menu7.Id, 71001, true, false, string.Empty);
-            var menu7102 = FunctionItemFactory.CreateFunctionItem("查询到寿日期", menu7.Id, 71002, true, false, string.Empty);
+            var menu7101 = FunctionItemFactory.CreateFunctionItem("查看控制方案", menu7.Id, 71001, true, false, 
+                "UniCloud.Presentation.Part.MaintainControl.QueryMaintainCtrlView");
+            var menu7102 = FunctionItemFactory.CreateFunctionItem("查询到寿日期", menu7.Id, 71002, true, false, 
+                "UniCloud.Presentation.Part.MaintainControl.QueryLifeMonitorView");
             menu710.SubFunctionItems.Add(menu7101);
             menu710.SubFunctionItems.Add(menu7102);
             menu7.SubFunctionItems.Add(menu710);

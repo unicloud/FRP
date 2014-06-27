@@ -100,6 +100,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="clientaccesspolicy.xml" />
     <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
     <Content Include="ProjectDataService.svc" />
