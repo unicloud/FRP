@@ -65,6 +65,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
         #region 外键属性
 
         /// <summary>
+        ///     合同飞机外键
+        /// </summary>
+        public int? ContractAircraftId { get; internal set; }
+
+        /// <summary>
         ///     实际飞机外键
         /// </summary>
         public Guid? AircraftId { get; private set; }

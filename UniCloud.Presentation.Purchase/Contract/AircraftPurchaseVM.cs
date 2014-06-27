@@ -21,7 +21,6 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -44,8 +43,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         private readonly PurchaseData _context;
         private readonly IPurchaseService _service;
         private FilterDescriptor _orderDescriptor;
+        private FilterDescriptor _planAircraftDescriptor;
         private FilterDescriptor _tradeDescriptor1;
         private FilterDescriptor _tradeDescriptor2;
+        [Import] public MatchPlanAircraft planAircraftView;
 
         [ImportingConstructor]
         public AircraftPurchaseVM(IPurchaseService service)
@@ -80,6 +81,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             InitializeViewTradeDTO();
             InitializeViewAircraftPurchaseOrderDTO();
+            InitializeViewPlanAircraftDTO();
         }
 
         #endregion
@@ -145,6 +147,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             if (!ViewTradeDTO.AutoLoad) ViewTradeDTO.AutoLoad = true;
             else ViewTradeDTO.Load(true);
+            if (!ViewPlanAircraftDTO.AutoLoad) ViewPlanAircraftDTO.AutoLoad = true;
+            else ViewPlanAircraftDTO.Load(true);
 
             Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers), true);
             Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies), true);
@@ -311,6 +315,44 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #endregion
 
+        #region 计划飞机
+
+        private PlanAircraftDTO _selPlanAircraftDTO;
+
+        /// <summary>
+        ///     计划飞机集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanAircraftDTO> ViewPlanAircraftDTO { get; set; }
+
+        /// <summary>
+        ///     选中的计划飞机
+        /// </summary>
+        public PlanAircraftDTO SelPlanAircraftDTO
+        {
+            get { return _selPlanAircraftDTO; }
+            set
+            {
+                if (_selPlanAircraftDTO == value) return;
+                _selPlanAircraftDTO = value;
+                RaisePropertyChanged(() => SelPlanAircraftDTO);
+                // 刷新按钮状态
+                RefreshCommandState();
+            }
+        }
+
+        /// <summary>
+        ///     初始化计划飞机集合
+        /// </summary>
+        private void InitializeViewPlanAircraftDTO()
+        {
+            ViewPlanAircraftDTO = _service.CreateCollection(_context.PlanAircrafts);
+            _planAircraftDescriptor = new FilterDescriptor("ContractAircraftId", FilterOperator.IsEqualTo, null);
+            ViewPlanAircraftDTO.FilterDescriptors.Add(_planAircraftDescriptor);
+            _service.RegisterCollectionView(ViewPlanAircraftDTO);
+        }
+
+        #endregion
+
         #endregion
 
         #endregion
@@ -324,7 +366,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <param name="sender">匹配计划命令传入的参数</param>
         private void WinClosed(PlanAircraftDTO planAircraft, object sender)
         {
-            var q = planAircraft;
+            planAircraftView.Close();
         }
 
         #region 重载操作
@@ -766,9 +808,11 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnMatchPlanAc(object obj)
         {
-            var planAircraftWin = ServiceLocator.Current.GetInstance<MatchPlanAircraft>();
-            planAircraftWin.ViewModel.InitData(p => WinClosed(p, obj));
-            planAircraftWin.ShowDialog();
+            //var planAircraftWin = ServiceLocator.Current.GetInstance<MatchPlanAircraft>();
+            //planAircraftWin.ViewModel.InitData(p => WinClosed(p, obj), ViewPlanAircraftDTO);
+            //planAircraftWin.ShowDialog();
+            planAircraftView.ViewModel.InitData(p => WinClosed(p, obj), ViewPlanAircraftDTO);
+            planAircraftView.ShowDialog();
         }
 
         private bool CanMatchPlanAc(object obj)

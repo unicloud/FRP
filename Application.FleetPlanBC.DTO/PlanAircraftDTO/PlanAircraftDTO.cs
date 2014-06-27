@@ -76,6 +76,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         #region 外键属性
 
         /// <summary>
+        ///     合同飞机外键
+        /// </summary>
+        public int? ContractAircraftId { get; set; }
+
+        /// <summary>
         ///     实际飞机外键
         /// </summary>
         public Guid? AircraftId { get; set; }

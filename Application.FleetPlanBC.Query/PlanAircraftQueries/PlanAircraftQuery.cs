@@ -18,9 +18,7 @@
 
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -49,10 +47,11 @@ namespace UniCloud.Application.FleetPlanBC.Query.PlanAircraftQueries
                 Id = p.Id,
                 AirlinesId = p.AirlinesId,
                 AircraftId = p.AircraftId,
+                ContractAircraftId = p.ContractAircraftId,
                 AircraftTypeId = p.AircraftTypeId,
                 IsLock = p.IsLock,
                 IsOwn = p.IsOwn,
-                Status = (int)p.Status,
+                Status = (int) p.Status,
                 AirlinesName = p.Airlines.CnShortName,
                 AircraftTypeName = p.AircraftType.Name,
                 Regional = p.AircraftType.AircraftCategory.Regional,

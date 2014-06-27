@@ -142,6 +142,7 @@
         <Property Name="IsOwn" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="ContractAircraftId" Type="Edm.Int32" />
         <Property Name="AircraftId" Type="Edm.Guid" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
       </EntityType>

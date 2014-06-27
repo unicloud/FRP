@@ -428,6 +428,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         IsLock = c.Boolean(nullable: false),
                         IsOwn = c.Boolean(nullable: false),
                         Status = c.Int(nullable: false),
+                        ContractAircraftId = c.Int(),
                         AircraftId = c.Guid(),
                         AircraftTypeId = c.Guid(nullable: false),
                         AirlinesId = c.Guid(nullable: false),

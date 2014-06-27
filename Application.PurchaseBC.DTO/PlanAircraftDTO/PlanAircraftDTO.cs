@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -22,7 +24,7 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.PurchaseBC.DTO
 {
     /// <summary>
-    /// 计划飞机
+    ///     计划飞机
     /// </summary>
     [DataServiceKey("Id")]
     public class PlanAircraftDTO
@@ -30,7 +32,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
         #region 属性
 
         /// <summary>
-        /// 主键
+        ///     主键
         /// </summary>
         public Guid Id { get; set; }
 
@@ -50,13 +52,18 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public int Status { get; set; }
 
         /// <summary>
-        /// 机型
+        ///     机型
         /// </summary>
         public string AircraftTypeName { get; set; }
 
         #endregion
 
         #region 外键属性
+
+        /// <summary>
+        ///     合同飞机外键
+        /// </summary>
+        public int? ContractAircraftId { get; set; }
 
         /// <summary>
         ///     实际飞机外键
@@ -69,6 +76,5 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public Guid AircraftTypeId { get; set; }
 
         #endregion
-
     }
 }

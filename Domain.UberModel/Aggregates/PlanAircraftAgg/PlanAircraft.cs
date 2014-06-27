@@ -15,11 +15,15 @@
 
 #endregion
 
+#region 命名空间
+
 using System;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
+
+#endregion
 
 namespace UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg
 {
@@ -57,10 +61,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg
         /// </summary>
         public ManageStatus Status { get; private set; }
 
-
         #endregion
 
         #region 外键属性
+
+        /// <summary>
+        ///     合同飞机外键
+        /// </summary>
+        public int? ContractAircraftId { get; private set; }
 
         /// <summary>
         ///     实际飞机外键
@@ -82,19 +90,20 @@ namespace UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg
         #region 导航属性
 
         /// <summary>
-        /// 实际飞机
+        ///     实际飞机
         /// </summary>
         public virtual Aircraft Aircraft { get; private set; }
 
         /// <summary>
-        /// 机型
+        ///     机型
         /// </summary>
         public virtual AircraftType AircraftType { get; private set; }
 
         /// <summary>
-        /// 航空公司
+        ///     航空公司
         /// </summary>
         public virtual Airlines Airlines { get; private set; }
+
         #endregion
 
         #region 操作
@@ -146,7 +155,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg
         }
 
         /// <summary>
-        /// 锁定
+        ///     锁定
         /// </summary>
         public void SetLock()
         {
@@ -154,7 +163,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg
         }
 
         /// <summary>
-        /// 设置为自有
+        ///     设置为自有
         /// </summary>
         public void SetOwn()
         {
@@ -203,6 +212,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg
             Airlines = airlines;
             AirlinesId = airlines.Id;
         }
+
+
+        /// <summary>
+        ///     设置合同飞机ID
+        /// </summary>
+        /// <param name="contractAircraftId">合同飞机ID</param>
+        public void SetContractAircraftId(int contractAircraftId)
+        {
+            if (contractAircraftId == 0 || contractAircraftId == int.MinValue || contractAircraftId == int.MaxValue)
+                throw new ArgumentNullException("contractAircraftId");
+            ContractAircraftId = contractAircraftId;
+        }
+
         #endregion
     }
 }

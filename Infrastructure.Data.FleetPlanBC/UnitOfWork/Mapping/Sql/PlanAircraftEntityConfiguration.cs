@@ -38,6 +38,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             Property(p => p.IsOwn).HasColumnName("IsOwn");
             Property(p => p.Status).HasColumnName("Status");
 
+            Property(p => p.ContractAircraftId).HasColumnName("ContractAircraftId");
             Property(p => p.AircraftId).HasColumnName("AircraftId");
             Property(p => p.AircraftTypeId).HasColumnName("AircraftTypeId");
             Property(p => p.AirlinesId).HasColumnName("AirlinesId");

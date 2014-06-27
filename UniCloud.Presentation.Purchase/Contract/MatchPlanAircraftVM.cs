@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
@@ -60,7 +61,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void InitializeVM()
         {
-            InitializeViewPlanAircraftDTO();
         }
 
         #endregion
@@ -82,14 +82,12 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public override void LoadData()
         {
-            //if (!ViewPlanAircraftDTO.AutoLoad) ViewPlanAircraftDTO.AutoLoad = true;
-            //else ViewPlanAircraftDTO.Load(true);
         }
 
-        public void InitData(Action<PlanAircraftDTO> callback)
+        public void InitData(Action<PlanAircraftDTO> callback, IEnumerable<PlanAircraftDTO> planAircraftDtos)
         {
             _winClosed = callback;
-            ViewPlanAircraftDTO.Load(true);
+            ViewPlanAircraftDTO = new RadObservableCollection<PlanAircraftDTO>(planAircraftDtos);
         }
 
         #region 计划飞机
@@ -99,7 +97,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <summary>
         ///     计划飞机集合
         /// </summary>
-        public QueryableDataServiceCollectionView<PlanAircraftDTO> ViewPlanAircraftDTO { get; set; }
+        public RadObservableCollection<PlanAircraftDTO> ViewPlanAircraftDTO { get; set; }
 
         /// <summary>
         ///     选中的计划飞机
@@ -112,16 +110,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (_selPlanAircraftDTO == value) return;
                 _selPlanAircraftDTO = value;
                 RaisePropertyChanged(() => SelPlanAircraftDTO);
+                // 刷新按钮状态
+                RefreshCommandState();
             }
-        }
-
-        /// <summary>
-        ///     初始化计划飞机集合
-        /// </summary>
-        private void InitializeViewPlanAircraftDTO()
-        {
-            ViewPlanAircraftDTO = _service.CreateCollection(_context.PlanAircrafts);
-            _service.RegisterCollectionView(ViewPlanAircraftDTO);
         }
 
         #endregion
@@ -133,6 +124,16 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 操作
 
         #region 重载操作
+
+        #region 刷新按钮状态
+
+        private void RefreshCommandState()
+        {
+            OkCommand.RaiseCanExecuteChanged();
+            CancelCommand.RaiseCanExecuteChanged();
+        }
+
+        #endregion
 
         #endregion
 
@@ -150,7 +151,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanOk(object obj)
         {
-            return true;
+            return _selPlanAircraftDTO != null;
         }
 
         #endregion
@@ -169,7 +170,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanCancel(object obj)
         {
-            return true;
+            return _selPlanAircraftDTO != null;
         }
 
         #endregion
