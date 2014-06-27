@@ -363,9 +363,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         ///     选中计划飞机后的操作
         /// </summary>
         /// <param name="planAircraft">计划飞机</param>
-        /// <param name="sender">匹配计划命令传入的参数</param>
-        private void WinClosed(PlanAircraftDTO planAircraft, object sender)
+        private void WinClosed(PlanAircraftDTO planAircraft)
         {
+            if (planAircraft != null)
+                _selAircraftPurchaseOrderLineDTO.PlanAircraftID = planAircraft.Id;
             planAircraftView.Close();
         }
 
@@ -811,7 +812,11 @@ namespace UniCloud.Presentation.Purchase.Contract
             //var planAircraftWin = ServiceLocator.Current.GetInstance<MatchPlanAircraft>();
             //planAircraftWin.ViewModel.InitData(p => WinClosed(p, obj), ViewPlanAircraftDTO);
             //planAircraftWin.ShowDialog();
-            planAircraftView.ViewModel.InitData(p => WinClosed(p, obj), ViewPlanAircraftDTO);
+            var matchedPlanAircrafts =
+                SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Where(ol => ol.PlanAircraftID != null)
+                    .Select(ol => ol.PlanAircraftID);
+            var planAircrafts = ViewPlanAircraftDTO.Where(pa => !matchedPlanAircrafts.Contains(pa.Id)).ToList();
+            planAircraftView.ViewModel.InitData(WinClosed, planAircrafts);
             planAircraftView.ShowDialog();
         }
 

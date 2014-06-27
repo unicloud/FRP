@@ -110,5 +110,10 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     管理状态
         /// </summary>
         public int Status { get; set; }
+
+        /// <summary>
+        ///     计划飞机
+        /// </summary>
+        public Guid? PlanAircraftID { get; set; }
     }
 }

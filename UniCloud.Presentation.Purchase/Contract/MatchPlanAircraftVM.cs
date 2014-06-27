@@ -20,8 +20,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
@@ -31,7 +31,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Contract
 {
     [Export(typeof (MatchPlanAircraftVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MatchPlanAircraftVM : ViewModelBase
     {
         #region 声明、初始化
@@ -87,7 +87,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         public void InitData(Action<PlanAircraftDTO> callback, IEnumerable<PlanAircraftDTO> planAircraftDtos)
         {
             _winClosed = callback;
-            ViewPlanAircraftDTO = new RadObservableCollection<PlanAircraftDTO>(planAircraftDtos);
+            //ViewPlanAircraftDTO.Clear();
+            //ViewPlanAircraftDTO = new RadObservableCollection<PlanAircraftDTO>(planAircraftDtos);
+            ViewPlanAircraftDTO = planAircraftDtos.ToList();
+            RaisePropertyChanged(() => ViewPlanAircraftDTO);
         }
 
         #region 计划飞机
@@ -97,7 +100,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <summary>
         ///     计划飞机集合
         /// </summary>
-        public RadObservableCollection<PlanAircraftDTO> ViewPlanAircraftDTO { get; set; }
+        public List<PlanAircraftDTO> ViewPlanAircraftDTO { get; set; }
 
         /// <summary>
         ///     选中的计划飞机
