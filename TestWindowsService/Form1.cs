@@ -3,9 +3,12 @@
 using System;
 using System.Windows.Forms;
 using UniCloud.DataService.DataSync;
+using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork;
 using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+using UniCloud.Infrastructure.Unity;
+using SqlConfigurations = UniCloud.Infrastructure.Data.PartBC.UnitOfWork.SqlConfigurations;
 
 #endregion
 
@@ -19,7 +22,17 @@ namespace TestWindowsService
 
         public Form1()
         {
+            InitializeContainer();
             InitializeComponent();
+        }
+
+        private void InitializeContainer()
+        {
+            UniContainer.Create()
+                .Register<AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<FlightLogBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -49,9 +62,9 @@ namespace TestWindowsService
 
         private void InitialContext()
         {
-            _acConfigUnitOfWork = new AircraftConfigBCUnitOfWork();
-            _partUnitofWork = new PartBCUnitOfWork();
-            _flightLogUnitofWork = new FlightLogBCUnitOfWork();
+            _acConfigUnitOfWork = UniContainer.Resolve<AircraftConfigBCUnitOfWork>();
+            _partUnitofWork = UniContainer.Resolve<PartBCUnitOfWork>();
+            _flightLogUnitofWork = UniContainer.Resolve<FlightLogBCUnitOfWork>();
         }
 
         private void DisposeContext()
