@@ -142,6 +142,7 @@
         <Property Name="IsOwn" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="ContractAircraftId" Type="Edm.Int32" />
         <Property Name="AircraftId" Type="Edm.Guid" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
@@ -596,6 +597,7 @@
         <Property Name="CSCNumber" Type="Edm.String" />
         <Property Name="SerialNumber" Type="Edm.String" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="PlanAircraftID" Type="Edm.Guid" />
       </ComplexType>
       <ComplexType Name="ContractContentDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
@@ -642,6 +644,7 @@
         <Property Name="CSCNumber" Type="Edm.String" />
         <Property Name="SerialNumber" Type="Edm.String" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="PlanAircraftID" Type="Edm.Guid" />
       </ComplexType>
       <EntityType Name="EngineLeaseOrderDTO">
         <Key>

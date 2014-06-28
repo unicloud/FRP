@@ -5,9 +5,8 @@
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
                    xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
-                   mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
-                   Header="匹配计划飞机"
-                   d:DataContext="{d:DesignInstance uc:MatchPlanAircraftVM}">
+                   mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800" Header="匹配计划飞机"
+                   d:DataContext="{d:DesignInstance uc:MatchPlanAircraftVM}" WindowStartupLocation="CenterScreen">
 
     <telerik:RadWindow.Resources>
         <ResourceDictionary>
@@ -18,13 +17,14 @@
     </telerik:RadWindow.Resources>
 
     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="{x:Null}">
-        <Grid>
+        <Grid Width="600" Height="400">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <telerik:RadGridView ItemsSource="{Binding ViewPlanAircraftDTO}"
-                                 SelectedItem="{Binding SelPlanAircraftDTO,Mode=TwoWay}" AutoGenerateColumns="True">
+            <telerik:RadGridView ItemsSource="{Binding ViewPlanAircraftDTO}" Margin="0,1,0,0"
+                                 SelectedItem="{Binding SelPlanAircraftDTO,Mode=TwoWay}"
+                                 ShowGroupPanel="False" IsFilteringAllowed="False">
                 <telerik:RadContextMenu.ContextMenu>
                     <telerik:RadContextMenu>
                         <telerik:RadMenuItem Header="导出Excel"
@@ -36,9 +36,13 @@
                 </telerik:RadContextMenu.ContextMenu>
                 <telerik:RadGridView.Columns>
                     <uc:DataPageSerialColumn Header="序号" />
+                    <telerik:GridViewDataColumn Header="座级" DataMemberBinding="{Binding Regional}" />
+                    <telerik:GridViewDataColumn Header="机型" DataMemberBinding="{Binding AircraftTypeName}" />
+                    <telerik:GridViewDataColumn Header="管理状态" DataMemberBinding="{Binding Status}" />
+                    <telerik:GridViewDataColumn Header="是否自有" DataMemberBinding="{Binding IsOwn}" />
                 </telerik:RadGridView.Columns>
             </telerik:RadGridView>
-            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
                 <telerik:RadButton Content="确认" Command="{Binding OkCommand}" Width="60" Margin="10,0,5,0" />
                 <telerik:RadButton Content="取消" Command="{Binding CancelCommand}" Width="60" Margin="5,0,10,0" />
             </StackPanel>

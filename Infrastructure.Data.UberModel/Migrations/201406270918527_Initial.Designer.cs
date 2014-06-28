@@ -6,14 +6,14 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
+    [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
     public sealed partial class Initial : IMigrationMetadata
     {
         private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201406240948051_Initial"; }
+            get { return "201406270918527_Initial"; }
         }
         
         string IMigrationMetadata.Source

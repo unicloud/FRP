@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -343,13 +344,31 @@ namespace UniCloud.Presentation.Shell
 
         private void OnLoginOk(object obj)
         {
-            var client = new AuthenticationServiceClient();
+            var client = GetAuthenticationServiceClient();
             var loginForm = obj as RadDataForm;
             // 由于未使用 DataForm 中的标准“确定”按钮，因此需要强制进行验证。
             // 如果未确保窗体有效，则在实体无效时调用该操作会导致异常。
             if (loginForm == null || !loginForm.ValidateItem()) return;
             client.LoginCompleted += client_LoginCompleted;
             client.LoginAsync(LoginInfo.UserName, LoginInfo.Password, null, true);
+        }
+
+        /// <summary>
+        ///     动态获取身份验证服务客户端
+        /// </summary>
+        /// <returns>身份验证服务客户端</returns>
+        private static AuthenticationServiceClient GetAuthenticationServiceClient()
+        {
+            var binding = new BasicHttpBinding(
+                Application.Current.Host.Source.Scheme.Equals("https", StringComparison.InvariantCultureIgnoreCase)
+                    ? BasicHttpSecurityMode.Transport
+                    : BasicHttpSecurityMode.None)
+            {
+                MaxReceivedMessageSize = int.MaxValue,
+                MaxBufferSize = int.MaxValue
+            };
+            var svcUri = Application.Current.Resources["AuthenticationService"].ToString();
+            return new AuthenticationServiceClient(binding, new EndpointAddress(new Uri(svcUri)));
         }
 
         private void client_LoginCompleted(object sender, LoginCompletedEventArgs e)

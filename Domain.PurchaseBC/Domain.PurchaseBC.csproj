@@ -50,9 +50,11 @@
     <Compile Include="Aggregates\AircraftAgg\Aircraft.cs" />
     <Compile Include="Aggregates\AircraftAgg\AircraftSpecifications.cs" />
     <Compile Include="Aggregates\AircraftAgg\IAircraftRepository.cs" />
+    <Compile Include="Aggregates\AircraftPlanHistoryAgg\PlanHistory.cs" />
     <Compile Include="Aggregates\AircraftTypeAgg\AircraftType.cs" />
     <Compile Include="Aggregates\AircraftTypeAgg\AircraftTypeSpecifications.cs" />
     <Compile Include="Aggregates\AircraftTypeAgg\IAircraftTypeRepository.cs" />
+    <Compile Include="Aggregates\AnnualAgg\Annual.cs" />
     <Compile Include="Aggregates\BankAccountAgg\BankAccount.cs" />
     <Compile Include="Aggregates\BankAccountAgg\BankAccountFactory.cs" />
     <Compile Include="Aggregates\BankAccountAgg\BankAccountSpecifications.cs" />

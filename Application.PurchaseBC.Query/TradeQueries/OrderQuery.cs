@@ -85,7 +85,9 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                             CSCNumber = contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).CSCNumber,
                             SerialNumber =
                                 contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).SerialNumber,
-                            Status = (int) contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).Status
+                            Status = (int) contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).Status,
+                            PlanAircraftID =
+                                contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).PlanAircraftID
                         }).ToList(),
                     ContractContents = o.ContractContents.Select(c => new ContractContentDTO
                     {
@@ -153,7 +155,9 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                             CSCNumber = contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).CSCNumber,
                             SerialNumber =
                                 contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).SerialNumber,
-                            Status = (int) contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).Status
+                            Status = (int) contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).Status,
+                            PlanAircraftID =
+                                contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).PlanAircraftID
                         }).ToList(),
                     ContractContents = o.ContractContents.Select(c => new ContractContentDTO
                     {

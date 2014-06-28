@@ -15,10 +15,14 @@
 
 #endregion
 
+#region 命名空间
+
 using System;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
+
+#endregion
 
 namespace UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg
 {
@@ -61,6 +65,11 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg
         #region 外键属性
 
         /// <summary>
+        ///     合同飞机外键
+        /// </summary>
+        public int? ContractAircraftId { get; private set; }
+
+        /// <summary>
         ///     实际飞机外键
         /// </summary>
         public Guid? AircraftId { get; protected set; }
@@ -92,6 +101,17 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置合同飞机ID
+        /// </summary>
+        /// <param name="contractAircraftId">合同飞机ID</param>
+        public void SetContractAircraftId(int contractAircraftId)
+        {
+            if (contractAircraftId == 0 || contractAircraftId == int.MinValue || contractAircraftId == int.MaxValue)
+                throw new ArgumentNullException("contractAircraftId");
+            ContractAircraftId = contractAircraftId;
+        }
 
         #endregion
     }
