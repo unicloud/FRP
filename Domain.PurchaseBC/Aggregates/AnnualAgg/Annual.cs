@@ -24,6 +24,14 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.AnnualAgg
     {
         #region 构造函数
 
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能从内部创建新实例
+        /// </summary>
+        internal Annual()
+        {
+        }
+
         #endregion
 
         #region 属性

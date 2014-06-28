@@ -18,6 +18,7 @@
 
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
+using UniCloud.Domain.PurchaseBC.Aggregates.AircraftPlanHistoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Infrastructure.Data;
 
@@ -44,7 +45,7 @@ namespace UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries
         /// <returns>PlanAircraftDTO集合</returns>
         public IQueryable<PlanAircraftDTO> PlanAircraftDTOQuery(QueryBuilder<PlanAircraft> query)
         {
-            //var planHistories=_unitOfWork.CreateSet<plan>()
+            var planHistories = _unitOfWork.CreateSet<PlanHistory>().OrderBy(p=>p.PerformAnnual.Year);
             return query.ApplyTo(_unitOfWork.CreateSet<PlanAircraft>()).Select(p => new PlanAircraftDTO
             {
                 Id = p.Id,
