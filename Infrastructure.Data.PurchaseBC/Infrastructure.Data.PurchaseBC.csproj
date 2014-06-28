@@ -96,6 +96,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftPurchaseSupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirframeMaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AnnualEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainContractEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BankAccountEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BFEMaterialEntityConfiguration.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\OtherSupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PartEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PlanAircraftEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PlanHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractEngineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionEntityConfiguration.cs" />

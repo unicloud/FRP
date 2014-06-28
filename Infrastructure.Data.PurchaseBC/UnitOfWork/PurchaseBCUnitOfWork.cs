@@ -20,7 +20,9 @@
 using System.Data.Entity;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.AircraftPlanHistoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftBFEAgg;
@@ -55,6 +57,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         private IDbSet<ActionCategory> _actionCategories;
         private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<Aircraft> _aircrafts;
+        private IDbSet<Annual> _annuals;
         private IDbSet<BankAccount> _bankAccounts;
         private IDbSet<ContractAircraftBFE> _contractAircraftBfes;
         private IDbSet<ContractAircraft> _contractAircrafts;
@@ -70,6 +73,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         private IDbSet<Order> _orders;
         private IDbSet<Part> _parts;
         private IDbSet<PlanAircraft> _planAircrafts;
+        private IDbSet<PlanHistory> _planHistories;
         private IDbSet<Reception> _receptions;
         private IDbSet<RelatedDoc> _relatedDocs;
         private IDbSet<SupplierCompany> _supplierCompanies;
@@ -91,6 +95,11 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         public IDbSet<AircraftType> AircraftTypes
         {
             get { return _aircraftTypes ?? (_aircraftTypes = base.Set<AircraftType>()); }
+        }
+
+        public IDbSet<Annual> Annuals
+        {
+            get { return _annuals ?? (_annuals = base.Set<Annual>()); }
         }
 
         public IDbSet<BankAccount> BankAccounts
@@ -166,6 +175,11 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         public IDbSet<PlanAircraft> PlanAircrafts
         {
             get { return _planAircrafts ?? (_planAircrafts = base.Set<PlanAircraft>()); }
+        }
+
+        public IDbSet<PlanHistory> PlanHistories
+        {
+            get { return _planHistories ?? (_planHistories = base.Set<PlanHistory>()); }
         }
 
         public IDbSet<Reception> Receptions

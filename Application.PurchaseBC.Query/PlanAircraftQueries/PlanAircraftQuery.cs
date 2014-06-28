@@ -44,6 +44,7 @@ namespace UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries
         /// <returns>PlanAircraftDTO集合</returns>
         public IQueryable<PlanAircraftDTO> PlanAircraftDTOQuery(QueryBuilder<PlanAircraft> query)
         {
+            //var planHistories=_unitOfWork.CreateSet<plan>()
             return query.ApplyTo(_unitOfWork.CreateSet<PlanAircraft>()).Select(p => new PlanAircraftDTO
             {
                 Id = p.Id,

@@ -56,6 +56,26 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// </summary>
         public string AircraftTypeName { get; set; }
 
+        /// <summary>
+        ///     执行年度
+        /// </summary>
+        public int PerformAnnual { get; set; }
+
+        /// <summary>
+        ///     执行月份
+        /// </summary>
+        public int PerformMonth { get; set; }
+
+        /// <summary>
+        ///     活动类型
+        /// </summary>
+        public string ActionType { get; set; }
+
+        /// <summary>
+        ///     活动类型名称
+        /// </summary>
+        public string ActionName { get; set; }
+
         #endregion
 
         #region 外键属性
