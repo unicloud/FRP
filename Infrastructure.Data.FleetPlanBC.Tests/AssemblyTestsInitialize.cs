@@ -18,8 +18,10 @@
 #region 命名空间
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
@@ -43,6 +45,8 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Tests
                 .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .Register<IModelConfiguration, SqlConfigurations>("Sql")
                 .Register<IAirlinesRepository, AirlinesRepository>()
+                .Register<IAnnualRepository, AnnualRepository>()
+                .Register<IPlanRepository, PlanRepository>()
                 .Register<IAircraftTypeRepository, AircraftTypeRepository>()
                 .Register<IPlanAircraftRepository, PlanAircraftRepository>();
         }
