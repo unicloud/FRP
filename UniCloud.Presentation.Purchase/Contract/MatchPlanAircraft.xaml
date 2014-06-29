@@ -17,9 +17,10 @@
     </telerik:RadWindow.Resources>
 
     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="{x:Null}">
-        <Grid Width="600" Height="400">
+        <Grid Width="800" Height="600">
             <Grid.RowDefinitions>
                 <RowDefinition />
+                <RowDefinition Height="200" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <telerik:RadGridView ItemsSource="{Binding ViewPlanAircraftDTO}" Margin="0,1,0,0"
@@ -42,7 +43,28 @@
                     <telerik:GridViewDataColumn Header="是否自有" DataMemberBinding="{Binding IsOwn}" />
                 </telerik:RadGridView.Columns>
             </telerik:RadGridView>
-            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <telerik:RadGridView Grid.Row="1" ItemsSource="{Binding ViewPlanHistoryDTO}" 
+                                 ShowGroupPanel="False" IsFilteringAllowed="False">
+                <telerik:RadContextMenu.ContextMenu>
+                    <telerik:RadContextMenu>
+                        <telerik:RadMenuItem Header="导出Excel"
+                                             Command="{Binding ExcelExportCommand}"
+                                             CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                        <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
+                                             CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                    </telerik:RadContextMenu>
+                </telerik:RadContextMenu.ContextMenu>
+                <telerik:RadGridView.Columns>
+                    <uc:DataPageSerialColumn Header="序号" />
+                    <telerik:GridViewDataColumn Header="计划年度" DataMemberBinding="{Binding PlanYear}" />
+                    <telerik:GridViewDataColumn Header="版本号" DataMemberBinding="{Binding VersionNumber}" />
+                    <telerik:GridViewDataColumn Header="执行年度" DataMemberBinding="{Binding PerformAnnual}" />
+                    <telerik:GridViewDataColumn Header="执行月份" DataMemberBinding="{Binding PerformMonth}" />
+                    <telerik:GridViewDataColumn Header="活动类型" DataMemberBinding="{Binding ActionType}" />
+                    <telerik:GridViewDataColumn Header="活动名称" DataMemberBinding="{Binding ActionName}" />
+                </telerik:RadGridView.Columns>
+            </telerik:RadGridView>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
                 <telerik:RadButton Content="确认" Command="{Binding OkCommand}" Width="60" Margin="10,0,5,0" />
                 <telerik:RadButton Content="取消" Command="{Binding CancelCommand}" Width="60" Margin="5,0,10,0" />
             </StackPanel>

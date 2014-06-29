@@ -146,6 +146,19 @@
         <Property Name="AircraftId" Type="Edm.Guid" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
+      <EntityType Name="PlanHistoryDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="PlanAircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="PlanYear" Type="Edm.Int32" Nullable="false" />
+        <Property Name="VersionNumber" Type="Edm.Int32" Nullable="false" />
+        <Property Name="PerformAnnual" Type="Edm.Int32" Nullable="false" />
+        <Property Name="PerformMonth" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ActionType" Type="Edm.String" />
+        <Property Name="ActionName" Type="Edm.String" />
+      </EntityType>
       <EntityType Name="ContractAircraftDTO">
         <Key>
           <PropertyRef Name="ContractNumber" />
@@ -876,6 +889,7 @@
         <EntitySet Name="AircraftTypes" EntityType="UniCloud.Application.PurchaseBC.DTO.AircraftTypeDTO" />
         <EntitySet Name="ActionCategories" EntityType="UniCloud.Application.PurchaseBC.DTO.ActionCategoryDTO" />
         <EntitySet Name="PlanAircrafts" EntityType="UniCloud.Application.PurchaseBC.DTO.PlanAircraftDTO" />
+        <EntitySet Name="PlanHistories" EntityType="UniCloud.Application.PurchaseBC.DTO.PlanHistoryDTO" />
         <EntitySet Name="ContractAircrafts" EntityType="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO" />
         <EntitySet Name="LeaseContractAircrafts" EntityType="UniCloud.Application.PurchaseBC.DTO.LeaseContractAircraftDTO" />
         <EntitySet Name="PurchaseContractAircrafts" EntityType="UniCloud.Application.PurchaseBC.DTO.PurchaseContractAircraftDTO" />

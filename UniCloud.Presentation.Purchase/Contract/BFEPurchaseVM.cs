@@ -33,7 +33,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof(BFEPurchaseVM))]
+    [Export(typeof (BFEPurchaseVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class BFEPurchaseVM : EditViewModelBase
     {
@@ -118,11 +118,9 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return _contentReadOnly; }
             private set
             {
-                if (_contentReadOnly != value)
-                {
-                    _contentReadOnly = value;
-                    RaisePropertyChanged(() => ContentReadOnly);
-                }
+                if (_contentReadOnly == value) return;
+                _contentReadOnly = value;
+                RaisePropertyChanged(() => ContentReadOnly);
             }
         }
 
@@ -167,29 +165,18 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return _selTradeDTO; }
             private set
             {
-                if (_selTradeDTO != value)
+                if (_selTradeDTO == value) return;
+                _selTradeDTO = value;
+                if (_selTradeDTO != null)
                 {
-                    if (_selTradeDTO != value)
-                    {
-                        _selTradeDTO = value;
-                        if (_selTradeDTO != null)
-                        {
-                            _orderDescriptor.Value = _selTradeDTO.Id;
-                            RaisePropertyChanged(() => BFEMaterials);
-                        }
-                        else
-                        {
-                            _orderDescriptor.Value = -1;
-                        }
-                        if (!ViewBFEPurchaseOrderDTO.AutoLoad)
-                        {
-                            ViewBFEPurchaseOrderDTO.AutoLoad = true;
-                        }
-                        RaisePropertyChanged(() => SelTradeDTO);
-                        // 刷新按钮状态
-                        RefreshCommandState();
-                    }
+                    _orderDescriptor.Value = _selTradeDTO.Id;
+                    RaisePropertyChanged(() => BFEMaterials);
                 }
+                if (!ViewBFEPurchaseOrderDTO.AutoLoad)
+                    ViewBFEPurchaseOrderDTO.AutoLoad = true;
+                RaisePropertyChanged(() => SelTradeDTO);
+                // 刷新按钮状态
+                RefreshCommandState();
             }
         }
 
@@ -203,11 +190,6 @@ namespace UniCloud.Presentation.Purchase.Contract
             _tradeDescriptor2 = new FilterDescriptor("TradeType", FilterOperator.IsEqualTo, TradeType);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor1);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor2);
-            ViewTradeDTO.LoadedData += (o, e) =>
-                                       {
-                                           if (SelTradeDTO == null)
-                                               SelTradeDTO = ViewTradeDTO.FirstOrDefault();
-                                       };
             _service.RegisterCollectionView(ViewTradeDTO);
         }
 
@@ -230,15 +212,13 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return _selBFEPurchaseOrderDTO; }
             private set
             {
-                if (_selBFEPurchaseOrderDTO != value)
-                {
-                    _selBFEPurchaseOrderDTO = value;
-                    if (_selBFEPurchaseOrderDTO != null)
-                        SelBFEPurchaseOrderLineDTO = _selBFEPurchaseOrderDTO.BFEPurchaseOrderLines.FirstOrDefault();
-                    RaisePropertyChanged(() => SelBFEPurchaseOrderDTO);
-                    // 刷新按钮状态
-                    RefreshCommandState();
-                }
+                if (_selBFEPurchaseOrderDTO == value) return;
+                _selBFEPurchaseOrderDTO = value;
+                if (_selBFEPurchaseOrderDTO != null)
+                    SelBFEPurchaseOrderLineDTO = _selBFEPurchaseOrderDTO.BFEPurchaseOrderLines.FirstOrDefault();
+                RaisePropertyChanged(() => SelBFEPurchaseOrderDTO);
+                // 刷新按钮状态
+                RefreshCommandState();
             }
         }
 
@@ -252,11 +232,6 @@ namespace UniCloud.Presentation.Purchase.Contract
                 o => o.BFEPurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
             _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
             ViewBFEPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
-            ViewBFEPurchaseOrderDTO.LoadedData += (o, e) =>
-                                                  {
-                                                      if (SelBFEPurchaseOrderDTO == null)
-                                                          SelBFEPurchaseOrderDTO = ViewBFEPurchaseOrderDTO.FirstOrDefault();
-                                                  };
             _service.RegisterCollectionView(ViewBFEPurchaseOrderDTO);
         }
 
@@ -274,13 +249,11 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return _selBFEPurchaseOrderLineDTO; }
             private set
             {
-                if (_selBFEPurchaseOrderLineDTO != value)
-                {
-                    _selBFEPurchaseOrderLineDTO = value;
-                    RaisePropertyChanged(() => SelBFEPurchaseOrderLineDTO);
-                    // 刷新按钮状态
-                    RefreshCommandState();
-                }
+                if (_selBFEPurchaseOrderLineDTO == value) return;
+                _selBFEPurchaseOrderLineDTO = value;
+                RaisePropertyChanged(() => SelBFEPurchaseOrderLineDTO);
+                // 刷新按钮状态
+                RefreshCommandState();
             }
         }
 
@@ -298,14 +271,12 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return _selContractContentDTO; }
             private set
             {
-                if (_selContractContentDTO != value)
-                {
-                    _selContractContentDTO = value;
-                    RaisePropertyChanged(() => SelContractContentDTO);
-                    ContentReadOnly = _selContractContentDTO == null;
-                    // 刷新按钮状态
-                    RefreshCommandState();
-                }
+                if (_selContractContentDTO == value) return;
+                _selContractContentDTO = value;
+                RaisePropertyChanged(() => SelContractContentDTO);
+                ContentReadOnly = _selContractContentDTO == null;
+                // 刷新按钮状态
+                RefreshCommandState();
             }
         }
 
@@ -442,11 +413,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                ViewTradeDTO.Remove(SelTradeDTO);
-                                                SelTradeDTO = ViewTradeDTO.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                ViewTradeDTO.Remove(SelTradeDTO);
+                SelTradeDTO = ViewTradeDTO.FirstOrDefault();
+            });
         }
 
         private bool CanRemoveTrade(object obj)
@@ -479,7 +450,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (currency != null)
                     SelBFEPurchaseOrderDTO.CurrencyId = currency.Id;
                 ViewBFEPurchaseOrderDTO.AddNew(SelBFEPurchaseOrderDTO);
-                SelTradeDTO.Status = (int)TradeStatus.进行中;
+                SelTradeDTO.Status = (int) TradeStatus.进行中;
             }
             else
             {
@@ -549,11 +520,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                ViewBFEPurchaseOrderDTO.Remove(SelBFEPurchaseOrderDTO);
-                                                SelBFEPurchaseOrderDTO = ViewBFEPurchaseOrderDTO.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                ViewBFEPurchaseOrderDTO.Remove(SelBFEPurchaseOrderDTO);
+                SelBFEPurchaseOrderDTO = ViewBFEPurchaseOrderDTO.FirstOrDefault();
+            });
         }
 
         private bool CanRemoveOrder(object obj)
@@ -633,12 +604,12 @@ namespace UniCloud.Presentation.Purchase.Contract
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SelBFEPurchaseOrderDTO.BFEPurchaseOrderLines.Remove(SelBFEPurchaseOrderLineDTO);
-                                                SelBFEPurchaseOrderLineDTO = SelBFEPurchaseOrderDTO.BFEPurchaseOrderLines.FirstOrDefault();
-                                                RemoveOrderCommand.RaiseCanExecuteChanged();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SelBFEPurchaseOrderDTO.BFEPurchaseOrderLines.Remove(SelBFEPurchaseOrderLineDTO);
+                SelBFEPurchaseOrderLineDTO = SelBFEPurchaseOrderDTO.BFEPurchaseOrderLines.FirstOrDefault();
+                RemoveOrderCommand.RaiseCanExecuteChanged();
+            });
         }
 
         private bool CanRemoveOrderLine(object obj)
@@ -680,11 +651,9 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveContent(object obj)
         {
-            if (SelContractContentDTO != null)
-            {
-                SelBFEPurchaseOrderDTO.ContractContents.Remove(SelContractContentDTO);
-                SelContractContentDTO = SelBFEPurchaseOrderDTO.ContractContents.FirstOrDefault();
-            }
+            if (SelContractContentDTO == null) return;
+            SelBFEPurchaseOrderDTO.ContractContents.Remove(SelContractContentDTO);
+            SelContractContentDTO = SelBFEPurchaseOrderDTO.ContractContents.FirstOrDefault();
         }
 
         private bool CanRemoveContent(object obj)
@@ -703,7 +672,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnCommit(object obj)
         {
-            SelBFEPurchaseOrderDTO.Status = (int)OrderStatus.待审核;
+            SelBFEPurchaseOrderDTO.Status = (int) OrderStatus.待审核;
             // 刷新按钮状态
             RefreshCommandState();
         }
@@ -724,7 +693,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnCheck(object obj)
         {
-            SelBFEPurchaseOrderDTO.Status = (int)OrderStatus.已审核;
+            SelBFEPurchaseOrderDTO.Status = (int) OrderStatus.已审核;
             // 刷新按钮状态
             RefreshCommandState();
         }

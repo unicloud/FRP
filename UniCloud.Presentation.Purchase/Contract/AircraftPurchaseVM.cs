@@ -122,11 +122,9 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return _contentReadOnly; }
             private set
             {
-                if (_contentReadOnly != value)
-                {
-                    _contentReadOnly = value;
-                    RaisePropertyChanged(() => ContentReadOnly);
-                }
+                if (_contentReadOnly == value) return;
+                _contentReadOnly = value;
+                RaisePropertyChanged(() => ContentReadOnly);
             }
         }
 
@@ -173,26 +171,18 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return _selTradeDTO; }
             private set
             {
-                if (_selTradeDTO != value)
+                if (_selTradeDTO == value) return;
+                _selTradeDTO = value;
+                if (_selTradeDTO != null)
                 {
-                    _selTradeDTO = value;
-                    if (_selTradeDTO != null)
-                    {
-                        _orderDescriptor.Value = _selTradeDTO.Id;
-                        RaisePropertyChanged(() => AircraftMaterials);
-                    }
-                    else
-                    {
-                        _orderDescriptor.Value = -1;
-                    }
-                    if (!ViewAircraftPurchaseOrderDTO.AutoLoad)
-                    {
-                        ViewAircraftPurchaseOrderDTO.AutoLoad = true;
-                    }
-                    RaisePropertyChanged(() => SelTradeDTO);
-                    // 刷新按钮状态
-                    RefreshCommandState();
+                    _orderDescriptor.Value = _selTradeDTO.Id;
+                    RaisePropertyChanged(() => AircraftMaterials);
                 }
+                if (!ViewAircraftPurchaseOrderDTO.AutoLoad)
+                    ViewAircraftPurchaseOrderDTO.AutoLoad = true;
+                RaisePropertyChanged(() => SelTradeDTO);
+                // 刷新按钮状态
+                RefreshCommandState();
             }
         }
 
@@ -206,11 +196,6 @@ namespace UniCloud.Presentation.Purchase.Contract
             _tradeDescriptor2 = new FilterDescriptor("TradeType", FilterOperator.IsEqualTo, TradeType);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor1);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor2);
-            ViewTradeDTO.LoadedData += (o, e) =>
-            {
-                if (SelTradeDTO == null)
-                    SelTradeDTO = ViewTradeDTO.FirstOrDefault();
-            };
             _service.RegisterCollectionView(ViewTradeDTO);
         }
 
@@ -233,16 +218,14 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return _selAircraftPurchaseOrderDTO; }
             private set
             {
-                if (_selAircraftPurchaseOrderDTO != value)
-                {
-                    _selAircraftPurchaseOrderDTO = value;
-                    if (_selAircraftPurchaseOrderDTO != null)
-                        SelAircraftPurchaseOrderLineDTO =
-                            _selAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.FirstOrDefault();
-                    RaisePropertyChanged(() => SelAircraftPurchaseOrderDTO);
-                    // 刷新按钮状态
-                    RefreshCommandState();
-                }
+                if (_selAircraftPurchaseOrderDTO == value) return;
+                _selAircraftPurchaseOrderDTO = value;
+                if (_selAircraftPurchaseOrderDTO != null)
+                    SelAircraftPurchaseOrderLineDTO =
+                        _selAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.FirstOrDefault();
+                RaisePropertyChanged(() => SelAircraftPurchaseOrderDTO);
+                // 刷新按钮状态
+                RefreshCommandState();
             }
         }
 
@@ -256,11 +239,6 @@ namespace UniCloud.Presentation.Purchase.Contract
                 o => o.AircraftPurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
             _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
             ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
-            ViewAircraftPurchaseOrderDTO.LoadedData += (o, e) =>
-            {
-                if (SelAircraftPurchaseOrderDTO == null)
-                    SelAircraftPurchaseOrderDTO = ViewAircraftPurchaseOrderDTO.FirstOrDefault();
-            };
             _service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
         }
 
@@ -278,13 +256,11 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return _selAircraftPurchaseOrderLineDTO; }
             private set
             {
-                if (_selAircraftPurchaseOrderLineDTO != value)
-                {
-                    _selAircraftPurchaseOrderLineDTO = value;
-                    RaisePropertyChanged(() => SelAircraftPurchaseOrderLineDTO);
-                    // 刷新按钮状态
-                    RefreshCommandState();
-                }
+                if (_selAircraftPurchaseOrderLineDTO == value) return;
+                _selAircraftPurchaseOrderLineDTO = value;
+                RaisePropertyChanged(() => SelAircraftPurchaseOrderLineDTO);
+                // 刷新按钮状态
+                RefreshCommandState();
             }
         }
 
@@ -302,14 +278,12 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return _selContractContentDTO; }
             private set
             {
-                if (_selContractContentDTO != value)
-                {
-                    _selContractContentDTO = value;
-                    RaisePropertyChanged(() => SelContractContentDTO);
-                    ContentReadOnly = _selContractContentDTO == null;
-                    // 刷新按钮状态
-                    RefreshCommandState();
-                }
+                if (_selContractContentDTO == value) return;
+                _selContractContentDTO = value;
+                RaisePropertyChanged(() => SelContractContentDTO);
+                ContentReadOnly = _selContractContentDTO == null;
+                // 刷新按钮状态
+                RefreshCommandState();
             }
         }
 
@@ -744,11 +718,9 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveContent(object obj)
         {
-            if (SelContractContentDTO != null)
-            {
-                SelAircraftPurchaseOrderDTO.ContractContents.Remove(SelContractContentDTO);
-                SelContractContentDTO = SelAircraftPurchaseOrderDTO.ContractContents.FirstOrDefault();
-            }
+            if (SelContractContentDTO == null) return;
+            SelAircraftPurchaseOrderDTO.ContractContents.Remove(SelContractContentDTO);
+            SelContractContentDTO = SelAircraftPurchaseOrderDTO.ContractContents.FirstOrDefault();
         }
 
         private bool CanRemoveContent(object obj)
@@ -809,9 +781,6 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnMatchPlanAc(object obj)
         {
-            //var planAircraftWin = ServiceLocator.Current.GetInstance<MatchPlanAircraft>();
-            //planAircraftWin.ViewModel.InitData(p => WinClosed(p, obj), ViewPlanAircraftDTO);
-            //planAircraftWin.ShowDialog();
             var matchedPlanAircrafts =
                 SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Where(ol => ol.PlanAircraftID != null)
                     .Select(ol => ol.PlanAircraftID);
