@@ -209,6 +209,14 @@ namespace UniCloud.DistributedServices.Purchase
             get { return _planAircraftAppService.GetPlanAircrafts(); }
         }
 
+        /// <summary>
+        ///     计划历史明细集合
+        /// </summary>
+        public IQueryable<PlanHistoryDTO> PlanHistories
+        {
+            get { return _planAircraftAppService.GetPlanHistories(); }
+        }
+
         #endregion
 
         #region 合同飞机集合

@@ -21,6 +21,7 @@ using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries;
+using UniCloud.Domain.PurchaseBC.Aggregates.AircraftPlanHistoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
 
 #endregion
@@ -49,9 +50,18 @@ namespace UniCloud.Application.PurchaseBC.PlanAircraftServices
         /// <returns></returns>
         public IQueryable<PlanAircraftDTO> GetPlanAircrafts()
         {
-            var queryBuilder =
-                new QueryBuilder<PlanAircraft>();
+            var queryBuilder = new QueryBuilder<PlanAircraft>();
             return _planAircraftQuery.PlanAircraftDTOQuery(queryBuilder);
+        }
+
+        #endregion
+
+        #region PlanHistoryDTO
+
+        public IQueryable<PlanHistoryDTO> GetPlanHistories()
+        {
+            var query = new QueryBuilder<PlanHistory>();
+            return _planAircraftQuery.PlanHistoryDTOQuery(query);
         }
 
         #endregion
