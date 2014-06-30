@@ -16,8 +16,8 @@ namespace TestWindowsService
 {
     public partial class Form1 : Form
     {
-        private AircraftConfigBCUnitOfWork _acConfigUnitOfWork;
-        private FlightLogBCUnitOfWork _flightLogUnitofWork;
+        //private AircraftConfigBCUnitOfWork _acConfigUnitOfWork;
+        //private FlightLogBCUnitOfWork _flightLogUnitofWork;
         private PartBCUnitOfWork _partUnitofWork;
 
         public Form1()
@@ -29,8 +29,8 @@ namespace TestWindowsService
         private void InitializeContainer()
         {
             UniContainer.Create()
-                .Register<AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<FlightLogBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                //.Register<AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                //.Register<FlightLogBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .Register<PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .Register<IModelConfiguration, SqlConfigurations>("Sql");
         }
@@ -62,16 +62,16 @@ namespace TestWindowsService
 
         private void InitialContext()
         {
-            _acConfigUnitOfWork = UniContainer.Resolve<AircraftConfigBCUnitOfWork>();
+            //_acConfigUnitOfWork = UniContainer.Resolve<AircraftConfigBCUnitOfWork>();
             _partUnitofWork = UniContainer.Resolve<PartBCUnitOfWork>();
-            _flightLogUnitofWork = UniContainer.Resolve<FlightLogBCUnitOfWork>();
+            //_flightLogUnitofWork = UniContainer.Resolve<FlightLogBCUnitOfWork>();
         }
 
         private void DisposeContext()
         {
-            _acConfigUnitOfWork.Dispose();
+            //_acConfigUnitOfWork.Dispose();
             _partUnitofWork.Dispose();
-            _flightLogUnitofWork.Dispose();
+            //_flightLogUnitofWork.Dispose();
         }
 
         #region

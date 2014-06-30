@@ -141,8 +141,8 @@ namespace AmasisSyncWinService
         private static void InitializeContainer()
         {
             UniContainer.Create()
-                .Register<AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<FlightLogBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                //.Register<AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                //.Register<FlightLogBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .Register<PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .Register<IModelConfiguration, SqlConfigurations>("Sql");
         }
