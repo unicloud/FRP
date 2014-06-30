@@ -103,15 +103,9 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         public override void LoadData()
         {
             //// 将CollectionView的AutoLoad属性设为True
-            if (!FunctionItems.AutoLoad)
-            {
-                FunctionItems.AutoLoad = true;
-            }
-            if (!Roles.AutoLoad)
-            {
-                Roles.AutoLoad = true;
-            }
-            Roles.Load(true);
+            if (!FunctionItems.AutoLoad) FunctionItems.AutoLoad = true;
+            if (!Roles.AutoLoad) Roles.AutoLoad = true;
+            else Roles.Load(true);
         }
 
         #region 角色
