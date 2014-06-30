@@ -112,15 +112,18 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu2.SubFunctionItems.Add(menu21);
 
             var menu22 = FunctionItemFactory.CreateFunctionItem("执行运力规划", menu2.Id, 202, false, false, string.Empty);
-            var menu221 = FunctionItemFactory.CreateFunctionItem("维护申请", menu22.Id, 20201, true, false,
+            var menu221 = FunctionItemFactory.CreateFunctionItem("维护发改委指标", menu22.Id, 20201, true, false,
+                "UniCloud.Presentation.FleetPlan.Requests.ManageIndexAircraftView");
+            var menu222 = FunctionItemFactory.CreateFunctionItem("维护申请", menu22.Id, 20202, true, false,
                 "UniCloud.Presentation.FleetPlan.Requests.Request");
-            var menu222 = FunctionItemFactory.CreateFunctionItem("维护批文", menu22.Id, 20202, true, false,
+            var menu223 = FunctionItemFactory.CreateFunctionItem("维护批文", menu22.Id, 20203, true, false,
                 "UniCloud.Presentation.FleetPlan.Approvals.Approval");
-            var menu223 = FunctionItemFactory.CreateFunctionItem("完成计划", menu22.Id, 20203, true, false,
+            var menu224 = FunctionItemFactory.CreateFunctionItem("完成计划", menu22.Id, 20204, true, false,
                 "UniCloud.Presentation.FleetPlan.PerformFleetPlan.FleetPlanDeliver");
             menu22.SubFunctionItems.Add(menu221);
             menu22.SubFunctionItems.Add(menu222);
             menu22.SubFunctionItems.Add(menu223);
+            menu22.SubFunctionItems.Add(menu224);
             menu2.SubFunctionItems.Add(menu22);
 
             var menu23 = FunctionItemFactory.CreateFunctionItem("更新飞机数据", menu2.Id, 203, false, false, string.Empty);
@@ -145,7 +148,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu2.SubFunctionItems.Add(menu24);
 
             var menu25 = FunctionItemFactory.CreateFunctionItem("查询分析", menu2.Id, 205, false, false, string.Empty);
-            var menu251 = FunctionItemFactory.CreateFunctionItem("查询飞机档案", menu25.Id, 20501, true, false, string.Empty);
+            //var menu251 = FunctionItemFactory.CreateFunctionItem("查询飞机档案", menu25.Id, 20501, true, false, string.Empty);
             var menu252 = FunctionItemFactory.CreateFunctionItem("分析运力趋势", menu25.Id, 20502, true, false,
                 "UniCloud.Presentation.FleetPlan.QueryAnalyse.FleetTrend");
             var menu253 = FunctionItemFactory.CreateFunctionItem("分析客机运力趋势", menu25.Id, 20503, true, false,
@@ -158,7 +161,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
                 "UniCloud.Presentation.FleetPlan.QueryAnalyse.FleetStructure");
             var menu257 = FunctionItemFactory.CreateFunctionItem("分析飞机机龄", menu25.Id, 20507, true, false,
                 "UniCloud.Presentation.FleetPlan.QueryAnalyse.FleetAge");
-            menu25.SubFunctionItems.Add(menu251);
+            //menu25.SubFunctionItems.Add(menu251);
             menu25.SubFunctionItems.Add(menu252);
             menu25.SubFunctionItems.Add(menu253);
             menu25.SubFunctionItems.Add(menu254);
@@ -174,7 +177,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var menu3 = FunctionItemFactory.CreateFunctionItem("采购合同", null, 3, false, false, string.Empty);
             functionItems.Add(menu3);
 
-            var menu31 = FunctionItemFactory.CreateFunctionItem("维护物料", menu3.Id, 301, false, false,
+            var menu31 = FunctionItemFactory.CreateFunctionItem("管理物料", menu3.Id, 301, false, false,
                 "UniCloud.Presentation.Purchase.Supplier.ManageMaterial");
             menu3.SubFunctionItems.Add(menu31);
 
@@ -230,21 +233,18 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu3.SubFunctionItems.Add(menu34);
 
             var menu35 = FunctionItemFactory.CreateFunctionItem("管理接机", menu3.Id, 305, false, false, string.Empty);
-            var menu351 = FunctionItemFactory.CreateFunctionItem("匹配计划飞机", menu35.Id, 30501, true, false,
-                "UniCloud.Presentation.Purchase.Reception.MatchingPlanAircraftManager");
-            var menu352 = FunctionItemFactory.CreateFunctionItem("维护租赁飞机交付项目", menu35.Id, 30502, true, false,
+            var menu351 = FunctionItemFactory.CreateFunctionItem("维护租赁飞机交付项目", menu35.Id, 30501, true, false,
                 "UniCloud.Presentation.Purchase.Reception.AircraftLeaseReceptionManager");
-            var menu353 = FunctionItemFactory.CreateFunctionItem("维护采购飞机交付项目", menu35.Id, 30503, true, false,
+            var menu352 = FunctionItemFactory.CreateFunctionItem("维护采购飞机交付项目", menu35.Id, 30502, true, false,
                 "UniCloud.Presentation.Purchase.Reception.AircraftPurchaseReceptionManager");
-            var menu354 = FunctionItemFactory.CreateFunctionItem("维护租赁发动机交付项目", menu35.Id, 30504, true, false,
+            var menu353 = FunctionItemFactory.CreateFunctionItem("维护租赁发动机交付项目", menu35.Id, 30503, true, false,
                 "UniCloud.Presentation.Purchase.Reception.EngineLeaseReceptionManager");
-            var menu355 = FunctionItemFactory.CreateFunctionItem("维护采购发动机交付项目", menu35.Id, 30505, true, false,
+            var menu354 = FunctionItemFactory.CreateFunctionItem("维护采购发动机交付项目", menu35.Id, 30504, true, false,
                 "UniCloud.Presentation.Purchase.Reception.EnginePurchaseReceptionManager");
             menu35.SubFunctionItems.Add(menu351);
             menu35.SubFunctionItems.Add(menu352);
             menu35.SubFunctionItems.Add(menu353);
             menu35.SubFunctionItems.Add(menu354);
-            menu35.SubFunctionItems.Add(menu355);
             menu3.SubFunctionItems.Add(menu35);
 
             var menu36 = FunctionItemFactory.CreateFunctionItem("查询分析", menu3.Id, 306, false, false, string.Empty);
@@ -252,13 +252,13 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
                 "UniCloud.Presentation.Purchase.Contract.ManageContracts.ManageContract");
             var menu362 = FunctionItemFactory.CreateFunctionItem("查询合同", menu36.Id, 30602, true, false,
                 "UniCloud.Presentation.Purchase.Contract.QueryContracts.QueryContractMain");
-            var menu363 = FunctionItemFactory.CreateFunctionItem("分析飞机价格", menu36.Id, 30603, true, false,
-                "UniCloud.Presentation.Purchase.QueryAnalyse.AnalyseAircraftPrice");
-            var menu364 = FunctionItemFactory.CreateFunctionItem("分析发动机价格", menu36.Id, 30604, true, false, string.Empty);
+            //var menu363 = FunctionItemFactory.CreateFunctionItem("分析飞机价格", menu36.Id, 30603, true, false,
+            //    "UniCloud.Presentation.Purchase.QueryAnalyse.AnalyseAircraftPrice");
+            //var menu364 = FunctionItemFactory.CreateFunctionItem("分析发动机价格", menu36.Id, 30604, true, false, string.Empty);
             menu36.SubFunctionItems.Add(menu361);
             menu36.SubFunctionItems.Add(menu362);
-            menu36.SubFunctionItems.Add(menu363);
-            menu36.SubFunctionItems.Add(menu364);
+            //menu36.SubFunctionItems.Add(menu363);
+            //menu36.SubFunctionItems.Add(menu364);
             menu3.SubFunctionItems.Add(menu36);
 
             #endregion
@@ -284,19 +284,15 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu4.SubFunctionItems.Add(menu41);
 
             var menu42 = FunctionItemFactory.CreateFunctionItem("管理采购发票", menu4.Id, 402, false, false, string.Empty);
-            var menu421 = FunctionItemFactory.CreateFunctionItem("维护采购发票", menu42.Id, 40201, true, false,
-                "UniCloud.Presentation.Payment.Invoice.PurchaseInvoiceManager");
-            var menu422 = FunctionItemFactory.CreateFunctionItem("维护采购预付款发票", menu42.Id, 40202, true, false,
+            var menu421 = FunctionItemFactory.CreateFunctionItem("维护采购预付款发票", menu42.Id, 40201, true, false,
                 "UniCloud.Presentation.Payment.Invoice.PurchasePrepayInvoiceManager");
-            var menu423 = FunctionItemFactory.CreateFunctionItem("维护维修预付款发票", menu42.Id, 40203, true, false,
-                "UniCloud.Presentation.Payment.Invoice.MaintainPrepayInvoiceManager");
-            var menu424 = FunctionItemFactory.CreateFunctionItem("维护租赁发票", menu42.Id, 40204, true, false,
+            var menu422 = FunctionItemFactory.CreateFunctionItem("维护采购发票", menu42.Id, 40202, true, false,
+                "UniCloud.Presentation.Payment.Invoice.PurchaseInvoiceManager");
+            var menu423 = FunctionItemFactory.CreateFunctionItem("维护租赁发票", menu42.Id, 40203, true, false,
                 "UniCloud.Presentation.Payment.Invoice.LeaseInvoiceManager");
-            var menu425 = FunctionItemFactory.CreateFunctionItem("维护采购贷项单", menu42.Id, 40205, true, false,
+            var menu424 = FunctionItemFactory.CreateFunctionItem("维护采购贷项单", menu42.Id, 40204, true, false,
                 "UniCloud.Presentation.Payment.Invoice.PurchaseCreditNoteManager");
-            var menu426 = FunctionItemFactory.CreateFunctionItem("维护维修贷项单", menu42.Id, 40206, true, false,
-                "UniCloud.Presentation.Payment.Invoice.MaintainCreditNoteManager");
-            var menu427 = FunctionItemFactory.CreateFunctionItem("维护杂项发票", menu42.Id, 40207, true, false,
+            var menu425 = FunctionItemFactory.CreateFunctionItem("维护杂项发票", menu42.Id, 40205, true, false,
                 "UniCloud.Presentation.Payment.Invoice.SundryInvoiceManager");
 
             menu42.SubFunctionItems.Add(menu421);
@@ -304,26 +300,30 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu42.SubFunctionItems.Add(menu423);
             menu42.SubFunctionItems.Add(menu424);
             menu42.SubFunctionItems.Add(menu425);
-            menu42.SubFunctionItems.Add(menu426);
-            menu42.SubFunctionItems.Add(menu427);
             menu4.SubFunctionItems.Add(menu42);
 
             var menu43 = FunctionItemFactory.CreateFunctionItem("管理维修发票", menu4.Id, 403, false, false, string.Empty);
-            var menu431 = FunctionItemFactory.CreateFunctionItem("维护发动机维修发票", menu43.Id, 40301, true, false,
+            var menu431 = FunctionItemFactory.CreateFunctionItem("维护维修预付款发票", menu42.Id, 40301, true, false,
+                "UniCloud.Presentation.Payment.Invoice.MaintainPrepayInvoiceManager");
+            var menu432 = FunctionItemFactory.CreateFunctionItem("维护发动机维修发票", menu43.Id, 40302, true, false,
                 "UniCloud.Presentation.Payment.MaintainInvoice.EngineMaintain");
-            var menu432 = FunctionItemFactory.CreateFunctionItem("维护APU维修发票", menu43.Id, 40302, true, false,
+            var menu433 = FunctionItemFactory.CreateFunctionItem("维护APU维修发票", menu43.Id, 40303, true, false,
                 "UniCloud.Presentation.Payment.MaintainInvoice.APUMaintain");
-            var menu433 = FunctionItemFactory.CreateFunctionItem("维护起落架维修发票", menu43.Id, 40303, true, false,
+            var menu434 = FunctionItemFactory.CreateFunctionItem("维护起落架维修发票", menu43.Id, 40304, true, false,
                 "UniCloud.Presentation.Payment.MaintainInvoice.UndercartMaintain");
-            var menu434 = FunctionItemFactory.CreateFunctionItem("维护机身维修发票", menu43.Id, 40304, true, false,
+            var menu435 = FunctionItemFactory.CreateFunctionItem("维护机身维修发票", menu43.Id, 40305, true, false,
                 "UniCloud.Presentation.Payment.MaintainInvoice.AirframeMaintain");
-            var menu435 = FunctionItemFactory.CreateFunctionItem("维护特修改装发票", menu43.Id, 40305, true, false,
+            var menu436 = FunctionItemFactory.CreateFunctionItem("维护特修改装发票", menu43.Id, 40306, true, false,
                 "UniCloud.Presentation.Payment.MaintainInvoice.SpecialRefitInvoiceManager");
+            var menu437 = FunctionItemFactory.CreateFunctionItem("维护维修贷项单", menu42.Id, 40307, true, false,
+                "UniCloud.Presentation.Payment.Invoice.MaintainCreditNoteManager");
             menu43.SubFunctionItems.Add(menu431);
             menu43.SubFunctionItems.Add(menu432);
             menu43.SubFunctionItems.Add(menu433);
             menu43.SubFunctionItems.Add(menu434);
             menu43.SubFunctionItems.Add(menu435);
+            menu43.SubFunctionItems.Add(menu436);
+            menu43.SubFunctionItems.Add(menu437);
             menu4.SubFunctionItems.Add(menu43);
 
             var menu44 = FunctionItemFactory.CreateFunctionItem("维护付款通知", menu4.Id, 404, true, false,
@@ -339,18 +339,18 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu45.SubFunctionItems.Add(menu452);
             menu4.SubFunctionItems.Add(menu45);
 
-            var menu46 = FunctionItemFactory.CreateFunctionItem("管理飞机价格", menu4.Id, 406, false, false, string.Empty);
-            var menu461 = FunctionItemFactory.CreateFunctionItem("设置飞机价格公式", menu46.Id, 40601, true, false,
-                string.Empty);
-            var menu462 = FunctionItemFactory.CreateFunctionItem("设置发动机价格公式", menu46.Id, 40602, true, false,
-                string.Empty);
-            var menu463 = FunctionItemFactory.CreateFunctionItem("计算飞机价格", menu46.Id, 40603, true, false, string.Empty);
-            menu46.SubFunctionItems.Add(menu461);
-            menu46.SubFunctionItems.Add(menu462);
-            menu46.SubFunctionItems.Add(menu463);
-            menu4.SubFunctionItems.Add(menu46);
+            //var menu46 = FunctionItemFactory.CreateFunctionItem("管理飞机价格", menu4.Id, 406, false, false, string.Empty);
+            //var menu461 = FunctionItemFactory.CreateFunctionItem("设置飞机价格公式", menu46.Id, 40601, true, false,
+            //    string.Empty);
+            //var menu462 = FunctionItemFactory.CreateFunctionItem("设置发动机价格公式", menu46.Id, 40602, true, false,
+            //    string.Empty);
+            //var menu463 = FunctionItemFactory.CreateFunctionItem("计算飞机价格", menu46.Id, 40603, true, false, string.Empty);
+            //menu46.SubFunctionItems.Add(menu461);
+            //menu46.SubFunctionItems.Add(menu462);
+            //menu46.SubFunctionItems.Add(menu463);
+            //menu4.SubFunctionItems.Add(menu46);
 
-            var menu47 = FunctionItemFactory.CreateFunctionItem("维修成本", menu4.Id, 407, false, false, string.Empty);
+            var menu47 = FunctionItemFactory.CreateFunctionItem("分析维修成本", menu4.Id, 407, false, false, string.Empty);
             var menu471 = FunctionItemFactory.CreateFunctionItem("定检", menu47.Id, 40701, true, false,
                 "UniCloud.Presentation.Payment.MaintainCost.RegularCheckMaintainCostManage");
             var menu472 = FunctionItemFactory.CreateFunctionItem("非FHA.超包修", menu47.Id, 40702, true, false,
@@ -381,31 +381,28 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
                 "UniCloud.Presentation.Payment.QueryAnalyse.FinancingDemandForecast");
             var menu483 = FunctionItemFactory.CreateFunctionItem("分析付款计划执行", menu48.Id, 40803, true, false,
                 "UniCloud.Presentation.Payment.QueryAnalyse.PaymentScheduleExecute");
-            var menu484 = FunctionItemFactory.CreateFunctionItem("分析维修成本", menu48.Id, 40804, true, false,
-                "UniCloud.Presentation.Payment.QueryAnalyse.AnalyseMaintenanceCosts");
             menu48.SubFunctionItems.Add(menu481);
             menu48.SubFunctionItems.Add(menu482);
             menu48.SubFunctionItems.Add(menu483);
-            //menu48.SubFunctionItems.Add(menu484);
             menu4.SubFunctionItems.Add(menu48);
 
             #endregion
 
             #region 项目管理
 
-            var menu5 = FunctionItemFactory.CreateFunctionItem("项目管理", null, 5, false, false, string.Empty);
-            functionItems.Add(menu5);
+            //var menu5 = FunctionItemFactory.CreateFunctionItem("项目管理", null, 5, false, false, string.Empty);
+            //functionItems.Add(menu5);
 
-            var menu51 = FunctionItemFactory.CreateFunctionItem("配置工作组", menu5.Id, 501, true, false,
-                "UniCloud.Presentation.Project.Template.WorkGroup");
-            var menu52 = FunctionItemFactory.CreateFunctionItem("配置任务模板", menu5.Id, 502, true, false, string.Empty);
-            var menu53 = FunctionItemFactory.CreateFunctionItem("配置项目模板", menu5.Id, 503, true, false, string.Empty);
-            var menu54 = FunctionItemFactory.CreateFunctionItem("管理项目计划", menu5.Id, 504, true, false, string.Empty);
+            //var menu51 = FunctionItemFactory.CreateFunctionItem("配置工作组", menu5.Id, 501, true, false,
+            //    "UniCloud.Presentation.Project.Template.WorkGroup");
+            //var menu52 = FunctionItemFactory.CreateFunctionItem("配置任务模板", menu5.Id, 502, true, false, string.Empty);
+            //var menu53 = FunctionItemFactory.CreateFunctionItem("配置项目模板", menu5.Id, 503, true, false, string.Empty);
+            //var menu54 = FunctionItemFactory.CreateFunctionItem("管理项目计划", menu5.Id, 504, true, false, string.Empty);
 
-            menu5.SubFunctionItems.Add(menu51);
-            menu5.SubFunctionItems.Add(menu52);
-            menu5.SubFunctionItems.Add(menu53);
-            menu5.SubFunctionItems.Add(menu54);
+            //menu5.SubFunctionItems.Add(menu51);
+            //menu5.SubFunctionItems.Add(menu52);
+            //menu5.SubFunctionItems.Add(menu53);
+            //menu5.SubFunctionItems.Add(menu54);
 
             #endregion
 
@@ -429,7 +426,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
                 "UniCloud.Presentation.Part.BaseConfigurations.BaseConfiguration");
             menu7.SubFunctionItems.Add(menu71);
 
-            var menu72 = FunctionItemFactory.CreateFunctionItem("管理附件项", menu7.Id, 702, false, false,string.Empty);
+            var menu72 = FunctionItemFactory.CreateFunctionItem("管理附件项", menu7.Id, 702, false, false, string.Empty);
             var menu721 = FunctionItemFactory.CreateFunctionItem("维护附件项", menu72.Id, 70201, true, false,
                 "UniCloud.Presentation.Part.PnRegAndSnReg.PnRegView");
             var menu722 = FunctionItemFactory.CreateFunctionItem("管理装机控制信息", menu72.Id, 70202, true, false,
@@ -439,7 +436,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             menu7.SubFunctionItems.Add(menu72);
 
             var menu73 = FunctionItemFactory.CreateFunctionItem("管理件序号", menu7.Id, 703, false, false, string.Empty);
-            var menu731=FunctionItemFactory.CreateFunctionItem("管理件号",menu73.Id,70301,true,false,
+            var menu731 = FunctionItemFactory.CreateFunctionItem("管理件号", menu73.Id, 70301, true, false,
                 "UniCloud.Presentation.Part.PnRegAndSnReg.PnRegView");
             var menu732 = FunctionItemFactory.CreateFunctionItem("管理序号", menu73.Id, 70302, true, false,
                 "UniCloud.Presentation.Part.PnRegAndSnReg.SnRegView");
@@ -451,7 +448,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var menu741 = FunctionItemFactory.CreateFunctionItem("管理基本构型组", menu74.Id, 70401, true, false,
                 "UniCloud.Presentation.Part.EngineConfig.BasicConfigGroupView");
             var menu742 = FunctionItemFactory.CreateFunctionItem("管理特定选型", menu74.Id, 70402, true, false,
-                "UniCloud.Presentation.Part.EngineConfig.SpecialConfigView");
+                "UniCloud.Presentation.Part.EngineConfig.AircraftConfigView");
             var menu743 = FunctionItemFactory.CreateFunctionItem("比较构型差异", menu74.Id, 70403, true, false,
                 "UniCloud.Presentation.Part.EngineConfig.ConfigCompareView");
             menu74.SubFunctionItems.Add(menu741);
@@ -475,7 +472,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
                 "UniCloud.Presentation.Part.MaintainControl.ManageRemovalAndInstallationView");
             menu7.SubFunctionItems.Add(menu77);
 
-            var menu78 = FunctionItemFactory.CreateFunctionItem("维护在位信息", menu7.Id, 708, true, false, 
+            var menu78 = FunctionItemFactory.CreateFunctionItem("维护在位信息", menu7.Id, 708, true, false,
                 "UniCloud.Presentation.Part.ManageOnBoardSn.ManageOnBoardSn");
             menu7.SubFunctionItems.Add(menu78);
 
@@ -484,13 +481,17 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             //menu7.SubFunctionItems.Add(menu79);
 
             var menu710 = FunctionItemFactory.CreateFunctionItem("控制维修", menu7.Id, 710, false, false, string.Empty);
-            var menu7101 = FunctionItemFactory.CreateFunctionItem("查看控制方案", menu7.Id, 71001, true, false, 
+            var menu7101 = FunctionItemFactory.CreateFunctionItem("查看控制方案", menu7.Id, 71001, true, false,
                 "UniCloud.Presentation.Part.MaintainControl.QueryMaintainCtrlView");
-            var menu7102 = FunctionItemFactory.CreateFunctionItem("查询到寿日期", menu7.Id, 71002, true, false, 
+            var menu7102 = FunctionItemFactory.CreateFunctionItem("查询到寿日期", menu7.Id, 71002, true, false,
                 "UniCloud.Presentation.Part.MaintainControl.QueryLifeMonitorView");
             menu710.SubFunctionItems.Add(menu7101);
             menu710.SubFunctionItems.Add(menu7102);
             menu7.SubFunctionItems.Add(menu710);
+
+            var menu711 = FunctionItemFactory.CreateFunctionItem("租赁月度报表", menu7.Id, 711, true, false,
+                "UniCloud.Presentation.Part.Report.MonthlyUtilizationReport");
+            menu7.SubFunctionItems.Add(menu711);
 
             #endregion
 
@@ -535,12 +536,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
                 "UniCloud.Presentation.BaseManagement.ManagePermission.ManageFunctionsInRole");
             var menu913 = FunctionItemFactory.CreateFunctionItem("管理用户角色", menu91.Id, 90103, true, false,
                 "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUserInRole");
-            var menu914 = FunctionItemFactory.CreateFunctionItem("管理组织机构角色", menu91.Id, 90104, true, false,
-                "UniCloud.Presentation.BaseManagement.ManagePermission.ManageOrganizationInRole");
+            //var menu914 = FunctionItemFactory.CreateFunctionItem("管理组织机构角色", menu91.Id, 90104, true, false,
+            //    "UniCloud.Presentation.BaseManagement.ManagePermission.ManageOrganizationInRole");
             menu91.SubFunctionItems.Add(menu911);
             menu91.SubFunctionItems.Add(menu912);
             menu91.SubFunctionItems.Add(menu913);
-            menu91.SubFunctionItems.Add(menu914);
+            //menu91.SubFunctionItems.Add(menu914);
             menu9.SubFunctionItems.Add(menu91);
 
             var menu92 = FunctionItemFactory.CreateFunctionItem("管理运营资质", menu9.Id, 902, false, false, string.Empty);
@@ -557,12 +558,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
                 "UniCloud.Presentation.BaseManagement.ManageSubsidiary.BranchCompany");
             var menu932 = FunctionItemFactory.CreateFunctionItem("管理系统配置", menu93.Id, 90302, true, false,
                 "UniCloud.Presentation.BaseManagement.MaintainBaseSettings.ManageSystemConfig");
-            var menu933 = FunctionItemFactory.CreateFunctionItem("管理提醒策略", menu93.Id, 90303, true, false, string.Empty);
+            //var menu933 = FunctionItemFactory.CreateFunctionItem("管理提醒策略", menu93.Id, 90303, true, false, string.Empty);
             var menu934 = FunctionItemFactory.CreateFunctionItem("配置邮件账号", menu93.Id, 90304, true, false,
                 "UniCloud.Presentation.BaseManagement.MaintainBaseSettings.ConfigMailAddress");
             menu93.SubFunctionItems.Add(menu931);
             menu93.SubFunctionItems.Add(menu932);
-            menu93.SubFunctionItems.Add(menu933);
+            //menu93.SubFunctionItems.Add(menu933);
             menu93.SubFunctionItems.Add(menu934);
             menu9.SubFunctionItems.Add(menu93);
 
@@ -595,7 +596,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
                 new RoleFunction(admin.Id, menu911.Id),
                 new RoleFunction(admin.Id, menu912.Id),
                 new RoleFunction(admin.Id, menu913.Id),
-                new RoleFunction(admin.Id, menu914.Id)
             };
 
             roleFunctions.ForEach(rf => Context.RoleFunctions.Add(rf));
