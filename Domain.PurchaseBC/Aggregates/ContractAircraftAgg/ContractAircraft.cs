@@ -207,6 +207,15 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
         }
 
         /// <summary>
+        ///     设置计划飞机
+        /// </summary>
+        /// <param name="planAircraftId">计划飞机</param>
+        public void SetPlanAircraft(Guid? planAircraftId)
+        {
+            PlanAircraftID = planAircraftId;
+        }
+
+        /// <summary>
         ///     移除计划飞机
         /// </summary>
         public void RemovePlanAircraft()

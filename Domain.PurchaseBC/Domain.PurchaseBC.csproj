@@ -50,6 +50,8 @@
     <Compile Include="Aggregates\AircraftAgg\Aircraft.cs" />
     <Compile Include="Aggregates\AircraftAgg\AircraftSpecifications.cs" />
     <Compile Include="Aggregates\AircraftAgg\IAircraftRepository.cs" />
+    <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategory.cs" />
+    <Compile Include="Aggregates\AircraftCategoryAgg\IAircraftCategoryRepository.cs" />
     <Compile Include="Aggregates\AircraftPlanAgg\Plan.cs" />
     <Compile Include="Aggregates\AircraftPlanHistoryAgg\PlanHistory.cs" />
     <Compile Include="Aggregates\AircraftTypeAgg\AircraftType.cs" />

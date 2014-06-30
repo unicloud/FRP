@@ -19,6 +19,7 @@
 using System;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
+using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftPlanHistoryAgg;
@@ -36,10 +37,13 @@ namespace UniCloud.Application.PurchaseBC.PlanAircraftServices
     public class PlanAircraftAppService : ContextBoundObject, IPlanAircraftAppService
     {
         private readonly IPlanAircraftQuery _planAircraftQuery;
+        private readonly IPlanAircraftRepository _planAircraftRepository;
 
-        public PlanAircraftAppService(IPlanAircraftQuery planAircraftQuery)
+        public PlanAircraftAppService(IPlanAircraftQuery planAircraftQuery,
+            IPlanAircraftRepository planAircraftRepository)
         {
             _planAircraftQuery = planAircraftQuery;
+            _planAircraftRepository = planAircraftRepository;
         }
 
         #region PlanAircraftDTO
@@ -62,6 +66,13 @@ namespace UniCloud.Application.PurchaseBC.PlanAircraftServices
         {
             var query = new QueryBuilder<PlanHistory>();
             return _planAircraftQuery.PlanHistoryDTOQuery(query);
+        }
+
+        [Update(typeof (PlanAircraftDTO))]
+        public void UpdatePlanAircraft(PlanAircraftDTO dto)
+        {
+            var planAircraft = _planAircraftRepository.Get(dto.Id);
+            planAircraft.SetContractAircraftId(dto.ContractAircraftId);
         }
 
         #endregion

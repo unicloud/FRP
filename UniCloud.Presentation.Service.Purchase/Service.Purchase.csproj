@@ -126,12 +126,14 @@
     <Compile Include="Purchase\Enums\BFEStatus.cs" />
     <Compile Include="Purchase\Enums\ContractAircraftStatus.cs" />
     <Compile Include="Purchase\Enums\ContractEngineStatus.cs" />
+    <Compile Include="Purchase\Enums\ManageStatus.cs" />
     <Compile Include="Purchase\Enums\OrderStatus.cs" />
     <Compile Include="Purchase\Enums\ReceptionStatus.cs" />
     <Compile Include="Purchase\Enums\SupplierType.cs" />
     <Compile Include="Purchase\Enums\TradeStatus.cs" />
     <Compile Include="Purchase\ForwarderDTO.cs" />
     <Compile Include="Purchase\LinkmanDTO.cs" />
+    <Compile Include="Purchase\PlanAircraftDTO.cs" />
     <Compile Include="Purchase\TradeDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseService.cs" />

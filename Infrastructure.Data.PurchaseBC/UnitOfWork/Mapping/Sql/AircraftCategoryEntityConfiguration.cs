@@ -1,16 +1,17 @@
-﻿#region 版本信息
+﻿#region 版本控制
 
-/* ========================================================================
-// 版权所有 (C) 2013 UniCloud 
-//【本类功能概述】
+// =====================================================
+// 版权所有 (C) 2014 UniCloud 
+// 【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2013/12/28 10:33:59
-// 文件名：AircraftCategoryEntityConfiguration
+// 作者：丁志浩 时间：18:48
+// 方案：FRP
+// 项目：Infrastructure.Data.PurchaseBC
 // 版本：V1.0.0
-//
+// 
 // 修改者： 时间： 
 // 修改说明：
-// ========================================================================*/
+// =====================================================
 
 #endregion
 
@@ -18,11 +19,11 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.AircraftCategoryAgg;
 
 #endregion
 
-namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
+namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
 {
     /// <summary>
     ///     AircraftCategory实体相关配置

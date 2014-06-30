@@ -24,7 +24,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <telerik:RadGridView ItemsSource="{Binding ViewPlanAircraftDTO}" Margin="0,1,0,0"
-                                 SelectedItem="{Binding SelPlanAircraftDTO,Mode=TwoWay}"
+                                 SelectedItem="{Binding SelPlanAircraftDTO,Mode=TwoWay}" IsReadOnly="True"
                                  ShowGroupPanel="False" IsFilteringAllowed="False">
                 <telerik:RadContextMenu.ContextMenu>
                     <telerik:RadContextMenu>
@@ -37,14 +37,15 @@
                 </telerik:RadContextMenu.ContextMenu>
                 <telerik:RadGridView.Columns>
                     <uc:DataPageSerialColumn Header="序号" />
+                    <telerik:GridViewDataColumn Header="匹配" DataMemberBinding="{Binding IsMatched}" />
                     <telerik:GridViewDataColumn Header="座级" DataMemberBinding="{Binding Regional}" />
                     <telerik:GridViewDataColumn Header="机型" DataMemberBinding="{Binding AircraftTypeName}" />
-                    <telerik:GridViewDataColumn Header="管理状态" DataMemberBinding="{Binding Status}" />
+                    <telerik:GridViewDataColumn Header="管理状态" DataMemberBinding="{Binding ManageStatus}" />
                     <telerik:GridViewDataColumn Header="是否自有" DataMemberBinding="{Binding IsOwn}" />
                 </telerik:RadGridView.Columns>
             </telerik:RadGridView>
-            <telerik:RadGridView Grid.Row="1" ItemsSource="{Binding ViewPlanHistoryDTO}" 
-                                 ShowGroupPanel="False" IsFilteringAllowed="False">
+            <telerik:RadGridView Grid.Row="1" ItemsSource="{Binding SelPlanAircraftDTO.PlanHistories}" Margin="0,1,0,0"
+                                 ShowGroupPanel="False" IsFilteringAllowed="False" IsReadOnly="True">
                 <telerik:RadContextMenu.ContextMenu>
                     <telerik:RadContextMenu>
                         <telerik:RadMenuItem Header="导出Excel"

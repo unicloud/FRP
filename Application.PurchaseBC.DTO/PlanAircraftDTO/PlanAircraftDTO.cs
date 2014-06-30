@@ -17,6 +17,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -29,6 +30,8 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("Id")]
     public class PlanAircraftDTO
     {
+        private List<PlanHistoryDTO> _planHistories;
+
         #region 属性
 
         /// <summary>
@@ -52,9 +55,23 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public int Status { get; set; }
 
         /// <summary>
+        ///     座级
+        /// </summary>
+        public string Regional { get; set; }
+
+        /// <summary>
         ///     机型
         /// </summary>
         public string AircraftTypeName { get; set; }
+
+        /// <summary>
+        ///     计划历史明细集合
+        /// </summary>
+        public virtual List<PlanHistoryDTO> PlanHistories
+        {
+            get { return _planHistories ?? (_planHistories = new List<PlanHistoryDTO>()); }
+            set { _planHistories = value; }
+        }
 
         #endregion
 

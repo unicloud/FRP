@@ -46,6 +46,8 @@ namespace UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries
         /// <returns>PlanAircraftDTO集合</returns>
         public IQueryable<PlanAircraftDTO> PlanAircraftDTOQuery(QueryBuilder<PlanAircraft> query)
         {
+            var ps = _unitOfWork.CreateSet<Plan>();
+            var phs = _unitOfWork.CreateSet<PlanHistory>();
             return query.ApplyTo(_unitOfWork.CreateSet<PlanAircraft>()).Select(p => new PlanAircraftDTO
             {
                 Id = p.Id,
@@ -55,7 +57,21 @@ namespace UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries
                 IsLock = p.IsLock,
                 IsOwn = p.IsOwn,
                 Status = (int) p.Status,
+                Regional = p.AircraftType.AircraftCategory.Regional,
                 AircraftTypeName = p.AircraftType.Name,
+                PlanHistories = (from ph in phs
+                    join pl in ps on ph.PlanId equals pl.Id
+                    select new PlanHistoryDTO
+                    {
+                        Id = ph.Id,
+                        PlanAircraftId = ph.PlanAircraftId.Value,
+                        PlanYear = pl.Annual.Year,
+                        VersionNumber = pl.VersionNumber,
+                        PerformAnnual = ph.PerformAnnual.Year,
+                        PerformMonth = ph.PerformMonth,
+                        ActionType = ph.TargetCategory.ActionType,
+                        ActionName = ph.TargetCategory.ActionName
+                    }).Where(plh => plh.PlanAircraftId == p.Id).ToList()
             });
         }
 

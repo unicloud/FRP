@@ -64,6 +64,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
 
                 #endregion
 
+                #region AircraftCategoryAgg
+
+                .Add(new AircraftCategoryEntityConfiguration())
+                
+                #endregion
+
                 #region AircraftPlanHistoryAgg
 
                 .Add(new PlanHistoryEntityConfiguration())

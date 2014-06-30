@@ -43,7 +43,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         private readonly PurchaseData _context;
         private readonly IPurchaseService _service;
         private FilterDescriptor _orderDescriptor;
-        private FilterDescriptor _planAircraftDescriptor;
         private FilterDescriptor _tradeDescriptor1;
         private FilterDescriptor _tradeDescriptor2;
         [Import] public MatchPlanAircraft planAircraftView;
@@ -317,9 +316,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void InitializeViewPlanAircraftDTO()
         {
-            ViewPlanAircraftDTO = _service.CreateCollection(_context.PlanAircrafts);
-            _planAircraftDescriptor = new FilterDescriptor("ContractAircraftId", FilterOperator.IsEqualTo, null);
-            ViewPlanAircraftDTO.FilterDescriptors.Add(_planAircraftDescriptor);
+            ViewPlanAircraftDTO = _service.CreateCollection(_context.PlanAircrafts.Expand(p => p.PlanHistories));
             _service.RegisterCollectionView(ViewPlanAircraftDTO);
         }
 
@@ -338,7 +335,18 @@ namespace UniCloud.Presentation.Purchase.Contract
         private void WinClosed(PlanAircraftDTO planAircraft)
         {
             if (planAircraft != null)
+            {
+                if (_selAircraftLeaseOrderLineDTO.PlanAircraftID != null)
+                {
+                    var planAc =
+                        ViewPlanAircraftDTO.FirstOrDefault(
+                            pa => pa.Id == _selAircraftLeaseOrderLineDTO.PlanAircraftID);
+                    if (planAc != null)
+                        planAc.ContractAircraftId = null;
+                }
+                planAircraft.ContractAircraftId = _selAircraftLeaseOrderLineDTO.ContractAircraftId;
                 _selAircraftLeaseOrderLineDTO.PlanAircraftID = planAircraft.Id;
+            }
             planAircraftView.Close();
         }
 
@@ -777,9 +785,13 @@ namespace UniCloud.Presentation.Purchase.Contract
         private void OnMatchPlanAc(object obj)
         {
             var matchedPlanAircrafts =
-                SelAircraftLeaseOrderDTO.AircraftLeaseOrderLines.Where(ol => ol.PlanAircraftID != null)
+                _selAircraftLeaseOrderDTO.AircraftLeaseOrderLines.Where(ol => ol.PlanAircraftID != null)
                     .Select(ol => ol.PlanAircraftID);
-            var planAircrafts = ViewPlanAircraftDTO.Where(pa => !matchedPlanAircrafts.Contains(pa.Id)).ToList();
+            var planAircrafts =
+                ViewPlanAircraftDTO.Where(
+                    pa =>
+                        pa.Id == _selAircraftLeaseOrderLineDTO.PlanAircraftID ||
+                        !matchedPlanAircrafts.Contains(pa.Id)).ToList();
             planAircraftView.ViewModel.InitData(WinClosed, planAircrafts);
             planAircraftView.ShowDialog();
         }

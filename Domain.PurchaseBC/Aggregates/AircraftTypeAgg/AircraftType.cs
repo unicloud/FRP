@@ -17,8 +17,10 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.AircraftCategoryAgg;
 
 #endregion
 
@@ -57,6 +59,16 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg
         #endregion
 
         #region 外键属性
+
+        /// <summary>
+        ///     飞机类别
+        /// </summary>
+        public Guid AircraftCategoryId { get; protected set; }
+
+        /// <summary>
+        ///     飞机类别
+        /// </summary>
+        public virtual AircraftCategory AircraftCategory { get; set; }
 
         #endregion
 

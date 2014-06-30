@@ -330,6 +330,8 @@
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
+                                        <telerik:GridViewDataColumn Header="匹配" DataMemberBinding="{Binding IsMatched}"
+                                                                    IsReadOnly="true" />
                                         <telerik:GridViewComboBoxColumn Header="机型"
                                                                         DataMemberBinding="{Binding AircraftMaterialId}"
                                                                         ItemsSource="{Binding DataContext.AircraftMaterials, ElementName=LayoutRoot}"

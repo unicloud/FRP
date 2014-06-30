@@ -141,10 +141,12 @@
         <Property Name="IsLock" Type="Edm.Boolean" Nullable="false" />
         <Property Name="IsOwn" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Regional" Type="Edm.String" />
         <Property Name="AircraftTypeName" Type="Edm.String" />
         <Property Name="ContractAircraftId" Type="Edm.Int32" />
         <Property Name="AircraftId" Type="Edm.Guid" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
+        <NavigationProperty Name="PlanHistories" Relationship="UniCloud.Application.PurchaseBC.DTO.PlanAircraftDTO_PlanHistories" ToRole="PlanHistories" FromRole="PlanAircraftDTO" />
       </EntityType>
       <EntityType Name="PlanHistoryDTO">
         <Key>
@@ -824,6 +826,10 @@
         <Property Name="EnName" Type="Edm.String" />
         <Property Name="Type" Type="Edm.Int32" Nullable="false" />
       </EntityType>
+      <Association Name="PlanAircraftDTO_PlanHistories">
+        <End Type="UniCloud.Application.PurchaseBC.DTO.PlanHistoryDTO" Role="PlanHistories" Multiplicity="*" />
+        <End Type="UniCloud.Application.PurchaseBC.DTO.PlanAircraftDTO" Role="PlanAircraftDTO" Multiplicity="*" />
+      </Association>
       <Association Name="ContractAircraftDTO_BFEPurchaseOrders">
         <End Type="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO" Role="ContractAircraftDTO" Multiplicity="*" />
         <End Type="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" Role="BFEPurchaseOrders" Multiplicity="*" />
@@ -940,6 +946,10 @@
         <FunctionImport Name="SearchContractDocument" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.ContractDocumentDTO)" EntitySet="ContractDocuments" m:HttpMethod="GET">
           <Parameter Name="keyword" Type="Edm.String" />
         </FunctionImport>
+        <AssociationSet Name="PlanAircraftDTO_PlanHistories" Association="UniCloud.Application.PurchaseBC.DTO.PlanAircraftDTO_PlanHistories">
+          <End Role="PlanAircraftDTO" EntitySet="PlanAircrafts" />
+          <End Role="PlanHistories" EntitySet="PlanHistories" />
+        </AssociationSet>
         <AssociationSet Name="ContractAircraftDTO_BFEPurchaseOrders" Association="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO_BFEPurchaseOrders">
           <End Role="ContractAircraftDTO" EntitySet="ContractAircrafts" />
           <End Role="BFEPurchaseOrders" EntitySet="BFEPurchaseOrders" />

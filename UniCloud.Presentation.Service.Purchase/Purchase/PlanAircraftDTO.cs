@@ -1,10 +1,10 @@
-﻿#region 版本信息
+﻿#region 版本控制
 
 // =====================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/17，11:23
+// 作者：丁志浩 时间：19:59
 // 方案：FRP
 // 项目：Service.Purchase
 // 版本：V1.0.0
@@ -23,16 +23,16 @@ using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 namespace UniCloud.Presentation.Service.Purchase.Purchase
 {
-    public partial class AircraftPurchaseOrderLineDTO
+    public partial class PlanAircraftDTO
     {
         #region 属性
 
         /// <summary>
-        ///     合同飞机状态
+        ///     管理状态
         /// </summary>
-        public ContractAircraftStatus ContractAircraftStatus
+        public ManageStatus ManageStatus
         {
-            get { return (ContractAircraftStatus) Status; }
+            get { return (ManageStatus) Status; }
         }
 
         /// <summary>
@@ -40,16 +40,7 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         /// </summary>
         public bool IsMatched
         {
-            get { return PlanAircraftID != null; }
-        }
-
-        #endregion
-
-        #region 操作
-
-        partial void OnPlanAircraftIDChanged()
-        {
-            OnPropertyChanged("IsMatched");
+            get { return ContractAircraftId != null; }
         }
 
         #endregion

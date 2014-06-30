@@ -82,6 +82,7 @@
     <Compile Include="Repositories\TradeRepository.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ActionCategoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AddressConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftCategoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftLeaseOrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftLeaseOrderLineEntityConfiguration.cs" />

@@ -106,10 +106,8 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg
         ///     设置合同飞机ID
         /// </summary>
         /// <param name="contractAircraftId">合同飞机ID</param>
-        public void SetContractAircraftId(int contractAircraftId)
+        public void SetContractAircraftId(int? contractAircraftId)
         {
-            if (contractAircraftId == 0 || contractAircraftId == int.MinValue || contractAircraftId == int.MaxValue)
-                throw new ArgumentNullException("contractAircraftId");
             ContractAircraftId = contractAircraftId;
         }
 
