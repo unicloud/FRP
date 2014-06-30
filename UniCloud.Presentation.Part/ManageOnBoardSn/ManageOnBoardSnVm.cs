@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Net;
@@ -71,6 +72,17 @@ namespace UniCloud.Presentation.Part.ManageOnBoardSn
             CtrlUnits = new QueryableDataServiceCollectionView<CtrlUnitDTO>(_context, _context.CtrlUnits);
             MaintainWorks = new QueryableDataServiceCollectionView<MaintainWorkDTO>(_context, _context.MaintainWorks);
 
+            SnRegs = _service.CreateCollection(_context.SnRegs);
+            var cfd = new CompositeFilterDescriptor { LogicalOperator = FilterCompositionLogicalOperator.Or };
+            cfd.FilterDescriptors.Add(new FilterDescriptor("Status", FilterOperator.IsEqualTo, (int)SnStatus.在库));
+            cfd.FilterDescriptors.Add(new FilterDescriptor("Status", FilterOperator.IsEqualTo, (int)SnStatus.在修));
+            cfd.FilterDescriptors.Add(new FilterDescriptor("Status", FilterOperator.IsEqualTo, (int)SnStatus.出租));
+            SnRegs.FilterDescriptors.Add(cfd);
+            SnRegs.PageSize = 20;
+            _service.RegisterCollectionView(SnRegs);
+
+            SnHistories = _service.CreateCollection(_context.SnHistories);
+            _service.RegisterCollectionView(SnHistories);
         }
 
         /// <summary>
@@ -98,38 +110,6 @@ namespace UniCloud.Presentation.Part.ManageOnBoardSn
         /// </summary>
         public QueryableDataServiceCollectionView<MaintainWorkDTO> MaintainWorks { get; set; }
 
-        /// <summary>
-        ///     附件集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<PnRegDTO> PnRegs { get; set; }
-
-
-        /// <summary>
-        ///     维修控制策略
-        /// </summary>
-        public Dictionary<int, ControlStrategy> ControlStrategies
-        {
-            get
-            {
-                return Enum.GetValues(typeof(ControlStrategy))
-                    .Cast<object>()
-                    .ToDictionary(value => (int)value, value => (ControlStrategy)value);
-            }
-        }
-
-        /// <summary>
-        ///     TSN或CSN
-        /// </summary>
-        public Dictionary<int, SinceNewType> SinceNewTypes
-        {
-            get
-            {
-                return Enum.GetValues(typeof(SinceNewType))
-                    .Cast<object>()
-                    .ToDictionary(value => (int)value, value => (SinceNewType)value);
-            }
-        }
-
         #endregion
 
         #region 加载数据
@@ -145,10 +125,103 @@ namespace UniCloud.Presentation.Part.ManageOnBoardSn
         {
             CtrlUnits.Load(true);
             MaintainWorks.Load(true);
+
+            if (!SnRegs.AutoLoad)
+                SnRegs.AutoLoad = true;
+            SnRegs.Load(true);
         }
 
         #region 业务
 
+        #region 序号件集合
+        /// <summary>
+        ///     序号件集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<SnRegDTO> SnRegs { get; set; }
+
+        #region 选择的序号件
+
+        private SnRegDTO _selSnReg;
+
+        /// <summary>
+        /// 选择的序号件
+        /// </summary>
+        public SnRegDTO SelSnReg
+        {
+            get { return this._selSnReg; }
+            private set
+            {
+                if (this._selSnReg != value)
+                {
+                    this._selSnReg = value;
+                    ViewSnHistories.Clear();
+                    if (value != null)
+                    {
+                        var shs = SnHistories.Where(p => p.SnRegId == value.Id).ToList();
+                        foreach (var sh in shs)
+                        {
+                            ViewSnHistories.Add(sh);
+                        }
+                    }
+                    RaisePropertyChanged(() => ViewSnHistories);
+                    this.RaisePropertyChanged(() => this.SelSnReg);
+                }
+            }
+        }
+
+        #endregion
+        #endregion
+
+        #region 装机历史集合
+        /// <summary>
+        ///     所有的装机历史集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<SnHistoryDTO> SnHistories { get; set; }
+
+        #region 选择的序号的装机历史记录
+
+        private ObservableCollection<SnHistoryDTO> _viewSnHistories=new ObservableCollection<SnHistoryDTO>();
+
+        /// <summary>
+        /// 选择的序号的装机历史记录
+        /// </summary>
+        public ObservableCollection<SnHistoryDTO> ViewSnHistories
+        {
+            get { return this._viewSnHistories; }
+            private set
+            {
+                if (this._viewSnHistories != value)
+                {
+                    this._viewSnHistories = value;
+                    this.RaisePropertyChanged(() => this.ViewSnHistories);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 选择的装机历史
+
+        private SnHistoryDTO _selSnHistory;
+
+        /// <summary>
+        /// 选择的装机历史
+        /// </summary>
+        public SnHistoryDTO SelSnHistory
+        {
+            get { return this._selSnHistory; }
+            private set
+            {
+                if (this._selSnHistory != value)
+                {
+                    this._selSnHistory = value;
+                    this.RaisePropertyChanged(() => this.SelSnHistory);
+                }
+            }
+        }
+        #endregion
+
+        #endregion
         #endregion
 
         #endregion
@@ -176,7 +249,6 @@ namespace UniCloud.Presentation.Part.ManageOnBoardSn
 
         private void OnNew(object obj)
         {
-
             RefreshCommandState();
         }
 
