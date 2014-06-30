@@ -90,6 +90,11 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.AircraftPlanHistoryAgg
         #region 外键属性
 
         /// <summary>
+        ///     计划外键
+        /// </summary>
+        public Guid PlanId { get; internal set; }
+
+        /// <summary>
         ///     计划飞机外键
         /// </summary>
         public Guid? PlanAircraftId { get; internal set; }
@@ -107,11 +112,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.AircraftPlanHistoryAgg
         #endregion
 
         #region 导航属性
-
-        /// <summary>
-        ///     活动类别：包括引进、退出、变更
-        /// </summary>
-        public virtual ActionCategory ActionCategory { get; internal set; }
 
         /// <summary>
         ///     目标类别：具体的引进、退出方式

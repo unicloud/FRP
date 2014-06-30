@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
+using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
@@ -38,6 +39,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private readonly PurchaseData _context;
         private readonly IPurchaseService _service;
+        private FilterDescriptor _planHistoryDescriptor;
         private Action<PlanAircraftDTO> _winClosed;
 
         [ImportingConstructor]
@@ -61,6 +63,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void InitializeVM()
         {
+            InitializeViewPlanHistoryDTO();
         }
 
         #endregion
@@ -110,10 +113,49 @@ namespace UniCloud.Presentation.Purchase.Contract
             {
                 if (_selPlanAircraftDTO == value) return;
                 _selPlanAircraftDTO = value;
+                _planHistoryDescriptor.Value = _selPlanAircraftDTO != null ? _selPlanAircraftDTO.Id : Guid.Empty;
+                if (!ViewPlanHistoryDTO.AutoLoad) ViewPlanHistoryDTO.AutoLoad = true;
+                else ViewPlanHistoryDTO.Load(true);
                 RaisePropertyChanged(() => SelPlanAircraftDTO);
                 // 刷新按钮状态
                 RefreshCommandState();
             }
+        }
+
+        #endregion
+
+        #region 计划历史
+
+        private PlanHistoryDTO _selPlanHistoryDTO;
+
+        /// <summary>
+        ///     计划历史集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanHistoryDTO> ViewPlanHistoryDTO { get; set; }
+
+        /// <summary>
+        ///     选中的计划历史
+        /// </summary>
+        public PlanHistoryDTO SelPlanHistoryDTO
+        {
+            get { return _selPlanHistoryDTO; }
+            set
+            {
+                if (_selPlanHistoryDTO == value) return;
+                _selPlanHistoryDTO = value;
+                RaisePropertyChanged(() => SelPlanHistoryDTO);
+            }
+        }
+
+        /// <summary>
+        ///     初始化计划历史集合
+        /// </summary>
+        private void InitializeViewPlanHistoryDTO()
+        {
+            ViewPlanHistoryDTO = _service.CreateCollection(_context.PlanHistories);
+            _planHistoryDescriptor = new FilterDescriptor("PlanAircraftId", FilterOperator.IsEqualTo, Guid.Empty);
+            ViewPlanHistoryDTO.FilterDescriptors.Add(_planHistoryDescriptor);
+            _service.RegisterCollectionView(ViewPlanHistoryDTO);
         }
 
         #endregion

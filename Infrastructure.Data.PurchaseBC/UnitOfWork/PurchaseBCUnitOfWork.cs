@@ -20,6 +20,7 @@
 using System.Data.Entity;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.AircraftPlanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftPlanHistoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AnnualAgg;
@@ -74,6 +75,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         private IDbSet<Part> _parts;
         private IDbSet<PlanAircraft> _planAircrafts;
         private IDbSet<PlanHistory> _planHistories;
+        private IDbSet<Plan> _plans;
         private IDbSet<Reception> _receptions;
         private IDbSet<RelatedDoc> _relatedDocs;
         private IDbSet<SupplierCompany> _supplierCompanies;
@@ -180,6 +182,11 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         public IDbSet<PlanHistory> PlanHistories
         {
             get { return _planHistories ?? (_planHistories = base.Set<PlanHistory>()); }
+        }
+
+        public IDbSet<Plan> Plans
+        {
+            get { return _plans ?? (_plans = base.Set<Plan>()); }
         }
 
         public IDbSet<Reception> Receptions

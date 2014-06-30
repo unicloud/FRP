@@ -133,6 +133,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\PaymentService.pubxml" />
+    <None Include="Properties\PublishProfiles\本地测试环境.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -36,7 +36,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
 
             Property(p => p.SeatingCapacity).HasColumnName("SeatingCapacity");
             Property(p => p.CarryingCapacity).HasColumnName("CarryingCapacity");
-            Property(p => p.PerformAnnualId).HasColumnName("PerformAnnualId");
             Property(p => p.PerformMonth).HasColumnName("PerformMonth");
             Property(p => p.IsValid).HasColumnName("IsValid");
             Property(p => p.IsSubmit).HasColumnName("IsSubmit");
@@ -52,6 +51,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             Property(p => p.CaacAircraftTypeId).HasColumnName("CaacAircraftTypeId");
             Property(p => p.AirlinesId).HasColumnName("AirlinesId");
             Property(p => p.ApprovalHistoryId).HasColumnName("ApprovalHistoryId");
+            Property(p => p.PerformAnnualId).HasColumnName("PerformAnnualId");
 
             HasOptional(o => o.PlanAircraft).WithMany().HasForeignKey(o => o.PlanAircraftId);
             HasRequired(o => o.ActionCategory).WithMany().HasForeignKey(o => o.ActionCategoryId);

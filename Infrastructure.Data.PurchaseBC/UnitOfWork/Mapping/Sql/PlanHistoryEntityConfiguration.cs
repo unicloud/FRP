@@ -38,7 +38,6 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
 
             Property(p => p.SeatingCapacity).HasColumnName("SeatingCapacity");
             Property(p => p.CarryingCapacity).HasColumnName("CarryingCapacity");
-            Property(p => p.PerformAnnualId).HasColumnName("PerformAnnualId");
             Property(p => p.PerformMonth).HasColumnName("PerformMonth");
             Property(p => p.IsValid).HasColumnName("IsValid");
             Property(p => p.IsSubmit).HasColumnName("IsSubmit");
@@ -46,8 +45,10 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             Property(p => p.CanRequest).HasColumnName("CanRequest");
             Property(p => p.CanDeliver).HasColumnName("CanDeliver");
 
+            Property(p => p.PlanId).HasColumnName("PlanId");
             Property(p => p.PlanAircraftId).HasColumnName("PlanAircraftId");
             Property(p => p.TargetCategoryId).HasColumnName("TargetCategoryId");
+            Property(p => p.PerformAnnualId).HasColumnName("PerformAnnualId");
 
             HasRequired(o => o.TargetCategory).WithMany().HasForeignKey(o => o.TargetCategoryId);
             HasRequired(o => o.PerformAnnual).WithMany().HasForeignKey(o => o.PerformAnnualId);

@@ -18,6 +18,7 @@
 
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
+using UniCloud.Domain.PurchaseBC.Aggregates.AircraftPlanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftPlanHistoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Infrastructure.Data;
@@ -45,7 +46,6 @@ namespace UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries
         /// <returns>PlanAircraftDTO集合</returns>
         public IQueryable<PlanAircraftDTO> PlanAircraftDTOQuery(QueryBuilder<PlanAircraft> query)
         {
-            var planHistories = _unitOfWork.CreateSet<PlanHistory>().OrderBy(p=>p.PerformAnnual.Year);
             return query.ApplyTo(_unitOfWork.CreateSet<PlanAircraft>()).Select(p => new PlanAircraftDTO
             {
                 Id = p.Id,
@@ -57,6 +57,24 @@ namespace UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries
                 Status = (int) p.Status,
                 AircraftTypeName = p.AircraftType.Name,
             });
+        }
+
+        public IQueryable<PlanHistoryDTO> PlanHistoryDTOQuery(QueryBuilder<PlanHistory> query)
+        {
+            var result = from ph in _unitOfWork.CreateSet<PlanHistory>()
+                join p in _unitOfWork.CreateSet<Plan>() on ph.PlanId equals p.Id
+                select new PlanHistoryDTO
+                {
+                    Id = ph.Id,
+                    PlanAircraftId = ph.PlanAircraftId.Value,
+                    PlanYear = p.Annual.Year,
+                    VersionNumber = p.VersionNumber,
+                    PerformAnnual = ph.PerformAnnual.Year,
+                    PerformMonth = ph.PerformMonth,
+                    ActionType = ph.TargetCategory.ActionType,
+                    ActionName = ph.TargetCategory.ActionName
+                };
+            return result;
         }
     }
 }
