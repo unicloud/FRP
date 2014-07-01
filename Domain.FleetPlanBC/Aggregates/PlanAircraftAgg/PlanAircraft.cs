@@ -172,14 +172,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
         /// <summary>
         ///     设置实际飞机
         /// </summary>
-        /// <param name="aircraft">实际飞机</param>
-        public void SetAircraft(Aircraft aircraft)
+        /// <param name="aircraftId">实际飞机</param>
+        public void SetAircraft(Guid? aircraftId)
         {
-            if (aircraft != null)
-            {
-                Aircraft = aircraft;
-                AircraftId = aircraft.Id;
-            }
+            AircraftId = aircraftId;
+            //if (aircraft != null)
+            //{
+            //    Aircraft = aircraft;
+            //    AircraftId = aircraft.Id;
+            //}
         }
 
         /// <summary>
