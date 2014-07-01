@@ -174,7 +174,7 @@ namespace UniCloud.Application.PurchaseBC.MaterialServices
         [Insert(typeof(EngineMaterialDTO))]
         public void InsertEngineMaterial(EngineMaterialDTO dto)
         {
-            EngineMaterial engineMaterial = MaterialFactory.CreateEngineMaterial(dto.Name, dto.Description, dto.Pn);
+            var engineMaterial = MaterialFactory.CreateEngineMaterial(dto.Name, dto.Description, dto.Pn);
             engineMaterial.ManufacturerID = dto.ManufacturerId;
             _materialRepository.Add(engineMaterial);
         }
