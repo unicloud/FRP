@@ -591,16 +591,28 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             //获取计划明细对应的飞机，可能为空
             if (SelPlanHistory != null)
             {
-                aircraft = Aircrafts.Any(pa => pa.AircraftId == SelPlanHistory.AircraftId) ? Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId) : null;
+                aircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().Any(pa => pa.AircraftId == SelPlanHistory.AircraftId) ? Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId) : null;
                 SelPlanHistory.CanDeliver = (int)CanDeliver.交付中;
             }
             // 调用完成计划的操作
             _service.CompletePlan(SelPlanHistory, aircraft, ref  _editAircraft);
 
             if (_editAircraft == null) return;
-            Aircrafts.AddNew(_editAircraft);
+            if (Aircrafts.SourceCollection.Cast<AircraftDTO>().All(p => p != _editAircraft))
+            {
+                Aircrafts.AddNew(_editAircraft);
+                var planAircraft = PlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().FirstOrDefault(p => p.Id == SelPlanHistory.PlanAircraftId);
+                if (planAircraft != null)
+                {
+                    planAircraft.AircraftId = _editAircraft.AircraftId;
+                }
+                if(SelPlanHistory!=null)
+                {
+                    SelPlanHistory.AircraftId = _editAircraft.AircraftId;
+                }
+            }
             // 定位选中的飞机，并确保运营历史、商业数据历史刷新
-            if (SelAircraft != _editAircraft)
+            if (SelAircraft != null && SelAircraft != _editAircraft)
             {
                 SelAircraft = _editAircraft;
             }
@@ -640,7 +652,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             {
                 if (SelPlanHistory.AircraftId != null)
                 {
-                    aircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
+                    aircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
                     if (aircraft != null)
                     {
                         var aircraftBusiness =
@@ -650,7 +662,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                     }
                 }
             }
-            aircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
+            aircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
             if (aircraft != null)
             {
                 if (SelPlanHistory.PlanType == 1)//运营计划 
@@ -710,7 +722,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             {
                 if (SelPlanHistory.AircraftId != null)
                 {
-                    aircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
+                    aircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
                     if (aircraft != null)
                     {
                         var aircraftBusiness =
@@ -720,7 +732,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                     }
                 }
             }
-            aircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
+            aircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
             if (aircraft != null)
             {
                 if (SelPlanHistory.PlanType == 1)//运营计划 
@@ -783,7 +795,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                      {
                          if (SelPlanHistory.AircraftId != null)
                          {
-                             aircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
+                             aircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
                              if (aircraft != null)
                              {
                                  var aircraftBusiness =
@@ -791,10 +803,11 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                                  if (aircraftBusiness != null)
                                      aircraftBusiness.Status = (int)OperationStatus.已提交;
                              }
+                             SelPlanHistory.CanDeliver = (int) CanDeliver.已交付;
                          }
                      }
                      // 审核、已提交状态下可以发送。如果已处于提交状态，需要重新发送的，不必改变状态。
-                     aircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
+                     aircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
                      if (aircraft != null)
                      {
                          if (SelPlanHistory.PlanType == 1)//运营计划 
@@ -805,6 +818,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                              {
                                  operationHistory.Status = (int)OperationStatus.已提交;
                                  SelPlanHistory.RelatedStatus = (int)OperationStatus.已提交;
+                                 SelPlanHistory.CanDeliver = (int)CanDeliver.已交付;
                              }
                          }
                          if (SelPlanHistory.PlanType == 1)//变更计划
@@ -815,6 +829,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                              {
                                  aircraftBusiness.Status = (int)OperationStatus.已提交;
                                  SelPlanHistory.RelatedStatus = (int)OperationStatus.已提交;
+                                 SelPlanHistory.CanDeliver = (int)CanDeliver.已交付;
                              }
                          }
                      }

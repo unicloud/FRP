@@ -330,6 +330,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                     PnRegId = SelPnReg.Id,
                     CtrlStrategy = 1,
                 };
+                ViewPnMaintainCtrls.Add(newMaintainCtrl);
                 PnMaintainCtrls.AddNew(newMaintainCtrl);
                 RefreshCommandState();
             }

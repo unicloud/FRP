@@ -55,7 +55,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             Requests = _service.CreateCollection(_context.Requests.Expand(p => p.RelatedDocs), o => o.ApprovalHistories, o => o.RelatedDocs);
             var cfd = new CompositeFilterDescriptor { LogicalOperator = FilterCompositionLogicalOperator.And };
-            var requestDescriptor = new FilterDescriptor("Note", FilterOperator.IsNotEqualTo, "指标飞机申请（系统添加）");
+            var requestDescriptor = new FilterDescriptor("Title", FilterOperator.IsNotEqualTo, "指标飞机申请（系统添加）");
             cfd.FilterDescriptors.Add(requestDescriptor);
             var statusDateDescriptor = new FilterDescriptor("Status", FilterOperator.IsLessThan, (int)RequestStatus.已审批);
             cfd.FilterDescriptors.Add(statusDateDescriptor);
