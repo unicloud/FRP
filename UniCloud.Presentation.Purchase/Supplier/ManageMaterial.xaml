@@ -265,6 +265,10 @@
                                                                                 IsSortable="True"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 HeaderTextAlignment="Center"
+                                                                                DataMemberBinding="{Binding Pn}" />
+                                                    <telerik:GridViewDataColumn Header="名称" IsSortable="True"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                HeaderTextAlignment="Center"
                                                                                 DataMemberBinding="{Binding Name}" />
                                                     <telerik:GridViewDataColumn Header="描述"
                                                                                 IsSortable="True"
@@ -361,8 +365,12 @@
                                                                  RowIndicatorVisibility="Visible">
                                                 <telerik:RadGridView.Columns>
                                                     <input:DataPageSerialColumn Header="序号" />
-                                                    <telerik:GridViewDataColumn Header="名称"
+                                                    <telerik:GridViewDataColumn Header="件号"
                                                                                 IsSortable="True"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                HeaderTextAlignment="Center"
+                                                                                DataMemberBinding="{Binding Pn}" />
+                                                    <telerik:GridViewDataColumn Header="名称" IsSortable="True"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 HeaderTextAlignment="Center"
                                                                                 DataMemberBinding="{Binding Name}" />

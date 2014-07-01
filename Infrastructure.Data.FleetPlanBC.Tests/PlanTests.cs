@@ -31,43 +31,5 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Tests
     [TestClass]
     public class PlanTests
     {
-        [TestMethod]
-        public void CreatePlanTest()
-        {
-            // Arrange
-            var alRep = UniContainer.Resolve<IAirlinesRepository>();
-            var anRep = UniContainer.Resolve<IAnnualRepository>();
-            var plRep = UniContainer.Resolve<IPlanRepository>();
-            var airlines = alRep.GetFiltered(a => a.CnShortName == "川航").FirstOrDefault();
-            var annual = anRep.GetFiltered(a => a.Year == 2013).FirstOrDefault();
-            annual.SetIsOpen(true);
-            var plan = PlanFactory.CreatePlan(1);
-            plan.SetAirlines(airlines);
-            plan.SetAnnual(annual);
-            plan.SetTitle("2013年度机队规划");
-            plan.SetDocNumber("[2013]007号");
-
-            // Act
-            plRep.Add(plan);
-            plRep.UnitOfWork.Commit();
-
-            // Assert
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod]
-        public void SetAnnualOpenTest()
-        {
-            // Arrange
-            var anRep = UniContainer.Resolve<IAnnualRepository>();
-            var annual = anRep.GetFiltered(a => a.Year == 2013).FirstOrDefault();
-            annual.SetIsOpen(true);
-
-            // Act
-            anRep.UnitOfWork.Commit();
-
-            // Assert
-            Assert.IsTrue(true);
-        }
     }
 }
