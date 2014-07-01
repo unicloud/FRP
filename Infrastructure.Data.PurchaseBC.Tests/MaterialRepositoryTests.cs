@@ -33,26 +33,6 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
     [TestClass]
     public class MaterialRepositoryTests
     {
-        #region 基础配置
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            UniContainer.Create()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IModelConfiguration, SqlConfigurations>("Sql")
-                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
-                .Register<IMaterialRepository, MaterialRepository>()
-                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>();
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-        }
-
-        #endregion
-
         [TestMethod]
         public void GetSupplierWithMaterial()
         {

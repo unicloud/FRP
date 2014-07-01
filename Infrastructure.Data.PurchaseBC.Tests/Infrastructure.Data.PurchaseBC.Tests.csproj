@@ -72,10 +72,12 @@
   <ItemGroup>
     <Compile Include="ActionCategoryRepositoryTests.cs" />
     <Compile Include="AircraftTypeRepositoryTests.cs" />
+    <Compile Include="AssemblyTestsInitialize.cs" />
     <Compile Include="ContractAircraftRepositoryTests.cs" />
     <Compile Include="ForwarderRepositoryTests.cs" />
     <Compile Include="LinkmanRepositoryTests.cs" />
     <Compile Include="MaintainContractRepositoryTests.cs" />
+    <Compile Include="ManufacturerRepositoryTests.cs" />
     <Compile Include="MaterialRepositoryTests.cs" />
     <Compile Include="OrderRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

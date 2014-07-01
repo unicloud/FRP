@@ -111,6 +111,7 @@
     <Compile Include="Aggregates\LinkmanAgg\LinkmanSpecifications.cs" />
     <Compile Include="Aggregates\ManufacturerAgg\IManufacturerRepository.cs" />
     <Compile Include="Aggregates\ManufacturerAgg\Manufacturer.cs" />
+    <Compile Include="Aggregates\ManufacturerAgg\ManufacturerFactory.cs" />
     <Compile Include="Aggregates\ManufacturerAgg\ManufacturerSpecifications.cs" />
     <Compile Include="Aggregates\OrderAgg\ContractContent.cs" />
     <Compile Include="Aggregates\OrderAgg\IOrderRepository.cs" />

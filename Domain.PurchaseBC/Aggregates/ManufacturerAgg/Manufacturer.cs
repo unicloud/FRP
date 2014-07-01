@@ -39,32 +39,33 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ManufacturerAgg
         /// <summary>
         ///     中文名称
         /// </summary>
-        public string CnName { get; protected set; }
+        public string CnName { get; internal set; }
 
         /// <summary>
         ///     公司英文名称
         /// </summary>
-        public string EnName { get; protected set; }
+        public string EnName { get; internal set; }
 
         /// <summary>
         ///     公司中文简称
         /// </summary>
-        public string CnShortName { get; protected set; }
+        public string CnShortName { get; internal set; }
 
         /// <summary>
         ///     公司英文简称
         /// </summary>
-        public string EnShortName { get; protected set; }
+        public string EnShortName { get; internal set; }
 
         /// <summary>
         ///     备注
         /// </summary>
-        public string Note { get; protected set; }
+        public string Note { get; internal set; }
 
         /// <summary>
         ///     制造商类型，1--表示飞机制造商，2--表示发动机制造商
         /// </summary>
-        public int Type { get; protected set; }
+        public int Type { get; internal set; }
+
         #endregion
 
         #region 外键属性
