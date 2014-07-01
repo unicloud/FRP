@@ -310,6 +310,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             RemoveDocCommand.RaiseCanExecuteChanged();
             CommitCommand.RaiseCanExecuteChanged();
             CheckCommand.RaiseCanExecuteChanged();
+            SendCommand.RaiseCanExecuteChanged();
         }
 
         #endregion

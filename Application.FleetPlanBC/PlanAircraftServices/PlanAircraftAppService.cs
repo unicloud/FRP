@@ -113,7 +113,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
                 if (dto.AircraftId != null)
                 {
                     Aircraft aircraft = _aircraftRepository.Get(dto.AircraftId);
-                    updatePlanAircraft.SetAircraft(aircraft);
+                    updatePlanAircraft.SetAircraft(dto.AircraftId);
                 }
                 updatePlanAircraft.SetAircraftType(aircraftType);
                 updatePlanAircraft.SetAirlines(airlines);
