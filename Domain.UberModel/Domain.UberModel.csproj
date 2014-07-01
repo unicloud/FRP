@@ -210,7 +210,6 @@
     <Compile Include="Aggregates\OrganizationAgg\Organization.cs" />
     <Compile Include="Aggregates\OrganizationRoleAgg\OrganizationRole.cs" />
     <Compile Include="Aggregates\OrganizationUserAgg\OrganizationUser.cs" />
-    <Compile Include="Aggregates\PartAgg\Part.cs" />
     <Compile Include="Aggregates\PaymentNoticeAgg\PaymentNotice.cs" />
     <Compile Include="Aggregates\PaymentNoticeAgg\PaymentNoticeFactory.cs" />
     <Compile Include="Aggregates\PaymentNoticeAgg\PaymentNoticeLine.cs" />

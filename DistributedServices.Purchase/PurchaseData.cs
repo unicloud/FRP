@@ -30,8 +30,8 @@ using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaintainContractServices;
 using UniCloud.Application.PurchaseBC.ManufacturerServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
-using UniCloud.Application.PurchaseBC.PartServices;
 using UniCloud.Application.PurchaseBC.PlanAircraftServices;
+using UniCloud.Application.PurchaseBC.PnRegServices;
 using UniCloud.Application.PurchaseBC.ReceptionServices;
 using UniCloud.Application.PurchaseBC.RelatedDocServices;
 using UniCloud.Application.PurchaseBC.SupplierServices;
@@ -66,8 +66,8 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly IMaintainContractAppService _maintainContractAppService;
         private readonly IManufacturerAppService _manufacturerAppService;
         private readonly IMaterialAppService _materialAppService;
-        private readonly IPartAppService _partAppService;
         private readonly IPlanAircraftAppService _planAircraftAppService;
+        private readonly IPnRegAppService _pnRegAppService;
         private readonly IPurchaseContractAircraftAppService _purchaseContractAircraftAppService;
         private readonly IPurchaseContractEngineAppService _purchaseContractEngineAppService;
         private readonly IRelatedDocAppService _relatedDocAppService;
@@ -92,7 +92,7 @@ namespace UniCloud.DistributedServices.Purchase
             _materialAppService = UniContainer.Resolve<IMaterialAppService>();
             _leaseContractAircraftAppService = UniContainer.Resolve<ILeaseContractAircraftAppService>();
             _leaseContractEngineAppService = UniContainer.Resolve<ILeaseContractEngineAppService>();
-            _partAppService = UniContainer.Resolve<IPartAppService>();
+            _pnRegAppService = UniContainer.Resolve<IPnRegAppService>();
             _planAircraftAppService = UniContainer.Resolve<IPlanAircraftAppService>();
             _purchaseContractAircraftAppService = UniContainer.Resolve<IPurchaseContractAircraftAppService>();
             _purchaseContractEngineAppService = UniContainer.Resolve<IPurchaseContractEngineAppService>();
@@ -308,9 +308,9 @@ namespace UniCloud.DistributedServices.Purchase
         /// <summary>
         ///     部件集合
         /// </summary>
-        public IQueryable<PartDTO> Parts
+        public IQueryable<PnRegDTO> PnRegs
         {
-            get { return _partAppService.GetParts(); }
+            get { return _pnRegAppService.GetPnRegs(); }
         }
 
         #endregion

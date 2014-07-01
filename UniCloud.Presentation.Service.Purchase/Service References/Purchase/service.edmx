@@ -315,12 +315,12 @@
         <Property Name="Manufacturer" Type="Edm.String" />
         <Property Name="ListPrice" Type="Edm.Decimal" Nullable="false" />
       </EntityType>
-      <EntityType Name="PartDTO">
+      <EntityType Name="PnRegDTO">
         <Key>
-          <PropertyRef Name="PartId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="PartId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
         <Property Name="Pn" Type="Edm.String" />
       </EntityType>
       <EntityType Name="EngineMaintainContractDTO">
@@ -905,7 +905,7 @@
         <EntitySet Name="AircraftMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.AircraftMaterialDTO" />
         <EntitySet Name="BFEMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.BFEMaterialDTO" />
         <EntitySet Name="EngineMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.EngineMaterialDTO" />
-        <EntitySet Name="Parts" EntityType="UniCloud.Application.PurchaseBC.DTO.PartDTO" />
+        <EntitySet Name="PnRegs" EntityType="UniCloud.Application.PurchaseBC.DTO.PnRegDTO" />
         <EntitySet Name="EngineMaintainContracts" EntityType="UniCloud.Application.PurchaseBC.DTO.EngineMaintainContractDTO" />
         <EntitySet Name="APUMaintainContracts" EntityType="UniCloud.Application.PurchaseBC.DTO.APUMaintainContractDTO" />
         <EntitySet Name="UndercartMaintainContracts" EntityType="UniCloud.Application.PurchaseBC.DTO.UndercartMaintainContractDTO" />

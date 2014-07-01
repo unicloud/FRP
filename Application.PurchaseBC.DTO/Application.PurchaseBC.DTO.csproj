@@ -81,7 +81,7 @@
     <Compile Include="MaterialDTO\AircraftMaterialDTO.cs" />
     <Compile Include="MaterialDTO\BFEMaterialDTO.cs" />
     <Compile Include="MaterialDTO\EngineMaterialDTO.cs" />
-    <Compile Include="PartDTO\PartDTO.cs" />
+    <Compile Include="PnRegDTO\PnRegDTO.cs" />
     <Compile Include="PlanAircraftDTO\PlanAircraftDTO.cs" />
     <Compile Include="PlanHistoryDTO\PlanHistoryDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

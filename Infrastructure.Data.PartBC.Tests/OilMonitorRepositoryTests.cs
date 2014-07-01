@@ -36,27 +36,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
     [TestClass]
     public class OilMonitorRepositoryTests
     {
-        #region 基础配置
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            UniContainer.Create()
-                .Register<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IModelConfiguration, SqlConfigurations>("Sql")
-                .Register<ISnRegRepository, SnRegRepository>()
-                .Register<IPnRegRepository, PnRegRepository>()
-                .Register<IThrustRepository, ThrustRepository>()
-                .Register<IOilMonitorRepository, OilMonitorRepository>();
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-        }
-
-        #endregion
-
         [TestMethod]
         public void CreateEngineRegTest()
         {

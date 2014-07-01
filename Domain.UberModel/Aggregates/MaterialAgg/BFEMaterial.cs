@@ -15,12 +15,6 @@
 
 #endregion
 
-#region 命名空间
-
-using UniCloud.Domain.UberModel.Aggregates.PartAgg;
-
-#endregion
-
 namespace UniCloud.Domain.UberModel.Aggregates.MaterialAgg
 {
     /// <summary>
@@ -30,10 +24,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaterialAgg
     public class BFEMaterial : Material
     {
         #region 属性
+
         /// <summary>
-        /// 物料件号
+        ///     物料件号
         /// </summary>
         public string Pn { get; set; }
+
         #endregion
 
         #region 外键属性

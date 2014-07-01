@@ -61,7 +61,7 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg
         /// <param name="isSystemRole"></param>
         /// <param name="code">代码</param>
         /// <param name="levelCode">层级代码</param>
-        public static Role UpdateRole(string name, string decription = null, bool isSystemRole = true,
+        public static Role UpdateRole(string name, string decription = null, bool isSystemRole = false,
             string code = null, string levelCode = null)
         {
             if (string.IsNullOrEmpty(name))

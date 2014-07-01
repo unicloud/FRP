@@ -128,9 +128,9 @@
     <Compile Include="Aggregates\OrderAgg\Order.cs" />
     <Compile Include="Aggregates\OrderAgg\OrderLine.cs" />
     <Compile Include="Aggregates\OrderAgg\OrderSpecifications.cs" />
-    <Compile Include="Aggregates\PartAgg\IPartRepository.cs" />
-    <Compile Include="Aggregates\PartAgg\Part.cs" />
-    <Compile Include="Aggregates\PartAgg\PartSpecifications.cs" />
+    <Compile Include="Aggregates\PnRegAgg\IPnRegRepository.cs" />
+    <Compile Include="Aggregates\PnRegAgg\PnReg.cs" />
+    <Compile Include="Aggregates\PnRegAgg\PnRegSpecifications.cs" />
     <Compile Include="Aggregates\PaymentNoticeAgg\IPaymentNoticeRepository.cs" />
     <Compile Include="Aggregates\PaymentNoticeAgg\PaymentNotice.cs" />
     <Compile Include="Aggregates\PaymentNoticeAgg\PaymentNoticeFactory.cs" />

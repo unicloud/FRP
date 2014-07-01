@@ -15,13 +15,6 @@
 
 #endregion
 
-#region 命名空间
-
-using System;
-using UniCloud.Domain.PurchaseBC.Aggregates.PartAgg;
-
-#endregion
-
 namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
 {
     /// <summary>
@@ -43,13 +36,14 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
         #endregion
 
         #region 属性
+
         /// <summary>
-        /// 物料件号
+        ///     物料件号
         /// </summary>
         public string Pn { get; set; }
 
         /// <summary>
-        /// 发动机目录价
+        ///     发动机目录价
         /// </summary>
         public decimal ListPrice { get; set; }
 

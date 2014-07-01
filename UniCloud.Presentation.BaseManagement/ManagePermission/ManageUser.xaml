@@ -21,9 +21,9 @@
                               IsBusy="{Binding Users.IsBusy,Mode=TwoWay}">
         <Grid x:Name="UserLayoutRoot"
               Background="White">
-            <telerik:RadDocking  BorderThickness="0"
-                                 Padding="0"
-                                 HasDocumentHost="False">
+            <telerik:RadDocking BorderThickness="0"
+                                Padding="0"
+                                HasDocumentHost="False">
                 <telerik:RadSplitContainer Orientation="Vertical">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="管理用户"
@@ -80,12 +80,12 @@
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号"
                                                                      HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn Header="工号"
+                                            <telerik:GridViewDataColumn Header="用户"
                                                                         HeaderTextAlignment="Center"
                                                                         IsReadOnly="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding EmployeeCode}" />
-                                            <telerik:GridViewDataColumn Header="用户名"
+                                                                        DataMemberBinding="{Binding UserName}" />
+                                            <telerik:GridViewDataColumn Header="姓名"
                                                                         HeaderTextAlignment="Center"
                                                                         IsReadOnly="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -121,4 +121,3 @@
         </Grid>
     </telerik:RadBusyIndicator>
 </UserControl>
-

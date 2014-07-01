@@ -84,8 +84,8 @@
     <Compile Include="MaterialServices\IMaterialAppService.cs" />
     <Compile Include="ContractDocumentServices\ContractDocumentAppService.cs" />
     <Compile Include="ContractDocumentServices\IContractDocumentAppService.cs" />
-    <Compile Include="PartServices\IPartAppService.cs" />
-    <Compile Include="PartServices\PartAppService.cs" />
+    <Compile Include="PnRegServices\IPnRegAppService.cs" />
+    <Compile Include="PnRegServices\PnRegAppService.cs" />
     <Compile Include="PlanAircraftServices\IPlanAircraftAppService.cs" />
     <Compile Include="PlanAircraftServices\PlanAircraftAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

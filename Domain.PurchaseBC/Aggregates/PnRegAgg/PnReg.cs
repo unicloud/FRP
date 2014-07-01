@@ -4,7 +4,7 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/11/29，13:11
+// 作者：丁志浩 时间：2013/11/04，21:11
 // 方案：FRP
 // 项目：Domain.PurchaseBC
 // 版本：V1.0.0
@@ -15,19 +15,12 @@
 
 #endregion
 
-#region 命名空间
-
-using System;
-
-#endregion
-
-namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
+namespace UniCloud.Domain.PurchaseBC.Aggregates.PnRegAgg
 {
     /// <summary>
-    ///     采购物料聚合根
-    ///     BFE物料
+    ///     PnReg聚合根
     /// </summary>
-    public class BFEMaterial : Material
+    public class PnReg : EntityInt
     {
         #region 构造函数
 
@@ -35,17 +28,23 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal BFEMaterial()
+        internal PnReg()
         {
         }
 
         #endregion
 
         #region 属性
+
         /// <summary>
-        /// 物料件号
+        ///     件号
         /// </summary>
-        public string Pn { get; set; }
+        public string Pn { get; protected set; }
+
+        /// <summary>
+        ///     名称
+        /// </summary>
+        public string Description { get; protected set; }
 
         #endregion
 
@@ -55,24 +54,9 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
 
         #region 导航属性
 
-
         #endregion
 
         #region 操作
-
-        /// <summary>
-        ///     设置附件件号
-        /// </summary>
-        /// <param name="pn">附件件号</param>
-        public void SetPart(string pn)
-        {
-            //if (string.IsNullOrWhiteSpace(pn))
-            //{
-            //    throw new ArgumentException("物料件号参数为空！");
-            //}
-
-            Pn = pn;
-        }
 
         #endregion
     }

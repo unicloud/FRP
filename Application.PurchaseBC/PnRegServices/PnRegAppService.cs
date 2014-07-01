@@ -21,36 +21,35 @@ using System;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PurchaseBC.DTO;
-using UniCloud.Application.PurchaseBC.Query.PartQueries;
-using UniCloud.Domain.PurchaseBC.Aggregates.PartAgg;
+using UniCloud.Application.PurchaseBC.Query.PnRegQueries;
+using UniCloud.Domain.PurchaseBC.Aggregates.PnRegAgg;
 
 #endregion
 
-namespace UniCloud.Application.PurchaseBC.PartServices
+namespace UniCloud.Application.PurchaseBC.PnRegServices
 {
     /// <summary>
     ///     实现部件服务接口。
     ///     用于处理部件相关信息的服务，供Distributed Services调用。
     /// </summary>
     [LogAOP]
-    public class PartAppService : ContextBoundObject, IPartAppService
+    public class PnRegAppService : ContextBoundObject, IPnRegAppService
     {
-        private readonly IPartQuery _partQuery;
+        private readonly IPnRegQuery _pnRegQuery;
 
-        public PartAppService(IPartQuery partQuery)
+        public PnRegAppService(IPnRegQuery pnRegQuery)
         {
-            _partQuery = partQuery;
+            _pnRegQuery = pnRegQuery;
         }
 
         /// <summary>
         ///     部件查询。
         /// </summary>
         /// <returns>部件DTO集合</returns>
-        public IQueryable<PartDTO> GetParts()
+        public IQueryable<PnRegDTO> GetPnRegs()
         {
-            var queryBuilder =
-                new QueryBuilder<Part>();
-            return _partQuery.PartsQuery(queryBuilder);
+            var queryBuilder = new QueryBuilder<PnReg>();
+            return _pnRegQuery.PnRegsQuery(queryBuilder);
         }
     }
 }

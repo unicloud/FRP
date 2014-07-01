@@ -31,9 +31,9 @@ using UniCloud.Domain.PaymentBC.Aggregates.MaintainContractAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainCostAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.PartAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.TradeAgg;
 
@@ -59,7 +59,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
         private IDbSet<MaintainCost> _maintainCosts;
         private IDbSet<MaintainInvoice> _maintainInvoices;
         private IDbSet<Order> _orders;
-        private IDbSet<Part> _parts;
+        private IDbSet<PnReg> _pnRegs;
         private IDbSet<PaymentNotice> _paymentNotices;
         private IDbSet<PaymentSchedule> _paymentSchedules;
         private IDbSet<SupplierRole> _supplierRoles;
@@ -136,9 +136,9 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
             get { return _orders ?? (_orders = Set<Order>()); }
         }
 
-        public IDbSet<Part> Parts
+        public IDbSet<PnReg> PnRegs
         {
-            get { return _parts ?? (_parts = Set<Part>()); }
+            get { return _pnRegs ?? (_pnRegs = Set<PnReg>()); }
         }
 
         public IDbSet<PaymentNotice> PaymentNotices

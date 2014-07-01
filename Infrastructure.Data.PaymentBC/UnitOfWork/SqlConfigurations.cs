@@ -158,9 +158,9 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
 
                 #endregion
 
-                #region PartAgg
+                #region PnRegAgg
 
-                .Add(new PartEntityConfiguration())
+                .Add(new PnRegEntityConfiguration())
 
                 #endregion
 
