@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,23 +11,14 @@
 // 修改者：  时间：2014/6/10 14:48:44
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
 using System.ComponentModel.Composition;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -38,23 +30,21 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Supplier
 {
     /// <summary>
-    /// 基础配置，包括维修工作单元、BFEMaterial的维护
+    ///     基础配置，包括维修工作单元、BFEMaterial的维护
     /// </summary>
-    [Export(typeof(ManageMaterialVm))]
+    [Export(typeof (ManageMaterialVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ManageMaterialVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PurchaseData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
 
         [ImportingConstructor]
-        public ManageMaterialVm(IRegionManager regionManager, IPurchaseService service)
+        public ManageMaterialVm(IPurchaseService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -106,8 +96,10 @@ namespace UniCloud.Presentation.Purchase.Supplier
                 }
             };
 
-            Manufacturers=new QueryableDataServiceCollectionView<ManufacturerDTO>(_context,_context.Manufacturers);
+            Manufacturers = new QueryableDataServiceCollectionView<ManufacturerDTO>(_context, _context.Manufacturers);
             Manufacturers.FilterDescriptors.Add(new FilterDescriptor("Type", FilterOperator.IsEqualTo, 2));
+
+            InitializeViewPnRegDTO();
         }
 
         #endregion
@@ -115,10 +107,12 @@ namespace UniCloud.Presentation.Purchase.Supplier
         #region 数据
 
         #region 公共属性
+
         /// <summary>
         ///     制造商集合
         /// </summary>
         public QueryableDataServiceCollectionView<ManufacturerDTO> Manufacturers { get; set; }
+
         #endregion
 
         #region 加载数据
@@ -135,12 +129,17 @@ namespace UniCloud.Presentation.Purchase.Supplier
             //// 将CollectionView的AutoLoad属性设为True
             if (!EngineMaterials.AutoLoad)
                 EngineMaterials.AutoLoad = true;
-            EngineMaterials.Load(true);
+            else
+                EngineMaterials.Load(true);
 
             //// 将CollectionView的AutoLoad属性设为True
             if (!BFEMaterials.AutoLoad)
                 BFEMaterials.AutoLoad = true;
-            BFEMaterials.Load(true);
+            else
+                BFEMaterials.Load(true);
+
+            if (!ViewPnRegDTO.AutoLoad) ViewPnRegDTO.AutoLoad = true;
+            else ViewPnRegDTO.Load(true);
 
             Manufacturers.Load(true);
         }
@@ -148,7 +147,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         #region EngineMaterial
 
         private bool _canSelectEngineMaterial = true;
-        private EngineMaterialDTO _EngineMaterial;
+        private EngineMaterialDTO _engineMaterial;
 
         /// <summary>
         ///     EngineMaterial集合
@@ -160,12 +159,12 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         public EngineMaterialDTO EngineMaterial
         {
-            get { return _EngineMaterial; }
+            get { return _engineMaterial; }
             set
             {
-                if (value != null && _EngineMaterial != value)
+                if (value != null && _engineMaterial != value)
                 {
-                    _EngineMaterial = value;
+                    _engineMaterial = value;
                     RaisePropertyChanged(() => EngineMaterial);
                 }
             }
@@ -189,8 +188,8 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #region BFEMaterial
 
-        private bool _canSelectBFEMaterial = true;
         private BFEMaterialDTO _BFEMaterial;
+        private bool _canSelectBFEMaterial = true;
 
         /// <summary>
         ///     BFEMaterial集合
@@ -229,6 +228,42 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #endregion
 
+        #region 件号
+
+        private PnRegDTO _selPnRegDTO;
+
+        /// <summary>
+        ///     件号集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PnRegDTO> ViewPnRegDTO { get; set; }
+
+        /// <summary>
+        ///     选中的件号
+        /// </summary>
+        public PnRegDTO SelPnRegDTO
+        {
+            get { return _selPnRegDTO; }
+            set
+            {
+                if (_selPnRegDTO == value) return;
+                _selPnRegDTO = value;
+                RaisePropertyChanged(() => SelPnRegDTO);
+                // 刷新按钮状态
+                RefreshCommandState();
+            }
+        }
+
+        /// <summary>
+        ///     初始化件号集合
+        /// </summary>
+        private void InitializeViewPnRegDTO()
+        {
+            ViewPnRegDTO = _service.CreateCollection(_context.PnRegs);
+            _service.RegisterCollectionView(ViewPnRegDTO);
+        }
+
+        #endregion
+
         #endregion
 
         #endregion
@@ -238,6 +273,15 @@ namespace UniCloud.Presentation.Purchase.Supplier
         #region 重载操作
 
         #endregion
+
+        public void Pn_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var pnReg = e.AddedItems[0] as PnRegDTO;
+            if (pnReg == null) return;
+            EngineMaterial.Pn = pnReg.Pn;
+            EngineMaterial.Description = pnReg.Description;
+        }
+
         #endregion
     }
 }

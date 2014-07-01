@@ -74,6 +74,7 @@
     <Compile Include="AircraftTypeRepositoryTests.cs" />
     <Compile Include="AssemblyTestsInitialize.cs" />
     <Compile Include="ContractAircraftRepositoryTests.cs" />
+    <Compile Include="DataInitialize.cs" />
     <Compile Include="ForwarderRepositoryTests.cs" />
     <Compile Include="LinkmanRepositoryTests.cs" />
     <Compile Include="MaintainContractRepositoryTests.cs" />

@@ -14,24 +14,6 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.Tests
     [TestClass]
     public class ContractEngineTest
     {
-        #region 基础配置
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            UniContainer.Create()
-                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IModelConfiguration, SqlConfigurations>("Sql")
-                .Register<IContractEngineRepository, ContractEngineRepository>();
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-        }
-
-        #endregion
-
         [TestMethod]
         public void GetAllContractEngine()
         {

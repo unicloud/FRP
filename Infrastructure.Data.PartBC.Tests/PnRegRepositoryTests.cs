@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System.Collections.Generic;
+using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Infrastructure.Unity;
@@ -30,7 +31,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
     public class PnRegRepositoryTests
     {
         [TestMethod]
-        public void CreatePaRegTest()
+        public void CreatePnRegTest()
         {
             // Arrange
             var pnRep = UniContainer.Resolve<IPnRegRepository>();
@@ -43,6 +44,24 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
                 PnRegFactory.CreatePnReg(true, "13349", "E"),
                 PnRegFactory.CreatePnReg(true, "13341", "F"),
             }.ForEach(pnRep.Add);
+
+            // Act
+            pnRep.UnitOfWork.Commit();
+
+            // Assert
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void CreateMorePnRegTest()
+        {
+            // Arrange
+            var pnRep = UniContainer.Resolve<IPnRegRepository>();
+            for (var i = 0; i < 3000; i++)
+            {
+                var pnReg = PnRegFactory.CreatePnReg(true, i.ToString(CultureInfo.InvariantCulture), "A" + i);
+                pnRep.Add(pnReg);
+            }
 
             // Act
             pnRep.UnitOfWork.Commit();
