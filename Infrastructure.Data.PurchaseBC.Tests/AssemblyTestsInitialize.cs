@@ -26,6 +26,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ForwarderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
@@ -66,6 +67,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
                 .Register<IContractAircraftRepository, ContractAircraftRepository>()
                 .Register<IContractAircraftBFERepository, ContractAircraftBFERepository>()
                 .Register<IRelatedDocRepository, RelatedDocRepository>()
+                .Register<IManufacturerRepository, ManufacturerRepository>()
                 .Register<ISupplierRepository, SupplierRepository>()
                 .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
                 .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>();
