@@ -114,7 +114,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg
         /// <summary>
         ///     附件
         /// </summary>
-        public virtual PnReg Part { get; private set; }
+        public virtual PnReg PnReg { get; private set; }
 
         /// <summary>
         ///     引进方式
@@ -133,16 +133,16 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg
         /// <summary>
         ///     设置附件
         /// </summary>
-        /// <param name="part">附件</param>
-        public void SetPart(PnReg part)
+        /// <param name="pnReg">附件</param>
+        public void SetPart(PnReg pnReg)
         {
-            if (part == null || part.IsTransient())
+            if (pnReg == null || pnReg.IsTransient())
             {
                 throw new ArgumentException("附件参数为空！");
             }
 
-            Part = part;
-            PartId = part.Id;
+            PnReg = pnReg;
+            PartId = pnReg.Id;
         }
 
         /// <summary>
