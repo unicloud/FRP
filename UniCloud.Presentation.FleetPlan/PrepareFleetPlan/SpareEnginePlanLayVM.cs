@@ -17,6 +17,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -142,6 +143,20 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
+        #region 执行月份集合
+
+        /// <summary>
+        ///     执行月份集合
+        /// </summary>
+        public List<int> Months
+        {
+            get
+            {
+                return new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+            }
+        }
+
+        #endregion
         #endregion
 
         #region 加载数据

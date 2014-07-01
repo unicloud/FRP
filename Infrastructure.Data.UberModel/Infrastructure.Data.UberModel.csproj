@@ -93,10 +93,6 @@
     <Compile Include="InitialData\TradeData.cs" />
     <Compile Include="InitialData\XmlConfigData.cs" />
     <Compile Include="InitialData\XmlSettingData.cs" />
-    <Compile Include="Migrations\201407010619379_Initial.cs" />
-    <Compile Include="Migrations\201407010619379_Initial.Designer.cs">
-      <DependentUpon>201407010619379_Initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcConfigEntityConfiguration.cs" />
@@ -334,9 +330,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201407010619379_Initial.resx">
-      <DependentUpon>201407010619379_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

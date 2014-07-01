@@ -235,6 +235,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
                                                      ActionName = q.ActionName,
                                                      TargetType = q.TargetType,
                                                      Year = q.Year,
+                                                     AircraftId = q.AircraftId,
+                                                     RegNumber = q.RegNumber,
                                                      ManageStatus = q.ManageStatus,
                                                      CanRequest = q.CanRequest,
                                                      CanDeliver = q.CanDeliver,

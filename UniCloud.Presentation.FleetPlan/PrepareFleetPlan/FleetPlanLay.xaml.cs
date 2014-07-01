@@ -20,8 +20,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public FleetPlanLay()
         {
             InitializeComponent();
-            DragDropManager.AddDragInitializeHandler(PlanAircraft, OnPlanAircraftDragInitialize);
-            DragDropManager.AddDragInitializeHandler(Aircraft, OnAircraftDragInitialize);
+            DragDropManager.AddDragInitializeHandler(PlanAircrafts, OnPlanAircraftDragInitialize);
+            DragDropManager.AddDragInitializeHandler(Aircrafts, OnAircraftDragInitialize);
             DragDropManager.AddDragOverHandler(PlanLay, OnPlanLayDragOver);
             DragDropManager.AddDropHandler(PlanLay, OnPlanLayDrop);
         }
