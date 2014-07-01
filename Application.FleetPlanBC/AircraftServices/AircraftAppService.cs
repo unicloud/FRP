@@ -91,6 +91,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
 
             //创建新的实际飞机
             Aircraft newAircraft = AircraftFactory.CreateAircraft();
+            newAircraft.ChangeCurrentIdentity(dto.AircraftId);
             newAircraft.SetAircraftType(aircraftType);
             newAircraft.SetAirlines(airlines);
             newAircraft.SetCarryingCapacity(dto.CarryingCapacity);
