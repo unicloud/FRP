@@ -77,9 +77,15 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             _service.RegisterCollectionView(ApprovalDocs);
 
             Requests = _service.CreateCollection(_context.Requests, o => o.ApprovalHistories);
-            _requestDescriptor = new FilterDescriptor("Note", FilterOperator.IsEqualTo, "指标飞机申请（系统添加）");
+            _requestDescriptor = new FilterDescriptor("Title", FilterOperator.IsEqualTo, "指标飞机申请（系统添加）");
             Requests.FilterDescriptors.Add(_requestDescriptor);
-            Requests.LoadedData += (sender, e) => RaisePropertyChanged(()=>SelApprovalDoc);
+            Requests.LoadedData += (sender, e) =>
+            {
+                if (!ApprovalDocs.AutoLoad)
+                    ApprovalDocs.AutoLoad = true;
+                else
+                    ApprovalDocs.Load(true);
+            };
             _service.RegisterCollectionView(Requests);
 
             Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_context, _context.Annuals);
@@ -161,7 +167,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         #endregion
 
-                #region 执行月份集合
+        #region 执行月份集合
 
         /// <summary>
         ///     执行月份集合
@@ -249,11 +255,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             else
                 Requests.Load(true);
 
-            if (!ApprovalDocs.AutoLoad)
-                ApprovalDocs.AutoLoad = true;
-            else
-                ApprovalDocs.Load(true);
-
             if (!PlanAircrafts.AutoLoad)
                 PlanAircrafts.AutoLoad = true;
             else
@@ -303,7 +304,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                         }
                     }
                     RaisePropertyChanged(() => SelApprovalDoc);
-                    RaisePropertyChanged(()=>CurRequest);
+                    RaisePropertyChanged(() => CurRequest);
                     RefreshCommandState();
                 }
             }
@@ -475,13 +476,14 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             }
             planHistory.ApprovalHistoryId = requestDetail.Id;
 
-            // 计划飞机管理状态修改为申请:
+            // 计划飞机管理状态修改为批文:
             var planAircraft =
                 PlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>()
                     .FirstOrDefault(p => p.Id == planHistory.PlanAircraftId);
-            if (planAircraft != null) planAircraft.Status = (int)ManageStatus.申请;
+            if (planAircraft != null) planAircraft.Status = (int)ManageStatus.批文;
 
             planHistory.CanRequest = (int)CanRequest.已有发改委指标;
+            planHistory.CanDeliver = (int)CanDeliver.可交付;
 
             CurRequest.ApprovalHistories.Add(requestDetail);
             RefreshCommandState();
