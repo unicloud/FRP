@@ -2231,7 +2231,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.AcConfig", t => t.ID)
-                .Index(t => t.ID);
+                .ForeignKey("FRP.BasicConfigGroup", t => t.BasicConfigGroupId)
+                .Index(t => t.ID)
+                .Index(t => t.BasicConfigGroupId);
             
             CreateTable(
                 "FRP.EngineMaintainPlan",
@@ -3273,6 +3275,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.SpecialConfig", "ID", "FRP.AcConfig");
             DropForeignKey("FRP.MaintainInvoice", "ID", "FRP.Invoice");
             DropForeignKey("FRP.EngineMaintainPlan", "ID", "FRP.AnnualMaintainPlan");
+            DropForeignKey("FRP.BasicConfig", "BasicConfigGroupId", "FRP.BasicConfigGroup");
             DropForeignKey("FRP.BasicConfig", "ID", "FRP.AcConfig");
             DropForeignKey("FRP.BasePurchaseInvoice", "ID", "FRP.Invoice");
             DropForeignKey("FRP.AircraftMaintainPlan", "ID", "FRP.AnnualMaintainPlan");
@@ -3525,6 +3528,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.SpecialConfig", new[] { "ID" });
             DropIndex("FRP.MaintainInvoice", new[] { "ID" });
             DropIndex("FRP.EngineMaintainPlan", new[] { "ID" });
+            DropIndex("FRP.BasicConfig", new[] { "BasicConfigGroupId" });
             DropIndex("FRP.BasicConfig", new[] { "ID" });
             DropIndex("FRP.BasePurchaseInvoice", new[] { "ID" });
             DropIndex("FRP.AircraftMaintainPlan", new[] { "ID" });
