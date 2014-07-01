@@ -428,9 +428,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
 
             var menu72 = FunctionItemFactory.CreateFunctionItem("管理附件项", menu7.Id, 702, false, false, string.Empty);
             var menu721 = FunctionItemFactory.CreateFunctionItem("维护附件项", menu72.Id, 70201, true, false,
-                "UniCloud.Presentation.Part.PnRegAndSnReg.PnRegView");
+                "UniCloud.Presentation.Part.ManageItem.ItemView");
             var menu722 = FunctionItemFactory.CreateFunctionItem("管理装机控制信息", menu72.Id, 70202, true, false,
-                "UniCloud.Presentation.Part.PnRegAndSnReg.SnRegView");
+                "UniCloud.Presentation.Part.ManageItem.ItemControlView");
             menu72.SubFunctionItems.Add(menu721);
             menu72.SubFunctionItems.Add(menu722);
             menu7.SubFunctionItems.Add(menu72);
