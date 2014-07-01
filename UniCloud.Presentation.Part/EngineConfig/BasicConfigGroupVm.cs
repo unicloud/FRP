@@ -392,8 +392,9 @@ namespace UniCloud.Presentation.Part.EngineConfig
             SelBasicConfigGroup = new BasicConfigGroupDTO()
             {
                 Id = RandomHelper.Next(),
-                AircraftTypeId = AircraftTypes.FirstOrDefault().Id
             };
+            if (AircraftTypes.SourceCollection.Cast<AircraftTypeDTO>().Count() != 0)
+                SelBasicConfigGroup.AircraftTypeId = AircraftTypes.SourceCollection.Cast<AircraftTypeDTO>().First().Id;
             BasicConfigGroups.AddNew(SelBasicConfigGroup);
         }
 

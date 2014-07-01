@@ -78,8 +78,8 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
                 p.RequestDeliverMonth, p.Note, p.RequestId,
                 p.PlanAircraftId, p.ImportCategoryId, p.RequestDeliverAnnualId,
                 Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F")));
-            string log = "创建申请" + request.Title + ",包含" + request.ApprovalHistories.Count + "条申请明细";
-            newRequest.SetNote(log);
+            //string log = "创建申请" + request.Title + ",包含" + request.ApprovalHistories.Count + "条申请明细";
+            //newRequest.SetNote(log);
             _requestRepository.Add(newRequest);
         }
 
@@ -132,9 +132,9 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
                 c => c.Id, c => c.Id, c => InsertApprovalHistory(pesistRequest, c), ModifyApprovalHistory,
                 DeleteApprovalHistory);
 
-            DataHelper.DetailHandle(request.ApprovalHistories.ToArray(), pesistRequest.ApprovalHistories.ToArray(),
-                c => c.Id, c => c.Id, c => InsertLog(pesistRequest, c), (c, p) => ModifyLog(pesistRequest, c),
-                c => DeleteLog(pesistRequest, c));
+            //DataHelper.DetailHandle(request.ApprovalHistories.ToArray(), pesistRequest.ApprovalHistories.ToArray(),
+            //    c => c.Id, c => c.Id, c => InsertLog(pesistRequest, c), (c, p) => ModifyLog(pesistRequest, c),
+            //    c => DeleteLog(pesistRequest, c));
 
             _requestRepository.Modify(pesistRequest);
         }

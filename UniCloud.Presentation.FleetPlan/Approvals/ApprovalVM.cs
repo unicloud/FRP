@@ -83,7 +83,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 _enRouteRequests = new ObservableCollection<RequestDTO>();
                 foreach (RequestDTO req in Requests.SourceCollection.Cast<RequestDTO>())
                 {
-                    if (req.Note != "指标飞机申请（系统添加）" && req.Status >= (int)RequestStatus.已提交)
+                    if (req.Title != "指标飞机申请（系统添加）" && req.Status >= (int)RequestStatus.已提交)
                     {
                         EnRouteRequests.Add(req);
                     }

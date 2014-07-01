@@ -35,6 +35,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(p => p.BasicConfigGroupId).HasColumnName("BasicConfigGroupId");
 
+            HasRequired(o => o. BasicConfigGroup).WithMany().HasForeignKey(o => o.BasicConfigGroupId);
+
         }
 
     }

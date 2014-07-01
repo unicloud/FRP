@@ -45,7 +45,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg
         /// <param name="description">描述</param>
         /// <param name="name">名称</param>
         /// <returns></returns>
-        public static CtrlUnit CreateCtrlUnit(string description, string name)
+        public static CtrlUnit CreateCtrlUnit( string name,string description)
         {
             var ctrlUnit = new CtrlUnit
             {

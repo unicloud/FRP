@@ -53,6 +53,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigAgg
 
         #region 导航属性
 
+        /// <summary>
+        ///     基本构型组
+        /// </summary>
+        public BasicConfigGroup BasicConfigGroup { get; private set; }
+
         #endregion
 
         #region 操作
@@ -66,7 +71,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigAgg
             {
                 throw new ArgumentException("基本构型组参数为空！");
             }
-
+            BasicConfigGroup = basicConfigGroup;
             BasicConfigGroupId = basicConfigGroup.Id;
         }
         #endregion

@@ -43,7 +43,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg
         /// <param name="description">描述</param>
         /// <param name="workCode">工作代码</param>
         /// <returns></returns>
-        public static MaintainWork CreateMaintainWork(string description, string workCode)
+        public static MaintainWork CreateMaintainWork(string workCode, string description)
         {
             var maintainWork = new MaintainWork
             {

@@ -153,9 +153,15 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         public override void LoadData()
         {
-            SnRegs.Load(true);
+            if (!SnRegs.AutoLoad)
+                SnRegs.AutoLoad = true;
+            else
+                SnRegs.Load(true);
 
-            SnHistories.Load(true);
+            if (!SnHistories.AutoLoad)
+                SnHistories.AutoLoad = true;
+            else
+                SnHistories.Load(true);
         }
 
         #region 业务
