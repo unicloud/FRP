@@ -11,7 +11,8 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:SpareEnginePlanLayVM}">
+             d:DataContext="{d:DesignInstance uc:SpareEnginePlanLayVM}"
+             Name="SpareEngineView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -128,7 +129,7 @@
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewComboBoxColumn Header="年度"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.Annuals, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.Annuals,ElementName=SpareEngineView}"
                                                                         DisplayMemberPath="Year"
                                                                         DataMemberBinding="{Binding AnnualId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
@@ -217,7 +218,7 @@
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewComboBoxColumn Header="发动机型号"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.EngineTypes, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.EngineTypes, ElementName=SpareEngineView}"
                                                                         DisplayMemberPath="Name"
                                                                         DataMemberBinding="{Binding EngineTypeId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
@@ -225,22 +226,23 @@
                                                                         UniqueName="EngineType" />
                                         <telerik:GridViewComboBoxColumn Header="引进方式"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.ActionCategories, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.ActionCategories, ElementName=SpareEngineView}"
                                                                         DisplayMemberPath="ActionCategoryOperation"
                                                                         DataMemberBinding="{Binding ActionCategoryId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
                                                                         EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewComboBoxColumn Header="执行年度"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.Annuals, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.Annuals,ElementName=SpareEngineView}"
                                                                         DisplayMemberPath="Year"
                                                                         DataMemberBinding="{Binding PerformAnnualId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
                                                                         EditorStyle="{StaticResource EditComboBox}" />
-                                        <telerik:GridViewDataColumn Header="执行月份"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    UniqueName="PerformMonth"
-                                                                    DataMemberBinding="{Binding PerformMonth}" />
+                                        <telerik:GridViewComboBoxColumn Header="执行月份"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSourceBinding="{Binding DataContext.Months,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                        DataMemberBinding="{Binding PerformMonth,Mode=TwoWay}"
+                                                                        EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewDataColumn Header="最大推力"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding MaxThrust}" />

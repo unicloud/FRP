@@ -593,6 +593,10 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             {
                 aircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().Any(pa => pa.AircraftId == SelPlanHistory.AircraftId) ? Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId) : null;
                 SelPlanHistory.CanDeliver = (int)CanDeliver.交付中;
+                var planAircraft =
+                    PlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>()
+                        .FirstOrDefault(p => p.Id == SelPlanHistory.PlanAircraftId);
+                if (planAircraft != null) planAircraft.Status = (int) ManageStatus.运营;
             }
             // 调用完成计划的操作
             _service.CompletePlan(SelPlanHistory, aircraft, ref  _editAircraft);
@@ -804,6 +808,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                                      aircraftBusiness.Status = (int)OperationStatus.已提交;
                              }
                              SelPlanHistory.CanDeliver = (int) CanDeliver.已交付;
+
                          }
                      }
                      // 审核、已提交状态下可以发送。如果已处于提交状态，需要重新发送的，不必改变状态。

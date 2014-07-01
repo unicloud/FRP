@@ -70,8 +70,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg
         /// <param name="aircraftBusiness">商业数据历史</param>
         public void SetAircraftBusiness(AircraftBusiness aircraftBusiness)
         {
-            AircraftBusiness = AircraftBusiness;
-            AircraftBusinessId = aircraftBusiness.Id;
+            if (aircraftBusiness != null)
+            {
+                AircraftBusiness = AircraftBusiness;
+                AircraftBusinessId = aircraftBusiness.Id;
+            }
         }
 
         #endregion

@@ -11,7 +11,8 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:FleetPlanLayVM}">
+             d:DataContext="{d:DesignInstance uc:FleetPlanLayVM}"
+             Name="AircraftPlanView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -134,10 +135,10 @@
                                             <telerik:RadContextMenu>
                                                 <telerik:RadMenuItem Header="导出Excel"
                                                                      Command="{Binding ExcelExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=ViewPlanHistories, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=PlanLay, Mode=OneWay}" />
                                                 <telerik:RadMenuItem Header="导出Word"
                                                                      Command="{Binding WordExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=ViewPlanHistories, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=PlanLay, Mode=OneWay}" />
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
@@ -179,7 +180,7 @@
                                                                         DataMemberBinding="{Binding RegNumber}" />
                                             <telerik:GridViewComboBoxColumn Header="执行年度"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            ItemsSource="{Binding DataContext.Annuals,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                            ItemsSource="{Binding DataContext.Annuals,ElementName=AircraftPlanView}"
                                                                             DataMemberBinding="{Binding PerformAnnualId,Mode=TwoWay}"
                                                                             SelectedValueMemberPath="Id"
                                                                             DisplayMemberPath="Year"
@@ -187,7 +188,7 @@
                                                                             EditorStyle="{StaticResource EditComboBox}" />
                                             <telerik:GridViewComboBoxColumn Header="执行月份"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            ItemsSourceBinding="{Binding DataContext.Months,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                            ItemsSourceBinding="{Binding DataContext.Months,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
                                                                             DataMemberBinding="{Binding PerformMonth,Mode=TwoWay}"
                                                                             EditorStyle="{StaticResource EditComboBox}" />
                                             <telerik:GridViewComboBoxColumn Header="航空公司"
@@ -200,7 +201,7 @@
                                                                         DataMemberBinding="{Binding CarryingCapacity}" />
                                             <telerik:GridViewComboBoxColumn Header="引进/退出方式"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            ItemsSource="{Binding DataContext.AllActionCategories,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                            ItemsSource="{Binding DataContext.AllActionCategories,ElementName=AircraftPlanView}"
                                                                             DisplayMemberPath="ActionName"
                                                                             FilterMemberPath="ActionName"
                                                                             DataMemberBinding="{Binding TargetCategoryId,Mode=TwoWay}"
@@ -230,7 +231,7 @@
                                              FontSize="{StaticResource TextFontSize}"
                                              ContextMenuTemplate="{x:Null}">
                                 <Grid>
-                                    <telerik:RadGridView x:Name="PlanAircraft"
+                                    <telerik:RadGridView x:Name="PlanAircrafts"
                                                          AutoExpandGroups="True"
                                                          ShowGroupPanel="False"
                                                          AutoGenerateColumns="False"
@@ -271,10 +272,10 @@
                                             <telerik:RadContextMenu>
                                                 <telerik:RadMenuItem Header="导出Excel"
                                                                      Command="{Binding ExcelExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=ViewPlanAircrafts, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=PlanAircrafts, Mode=OneWay}" />
                                                 <telerik:RadMenuItem Header="导出Word"
                                                                      Command="{Binding WordExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=ViewPlanAircrafts, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=PlanAircrafts, Mode=OneWay}" />
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
@@ -305,7 +306,7 @@
                                              FontSize="{StaticResource TextFontSize}"
                                              ContextMenuTemplate="{x:Null}">
                                 <Grid>
-                                    <telerik:RadGridView x:Name="Aircraft"
+                                    <telerik:RadGridView x:Name="Aircrafts"
                                                          ShowGroupPanel="False"
                                                          AutoExpandGroups="True"
                                                          IsReadOnly="True"
@@ -366,10 +367,10 @@
                                             <telerik:RadContextMenu>
                                                 <telerik:RadMenuItem Header="导出Excel"
                                                                      Command="{Binding ExcelExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=SelAircraftLeaseReception.ReceptionLines, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=Aircrafts, Mode=OneWay}" />
                                                 <telerik:RadMenuItem Header="导出Word"
                                                                      Command="{Binding WordExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=SelAircraftLeaseReception.ReceptionLines, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=Aircrafts, Mode=OneWay}" />
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>

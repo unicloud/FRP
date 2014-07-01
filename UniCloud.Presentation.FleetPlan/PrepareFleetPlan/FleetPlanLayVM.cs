@@ -498,6 +498,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 ph.AircraftTypes.AddRange(_service.GetAircraftTypesForPlanHistory(ph));
             }
             CurPlan = Plans.OrderBy(p => p.VersionNumber).LastOrDefault();
+            IsPlanReadOnly = false;
+            RaisePropertyChanged(()=>IsPlanReadOnly);
             RefreshCommandState();
         }
 
