@@ -40,32 +40,6 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
     [TestClass]
     public class OrderRepositoryTests
     {
-        #region 基础配置
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            UniContainer.Create()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IModelConfiguration, SqlConfigurations>("Sql")
-                .Register<IOrderRepository, OrderRepository>()
-                .Register<ICurrencyRepository, CurrencyRepository>()
-                .Register<ITradeRepository, TradeRepository>()
-                .Register<IContractAircraftRepository, ContractAircraftRepository>()
-                .Register<IContractAircraftBFERepository, ContractAircraftBFERepository>()
-                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
-                .Register<IActionCategoryRepository, ActionCategoryRepository>()
-                .Register<IRelatedDocRepository, RelatedDocRepository>()
-                .Register<ILinkmanRepository, LinkmanRepository>();
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-        }
-
-        #endregion
-
         [TestMethod]
         public void GetAllOrders()
         {

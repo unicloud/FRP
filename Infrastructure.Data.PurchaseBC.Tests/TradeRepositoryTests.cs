@@ -34,25 +34,6 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
     [TestClass]
     public class TradeRepositoryTests
     {
-        #region 基础配置
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            UniContainer.Create()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IModelConfiguration, SqlConfigurations>("Sql")
-                .Register<ITradeRepository, TradeRepository>()
-                .Register<ISupplierRepository, SupplierRepository>();
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-        }
-
-        #endregion
-
         [TestMethod]
         public void GetAllTrade()
         {

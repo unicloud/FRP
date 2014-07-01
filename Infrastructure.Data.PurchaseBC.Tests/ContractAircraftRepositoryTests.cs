@@ -36,28 +36,5 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
     [TestClass]
     public class ContractAircraftRepositoryTests
     {
-        #region 基础配置
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            UniContainer.Create()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IModelConfiguration, SqlConfigurations>("Sql")
-                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
-                .Register<IActionCategoryRepository, ActionCategoryRepository>()
-                .Register<ICurrencyRepository, CurrencyRepository>()
-                .Register<ITradeRepository, TradeRepository>()
-                .Register<ILinkmanRepository, LinkmanRepository>()
-                .Register<IOrderRepository, OrderRepository>()
-                .Register<IContractAircraftRepository, ContractAircraftRepository>();
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-        }
-
-        #endregion
     }
 }

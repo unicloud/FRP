@@ -81,7 +81,7 @@
                         <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1"
-                               Text="名称"
+                               Text="件号"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Row="0"

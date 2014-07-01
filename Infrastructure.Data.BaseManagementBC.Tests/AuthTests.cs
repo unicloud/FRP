@@ -40,10 +40,18 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.Tests
             const string validationKey = "C50B3C89CB21F4F1422FF158A5B42D0E8DB8CB5CDA1742572A487";
             var hash = new HMACSHA1 {Key = HexToByte(validationKey + "C50B3C89")};
             var encodedPassword = Convert.ToBase64String(hash.ComputeHash(Encoding.Unicode.GetBytes(password)));
-            var user = UserFactory.CreateUser("admin1", encodedPassword, null, 1, "First User", "3U", DateTime.Now);
+            var user1 = UserFactory.CreateUser("规划", encodedPassword, null, 1, "First User", "3U", DateTime.Now);
+            var user2 = UserFactory.CreateUser("资金", encodedPassword, null, 1, "First User", "3U", DateTime.Now);
+            var user3 = UserFactory.CreateUser("资产", encodedPassword, null, 1, "First User", "3U", DateTime.Now);
+            var user4 = UserFactory.CreateUser("发管", encodedPassword, null, 1, "First User", "3U", DateTime.Now);
+            var user5 = UserFactory.CreateUser("机务", encodedPassword, null, 1, "First User", "3U", DateTime.Now);
 
             // Act
-            usRep.Add(user);
+            usRep.Add(user1);
+            usRep.Add(user2);
+            usRep.Add(user3);
+            usRep.Add(user4);
+            usRep.Add(user5);
             usRep.UnitOfWork.Commit();
 
             // Assert
