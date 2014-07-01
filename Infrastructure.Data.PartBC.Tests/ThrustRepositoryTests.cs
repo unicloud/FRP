@@ -31,24 +31,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
     [TestClass]
     public class ThrustRepositoryTests
     {
-        #region 基础配置
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            UniContainer.Create()
-                .Register<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IModelConfiguration, SqlConfigurations>("Sql")
-                .Register<IThrustRepository, ThrustRepository>();
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-        }
-
-        #endregion
-
         [TestMethod]
         public void CreateThrustTest()
         {
