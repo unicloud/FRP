@@ -22,19 +22,17 @@ using UniCloud.Application.PurchaseBC.DTO;
 
 #endregion
 
-namespace UniCloud.Application.PurchaseBC.PartServices
+namespace UniCloud.Application.PurchaseBC.PnRegServices
 {
     /// <summary>
     ///     表示用于处理部件相关信息服务接口。
     /// </summary>
-    public interface IPartAppService
+    public interface IPnRegAppService
     {
         /// <summary>
         ///     部件查询。
         /// </summary>
         /// <returns>部件DTO集合</returns>
-        IQueryable<PartDTO> GetParts(
-            );
-
+        IQueryable<PnRegDTO> GetPnRegs();
     }
 }

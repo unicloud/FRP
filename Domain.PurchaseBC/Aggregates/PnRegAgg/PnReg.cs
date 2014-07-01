@@ -15,12 +15,12 @@
 
 #endregion
 
-namespace UniCloud.Domain.PurchaseBC.Aggregates.PartAgg
+namespace UniCloud.Domain.PurchaseBC.Aggregates.PnRegAgg
 {
     /// <summary>
-    ///     附件聚合根
+    ///     PnReg聚合根
     /// </summary>
-    public class Part : EntityInt
+    public class PnReg : EntityInt
     {
         #region 构造函数
 
@@ -28,7 +28,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.PartAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal Part()
+        internal PnReg()
         {
         }
 
@@ -44,7 +44,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.PartAgg
         /// <summary>
         ///     名称
         /// </summary>
-        public string Name { get; protected set; }
+        public string Description { get; protected set; }
 
         #endregion
 

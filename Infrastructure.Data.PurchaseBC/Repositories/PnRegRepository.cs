@@ -17,7 +17,7 @@
 
 #region 命名空间
 
-using UniCloud.Domain.PurchaseBC.Aggregates.PartAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.PnRegAgg;
 
 #endregion
 
@@ -26,9 +26,9 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Repositories
     /// <summary>
     ///     附件仓储实现
     /// </summary>
-    public class PartRepository : Repository<Part>, IPartRepository
+    public class PnRegRepository : Repository<PnReg>, IPnRegRepository
     {
-        public PartRepository(IQueryableUnitOfWork unitOfWork)
+        public PnRegRepository(IQueryableUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }

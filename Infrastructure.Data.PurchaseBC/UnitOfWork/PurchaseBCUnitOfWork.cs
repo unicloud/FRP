@@ -38,8 +38,8 @@ using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.PartAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
@@ -57,8 +57,8 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         #region IDbSet成员
 
         private IDbSet<ActionCategory> _actionCategories;
-        private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<AircraftCategory> _aircraftCategories;
+        private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<Annual> _annuals;
         private IDbSet<BankAccount> _bankAccounts;
@@ -74,10 +74,10 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         private IDbSet<Manufacturer> _manufacturers;
         private IDbSet<Material> _materials;
         private IDbSet<Order> _orders;
-        private IDbSet<Part> _parts;
         private IDbSet<PlanAircraft> _planAircrafts;
         private IDbSet<PlanHistory> _planHistories;
         private IDbSet<Plan> _plans;
+        private IDbSet<PnReg> _pnRegs;
         private IDbSet<Reception> _receptions;
         private IDbSet<RelatedDoc> _relatedDocs;
         private IDbSet<SupplierCompany> _supplierCompanies;
@@ -176,9 +176,9 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
             get { return _orders ?? (_orders = base.Set<Order>()); }
         }
 
-        public IDbSet<Part> Parts
+        public IDbSet<PnReg> PnRegs
         {
-            get { return _parts ?? (_parts = base.Set<Part>()); }
+            get { return _pnRegs ?? (_pnRegs = base.Set<PnReg>()); }
         }
 
         public IDbSet<PlanAircraft> PlanAircrafts

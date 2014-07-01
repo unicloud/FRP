@@ -79,7 +79,6 @@ using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
 using UniCloud.Domain.UberModel.Aggregates.OrganizationAgg;
 using UniCloud.Domain.UberModel.Aggregates.OrganizationRoleAgg;
 using UniCloud.Domain.UberModel.Aggregates.OrganizationUserAgg;
-using UniCloud.Domain.UberModel.Aggregates.PartAgg;
 using UniCloud.Domain.UberModel.Aggregates.PaymentNoticeAgg;
 using UniCloud.Domain.UberModel.Aggregates.PaymentScheduleAgg;
 using UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg;
@@ -193,7 +192,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<OrganizationRole> _organizationRoles;
         private IDbSet<OrganizationUser> _organizationUsers;
         private IDbSet<Organization> _organizations;
-        private IDbSet<Part> _parts;
         private IDbSet<PaymentNotice> _paymentNotices;
         private IDbSet<PaymentSchedule> _paymentSchedules;
         private IDbSet<PlanAircraft> _planAircrafts;
@@ -507,11 +505,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<Order> Orders
         {
             get { return _orders ?? (_orders = Set<Order>()); }
-        }
-
-        public IDbSet<Part> Parts
-        {
-            get { return _parts ?? (_parts = Set<Part>()); }
         }
 
         public IDbSet<PaymentNotice> PaymentNotices

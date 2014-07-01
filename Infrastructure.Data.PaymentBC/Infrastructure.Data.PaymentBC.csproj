@@ -123,7 +123,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\OrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrderLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OtherSupplierEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\PartEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PnRegEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PaymentNoticeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PaymentNoticeLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PaymentScheduleEntityConfiguration.cs" />

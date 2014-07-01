@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
-using UniCloud.Domain.UberModel.Aggregates.PartAgg;
+using UniCloud.Domain.UberModel.Aggregates.PnRegAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 
 #endregion
@@ -95,7 +95,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractEngineAgg
         /// <summary>
         ///     附件ID
         /// </summary>
-        public int PartId { get; private set; }
+        public int PnRegId { get; private set; }
 
         /// <summary>
         ///     引进方式ID
@@ -114,7 +114,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractEngineAgg
         /// <summary>
         ///     附件
         /// </summary>
-        public virtual Part Part { get; private set; }
+        public virtual PnReg PnReg { get; private set; }
 
         /// <summary>
         ///     引进方式
@@ -133,16 +133,16 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractEngineAgg
         /// <summary>
         ///     设置附件
         /// </summary>
-        /// <param name="part">附件</param>
-        public void SetPart(Part part)
+        /// <param name="pnReg">附件</param>
+        public void SetPnReg(PnReg pnReg)
         {
-            if (part == null || part.IsTransient())
+            if (pnReg == null || pnReg.IsTransient())
             {
                 throw new ArgumentException("附件参数为空！");
             }
 
-            Part = part;
-            PartId = part.Id;
+            PnReg = pnReg;
+            PnRegId = pnReg.Id;
         }
 
         /// <summary>

@@ -28,8 +28,8 @@ using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaintainContractServices;
 using UniCloud.Application.PurchaseBC.ManufacturerServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
-using UniCloud.Application.PurchaseBC.PartServices;
 using UniCloud.Application.PurchaseBC.PlanAircraftServices;
+using UniCloud.Application.PurchaseBC.PnRegServices;
 using UniCloud.Application.PurchaseBC.Query.ActionCategoryQueries;
 using UniCloud.Application.PurchaseBC.Query.AircraftTypeQueries;
 using UniCloud.Application.PurchaseBC.Query.ContractAircraftQueries;
@@ -41,8 +41,8 @@ using UniCloud.Application.PurchaseBC.Query.ForwarderQueries;
 using UniCloud.Application.PurchaseBC.Query.MaintainContractQueries;
 using UniCloud.Application.PurchaseBC.Query.ManufacturerQueries;
 using UniCloud.Application.PurchaseBC.Query.MaterialQueries;
-using UniCloud.Application.PurchaseBC.Query.PartQueries;
 using UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries;
+using UniCloud.Application.PurchaseBC.Query.PnRegQueries;
 using UniCloud.Application.PurchaseBC.Query.ReceptionQueries;
 using UniCloud.Application.PurchaseBC.Query.RelatedDocQueries;
 using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
@@ -169,8 +169,8 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
 
                 #region 部件相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IPartQuery, PartQuery>()
-                .Register<IPartAppService, PartAppService>()
+                .Register<IPnRegQuery, PnRegQuery>()
+                .Register<IPnRegAppService, PnRegAppService>()
                 #endregion
 
                 #region 活动类型相关配置，包括查询，应用服务，仓储注册

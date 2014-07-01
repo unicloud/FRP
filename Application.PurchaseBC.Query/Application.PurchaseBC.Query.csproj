@@ -82,8 +82,8 @@
     <Compile Include="MaterialQueries\IMaterialQuery.cs" />
     <Compile Include="ContractDocumentQueries\ContractDocumentQuery.cs" />
     <Compile Include="ContractDocumentQueries\IContractDocumentQuery.cs" />
-    <Compile Include="PartQueries\IPartQuery.cs" />
-    <Compile Include="PartQueries\PartQuery.cs" />
+    <Compile Include="PnRegQueries\IPnRegQuery.cs" />
+    <Compile Include="PnRegQueries\PnRegQuery.cs" />
     <Compile Include="PlanAircraftQueries\IPlanAircraftQuery.cs" />
     <Compile Include="PlanAircraftQueries\PlanAircraftQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

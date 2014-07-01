@@ -19,23 +19,22 @@
 
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
-using UniCloud.Domain.PurchaseBC.Aggregates.PartAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.PnRegAgg;
 
 #endregion
 
-namespace UniCloud.Application.PurchaseBC.Query.PartQueries
+namespace UniCloud.Application.PurchaseBC.Query.PnRegQueries
 {
     /// <summary>
     ///     部件查询接口。
     /// </summary>
-    public interface IPartQuery
+    public interface IPnRegQuery
     {
         /// <summary>
         ///     部件查询。
         /// </summary>
         /// <param name="query">查询表达式。</param>
         /// <returns>部件DTO集合</returns>
-        IQueryable<PartDTO> PartsQuery(
-            QueryBuilder<Part> query);
+        IQueryable<PnRegDTO> PnRegsQuery(QueryBuilder<PnReg> query);
     }
 }

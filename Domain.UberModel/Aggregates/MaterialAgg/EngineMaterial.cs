@@ -15,12 +15,6 @@
 
 #endregion
 
-#region 命名空间
-
-using UniCloud.Domain.UberModel.Aggregates.PartAgg;
-
-#endregion
-
 namespace UniCloud.Domain.UberModel.Aggregates.MaterialAgg
 {
     /// <summary>
@@ -30,13 +24,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaterialAgg
     public class EngineMaterial : Material
     {
         #region 属性
+
         /// <summary>
-        /// 物料件号
+        ///     物料件号
         /// </summary>
         public string Pn { get; set; }
 
         /// <summary>
-        /// 发动机目录价
+        ///     发动机目录价
         /// </summary>
         public decimal ListPrice { get; set; }
 

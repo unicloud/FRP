@@ -15,12 +15,12 @@
 
 #endregion
 
-namespace UniCloud.Domain.PaymentBC.Aggregates.PartAgg
+namespace UniCloud.Domain.PaymentBC.Aggregates.PnRegAgg
 {
     /// <summary>
     ///     附件规约集合
     /// </summary>
-    public static class PartSpecifications
+    public static class PnRegSpecifications
     {
     }
 }

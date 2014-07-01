@@ -169,9 +169,9 @@
     <Compile Include="Aggregates\OrderAgg\EnginePurchaseOrderLine.cs" />
     <Compile Include="Aggregates\TradeAgg\ITradeRepository.cs" />
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />
-    <Compile Include="Aggregates\PartAgg\IPartRepository.cs" />
-    <Compile Include="Aggregates\PartAgg\Part.cs" />
-    <Compile Include="Aggregates\PartAgg\PartSpecifications.cs" />
+    <Compile Include="Aggregates\PnRegAgg\IPnRegRepository.cs" />
+    <Compile Include="Aggregates\PnRegAgg\PnReg.cs" />
+    <Compile Include="Aggregates\PnRegAgg\PnRegSpecifications.cs" />
     <Compile Include="Aggregates\PlanAircraftAgg\IPlanAircraftRepository.cs" />
     <Compile Include="Aggregates\PlanAircraftAgg\PlanAircraft.cs" />
     <Compile Include="Aggregates\PlanAircraftAgg\PlanAircraftSpecifications.cs" />

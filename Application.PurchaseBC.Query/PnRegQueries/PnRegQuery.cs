@@ -19,21 +19,21 @@
 
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
-using UniCloud.Domain.PurchaseBC.Aggregates.PartAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.PnRegAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
 
-namespace UniCloud.Application.PurchaseBC.Query.PartQueries
+namespace UniCloud.Application.PurchaseBC.Query.PnRegQueries
 {
     /// <summary>
     ///     实现部件查询接口。
     /// </summary>
-    public class PartQuery : IPartQuery
+    public class PnRegQuery : IPnRegQuery
     {
         private readonly IQueryableUnitOfWork _unitOfWork;
 
-        public PartQuery(IQueryableUnitOfWork unitOfWork)
+        public PnRegQuery(IQueryableUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -43,13 +43,12 @@ namespace UniCloud.Application.PurchaseBC.Query.PartQueries
         /// </summary>
         /// <param name="query">查询表达式。</param>
         /// <returns>部件DTO集合</returns>
-        public IQueryable<PartDTO> PartsQuery(
-            QueryBuilder<Part> query)
+        public IQueryable<PnRegDTO> PnRegsQuery(QueryBuilder<PnReg> query)
         {
-            return query.ApplyTo(_unitOfWork.CreateSet<Part>()).Select(p => new PartDTO
+            return query.ApplyTo(_unitOfWork.CreateSet<PnReg>()).Select(p => new PnRegDTO
             {
-                PartId = p.Id,
-                Name = p.Name,
+                Id = p.Id,
+                Description = p.Description,
                 Pn = p.Pn
             });
         }

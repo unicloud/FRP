@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class database : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -1019,19 +1019,23 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.ActionCategory", t => t.ImportCategoryId)
-                .ForeignKey("FRP.Part", t => t.PartID)
+                .ForeignKey("FRP.PnReg", t => t.PartID)
                 .ForeignKey("FRP.Supplier", t => t.SupplierId)
                 .Index(t => t.PartID)
                 .Index(t => t.ImportCategoryId)
                 .Index(t => t.SupplierId);
             
             CreateTable(
-                "FRP.Part",
+                "FRP.PnReg",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Pn = c.String(),
-                        Name = c.String(),
+                        Pn = c.String(maxLength: 100),
+                        IsLife = c.Boolean(nullable: false),
+                        Description = c.String(),
+                        CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        UpdateDate = c.DateTime(precision: 7, storeType: "datetime2"),
+                        ItemId = c.Int(),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -1413,20 +1417,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         FiNumber = c.String(),
                         IsLife = c.Boolean(nullable: false),
                         Description = c.String(),
-                    })
-                .PrimaryKey(t => t.ID);
-            
-            CreateTable(
-                "FRP.PnReg",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        Pn = c.String(maxLength: 100),
-                        IsLife = c.Boolean(nullable: false),
-                        Description = c.String(),
-                        CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        UpdateDate = c.DateTime(precision: 7, storeType: "datetime2"),
-                        ItemId = c.Int(),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -3362,7 +3352,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.Document", "DocumentTypeId", "FRP.DocumentType");
             DropForeignKey("FRP.DocumentPath", "ParentId", "FRP.DocumentPath");
             DropForeignKey("FRP.ContractEngine", "SupplierId", "FRP.Supplier");
-            DropForeignKey("FRP.ContractEngine", "PartID", "FRP.Part");
+            DropForeignKey("FRP.ContractEngine", "PartID", "FRP.PnReg");
             DropForeignKey("FRP.ContractEngine", "ImportCategoryId", "FRP.ActionCategory");
             DropForeignKey("FRP.ContractAircraftBFE", "ContractAircraftId", "FRP.ContractAircraft");
             DropForeignKey("FRP.ContractAircraft", "SupplierId", "FRP.Supplier");
@@ -3814,7 +3804,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.MaintainCost");
             DropTable("FRP.MaintainContract");
             DropTable("FRP.MailAddress");
-            DropTable("FRP.PnReg");
             DropTable("FRP.Item");
             DropTable("FRP.Dependency");
             DropTable("FRP.InstallController");
@@ -3834,7 +3823,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.DocumentPath");
             DropTable("FRP.CtrlUnit");
             DropTable("FRP.Trade");
-            DropTable("FRP.Part");
+            DropTable("FRP.PnReg");
             DropTable("FRP.ContractEngine");
             DropTable("FRP.ContractAircraft");
             DropTable("FRP.OrderLine");

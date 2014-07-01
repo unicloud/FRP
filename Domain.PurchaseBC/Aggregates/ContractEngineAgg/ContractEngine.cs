@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.PartAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 
 #endregion
@@ -114,7 +114,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg
         /// <summary>
         ///     附件
         /// </summary>
-        public virtual Part Part { get; private set; }
+        public virtual PnReg Part { get; private set; }
 
         /// <summary>
         ///     引进方式
@@ -134,7 +134,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg
         ///     设置附件
         /// </summary>
         /// <param name="part">附件</param>
-        public void SetPart(Part part)
+        public void SetPart(PnReg part)
         {
             if (part == null || part.IsTransient())
             {

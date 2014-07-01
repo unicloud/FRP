@@ -369,12 +369,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #endregion
 
-                #region PartAgg
-
-                .Add(new PartEntityConfiguration())
-
-                #endregion
-
                 #region PaymentNoticeAgg
 
                 .Add(new PaymentNoticeEntityConfiguration())

@@ -26,18 +26,18 @@ namespace UniCloud.Application.PurchaseBC.DTO
     /// <summary>
     ///     部件信息
     /// </summary>
-    [DataServiceKey("PartId")]
-    public class PartDTO
+    [DataServiceKey("Id")]
+    public class PnRegDTO
     {
         /// <summary>
         ///     主键
         /// </summary>
-        public int PartId { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         ///     名称
         /// </summary>
-        public string Name { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         ///     型号

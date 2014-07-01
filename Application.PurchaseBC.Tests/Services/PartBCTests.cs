@@ -19,8 +19,8 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCloud.Application.PurchaseBC.PartServices;
-using UniCloud.Application.PurchaseBC.Query.PartQueries;
+using UniCloud.Application.PurchaseBC.PnRegServices;
+using UniCloud.Application.PurchaseBC.Query.PnRegQueries;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Unity;
@@ -43,8 +43,8 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
 
                 #region 部件相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IPartQuery, PartQuery>()
-                .Register<IPartAppService, PartAppService>()
+                .Register<IPnRegQuery, PnRegQuery>()
+                .Register<IPnRegAppService, PnRegAppService>()
                 #endregion
 
                 ;
@@ -64,9 +64,9 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void TestGetParts()
         {
             // Arrange
-            var service = UniContainer.Resolve<IPartAppService>();
+            var service = UniContainer.Resolve<IPnRegAppService>();
             // Act
-            var result = service.GetParts().ToList();
+            var result = service.GetPnRegs().ToList();
             // Assert
             Assert.IsTrue(result.Any());
         }

@@ -202,9 +202,9 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
 
                 #endregion
 
-                #region PartAgg
+                #region PnRegAgg
 
-                .Add(new PartEntityConfiguration())
+                .Add(new PnRegEntityConfiguration())
 
                 #endregion
 

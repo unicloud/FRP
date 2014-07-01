@@ -18,7 +18,6 @@
 #region 命名空间
 
 using System;
-using UniCloud.Domain.PurchaseBC.Aggregates.PartAgg;
 
 #endregion
 
