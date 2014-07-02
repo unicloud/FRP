@@ -35,6 +35,14 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
             get { return (ContractAircraftStatus) Status; }
         }
 
+        /// <summary>
+        ///     是否匹配
+        /// </summary>
+        public bool IsMatched
+        {
+            get { return PlanAircraftID != null; }
+        }
+
         #endregion
     }
 }

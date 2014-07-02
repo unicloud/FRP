@@ -24,6 +24,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Unity;
@@ -35,27 +36,6 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
     [TestClass]
     public class SupplierCompanyRepositoryTests
     {
-        #region 基础配置
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
-            UniContainer.Create()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IModelConfiguration, SqlConfigurations>("Sql")
-                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
-                .Register<IMaterialRepository, MaterialRepository>()
-                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
-                .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>();
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-        }
-
-        #endregion
-
         [TestMethod]
         public void AddMaterialWithSupplier()
         {
@@ -114,6 +94,19 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
 
             // Act
             var result = supplierRep.Get(3).SupplierCompanyMaterials.Select(s => s.Material);
+
+            // Assert
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
+        public void GetAllSupplierRoleTest()
+        {
+            // Arrange
+            var srRep = UniContainer.Resolve<ISupplierRoleRepository>();
+
+            // Act
+            var result=srRep.GetAll().ToList();
 
             // Assert
             Assert.IsTrue(result.Any());

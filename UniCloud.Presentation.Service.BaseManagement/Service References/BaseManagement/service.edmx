@@ -8,7 +8,8 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="UserName" Type="Edm.String" />
         <Property Name="OrganizationNo" Type="Edm.String" />
-        <Property Name="DisplayName" Type="Edm.String" />
+        <Property Name="FirstName" Type="Edm.String" />
+        <Property Name="LastName" Type="Edm.String" />
         <Property Name="Password" Type="Edm.String" />
         <Property Name="Question" Type="Edm.String" />
         <Property Name="Answer" Type="Edm.String" />
@@ -17,6 +18,7 @@
         <Property Name="Description" Type="Edm.String" />
         <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="OrganizationName" Type="Edm.String" />
+        <Property Name="IsSystemUser" Type="Edm.Boolean" Nullable="false" />
         <Property Name="UserRoles" Type="Collection(UniCloud.Application.BaseManagementBC.DTO.UserRoleDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="UserRoleDTO">

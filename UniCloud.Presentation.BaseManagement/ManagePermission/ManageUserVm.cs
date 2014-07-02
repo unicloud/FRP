@@ -76,6 +76,8 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         /// </summary>
         public override void LoadData()
         {
+            if (!ViewUserDTO.AutoLoad) ViewUserDTO.AutoLoad = true;
+            else ViewUserDTO.Load(true);
         }
 
         #region 用户

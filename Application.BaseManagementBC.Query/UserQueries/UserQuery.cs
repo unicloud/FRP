@@ -50,7 +50,8 @@ namespace UniCloud.Application.BaseManagementBC.Query.UserQueries
             return query.ApplyTo(_unitOfWork.CreateSet<User>()).Select(p => new UserDTO
             {
                 Id = p.Id,
-                DisplayName = p.DisplayName,
+                FirstName = p.FirstName,
+                LastName = p.LastName,
                 CreateDate = p.CreateDate,
                 Description = p.Comment,
                 Email = p.Email,
@@ -59,6 +60,7 @@ namespace UniCloud.Application.BaseManagementBC.Query.UserQueries
                 Mobile = p.Mobile,
                 Password = p.Password,
                 OrganizationName = dbOrganization.FirstOrDefault(t => p.OrganizationNo.Equals(t.Code)).Name,
+                IsSystemUser = p.IsSystemUser,
                 UserRoles = p.UserRoles.Select(q => new UserRoleDTO
                 {
                     Id = q.Id,

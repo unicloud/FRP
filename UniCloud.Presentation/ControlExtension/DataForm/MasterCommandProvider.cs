@@ -1,8 +1,21 @@
-﻿//------------------------------------------------------------------------------
-// 
-//------------------------------------------------------------------------------
+﻿#region 版本控制
 
-#region
+// =====================================================
+// 版权所有 (C) 2014 UniCloud 
+// 【本类功能概述】
+// 
+// 作者：丁志浩 时间：2013-11-29，13:11
+// 方案：FRP
+// 项目：Presentation
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// =====================================================
+
+#endregion
+
+#region 命名空间
 
 using System.Windows;
 using Telerik.Windows.Controls.Data.DataForm;
@@ -17,8 +30,8 @@ namespace UniCloud.Presentation.ControlExtension.DataForm
     {
         public static readonly DependencyProperty QueryableDataServiceCollectionViewProperty =
             DependencyProperty.Register("QueryableDataServiceCollectionView",
-                                        typeof (QueryableDataServiceCollectionViewBase), typeof (MasterCommandProvider),
-                                        new PropertyMetadata(OnViewModelChanged));
+                typeof (QueryableDataServiceCollectionViewBase), typeof (MasterCommandProvider),
+                new PropertyMetadata(OnViewModelChanged));
 
         public MasterCommandProvider()
             : base(null)
@@ -30,7 +43,10 @@ namespace UniCloud.Presentation.ControlExtension.DataForm
         /// </summary>
         public QueryableDataServiceCollectionViewBase QueryableDataServiceCollectionView
         {
-            get { return (QueryableDataServiceCollectionViewBase)GetValue(QueryableDataServiceCollectionViewProperty); }
+            get
+            {
+                return (QueryableDataServiceCollectionViewBase) GetValue(QueryableDataServiceCollectionViewProperty);
+            }
             set { SetValue(QueryableDataServiceCollectionViewProperty, value); }
         }
 
@@ -60,30 +76,29 @@ namespace UniCloud.Presentation.ControlExtension.DataForm
         protected override bool CanMoveCurrentToFirstExecute()
         {
             return QueryableDataServiceCollectionView == null
-                       ? DataForm.CanMoveCurrentToFirst
-                       : !QueryableDataServiceCollectionView.HasChanges;
+                ? DataForm.CanMoveCurrentToFirst
+                : !QueryableDataServiceCollectionView.HasChanges;
         }
 
         protected override bool CanMoveCurrentToNextExecute()
         {
             return QueryableDataServiceCollectionView == null
-                       ? DataForm.CanMoveCurrentToNext
-                       : !QueryableDataServiceCollectionView.HasChanges;
+                ? DataForm.CanMoveCurrentToNext
+                : !QueryableDataServiceCollectionView.HasChanges;
         }
 
         protected override bool CanMoveCurrentToLastExecute()
         {
             return QueryableDataServiceCollectionView == null
-                       ? DataForm.CanMoveCurrentToLast
-                       : !QueryableDataServiceCollectionView.HasChanges;
-
+                ? DataForm.CanMoveCurrentToLast
+                : !QueryableDataServiceCollectionView.HasChanges;
         }
 
         protected override bool CanMoveCurrentToPreviousExecute()
         {
             return QueryableDataServiceCollectionView == null
-                       ? DataForm.CanMoveCurrentToPrevious
-                       : !QueryableDataServiceCollectionView.HasChanges;
+                ? DataForm.CanMoveCurrentToPrevious
+                : !QueryableDataServiceCollectionView.HasChanges;
         }
 
 
@@ -93,12 +108,12 @@ namespace UniCloud.Presentation.ControlExtension.DataForm
         protected override void Delete()
         {
             MessageDialogs.Confirm("提示", "确定是否删除该记录？", (sender, e) =>
-                {
-                    if (e.DialogResult != true)
-                        return;
-                    base.Delete();
-                    Commit();
-                });
+            {
+                if (e.DialogResult != true)
+                    return;
+                base.Delete();
+                Commit();
+            });
         }
 
         /// <summary>
@@ -112,7 +127,7 @@ namespace UniCloud.Presentation.ControlExtension.DataForm
         }
 
         private void QueryableDataServiceCollectionView_SubmittedChanges(object sender,
-                                                                         DataServiceSubmittedChangesEventArgs e)
+            DataServiceSubmittedChangesEventArgs e)
         {
             MessageDialogs.Alert("提示", e.HasError ? "保存失败，请检查。" : "保存成功。");
         }

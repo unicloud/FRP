@@ -33,6 +33,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
@@ -68,6 +69,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
                 .Register<IContractAircraftBFERepository, ContractAircraftBFERepository>()
                 .Register<IRelatedDocRepository, RelatedDocRepository>()
                 .Register<IManufacturerRepository, ManufacturerRepository>()
+                .Register<ISupplierRoleRepository,SupplierRoleRepository>()
                 .Register<ISupplierRepository, SupplierRepository>()
                 .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
                 .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>();
