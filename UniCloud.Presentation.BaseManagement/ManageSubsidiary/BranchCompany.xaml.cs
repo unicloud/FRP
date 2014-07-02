@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.BaseManagement.ManageSubsidiary
 {
-    [Export(typeof(BranchCompany))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class BranchCompany 
+    [Export]
+    public partial class BranchCompany
     {
         public BranchCompany()
         {
             InitializeComponent();
         }
+
         [Import]
         public BranchCompanyVm ViewModel
         {

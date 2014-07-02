@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -33,21 +32,19 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
-    [Export(typeof(EngineMaintainVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (EngineMaintainVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class EngineMaintainVm : InvoiceVm
     {
         #region 声明、初始化
 
         private readonly PaymentData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public EngineMaintainVm(IRegionManager regionManager, IPaymentService service)
+        public EngineMaintainVm(IPaymentService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
 
@@ -63,13 +60,14 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            EngineMaintainInvoices = _service.CreateCollection(_context.EngineMaintainInvoices, o => o.MaintainInvoiceLines);
+            EngineMaintainInvoices = _service.CreateCollection(_context.EngineMaintainInvoices,
+                o => o.MaintainInvoiceLines);
             EngineMaintainInvoices.PageSize = 6;
             EngineMaintainInvoices.LoadedData += (o, e) =>
-                                                 {
-                                                     if (EngineMaintainInvoice == null)
-                                                         EngineMaintainInvoice = EngineMaintainInvoices.FirstOrDefault();
-                                                 };
+            {
+                if (EngineMaintainInvoice == null)
+                    EngineMaintainInvoice = EngineMaintainInvoices.FirstOrDefault();
+            };
             var supplierFilter = new FilterDescriptor("MaintainSupplier", FilterOperator.IsEqualTo, true);
             Suppliers.FilterDescriptors.Add(supplierFilter);
             _service.RegisterCollectionView(EngineMaintainInvoices);
@@ -80,10 +78,18 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         #region 数据
 
         #region 公共属性
+
         public Dictionary<int, EngineMaintainInvoiceType> Types
         {
-            get { return Enum.GetValues(typeof(EngineMaintainInvoiceType)).Cast<object>().ToDictionary(value => (int)value, value => (EngineMaintainInvoiceType)value); }
+            get
+            {
+                return
+                    Enum.GetValues(typeof (EngineMaintainInvoiceType))
+                        .Cast<object>()
+                        .ToDictionary(value => (int) value, value => (EngineMaintainInvoiceType) value);
+            }
         }
+
         #endregion
 
         #region 加载数据
@@ -132,13 +138,13 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 {
                     EngineMaintainInvoiceLine = value.MaintainInvoiceLines.FirstOrDefault();
                     var relate = PaymentSchedules.FirstOrDefault(p =>
-                        {
-                            var paymentScheduleLine =
-                                p.PaymentScheduleLines.FirstOrDefault(
-                                    l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
-                            return paymentScheduleLine != null &&
-                                   paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
-                        });
+                    {
+                        var paymentScheduleLine =
+                            p.PaymentScheduleLines.FirstOrDefault(
+                                l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
+                        return paymentScheduleLine != null &&
+                               paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
+                    });
                     if (relate != null)
                         RelatedPaymentSchedule.Add(relate);
                     SelPaymentSchedule = RelatedPaymentSchedule.FirstOrDefault();
@@ -180,34 +186,34 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         protected override void OnAddInvoice(object obj)
         {
             MessageConfirm("是否根据付款计划创建?", (s, arg) =>
-                                          {
-                                              if (arg.DialogResult != true)
-                                              {
-                                                  EngineMaintainInvoice = new EngineMaintainInvoiceDTO
-                                                                       {
-                                                                           EngineMaintainInvoiceId =
-                                                                               RandomHelper.Next(),
-                                                                           CreateDate = DateTime.Now,
-                                                                           InvoiceDate = DateTime.Now,
-                                                                           InMaintainTime = DateTime.Now,
-                                                                           OutMaintainTime = DateTime.Now,
-                                                                       };
-                                                  var currency = Currencies.FirstOrDefault();
-                                                  if (currency != null)
-                                                      EngineMaintainInvoice.CurrencyId = currency.Id;
-                                                  var supplier = Suppliers.FirstOrDefault();
-                                                  if (supplier != null)
-                                                  {
-                                                      EngineMaintainInvoice.SupplierId = supplier.SupplierId;
-                                                      EngineMaintainInvoice.SupplierName = supplier.Name;
-                                                  }
-                                                  EngineMaintainInvoices.AddNew(EngineMaintainInvoice);
-                                                  return;
-                                              }
-                                              PrepayPayscheduleChildView.ViewModel.InitData(
-                                                  typeof(EngineMaintainInvoiceDTO), PrepayPayscheduleChildViewClosed);
-                                              PrepayPayscheduleChildView.ShowDialog();
-                                          });
+            {
+                if (arg.DialogResult != true)
+                {
+                    EngineMaintainInvoice = new EngineMaintainInvoiceDTO
+                    {
+                        EngineMaintainInvoiceId =
+                            RandomHelper.Next(),
+                        CreateDate = DateTime.Now,
+                        InvoiceDate = DateTime.Now,
+                        InMaintainTime = DateTime.Now,
+                        OutMaintainTime = DateTime.Now,
+                    };
+                    var currency = Currencies.FirstOrDefault();
+                    if (currency != null)
+                        EngineMaintainInvoice.CurrencyId = currency.Id;
+                    var supplier = Suppliers.FirstOrDefault();
+                    if (supplier != null)
+                    {
+                        EngineMaintainInvoice.SupplierId = supplier.SupplierId;
+                        EngineMaintainInvoice.SupplierName = supplier.Name;
+                    }
+                    EngineMaintainInvoices.AddNew(EngineMaintainInvoice);
+                    return;
+                }
+                PrepayPayscheduleChildView.ViewModel.InitData(
+                    typeof (EngineMaintainInvoiceDTO), PrepayPayscheduleChildViewClosed);
+                PrepayPayscheduleChildView.ShowDialog();
+            });
         }
 
         protected override bool CanAddInvoice(object obj)
@@ -223,6 +229,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 EngineMaintainInvoices.AddNew(EngineMaintainInvoice);
             }
         }
+
         #endregion
 
         #region 删除维修发票
@@ -306,7 +313,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            EngineMaintainInvoice.Status = (int)InvoiceStatus.待审核;
+            EngineMaintainInvoice.Status = (int) InvoiceStatus.待审核;
         }
 
         protected override bool CanSubmitInvoice(object obj)
@@ -325,7 +332,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            EngineMaintainInvoice.Status = (int)InvoiceStatus.已审核;
+            EngineMaintainInvoice.Status = (int) InvoiceStatus.已审核;
             EngineMaintainInvoice.Reviewer = "admin";
             EngineMaintainInvoice.ReviewDate = DateTime.Now;
             EngineMaintainInvoice.IsValid = true;
@@ -365,10 +372,12 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         /// <param name="sender"></param>
         protected override void OnCellEditEnd(object sender)
         {
-            EngineMaintainInvoice.InvoiceValue = EngineMaintainInvoice.MaintainInvoiceLines.Sum(invoiceLine => invoiceLine.Amount * invoiceLine.UnitPrice);
+            EngineMaintainInvoice.InvoiceValue =
+                EngineMaintainInvoice.MaintainInvoiceLines.Sum(invoiceLine => invoiceLine.Amount*invoiceLine.UnitPrice);
         }
 
         #endregion
+
         #endregion
     }
 }

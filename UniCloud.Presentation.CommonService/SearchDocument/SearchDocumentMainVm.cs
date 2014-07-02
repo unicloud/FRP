@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/1/23 10:36:09
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -29,30 +31,36 @@ using UniCloud.Presentation.Service.CommonService.Common;
 
 namespace UniCloud.Presentation.CommonService.SearchDocument
 {
-    [Export(typeof(SearchDocumentMainVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (SearchDocumentMainVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SearchDocumentMainVm : ViewModelBase
     {
         #region 声明、初始化
+
         private readonly IRegionManager _regionManager;
+
         [ImportingConstructor]
         public SearchDocumentMainVm(ICommonService service, IRegionManager regionManager)
             : base(service)
         {
             _regionManager = regionManager;
-            DocumentTypes = new QueryableDataServiceCollectionView<DocumentTypeDTO>(service.Context, service.Context.DocumentTypes);
+            DocumentTypes = new QueryableDataServiceCollectionView<DocumentTypeDTO>(service.Context,
+                service.Context.DocumentTypes);
         }
+
         #endregion
 
         #region 属性
+
+        private string _keyword;
+
         /// <summary>
-        /// 文档类型
+        ///     文档类型
         /// </summary>
         public QueryableDataServiceCollectionView<DocumentTypeDTO> DocumentTypes { get; set; }
 
-        private string _keyword;
         /// <summary>
-        /// 关键字
+        ///     关键字
         /// </summary>
         public string Keyword
         {
@@ -63,9 +71,11 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RaisePropertyChanged("Keyword");
             }
         }
+
         #endregion
 
         #region 操作
+
         public void RadWatermarkTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -73,6 +83,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RadButtonClick(sender, e);
             }
         }
+
         public void RadButtonClick(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(Keyword))
@@ -88,7 +99,8 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
 
             if (!string.IsNullOrEmpty(Keyword))
             {
-                _regionManager.RequestNavigate(RegionNames.MainRegion, new Uri("UniCloud.Presentation.CommonService.SearchDocument.SearchDocument", UriKind.Relative));
+                _regionManager.RequestNavigate(RegionNames.MainRegion,
+                    new Uri("UniCloud.Presentation.CommonService.SearchDocument.SearchDocument", UriKind.Relative));
             }
         }
 
@@ -96,6 +108,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
         {
             DocumentTypes.Load();
         }
+
         #endregion
     }
 }

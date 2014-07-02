@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Part.MaintainControl
 {
-    [Export(typeof (QueryLifeMonitorView))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class QueryLifeMonitorView : UserControl
+    [Export]
+    public partial class QueryLifeMonitorView
     {
         public QueryLifeMonitorView()
         {

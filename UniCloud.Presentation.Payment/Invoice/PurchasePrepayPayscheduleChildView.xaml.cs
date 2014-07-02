@@ -6,8 +6,7 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(PurchasePrepayPayscheduleChildView))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class PurchasePrepayPayscheduleChildView
     {
         public PurchasePrepayPayscheduleChildView()

@@ -24,6 +24,7 @@ using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
@@ -34,7 +35,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 namespace UniCloud.Presentation.Purchase.Contract
 {
     [Export(typeof (AircraftPurchaseVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AircraftPurchaseVM : EditViewModelBase
     {
         #region 声明、初始化
@@ -509,7 +510,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                     OrderDate = DateTime.Now,
                     TradeId = _selTradeDTO.Id,
                     SourceGuid = Guid.NewGuid(),
-                    SupplierId = _selTradeDTO.SupplierId
+                    SupplierId = _selTradeDTO.SupplierId,
+                    OperatorName = StatusData.curUser
                 };
                 var currency = Currencies.FirstOrDefault();
                 if (currency != null)
@@ -650,7 +652,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 Id = RandomHelper.Next(),
                 Amount = 1,
                 EstimateDeliveryDate = DateTime.Now,
-                ContractAircraftId = RandomHelper.Next()
+                ContractAircraftId = RandomHelper.Next(),
             };
 
             SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Add(SelAircraftPurchaseOrderLineDTO);

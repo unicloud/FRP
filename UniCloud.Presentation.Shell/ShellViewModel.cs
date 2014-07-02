@@ -32,6 +32,7 @@ using Microsoft.Practices.Prism.ViewModel;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.Data.DataForm;
+using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.BaseManagement;
 using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 using UniCloud.Presentation.Shell.Authentication;
@@ -388,6 +389,7 @@ namespace UniCloud.Presentation.Shell
                         }), _context);
 
             IsLogined = true;
+            StatusData.curUser = LoginInfo.UserName;
         }
 
         private bool CanLoginOk(object obj)

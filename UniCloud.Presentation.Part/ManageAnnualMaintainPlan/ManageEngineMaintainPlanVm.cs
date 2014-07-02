@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/5/8 13:59:12
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -18,7 +20,6 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -31,26 +32,23 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
 {
-    [Export(typeof(ManageEngineMaintainPlanVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ManageEngineMaintainPlanVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageEngineMaintainPlanVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
-        private readonly IPartService _service;
         private readonly IFleetPlanService _fleetPlanService;
+        private readonly IPartService _service;
         private FilterDescriptor _annualFilterDescriptor;
-        private FilterDescriptor _maintainPlanTypeFilterDescriptor;
         private int _maintainPlanType;
+        private FilterDescriptor _maintainPlanTypeFilterDescriptor;
 
         [ImportingConstructor]
-        public ManageEngineMaintainPlanVm(IRegionManager regionManager, IPartService service,
-            IFleetPlanService fleetPlanService)
+        public ManageEngineMaintainPlanVm(IPartService service, IFleetPlanService fleetPlanService)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _fleetPlanService = fleetPlanService;
             _context = _service.Context;
@@ -79,10 +77,7 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
             _maintainPlanTypeFilterDescriptor = new FilterDescriptor("MaintainPlanType", FilterOperator.IsEqualTo, 0);
             EngineMaintainPlans.FilterDescriptors.Add(_annualFilterDescriptor);
             EngineMaintainPlans.FilterDescriptors.Add(_maintainPlanTypeFilterDescriptor);
-            EngineMaintainPlans.LoadedData += (o, e) =>
-                                              {
-                                                  EngineMaintainPlan = EngineMaintainPlans.FirstOrDefault();
-                                              };
+            EngineMaintainPlans.LoadedData += (o, e) => { EngineMaintainPlan = EngineMaintainPlans.FirstOrDefault(); };
             _service.RegisterCollectionView(EngineMaintainPlans);
         }
 
@@ -91,9 +86,11 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
         #region 数据
 
         #region 公共属性
+
         #region 标题
 
         private string _title;
+
         public string Title
         {
             get { return _title; }
@@ -109,6 +106,7 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
         #region 页面是否可用
 
         private bool _isEnable;
+
         public bool IsEnable
         {
             get { return _isEnable; }
@@ -118,10 +116,13 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 RaisePropertyChanged(() => IsEnable);
             }
         }
+
         #endregion
 
         #region 美元汇率
+
         private decimal _dollarRate;
+
         public decimal DollarRate
         {
             get { return _dollarRate; }
@@ -130,18 +131,21 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 _dollarRate = value;
                 EngineMaintainPlan.DollarRate = _dollarRate;
                 EngineMaintainPlan.EngineMaintainPlanDetails.ToList().ForEach(p =>
-                                                                              {
-                                                                                  p.FeeTotalSum = p.FeeLittleSum * DollarRate;
-                                                                                  p.BudgetToalSum = p.FeeTotalSum + p.CustomsTax + p.FreightFee;
-                                                                              });
+                {
+                    p.FeeTotalSum = p.FeeLittleSum*DollarRate;
+                    p.BudgetToalSum = p.FeeTotalSum + p.CustomsTax + p.FreightFee;
+                });
                 RaisePropertyChanged(() => DollarRate);
             }
         }
+
         #endregion
 
         #region 年度
-        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
         private AnnualDTO _annual;
+        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
         public AnnualDTO Annual
         {
             get { return _annual; }
@@ -157,19 +161,20 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 RaisePropertyChanged(() => Annual);
             }
         }
+
         #endregion
 
         #region 发动机送修计划
 
         /// <summary>
-        ///     发动机送修计划集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<EngineMaintainPlanDTO> EngineMaintainPlans { get; set; }
-
-        /// <summary>
         ///     选中的发动机送修计划
         /// </summary>
         private EngineMaintainPlanDTO _engineMaintainPlan;
+
+        /// <summary>
+        ///     发动机送修计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<EngineMaintainPlanDTO> EngineMaintainPlans { get; set; }
 
         public EngineMaintainPlanDTO EngineMaintainPlan
         {
@@ -260,11 +265,11 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 return;
             }
             EngineMaintainPlan = new EngineMaintainPlanDTO
-                                 {
-                                     Id = RandomHelper.Next(),
-                                     AnnualId = Annual.Id,
-                                     MaintainPlanType = _maintainPlanType
-                                 };
+            {
+                Id = RandomHelper.Next(),
+                AnnualId = Annual.Id,
+                MaintainPlanType = _maintainPlanType
+            };
             EngineMaintainPlans.AddNew(EngineMaintainPlan);
         }
 
@@ -290,11 +295,11 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                EngineMaintainPlans.Remove(EngineMaintainPlan);
-                                                EngineMaintainPlan = EngineMaintainPlans.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                EngineMaintainPlans.Remove(EngineMaintainPlan);
+                EngineMaintainPlan = EngineMaintainPlans.FirstOrDefault();
+            });
         }
 
         protected bool CanRemove(object obj)
@@ -319,7 +324,7 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 return;
             }
 
-            EngineMaintainPlanDetail = new EngineMaintainPlanDetailDTO { Id = RandomHelper.Next() };
+            EngineMaintainPlanDetail = new EngineMaintainPlanDetailDTO {Id = RandomHelper.Next()};
             EngineMaintainPlan.EngineMaintainPlanDetails.Add(EngineMaintainPlanDetail);
         }
 
@@ -345,13 +350,13 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                EngineMaintainPlan.EngineMaintainPlanDetails.Remove(
-                                                    EngineMaintainPlanDetail);
-                                                EngineMaintainPlanDetail =
-                                                    EngineMaintainPlan.EngineMaintainPlanDetails.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                EngineMaintainPlan.EngineMaintainPlanDetails.Remove(
+                    EngineMaintainPlanDetail);
+                EngineMaintainPlanDetail =
+                    EngineMaintainPlan.EngineMaintainPlanDetails.FirstOrDefault();
+            });
         }
 
         protected bool CanRemoveDetail(object obj)
@@ -362,6 +367,7 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
         #endregion
 
         #region 单元格编辑事件
+
         public DelegateCommand<object> CellEditEndCommand { get; set; }
 
         private void CellEditEnd(object sender)
@@ -369,11 +375,12 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
             EngineMaintainPlanDetail.FeeLittleSum = EngineMaintainPlanDetail.NonFhaFee +
                                                     EngineMaintainPlanDetail.PartFee +
                                                     EngineMaintainPlanDetail.ChangeLlpFee;
-            EngineMaintainPlanDetail.FeeTotalSum = EngineMaintainPlanDetail.FeeLittleSum * DollarRate;
+            EngineMaintainPlanDetail.FeeTotalSum = EngineMaintainPlanDetail.FeeLittleSum*DollarRate;
             EngineMaintainPlanDetail.BudgetToalSum = EngineMaintainPlanDetail.FeeTotalSum +
                                                      EngineMaintainPlanDetail.CustomsTax +
                                                      EngineMaintainPlanDetail.FreightFee;
         }
+
         #endregion
 
         #region RadPaneGroup页面切换
@@ -389,7 +396,9 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
             _maintainPlanTypeFilterDescriptor.Value = _maintainPlanType;
             EngineMaintainPlans.Load(true);
         }
+
         #endregion
+
         #endregion
     }
 }

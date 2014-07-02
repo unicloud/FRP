@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(PurchasePrepayInvoiceManager))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class PurchasePrepayInvoiceManager
     {
         public PurchasePrepayInvoiceManager()
         {
             InitializeComponent();
         }
+
         [Import]
         public PurchasePrepayInvoiceManagerVm ViewModel
         {

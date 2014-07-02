@@ -1,21 +1,23 @@
-﻿#region Version Info
-/* ========================================================================
+﻿#region 版本控制
+
+// =====================================================
 // 版权所有 (C) 2014 UniCloud 
-//【本类功能概述】
+// 【本类功能概述】
 // 
-// 作者：linxw 时间：2014/2/11 14:27:53
-// 文件名：ManageUserVm
+// 作者：丁志浩 时间：15:35
+// 方案：FRP
+// 项目：BaseManagement
 // 版本：V1.0.0
-//
-// 修改者：linxw 时间：2014/2/11 14:27:53
+// 
+// 修改者： 时间： 
 // 修改说明：
-// ========================================================================*/
+// =====================================================
+
 #endregion
 
 #region 命名空间
 
 using System.ComponentModel.Composition;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.BaseManagement;
@@ -25,38 +27,34 @@ using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 
 namespace UniCloud.Presentation.BaseManagement.ManagePermission
 {
-    [Export(typeof(ManageUserVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public class ManageUserVm : EditViewModelBase
+    [Export(typeof (ManageUserVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class ManageUserVM : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly BaseManagementData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IBaseManagementService _service;
 
         [ImportingConstructor]
-        public ManageUserVm(IRegionManager regionManager, IBaseManagementService service)
+        public ManageUserVM(IBaseManagementService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
-            _context = _service.Context;
-            InitializeVm();
+            _context = service.Context;
+
+            InitializeVM();
         }
 
         /// <summary>
         ///     初始化ViewModel
         ///     <remarks>
-        ///         统一在此处创建并注册CollectionView集合。
+        ///         统一在此处访问创建并注册CollectionView集合的方法。
         ///     </remarks>
         /// </summary>
-        private void InitializeVm()
+        private void InitializeVM()
         {
-            //创建并注册CollectionView
-            Users = _service.CreateCollection(_context.Users);
-            Users.PageSize = 20;
-            _service.RegisterCollectionView(Users);
+            InitializeViewUserDTO();
         }
 
         #endregion
@@ -78,21 +76,46 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         /// </summary>
         public override void LoadData()
         {
-            //// 将CollectionView的AutoLoad属性设为True
-            if (!Users.AutoLoad)
-                Users.AutoLoad = true;
+            if (!ViewUserDTO.AutoLoad) ViewUserDTO.AutoLoad = true;
+            else ViewUserDTO.Load(true);
         }
 
-        #region User
+        #region 用户
+
+        private UserDTO _selUserDTO;
 
         /// <summary>
-        ///     User集合
+        ///     用户集合
         /// </summary>
-        public QueryableDataServiceCollectionView<UserDTO> Users { get; set; }
+        public QueryableDataServiceCollectionView<UserDTO> ViewUserDTO { get; set; }
+
+        /// <summary>
+        ///     选中的用户
+        /// </summary>
+        public UserDTO SelUserDTO
+        {
+            get { return _selUserDTO; }
+            set
+            {
+                if (_selUserDTO == value) return;
+                _selUserDTO = value;
+                RaisePropertyChanged(() => SelUserDTO);
+                // 刷新按钮状态
+                RefreshCommandState();
+            }
+        }
+
+        /// <summary>
+        ///     初始化用户集合
+        /// </summary>
+        private void InitializeViewUserDTO()
+        {
+            ViewUserDTO = _service.CreateCollection(_context.Users);
+            ViewUserDTO.PageSize = 20;
+            _service.RegisterCollectionView(ViewUserDTO);
+        }
 
         #endregion
-
-
 
         #endregion
 
@@ -100,8 +123,31 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
 
         #region 操作
 
-
         #region 重载操作
+
+        #region 保存成功后执行
+
+        protected override void OnSaveSuccess(object sender)
+        {
+        }
+
+        #endregion
+
+        #region 撤销成功后执行
+
+        protected override void OnAbortExecuted(object sender)
+        {
+        }
+
+        #endregion
+
+        #region 刷新按钮状态
+
+        protected override void RefreshCommandState()
+        {
+        }
+
+        #endregion
 
         #endregion
 

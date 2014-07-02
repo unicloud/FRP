@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,26 +11,13 @@
 // 修改者：  时间：2014/5/27 14:19:18
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Part;
@@ -39,21 +27,19 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Part.MaintainControl
 {
-    [Export(typeof(QueryLifeMonitorVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (QueryLifeMonitorVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryLifeMonitorVm : ViewModelBase
     {
         #region 声明、初始化
 
-        private readonly IRegionManager _regionManager;
-        private readonly IPartService _service;
         private readonly PartData _context;
+        private readonly IPartService _service;
 
         [ImportingConstructor]
-        public QueryLifeMonitorVm(IRegionManager regionManager, IPartService service)
+        public QueryLifeMonitorVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();

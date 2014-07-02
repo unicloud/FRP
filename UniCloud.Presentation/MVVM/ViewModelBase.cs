@@ -59,10 +59,9 @@ namespace UniCloud.Presentation.MVVM
             {
                 service.PropertyChanged += (o, e) =>
                 {
-                    if (e.PropertyName.Equals("IsBusy", StringComparison.OrdinalIgnoreCase))
-                    {
-                        IsBusy = service.IsBusy;
-                    }
+                    if (!e.PropertyName.Equals("IsBusy", StringComparison.OrdinalIgnoreCase)) return;
+                    IsBusy = service.IsBusy;
+                    BusyContent = string.Empty;
                 };
             }
         }
@@ -111,11 +110,9 @@ namespace UniCloud.Presentation.MVVM
             get { return _isBusy; }
             set
             {
-                if (_isBusy != value)
-                {
-                    _isBusy = value;
-                    RaisePropertyChanged(() => IsBusy);
-                }
+                if (_isBusy == value) return;
+                _isBusy = value;
+                RaisePropertyChanged(() => IsBusy);
             }
         }
 
@@ -148,11 +145,9 @@ namespace UniCloud.Presentation.MVVM
             {
                 MessageConfirm("附件已存在，继续操作将有可能替换当前附件。是否继续？", (o, e) =>
                 {
-                    if (e.DialogResult != null && e.DialogResult == true)
-                    {
-                        listDocuments.ViewModel.InitData(d => WindowClosed(d, sender));
-                        listDocuments.ShowDialog();
-                    }
+                    if (e.DialogResult == null || e.DialogResult != true) return;
+                    listDocuments.ViewModel.InitData(d => WindowClosed(d, sender));
+                    listDocuments.ShowDialog();
                 });
             }
             else
@@ -190,14 +185,12 @@ namespace UniCloud.Presentation.MVVM
         protected void OnAddLocalAttach(object sender)
         {
             var openFileDialog = new OpenFileDialog {Filter = "可用文档|*.docx;*.pdf"};
-            if (openFileDialog.ShowDialog() == true)
-            {
-                listDocuments = ServiceLocator.Current.GetInstance<ListDocuments>();
-                listDocuments.Close();
+            if (openFileDialog.ShowDialog() != true) return;
+            listDocuments = ServiceLocator.Current.GetInstance<ListDocuments>();
+            listDocuments.Close();
 
-                docViewer.ShowDialog();
-                docViewerVM.InitDocument(openFileDialog.File, windowClosed);
-            }
+            docViewer.ShowDialog();
+            docViewerVM.InitDocument(openFileDialog.File, windowClosed);
         }
 
 

@@ -22,7 +22,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -35,21 +34,19 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(PurchaseCreditNoteManagerVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (PurchaseCreditNoteManagerVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PurchaseCreditNoteManagerVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PaymentData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public PurchaseCreditNoteManagerVm(IRegionManager regionManager, IPaymentService service)
+        public PurchaseCreditNoteManagerVm(IPaymentService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -66,10 +63,10 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             CreditNotes = _service.CreateCollection(_context.PurchaseCreditNotes, o => o.InvoiceLines);
             CreditNotes.LoadedData += (o, e) =>
-                                      {
-                                          if (SelCreditNote == null)
-                                              SelCreditNote = CreditNotes.FirstOrDefault();
-                                      };
+            {
+                if (SelCreditNote == null)
+                    SelCreditNote = CreditNotes.FirstOrDefault();
+            };
             _service.RegisterCollectionView(CreditNotes); //注册查询集合。
 
             PurchaseOrders = new QueryableDataServiceCollectionView<PurchaseOrderDTO>(_context, _context.PurchaseOrders);
@@ -96,13 +93,20 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 数据
 
         #region 公共属性
+
         /// <summary>
-        ///   项名称
+        ///     项名称
         /// </summary>
         public Dictionary<int, ItemNameType> ItemNameTypes
         {
-            get { return Enum.GetValues(typeof(ItemNameType)).Cast<object>().ToDictionary(value => (int)value, value => (ItemNameType)value); }
+            get
+            {
+                return Enum.GetValues(typeof (ItemNameType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (ItemNameType) value);
+            }
         }
+
         #region 币种集合
 
         /// <summary>
@@ -306,7 +310,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnNew(object obj)
         {
-            PurchaseOrderChildView.ShowDialog();
+            purchaseOrderChildView.ShowDialog();
         }
 
         private bool CanNew(object obj)
@@ -331,17 +335,17 @@ namespace UniCloud.Presentation.Payment.Invoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                CreditNotes.Remove(SelCreditNote);
-                                                SelCreditNote = CreditNotes.FirstOrDefault();
-                                                if (SelCreditNote == null)
-                                                {
-                                                    //删除完，若没有记录了，则也要删除界面明细
-                                                    InvoiceLines.Clear();
-                                                    RelatedPurchaseOrders.Clear();
-                                                }
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                CreditNotes.Remove(SelCreditNote);
+                SelCreditNote = CreditNotes.FirstOrDefault();
+                if (SelCreditNote == null)
+                {
+                    //删除完，若没有记录了，则也要删除界面明细
+                    InvoiceLines.Clear();
+                    RelatedPurchaseOrders.Clear();
+                }
+            });
         }
 
         private bool CanDelete(object obj)
@@ -396,12 +400,12 @@ namespace UniCloud.Presentation.Payment.Invoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SelCreditNote.InvoiceLines.Remove(SelInvoiceLine);
-                                                InvoiceLines.Remove(SelInvoiceLine);
-                                                SelInvoiceLine = SelCreditNote.InvoiceLines.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SelCreditNote.InvoiceLines.Remove(SelInvoiceLine);
+                InvoiceLines.Remove(SelInvoiceLine);
+                SelInvoiceLine = SelCreditNote.InvoiceLines.FirstOrDefault();
+            });
         }
 
         private bool CanRemove(object obj)
@@ -466,7 +470,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "TotalLine"))
                 {
-                    decimal totalCount = SelCreditNote.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
+                    var totalCount = SelCreditNote.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
                     SelCreditNote.InvoiceValue = totalCount;
                 }
             }
@@ -478,8 +482,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 子窗体相关操作
 
-        [Import]
-        public PurchaseOrderChildView PurchaseOrderChildView; //初始化子窗体
+        [Import] public PurchaseOrderChildView purchaseOrderChildView; //初始化子窗体
 
         #region 采购订单集合
 
@@ -524,7 +527,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <param name="sender"></param>
         public void OnCancelExecute(object sender)
         {
-            PurchaseOrderChildView.Close();
+            purchaseOrderChildView.Close();
         }
 
         /// <summary>
@@ -566,7 +569,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                     SupplierName = SelPurchaseOrder.SupplierName,
                 };
                 CreditNotes.AddNew(creditNote);
-                PurchaseOrderChildView.Close();
+                purchaseOrderChildView.Close();
             }
         }
 

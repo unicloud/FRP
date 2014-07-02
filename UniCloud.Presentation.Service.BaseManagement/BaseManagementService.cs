@@ -24,7 +24,7 @@ using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 namespace UniCloud.Presentation.Service.BaseManagement
 {
     [Export(typeof (IBaseManagementService))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class BaseManagementService : ServiceBase, IBaseManagementService
     {
         public BaseManagementService()

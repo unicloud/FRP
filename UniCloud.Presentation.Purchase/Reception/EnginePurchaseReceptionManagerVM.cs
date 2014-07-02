@@ -33,8 +33,8 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof(EnginePurchaseReceptionManagerVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (EnginePurchaseReceptionManagerVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class EnginePurchaseReceptionManagerVM : ReceptionVm
     {
         #region 声明、初始化
@@ -66,13 +66,14 @@ namespace UniCloud.Presentation.Purchase.Reception
                 new QueryableDataServiceCollectionView<PurchaseContractEngineDTO>(_context,
                     _context.PurchaseContractEngines);
 
-            EnginePurchaseReceptions = _service.CreateCollection(_context.EnginePurchaseReceptions.Expand(p => p.RelatedDocs),
-                o => o.ReceptionLines, o => o.ReceptionSchedules, o => o.RelatedDocs);
+            EnginePurchaseReceptions =
+                _service.CreateCollection(_context.EnginePurchaseReceptions.Expand(p => p.RelatedDocs),
+                    o => o.ReceptionLines, o => o.ReceptionSchedules, o => o.RelatedDocs);
             EnginePurchaseReceptions.LoadedData += (o, e) =>
-                                                   {
-                                                       if (SelEnginePurchaseReception == null)
-                                                           SelEnginePurchaseReception = EnginePurchaseReceptions.FirstOrDefault();
-                                                   };
+            {
+                if (SelEnginePurchaseReception == null)
+                    SelEnginePurchaseReception = EnginePurchaseReceptions.FirstOrDefault();
+            };
             _service.RegisterCollectionView(EnginePurchaseReceptions); //注册查询集合。
         }
 
@@ -195,15 +196,15 @@ namespace UniCloud.Presentation.Purchase.Reception
                     {
                         SelEnginePurchaseReceptionLine = _selEnginePurchaseReception.ReceptionLines.FirstOrDefault();
                         var viewPurchaseContractEngines = PurchaseContractEngines.Where(
-                                p => p.SupplierId == SelEnginePurchaseReception.SupplierId && p.SerialNumber != null)
-                                .ToList();
+                            p => p.SupplierId == SelEnginePurchaseReception.SupplierId && p.SerialNumber != null)
+                            .ToList();
                         foreach (var lca in viewPurchaseContractEngines)
                         {
                             ViewPurchaseContractEngines.Add(lca);
                         }
                         foreach (var schedule in value.ReceptionSchedules)
                         {
-                            Appointment appointment = ScheduleExtension.ConvertToAppointment(schedule);
+                            var appointment = ScheduleExtension.ConvertToAppointment(schedule);
                             _appointments.Add(appointment);
                         }
                     }
@@ -273,6 +274,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 重载操作
 
         #region 添加附件
+
         protected override bool CanAddAttach(object obj)
         {
             return _selEnginePurchaseReception != null;
@@ -370,17 +372,17 @@ namespace UniCloud.Presentation.Purchase.Reception
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                EnginePurchaseReceptions.Remove(SelEnginePurchaseReception);
+            {
+                if (arg.DialogResult != true) return;
+                EnginePurchaseReceptions.Remove(SelEnginePurchaseReception);
 
-                                                SelEnginePurchaseReception = EnginePurchaseReceptions.FirstOrDefault();
-                                                if (SelEnginePurchaseReception == null)
-                                                {
-                                                    //删除完，若没有记录了，则也要删除界面明细
-                                                    Appointments.Clear();
-                                                }
-                                            });
+                SelEnginePurchaseReception = EnginePurchaseReceptions.FirstOrDefault();
+                if (SelEnginePurchaseReception == null)
+                {
+                    //删除完，若没有记录了，则也要删除界面明细
+                    Appointments.Clear();
+                }
+            });
         }
 
         protected override bool CanRemove(object obj)
@@ -437,11 +439,11 @@ namespace UniCloud.Presentation.Purchase.Reception
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SelEnginePurchaseReception.ReceptionLines.Remove(SelEnginePurchaseReceptionLine);
-                                                SelEnginePurchaseReceptionLine = SelEnginePurchaseReception.ReceptionLines.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SelEnginePurchaseReception.ReceptionLines.Remove(SelEnginePurchaseReceptionLine);
+                SelEnginePurchaseReceptionLine = SelEnginePurchaseReception.ReceptionLines.FirstOrDefault();
+            });
         }
 
         protected override bool CanRemoveEntity(object obj)

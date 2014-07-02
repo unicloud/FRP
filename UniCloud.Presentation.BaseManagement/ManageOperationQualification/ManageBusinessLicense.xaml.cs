@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
 {
-    [Export(typeof(ManageBusinessLicense))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class ManageBusinessLicense 
+    [Export]
+    public partial class ManageBusinessLicense
     {
         public ManageBusinessLicense()
         {
             InitializeComponent();
         }
+
         [Import]
         public ManageBusinessLicenseVm ViewModel
         {

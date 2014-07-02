@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(SundryInvoiceManager))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class SundryInvoiceManager 
+    [Export]
+    public partial class SundryInvoiceManager
     {
         public SundryInvoiceManager()
         {
             InitializeComponent();
         }
+
         [Import]
         public SundryInvoiceManagerVm ViewModel
         {

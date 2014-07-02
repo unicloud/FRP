@@ -2116,6 +2116,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         IsApproved = c.Boolean(nullable: false),
                         IsValid = c.Boolean(nullable: false),
                         IsLockedOut = c.Boolean(nullable: false),
+                        IsSystemUser = c.Boolean(nullable: false),
                         FailedPasswordAttemptCount = c.Int(nullable: false),
                         FailedPasswordAnswerAttemptCount = c.Int(nullable: false),
                         CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),

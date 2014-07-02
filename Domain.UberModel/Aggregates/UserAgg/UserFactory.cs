@@ -29,7 +29,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
     public static class UserFactory
     {
         public static User CreateUser(string username, string password, string email, int passwordFormat,
-            string passwordQuestion, string passwordAnswer, DateTime createDate)
+            string passwordQuestion, string passwordAnswer, DateTime createDate, bool isSystemUser = true)
         {
             var user = new User
             {
@@ -40,6 +40,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
                 CreateDate = DateTime.Now,
                 IsLockedOut = false,
                 IsValid = true,
+                IsSystemUser = isSystemUser,
                 LastLockoutDate = createDate,
                 FailedPasswordAttemptCount = 0,
                 FailedPasswordAttemptWindowStart = createDate,

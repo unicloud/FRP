@@ -14,7 +14,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 {
     [Export(typeof (OperationChildVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class OperationChildVM : ViewModelBase
     {
         private readonly FleetPlanData _context;
@@ -127,7 +127,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }

@@ -84,6 +84,11 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         /// </summary>
         public string OrganizationName { get; set; }
 
+        /// <summary>
+        ///     是否系统用户
+        /// </summary>
+        public bool IsSystemUser { get; set; }
+
         public List<UserRoleDTO> UserRoles
         {
             get { return _userRoles ?? new List<UserRoleDTO>(); }

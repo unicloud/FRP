@@ -102,10 +102,14 @@
   <ItemGroup>
     <Content Include="clientaccesspolicy.xml" />
     <Content Include="crossdomain.xml" />
+    <Content Include="Global.asax" />
     <Content Include="PortalDataService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="InstanceProviders\Container.cs" />
     <Compile Include="PortalData.cs" />
     <Compile Include="PortalDataService.svc.cs">

@@ -172,15 +172,13 @@ namespace UniCloud.Presentation.Service
         {
             var result = new SubmitChangesResult();
             collectionView.SubmitChanges();
-            if (_submitChanges == null)
+            if (_submitChanges != null) return;
+            _submitChanges += (o, e) =>
             {
-                _submitChanges += (o, e) =>
-                {
-                    result.Error = e.Error;
-                    callback(result);
-                };
-                collectionView.SubmittedChanges += _submitChanges;
-            }
+                result.Error = e.Error;
+                callback(result);
+            };
+            collectionView.SubmittedChanges += _submitChanges;
         }
 
         /// <summary>
@@ -302,21 +300,21 @@ namespace UniCloud.Presentation.Service
                 {
                     collectionView.ToList().ForEach(item =>
                     {
-                            var master = item;
-                            foreach (var details in changed.Select(c => c(master)))
+                        var master = item;
+                        foreach (var details in changed.Select(c => c(master)))
+                        {
+                            var collection = details as INotifyCollectionChanged;
+                            if (collection == null) return;
+                            collection.CollectionChanged += (obj, handler) =>
+                                HasChanges = true;
+                            var detailList = details as IList;
+                            if (detailList == null) return;
+                            foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
                             {
-                                var collection = details as INotifyCollectionChanged;
-                                if (collection == null) return;
-                                collection.CollectionChanged += (obj, handler) =>
+                                entity.PropertyChanged += (obj, handler) =>
                                     HasChanges = true;
-                                var detailList = details as IList;
-                                if (detailList == null) return;
-                                foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
-                                {
-                                    entity.PropertyChanged += (obj, handler) =>
-                                        HasChanges = true;
-                                }
                             }
+                        }
                     });
                 }
             };

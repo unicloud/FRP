@@ -33,7 +33,7 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 namespace UniCloud.Presentation.Part.OilMonitor
 {
     [Export(typeof (EngineOilVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class EngineOilVM : ViewModelBase
     {
         #region 声明、初始化
@@ -233,7 +233,7 @@ namespace UniCloud.Presentation.Part.OilMonitor
         public EngineOilDTO SelEngineOilDTO
         {
             get { return _selEngineOilDTO; }
-            private set
+            set
             {
                 if (_selEngineOilDTO != value)
                 {
@@ -277,7 +277,7 @@ namespace UniCloud.Presentation.Part.OilMonitor
         public OilMonitorDTO SelOilMonitorDTO
         {
             get { return _selOilMonitorDTO; }
-            private set
+            set
             {
                 if (_selOilMonitorDTO != value)
                 {

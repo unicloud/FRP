@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
-    [Export(typeof(MaintainPaymentScheduleView))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class MaintainPaymentScheduleView 
+    [Export]
+    public partial class MaintainPaymentScheduleView
     {
         public MaintainPaymentScheduleView()
         {
             InitializeComponent();
         }
+
         [Import]
         public MaintainPaymentScheduleViewVm ViewModel
         {

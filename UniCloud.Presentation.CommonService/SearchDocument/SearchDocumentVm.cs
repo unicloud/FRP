@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/1/21 14:12:17
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -30,11 +32,12 @@ using UniCloud.Presentation.Service.CommonService.Common;
 
 namespace UniCloud.Presentation.CommonService.SearchDocument
 {
-    [Export(typeof(SearchDocumentVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (SearchDocumentVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SearchDocumentVm : ViewModelBase
     {
         #region 声明、初始化
+
         private readonly CommonServiceData _context;
 
         [ImportingConstructor]
@@ -43,12 +46,17 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
         {
             _context = service.Context;
         }
+
         #endregion
 
         #region 属性
+
+        private IEnumerable<DocumentTypeDTO> _documentTypes;
+        private List<DocumentDTO> _documents;
         private string _keyword;
+
         /// <summary>
-        /// 关键字
+        ///     关键字
         /// </summary>
         public string Keyword
         {
@@ -60,9 +68,8 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             }
         }
 
-        private List<DocumentDTO> _documents;
         /// <summary>
-        /// 搜索到的文档集合
+        ///     搜索到的文档集合
         /// </summary>
         public List<DocumentDTO> Documents
         {
@@ -74,9 +81,8 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             }
         }
 
-        private IEnumerable<DocumentTypeDTO> _documentTypes;
         /// <summary>
-        /// 文档类型
+        ///     文档类型
         /// </summary>
         public IEnumerable<DocumentTypeDTO> DocumentTypes
         {
@@ -87,9 +93,11 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RaisePropertyChanged(() => DocumentTypes);
             }
         }
+
         #endregion
 
         #region 操作
+
         public void RadWatermarkTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -97,6 +105,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RadButtonClick(sender, e);
             }
         }
+
         public void RadButtonClick(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(Keyword))
@@ -109,36 +118,36 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 MessageAlert("请选择搜索范围！");
                 return;
             }
-            var documentType = string.Empty;
+            string[] documentType = {string.Empty};
             DocumentTypes.ToList().ForEach(p =>
-                                           {
-                                               if (p.IsChecked)
-                                               {
-                                                   documentType += p.DocumentTypeId + ",";
-                                               }
-                                           });
-            documentType = documentType.TrimEnd(',');
-            var keyword = SearchDocuments(Keyword, documentType);
+            {
+                if (p.IsChecked)
+                {
+                    documentType[0] += p.DocumentTypeId + ",";
+                }
+            });
+            documentType[0] = documentType[0].TrimEnd(',');
+            var keyword = SearchDocuments(Keyword, documentType[0]);
             IsBusy = true;
             _context.BeginExecute<DocumentDTO>(keyword,
-               result => Deployment.Current.Dispatcher.BeginInvoke(() =>
-               {
-                   var context = result.AsyncState as CommonServiceData;
-                   try
-                   {
-                       if (context != null)
-                       {
-                           context.MergeOption = MergeOption.OverwriteChanges;
-                           Documents = context.EndExecute<DocumentDTO>(result).ToList();
-                       }
-                   }
-                   catch (DataServiceQueryException ex)
-                   {
-                       QueryOperationResponse response = ex.Response;
-                       MessageAlert(response.Error.Message);
-                   }
-                   IsBusy = false;
-               }), _context);
+                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    var context = result.AsyncState as CommonServiceData;
+                    try
+                    {
+                        if (context != null)
+                        {
+                            context.MergeOption = MergeOption.OverwriteChanges;
+                            Documents = context.EndExecute<DocumentDTO>(result).ToList();
+                        }
+                    }
+                    catch (DataServiceQueryException ex)
+                    {
+                        var response = ex.Response;
+                        MessageAlert(response.Error.Message);
+                    }
+                    IsBusy = false;
+                }), _context);
         }
 
         /// <summary>
@@ -152,6 +161,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             return new Uri(string.Format("SearchDocument?keyword='{0}'&documentType='{1}'", keyword, documentType),
                 UriKind.Relative);
         }
+
         public override void LoadData()
         {
             var main = ServiceLocator.Current.GetInstance<SearchDocumentMainVm>();
@@ -160,6 +170,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             DocumentTypes = main.DocumentTypes.ToList();
             RadButtonClick(null, null);
         }
+
         #endregion
     }
 }

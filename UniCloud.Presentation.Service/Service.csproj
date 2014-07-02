@@ -101,6 +101,7 @@
     <Compile Include="IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceBase.cs" />
+    <Compile Include="StatusData.cs" />
     <Compile Include="SubmitChangesResult.cs" />
   </ItemGroup>
   <ItemGroup>

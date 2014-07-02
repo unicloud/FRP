@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/2/13 9:43:24
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -21,7 +23,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using Telerik.Windows.Media.Imaging;
 using Telerik.Windows.Media.Imaging.FormatProviders;
@@ -34,21 +35,19 @@ using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 
 namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
 {
-    [Export(typeof(ManageBusinessLicenseVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ManageBusinessLicenseVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageBusinessLicenseVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly BaseManagementData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IBaseManagementService _service;
 
         [ImportingConstructor]
-        public ManageBusinessLicenseVm(IRegionManager regionManager, IBaseManagementService service)
+        public ManageBusinessLicenseVm(IBaseManagementService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -69,10 +68,10 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
             BusinessLicenses = _service.CreateCollection(_context.BusinessLicenses);
             BusinessLicenses.PageSize = 18;
             BusinessLicenses.LoadedData += (o, e) =>
-                                           {
-                                               if (BusinessLicense == null)
-                                                   BusinessLicense = BusinessLicenses.FirstOrDefault();
-                                           };
+            {
+                if (BusinessLicense == null)
+                    BusinessLicense = BusinessLicenses.FirstOrDefault();
+            };
             _service.RegisterCollectionView(BusinessLicenses);
         }
 
@@ -81,6 +80,7 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
         #region 数据
 
         #region 公共属性
+
         #endregion
 
         #region 加载数据
@@ -101,12 +101,13 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
 
         #region 经营证照
 
+        private BusinessLicenseDTO _businessLicense;
+
         /// <summary>
         ///     经营证照集合
         /// </summary>
         public QueryableDataServiceCollectionView<BusinessLicenseDTO> BusinessLicenses { get; set; }
 
-        private BusinessLicenseDTO _businessLicense;
         public BusinessLicenseDTO BusinessLicense
         {
             get { return _businessLicense; }
@@ -117,8 +118,8 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
                 {
                     if (_businessLicense.FileContent != null)
                     {
-                        IImageFormatProvider providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(
-                                Path.GetExtension(_businessLicense.FileName));
+                        var providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(
+                            Path.GetExtension(_businessLicense.FileName));
                         if (providerByExtension == null)
                         {
                             MessageAlert("不支持文件格式！");
@@ -137,28 +138,32 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
                 RaisePropertyChanged(() => BusinessLicense);
             }
         }
+
         #endregion
 
         #region 图片缩放
+
+        private RadBitmap _image;
+        private double _percent;
+
         public Dictionary<double, string> Percents
         {
             get
             {
                 return new Dictionary<double, string>
-                         {
-                             {0,"适应"},
-                             {0.1,"10%"},
-                             {0.25,"25%"},
-                             {0.5,"50%"},
-                             {1,"100%"},
-                             {1.5,"150%"},
-                             {2,"200%"},
-                             {5,"500%"},
-                         };
+                {
+                    {0, "适应"},
+                    {0.1, "10%"},
+                    {0.25, "25%"},
+                    {0.5, "50%"},
+                    {1, "100%"},
+                    {1.5, "150%"},
+                    {2, "200%"},
+                    {5, "500%"},
+                };
             }
         }
 
-        private double _percent;
         public double Percent
         {
             get { return _percent; }
@@ -169,7 +174,6 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
             }
         }
 
-        private RadBitmap _image;
         public RadBitmap Image
         {
             get { return _image; }
@@ -179,7 +183,9 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
                 RaisePropertyChanged(() => Image);
             }
         }
+
         #endregion
+
         #endregion
 
         #endregion
@@ -242,17 +248,20 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
         #endregion
 
         #region 打开文档
+
         public DelegateCommand<object> AddDocumentCommand { get; set; }
 
         private void AddDocument(object sender)
         {
             try
             {
-                var openFileDialog = new OpenFileDialog { Filter = "PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp" };//暂不支持 JPG Files (*.jpg, *.jpeg)|*.jpg;*.jpeg
+                var openFileDialog = new OpenFileDialog {Filter = "PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp"};
+                    //暂不支持 JPG Files (*.jpg, *.jpeg)|*.jpg;*.jpeg
                 if (openFileDialog.ShowDialog() == true)
                 {
-                    var stream = (Stream)openFileDialog.File.OpenRead();
-                    IImageFormatProvider providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(openFileDialog.File.Extension);
+                    var stream = (Stream) openFileDialog.File.OpenRead();
+                    var providerByExtension =
+                        ImageFormatProviderManager.GetFormatProviderByExtension(openFileDialog.File.Extension);
                     if (providerByExtension == null)
                     {
                         MessageAlert("不支持文件格式！");
@@ -275,7 +284,9 @@ namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
         {
             return BusinessLicense != null;
         }
+
         #endregion
+
         #endregion
     }
 }

@@ -4,7 +4,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ScheduleView;
 using Telerik.Windows.Data;
@@ -17,21 +16,19 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof(AircraftPurchaseReceptionManagerVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (AircraftPurchaseReceptionManagerVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AircraftPurchaseReceptionManagerVM : ReceptionVm
     {
         #region 声明、初始化
 
         private readonly PurchaseData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
 
         [ImportingConstructor]
-        public AircraftPurchaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service)
+        public AircraftPurchaseReceptionManagerVM(IPurchaseService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -47,15 +44,16 @@ namespace UniCloud.Presentation.Purchase.Reception
         private void InitializeVM()
         {
             PurchaseContractAircrafts = new QueryableDataServiceCollectionView<PurchaseContractAircraftDTO>(_context,
-                    _context.PurchaseContractAircrafts);
+                _context.PurchaseContractAircrafts);
 
-            AircraftPurchaseReceptions = _service.CreateCollection(_context.AircraftPurchaseReceptions.Expand(p => p.RelatedDocs),
-                o => o.ReceptionLines, o => o.ReceptionSchedules, o => o.RelatedDocs);
+            AircraftPurchaseReceptions =
+                _service.CreateCollection(_context.AircraftPurchaseReceptions.Expand(p => p.RelatedDocs),
+                    o => o.ReceptionLines, o => o.ReceptionSchedules, o => o.RelatedDocs);
             AircraftPurchaseReceptions.LoadedData += (o, e) =>
-                                                     {
-                                                         if (SelAircraftPurchaseReception == null)
-                                                             SelAircraftPurchaseReception = AircraftPurchaseReceptions.FirstOrDefault();
-                                                     };
+            {
+                if (SelAircraftPurchaseReception == null)
+                    SelAircraftPurchaseReception = AircraftPurchaseReceptions.FirstOrDefault();
+            };
             _service.RegisterCollectionView(AircraftPurchaseReceptions); //注册查询集合。
         }
 
@@ -188,7 +186,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                         //刷新界面日程控件绑定到的集合
                         foreach (var schedule in value.ReceptionSchedules)
                         {
-                            Appointment appointment = ScheduleExtension.ConvertToAppointment(schedule);
+                            var appointment = ScheduleExtension.ConvertToAppointment(schedule);
                             _appointments.Add(appointment);
                         }
                     }
@@ -258,6 +256,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 重载操作
 
         #region 添加附件
+
         protected override bool CanAddAttach(object obj)
         {
             return _selAircraftPurchaseReception != null;
@@ -355,16 +354,16 @@ namespace UniCloud.Presentation.Purchase.Reception
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                AircraftPurchaseReceptions.Remove(SelAircraftPurchaseReception);
-                                                SelAircraftPurchaseReception = AircraftPurchaseReceptions.FirstOrDefault();
-                                                if (SelAircraftPurchaseReception == null)
-                                                {
-                                                    //删除完，若没有记录了，则也要删除界面明细
-                                                    Appointments.Clear();
-                                                }
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                AircraftPurchaseReceptions.Remove(SelAircraftPurchaseReception);
+                SelAircraftPurchaseReception = AircraftPurchaseReceptions.FirstOrDefault();
+                if (SelAircraftPurchaseReception == null)
+                {
+                    //删除完，若没有记录了，则也要删除界面明细
+                    Appointments.Clear();
+                }
+            });
         }
 
         protected override bool CanRemove(object obj)
@@ -422,11 +421,11 @@ namespace UniCloud.Presentation.Purchase.Reception
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SelAircraftPurchaseReception.ReceptionLines.Remove(SelAircraftPurchaseReceptionLine);
-                                                SelAircraftPurchaseReceptionLine = SelAircraftPurchaseReception.ReceptionLines.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SelAircraftPurchaseReception.ReceptionLines.Remove(SelAircraftPurchaseReceptionLine);
+                SelAircraftPurchaseReceptionLine = SelAircraftPurchaseReception.ReceptionLines.FirstOrDefault();
+            });
         }
 
         protected override bool CanRemoveEntity(object obj)

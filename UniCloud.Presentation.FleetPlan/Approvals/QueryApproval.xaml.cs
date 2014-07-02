@@ -6,8 +6,7 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.FleetPlan.Approvals
 {
-    [Export(typeof(QueryApproval))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class QueryApproval
     {
         public QueryApproval()

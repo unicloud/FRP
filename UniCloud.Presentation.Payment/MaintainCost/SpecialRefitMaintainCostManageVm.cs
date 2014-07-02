@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/5/16 10:00:39
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -29,14 +31,15 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
-    [Export(typeof(SpecialRefitMaintainCostManageVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (SpecialRefitMaintainCostManageVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SpecialRefitMaintainCostManageVm : EditViewModelBase
     {
-        private readonly IPaymentService _service;
         private readonly PaymentData _context;
         private readonly IFleetPlanService _fleetPlanService;
+        private readonly IPaymentService _service;
         private FilterDescriptor _annualFilter;
+
         /// <summary>
         ///     构造函数。
         /// </summary>
@@ -48,11 +51,13 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             _service = service;
             _context = _service.Context;
             InitialVm(); //初始化特修改装维修成本
-
         }
+
         #region 年度
-        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
         private AnnualDTO _annual;
+        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
         public AnnualDTO Annual
         {
             get { return _annual; }
@@ -67,10 +72,13 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 RaisePropertyChanged(() => Annual);
             }
         }
+
         #endregion
 
         #region 发票
+
         public QueryableDataServiceCollectionView<SpecialRefitInvoiceDTO> SpecialRefitInvoices { get; set; }
+
         #endregion
 
         #region 加载特修改装维修成本
@@ -104,7 +112,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         private void InitialVm()
         {
             CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
-            SpecialRefitInvoices = new QueryableDataServiceCollectionView<SpecialRefitInvoiceDTO>(_context, _context.SpecialRefitInvoices);
+            SpecialRefitInvoices = new QueryableDataServiceCollectionView<SpecialRefitInvoiceDTO>(_context,
+                _context.SpecialRefitInvoices);
             SpecialRefitMaintainCosts = _service.CreateCollection(_context.SpecialRefitMaintainCosts);
             SpecialRefitMaintainCosts.PageSize = 20;
             _annualFilter = new FilterDescriptor("Year", FilterOperator.IsEqualTo, 0);
@@ -117,12 +126,13 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             };
             _service.RegisterCollectionView(SpecialRefitInvoices);
 
-            Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
+            Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context,
+                _fleetPlanService.Context.Annuals);
             Annuals.LoadedData += (o, e) =>
-                                  {
-                                      if (Annual == null)
-                                          Annual = Annuals.FirstOrDefault(p => p.Year == DateTime.Now.Year);
-                                  };
+            {
+                if (Annual == null)
+                    Annual = Annuals.FirstOrDefault(p => p.Year == DateTime.Now.Year);
+            };
         }
 
         #endregion
@@ -145,13 +155,13 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         #endregion
 
         #region 单元格编辑事件
+
         public DelegateCommand<object> CellEditEndCommand { get; set; }
 
         private void CellEditEnd(object sender)
         {
-            
         }
+
         #endregion
     }
 }
-

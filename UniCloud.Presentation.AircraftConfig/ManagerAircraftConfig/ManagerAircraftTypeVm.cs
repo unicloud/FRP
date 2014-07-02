@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/1/15 17:32:57
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -17,7 +19,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.AircraftConfig;
@@ -27,21 +28,19 @@ using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig;
 
 namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 {
-    [Export(typeof(ManagerAircraftTypeVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ManagerAircraftTypeVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManagerAircraftTypeVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly AircraftConfigData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IAircraftConfigService _service;
 
         [ImportingConstructor]
-        public ManagerAircraftTypeVm(IRegionManager regionManager, IAircraftConfigService service)
+        public ManagerAircraftTypeVm(IAircraftConfigService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -68,7 +67,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                     {
                         newItem.AircraftTypeId = Guid.NewGuid();
                         var caacAircraftType = CaacAircraftTypes.FirstOrDefault();
-                        if (caacAircraftType != null) 
+                        if (caacAircraftType != null)
                             newItem.CaacAircraftTypeId = caacAircraftType.CAACAircraftTypeId;
                     }
                 }
@@ -85,14 +84,17 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         #region 数据
 
         #region 公共属性
+
         /// <summary>
-        /// 座级
+        ///     座级
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftCategoryDTO> AircraftCategories { get; set; }
+
         /// <summary>
-        /// 制造商
+        ///     制造商
         /// </summary>
         public QueryableDataServiceCollectionView<ManufacturerDTO> Manufacturers { get; set; }
+
         #endregion
 
         #region 加载数据
@@ -117,12 +119,17 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         }
 
         #region 机型
+
+        private AircraftTypeDTO _aircraftType;
+
+        //用户能否选择
+        private bool _canSelectAircraftType = true;
+
         /// <summary>
         ///     机型集合
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypes { get; set; }
 
-        private AircraftTypeDTO _aircraftType;
         /// <summary>
         ///     选中的机型
         /// </summary>
@@ -136,15 +143,14 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                     _aircraftType = value;
                     if (AircraftSerieses != null)
                     {
-                        _aircraftSeries = AircraftSerieses.FirstOrDefault(p => p.ManufacturerId == _aircraftType.ManufacturerId);
+                        _aircraftSeries =
+                            AircraftSerieses.FirstOrDefault(p => p.ManufacturerId == _aircraftType.ManufacturerId);
                     }
                     RaisePropertyChanged(() => AircraftType);
                 }
             }
         }
 
-        //用户能否选择
-        private bool _canSelectAircraftType = true;
         public bool CanSelectAircraftType
         {
             get { return _canSelectAircraftType; }
@@ -157,15 +163,18 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 }
             }
         }
+
         #endregion
 
         #region 民航机型
+
+        private CAACAircraftTypeDTO _caacAircraftType;
+
         /// <summary>
-        /// 民航机型
+        ///     民航机型
         /// </summary>
         public QueryableDataServiceCollectionView<CAACAircraftTypeDTO> CaacAircraftTypes { get; set; }
 
-        private CAACAircraftTypeDTO _caacAircraftType;
         public CAACAircraftTypeDTO CaacAircraftType
         {
             get { return _caacAircraftType; }
@@ -180,15 +189,18 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 RaisePropertyChanged("CaacAircraftType");
             }
         }
+
         #endregion
 
         #region 飞机系列
+
+        private AircraftSeriesDTO _aircraftSeries;
+
         /// <summary>
-        /// 飞机系列
+        ///     飞机系列
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftSeriesDTO> AircraftSerieses { get; set; }
 
-        private AircraftSeriesDTO _aircraftSeries;
         public AircraftSeriesDTO AircraftSeries
         {
             get { return _aircraftSeries; }
@@ -198,8 +210,11 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 RaisePropertyChanged("AircraftSeries");
             }
         }
+
         #endregion
+
         #endregion
+
         #endregion
 
         #region 操作

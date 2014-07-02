@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/4/30 13:39:02
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -34,8 +36,8 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
-    [Export(typeof(MaintainPaymentScheduleVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (MaintainPaymentScheduleVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MaintainPaymentScheduleVm : EditViewModelBase
     {
         private readonly PaymentData _context;
@@ -54,7 +56,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             InitialCommand(); //初始化命令
             InitialCurrency(); //初始化币种
         }
-
 
         #region 合同飞机下的付款计划相关
 
@@ -99,7 +100,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialPaymentSchedule()
         {
-            PaymentSchedulesView = _service.CreateCollection(_context.MaintainPaymentSchedules, o => o.PaymentScheduleLines);
+            PaymentSchedulesView = _service.CreateCollection(_context.MaintainPaymentSchedules,
+                o => o.PaymentScheduleLines);
             PaymentSchedulesView.PageSize = 19;
             PaymentSchedulesView.LoadedData += (sender, e) =>
             {
@@ -118,7 +120,9 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         ///     获取所有币种。
         /// </summary>
         public QueryableDataServiceCollectionView<CurrencyDTO> CurrencysView { get; set; }
+
         public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+
         /// <summary>
         ///     初始化币种信息。
         /// </summary>

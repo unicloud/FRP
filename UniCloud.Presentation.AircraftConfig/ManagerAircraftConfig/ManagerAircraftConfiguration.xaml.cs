@@ -8,14 +8,20 @@ using Telerik.Windows.Controls;
 
 namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 {
-    [Export(typeof(ManagerAircraftConfiguration))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class ManagerAircraftConfiguration 
+    [Export]
+    public partial class ManagerAircraftConfiguration
     {
         public ManagerAircraftConfiguration()
         {
             InitializeComponent();
             this.AddHandler(Selector.SelectionChangedEvent, new SelectionChangedEventHandler(OnSelectionChanged), true);
+        }
+
+        [Import(typeof (ManagerAircraftConfigurationVm))]
+        public ManagerAircraftConfigurationVm ViewModel
+        {
+            get { return DataContext as ManagerAircraftConfigurationVm; }
+            set { DataContext = value; }
         }
 
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -24,13 +30,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             {
                 ViewModel.SelectedChanged(e.AddedItems[0]);
             }
-        }
-
-        [Import(typeof(ManagerAircraftConfigurationVm))]
-        public ManagerAircraftConfigurationVm ViewModel
-        {
-            get { return DataContext as ManagerAircraftConfigurationVm; }
-            set { DataContext = value; }
         }
     }
 }

@@ -22,11 +22,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
@@ -36,20 +36,18 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 namespace UniCloud.Presentation.Payment.Invoice
 {
     [Export(typeof (PurchaseInvoiceManagerVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PurchaseInvoiceManagerVM : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PaymentData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public PurchaseInvoiceManagerVM(IRegionManager regionManager, IPaymentService service)
+        public PurchaseInvoiceManagerVM(IPaymentService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -125,7 +123,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 公共属性
 
         /// <summary>
-        ///   项名称
+        ///     项名称
         /// </summary>
         public Dictionary<int, ItemNameType> ItemNameTypes
         {
@@ -288,7 +286,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         public ObservableCollection<InvoiceLineDTO> InvoiceLines
         {
             get { return _invoiceLines; }
-            private set
+            set
             {
                 if (_invoiceLines != value)
                 {
@@ -398,7 +396,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnNew(object obj)
         {
-            PurchasePayscheduleChildView.ShowDialog();
+            purchasePayscheduleChildView.ShowDialog();
         }
 
         private bool CanNew(object obj)
@@ -532,7 +530,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnCheck(object obj)
         {
-            SelPurchaseInvoice.Reviewer = "HQB";
+            SelPurchaseInvoice.Reviewer = StatusData.curUser;
             SelPurchaseInvoice.ReviewDate = DateTime.Now;
         }
 
@@ -559,7 +557,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "TotalLine"))
                 {
-                    decimal totalCount = SelPurchaseInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
+                    var totalCount = SelPurchaseInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
                     SelPurchaseInvoice.InvoiceValue = totalCount;
                 }
             }
@@ -571,7 +569,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 子窗体相关操作
 
-        [Import] public PurchasePayscheduleChildView PurchasePayscheduleChildView; //初始化子窗体
+        [Import] public PurchasePayscheduleChildView purchasePayscheduleChildView; //初始化子窗体
 
         #region 付款计划集合
 
@@ -798,7 +796,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <param name="sender"></param>
         public void OnCancelExecute(object sender)
         {
-            PurchasePayscheduleChildView.Close();
+            purchasePayscheduleChildView.Close();
         }
 
         /// <summary>
@@ -829,7 +827,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 CreateDate = DateTime.Now,
                 InvoiceDate = DateTime.Now,
             };
-            string selectedPane = PurchasePayscheduleChildView.PaneGroups.SelectedPane.Title.ToString();
+            var selectedPane = purchasePayscheduleChildView.PaneGroups.SelectedPane.Title.ToString();
             if (selectedPane == "采购的飞机对应的付款计划")
             {
                 if (SelContractAircraft == null)
@@ -864,6 +862,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                         invoice.InvoiceValue = SelPaymentScheduleLine.Amount;
                         invoice.SupplierName = SelAcPaymentSchedule.SupplierName;
                         invoice.SupplierId = SelAcPaymentSchedule.SupplierId;
+                        invoice.OperatorName = StatusData.curUser;
                         invoice.PaymentScheduleLineId = SelPaymentScheduleLine.PaymentScheduleLineId;
                         var invoiceLine = new InvoiceLineDTO
                         {
@@ -872,7 +871,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                         };
                         invoice.InvoiceLines.Add(invoiceLine);
                         PurchaseInvoices.AddNew(invoice);
-                        PurchasePayscheduleChildView.Close();
+                        purchasePayscheduleChildView.Close();
                     }
                 }
             }
@@ -918,7 +917,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                         };
                         invoice.InvoiceLines.Add(invoiceLine);
                         PurchaseInvoices.AddNew(invoice);
-                        PurchasePayscheduleChildView.Close();
+                        purchasePayscheduleChildView.Close();
                     }
                 }
             }
@@ -943,7 +942,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                         };
                         invoice.InvoiceLines.Add(invoiceLine);
                         PurchaseInvoices.AddNew(invoice);
-                        PurchasePayscheduleChildView.Close();
+                        purchasePayscheduleChildView.Close();
                     }
                 }
                 else

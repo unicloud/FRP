@@ -6,8 +6,7 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 {
-    [Export(typeof(QueryPerformPlan))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class QueryPerformPlan
     {
         public QueryPerformPlan()
@@ -21,6 +20,5 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             get { return DataContext as QueryPerformPlanVM; }
             set { DataContext = value; }
         }
-
     }
 }

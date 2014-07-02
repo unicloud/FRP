@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/1/15 14:35:47
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -17,7 +19,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.AircraftConfig;
@@ -27,25 +28,22 @@ using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig;
 
 namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 {
-    [Export(typeof(ManagerAircraftSeriesVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ManagerAircraftSeriesVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManagerAircraftSeriesVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly AircraftConfigData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IAircraftConfigService _service;
 
         [ImportingConstructor]
-        public ManagerAircraftSeriesVm(IRegionManager regionManager, IAircraftConfigService service)
+        public ManagerAircraftSeriesVm(IAircraftConfigService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
-
         }
 
         /// <summary>
@@ -85,10 +83,12 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         #region 数据
 
         #region 公共属性
+
         /// <summary>
-        /// 制造商
+        ///     制造商
         /// </summary>
         public QueryableDataServiceCollectionView<ManufacturerDTO> Manufacturers { get; set; }
+
         #endregion
 
         #region 加载数据
@@ -110,12 +110,17 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         }
 
         #region 系列
+
+        private AircraftSeriesDTO _aircraftSeries;
+
+        //用户能否选择
+        private bool _canSelectAircraftSeries = true;
+
         /// <summary>
         ///     系列集合
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftSeriesDTO> AircraftSerieses { get; set; }
 
-        private AircraftSeriesDTO _aircraftSeries;
         /// <summary>
         ///     选中的系列
         /// </summary>
@@ -132,8 +137,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             }
         }
 
-        //用户能否选择
-        private bool _canSelectAircraftSeries = true;
         public bool CanSelectAircraftSeries
         {
             get { return _canSelectAircraftSeries; }
@@ -148,7 +151,9 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         }
 
         #endregion
+
         #endregion
+
         #endregion
 
         #region 操作

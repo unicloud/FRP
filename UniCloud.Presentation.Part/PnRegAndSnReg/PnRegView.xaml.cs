@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Part.PnRegAndSnReg
 {
-    [Export(typeof (PnRegView))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class PnRegView : UserControl
+    [Export]
+    public partial class PnRegView
     {
         public PnRegView()
         {

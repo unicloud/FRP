@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -21,11 +23,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Part;
 using UniCloud.Presentation.Service.Part.Part;
@@ -35,21 +33,19 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.PnRegAndSnReg
 {
-    [Export(typeof(SnRegVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (SnRegVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SnRegVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
 
         [ImportingConstructor]
-        public SnRegVm(IRegionManager regionManager, IPartService service)
+        public SnRegVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -63,15 +59,18 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         private void InitializeVM()
         {
-            SnRegs = new QueryableDataServiceCollectionView<SnRegDTO>(_context, _context.SnRegs);
-            SnRegs.PageSize = 20;
+            SnRegs = new QueryableDataServiceCollectionView<SnRegDTO>(_context, _context.SnRegs) {PageSize = 20};
             SnRegs.LoadedData += (o, e) =>
-                                 {
-                                     if (SelSnReg == null)
-                                         SelSnReg = SnRegs.FirstOrDefault();
-                                 };
+            {
+                if (SelSnReg == null)
+                    SelSnReg = SnRegs.FirstOrDefault();
+            };
             SnHistories = _service.CreateCollection(_context.SnHistories);
-            SnHistories.SortDescriptors.Add(new SortDescriptor { Member = "ActionDate", SortDirection = ListSortDirection.Descending });
+            SnHistories.SortDescriptors.Add(new SortDescriptor
+            {
+                Member = "ActionDate",
+                SortDirection = ListSortDirection.Descending
+            });
             SnHistories.LoadedData += (s, e) =>
             {
                 if (SelSnReg != null)
@@ -93,6 +92,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         #region 公共属性
 
         #region 序号件集合
+
         private SnRegDTO _selSnReg;
 
         /// <summary>
@@ -105,12 +105,12 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         public SnRegDTO SelSnReg
         {
-            get { return this._selSnReg; }
+            get { return _selSnReg; }
             private set
             {
-                if (this._selSnReg != value)
+                if (_selSnReg != value)
                 {
-                    this._selSnReg = value;
+                    _selSnReg = value;
                     if (value != null)
                     {
                         ViewSnHistories = new ObservableCollection<SnHistoryDTO>();
@@ -120,11 +120,12 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                                 .ToList();
                         ViewSnHistories.AddRange(snHistories);
                     }
-                    RaisePropertyChanged(() => this.SelSnReg);
+                    RaisePropertyChanged(() => SelSnReg);
                     RefreshCommandState();
                 }
             }
         }
+
         #endregion
 
         /// <summary>
@@ -134,9 +135,9 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         {
             get
             {
-                return Enum.GetValues(typeof(ActionType))
+                return Enum.GetValues(typeof (ActionType))
                     .Cast<object>()
-                    .ToDictionary(value => (int)value, value => (ActionType)value);
+                    .ToDictionary(value => (int) value, value => (ActionType) value);
             }
         }
 
@@ -181,13 +182,13 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         public SnHistoryDTO SelSnHistory
         {
-            get { return this._selSnHistory; }
-            private set
+            get { return _selSnHistory; }
+            set
             {
-                if (this._selSnHistory != value)
+                if (_selSnHistory != value)
                 {
-                    this._selSnHistory = value;
-                    RaisePropertyChanged(() => this.SelSnHistory);
+                    _selSnHistory = value;
+                    RaisePropertyChanged(() => SelSnHistory);
                     RefreshCommandState();
                 }
             }
@@ -198,13 +199,13 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         public ObservableCollection<SnHistoryDTO> ViewSnHistories
         {
-            get { return this._viewSnHistories; }
+            get { return _viewSnHistories; }
             private set
             {
-                if (this._viewSnHistories != value)
+                if (_viewSnHistories != value)
                 {
-                    this._viewSnHistories = value;
-                    RaisePropertyChanged(() => this.ViewSnHistories);
+                    _viewSnHistories = value;
+                    RaisePropertyChanged(() => ViewSnHistories);
                 }
             }
         }
@@ -226,6 +227,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         }
 
         #endregion
+
         #endregion
     }
 }

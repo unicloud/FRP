@@ -1,4 +1,4 @@
-﻿#region NameSpace
+﻿#region 命名空间
 
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,6 @@ using System.Data.Services.Client;
 using System.Linq;
 using System.Windows;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -19,23 +18,21 @@ using UniCloud.Presentation.Service.Part.Part;
 namespace UniCloud.Presentation.Part.BaseConfigurations
 {
     /// <summary>
-    /// 基础配置，包括维修工作单元、控制单位的维护
+    ///     基础配置，包括维修工作单元、控制单位的维护
     /// </summary>
-    [Export(typeof(BaseConfigurationVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (BaseConfigurationVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class BaseConfigurationVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
 
         [ImportingConstructor]
-        public BaseConfigurationVm(IRegionManager regionManager, IPartService service)
+        public BaseConfigurationVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -133,6 +130,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
                 }
             }
         }
+
         #endregion
 
         #region 附件集合
@@ -146,7 +144,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
         public List<PnRegDTO> PnRegs
         {
             get { return _pnRegs; }
-            private set
+            set
             {
                 if (_pnRegs != value)
                 {
@@ -177,7 +175,9 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
                 }
             }
         }
+
         #endregion
+
         #endregion
 
         #region 加载数据
@@ -317,6 +317,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
                 }
             }
         }
+
         #endregion
 
         #endregion
@@ -330,6 +331,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
         #endregion
 
         #region 创建查询路径
+
         /// <summary>
         ///     创建查询路径
         /// </summary>
@@ -361,7 +363,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
@@ -440,6 +442,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
         }
 
         #endregion
+
         #endregion
     }
 }

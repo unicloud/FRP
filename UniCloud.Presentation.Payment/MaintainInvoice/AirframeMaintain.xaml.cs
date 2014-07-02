@@ -23,9 +23,8 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
-    [Export(typeof(AirframeMaintain))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class AirframeMaintain 
+    [Export]
+    public partial class AirframeMaintain
     {
         public AirframeMaintain()
         {

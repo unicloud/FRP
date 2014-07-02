@@ -22,12 +22,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
@@ -36,25 +33,23 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof(FleetPlanPublishVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (FleetPlanPublishVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FleetPlanPublishVM : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly FleetPlanData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
         private FilterDescriptor _annualDescriptor;
-        private FilterDescriptor _planHistoryDescriptor;
         private AnnualDTO _curAnnual = new AnnualDTO();
+        private FilterDescriptor _planHistoryDescriptor;
 
 
         [ImportingConstructor]
-        public FleetPlanPublishVM(IRegionManager regionManager, IFleetPlanService service)
+        public FleetPlanPublishVM(IFleetPlanService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -89,7 +84,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     Plans.Load(true);
                 RefreshCommandState();
             };
-            _service.RegisterCollectionView(CurAnnuals);//注册查询集合
+            _service.RegisterCollectionView(CurAnnuals); //注册查询集合
 
             Plans = _service.CreateCollection(_context.Plans);
             Plans.LoadedData += (sender, e) =>
@@ -99,18 +94,19 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     e.MarkErrorAsHandled();
                     return;
                 }
-                ViewPlans=new ObservableCollection<PlanDTO>();
-                ViewPlans.AddRange(e.Entities.Cast<PlanDTO>().Where(p => p.Year == _curAnnual.Year).OrderBy(p=>p.VersionNumber));
+                ViewPlans = new ObservableCollection<PlanDTO>();
+                ViewPlans.AddRange(
+                    e.Entities.Cast<PlanDTO>().Where(p => p.Year == _curAnnual.Year).OrderBy(p => p.VersionNumber));
                 PublishingPlan = ViewPlans.Where(p =>
-                    p.PublishStatus > (int)PlanPublishStatus.待发布 &&
-                    p.PublishStatus < (int)PlanPublishStatus.已发布);
+                    p.PublishStatus > (int) PlanPublishStatus.待发布 &&
+                    p.PublishStatus < (int) PlanPublishStatus.已发布);
                 SelPlan = ViewPlans.OrderBy(p => p.VersionNumber).LastOrDefault();
                 LastPublishedPlan =
                     ViewPlans.OrderBy(p => p.VersionNumber)
                         .LastOrDefault(p => p.PlanPublishStatus == PlanPublishStatus.已发布);
                 RefreshCommandState();
             };
-            _service.RegisterCollectionView(Plans);//注册查询集合
+            _service.RegisterCollectionView(Plans); //注册查询集合
 
             PlanHistories = new QueryableDataServiceCollectionView<PlanHistoryDTO>(_context, _context.PlanHistories);
             _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
@@ -146,7 +142,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #region 所有运力增减计划集合
 
         /// <summary>
-        /// 所有运力增减计划集合
+        ///     所有运力增减计划集合
         /// </summary>
         public QueryableDataServiceCollectionView<PlanDTO> Plans { get; set; }
 
@@ -221,12 +217,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #region 当前年度运力增减计划集合
 
         /// <summary>
-        /// 当前年度运力增减计划集合
+        ///     当前年度运力增减计划集合
         /// </summary>
         private ObservableCollection<PlanDTO> _viewPlans = new ObservableCollection<PlanDTO>();
 
         /// <summary>
-        /// 当前年度运力增减
+        ///     当前年度运力增减
         /// </summary>
         public ObservableCollection<PlanDTO> ViewPlans
         {
@@ -271,11 +267,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
-
         #region 所选计划的计划明细集合
 
         /// <summary>
-        /// 所选计划的计划明细集合
+        ///     所选计划的计划明细集合
         /// </summary>
         public QueryableDataServiceCollectionView<PlanHistoryDTO> PlanHistories { get; set; }
 
@@ -310,7 +305,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnCommit(object obj)
         {
-            SelPlan.PublishStatus = (int)PlanPublishStatus.待审核;
+            SelPlan.PublishStatus = (int) PlanPublishStatus.待审核;
             PublishingPlan.ToList().Add(SelPlan);
             RefreshCommandState();
         }
@@ -323,7 +318,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 return false;
             }
             // 有未保存内容时，按钮不可用
-            if (this._service.HasChanges)
+            if (_service.HasChanges)
             {
                 return false;
             }
@@ -331,13 +326,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             // 编制状态处于已提交，且发布状态为待发布时，按钮可用
             if (LastPublishedPlan == null)
             {
-                return SelPlan.Status == (int)PlanStatus.已提交 &&
-                       SelPlan.PublishStatus == (int)PlanPublishStatus.待发布;
+                return SelPlan.Status == (int) PlanStatus.已提交 &&
+                       SelPlan.PublishStatus == (int) PlanPublishStatus.待发布;
             }
             // 2、存在已发布的计划
             // 编制状态处于已提交，发布状态为待发布，且选中计划的版本高于最后一份已发布计划版本时，按钮可用
-            return SelPlan.Status == (int)PlanStatus.已提交 &&
-                   SelPlan.PublishStatus == (int)PlanPublishStatus.待发布 &&
+            return SelPlan.Status == (int) PlanStatus.已提交 &&
+                   SelPlan.PublishStatus == (int) PlanPublishStatus.待发布 &&
                    SelPlan.VersionNumber > LastPublishedPlan.VersionNumber;
         }
 
@@ -352,7 +347,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnExamine(object obj)
         {
-            SelPlan.PublishStatus = (int)PlanPublishStatus.已审核;
+            SelPlan.PublishStatus = (int) PlanPublishStatus.已审核;
             RefreshCommandState();
         }
 
@@ -364,7 +359,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 return false;
             }
             // 选中计划发布状态为待审核时，按钮可用
-            return SelPlan != null && SelPlan.PublishStatus == (int)PlanPublishStatus.待审核;
+            return SelPlan != null && SelPlan.PublishStatus == (int) PlanPublishStatus.待审核;
         }
 
         #endregion
@@ -378,23 +373,22 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnSend(object obj)
         {
-
             MessageConfirm("确认发布计划", "是否向【民航局】报送计划发布情况？", (o, e) =>
             {
                 if (e.DialogResult == true)
                 {
                     // 审核、已提交状态下可以发送。如果已处于提交状态，需要重新发送的，不必改变状态。
-                    if (this.SelPlan.PublishStatus != (int)PlanPublishStatus.已发布)
+                    if (SelPlan.PublishStatus != (int) PlanPublishStatus.已发布)
                     {
-                        this.SelPlan.PublishStatus = (int)PlanPublishStatus.已发布;
+                        SelPlan.PublishStatus = (int) PlanPublishStatus.已发布;
                         _service.SubmitChanges(sc =>
                         {
                             if (sc.Error == null)
                             {
                                 // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
-                                _service.TransferPlan(SelPlan.AirlinesId,SelPlan.Id,_context);
+                                _service.TransferPlan(SelPlan.AirlinesId, SelPlan.Id, _context);
                             }
-                        }, null);
+                        });
                     }
                     else
                     {
@@ -408,12 +402,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private bool CanSend(object obj)
         {
             // 没有选中计划，按钮不可用
-            if (this.SelPlan == null)
+            if (SelPlan == null)
             {
                 return false;
             }
             // 选中计划发布状态不是已审核与已提交时，按钮不可用。
-            if (this.SelPlan.PublishStatus != (int)PlanPublishStatus.已审核 && this.SelPlan.PublishStatus != (int)PlanPublishStatus.已发布)
+            if (SelPlan.PublishStatus != (int) PlanPublishStatus.已审核 &&
+                SelPlan.PublishStatus != (int) PlanPublishStatus.已发布)
             {
                 return false;
             }
@@ -432,36 +427,36 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnRepeal(object obj)
         {
-            var content = this.SelPlan.PublishStatus == (int)PlanPublishStatus.已发布
-               ? "是否要将发布状态撤回到待发布（同时向民航局报送）？"
-               : "是否要将发布状态撤回到待发布（不会向民航局报送）？";
+            var content = SelPlan.PublishStatus == (int) PlanPublishStatus.已发布
+                ? "是否要将发布状态撤回到待发布（同时向民航局报送）？"
+                : "是否要将发布状态撤回到待发布（不会向民航局报送）？";
             MessageConfirm("确认撤销发布", content, (o, e) =>
-             {
-                 if (e.DialogResult == true)
-                 {
-                     // 1、发布状态为已发布时，需要向民航局发送邮件
-                     if (this.SelPlan.PublishStatus == (int)PlanPublishStatus.已发布)
-                     {
-                         this.SelPlan.PublishStatus = (int)PlanPublishStatus.待发布;
-                         //_service.SubmitChanges(sc =>
-                         //{
-                         //    if (sc.Error == null)
-                         //    {
-                         //        this.service.TransferPlan(this.SelPlan.PlanID, tp => { }, null);
-                         //        RefreshButtonState();
-                         //    }
-                         //}, null);
-                         RefreshCommandState();
-                     }
-                     // 2、发布状态不是已发布时，无需向民航局发送邮件
-                     else
-                     {
-                         SelPlan.PublishStatus = (int)PlanPublishStatus.待发布;
-                         //_service.SubmitChanges(sc => { }, null);
-                         RefreshCommandState();
-                     }
-                 }
-             });
+            {
+                if (e.DialogResult == true)
+                {
+                    // 1、发布状态为已发布时，需要向民航局发送邮件
+                    if (SelPlan.PublishStatus == (int) PlanPublishStatus.已发布)
+                    {
+                        SelPlan.PublishStatus = (int) PlanPublishStatus.待发布;
+                        //_service.SubmitChanges(sc =>
+                        //{
+                        //    if (sc.Error == null)
+                        //    {
+                        //        this.service.TransferPlan(this.SelPlan.PlanID, tp => { }, null);
+                        //        RefreshButtonState();
+                        //    }
+                        //}, null);
+                        RefreshCommandState();
+                    }
+                        // 2、发布状态不是已发布时，无需向民航局发送邮件
+                    else
+                    {
+                        SelPlan.PublishStatus = (int) PlanPublishStatus.待发布;
+                        //_service.SubmitChanges(sc => { }, null);
+                        RefreshCommandState();
+                    }
+                }
+            });
 
             PublishingPlan.ToList().Remove(SelPlan);
             RefreshCommandState();
@@ -475,7 +470,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 return false;
             }
             // 选中计划的发布状态不是待发布，且没有未保存的内容时，按钮可用
-            return SelPlan != null && SelPlan.PublishStatus > (int)PlanPublishStatus.待发布 &&
+            return SelPlan != null && SelPlan.PublishStatus > (int) PlanPublishStatus.待发布 &&
                    !_service.HasChanges;
         }
 

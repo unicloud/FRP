@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.Composition;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof(PlanAircraftChildView))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class PlanAircraftChildView
     {
         public PlanAircraftChildView()

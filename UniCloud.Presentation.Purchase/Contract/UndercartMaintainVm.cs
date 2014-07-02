@@ -19,7 +19,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -31,22 +30,20 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof(UndercartMaintainVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (UndercartMaintainVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class UndercartMaintainVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PurchaseData _context;
-        private readonly IRegionManager _regionManager;
-        private readonly IPurchaseService _service;
         private readonly DocumentDTO _document = new DocumentDTO();
+        private readonly IPurchaseService _service;
 
         [ImportingConstructor]
-        public UndercartMaintainVm(IRegionManager regionManager, IPurchaseService service)
+        public UndercartMaintainVm(IPurchaseService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();

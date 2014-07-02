@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -46,7 +45,7 @@ using WindowStartupLocation = Telerik.Windows.Controls.WindowStartupLocation;
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
     [Export(typeof (FleetAgeVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FleetAgeVm : ViewModelBase
     {
         #region 声明、初始化
@@ -421,7 +420,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             if (selectedItem != null && radwindow != null)
             {
-                DateTime time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
+                var time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
                 var fleetAgeComposition = selectedItem.DataItem as FleetAgeComposition;
                 //找到子窗体的RadGridView，并为其赋值
                 var rgv = radwindow.Content as RadGridView;
@@ -485,7 +484,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
                 else
                 {
-                    for (int i = FleetDatas.Count - 1; i > -1; i--)
+                    for (var i = FleetDatas.Count - 1; i > -1; i--)
                     {
                         var temp = FleetDatas[i];
                         if (temp.AircraftTypeName.Equals((string) button.Tag, StringComparison.OrdinalIgnoreCase))
@@ -536,7 +535,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// <param name="e"></param>
         public void ChartSelectionBehaviorSelectionChanged(object sender, ChartSelectionChangedEventArgs e)
         {
-            DataPoint selectedPoint = ((ChartSelectionBehavior) sender).Chart.SelectedPoints.FirstOrDefault(p =>
+            var selectedPoint = ((ChartSelectionBehavior) sender).Chart.SelectedPoints.FirstOrDefault(p =>
             {
                 var categoricalSeries = p.Presenter as CategoricalSeries;
                 return categoricalSeries != null && categoricalSeries.Visibility == Visibility.Visible;
@@ -553,7 +552,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     //选中时间点
                     SelectedTime = fleetAgeTrend.DateTime;
 
-                    DateTime time = Convert.ToDateTime(fleetAgeTrend.DateTime).AddMonths(1).AddDays(-1);
+                    var time = Convert.ToDateTime(fleetAgeTrend.DateTime).AddMonths(1).AddDays(-1);
                     CreateFleetAgeCollection(_selectedType, time);
                 }
             }
@@ -724,7 +723,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             result.ToList().ForEach(StaticFleetDatas.Add);
             AircraftTypes = aircraftTypeResult;
             //控制趋势图的滚动条
-            int dateTimeCount = FleetAgeTrendCollection.Select(p => p.DateTime).Distinct().Count();
+            var dateTimeCount = FleetAgeTrendCollection.Select(p => p.DateTime).Distinct().Count();
             if (FleetAgeTrendCollection != null && dateTimeCount >= 12)
             {
                 CurrentFleetAge.LineCategoricalAxis.MajorTickInterval = dateTimeCount/6;
@@ -793,7 +792,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 if (!SelectedTime.Equals("所选时间", StringComparison.OrdinalIgnoreCase))
                 {
                     _ageWindow.Close();
-                    DateTime time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
+                    var time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
                     CreateFleetAgeCollection(_selectedType, time);
                 }
                 window.Tag = false;
@@ -843,7 +842,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 _i = 1;
                 _exportRadgridview.ElementExporting -= ElementExporting;
                 _exportRadgridview.ElementExporting += ElementExporting;
-                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                using (var stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
                     )
                 {
                     if (stream != null)
@@ -913,7 +912,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 _aircraftDetail.ElementExporting -= ElementExporting;
                 _aircraftDetail.ElementExporting += ElementExporting;
-                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                using (var stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
                     )
                 {
                     if (stream != null)
@@ -962,7 +961,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 rgview.ElementExporting -= ElementExporting;
                 rgview.ElementExporting += ElementExporting;
-                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                using (var stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
                     )
                 {
                     if (stream != null)
@@ -993,7 +992,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
             var xmlConfig =
                 XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("机龄分析", StringComparison.OrdinalIgnoreCase));
-            string aircraftColor = string.Empty;
+            var aircraftColor = string.Empty;
             var colorConfig =
                 XmlSettings.FirstOrDefault(p => p.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
             if (colorConfig != null &&
@@ -1033,12 +1032,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
             if (xmlConfig != null)
             {
-                XElement xelement = XElement.Parse(xmlConfig.ConfigContent);
+                var xelement = XElement.Parse(xmlConfig.ConfigContent);
                 if (xelement != null)
                 {
-                    foreach (XElement datetime in xelement.Descendants("DateTime"))
+                    foreach (var datetime in xelement.Descendants("DateTime"))
                     {
-                        string currentTime =
+                        var currentTime =
                             Convert.ToDateTime(datetime.Attribute("EndOfMonth").Value).ToString("yyyy/M");
 
                         //早于开始时间时执行下一个
@@ -1068,7 +1067,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             }
                         }
 
-                        foreach (XElement type in datetime.Descendants("Type"))
+                        foreach (var type in datetime.Descendants("Type"))
                         {
                             var fleetageTrend = new FleetAgeTrend
                             {
@@ -1163,7 +1162,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("机龄配置", StringComparison.OrdinalIgnoreCase));
 
             XElement ageColor = null;
-            XmlSettingDTO colorConfig =
+            var colorConfig =
                 XmlSettings.FirstOrDefault(p => p.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
             if (colorConfig != null &&
                 XElement.Parse(colorConfig.SettingContent)
@@ -1178,11 +1177,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 var aircraftDtos = aircraft as AircraftDTO[] ?? aircraft.ToArray();
 
-                XElement xelement = XElement.Parse(xmlConfig.ConfigContent);
-                foreach (XElement item in xelement.Descendants("Item"))
+                var xelement = XElement.Parse(xmlConfig.ConfigContent);
+                foreach (var item in xelement.Descendants("Item"))
                 {
-                    int startYear = Convert.ToInt32(item.Attribute("Start").Value);
-                    int endYear = Convert.ToInt32(item.Attribute("End").Value);
+                    var startYear = Convert.ToInt32(item.Attribute("Start").Value);
+                    var endYear = Convert.ToInt32(item.Attribute("End").Value);
                     //设置相应机龄范围的飞机数据，用于弹出窗体的数据显示
                     var aircraftByAge = aircraftDtos.Where(p => endYear*12 >
                                                                 (time.Year - Convert.ToDateTime(p.FactoryDate).Year)*12 +

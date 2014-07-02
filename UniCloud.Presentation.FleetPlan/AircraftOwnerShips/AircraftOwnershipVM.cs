@@ -36,8 +36,8 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
 {
-    [Export(typeof(AircraftOwnershipVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (AircraftOwnershipVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AircraftOwnershipVM : EditViewModelBase
     {
         private readonly FleetPlanData _context;
@@ -60,12 +60,11 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
 
         #region 加载飞机
 
+        private AcConfigHistoryDTO _selectedAcConfigHistory;
         private AircraftDTO _selectedAircraft;
 
 
         private OwnershipHistoryDTO _selectedOwnershipHistory;
-
-        private AcConfigHistoryDTO _selectedAcConfigHistory;
 
         /// <summary>
         ///     选择飞机。
@@ -213,11 +212,12 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         public QueryableDataServiceCollectionView<AircraftConfigurationDTO> AircraftConfigurations { get; set; }
 
         /// <summary>
-        /// 初始化飞机配置集合
+        ///     初始化飞机配置集合
         /// </summary>
         private void InitialAircraftConfiguration()
         {
-            AircraftConfigurations = new QueryableDataServiceCollectionView<AircraftConfigurationDTO>(_context, _context.AircraftConfigurations);
+            AircraftConfigurations = new QueryableDataServiceCollectionView<AircraftConfigurationDTO>(_context,
+                _context.AircraftConfigurations);
         }
 
         /// <summary>
@@ -242,12 +242,16 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         /// <param name="sender"></param>
         public void OnAddOwnership(object sender)
         {
-            StartDisplayDate = SelectedAircraft.OwnershipHistories.Select(p => p.StartDate).OrderBy(p => p).LastOrDefault();
+            StartDisplayDate =
+                SelectedAircraft.OwnershipHistories.Select(p => p.StartDate).OrderBy(p => p).LastOrDefault();
             //新建所有权历史
             SelectedOwnershipHistory = new OwnershipHistoryDTO
             {
                 OwnershipHistoryId = Guid.NewGuid(),
-                StartDate = (StartDisplayDate == null || StartDisplayDate.Value == DateTime.MinValue) ? DateTime.Now : StartDisplayDate.Value.AddDays(1)
+                StartDate =
+                    (StartDisplayDate == null || StartDisplayDate.Value == DateTime.MinValue)
+                        ? DateTime.Now
+                        : StartDisplayDate.Value.AddDays(1)
             };
 
             SelectedAircraft.OwnershipHistories.Add(SelectedOwnershipHistory);
@@ -262,8 +266,8 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         public bool CanAddOwnership(object sender)
         {
             return GetButtonState() && SelectedAircraft != null
-                && !SelectedAircraft.OwnershipHistories.Any(p => p.Status < (int)OperationStatus.已审核)
-                && !_service.HasChanges;
+                   && !SelectedAircraft.OwnershipHistories.Any(p => p.Status < (int) OperationStatus.已审核)
+                   && !_service.HasChanges;
         }
 
         #endregion
@@ -294,7 +298,8 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         /// <returns>删除命令是否可用。</returns>
         public bool CanRemoveOwnership(object sender)
         {
-            return GetButtonState() && SelectedOwnershipHistory != null && SelectedOwnershipHistory.Status < (int)OperationStatus.已审核;
+            return GetButtonState() && SelectedOwnershipHistory != null &&
+                   SelectedOwnershipHistory.Status < (int) OperationStatus.已审核;
         }
 
         #endregion
@@ -315,7 +320,10 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
             SelectedAcConfigHistory = new AcConfigHistoryDTO
             {
                 Id = RandomHelper.Next(),
-                StartDate = (StartDisplayDate == null || StartDisplayDate.Value == DateTime.MinValue) ? DateTime.Now : StartDisplayDate.Value.AddDays(1)
+                StartDate =
+                    (StartDisplayDate == null || StartDisplayDate.Value == DateTime.MinValue)
+                        ? DateTime.Now
+                        : StartDisplayDate.Value.AddDays(1)
             };
 
             SelectedAircraft.AcConfigHistories.Add(SelectedAcConfigHistory);
@@ -380,7 +388,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
                 MessageAlert("所有权不能为空");
                 return;
             }
-            SelectedOwnershipHistory.Status = (int)OperationStatus.待审核;
+            SelectedOwnershipHistory.Status = (int) OperationStatus.待审核;
             RefreshCommandState();
         }
 
@@ -395,7 +403,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
             {
                 return false;
             }
-            return SelectedOwnershipHistory != null && SelectedOwnershipHistory.Status < (int)RequestStatus.待审核;
+            return SelectedOwnershipHistory != null && SelectedOwnershipHistory.Status < (int) RequestStatus.待审核;
         }
 
         #endregion
@@ -415,7 +423,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
                 MessageAlert("所有权不能为空");
                 return;
             }
-            SelectedOwnershipHistory.Status = (int)OperationStatus.已审核;
+            SelectedOwnershipHistory.Status = (int) OperationStatus.已审核;
             RefreshCommandState();
         }
 
@@ -429,7 +437,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
             {
                 return false;
             }
-            return SelectedOwnershipHistory != null && SelectedOwnershipHistory.Status < (int)OperationStatus.已审核;
+            return SelectedOwnershipHistory != null && SelectedOwnershipHistory.Status < (int) OperationStatus.已审核;
         }
 
         #endregion
@@ -453,7 +461,10 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
                     var ownershipHistory = gridView.CurrentCellInfo.Item as OwnershipHistoryDTO;
                     if (ownershipHistory != null)
                     {
-                        var lastOh = SelectedAircraft.OwnershipHistories.Where(p => p.StartDate != ownershipHistory.StartDate).OrderBy(p=>p.StartDate).LastOrDefault();
+                        var lastOh =
+                            SelectedAircraft.OwnershipHistories.Where(p => p.StartDate != ownershipHistory.StartDate)
+                                .OrderBy(p => p.StartDate)
+                                .LastOrDefault();
                         if (lastOh != null)
                         {
                             lastOh.EndDate = ownershipHistory.StartDate;
@@ -465,7 +476,10 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
                     var acConfigHistory = gridView.CurrentCellInfo.Item as AcConfigHistoryDTO;
                     if (acConfigHistory != null)
                     {
-                        var lastAcConfig = SelectedAircraft.AcConfigHistories.Where(p => p.StartDate != acConfigHistory.StartDate).OrderBy(p => p.StartDate).LastOrDefault();
+                        var lastAcConfig =
+                            SelectedAircraft.AcConfigHistories.Where(p => p.StartDate != acConfigHistory.StartDate)
+                                .OrderBy(p => p.StartDate)
+                                .LastOrDefault();
                         if (lastAcConfig != null)
                         {
                             lastAcConfig.EndDate = acConfigHistory.StartDate;
@@ -503,7 +517,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
             AddAcConfigCommand = new DelegateCommand<object>(OnAddAcConfig, CanAddAcConfig);
             RemoveAcConfigCommand = new DelegateCommand<object>(OnRemoveAcConfig, CanRemoveAcConfig);
 
-            CellEditEndCommand=new DelegateCommand<object>(OnCellEditEnd);
+            CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
         }
 
         #endregion
@@ -511,8 +525,9 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         #region 属性
 
         private DateTime? _startDisplayDate;
+
         /// <summary>
-        /// 开始时间 
+        ///     开始时间
         /// </summary>
         public DateTime? StartDisplayDate
         {

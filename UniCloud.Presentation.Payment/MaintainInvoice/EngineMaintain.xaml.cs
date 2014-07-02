@@ -23,15 +23,13 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
-    [Export(typeof(EngineMaintain))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class EngineMaintain 
+    [Export]
+    public partial class EngineMaintain
     {
         public EngineMaintain()
         {
             InitializeComponent();
         }
-
 
         [Import]
         public EngineMaintainVm ViewModel

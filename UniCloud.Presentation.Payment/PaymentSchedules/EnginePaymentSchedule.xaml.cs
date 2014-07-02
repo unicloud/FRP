@@ -23,8 +23,7 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
-    [Export(typeof (EnginePaymentSchedule))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class EnginePaymentSchedule
     {
         public EnginePaymentSchedule()

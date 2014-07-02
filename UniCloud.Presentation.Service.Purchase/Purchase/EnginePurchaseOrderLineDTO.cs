@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 #endregion
@@ -33,6 +34,18 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         public ContractEngineStatus ContractEngineStatus
         {
             get { return (ContractEngineStatus) Status; }
+        }
+
+        #endregion
+
+        #region 操作
+
+        partial void OnSerialNumberChanging(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new Exception("序列号不能为空！");
+            }
         }
 
         #endregion

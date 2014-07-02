@@ -1,20 +1,19 @@
 ﻿#region 命名空间
 
 using System.ComponentModel.Composition;
-using System.Windows.Controls;
 
 #endregion
 
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
-    [Export(typeof(EngineImportType))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class EngineImportType : UserControl
+    [Export]
+    public partial class EngineImportType
     {
         public EngineImportType()
         {
             InitializeComponent();
         }
+
         [Import]
         public EngineImportTypeVm ViewModel
         {

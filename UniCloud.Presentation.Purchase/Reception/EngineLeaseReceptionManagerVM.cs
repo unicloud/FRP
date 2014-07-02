@@ -20,7 +20,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ScheduleView;
 using Telerik.Windows.Data;
@@ -33,21 +32,19 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof(EngineLeaseReceptionManagerVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (EngineLeaseReceptionManagerVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class EngineLeaseReceptionManagerVM : ReceptionVm
     {
         #region 声明、初始化
 
         private readonly PurchaseData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
 
         [ImportingConstructor]
-        public EngineLeaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service)
+        public EngineLeaseReceptionManagerVM(IPurchaseService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -68,10 +65,10 @@ namespace UniCloud.Presentation.Purchase.Reception
             EngineLeaseReceptions = _service.CreateCollection(_context.EngineLeaseReceptions.Expand(p => p.RelatedDocs),
                 o => o.ReceptionLines, o => o.ReceptionSchedules, o => o.RelatedDocs);
             EngineLeaseReceptions.LoadedData += (o, e) =>
-                                                {
-                                                    if (SelEngineLeaseReception == null)
-                                                        SelEngineLeaseReception = EngineLeaseReceptions.FirstOrDefault();
-                                                };
+            {
+                if (SelEngineLeaseReception == null)
+                    SelEngineLeaseReception = EngineLeaseReceptions.FirstOrDefault();
+            };
             _service.RegisterCollectionView(EngineLeaseReceptions); //注册查询集合。
         }
 
@@ -194,15 +191,15 @@ namespace UniCloud.Presentation.Purchase.Reception
                     {
                         SelEngineLeaseReceptionLine = _selEngineLeaseReception.ReceptionLines.FirstOrDefault();
                         var viewLeaseContractEngines = LeaseContractEngines.Where(
-                                p => p.SupplierId == SelEngineLeaseReception.SupplierId && p.SerialNumber != null)
-                                .ToList();
+                            p => p.SupplierId == SelEngineLeaseReception.SupplierId && p.SerialNumber != null)
+                            .ToList();
                         foreach (var lca in viewLeaseContractEngines)
                         {
                             ViewLeaseContractEngines.Add(lca);
                         }
                         foreach (var schedule in value.ReceptionSchedules)
                         {
-                            Appointment appointment = ScheduleExtension.ConvertToAppointment(schedule);
+                            var appointment = ScheduleExtension.ConvertToAppointment(schedule);
                             _appointments.Add(appointment);
                         }
                     }
@@ -272,6 +269,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 重载操作
 
         #region 添加附件
+
         protected override bool CanAddAttach(object obj)
         {
             return _selEngineLeaseReception != null;
@@ -369,16 +367,16 @@ namespace UniCloud.Presentation.Purchase.Reception
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                EngineLeaseReceptions.Remove(SelEngineLeaseReception);
-                                                SelEngineLeaseReception = EngineLeaseReceptions.FirstOrDefault();
-                                                if (SelEngineLeaseReception == null)
-                                                {
-                                                    //删除完，若没有记录了，则也要删除界面明细
-                                                    Appointments.Clear();
-                                                }
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                EngineLeaseReceptions.Remove(SelEngineLeaseReception);
+                SelEngineLeaseReception = EngineLeaseReceptions.FirstOrDefault();
+                if (SelEngineLeaseReception == null)
+                {
+                    //删除完，若没有记录了，则也要删除界面明细
+                    Appointments.Clear();
+                }
+            });
         }
 
         protected override bool CanRemove(object obj)
@@ -403,7 +401,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                 DeliverDate = DateTime.Now,
                 ReceptionId = SelEngineLeaseReception.EngineLeaseReceptionId
             };
-            var contractEngine =ViewLeaseContractEngines.FirstOrDefault();
+            var contractEngine = ViewLeaseContractEngines.FirstOrDefault();
             if (contractEngine != null)
             {
                 SelEngineLeaseReceptionLine.ContractEngineId = contractEngine.LeaseContractEngineId;

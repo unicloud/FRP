@@ -22,7 +22,6 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
@@ -33,25 +32,23 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.QueryAnalyse
 {
-    [Export(typeof(FinancingDemandForecastVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (FinancingDemandForecastVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FinancingDemandForecastVM : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PaymentData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
-        private RadDateTimePicker EndDateTimePicker; //开始时间控件， 结束时间控件
-        private RadDateTimePicker StartDateTimePicker; //开始时间控件， 结束时间控件
+        private RadDateTimePicker _endDateTimePicker; //开始时间控件， 结束时间控件
         private Point _panOffset;
+        private RadDateTimePicker _startDateTimePicker; //开始时间控件， 结束时间控件
         private Size _zoom;
 
         [ImportingConstructor]
-        public FinancingDemandForecastVM(IRegionManager regionManager, IPaymentService service)
+        public FinancingDemandForecastVM(IPaymentService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -69,16 +66,16 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
             Zoom = new Size(1, 1);
             PaymentSchedules = _service.CreateCollection(_context.PaymentSchedules);
             PaymentSchedules.LoadedData += (o, e) =>
-                                           {
-                                               _loadPaymentSchedules = true;
-                                               LoadComplete();
-                                           };
+            {
+                _loadPaymentSchedules = true;
+                LoadComplete();
+            };
             BaseInvoices = _service.CreateCollection(_context.Invoices);
             BaseInvoices.LoadedData += (o, e) =>
-                                       {
-                                           _loadInvoices = true;
-                                           LoadComplete();
-                                       };
+            {
+                _loadInvoices = true;
+                LoadComplete();
+            };
         }
 
         /// <summary>
@@ -111,7 +108,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
                 {
                     if (value == null)
                     {
-                        EndDateTimePicker.SelectedValue = _endDate;
+                        _endDateTimePicker.SelectedValue = _endDate;
                         return;
                     }
                     _endDate = value;
@@ -140,7 +137,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
                 {
                     if (value == null)
                     {
-                        StartDateTimePicker.SelectedValue = _startDate;
+                        _startDateTimePicker.SelectedValue = _startDate;
                         return;
                     }
                     _startDate = value;
@@ -208,13 +205,17 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         }
 
         #region 付款计划
-        public QueryableDataServiceCollectionView<PaymentScheduleDTO> PaymentSchedules { get; set; }
+
         private bool _loadPaymentSchedules;
+        public QueryableDataServiceCollectionView<PaymentScheduleDTO> PaymentSchedules { get; set; }
+
         #endregion
 
         #region 发票
-        public QueryableDataServiceCollectionView<BaseInvoiceDTO> BaseInvoices { get; set; }
+
         private bool _loadInvoices;
+        public QueryableDataServiceCollectionView<BaseInvoiceDTO> BaseInvoices { get; set; }
+
         #endregion
 
         /// <summary>
@@ -256,7 +257,7 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
                                 Amount = q.Amount,
                                 PaidAmount =
                                     BaseInvoices.Where(t => t.PaymentScheduleLineId == q.PaymentScheduleLineId)
-                                    .Sum(o => o.PaidAmount),
+                                        .Sum(o => o.PaidAmount),
                             };
                             dataItem.RemainAmount = dataItem.Amount - dataItem.PaidAmount;
                             FinancingDemands.Add(dataItem);
@@ -311,7 +312,8 @@ namespace UniCloud.Presentation.Payment.QueryAnalyse
         private ObservableCollection<FinancingDemand> _financingDemands = new ObservableCollection<FinancingDemand>();
 
 
-        private ObservableCollection<FinancingDemand> _viewFinancingDemands = new ObservableCollection<FinancingDemand>();
+        private ObservableCollection<FinancingDemand> _viewFinancingDemands =
+            new ObservableCollection<FinancingDemand>();
 
         /// <summary>
         ///     资金需求

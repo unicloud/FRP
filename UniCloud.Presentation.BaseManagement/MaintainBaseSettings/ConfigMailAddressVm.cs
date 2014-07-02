@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/5/13 10:49:37
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -17,7 +19,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -27,21 +28,19 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
 {
-    [Export(typeof(ConfigMailAddressVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ConfigMailAddressVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ConfigMailAddressVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly FleetPlanData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
 
         [ImportingConstructor]
-        public ConfigMailAddressVm(IRegionManager regionManager, IFleetPlanService service)
+        public ConfigMailAddressVm(IFleetPlanService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -58,16 +57,15 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
             // 创建并注册CollectionView
             MailAddresses = _service.CreateCollection(_context.MailAddresses);
             MailAddresses.LoadedData += (o, e) =>
-                                        {
-                                            MailAddress = MailAddresses.FirstOrDefault();
-                                            if (MailAddress == null)
-                                            {
-                                                MailAddress = new MailAddressDTO {SendPort = 25};
-                                                MailAddresses.AddNewItem(MailAddress);
-                                            }
-                                        };
+            {
+                MailAddress = MailAddresses.FirstOrDefault();
+                if (MailAddress == null)
+                {
+                    MailAddress = new MailAddressDTO {SendPort = 25};
+                    MailAddresses.AddNewItem(MailAddress);
+                }
+            };
             _service.RegisterCollectionView(MailAddresses);
-
         }
 
         #endregion
@@ -75,7 +73,9 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
         #region 数据
 
         #region 公共属性
+
         private string _confirmPassword;
+
         public string ConfirmPassword
         {
             get { return _confirmPassword; }
@@ -92,6 +92,7 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
                 }
             }
         }
+
         #endregion
 
         #region 加载数据
@@ -110,12 +111,14 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
         }
 
         #region 邮箱账号
+
+        private MailAddressDTO _mailAddress;
+
         /// <summary>
         ///     邮箱账号集合
         /// </summary>
         public QueryableDataServiceCollectionView<MailAddressDTO> MailAddresses { get; set; }
 
-        private MailAddressDTO _mailAddress;
         /// <summary>
         ///     选中的邮箱账号
         /// </summary>
@@ -139,11 +142,11 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
         #endregion
 
         #region 操作
+
         #region 重载操作
 
         #endregion
 
         #endregion
-
     }
 }

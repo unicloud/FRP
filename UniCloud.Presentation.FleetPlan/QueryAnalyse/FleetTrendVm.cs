@@ -19,14 +19,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.ServiceLocation;
-using Telerik.Charting;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ChartView;
@@ -44,7 +42,7 @@ using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
     [Export(typeof (FleetTrendVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FleetTrendVm : ViewModelBase
     {
         #region 声明、初始化
@@ -580,7 +578,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     _exportRadgridview.ElementExporting -= ElementExporting;
                     _exportRadgridview.ElementExporting += ElementExporting;
                     using (
-                        Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                        var stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
                         )
                     {
                         if (stream != null)
@@ -603,7 +601,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     _exportRadgridview.ElementExporting -= ElementExporting;
                     _exportRadgridview.ElementExporting += ElementExporting;
                     using (
-                        Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                        var stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
                         )
                     {
                         if (stream != null)
@@ -628,7 +626,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     _exportRadgridview.ElementExporting -= ElementExporting;
                     _exportRadgridview.ElementExporting += ElementExporting;
                     using (
-                        Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                        var stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
                         )
                     {
                         if (stream != null)
@@ -696,7 +694,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 _planDetailGridview.ElementExporting -= ElementExporting;
                 _planDetailGridview.ElementExporting += ElementExporting;
-                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                using (var stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
                     )
                 {
                     if (stream != null)
@@ -745,7 +743,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 rgview.ElementExporting -= ElementExporting;
                 rgview.ElementExporting += ElementExporting;
-                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                using (var stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
                     )
                 {
                     if (stream != null)
@@ -768,13 +766,13 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private Dictionary<string, string> GetColorDictionary()
         {
             var colorDictionary = new Dictionary<string, string>();
-            XmlConfigDTO colorConfig =
+            var colorConfig =
                 XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
             if (colorConfig != null && XElement.Parse(colorConfig.XmlContent)
                 .Descendants("Type")
                 .Any(p => p.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase)))
             {
-                XElement capacityColor = XElement.Parse(colorConfig.XmlContent)
+                var capacityColor = XElement.Parse(colorConfig.XmlContent)
                     .Descendants("Type")
                     .FirstOrDefault(
                         p => p.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase));
@@ -806,18 +804,18 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
             var xmlConfig =
                 XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("飞机运力", StringComparison.OrdinalIgnoreCase));
-            Dictionary<string, string> colordictionary = GetColorDictionary();
+            var colordictionary = GetColorDictionary();
             if (xmlConfig != null)
             {
-                XElement xelement = XElement.Parse(xmlConfig.XmlContent);
+                var xelement = XElement.Parse(xmlConfig.XmlContent);
                 if (xelement != null)
                 {
                     //记录上一个时间点的总数，便于统计净增数据
-                    int lastAircraftAmount = 0;
+                    var lastAircraftAmount = 0;
 
-                    foreach (XElement datetime in xelement.Descendants("DateTime"))
+                    foreach (var datetime in xelement.Descendants("DateTime"))
                     {
-                        string currentTime =
+                        var currentTime =
                             Convert.ToDateTime(datetime.Attribute("EndOfMonth").Value).ToString("yyyy/M");
                         if (SelectedIndex == 1) //按半年统计
                         {
@@ -836,7 +834,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         }
                         var fleetAircraftTrenLine = new FleetAircraftTrend {DateTime = currentTime}; //折线图的总数对象
                         var fleetAircraftTrenBar = new FleetAircraftTrend {DateTime = currentTime}; //柱状图的净增数对象
-                        foreach (XElement type in datetime.Descendants("Type"))
+                        foreach (var type in datetime.Descendants("Type"))
                         {
                             if (type.Attribute("TypeName").Value.Equals("飞机数", StringComparison.OrdinalIgnoreCase))
                             {
@@ -909,7 +907,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             var chartSelectionBehavior = sender as ChartSelectionBehavior;
             if (chartSelectionBehavior != null)
             {
-                DataPoint selectedPoint = chartSelectionBehavior.Chart.SelectedPoints.FirstOrDefault(
+                var selectedPoint = chartSelectionBehavior.Chart.SelectedPoints.FirstOrDefault(
                     p =>
                     {
                         var categoricalSeries = p.Presenter as CategoricalSeries;
@@ -923,7 +921,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         //选中时间点
                         SelectedTime = fleetAircraftTrend.DateTime;
 
-                        DateTime time = Convert.ToDateTime(fleetAircraftTrend.DateTime).AddMonths(1).AddDays(-1);
+                        var time = Convert.ToDateTime(fleetAircraftTrend.DateTime).AddMonths(1).AddDays(-1);
                         var aircraftListRoot =
                             Aircrafts.Where(
                                 o =>
@@ -944,7 +942,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                 p => p.ConfigType.Equals("飞机运力", StringComparison.OrdinalIgnoreCase));
 
                         XElement airlineColor = null;
-                        XmlConfigDTO colorConfig =
+                        var colorConfig =
                             XmlConfigs.FirstOrDefault(
                                 p => p.ConfigType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
                         if (colorConfig != null && XElement.Parse(colorConfig.XmlContent)
@@ -965,17 +963,17 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         {
                             var aircraftList = new List<FleetAircraft>(); //飞机数饼图集合
 
-                            XElement xelement = XElement.Parse(xmlConfig.XmlContent)
+                            var xelement = XElement.Parse(xmlConfig.XmlContent)
                                 .Descendants("DateTime")
                                 .FirstOrDefault(p => Convert.ToDateTime(p.Attribute("EndOfMonth").Value) == time);
                             if (xelement != null)
                             {
-                                foreach (XElement type in xelement.Descendants("Type"))
+                                foreach (var type in xelement.Descendants("Type"))
                                 {
                                     if (type.Attribute("TypeName")
                                         .Value.Equals("飞机数", StringComparison.OrdinalIgnoreCase))
                                     {
-                                        foreach (XElement item in type.Descendants("Item"))
+                                        foreach (var item in type.Descendants("Item"))
                                         {
                                             var fleetAircraft = new FleetAircraft
                                             {

@@ -6,15 +6,15 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 {
-    [Export(typeof (OperationChild))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class OperationChild
     {
         public OperationChild()
         {
             InitializeComponent();
         }
-        [Import(typeof(OperationChildVM))]
+
+        [Import(typeof (OperationChildVM))]
         public OperationChildVM ViewModel
         {
             get { return DataContext as OperationChildVM; }

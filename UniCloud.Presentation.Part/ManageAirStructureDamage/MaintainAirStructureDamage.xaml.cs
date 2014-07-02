@@ -1,20 +1,19 @@
 ﻿#region 命名空间
 
 using System.ComponentModel.Composition;
-using System.Windows.Controls;
 
 #endregion
 
 namespace UniCloud.Presentation.Part.ManageAirStructureDamage
 {
-    [Export(typeof(MaintainAirStructureDamage))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class MaintainAirStructureDamage : UserControl
+    [Export]
+    public partial class MaintainAirStructureDamage
     {
         public MaintainAirStructureDamage()
         {
             InitializeComponent();
         }
+
         [Import]
         public MaintainAirStructureDamageVm ViewModel
         {

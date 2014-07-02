@@ -1,15 +1,19 @@
-﻿using System.ComponentModel.Composition;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.FleetPlan.QueryPlans
 {
-    [Export(typeof(QueryPlan))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class QueryPlan
     {
         public QueryPlan()
         {
             InitializeComponent();
         }
+
         [Import]
         public QueryPlanVM ViewModel
         {

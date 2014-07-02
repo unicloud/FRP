@@ -33,8 +33,8 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Supplier
 {
-    [Export(typeof(SupplierMaterialManagerVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (SupplierMaterialManagerVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SupplierMaterialManagerVM : EditViewModelBase
     {
         private readonly PurchaseData _context;
@@ -131,6 +131,8 @@ namespace UniCloud.Presentation.Purchase.Supplier
         private string _acMaterialNotFilter = string.Empty; //设置飞机物料过滤信息
         private FilterDescriptor _acMeterialFilter; //查找合作公司飞机物料。
 
+        private SupplierCompanyAcMaterialDTO _selectedSupplierCompanyAcMaterial;
+
         /// <summary>
         ///     飞机物料Tab 是否可见。
         /// </summary>
@@ -146,7 +148,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
             }
         }
 
-        private SupplierCompanyAcMaterialDTO _selectedSupplierCompanyAcMaterial;
         /// <summary>
         ///     选择合作公司飞机物料。
         /// </summary>
@@ -167,11 +168,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <summary>
         ///     获取所有供应商公司飞机物料信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterials
-        {
-            get;
-            set;
-        }
+        public QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterials { get; set; }
 
         /// <summary>
         ///     初始化合作公司飞机物料信息。
@@ -204,7 +201,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     return;
                 }
                 SetAcMaterialFilterState();
-                MaterialChildView.Close();
+                materialChildView.Close();
                 MessageAlert("提示", "保存成功");
             };
         }
@@ -287,11 +284,8 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <summary>
         ///     获取所有供应商公司发动机物料信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<SupplierCompanyEngineMaterialDTO> SupplierCompanyEngineMaterials
-        {
-            get;
-            set;
-        }
+        public QueryableDataServiceCollectionView<SupplierCompanyEngineMaterialDTO> SupplierCompanyEngineMaterials {
+            get; set; }
 
         /// <summary>
         ///     初始化合作公司发动机物料信息。
@@ -324,7 +318,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     return;
                 }
                 SetEngineMaterialFilterState();
-                MaterialChildView.Close();
+                materialChildView.Close();
                 MessageAlert("提示", "保存成功");
             };
         }
@@ -406,10 +400,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <summary>
         ///     获取所有供应商公司BFE物料信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<SupplierCompanyBFEMaterialDTO> SupplierCompanyBfeMaterials
-        {
-            get;
-            set;
+        public QueryableDataServiceCollectionView<SupplierCompanyBFEMaterialDTO> SupplierCompanyBfeMaterials { get; set;
         }
 
         /// <summary>
@@ -443,7 +434,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     return;
                 }
                 SetBfeMaterialFilterState();
-                MaterialChildView.Close();
+                materialChildView.Close();
                 MessageAlert("提示", "保存成功");
             };
         }
@@ -703,15 +694,15 @@ namespace UniCloud.Presentation.Purchase.Supplier
                 CanDeleteEngineMaterialExecute);
             //BFE按钮
             AddBfeMaterialCommand = new DelegateCommand<object>(OnAddBfeMaterialExecute, CanAddBfeMaterialExecute);
-            DeleteBfeMaterialCommand = new DelegateCommand<object>(OnDeleteBfeMaterialExecute, CanDeleteBfeMaterialExecute);
+            DeleteBfeMaterialCommand = new DelegateCommand<object>(OnDeleteBfeMaterialExecute,
+                CanDeleteBfeMaterialExecute);
         }
 
         #endregion
 
         #region 子窗体相关
 
-        [Import]
-        public MaterialChildView MaterialChildView; //初始化子窗体
+        [Import] public MaterialChildView materialChildView; //初始化子窗体
         private Visibility _acGridVisibility = Visibility.Collapsed;
         private List<AircraftMaterialDTO> _addingAcMaterial; //需要添加的飞机物料
         private List<BFEMaterialDTO> _addingBfeMaterial; //需要添加的BFe物料
@@ -888,7 +879,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
             {
                 SetBfeMaterial();
             }
-            MaterialChildView.ShowDialog();
+            materialChildView.ShowDialog();
         }
 
         /// <summary>
@@ -896,7 +887,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         private void SetAcMaterial()
         {
-            MaterialChildView.Header = "添加飞机物料";
+            materialChildView.Header = "添加飞机物料";
             AcGridVisibility = Visibility.Visible;
             _acMaterialFilter.Value = _acMaterialNotFilter;
             if (!AircraftMaterials.AutoLoad)
@@ -910,7 +901,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         private void SetEngineMaterial()
         {
-            MaterialChildView.Header = "添加发动机物料";
+            materialChildView.Header = "添加发动机物料";
             EngineGridVisibility = Visibility.Visible;
             _engineMaterialFilter.Value = _engineMaterialNotFilter;
             if (!EngineMaterials.AutoLoad)
@@ -924,7 +915,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         private void SetBfeMaterial()
         {
-            MaterialChildView.Header = "添加BFE物料";
+            materialChildView.Header = "添加BFE物料";
             BfeGridVisibility = Visibility.Visible;
             _bfeMaterialFilter.Value = _bfeMaterialNotFilter;
             if (!BfeMaterials.AutoLoad)
@@ -947,7 +938,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <param name="sender"></param>
         public void OnCancelExecute(object sender)
         {
-            MaterialChildView.Close();
+            materialChildView.Close();
         }
 
         /// <summary>

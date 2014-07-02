@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
-    [Export(typeof(MaintainCostReport))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class MaintainCostReport 
+    [Export]
+    public partial class MaintainCostReport
     {
         public MaintainCostReport()
         {
             InitializeComponent();
         }
+
         [Import]
         public MaintainCostReportVm ViewModel
         {

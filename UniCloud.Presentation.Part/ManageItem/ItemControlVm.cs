@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -21,7 +23,6 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -33,24 +34,22 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Part.ManageItem
 {
-    [Export(typeof(ItemControlVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ItemControlVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ItemControlVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
-        private bool _addToInstallController = false;
-        private bool _addToDependency = false;
+        private bool _addToDependency;
+        private bool _addToInstallController;
 
 
         [ImportingConstructor]
-        public ItemControlVm(IRegionManager regionManager, IPartService service)
+        public ItemControlVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -66,13 +65,21 @@ namespace UniCloud.Presentation.Part.ManageItem
         private void InitializeVM()
         {
             InstallControllers = _service.CreateCollection(_context.InstallControllers, o => o.Dependencies);
-            InstallControllers.GroupDescriptors.Add(new GroupDescriptor { Member = "AircraftTypeName", SortDirection = ListSortDirection.Ascending });
-            InstallControllers.GroupDescriptors.Add(new GroupDescriptor { Member = "ItemName", SortDirection = ListSortDirection.Ascending });
+            InstallControllers.GroupDescriptors.Add(new GroupDescriptor
+            {
+                Member = "AircraftTypeName",
+                SortDirection = ListSortDirection.Ascending
+            });
+            InstallControllers.GroupDescriptors.Add(new GroupDescriptor
+            {
+                Member = "ItemName",
+                SortDirection = ListSortDirection.Ascending
+            });
             InstallControllers.LoadedData += (o, e) =>
-                                             {
-                                                 if (SelInstallController == null)
-                                                     SelInstallController = InstallControllers.FirstOrDefault();
-                                             };
+            {
+                if (SelInstallController == null)
+                    SelInstallController = InstallControllers.FirstOrDefault();
+            };
             _service.RegisterCollectionView(InstallControllers);
 
             PnRegs = _service.CreateCollection(_context.PnRegs);
@@ -102,6 +109,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         #region 公共属性
 
         #region 附件集合
+
         private ObservableCollection<PnRegDTO> _viewPnRegs = new ObservableCollection<PnRegDTO>();
 
         /// <summary>
@@ -124,6 +132,7 @@ namespace UniCloud.Presentation.Part.ManageItem
                 }
             }
         }
+
         #endregion
 
         #region 机型集合
@@ -141,7 +150,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public AircraftTypeDTO SelAircraftType
         {
             get { return _selAircraftType; }
-             set
+            set
             {
                 if (_selAircraftType != value)
                 {
@@ -169,7 +178,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public ItemDTO SelItem
         {
             get { return _selItem; }
-             set
+            set
             {
                 if (_selItem != value)
                 {
@@ -181,6 +190,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         }
 
         #endregion
+
         #endregion
 
         #region 加载数据
@@ -194,7 +204,6 @@ namespace UniCloud.Presentation.Part.ManageItem
         /// </summary>
         public override void LoadData()
         {
-
             AircraftTypes.Load(true);
             Items.Load(true);
 
@@ -219,7 +228,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public QueryableDataServiceCollectionView<InstallControllerDTO> InstallControllers { get; set; }
 
         /// <summary>
-        /// 选择的装机控制
+        ///     选择的装机控制
         /// </summary>
         public InstallControllerDTO SelInstallController
         {
@@ -244,12 +253,12 @@ namespace UniCloud.Presentation.Part.ManageItem
         private DependencyDTO _selDependency;
 
         /// <summary>
-        /// 选择的依赖项
+        ///     选择的依赖项
         /// </summary>
         public DependencyDTO SelDependency
         {
             get { return _selDependency; }
-             set
+            set
             {
                 if (_selDependency != value)
                 {
@@ -301,11 +310,16 @@ namespace UniCloud.Presentation.Part.ManageItem
                 {
                     ViewPnRegs.AddRange(
                         PnRegs.Where(p => p.IsLife == SelItem.IsLife && (p.ItemId == SelItem.Id || p.ItemId == null)
-                            && !InstallControllers.SourceCollection.Cast<InstallControllerDTO>().Any(q => q.AircraftTypeId == SelAircraftType.Id && q.ItemId == SelItem.Id && q.PnRegId == p.Id)));
+                                          &&
+                                          !InstallControllers.SourceCollection.Cast<InstallControllerDTO>()
+                                              .Any(
+                                                  q =>
+                                                      q.AircraftTypeId == SelAircraftType.Id && q.ItemId == SelItem.Id &&
+                                                      q.PnRegId == p.Id)));
                 }
                 _addToInstallController = true;
                 _addToDependency = false;
-                PnRegsChildView.ShowDialog();
+                pnRegsChildView.ShowDialog();
             }
             RefreshCommandState();
         }
@@ -330,9 +344,10 @@ namespace UniCloud.Presentation.Part.ManageItem
         {
             //如果要删除的装机控制中，附件只在这一条记录中维护了与附件项的关系，则在删除的同时，将件与项的关系断开
             if (InstallControllers.SourceCollection.Cast<InstallControllerDTO>()
-                    .Count(p => p.PnRegId == SelInstallController.PnRegId) == 1)
+                .Count(p => p.PnRegId == SelInstallController.PnRegId) == 1)
             {
-                var pnReg = PnRegs.SourceCollection.Cast<PnRegDTO>().FirstOrDefault(p => p.Id == SelInstallController.PnRegId);
+                var pnReg =
+                    PnRegs.SourceCollection.Cast<PnRegDTO>().FirstOrDefault(p => p.Id == SelInstallController.PnRegId);
                 if (pnReg != null) pnReg.ItemId = null;
             }
             InstallControllers.Remove(SelInstallController);
@@ -366,7 +381,7 @@ namespace UniCloud.Presentation.Part.ManageItem
                 ViewPnRegs.AddRange(PnRegs);
                 _addToDependency = true;
                 _addToInstallController = false;
-                PnRegsChildView.ShowDialog();
+                pnRegsChildView.ShowDialog();
             }
             RefreshCommandState();
         }
@@ -407,9 +422,7 @@ namespace UniCloud.Presentation.Part.ManageItem
 
         #region 子窗体相关
 
-        [Import]
-        public PnRegsChildView PnRegsChildView; //初始化子窗体
-
+        [Import] public PnRegsChildView pnRegsChildView; //初始化子窗体
 
         #region 命令
 
@@ -425,7 +438,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         {
             _addToInstallController = false;
             _addToDependency = false;
-            PnRegsChildView.Close();
+            pnRegsChildView.Close();
         }
 
         /// <summary>
@@ -487,18 +500,18 @@ namespace UniCloud.Presentation.Part.ManageItem
                     if (pnRegDto != null)
                     {
                         var dependency = new DependencyDTO
-                                         {
-                                             Id = RandomHelper.Next(),
-                                             Pn = pnRegDto.Pn,
-                                             DependencyPnId = pnRegDto.Id,
-                                             InstallControllerId = SelInstallController.Id,
-                                         };
+                        {
+                            Id = RandomHelper.Next(),
+                            Pn = pnRegDto.Pn,
+                            DependencyPnId = pnRegDto.Id,
+                            InstallControllerId = SelInstallController.Id,
+                        };
                         SelInstallController.Dependencies.Add(dependency);
                     }
                 });
                 _addToDependency = false;
             }
-            PnRegsChildView.Close();
+            pnRegsChildView.Close();
         }
 
         /// <summary>
@@ -512,7 +525,9 @@ namespace UniCloud.Presentation.Part.ManageItem
         }
 
         #endregion
+
         #endregion
+
         #endregion
     }
 }

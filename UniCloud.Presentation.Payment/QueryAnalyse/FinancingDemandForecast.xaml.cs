@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.QueryAnalyse
 {
-    [Export(typeof(FinancingDemandForecast))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class FinancingDemandForecast
     {
         public FinancingDemandForecast()
         {
             InitializeComponent();
         }
+
         [Import]
         public FinancingDemandForecastVM ViewModel
         {

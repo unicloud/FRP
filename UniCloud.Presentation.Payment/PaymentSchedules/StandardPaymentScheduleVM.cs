@@ -37,8 +37,8 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
-    [Export(typeof(StandardPaymentScheduleVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (StandardPaymentScheduleVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class StandardPaymentScheduleVM : EditViewModelBase
     {
         private readonly PaymentData _context;
@@ -156,7 +156,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialStandardPaymentSchedule()
         {
-            StandardPaymentSchedulesView = _service.CreateCollection(_context.StandardPaymentSchedules, o => o.PaymentScheduleLines);
+            StandardPaymentSchedulesView = _service.CreateCollection(_context.StandardPaymentSchedules,
+                o => o.PaymentScheduleLines);
             _paymnetFilterOperator = new FilterDescriptor("OrderId", FilterOperator.IsEqualTo, 0);
             StandardPaymentSchedulesView.FilterDescriptors.Add(_paymnetFilterOperator);
             StandardPaymentSchedulesView.LoadedData += (sender, e) =>

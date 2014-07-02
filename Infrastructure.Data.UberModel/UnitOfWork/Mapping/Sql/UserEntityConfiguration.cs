@@ -56,6 +56,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.IsApproved).HasColumnName("IsApproved");
             Property(p => p.IsValid).HasColumnName("IsValid");
             Property(p => p.IsLockedOut).HasColumnName("IsLockedOut");
+            Property(p => p.IsSystemUser).HasColumnName("IsSystemUser");
             Property(p => p.FailedPasswordAttemptCount).HasColumnName("FailedPasswordAttemptCount");
             Property(p => p.FailedPasswordAnswerAttemptCount).HasColumnName("FailedPasswordAnswerAttemptCount");
             Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");

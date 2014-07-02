@@ -21,7 +21,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -33,22 +32,20 @@ using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 namespace UniCloud.Presentation.BaseManagement.ManagePermission
 {
     [Export(typeof (ManageFunctionsInRoleVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageFunctionsInRoleVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly BaseManagementData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IBaseManagementService _service;
         private bool _enableTreeViewCheck = true;
         [Import] public ManageFunctionsInRole currentManageFunctionsInRole;
 
         [ImportingConstructor]
-        public ManageFunctionsInRoleVm(IRegionManager regionManager, IBaseManagementService service)
+        public ManageFunctionsInRoleVm(IBaseManagementService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();

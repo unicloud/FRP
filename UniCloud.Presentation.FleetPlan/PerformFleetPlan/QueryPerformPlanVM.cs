@@ -2,24 +2,23 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.ServiceLocation;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
-using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
+using CollectionExtensions = Telerik.Windows.Controls.CollectionExtensions;
 
 #endregion
 
 namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 {
-    [Export(typeof(QueryPerformPlanVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (QueryPerformPlanVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryPerformPlanVM : ViewModelBase
     {
         private readonly FleetPlanData _context;
@@ -36,7 +35,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             _service = service;
             _context = _service.Context;
             InitialPlan(); //加载计划
-            InitialPlanHistory();//加载计划明细
+            InitialPlanHistory(); //加载计划明细
             InitialCommand();
         }
 
@@ -84,7 +83,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public QueryableDataServiceCollectionView<PlanDTO> PlansView { get; set; }
 
         /// <summary>
-        /// 获取所选计划的计划明细集合
+        ///     获取所选计划的计划明细集合
         /// </summary>
         public QueryableDataServiceCollectionView<PlanHistoryDTO> SelectedPlanHistories { get; set; }
 
@@ -136,7 +135,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         }
 
         /// <summary>
-        /// 初始化所选计划的计划明细
+        ///     初始化所选计划的计划明细
         /// </summary>
         private void InitialPlanHistory()
         {
@@ -147,9 +146,10 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             {
                 foreach (var ph in SelectedPlanHistories.SourceCollection.Cast<PlanHistoryDTO>())
                 {
-                    ph.ActionCategories.AddRange(ph.ActionCategories);
-                    ph.AircraftCategories.AddRange(_service.GetAircraftCategoriesForPlanHistory(ph));
-                    ph.AircraftTypes.AddRange(_service.GetAircraftTypesForPlanHistory(ph));
+                    CollectionExtensions.AddRange(ph.ActionCategories, ph.ActionCategories);
+                    CollectionExtensions.AddRange(ph.AircraftCategories,
+                        _service.GetAircraftCategoriesForPlanHistory(ph));
+                    CollectionExtensions.AddRange(ph.AircraftTypes, _service.GetAircraftTypesForPlanHistory(ph));
                     _context.ChangeState(ph, EntityStates.Unchanged);
                 }
             };
@@ -262,7 +262,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 //计划执行
                 decimal planPerformCount = SelectedPlanHistories.Count(p => p.Year == currentPlan.Year);
                 //统计执行百分比
-                Performance = planPerformCount == 0 ? 100 : Math.Round(performedCount * 100 / planPerformCount, 2);
+                Performance = planPerformCount == 0 ? 100 : Math.Round(performedCount*100/planPerformCount, 2);
             }
             PerformPlanHeader = currentPlan.Year + "年度计划完成情况（执行率：" + Convert.ToString(Performance) + "%）";
         }

@@ -6,21 +6,19 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Purchase.Supplier
 {
-    [Export(typeof (SupplierMaterialManager))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class SupplierMaterialManager
     {
         public SupplierMaterialManager()
         {
             InitializeComponent();
         }
+
         [Import]
         public SupplierMaterialManagerVM ViewModel
         {
             get { return DataContext as SupplierMaterialManagerVM; }
             set { DataContext = value; }
         }
-
-       
     }
 }

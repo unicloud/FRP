@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/5/9 9:54:25
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -18,7 +20,6 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -32,24 +33,21 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
 {
-    [Export(typeof(ManageAircraftMaintainPlanVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ManageAircraftMaintainPlanVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageAircraftMaintainPlanVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
-        private readonly IPartService _service;
         private readonly IFleetPlanService _fleetPlanService;
+        private readonly IPartService _service;
         private FilterDescriptor _annualFilterDescriptor;
 
         [ImportingConstructor]
-        public ManageAircraftMaintainPlanVm(IRegionManager regionManager, IPartService service,
-            IFleetPlanService fleetPlanService)
+        public ManageAircraftMaintainPlanVm(IPartService service, IFleetPlanService fleetPlanService)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _fleetPlanService = fleetPlanService;
             _context = _service.Context;
@@ -76,10 +74,8 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 o => o.AircraftMaintainPlanDetails);
             _annualFilterDescriptor = new FilterDescriptor("AnnualId", FilterOperator.IsEqualTo, Guid.Empty);
             AircraftMaintainPlans.FilterDescriptors.Add(_annualFilterDescriptor);
-            AircraftMaintainPlans.LoadedData += (o, e) =>
-                                              {
-                                                  AircraftMaintainPlan = AircraftMaintainPlans.FirstOrDefault();
-                                              };
+            AircraftMaintainPlans.LoadedData +=
+                (o, e) => { AircraftMaintainPlan = AircraftMaintainPlans.FirstOrDefault(); };
             _service.RegisterCollectionView(AircraftMaintainPlans);
         }
 
@@ -88,9 +84,11 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
         #region 数据
 
         #region 公共属性
+
         #region 标题
 
         private string _title;
+
         public string Title
         {
             get { return _title; }
@@ -106,6 +104,7 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
         #region 页面是否可用
 
         private bool _isEnable;
+
         public bool IsEnable
         {
             get { return _isEnable; }
@@ -115,11 +114,14 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 RaisePropertyChanged(() => IsEnable);
             }
         }
+
         #endregion
 
         #region 年度
-        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
         private AnnualDTO _annual;
+        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
         public AnnualDTO Annual
         {
             get { return _annual; }
@@ -135,19 +137,20 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 RaisePropertyChanged(() => Annual);
             }
         }
+
         #endregion
 
         #region 飞机送修计划
 
         /// <summary>
-        ///     飞机送修计划集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<AircraftMaintainPlanDTO> AircraftMaintainPlans { get; set; }
-
-        /// <summary>
         ///     选中的飞机送修计划
         /// </summary>
         private AircraftMaintainPlanDTO _aircraftMaintainPlan;
+
+        /// <summary>
+        ///     飞机送修计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftMaintainPlanDTO> AircraftMaintainPlans { get; set; }
 
         public AircraftMaintainPlanDTO AircraftMaintainPlan
         {
@@ -228,11 +231,11 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 return;
             }
             AircraftMaintainPlan = new AircraftMaintainPlanDTO
-                                 {
-                                     Id = RandomHelper.Next(),
-                                     AnnualId = Annual.Id,
-                                     Note = Title
-                                 };
+            {
+                Id = RandomHelper.Next(),
+                AnnualId = Annual.Id,
+                Note = Title
+            };
             AircraftMaintainPlans.AddNew(AircraftMaintainPlan);
         }
 
@@ -258,11 +261,11 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                AircraftMaintainPlans.Remove(AircraftMaintainPlan);
-                                                AircraftMaintainPlan = AircraftMaintainPlans.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                AircraftMaintainPlans.Remove(AircraftMaintainPlan);
+                AircraftMaintainPlan = AircraftMaintainPlans.FirstOrDefault();
+            });
         }
 
         protected bool CanRemove(object obj)
@@ -288,12 +291,12 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
             }
 
             AircraftMaintainPlanDetail = new AircraftMaintainPlanDetailDTO
-                                         {
-                                             Id = RandomHelper.Next(),
-                                             InDate = DateTime.Now,
-                                             OutDate = DateTime.Now,
-                                             Cycle = 1
-                                         };
+            {
+                Id = RandomHelper.Next(),
+                InDate = DateTime.Now,
+                OutDate = DateTime.Now,
+                Cycle = 1
+            };
             if (AircraftMaintainPlanDetail.InDate.Month < 7)
             {
                 AircraftMaintainPlan.FirstHalfYear += 1;
@@ -327,21 +330,21 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                if (AircraftMaintainPlanDetail.InDate.Month < 7)
-                                                {
-                                                    AircraftMaintainPlan.FirstHalfYear -= 1;
-                                                }
-                                                else
-                                                {
-                                                    AircraftMaintainPlan.SecondHalfYear -= 1;
-                                                }
-                                                AircraftMaintainPlan.AircraftMaintainPlanDetails.Remove(
-                                                    AircraftMaintainPlanDetail);
-                                                AircraftMaintainPlanDetail =
-                                                    AircraftMaintainPlan.AircraftMaintainPlanDetails.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                if (AircraftMaintainPlanDetail.InDate.Month < 7)
+                {
+                    AircraftMaintainPlan.FirstHalfYear -= 1;
+                }
+                else
+                {
+                    AircraftMaintainPlan.SecondHalfYear -= 1;
+                }
+                AircraftMaintainPlan.AircraftMaintainPlanDetails.Remove(
+                    AircraftMaintainPlanDetail);
+                AircraftMaintainPlanDetail =
+                    AircraftMaintainPlan.AircraftMaintainPlanDetails.FirstOrDefault();
+            });
         }
 
         protected bool CanRemoveDetail(object obj)
@@ -352,6 +355,7 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
         #endregion
 
         #region 单元格编辑事件
+
         public DelegateCommand<object> CellEditEndCommand { get; set; }
 
         private void CellEditEnd(object sender)
@@ -365,22 +369,24 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                     AircraftMaintainPlan.FirstHalfYear = 0;
                     AircraftMaintainPlan.SecondHalfYear = 0;
                     AircraftMaintainPlan.AircraftMaintainPlanDetails.ToList().ForEach(p =>
-                                                                                      {
-                                                                                          if (p.InDate.Year < Annual.Year || p.InDate.Month < 7)
-                                                                                          {
-                                                                                              AircraftMaintainPlan.FirstHalfYear++;
-                                                                                          }
-                                                                                          else
-                                                                                          {
-                                                                                              AircraftMaintainPlan.SecondHalfYear++;
-                                                                                          }
-                                                                                      });
+                    {
+                        if (p.InDate.Year < Annual.Year || p.InDate.Month < 7)
+                        {
+                            AircraftMaintainPlan.FirstHalfYear++;
+                        }
+                        else
+                        {
+                            AircraftMaintainPlan.SecondHalfYear++;
+                        }
+                    });
                 }
             }
-            AircraftMaintainPlanDetail.Cycle = (AircraftMaintainPlanDetail.OutDate.Date - AircraftMaintainPlanDetail.InDate.Date).Days + 1;
+            AircraftMaintainPlanDetail.Cycle =
+                (AircraftMaintainPlanDetail.OutDate.Date - AircraftMaintainPlanDetail.InDate.Date).Days + 1;
         }
+
         #endregion
+
         #endregion
     }
 }
-

@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Part.MaintainControl
 {
-    [Export(typeof (ManageRemovalAndInstallationView))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class ManageRemovalAndInstallationView : UserControl
+    [Export]
+    public partial class ManageRemovalAndInstallationView
     {
         public ManageRemovalAndInstallationView()
         {

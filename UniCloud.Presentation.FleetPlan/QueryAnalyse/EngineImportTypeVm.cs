@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,7 +44,7 @@ using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
     [Export(typeof (EngineImportTypeVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class EngineImportTypeVm : ViewModelBase
     {
         #region 声明、初始化
@@ -659,7 +658,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             var chartSelectionBehavior = sender as ChartSelectionBehavior;
             if (chartSelectionBehavior != null)
             {
-                RadChartBase radChartBase = chartSelectionBehavior.Chart;
+                var radChartBase = chartSelectionBehavior.Chart;
                 var selectedPoint = radChartBase.SelectedPoints.FirstOrDefault() as PieDataPoint;
 
                 if (selectedPoint != null)
@@ -714,7 +713,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
                 else
                 {
-                    for (int i = FleetDatas.Count - 1; i > -1; i--)
+                    for (var i = FleetDatas.Count - 1; i > -1; i--)
                     {
                         var temp = FleetDatas[i];
                         if (temp.ImportTypeName.Equals((string) button.Tag, StringComparison.OrdinalIgnoreCase))
@@ -767,7 +766,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     _exportRadgridview.ElementExporting -= ElementExporting;
                     _exportRadgridview.ElementExporting += ElementExporting;
                     using (
-                        Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                        var stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
                         )
                     {
                         if (stream != null)
@@ -859,7 +858,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 _engineDetail.ElementExporting -= ElementExporting;
                 _engineDetail.ElementExporting += ElementExporting;
-                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                using (var stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
                     )
                 {
                     if (stream != null)
@@ -908,7 +907,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 rgview.ElementExporting -= ElementExporting;
                 rgview.ElementExporting += ElementExporting;
-                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                using (var stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
                     )
                 {
                     if (stream != null)
@@ -960,7 +959,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     .Descendants("Type")
                     .Any(p => p.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase)))
             {
-                XElement engineColor =
+                var engineColor =
                     XElement.Parse(colorSetting.SettingContent)
                         .Descendants("Type")
                         .FirstOrDefault(
@@ -995,12 +994,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             if (xmlConfig != null)
             {
-                XElement xelement = XElement.Parse(xmlConfig.ConfigContent);
+                var xelement = XElement.Parse(xmlConfig.ConfigContent);
                 if (xelement != null)
                 {
-                    foreach (XElement datetime in xelement.Descendants("DateTime"))
+                    foreach (var datetime in xelement.Descendants("DateTime"))
                     {
-                        string currentTime =
+                        var currentTime =
                             Convert.ToDateTime(datetime.Attribute("EndOfMonth").Value).ToString("yyyy/M");
 
                         //早于开始时间时执行下一个
@@ -1029,11 +1028,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             }
                         }
 
-                        foreach (XElement type in datetime.Descendants("Type"))
+                        foreach (var type in datetime.Descendants("Type"))
                         {
                             if (type.Attribute("TypeName").Value.Equals("发动机引进方式", StringComparison.OrdinalIgnoreCase))
                             {
-                                string currentAmount = type.Attribute("Amount").Value;
+                                var currentAmount = type.Attribute("Amount").Value;
                                 //发动机总数柱状集合
                                 var engineAmount = new FleetImportTypeTrend
                                 {
@@ -1043,7 +1042,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                 };
                                 amountCollection.Add(engineAmount);
 
-                                foreach (XElement item in type.Descendants("Item"))
+                                foreach (var item in type.Descendants("Item"))
                                 {
                                     //发动机引进方式折线集合
                                     var fleetImportTypeTrend = new FleetImportTypeTrend
@@ -1093,12 +1092,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// <returns></returns>
         protected bool SameImportType(string importType1, string importType2)
         {
-            int index1 = importType1.IndexOf("续租", StringComparison.OrdinalIgnoreCase);
+            var index1 = importType1.IndexOf("续租", StringComparison.OrdinalIgnoreCase);
             if (index1 > 0)
             {
                 return importType1.Contains(importType2);
             }
-            int index2 = importType2.IndexOf("续租", StringComparison.OrdinalIgnoreCase);
+            var index2 = importType2.IndexOf("续租", StringComparison.OrdinalIgnoreCase);
             if (index2 > 0)
             {
                 return importType2.Contains(importType1);
@@ -1121,7 +1120,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("发动机引进方式", StringComparison.OrdinalIgnoreCase));
 
             XElement importTypeColor = null;
-            XmlSettingDTO colorConfig =
+            var colorConfig =
                 XmlSettings.FirstOrDefault(p => p.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
             if (colorConfig != null && XElement.Parse(colorConfig.SettingContent)
                 .Descendants("Type")
@@ -1136,16 +1135,16 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 var importTypeList = new List<FleetImportTypeComposition>(); //发动机引进方式饼图集合
 
-                XElement xelement = XElement.Parse(xmlConfig.ConfigContent)
+                var xelement = XElement.Parse(xmlConfig.ConfigContent)
                     .Descendants("DateTime")
                     .FirstOrDefault(p => Convert.ToDateTime(p.Attribute("EndOfMonth").Value) == time);
                 if (xelement != null)
                 {
-                    foreach (XElement type in xelement.Descendants("Type"))
+                    foreach (var type in xelement.Descendants("Type"))
                     {
                         if (type.Attribute("TypeName").Value.Equals("发动机引进方式", StringComparison.OrdinalIgnoreCase))
                         {
-                            foreach (XElement item in type.Descendants("Item"))
+                            foreach (var item in type.Descendants("Item"))
                             {
                                 var fleetImportTypeComposition = new FleetImportTypeComposition
                                 {

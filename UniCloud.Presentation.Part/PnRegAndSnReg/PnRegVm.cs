@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -18,12 +20,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Xml.Linq;
-using Microsoft.Practices.Prism;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -36,21 +37,19 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.PnRegAndSnReg
 {
-    [Export(typeof(PnRegVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (PnRegVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PnRegVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
 
         [ImportingConstructor]
-        public PnRegVm(IRegionManager regionManager, IPartService service)
+        public PnRegVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -68,10 +67,10 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             PnRegs = _service.CreateCollection(_context.PnRegs);
             PnRegs.PageSize = 20;
             PnRegs.LoadedData += (o, e) =>
-                                 {
-                                     if (SelPnReg == null)
-                                         SelPnReg = PnRegs.FirstOrDefault();
-                                 };
+            {
+                if (SelPnReg == null)
+                    SelPnReg = PnRegs.FirstOrDefault();
+            };
             _service.RegisterCollectionView(PnRegs);
 
             PnMaintainCtrls = _service.CreateCollection(_context.PnMaintainCtrls);
@@ -98,6 +97,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         #region 数据
 
         #region 公共属性
+
         /// <summary>
         ///     控制单位集合
         /// </summary>
@@ -113,7 +113,12 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         public Dictionary<int, ControlStrategy> ControlStrategies
         {
-            get { return Enum.GetValues(typeof(ControlStrategy)).Cast<object>().ToDictionary(value => (int)value, value => (ControlStrategy)value); }
+            get
+            {
+                return Enum.GetValues(typeof (ControlStrategy))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (ControlStrategy) value);
+            }
         }
 
 
@@ -124,9 +129,9 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         {
             get
             {
-                return Enum.GetValues(typeof(SinceNewType))
+                return Enum.GetValues(typeof (SinceNewType))
                     .Cast<object>()
-                    .ToDictionary(value => (int)value, value => (SinceNewType)value);
+                    .ToDictionary(value => (int) value, value => (SinceNewType) value);
             }
         }
 
@@ -153,7 +158,6 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             if (!PnMaintainCtrls.AutoLoad)
                 PnMaintainCtrls.AutoLoad = true;
             PnMaintainCtrls.Load(true);
-
         }
 
         #region 业务
@@ -198,13 +202,15 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         #region 附件维修控制组
 
-        private ObservableCollection<PnMaintainCtrlDTO> _viewPnMaintainCtrls = new ObservableCollection<PnMaintainCtrlDTO>();
         private PnMaintainCtrlDTO _selPnMaintainCtrl;
+
+        private ObservableCollection<PnMaintainCtrlDTO> _viewPnMaintainCtrls =
+            new ObservableCollection<PnMaintainCtrlDTO>();
 
         public QueryableDataServiceCollectionView<PnMaintainCtrlDTO> PnMaintainCtrls { get; set; }
 
         /// <summary>
-        ///      选中的PnReg的维修控制组集合
+        ///     选中的PnReg的维修控制组集合
         /// </summary>
         public ObservableCollection<PnMaintainCtrlDTO> ViewPnMaintainCtrls
         {
@@ -221,7 +227,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         }
 
         /// <summary>
-        /// 选中的附件的维修控制组
+        ///     选中的附件的维修控制组
         /// </summary>
         public PnMaintainCtrlDTO SelPnMaintainCtrl
         {
@@ -241,6 +247,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                 }
             }
         }
+
         #endregion
 
         #endregion
@@ -370,7 +377,6 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         #endregion
 
-
         #region 增加维修控制明细
 
         /// <summary>
@@ -380,11 +386,11 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         private void OnAddCtrlLine(object obj)
         {
-            var xmlNode = SelPnMaintainCtrl.XmlContent;
-            if (xmlNode == null) xmlNode = new XElement("MaintainCtrl");
+            var xmlNode = SelPnMaintainCtrl.XmlContent ?? new XElement("MaintainCtrl");
             if (FirstVisible == Visibility.Visible)
             {
-                var node = new XElement("CtrlType", new XAttribute("Name", "StartDate"), new XAttribute("Value", StartDate.Year + "-" + StartDate.Month + "-" + StartDate.Day));
+                var node = new XElement("CtrlType", new XAttribute("Name", "StartDate"),
+                    new XAttribute("Value", StartDate.Year + "-" + StartDate.Month + "-" + StartDate.Day));
                 var detailNode = new XElement("CtrlDetail", new XAttribute("Type", SelCtrlUnit.Id));
                 var maxNode = new XElement("Max", new XAttribute("Value", Max));
                 var minNode = new XElement("Min", new XAttribute("Value", Min));
@@ -395,7 +401,8 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             }
             else if (SecondVisible == Visibility.Visible || ThirdVisible == Visibility.Visible)
             {
-                var node = new XElement("CtrlType", new XAttribute("Name", "StartDate"), new XAttribute("Value", StartDate.Year + "-" + StartDate.Month + "-" + StartDate.Day));
+                var node = new XElement("CtrlType", new XAttribute("Name", "StartDate"),
+                    new XAttribute("Value", StartDate.Year + "-" + StartDate.Month + "-" + StartDate.Day));
                 var detailNode = new XElement("CtrlDetail", new XAttribute("Type", SelCtrlUnit.Id));
                 var standardNode = new XElement("Standard", new XAttribute("Value", Standard));
                 detailNode.Add(standardNode);
@@ -409,7 +416,8 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             }
             else if (FourVisible == Visibility.Visible)
             {
-                var node = new XElement("CtrlType", new XAttribute("Name", "Action"), new XAttribute("Value", SelMaintainWork.Id));
+                var node = new XElement("CtrlType", new XAttribute("Name", "Action"),
+                    new XAttribute("Value", SelMaintainWork.Id));
                 var detailNode = new XElement("CtrlDetail", new XAttribute("Type", SelCtrlUnit.Id));
                 var maxNode = new XElement("Max", new XAttribute("Value", Max));
                 var minNode = new XElement("Min", new XAttribute("Value", Min));
@@ -420,7 +428,8 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             }
             else if (FiveVisible == Visibility.Visible || SixVisible == Visibility.Visible)
             {
-                var node = new XElement("CtrlType", new XAttribute("Name", "Action"), new XAttribute("Value", SelMaintainWork.Id));
+                var node = new XElement("CtrlType", new XAttribute("Name", "Action"),
+                    new XAttribute("Value", SelMaintainWork.Id));
                 var detailNode = new XElement("CtrlDetail", new XAttribute("Type", SelCtrlUnit.Id));
                 var standardNode = new XElement("Standard", new XAttribute("Value", Standard));
                 detailNode.Add(standardNode);
@@ -468,12 +477,15 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             if (FirstVisible == Visibility.Visible && SelCtrlUnit != null && Max > 0 && Min > 0) return true;
             if (SecondVisible == Visibility.Visible && SelCtrlUnit != null && Standard > 0) return true;
             if (ThirdVisible == Visibility.Visible && SelCtrlUnit != null && Standard > 0) return true;
-            if (FourVisible == Visibility.Visible && SelMaintainWork != null && SelCtrlUnit != null && Max > 0 && Min > 0) return true;
-            if (FiveVisible == Visibility.Visible && SelMaintainWork != null && SelCtrlUnit != null && Standard > 0) return true;
-            if (SixVisible == Visibility.Visible && SelMaintainWork != null && SelCtrlUnit != null && Standard > 0) return true;
-            if (SevenVisible == Visibility.Visible && (int)SelSnType >= 0 && Max > 0 && Min > 0) return true;
-            if (EightVisible == Visibility.Visible && (int)SelSnType >= 0 && Standard > 0) return true;
-            if (NineVisible == Visibility.Visible && (int)SelSnType >= 0 && Standard > 0) return true;
+            if (FourVisible == Visibility.Visible && SelMaintainWork != null && SelCtrlUnit != null && Max > 0 &&
+                Min > 0) return true;
+            if (FiveVisible == Visibility.Visible && SelMaintainWork != null && SelCtrlUnit != null && Standard > 0)
+                return true;
+            if (SixVisible == Visibility.Visible && SelMaintainWork != null && SelCtrlUnit != null && Standard > 0)
+                return true;
+            if (SevenVisible == Visibility.Visible && (int) SelSnType >= 0 && Max > 0 && Min > 0) return true;
+            if (EightVisible == Visibility.Visible && (int) SelSnType >= 0 && Standard > 0) return true;
+            if (NineVisible == Visibility.Visible && (int) SelSnType >= 0 && Standard > 0) return true;
             return false;
         }
 
@@ -496,57 +508,56 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         }
 
         #endregion
+
         #endregion
+
         #region  界面控制属性
 
-        public class CtrlType
-        {
-            public int TypeId { get; set; }
-
-            public string Description { get; set; }
-        }
-
-        public class CtrlLine
-        {
-            public int Id { get; set; }
-
-            public string Description { get; set; }
-        }
+        private Visibility _buttonVisible = Visibility.Collapsed;
+        private IEnumerable<CtrlLine> _ctrlLines;
+        private Visibility _eightVisible = Visibility.Collapsed;
+        private Visibility _firstVisible = Visibility.Collapsed;
+        private Visibility _fiveVisible = Visibility.Collapsed;
+        private Visibility _fourVisible = Visibility.Collapsed;
+        private decimal _max;
+        private decimal _min;
+        private Visibility _nineVisible = Visibility.Collapsed;
+        private decimal _rate;
+        private Visibility _secondVisible = Visibility.Collapsed;
+        private CtrlLine _selCtrlLine;
+        private CtrlType _selCtrlType;
+        private CtrlUnitDTO _selCtrlUnit;
+        private MaintainWorkDTO _selMaintainWork;
+        private SinceNewType _selSnType;
+        private Visibility _sevenVisible = Visibility.Collapsed;
+        private Visibility _sixVisible = Visibility.Collapsed;
+        private decimal _standard;
+        private DateTime _startDate;
+        private Visibility _thirdVisible = Visibility.Collapsed;
 
         public IEnumerable<CtrlType> CtrlTypes
         {
             get
             {
-                var result = new List<CtrlType>();
-                result.Add(new CtrlType { TypeId = 1, Description = "自XX日期起，XX值处于XX与XX之间" });
-                result.Add(new CtrlType { TypeId = 2, Description = "自XX日期起，XX值达到XX基准值之前（浮动比率为X%）" });
-                result.Add(new CtrlType { TypeId = 3, Description = "自XX日期起，XX值达到XX基准值之前" });
-                result.Add(new CtrlType { TypeId = 4, Description = "自上一次XX操作起，XX值处于XX与XX之间" });
-                result.Add(new CtrlType { TypeId = 5, Description = "自上一次XX操作起，XX值达到XX基准值之前（浮动比率为X%）" });
-                result.Add(new CtrlType { TypeId = 6, Description = "自上一次XX操作起，XX值达到XX基准值之前" });
-                result.Add(new CtrlType { TypeId = 7, Description = "TSN或CSN值达到XX与XX之间" });
-                result.Add(new CtrlType { TypeId = 8, Description = "TSN或CSN值达到XX基准值之前（浮动比率为X%）" });
-                result.Add(new CtrlType { TypeId = 9, Description = "TSN或CSN值达到XX基准值之前" });
+                var result = new List<CtrlType>
+                {
+                    new CtrlType {TypeId = 1, Description = "自XX日期起，XX值处于XX与XX之间"},
+                    new CtrlType {TypeId = 2, Description = "自XX日期起，XX值达到XX基准值之前（浮动比率为X%）"},
+                    new CtrlType {TypeId = 3, Description = "自XX日期起，XX值达到XX基准值之前"},
+                    new CtrlType {TypeId = 4, Description = "自上一次XX操作起，XX值处于XX与XX之间"},
+                    new CtrlType {TypeId = 5, Description = "自上一次XX操作起，XX值达到XX基准值之前（浮动比率为X%）"},
+                    new CtrlType {TypeId = 6, Description = "自上一次XX操作起，XX值达到XX基准值之前"},
+                    new CtrlType {TypeId = 7, Description = "TSN或CSN值达到XX与XX之间"},
+                    new CtrlType {TypeId = 8, Description = "TSN或CSN值达到XX基准值之前（浮动比率为X%）"},
+                    new CtrlType {TypeId = 9, Description = "TSN或CSN值达到XX基准值之前"}
+                };
                 return result.AsEnumerable();
             }
         }
 
-        private Visibility _buttonVisible = Visibility.Collapsed;
-        private Visibility _firstVisible = Visibility.Collapsed;
-        private Visibility _secondVisible = Visibility.Collapsed;
-        private Visibility _thirdVisible = Visibility.Collapsed;
-        private Visibility _fourVisible = Visibility.Collapsed;
-        private Visibility _fiveVisible = Visibility.Collapsed;
-        private Visibility _sixVisible = Visibility.Collapsed;
-        private Visibility _sevenVisible = Visibility.Collapsed;
-        private Visibility _eightVisible = Visibility.Collapsed;
-        private Visibility _nineVisible = Visibility.Collapsed;
         public Visibility ButtonVisible
         {
-            get
-            {
-                return _buttonVisible;
-            }
+            get { return _buttonVisible; }
             private set
             {
                 if (_buttonVisible != value)
@@ -559,10 +570,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         public Visibility FirstVisible
         {
-            get
-            {
-                return _firstVisible;
-            }
+            get { return _firstVisible; }
             private set
             {
                 if (_firstVisible != value)
@@ -575,10 +583,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         public Visibility SecondVisible
         {
-            get
-            {
-                return _secondVisible;
-            }
+            get { return _secondVisible; }
             private set
             {
                 if (_secondVisible != value)
@@ -591,10 +596,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         public Visibility ThirdVisible
         {
-            get
-            {
-                return _thirdVisible;
-            }
+            get { return _thirdVisible; }
             private set
             {
                 if (_thirdVisible != value)
@@ -607,10 +609,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         public Visibility FourVisible
         {
-            get
-            {
-                return _fourVisible;
-            }
+            get { return _fourVisible; }
             private set
             {
                 if (_fourVisible != value)
@@ -623,10 +622,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         public Visibility FiveVisible
         {
-            get
-            {
-                return _fiveVisible;
-            }
+            get { return _fiveVisible; }
             private set
             {
                 if (_fiveVisible != value)
@@ -639,10 +635,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         public Visibility SixVisible
         {
-            get
-            {
-                return _sixVisible;
-            }
+            get { return _sixVisible; }
             private set
             {
                 if (_sixVisible != value)
@@ -655,10 +648,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         public Visibility SevenVisible
         {
-            get
-            {
-                return _sevenVisible;
-            }
+            get { return _sevenVisible; }
             private set
             {
                 if (_sevenVisible != value)
@@ -671,10 +661,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         public Visibility EightVisible
         {
-            get
-            {
-                return _eightVisible;
-            }
+            get { return _eightVisible; }
             private set
             {
                 if (_eightVisible != value)
@@ -687,10 +674,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         public Visibility NineVisible
         {
-            get
-            {
-                return _nineVisible;
-            }
+            get { return _nineVisible; }
             private set
             {
                 if (_nineVisible != value)
@@ -701,15 +685,13 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             }
         }
 
-        private CtrlType _selCtrlType;
-
         /// <summary>
         ///     选择的控制明细类型
         /// </summary>
         public CtrlType SelCtrlType
         {
             get { return _selCtrlType; }
-            private set
+            set
             {
                 if (_selCtrlType != value)
                 {
@@ -771,28 +753,10 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             }
         }
 
-        public void RefreshVisivlities()
-        {
-            RaisePropertyChanged(() => FirstVisible);
-            RaisePropertyChanged(() => SecondVisible);
-            RaisePropertyChanged(() => ThirdVisible);
-        }
-
-
-        private DateTime _startDate;
-        private CtrlUnitDTO _selCtrlUnit;
-        private MaintainWorkDTO _selMaintainWork;
-        private SinceNewType _selSnType;
-        private decimal _max;
-        private decimal _min;
-        private decimal _standard;
-        private decimal _rate;
-        private IEnumerable<CtrlLine> _ctrlLines;
-
         public DateTime StartDate
         {
             get { return _startDate; }
-            private set
+            set
             {
                 if (_startDate != value)
                 {
@@ -806,7 +770,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public CtrlUnitDTO SelCtrlUnit
         {
             get { return _selCtrlUnit; }
-            private set
+            set
             {
                 if (_selCtrlUnit != value)
                 {
@@ -820,7 +784,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public MaintainWorkDTO SelMaintainWork
         {
             get { return _selMaintainWork; }
-            private set
+            set
             {
                 if (_selMaintainWork != value)
                 {
@@ -834,7 +798,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public SinceNewType SelSnType
         {
             get { return _selSnType; }
-            private set
+            set
             {
                 if (_selSnType != value)
                 {
@@ -844,10 +808,11 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                 }
             }
         }
+
         public decimal Max
         {
             get { return _max; }
-            private set
+            set
             {
                 if (_max != value)
                 {
@@ -861,7 +826,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public decimal Min
         {
             get { return _min; }
-            private set
+            set
             {
                 if (_min != value)
                 {
@@ -875,7 +840,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public decimal Standard
         {
             get { return _standard; }
-            private set
+            set
             {
                 if (_standard != value)
                 {
@@ -889,7 +854,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public decimal Rate
         {
             get { return _rate; }
-            private set
+            set
             {
                 if (_rate != value)
                 {
@@ -905,7 +870,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             get { return _ctrlLines; }
             private set
             {
-                if (_ctrlLines != value)
+                if (!_ctrlLines.Equals(value))
                 {
                     _ctrlLines = value;
                     RaisePropertyChanged(() => CtrlLines);
@@ -914,15 +879,13 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             }
         }
 
-        private CtrlLine _selCtrlLine;
-
         /// <summary>
         ///     选择的控制明细
         /// </summary>
         public CtrlLine SelCtrlLine
         {
             get { return _selCtrlLine; }
-            private set
+            set
             {
                 if (_selCtrlLine != value)
                 {
@@ -931,6 +894,13 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                     RefreshCommandState();
                 }
             }
+        }
+
+        public void RefreshVisivlities()
+        {
+            RaisePropertyChanged(() => FirstVisible);
+            RaisePropertyChanged(() => SecondVisible);
+            RaisePropertyChanged(() => ThirdVisible);
         }
 
         private IEnumerable<CtrlLine> ConvertXmlToString(XElement xmlContent)
@@ -949,14 +919,19 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                         }
                         else if (ctrlType.Attribute("Name").Value == "Action")
                         {
+                            var type = ctrlType;
                             var maintainWork =
-                                MaintainWorks.FirstOrDefault(p => p.Id.ToString() == ctrlType.Attribute("Value").Value);
+                                MaintainWorks.FirstOrDefault(
+                                    p => p.Id.ToString(CultureInfo.InvariantCulture) == type.Attribute("Value").Value);
                             if (maintainWork != null)
                                 str += "自上次" + maintainWork.WorkCode + "起，当";
                         }
 
                         //控制单位
-                        var ctrlUnit = CtrlUnits.FirstOrDefault(p => p.Id.ToString() == ctrlDetail.Attribute("Type").Value);
+                        var detail = ctrlDetail;
+                        var ctrlUnit =
+                            CtrlUnits.FirstOrDefault(
+                                p => p.Id.ToString(CultureInfo.InvariantCulture) == detail.Attribute("Type").Value);
                         if (ctrlUnit != null)
                             str += ctrlUnit.Name + "(" + ctrlUnit.Description + ")";
                         else str += ctrlDetail.Attribute("Type").Value;
@@ -967,7 +942,8 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                             var max = ctrlDetail.Descendants("Max").First();
                             var min = ctrlDetail.Descendants("Min").First();
 
-                            str += "处于(最小间隔)" + min.Attribute("Value").Value + "和(最大间隔)" + max.Attribute("Value").Value + "之间";
+                            str += "处于(最小间隔)" + min.Attribute("Value").Value + "和(最大间隔)" + max.Attribute("Value").Value +
+                                   "之间";
                         }
                         else if (ctrlDetail.Descendants("Standard").Count() != 0)
                         {
@@ -980,9 +956,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                             str += "(浮动比率为" + rate.Attribute("Value").Value + ")";
                         }
                         str += "时";
-                        var ctrlLine = new CtrlLine();
-                        ctrlLine.Id = RandomHelper.Next();
-                        ctrlLine.Description = str;
+                        var ctrlLine = new CtrlLine {Id = RandomHelper.Next(), Description = str};
                         result.Add(ctrlLine);
                     }
                 }
@@ -990,7 +964,21 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
             }
             return null;
         }
-        #endregion
 
+        public class CtrlLine
+        {
+            public int Id { get; set; }
+
+            public string Description { get; set; }
+        }
+
+        public class CtrlType
+        {
+            public int TypeId { get; set; }
+
+            public string Description { get; set; }
+        }
+
+        #endregion
     }
 }

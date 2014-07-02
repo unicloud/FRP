@@ -40,15 +40,13 @@ namespace UniCloud.Presentation.MVVM
             _service = service;
             SaveCommand = new DelegateCommand<object>(OnSave, CanSave);
             AbortCommand = new DelegateCommand<object>(OnAbort, CanAbort);
-            if (service != null)
+            if (_service != null)
             {
-                service.PropertyChanged += (o, e) =>
+                _service.PropertyChanged += (o, e) =>
                 {
-                    if (e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase))
-                    {
-                        SaveCommand.RaiseCanExecuteChanged();
-                        AbortCommand.RaiseCanExecuteChanged();
-                    }
+                    if (!e.PropertyName.Equals("HasChanges", StringComparison.OrdinalIgnoreCase)) return;
+                    SaveCommand.RaiseCanExecuteChanged();
+                    AbortCommand.RaiseCanExecuteChanged();
                 };
             }
         }
@@ -221,14 +219,7 @@ namespace UniCloud.Presentation.MVVM
                         oFile.Delete();
                     }
                 }
-                if (File.Exists(strErrLog))
-                {
-                    sw = File.AppendText(strErrLog);
-                }
-                else
-                {
-                    sw = File.CreateText(strErrLog);
-                }
+                sw = File.Exists(strErrLog) ? File.AppendText(strErrLog) : File.CreateText(strErrLog);
                 var strDate = "出错时间:" + string.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now);
                 var strErrMoudle = "出错模块:" + strErrMod;
                 var strErrDescOut = "错误原因:" + strErrDesc;

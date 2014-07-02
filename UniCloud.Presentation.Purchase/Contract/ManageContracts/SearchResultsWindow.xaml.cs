@@ -6,9 +6,9 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
 {
-    [Export(typeof(SearchResultsWindow))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class SearchResultsWindow 
+    [Export(typeof (SearchResultsWindow))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public partial class SearchResultsWindow
     {
         public SearchResultsWindow()
         {

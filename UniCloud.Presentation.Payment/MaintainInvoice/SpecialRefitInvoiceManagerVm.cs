@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/5/15 10:08:32
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -20,7 +22,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -33,22 +34,20 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
-    [Export(typeof(SpecialRefitInvoiceManagerVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (SpecialRefitInvoiceManagerVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SpecialRefitInvoiceManagerVm : EditViewModelBase
     {
         #region 声明、初始化
-        [Import]
-        public MaintainPaymentScheduleView PrepayPayscheduleChildView; //初始化子窗体
+
         private readonly PaymentData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
+        [Import] public MaintainPaymentScheduleView prepayPayscheduleChildView; //初始化子窗体
 
         [ImportingConstructor]
-        public SpecialRefitInvoiceManagerVm(IRegionManager regionManager, IPaymentService service)
+        public SpecialRefitInvoiceManagerVm(IPaymentService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -63,15 +62,15 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         /// </summary>
         private void InitializeVM()
         {
-            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context, _context.PaymentSchedules);
+            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context,
+                _context.PaymentSchedules);
             SpecialRefitInvoices = _service.CreateCollection(_context.SpecialRefitInvoices, o => o.MaintainInvoiceLines);
             SpecialRefitInvoices.LoadedData += (o, e) =>
-                                         {
-                                             if (SelectRefitInvoice == null)
-                                                 SelectRefitInvoice = SpecialRefitInvoices.FirstOrDefault();
-                                         };
+            {
+                if (SelectRefitInvoice == null)
+                    SelectRefitInvoice = SpecialRefitInvoices.FirstOrDefault();
+            };
             _service.RegisterCollectionView(SpecialRefitInvoices); //注册查询集合。
-
         }
 
         /// <summary>
@@ -93,13 +92,20 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         #region 数据
 
         #region 公共属性
+
         /// <summary>
-        ///   项名称
+        ///     项名称
         /// </summary>
         public Dictionary<int, ItemNameType> ItemNameTypes
         {
-            get { return Enum.GetValues(typeof(ItemNameType)).Cast<object>().ToDictionary(value => (int)value, value => (ItemNameType)value); }
+            get
+            {
+                return Enum.GetValues(typeof (ItemNameType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (ItemNameType) value);
+            }
         }
+
         #region 币种集合
 
         /// <summary>
@@ -194,16 +200,16 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                         InvoiceLines.Add(invoiceLine);
                     }
                     var relate = PaymentSchedules.FirstOrDefault(p =>
-                                                      {
-                                                          var paymentScheduleLine =
-                                                              p.PaymentScheduleLines.FirstOrDefault(
-                                                                  l =>
-                                                                      l.PaymentScheduleLineId ==
-                                                                      value.PaymentScheduleLineId);
-                                                          return paymentScheduleLine != null &&
-                                                                 paymentScheduleLine.PaymentScheduleLineId ==
-                                                                 value.PaymentScheduleLineId;
-                                                      });
+                    {
+                        var paymentScheduleLine =
+                            p.PaymentScheduleLines.FirstOrDefault(
+                                l =>
+                                    l.PaymentScheduleLineId ==
+                                    value.PaymentScheduleLineId);
+                        return paymentScheduleLine != null &&
+                               paymentScheduleLine.PaymentScheduleLineId ==
+                               value.PaymentScheduleLineId;
+                    });
                     if (relate != null)
                         RelatedPaymentSchedule.Add(relate);
                     SelPaymentSchedule = RelatedPaymentSchedule.FirstOrDefault();
@@ -221,7 +227,8 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         #region 特修改装发票行
 
-        private ObservableCollection<MaintainInvoiceLineDTO> _invoiceLines = new ObservableCollection<MaintainInvoiceLineDTO>();
+        private ObservableCollection<MaintainInvoiceLineDTO> _invoiceLines =
+            new ObservableCollection<MaintainInvoiceLineDTO>();
 
         /// <summary>
         ///     特修改装发票行
@@ -264,16 +271,18 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         #endregion
 
         #region 关联的付款计划及付款计划行
-        /// <summary>
-        ///     所有付款计划集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<PaymentScheduleDTO> PaymentSchedules { get; set; }
 
-        private ObservableCollection<PaymentScheduleDTO> _relatedPaymentSchedule = new ObservableCollection<PaymentScheduleDTO>();
+        private ObservableCollection<PaymentScheduleDTO> _relatedPaymentSchedule =
+            new ObservableCollection<PaymentScheduleDTO>();
 
         private PaymentScheduleLineDTO _relatedPaymentScheduleLine;
 
         private PaymentScheduleDTO _selPaymentSchedule;
+
+        /// <summary>
+        ///     所有付款计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PaymentScheduleDTO> PaymentSchedules { get; set; }
 
         /// <summary>
         ///     关联的付款计划
@@ -324,6 +333,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         }
 
         #endregion
+
         #endregion
 
         #endregion
@@ -342,34 +352,34 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         private void OnNew(object obj)
         {
             MessageConfirm("是否根据付款计划创建?", (s, arg) =>
-                                          {
-                                              if (arg.DialogResult != true)
-                                              {
-                                                  SelectRefitInvoice = new SpecialRefitInvoiceDTO
-                                                                          {
-                                                                              SpecialRefitId =
-                                                                                  RandomHelper.Next(),
-                                                                              CreateDate = DateTime.Now,
-                                                                              InvoiceDate = DateTime.Now,
-                                                                              InMaintainTime = DateTime.Now,
-                                                                              OutMaintainTime = DateTime.Now,
-                                                                          };
-                                                  var currency = Currencies.FirstOrDefault();
-                                                  if (currency != null)
-                                                      SelectRefitInvoice.CurrencyId = currency.Id;
-                                                  var supplier = Suppliers.FirstOrDefault();
-                                                  if (supplier != null)
-                                                  {
-                                                      SelectRefitInvoice.SupplierId = supplier.SupplierId;
-                                                      SelectRefitInvoice.SupplierName = supplier.Name;
-                                                  }
-                                                  SpecialRefitInvoices.AddNew(SelectRefitInvoice);
-                                                  return;
-                                              }
-                                              PrepayPayscheduleChildView.ViewModel.InitData(
-                                                  typeof(SpecialRefitInvoiceDTO), PrepayPayscheduleChildViewClosed);
-                                              PrepayPayscheduleChildView.ShowDialog();
-                                          });
+            {
+                if (arg.DialogResult != true)
+                {
+                    SelectRefitInvoice = new SpecialRefitInvoiceDTO
+                    {
+                        SpecialRefitId =
+                            RandomHelper.Next(),
+                        CreateDate = DateTime.Now,
+                        InvoiceDate = DateTime.Now,
+                        InMaintainTime = DateTime.Now,
+                        OutMaintainTime = DateTime.Now,
+                    };
+                    var currency = Currencies.FirstOrDefault();
+                    if (currency != null)
+                        SelectRefitInvoice.CurrencyId = currency.Id;
+                    var supplier = Suppliers.FirstOrDefault();
+                    if (supplier != null)
+                    {
+                        SelectRefitInvoice.SupplierId = supplier.SupplierId;
+                        SelectRefitInvoice.SupplierName = supplier.Name;
+                    }
+                    SpecialRefitInvoices.AddNew(SelectRefitInvoice);
+                    return;
+                }
+                prepayPayscheduleChildView.ViewModel.InitData(
+                    typeof (SpecialRefitInvoiceDTO), PrepayPayscheduleChildViewClosed);
+                prepayPayscheduleChildView.ShowDialog();
+            });
         }
 
         private bool CanNew(object obj)
@@ -379,12 +389,13 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         private void PrepayPayscheduleChildViewClosed(object sender, WindowClosedEventArgs e)
         {
-            if (PrepayPayscheduleChildView.Tag != null)
+            if (prepayPayscheduleChildView.Tag != null)
             {
-                SelectRefitInvoice = PrepayPayscheduleChildView.Tag as SpecialRefitInvoiceDTO;
+                SelectRefitInvoice = prepayPayscheduleChildView.Tag as SpecialRefitInvoiceDTO;
                 SpecialRefitInvoices.AddNew(SelectRefitInvoice);
             }
         }
+
         #endregion
 
         #region 删除特修改装发票
@@ -402,16 +413,16 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SpecialRefitInvoices.Remove(SelectRefitInvoice);
-                                                SelectRefitInvoice = SpecialRefitInvoices.FirstOrDefault();
-                                                if (SelectRefitInvoice == null)
-                                                {
-                                                    //删除完，若没有记录了，则也要删除界面明细
-                                                    InvoiceLines.Clear();
-                                                }
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SpecialRefitInvoices.Remove(SelectRefitInvoice);
+                SelectRefitInvoice = SpecialRefitInvoices.FirstOrDefault();
+                if (SelectRefitInvoice == null)
+                {
+                    //删除完，若没有记录了，则也要删除界面明细
+                    InvoiceLines.Clear();
+                }
+            });
         }
 
         private bool CanDelete(object obj)
@@ -466,12 +477,12 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SelectRefitInvoice.MaintainInvoiceLines.Remove(SelInvoiceLine);
-                                                InvoiceLines.Remove(SelInvoiceLine);
-                                                SelInvoiceLine = SelectRefitInvoice.MaintainInvoiceLines.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SelectRefitInvoice.MaintainInvoiceLines.Remove(SelInvoiceLine);
+                InvoiceLines.Remove(SelInvoiceLine);
+                SelInvoiceLine = SelectRefitInvoice.MaintainInvoiceLines.FirstOrDefault();
+            });
         }
 
         private bool CanRemove(object obj)
@@ -536,7 +547,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "TotalLine", StringComparison.OrdinalIgnoreCase))
                 {
-                    decimal totalCount = SelectRefitInvoice.MaintainInvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
+                    var totalCount = SelectRefitInvoice.MaintainInvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
                     SelectRefitInvoice.InvoiceValue = totalCount;
                 }
             }

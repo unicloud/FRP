@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(LeaseInvoiceManager))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class LeaseInvoiceManager
     {
         public LeaseInvoiceManager()
         {
             InitializeComponent();
         }
+
         [Import]
         public LeaseInvoiceManagerVM ViewModel
         {

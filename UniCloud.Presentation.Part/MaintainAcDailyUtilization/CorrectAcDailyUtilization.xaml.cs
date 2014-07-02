@@ -2,21 +2,20 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Windows.Controls;
 
 #endregion
 
 namespace UniCloud.Presentation.Part.MaintainAcDailyUtilization
 {
-    [Export(typeof(CorrectAcDailyUtilization))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class CorrectAcDailyUtilization : UserControl
+    [Export]
+    public partial class CorrectAcDailyUtilization
     {
         public CorrectAcDailyUtilization()
         {
             InitializeComponent();
             CurrentMonthTextBox.Text = DateTime.Now.ToString("yyyy-MM");
         }
+
         [Import]
         public CorrectAcDailyUtilizationVm ViewModel
         {

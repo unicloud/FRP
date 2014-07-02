@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.Composition;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Part.MaintainControl
 {
-    [Export(typeof (SnRegsChildView))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class SnRegsChildView
     {
         public SnRegsChildView()

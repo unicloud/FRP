@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/2/21 15:56:19
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -19,7 +21,6 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -33,22 +34,20 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.ManageSCN
 {
-    [Export(typeof(MaintainScnVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (MaintainScnVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MaintainScnVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
 
 
         [ImportingConstructor]
-        public MaintainScnVm(IRegionManager regionManager, IPartService service)
+        public MaintainScnVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -65,19 +64,21 @@ namespace UniCloud.Presentation.Part.ManageSCN
             AddScnCommand = new DelegateCommand<object>(OnAddScn, CanAddScn);
             RemoveScnCommand = new DelegateCommand<object>(OnRemoveScn, CanRemoveScn);
             AddApplicableAircraftCommand = new DelegateCommand<object>(OnAddApplicableAircraft, CanAddApplicableAircraft);
-            RemoveApplicableAircraftCommand = new DelegateCommand<object>(OnRemoveApplicableAircraft, CanRemoveApplicableAircraft);
+            RemoveApplicableAircraftCommand = new DelegateCommand<object>(OnRemoveApplicableAircraft,
+                CanRemoveApplicableAircraft);
             SubmitScnCommand = new DelegateCommand<object>(OnSubmitScn, CanSubmitScn);
             ReviewScnCommand = new DelegateCommand<object>(OnReviewScn, CanReviewScn);
             // 创建并注册CollectionView
             Scns = _service.CreateCollection(_context.Scns, o => o.ApplicableAircrafts);
             Scns.PageSize = 6;
             Scns.LoadedData += (o, e) =>
-                               {
-                                   if (Scn == null)
-                                       Scn = Scns.FirstOrDefault();
-                               };
+            {
+                if (Scn == null)
+                    Scn = Scns.FirstOrDefault();
+            };
             _service.RegisterCollectionView(Scns);
-            ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_context, _context.ContractAircrafts);
+            ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_context,
+                _context.ContractAircrafts);
         }
 
         #endregion
@@ -93,7 +94,9 @@ namespace UniCloud.Presentation.Part.ManageSCN
         {
             get
             {
-                return Enum.GetValues(typeof(ScnType)).Cast<object>().ToDictionary(value => (int)value, value => (ScnType)value);
+                return Enum.GetValues(typeof (ScnType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (ScnType) value);
             }
         }
 
@@ -102,19 +105,26 @@ namespace UniCloud.Presentation.Part.ManageSCN
         /// </summary>
         public Dictionary<int, ScnApplicableType> ScnTypes
         {
-            get { return Enum.GetValues(typeof(ScnApplicableType)).Cast<object>().ToDictionary(value => (int)value, value => (ScnApplicableType)value); }
+            get
+            {
+                return Enum.GetValues(typeof (ScnApplicableType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (ScnApplicableType) value);
+            }
         }
 
         #region SCN/MSCN
-        /// <summary>
-        ///     SCN/MSCN集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<ScnDTO> Scns { get; set; }
 
         /// <summary>
         ///     选中的SCN/MSCN
         /// </summary>
         private ScnDTO _scn;
+
+        /// <summary>
+        ///     SCN/MSCN集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ScnDTO> Scns { get; set; }
+
         public ScnDTO Scn
         {
             get { return _scn; }
@@ -133,20 +143,25 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 }
             }
         }
+
         #endregion
 
         #region 合同飞机
+
         /// <summary>
         ///     合同飞机集合
         /// </summary>
         public QueryableDataServiceCollectionView<ContractAircraftDTO> ContractAircrafts { get; set; }
+
         #endregion
 
         #region 适用飞机
+
         /// <summary>
         ///     选中的适用飞机
         /// </summary>
         private ApplicableAircraftDTO _applicableAircraft;
+
         public ApplicableAircraftDTO ApplicableAircraft
         {
             get { return _applicableAircraft; }
@@ -159,7 +174,9 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 }
             }
         }
+
         #endregion
+
         #endregion
 
         #region 加载数据
@@ -187,6 +204,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
         #region 操作
 
         #region 创建新SCN/MSCN
+
         /// <summary>
         ///     创建新SCN/MSCN
         /// </summary>
@@ -216,6 +234,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
         #endregion
 
         #region 删除SCN/MSCN
+
         /// <summary>
         ///     删除SCN/MSCN
         /// </summary>
@@ -244,6 +263,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
         #endregion
 
         #region 增加适用飞机
+
         /// <summary>
         ///     增加适用飞机
         /// </summary>
@@ -275,6 +295,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
         #endregion
 
         #region 移除适用飞机
+
         /// <summary>
         ///     移除适用飞机
         /// </summary>
@@ -304,10 +325,12 @@ namespace UniCloud.Presentation.Part.ManageSCN
         #endregion
 
         #region 提交SCN/MSCN
+
         /// <summary>
         ///     提交SCN/MSCN
         /// </summary>
         public DelegateCommand<object> SubmitScnCommand { get; private set; }
+
         protected void OnSubmitScn(object obj)
         {
             if (Scn == null)
@@ -315,7 +338,10 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            var auditOrganizations = new AuditOrganizations(Scn) { WindowStartupLocation = WindowStartupLocation.CenterScreen };
+            var auditOrganizations = new AuditOrganizations(Scn)
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
             auditOrganizations.ShowDialog();
         }
 
@@ -323,7 +349,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
         {
             if (Scn != null)
             {
-                if (Scn.ScnStatus == (int)ScnStatus.技术标准室审核)
+                if (Scn.ScnStatus == (int) ScnStatus.技术标准室审核)
                 {
                     return true;
                 }
@@ -334,6 +360,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
         #endregion
 
         #region 审核SCN/MSCN
+
         /// <summary>
         ///     审核SCN/MSCN
         /// </summary>
@@ -346,14 +373,14 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            Scn.ScnStatus = (int)ScnStatus.技术标准室审核;
+            Scn.ScnStatus = (int) ScnStatus.技术标准室审核;
         }
 
         protected bool CanReviewScn(object obj)
         {
             if (Scn != null)
             {
-                if (Scn.ScnStatus > (int)ScnStatus.技术标准室审核 && Scn.ScnStatus < (int)ScnStatus.生效)
+                if (Scn.ScnStatus > (int) ScnStatus.技术标准室审核 && Scn.ScnStatus < (int) ScnStatus.生效)
                 {
                     return true;
                 }
@@ -383,13 +410,14 @@ namespace UniCloud.Presentation.Part.ManageSCN
         #endregion
 
         #region 计算适用飞机费用
+
         private void CaculateApplicableAircraftCost()
         {
             if (Scn.ApplicableAircrafts != null && Scn.ApplicableAircrafts.Count > 0)
             {
                 if (Scn.ScnType == 0)
                 {
-                    var average = Scn.Cost / Scn.ApplicableAircrafts.Count;
+                    var average = Scn.Cost/Scn.ApplicableAircrafts.Count;
                     Scn.ApplicableAircrafts.ToList().ForEach(p => p.Cost = average);
                 }
                 else
@@ -400,6 +428,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 }
             }
         }
+
         #endregion
 
         #endregion

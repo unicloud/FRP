@@ -23,9 +23,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
-using Telerik.Windows.Controls.GridView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -37,23 +35,21 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.MaintainControl
 {
-    [Export(typeof(ManageRemovalAndInstallationVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ManageRemovalAndInstallationVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageRemovalAndInstallationVm : EditViewModelBase
     {
         #region 声明、初始化
 
-        private readonly IRegionManager _regionManager;
-        private readonly IPartService _service;
         private readonly PartData _context;
-        private bool _addChildView = false;
-        private bool _removeChildView = false;
+        private readonly IPartService _service;
+        private bool _addChildView;
+        private bool _removeChildView;
 
         [ImportingConstructor]
-        public ManageRemovalAndInstallationVm(IRegionManager regionManager, IPartService service)
+        public ManageRemovalAndInstallationVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -71,10 +67,10 @@ namespace UniCloud.Presentation.Part.MaintainControl
             SnRemInstRecords = _service.CreateCollection(_context.SnRemInstRecords);
             SnRemInstRecords.PageSize = 20;
             SnRemInstRecords.LoadedData += (o, e) =>
-                                           {
-                                               if (SelSnRemInstRecord == null)
-                                                   SelSnRemInstRecord = SnRemInstRecords.FirstOrDefault();
-                                           };
+            {
+                if (SelSnRemInstRecord == null)
+                    SelSnRemInstRecord = SnRemInstRecords.FirstOrDefault();
+            };
             _service.RegisterCollectionView(SnRemInstRecords);
 
             SnRegs = _service.CreateCollection(_context.SnRegs);
@@ -125,7 +121,12 @@ namespace UniCloud.Presentation.Part.MaintainControl
         /// </summary>
         public Dictionary<int, ActionType> ActionTypes
         {
-            get { return Enum.GetValues(typeof(ActionType)).Cast<object>().ToDictionary(value => (int)value, value => (ActionType)value); }
+            get
+            {
+                return Enum.GetValues(typeof (ActionType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (ActionType) value);
+            }
         }
 
         /// <summary>
@@ -133,7 +134,12 @@ namespace UniCloud.Presentation.Part.MaintainControl
         /// </summary>
         public Dictionary<int, SnStatus> SnStatuss
         {
-            get { return Enum.GetValues(typeof(SnStatus)).Cast<object>().ToDictionary(value => (int)value, value => (SnStatus)value); }
+            get
+            {
+                return Enum.GetValues(typeof (SnStatus))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (SnStatus) value);
+            }
         }
 
         /// <summary>
@@ -141,7 +147,12 @@ namespace UniCloud.Presentation.Part.MaintainControl
         /// </summary>
         public Dictionary<int, Position> Positions
         {
-            get { return Enum.GetValues(typeof(Position)).Cast<object>().ToDictionary(value => (int)value, value => (Position)value); }
+            get
+            {
+                return Enum.GetValues(typeof (Position))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (Position) value);
+            }
         }
 
         /// <summary>
@@ -179,8 +190,8 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         #region 序号件集合
 
-        private ObservableCollection<SnRegDTO> _onBoardSnRegs = new ObservableCollection<SnRegDTO>();
         private ObservableCollection<SnRegDTO> _inStoreSnRegs = new ObservableCollection<SnRegDTO>();
+        private ObservableCollection<SnRegDTO> _onBoardSnRegs = new ObservableCollection<SnRegDTO>();
 
         /// <summary>
         ///     序号件集合
@@ -188,7 +199,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         public QueryableDataServiceCollectionView<SnRegDTO> SnRegs { get; set; }
 
         /// <summary>
-        /// 在位件（可用于拆下的件）
+        ///     在位件（可用于拆下的件）
         /// </summary>
         public ObservableCollection<SnRegDTO> OnBoardSnRegs
         {
@@ -204,8 +215,8 @@ namespace UniCloud.Presentation.Part.MaintainControl
         }
 
         /// <summary>
-        /// 在库件（可用于装上的件集合:在库、在修、出租的都行）
-        /// 其中在修、出租的在系统中没有按正常入库流程考虑修完或出租收回的情况
+        ///     在库件（可用于装上的件集合:在库、在修、出租的都行）
+        ///     其中在修、出租的在系统中没有按正常入库流程考虑修完或出租收回的情况
         /// </summary>
         public ObservableCollection<SnRegDTO> InStoreSnRegs
         {
@@ -219,6 +230,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                 }
             }
         }
+
         #endregion
 
         #region 拆换记录
@@ -248,8 +260,10 @@ namespace UniCloud.Presentation.Part.MaintainControl
                     {
                         foreach (var snHistory in SnHistories.SourceCollection.Cast<SnHistoryDTO>())
                         {
-                            if (snHistory.RemInstRecordId == value.Id && snHistory.ActionType == (int)ActionType.装上) Installations.Add(snHistory);
-                            else if (snHistory.RemInstRecordId == value.Id && snHistory.ActionType == (int)ActionType.拆下) Removals.Add(snHistory);
+                            if (snHistory.RemInstRecordId == value.Id && snHistory.ActionType == (int) ActionType.装上)
+                                Installations.Add(snHistory);
+                            else if (snHistory.RemInstRecordId == value.Id && snHistory.ActionType == (int) ActionType.拆下)
+                                Removals.Add(snHistory);
                         }
                     }
                     SelInstallation = Installations.FirstOrDefault();
@@ -260,7 +274,9 @@ namespace UniCloud.Presentation.Part.MaintainControl
                     if (value != null && value.AircraftId != Guid.Empty)
                     {
                         OnBoardSnRegs.AddRange(SnRegs.Where(p => p.SnStatus == SnStatus.装机));
-                        InStoreSnRegs.AddRange(SnRegs.Where(p => p.SnStatus == SnStatus.在库 || p.SnStatus == SnStatus.在修 || p.SnStatus == SnStatus.出租));
+                        InStoreSnRegs.AddRange(
+                            SnRegs.Where(
+                                p => p.SnStatus == SnStatus.在库 || p.SnStatus == SnStatus.在修 || p.SnStatus == SnStatus.出租));
                         RaisePropertyChanged(() => OnBoardSnRegs);
                         RaisePropertyChanged(() => InStoreSnRegs);
                     }
@@ -465,7 +481,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                 }
                 _addChildView = false;
                 _removeChildView = true;
-                SnRegsChildView.ShowDialog();
+                snRegsChildView.ShowDialog();
             }
             RefreshCommandState();
         }
@@ -476,7 +492,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                 return false;
             if (SelSnRemInstRecord.AircraftId == Guid.Empty)
                 return false;
-            if (SelSnRemInstRecord.ActionType == (int)ActionType.装上)
+            if (SelSnRemInstRecord.ActionType == (int) ActionType.装上)
                 return false;
             return true;
         }
@@ -534,7 +550,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                 }
                 _addChildView = true;
                 _removeChildView = false;
-                SnRegsChildView.ShowDialog();
+                snRegsChildView.ShowDialog();
             }
             RefreshCommandState();
         }
@@ -545,7 +561,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                 return false;
             if (SelSnRemInstRecord.AircraftId == Guid.Empty)
                 return false;
-            if (SelSnRemInstRecord.ActionType == (int)ActionType.拆下)
+            if (SelSnRemInstRecord.ActionType == (int) ActionType.拆下)
                 return false;
             return true;
         }
@@ -590,10 +606,10 @@ namespace UniCloud.Presentation.Part.MaintainControl
             var gridView = sender as RadGridView;
             if (gridView != null)
             {
-                GridViewCell cell = gridView.CurrentCell;
+                var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "Aircraft"))
                 {
-                    Guid value = SelSnRemInstRecord.AircraftId;
+                    var value = SelSnRemInstRecord.AircraftId;
                     //获取用于子窗体展示的件号集合
                     OnBoardSnRegs = new ObservableCollection<SnRegDTO>();
                     InStoreSnRegs = new ObservableCollection<SnRegDTO>();
@@ -617,7 +633,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                 }
                 else if (string.Equals(cell.Column.UniqueName, "PnReg"))
                 {
-                    int value = SelInstallation.PnRegId;
+                    var value = SelInstallation.PnRegId;
                     var pnReg = PnRegs.FirstOrDefault(p => p.Id == value);
                     var snReg = SnRegs.FirstOrDefault(p => p.Id == SelInstallation.SnRegId);
                     if (pnReg != null)
@@ -649,18 +665,17 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         #region 子窗体相关
 
-        [Import]
-        public SnRegsChildView SnRegsChildView; //初始化子窗体
-
-        /// <summary>
-        /// 子窗体展示集合
-        /// </summary>
-        public ObservableCollection<SnRegDTO> ViewSnRegs { get; set; }
+        [Import] public SnRegsChildView snRegsChildView; //初始化子窗体
 
         private string _childViewHeader;
 
         /// <summary>
-        /// 子窗体Header
+        ///     子窗体展示集合
+        /// </summary>
+        public ObservableCollection<SnRegDTO> ViewSnRegs { get; set; }
+
+        /// <summary>
+        ///     子窗体Header
         /// </summary>
         public string ChildViewHeader
         {
@@ -689,7 +704,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         {
             _addChildView = false;
             _removeChildView = false;
-            SnRegsChildView.Close();
+            snRegsChildView.Close();
         }
 
         /// <summary>
@@ -724,9 +739,10 @@ namespace UniCloud.Presentation.Part.MaintainControl
                     if (snRegDto != null)
                     {
                         //找到SnReg的最后一条装上记录（时间最大），且这条记录无拆下信息
-                        var snHis = SnHistories.Where(s => s.SnRegId == snRegDto.Id).OrderBy(l => l.ActionDate).LastOrDefault();
+                        var snHis =
+                            SnHistories.Where(s => s.SnRegId == snRegDto.Id).OrderBy(l => l.ActionDate).LastOrDefault();
                         if (snHis == null) MessageAlert("序号件：" + snRegDto.Sn + "没有找到拆装历史！请检查！");
-                        else if (snHis.ActionType == (int)ActionType.拆下)
+                        else if (snHis.ActionType == (int) ActionType.拆下)
                         {
                             MessageAlert("序号件：" + snRegDto.Sn + "最近一次操作为拆下，不能再做拆下操作！请检查！");
                         }
@@ -737,7 +753,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                                 Id = RandomHelper.Next(),
                                 ActionDate = DateTime.Now,
                                 ActionNo = SelSnRemInstRecord.ActionNo,
-                                ActionType = (int)ActionType.拆下,
+                                ActionType = (int) ActionType.拆下,
                                 AircraftId = SelSnRemInstRecord.AircraftId,
                                 RegNumber = SelSnRemInstRecord.RegNumber,
                                 Pn = snRegDto.Pn,
@@ -745,7 +761,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                                 PnRegId = snRegDto.PnRegId,
                                 SnRegId = snRegDto.Id,
                                 RemInstRecordId = SelSnRemInstRecord.Id,
-                                Status = (int)SnStatus.在库,
+                                Status = (int) SnStatus.在库,
                             };
                             Removals.Add(newSh);
                             var snReg = SnRegs.FirstOrDefault(sn => sn.Id == snHis.SnRegId);
@@ -768,8 +784,9 @@ namespace UniCloud.Presentation.Part.MaintainControl
                     var snRegDto = p as SnRegDTO;
                     if (snRegDto != null)
                     {
-                        var snHis = SnHistories.Where(s => s.SnRegId == snRegDto.Id).OrderBy(l => l.ActionDate).LastOrDefault();
-                        if (snHis != null && snHis.ActionType == (int)ActionType.装上)
+                        var snHis =
+                            SnHistories.Where(s => s.SnRegId == snRegDto.Id).OrderBy(l => l.ActionDate).LastOrDefault();
+                        if (snHis != null && snHis.ActionType == (int) ActionType.装上)
                         {
                             MessageAlert("序号件：" + snRegDto.Sn + "最近一次操作为装上，不能再做装上操作！请检查！");
                         }
@@ -780,7 +797,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                                 Id = RandomHelper.Next(),
                                 ActionDate = DateTime.Now,
                                 ActionNo = SelSnRemInstRecord.ActionNo,
-                                ActionType = (int)ActionType.装上,
+                                ActionType = (int) ActionType.装上,
                                 AircraftId = SelSnRemInstRecord.AircraftId,
                                 RegNumber = SelSnRemInstRecord.RegNumber,
                                 Pn = snRegDto.Pn,
@@ -788,13 +805,13 @@ namespace UniCloud.Presentation.Part.MaintainControl
                                 PnRegId = snRegDto.PnRegId,
                                 SnRegId = snRegDto.Id,
                                 RemInstRecordId = SelSnRemInstRecord.Id,
-                                Status = (int)SnStatus.装机,
+                                Status = (int) SnStatus.装机,
                             };
                             var snReg = SnRegs.FirstOrDefault(sn => sn.Id == snRegDto.Id);
                             if (snReg != null)
                             {
                                 snReg.AircraftId = SelSnRemInstRecord.AircraftId;
-                                snReg.Status = (int)SnStatus.装机;
+                                snReg.Status = (int) SnStatus.装机;
                             }
                             Installations.Add(newSnHis);
                             SnHistories.AddNew(newSnHis);
@@ -806,7 +823,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                 _removeChildView = false;
             }
             RefreshCommandState();
-            SnRegsChildView.Close();
+            snRegsChildView.Close();
         }
 
         /// <summary>
@@ -822,6 +839,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         #endregion
 
         #endregion
+
         #endregion
     }
 }

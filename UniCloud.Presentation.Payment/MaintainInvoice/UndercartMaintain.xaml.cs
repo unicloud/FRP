@@ -23,9 +23,8 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
-    [Export(typeof(UndercartMaintain))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class UndercartMaintain 
+    [Export]
+    public partial class UndercartMaintain
     {
         public UndercartMaintain()
         {
