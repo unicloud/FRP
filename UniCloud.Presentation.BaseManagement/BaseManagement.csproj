@@ -211,7 +211,7 @@
       <DependentUpon>ManageUserInRole.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagePermission\ManageUserInRoleVm.cs" />
-    <Compile Include="ManagePermission\ManageUserVm.cs" />
+    <Compile Include="ManagePermission\ManageUserVM.cs" />
     <Compile Include="ManagePermission\OrganizationRoleDoubleClickHelper.cs" />
     <Compile Include="ManagePermission\RoleCommonMethod.cs" />
     <Compile Include="ManagePermission\UserRoleDoubleClickHelper.cs" />

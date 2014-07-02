@@ -1,24 +1,24 @@
 ﻿#region 命名空间
 
 using System.ComponentModel.Composition;
-using System.Windows.Controls;
 
 #endregion
 
 namespace UniCloud.Presentation.BaseManagement.ManagePermission
 {
-    [Export(typeof(ManageUser))]
+    [Export(typeof (ManageUser))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class ManageUser : UserControl
+    public partial class ManageUser
     {
         public ManageUser()
         {
             InitializeComponent();
         }
+
         [Import]
-        public ManageUserVm ViewModel
+        public ManageUserVM ViewModel
         {
-            get { return DataContext as ManageUserVm; }
+            get { return DataContext as ManageUserVM; }
             set { DataContext = value; }
         }
     }

@@ -27,6 +27,7 @@ using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
@@ -532,7 +533,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnCheck(object obj)
         {
-            SelPurchaseInvoice.Reviewer = "HQB";
+            SelPurchaseInvoice.Reviewer = StatusData.curUser;
             SelPurchaseInvoice.ReviewDate = DateTime.Now;
         }
 
@@ -864,6 +865,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                         invoice.InvoiceValue = SelPaymentScheduleLine.Amount;
                         invoice.SupplierName = SelAcPaymentSchedule.SupplierName;
                         invoice.SupplierId = SelAcPaymentSchedule.SupplierId;
+                        invoice.OperatorName = StatusData.curUser;
                         invoice.PaymentScheduleLineId = SelPaymentScheduleLine.PaymentScheduleLineId;
                         var invoiceLine = new InvoiceLineDTO
                         {

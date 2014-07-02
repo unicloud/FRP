@@ -16,8 +16,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
-                              BusyContent="{x:Null}">
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="{Binding BusyContent}">
         <Grid x:Name="LayoutRoot">
             <telerik:RadDocking BorderThickness="0"
                                 Padding="0"
@@ -205,7 +204,8 @@
                                                                             DisplayMemberPath="Name"
                                                                             EditTriggers="CellClick" />
                                             <telerik:GridViewDataColumn Header="经办人"
-                                                                        DataMemberBinding="{Binding OperatorName}" />
+                                                                        DataMemberBinding="{Binding OperatorName}"
+                                                                        IsReadOnly="true" />
                                             <telerik:GridViewComboBoxColumn Header="联系人"
                                                                             TextAlignment="Center"
                                                                             DataMemberBinding="{Binding LinkmanId}"

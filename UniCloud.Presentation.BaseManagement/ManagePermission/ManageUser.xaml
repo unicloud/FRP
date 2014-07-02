@@ -6,7 +6,7 @@
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance uc:ManageUserVm}"
+             d:DataContext="{d:DesignInstance uc:ManageUserVM}"
              d:DesignHeight="400"
              d:DesignWidth="600">
 
