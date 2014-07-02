@@ -86,5 +86,14 @@ namespace UniCloud.Presentation.Service
                     UriKind.Absolute);
             }
         }
+
+        public static Uri PortalUri
+        {
+            get
+            {
+                return new Uri(Application.Current.Resources["PortalDataService"].ToString(),
+                    UriKind.Absolute);
+            }
+        }
     }
 }

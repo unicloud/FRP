@@ -15,9 +15,19 @@
 
 #endregion
 
+#region 命名空间
+
+using UniCloud.Presentation.Service.Portal.Portal;
+
+#endregion
+
 namespace UniCloud.Presentation.Service.Portal
 {
     public interface IPortalService : IService
     {
+        /// <summary>
+        ///     数据服务上下文
+        /// </summary>
+        PortalData Context { get; }
     }
 }
