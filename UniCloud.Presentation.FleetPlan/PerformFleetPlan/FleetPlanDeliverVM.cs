@@ -140,7 +140,6 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             ActionCategories = new QueryableDataServiceCollectionView<ActionCategoryDTO>(_context, _context.ActionCategories);
             AircraftCategories = new QueryableDataServiceCollectionView<AircraftCategoryDTO>(_context, _context.AircraftCategories);
             AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_context, _context.AircraftTypes);
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
         }
 
         /// <summary>
@@ -263,7 +262,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public QueryableDataServiceCollectionView<AircraftCategoryDTO> AircraftCategories { get; set; }
 
         #endregion
-        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+        
         #region 机型集合
 
         /// <summary>
@@ -273,6 +272,56 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 
         #endregion
 
+        #region 供应商集合
+
+        private List<SupplierDTO> _suppliers;
+
+        /// <summary>
+        /// 供应商集合
+        /// </summary>
+        public List<SupplierDTO> Suppliers
+        {
+            get { return this._suppliers; }
+            private set
+            {
+                if (this._suppliers != value)
+                {
+                    this._suppliers = value;
+                    this.RaisePropertyChanged(() => this.Suppliers);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 加载飞机供应商
+        /// </summary>
+        private void LoadSuppliers()
+        {
+            Uri path = new Uri(string.Format("GetAircraftSuppliers"),
+                UriKind.Relative);
+            //查询
+            _context.BeginExecute<SupplierDTO>(path,
+                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    var context = result.AsyncState as FleetPlanData;
+                    try
+                    {
+                        if (context != null)
+                        {
+                            Suppliers = context.EndExecute<SupplierDTO>(result).ToList();
+                            RaisePropertyChanged(() => this.Suppliers);
+                            RefreshCommandState();
+                        }
+                    }
+                    catch (DataServiceQueryException ex)
+                    {
+                        QueryOperationResponse response = ex.Response;
+
+                        Console.WriteLine(response.Error.Message);
+                    }
+                }), _context);
+        }
+        #endregion
         #endregion
 
         #region 加载数据
@@ -289,7 +338,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             AircraftTypes = _service.GetAircraftTypes(() => { });
             ActionCategories = _service.GetActionCategories(() => { });
             AircraftCategories = _service.GetAircraftCategories(() => { });
-            Suppliers = _service.GetSupplier(() => { });
+            LoadSuppliers();
             CurAnnual.Load(true);
 
             if (!Aircrafts.AutoLoad)

@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/7/2 15:36:46
+// 生成日期: 2014/7/2 20:30:01
 namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     
@@ -1240,7 +1240,11 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 "\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.RelatedDocDTO\" /><EntitySet N" +
                 "ame=\"Suppliers\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.SupplierDTO\" />" +
                 "<EntitySet Name=\"XmlConfigs\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.Xm" +
-                "lConfigDTO\" /><FunctionImport Name=\"PerformPlanQuery\" ReturnType=\"UniCloud.Appli" +
+                "lConfigDTO\" /><FunctionImport Name=\"GetAircraftSuppliers\" ReturnType=\"Collection" +
+                "(UniCloud.Application.FleetPlanBC.DTO.SupplierDTO)\" EntitySet=\"Suppliers\" m:Http" +
+                "Method=\"GET\" /><FunctionImport Name=\"GetEngineSuppliers\" ReturnType=\"Collection(" +
+                "UniCloud.Application.FleetPlanBC.DTO.SupplierDTO)\" EntitySet=\"Suppliers\" m:HttpM" +
+                "ethod=\"GET\" /><FunctionImport Name=\"PerformPlanQuery\" ReturnType=\"UniCloud.Appli" +
                 "cation.FleetPlanBC.DTO.PerformPlan\" m:HttpMethod=\"GET\"><Parameter Name=\"planHist" +
                 "oryId\" Type=\"Edm.String\" /><Parameter Name=\"approvalHistoryId\" Type=\"Edm.String\"" +
                 " /><Parameter Name=\"planType\" Type=\"Edm.Int32\" Nullable=\"false\" /><Parameter Nam" +

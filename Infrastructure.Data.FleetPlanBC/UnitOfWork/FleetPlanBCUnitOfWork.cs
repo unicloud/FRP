@@ -46,6 +46,8 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.XmlConfigAgg;
 
 #endregion
@@ -85,6 +87,8 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         private IDbSet<RelatedDoc> _relatedDocs;
         private IDbSet<Request> _requests;
         private IDbSet<Supplier> _suppliers;
+        private IDbSet<SupplierCompany> _supplierCompanies;
+        private IDbSet<SupplierRole> _supplierRoles;
         private IDbSet<XmlConfig> _xmlConfigs;
 
         public IDbSet<ActionCategory> ActionCategories
@@ -232,6 +236,15 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
             get { return _suppliers ?? (_suppliers = base.Set<Supplier>()); }
         }
 
+        public IDbSet<SupplierCompany> SupplierCompanies
+        {
+            get { return _supplierCompanies ?? (_supplierCompanies = base.Set<SupplierCompany>()); }
+        }
+
+        public IDbSet<SupplierRole> SupplierRoles
+        {
+            get { return _supplierRoles ?? (_supplierRoles = base.Set<SupplierRole>()); }
+        }
         public IDbSet<XmlConfig> XmlConfigs
         {
             get { return _xmlConfigs ?? (_xmlConfigs = base.Set<XmlConfig>()); }

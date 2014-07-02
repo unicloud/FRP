@@ -46,6 +46,10 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             Property(p => p.SupplierType).HasColumnName("SupplierType");
             Property(p => p.AirlineGuid).HasColumnName("AirlineGuid");
 
+            Property(p => p.SupplierCompanyId).HasColumnName("SupplierCompanyId");
+
+            HasRequired(s => s.SupplierCompany).WithMany(s => s.Suppliers).HasForeignKey(s => s.SupplierCompanyId);
+
         }
     }
 }

@@ -1,0 +1,92 @@
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2013 UniCloud 
+//【本类功能概述】
+// 
+// 作者：丁志浩 时间：2013/11/06，14:11
+// 方案：FRP
+// 项目：Domain.PurchaseBC
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+#region 命名空间
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierCompanyAgg;
+
+#endregion
+
+namespace UniCloud.Domain.FleetPlanBC.Aggregates.SupplierRoleAgg
+{
+    /// <summary>
+    ///     供应商角色聚合根
+    /// </summary>
+    public abstract class SupplierRole : EntityInt, IValidatableObject
+    {
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能从内部创建新实例
+        /// </summary>
+        internal SupplierRole()
+        {
+        }
+
+        #endregion
+
+        #region 属性
+
+        /// <summary>
+        ///     是否有效。
+        /// </summary>
+        public bool IsValid { get; set; }
+
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        ///     供应商公司ID
+        /// </summary>
+        public int SupplierCompanyId { get; protected set; }
+
+        #endregion
+
+        #region 导航属性
+
+        /// <summary>
+        ///     供应商公司
+        /// </summary>
+        public virtual SupplierCompany SupplierCompany { get; protected set; }
+
+        #endregion
+
+        #region 操作
+
+        #endregion
+
+        #region IValidatableObject 成员
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var validationResults = new List<ValidationResult>();
+
+            #region 验证逻辑
+
+            #endregion
+
+            return validationResults;
+        }
+
+        #endregion
+    }
+}

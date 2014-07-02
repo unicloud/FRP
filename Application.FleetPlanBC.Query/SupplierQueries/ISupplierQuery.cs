@@ -16,6 +16,7 @@
 
 #region 命名空间
 
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
@@ -33,5 +34,18 @@ namespace UniCloud.Application.FleetPlanBC.Query.SupplierQueries
         /// <returns>所有权人（供应商）DTO集合</returns>
         IQueryable<SupplierDTO> SupplierDTOQuery(
             QueryBuilder<Supplier> query);
+
+
+        /// <summary>
+        /// 获取所有的飞机供应商（飞机采购和租赁供应商）
+        /// </summary>
+        /// <returns></returns>
+        List<SupplierDTO> GetAircraftSuppliers();
+
+        /// <summary>
+        /// 获取所有的发动机供应商（发动机采购和租赁供应商）
+        /// </summary>
+        /// <returns></returns>
+        List<SupplierDTO> GetEngineSuppliers();
     }
 }

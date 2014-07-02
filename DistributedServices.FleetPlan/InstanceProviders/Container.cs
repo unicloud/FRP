@@ -105,6 +105,8 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.XmlConfigAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
@@ -307,6 +309,8 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .Register<ISupplierQuery, SupplierQuery>()
                 .Register<ISupplierAppService, SupplierAppService>()
                 .Register<ISupplierRepository, SupplierRepository>()
+                .Register<ISupplierCompanyRepository,SupplierCompanyRepository>()
+                .Register<ISupplierRoleRepository,SupplierRoleRepository>()
                 #endregion
 
                 #region 分析数据相关的xml相关配置，包括查询，应用服务，仓储注册

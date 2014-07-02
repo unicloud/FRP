@@ -18,8 +18,11 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
 using System.Linq;
+using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
@@ -152,17 +155,52 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
 
         #region 获取供应商
 
-        /// <summary>
-        ///     供应商
-        /// </summary>
-        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+        private List<SupplierDTO> _suppliers;
 
         /// <summary>
-        ///     加载供应商
+        /// 供应商集合
         /// </summary>
-        private void LoadSupplier()
+        public List<SupplierDTO> Suppliers 
         {
-            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers), true);
+            get { return this._suppliers; }
+            private set
+            {
+                if (this._suppliers != value)
+                {
+                    this._suppliers = value;
+                    this.RaisePropertyChanged(() => this.Suppliers);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 加载飞机供应商
+        /// </summary>
+        private void LoadSuppliers()
+        {
+            Uri path = new Uri(string.Format("GetAircraftSuppliers"),
+                UriKind.Relative);
+            //查询
+            _context.BeginExecute<SupplierDTO>(path,
+                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    var context = result.AsyncState as FleetPlanData;
+                    try
+                    {
+                        if (context != null)
+                        {
+                            Suppliers = context.EndExecute<SupplierDTO>(result).ToList();
+                            this.RaisePropertyChanged(() => this.Suppliers);
+                            RefreshCommandState();
+                        }
+                    }
+                    catch (DataServiceQueryException ex)
+                    {
+                        QueryOperationResponse response = ex.Response;
+
+                        Console.WriteLine(response.Error.Message);
+                    }
+                }), _context);
         }
 
         #endregion
@@ -495,7 +533,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
 
         public override void LoadData()
         {
-            LoadSupplier();
+            LoadSuppliers();
             LoadAircraftConfiguration();
 
             if (!AircraftsView.AutoLoad)

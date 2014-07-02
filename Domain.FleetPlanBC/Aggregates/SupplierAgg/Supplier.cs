@@ -18,6 +18,7 @@
 
 using System;
 using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierCompanyAgg;
 
 #endregion
 
@@ -104,9 +105,19 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg
 
         #region 外键属性
 
+        /// <summary>
+        ///     供应商公司ID
+        /// </summary>
+        public int SupplierCompanyId { get; set; }
+
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        ///     供应商公司
+        /// </summary>
+        public virtual SupplierCompany SupplierCompany { get; protected set; }
 
         #endregion
 
