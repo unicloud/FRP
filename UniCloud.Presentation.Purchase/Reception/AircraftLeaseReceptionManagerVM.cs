@@ -316,7 +316,7 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         protected override void OnNew(object obj)
         {
-            SelAircraftLeaseReception = new AircraftLeaseReceptionDTO
+            var acLr = new AircraftLeaseReceptionDTO
             {
                 AircraftLeaseReceptionId = RandomHelper.Next(),
                 SourceId = Guid.NewGuid(),
@@ -326,9 +326,10 @@ namespace UniCloud.Presentation.Purchase.Reception
             var supplier = Suppliers.FirstOrDefault();
             if (supplier != null)
             {
-                SelAircraftLeaseReception.SupplierId = supplier.SupplierId;
-                SelAircraftLeaseReception.SupplierName = supplier.Name;
+                acLr.SupplierId = supplier.SupplierId;
+                acLr.SupplierName = supplier.Name;
             }
+            SelAircraftLeaseReception = acLr;
             AircraftLeaseReceptions.AddNew(SelAircraftLeaseReception);
         }
 
@@ -383,6 +384,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             var contractAircraft = ViewLeaseContractAircrafts.FirstOrDefault();
             if (contractAircraft != null)
             {
+                SelAircraftLeaseReceptionLine.ContractAircraftId = contractAircraft.LeaseContractAircraftId;
                 SelAircraftLeaseReceptionLine.ContractName = contractAircraft.ContractName;
                 SelAircraftLeaseReceptionLine.ContractNumber = contractAircraft.ContractNumber;
                 SelAircraftLeaseReceptionLine.RankNumber = contractAircraft.RankNumber;

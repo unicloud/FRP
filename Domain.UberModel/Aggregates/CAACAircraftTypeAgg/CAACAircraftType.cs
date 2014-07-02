@@ -60,10 +60,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.CAACAircraftTypeAgg
         #endregion
 
         #region 外键属性
-        /// <summary>
-        ///     系列
-        /// </summary>
-        public Guid AircraftSeriesId { get; set; }
 
         /// <summary>
         ///     飞机类别
@@ -82,10 +78,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.CAACAircraftTypeAgg
         /// 制造商
         /// </summary>
         public virtual Manufacturer Manufacturer { get; set; }
-        /// <summary>
-        /// 系列
-        /// </summary>
-        public virtual AircraftSeries AircraftSeries { get; set; }
 
         /// <summary>
         /// 飞机类别

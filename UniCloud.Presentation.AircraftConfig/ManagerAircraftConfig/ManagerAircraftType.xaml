@@ -180,8 +180,6 @@
                                          Grid.Row="3"
                                          Grid.Column="2"
                                          Margin="0,3"
-                                         IsReadOnly="True"
-                                         IsEnabled="False"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"

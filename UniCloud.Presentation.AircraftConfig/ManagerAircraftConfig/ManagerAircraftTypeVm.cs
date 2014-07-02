@@ -174,7 +174,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 _caacAircraftType = value;
                 if (_caacAircraftType != null)
                 {
-                    AircraftType.AircraftSeriesId = _caacAircraftType.AircraftSeriesId;
                     AircraftType.AircraftCategoryId = _caacAircraftType.AircraftCategoryId;
                     AircraftType.ManufacturerId = _caacAircraftType.ManufacturerId;
                 }

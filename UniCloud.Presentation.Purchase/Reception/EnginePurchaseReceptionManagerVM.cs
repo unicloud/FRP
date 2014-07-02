@@ -333,7 +333,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         protected override void OnNew(object obj)
         {
-            SelEnginePurchaseReception = new EnginePurchaseReceptionDTO
+            var enginePr = new EnginePurchaseReceptionDTO
             {
                 EnginePurchaseReceptionId = RandomHelper.Next(),
                 SourceId = Guid.NewGuid(),
@@ -343,9 +343,10 @@ namespace UniCloud.Presentation.Purchase.Reception
             var supplier = Suppliers.FirstOrDefault();
             if (supplier != null)
             {
-                SelEnginePurchaseReception.SupplierId = supplier.SupplierId;
-                SelEnginePurchaseReception.SupplierName = supplier.Name;
+                enginePr.SupplierId = supplier.SupplierId;
+                enginePr.SupplierName = supplier.Name;
             }
+            SelEnginePurchaseReception = enginePr;
             EnginePurchaseReceptions.AddNew(SelEnginePurchaseReception);
         }
 
@@ -407,6 +408,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             var contractEngine = ViewPurchaseContractEngines.FirstOrDefault();
             if (contractEngine != null)
             {
+                SelEnginePurchaseReceptionLine.ContractEngineId = contractEngine.PurchaseContractEngineId;
                 SelEnginePurchaseReceptionLine.ContractName = contractEngine.ContractName;
                 SelEnginePurchaseReceptionLine.ContractNumber = contractEngine.ContractNumber;
                 SelEnginePurchaseReceptionLine.RankNumber = contractEngine.RankNumber;
