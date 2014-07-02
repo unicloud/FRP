@@ -48,7 +48,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
         {
             #region 角色
 
-            var admin = RoleFactory.CreateRole("系统管理员", true);
+            var admin = RoleFactory.CreateRole("系统管理员");
             Context.Roles.Add(admin);
 
             #endregion

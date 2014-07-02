@@ -131,6 +131,11 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         public bool IsLockedOut { get; internal set; }
 
         /// <summary>
+        ///     是否系统用户
+        /// </summary>
+        public bool IsSystemUser { get; internal set; }
+
+        /// <summary>
         ///     密码重试次数
         /// </summary>
         public int FailedPasswordAttemptCount { get; set; }
