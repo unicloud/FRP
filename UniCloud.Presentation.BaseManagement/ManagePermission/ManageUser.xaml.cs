@@ -6,8 +6,7 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.BaseManagement.ManagePermission
 {
-    [Export(typeof (ManageUser))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class ManageUser
     {
         public ManageUser()

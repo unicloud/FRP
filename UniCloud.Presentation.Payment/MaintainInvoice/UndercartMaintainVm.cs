@@ -19,7 +19,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -33,23 +32,20 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
-    [Export(typeof(UndercartMaintainVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (UndercartMaintainVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class UndercartMaintainVm : InvoiceVm
     {
         #region 声明、初始化
 
         private readonly PaymentData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
-        [Import]
-        public DocumentViewer DocumentView;
+        [Import] public DocumentViewer documentView;
 
         [ImportingConstructor]
-        public UndercartMaintainVm(IRegionManager regionManager, IPaymentService service)
+        public UndercartMaintainVm(IPaymentService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
 
@@ -65,13 +61,14 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            UndercartMaintainInvoices = _service.CreateCollection(_context.UndercartMaintainInvoices, o => o.MaintainInvoiceLines);
+            UndercartMaintainInvoices = _service.CreateCollection(_context.UndercartMaintainInvoices,
+                o => o.MaintainInvoiceLines);
             UndercartMaintainInvoices.PageSize = 6;
             UndercartMaintainInvoices.LoadedData += (o, e) =>
-                                                    {
-                                                        if (UndercartMaintainInvoice == null)
-                                                            UndercartMaintainInvoice = UndercartMaintainInvoices.FirstOrDefault();
-                                                    };
+            {
+                if (UndercartMaintainInvoice == null)
+                    UndercartMaintainInvoice = UndercartMaintainInvoices.FirstOrDefault();
+            };
             var supplierFilter = new FilterDescriptor("MaintainSupplier", FilterOperator.IsEqualTo, true);
             Suppliers.FilterDescriptors.Add(supplierFilter);
             _service.RegisterCollectionView(UndercartMaintainInvoices);
@@ -131,13 +128,13 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 {
                     UndercartMaintainInvoiceLine = value.MaintainInvoiceLines.FirstOrDefault();
                     var relate = PaymentSchedules.FirstOrDefault(p =>
-                        {
-                            var paymentScheduleLine =
-                                p.PaymentScheduleLines.FirstOrDefault(
-                                    l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
-                            return paymentScheduleLine != null &&
-                                   paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
-                        });
+                    {
+                        var paymentScheduleLine =
+                            p.PaymentScheduleLines.FirstOrDefault(
+                                l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
+                        return paymentScheduleLine != null &&
+                               paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
+                    });
                     if (relate != null)
                         RelatedPaymentSchedule.Add(relate);
                     SelPaymentSchedule = RelatedPaymentSchedule.FirstOrDefault();
@@ -179,35 +176,35 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         protected override void OnAddInvoice(object obj)
         {
             MessageConfirm("是否根据付款计划创建?", (s, arg) =>
-                                          {
-                                              if (arg.DialogResult != true)
-                                              {
-                                                  UndercartMaintainInvoice = new UndercartMaintainInvoiceDTO
-                                                                       {
-                                                                           UndercartMaintainInvoiceId =
-                                                                               RandomHelper.Next(),
-                                                                           CreateDate = DateTime.Now,
-                                                                           InvoiceDate = DateTime.Now,
-                                                                           InMaintainTime = DateTime.Now,
-                                                                           OutMaintainTime = DateTime.Now,
-                                                                       };
-                                                  var currency = Currencies.FirstOrDefault();
-                                                  if (currency != null)
-                                                      UndercartMaintainInvoice.CurrencyId = currency.Id;
-                                                  var supplier = Suppliers.FirstOrDefault();
-                                                  if (supplier != null)
-                                                  {
-                                                      UndercartMaintainInvoice.SupplierId = supplier.SupplierId;
-                                                      UndercartMaintainInvoice.SupplierName = supplier.Name;
-                                                  }
-                                                  UndercartMaintainInvoices.AddNew(UndercartMaintainInvoice);
-                                                  return;
-                                              }
-                                              PrepayPayscheduleChildView.ViewModel.InitData(
-                                                  typeof(UndercartMaintainInvoiceDTO),
-                                                  PrepayPayscheduleChildViewClosed);
-                                              PrepayPayscheduleChildView.ShowDialog();
-                                          });
+            {
+                if (arg.DialogResult != true)
+                {
+                    UndercartMaintainInvoice = new UndercartMaintainInvoiceDTO
+                    {
+                        UndercartMaintainInvoiceId =
+                            RandomHelper.Next(),
+                        CreateDate = DateTime.Now,
+                        InvoiceDate = DateTime.Now,
+                        InMaintainTime = DateTime.Now,
+                        OutMaintainTime = DateTime.Now,
+                    };
+                    var currency = Currencies.FirstOrDefault();
+                    if (currency != null)
+                        UndercartMaintainInvoice.CurrencyId = currency.Id;
+                    var supplier = Suppliers.FirstOrDefault();
+                    if (supplier != null)
+                    {
+                        UndercartMaintainInvoice.SupplierId = supplier.SupplierId;
+                        UndercartMaintainInvoice.SupplierName = supplier.Name;
+                    }
+                    UndercartMaintainInvoices.AddNew(UndercartMaintainInvoice);
+                    return;
+                }
+                PrepayPayscheduleChildView.ViewModel.InitData(
+                    typeof (UndercartMaintainInvoiceDTO),
+                    PrepayPayscheduleChildViewClosed);
+                PrepayPayscheduleChildView.ShowDialog();
+            });
         }
 
         protected override bool CanAddInvoice(object obj)
@@ -223,6 +220,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 UndercartMaintainInvoices.AddNew(UndercartMaintainInvoice);
             }
         }
+
         #endregion
 
         #region 删除维修发票
@@ -306,7 +304,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            UndercartMaintainInvoice.Status = (int)InvoiceStatus.待审核;
+            UndercartMaintainInvoice.Status = (int) InvoiceStatus.待审核;
         }
 
         protected override bool CanSubmitInvoice(object obj)
@@ -325,7 +323,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            UndercartMaintainInvoice.Status = (int)InvoiceStatus.已审核;
+            UndercartMaintainInvoice.Status = (int) InvoiceStatus.已审核;
             UndercartMaintainInvoice.Reviewer = "admin";
             UndercartMaintainInvoice.ReviewDate = DateTime.Now;
             UndercartMaintainInvoice.IsValid = true;
@@ -365,10 +363,13 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         /// <param name="sender"></param>
         protected override void OnCellEditEnd(object sender)
         {
-            UndercartMaintainInvoice.InvoiceValue = UndercartMaintainInvoice.MaintainInvoiceLines.Sum(invoiceLine => invoiceLine.Amount * invoiceLine.UnitPrice);
+            UndercartMaintainInvoice.InvoiceValue =
+                UndercartMaintainInvoice.MaintainInvoiceLines.Sum(
+                    invoiceLine => invoiceLine.Amount*invoiceLine.UnitPrice);
         }
 
         #endregion
+
         #endregion
     }
 }

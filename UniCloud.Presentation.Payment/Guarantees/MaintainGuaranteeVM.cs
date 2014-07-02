@@ -33,8 +33,8 @@ using UniCloud.Presentation.SessionExtension;
 
 namespace UniCloud.Presentation.Payment.Guarantees
 {
-    [Export(typeof(MaintainGuaranteeVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (MaintainGuaranteeVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MaintainGuaranteeVM : EditViewModelBase
     {
         private readonly PaymentData _context;
@@ -250,12 +250,12 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                MaintainGuaranteesView.Remove(SelectedMaintainGuarantee);
-                                                SelectedMaintainGuarantee = MaintainGuaranteesView.FirstOrDefault();
-                                                RefreshCommandState();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                MaintainGuaranteesView.Remove(SelectedMaintainGuarantee);
+                SelectedMaintainGuarantee = MaintainGuaranteesView.FirstOrDefault();
+                RefreshCommandState();
+            });
         }
 
         /// <summary>
@@ -289,7 +289,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 MessageAlert("提示", "请选择需要提交审核的记录");
                 return;
             }
-            SelectedMaintainGuarantee.Status = (int)GuaranteeStatus.待审核;
+            SelectedMaintainGuarantee.Status = (int) GuaranteeStatus.待审核;
             RefreshCommandState();
         }
 
@@ -304,7 +304,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
             {
                 return false;
             }
-            return SelectedMaintainGuarantee != null && SelectedMaintainGuarantee.Status < (int)GuaranteeStatus.待审核;
+            return SelectedMaintainGuarantee != null && SelectedMaintainGuarantee.Status < (int) GuaranteeStatus.待审核;
         }
 
         #endregion
@@ -324,7 +324,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 MessageAlert("提示", "请选择需要审核的记录");
                 return;
             }
-            SelectedMaintainGuarantee.Status = (int)GuaranteeStatus.已审核;
+            SelectedMaintainGuarantee.Status = (int) GuaranteeStatus.已审核;
             SelectedMaintainGuarantee.Reviewer = SessionUser.UserName;
             RefreshCommandState();
         }
@@ -340,8 +340,8 @@ namespace UniCloud.Presentation.Payment.Guarantees
             {
                 return false;
             }
-            return SelectedMaintainGuarantee != null && SelectedMaintainGuarantee.Status < (int)GuaranteeStatus.已审核
-                   && SelectedMaintainGuarantee.Status > (int)GuaranteeStatus.草稿;
+            return SelectedMaintainGuarantee != null && SelectedMaintainGuarantee.Status < (int) GuaranteeStatus.已审核
+                   && SelectedMaintainGuarantee.Status > (int) GuaranteeStatus.草稿;
         }
 
         #endregion

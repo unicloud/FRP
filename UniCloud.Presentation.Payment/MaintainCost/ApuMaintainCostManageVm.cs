@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/5/16 15:43:45
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -31,13 +33,13 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
-    [Export(typeof(ApuMaintainCostManageVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ApuMaintainCostManageVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ApuMaintainCostManageVm : EditViewModelBase
     {
-        private readonly IPaymentService _service;
         private readonly PaymentData _context;
         private readonly IFleetPlanService _fleetPlanService;
+        private readonly IPaymentService _service;
         private FilterDescriptor _annualFilter;
 
         /// <summary>
@@ -51,11 +53,13 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             _service = service;
             _context = _service.Context;
             InitialVm(); //初始化Apu维修成本
-
         }
+
         #region 年度
-        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
         private AnnualDTO _annual;
+        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
         public AnnualDTO Annual
         {
             get { return _annual; }
@@ -70,20 +74,33 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 RaisePropertyChanged(() => Annual);
             }
         }
+
         #endregion
 
         #region 发票
+
         public QueryableDataServiceCollectionView<APUMaintainInvoiceDTO> ApuMaintainInvoices { get; set; }
+
         #endregion
 
         public Dictionary<int, MaintainCostType> MaintainCostTypes
         {
-            get { return Enum.GetValues(typeof(MaintainCostType)).Cast<object>().ToDictionary(value => (int)value, value => (MaintainCostType)value); }
+            get
+            {
+                return Enum.GetValues(typeof (MaintainCostType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (MaintainCostType) value);
+            }
         }
 
         public Dictionary<int, ContractRepairtType> ContractRepairtTypes
         {
-            get { return Enum.GetValues(typeof(ContractRepairtType)).Cast<object>().ToDictionary(value => (int)value, value => (ContractRepairtType)value); }
+            get
+            {
+                return Enum.GetValues(typeof (ContractRepairtType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (ContractRepairtType) value);
+            }
         }
 
         #region 加载Apu维修成本
@@ -117,7 +134,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         private void InitialVm()
         {
             CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
-            ApuMaintainInvoices = new QueryableDataServiceCollectionView<APUMaintainInvoiceDTO>(_context, _context.APUMaintainInvoices);
+            ApuMaintainInvoices = new QueryableDataServiceCollectionView<APUMaintainInvoiceDTO>(_context,
+                _context.APUMaintainInvoices);
             ApuMaintainCosts = _service.CreateCollection(_context.ApuMaintainCosts);
             ApuMaintainCosts.PageSize = 20;
             _annualFilter = new FilterDescriptor("Year", FilterOperator.IsEqualTo, 0);
@@ -130,7 +148,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             };
             _service.RegisterCollectionView(ApuMaintainCosts);
 
-            Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
+            Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context,
+                _fleetPlanService.Context.Annuals);
             Annuals.LoadedData += (o, e) =>
             {
                 if (Annual == null)
@@ -158,17 +177,19 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         #endregion
 
         #region 单元格编辑事件
+
         public DelegateCommand<object> CellEditEndCommand { get; set; }
 
         private void CellEditEnd(object sender)
         {
-            ApuMaintainCost.Hour = ApuMaintainCost.BudgetHour * ApuMaintainCost.HourPercent;
-            ApuMaintainCost.ContractRepairFeeUsd = ApuMaintainCost.Hour * ApuMaintainCost.YearBudgetRate;
-            ApuMaintainCost.ContractRepairFeeRmb = ApuMaintainCost.ContractRepairFeeUsd * ApuMaintainCost.Rate;
-            ApuMaintainCost.TotalTax = ApuMaintainCost.ContractRepairFeeRmb * (1 + ApuMaintainCost.CustomRate);
-            ApuMaintainCost.AddedValue = ApuMaintainCost.AddedValueRate * ApuMaintainCost.TotalTax;
+            ApuMaintainCost.Hour = ApuMaintainCost.BudgetHour*ApuMaintainCost.HourPercent;
+            ApuMaintainCost.ContractRepairFeeUsd = ApuMaintainCost.Hour*ApuMaintainCost.YearBudgetRate;
+            ApuMaintainCost.ContractRepairFeeRmb = ApuMaintainCost.ContractRepairFeeUsd*ApuMaintainCost.Rate;
+            ApuMaintainCost.TotalTax = ApuMaintainCost.ContractRepairFeeRmb*(1 + ApuMaintainCost.CustomRate);
+            ApuMaintainCost.AddedValue = ApuMaintainCost.AddedValueRate*ApuMaintainCost.TotalTax;
             ApuMaintainCost.IncludeAddedValue = ApuMaintainCost.AddedValue + ApuMaintainCost.ContractRepairFeeRmb;
         }
+
         #endregion
     }
 }

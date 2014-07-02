@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Part.ManageSCN
 {
-    [Export(typeof(CompareScn))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class CompareScn 
+    [Export]
+    public partial class CompareScn
     {
         public CompareScn()
         {
             InitializeComponent();
         }
+
         [Import]
         public CompareScnVm ViewModel
         {

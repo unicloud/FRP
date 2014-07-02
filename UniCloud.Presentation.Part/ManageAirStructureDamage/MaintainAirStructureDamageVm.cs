@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/2/28 14:44:24
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -19,7 +21,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -32,22 +33,20 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.ManageAirStructureDamage
 {
-    [Export(typeof(MaintainAirStructureDamageVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (MaintainAirStructureDamageVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MaintainAirStructureDamageVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
-        private readonly IPartService _service;
         private readonly DocumentDTO _document = new DocumentDTO();
+        private readonly IPartService _service;
 
         [ImportingConstructor]
-        public MaintainAirStructureDamageVm(IRegionManager regionManager, IPartService service)
+        public MaintainAirStructureDamageVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -86,7 +85,7 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
                 }
             };
             Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_context, _context.Aircrafts);
-            var sort = new SortDescriptor { Member = "RegNumber", SortDirection = ListSortDirection.Ascending };
+            var sort = new SortDescriptor {Member = "RegNumber", SortDirection = ListSortDirection.Ascending};
             Aircrafts.SortDescriptors.Add(sort);
         }
 
@@ -97,7 +96,9 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
         #region 公共属性
 
         #region 文档名称
+
         private string _documentName;
+
         public string DocumentName
         {
             get { return _documentName; }
@@ -107,28 +108,52 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
                 RaisePropertyChanged("DocumentName");
             }
         }
+
         #endregion
 
         #region 报告种类
+
         public Dictionary<int, AirStructureReportType> AirStructureReportTypes
         {
-            get { return Enum.GetValues(typeof(AirStructureReportType)).Cast<object>().ToDictionary(value => (int)value, value => (AirStructureReportType)value); }
+            get
+            {
+                return Enum.GetValues(typeof (AirStructureReportType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (AirStructureReportType) value);
+            }
         }
+
         #endregion
 
         #region 腐蚀级别
+
         public Dictionary<int, AircraftDamageLevel> AircraftDamageLevels
         {
-            get { return Enum.GetValues(typeof(AircraftDamageLevel)).Cast<object>().ToDictionary(value => (int)value, value => (AircraftDamageLevel)value); }
+            get
+            {
+                return Enum.GetValues(typeof (AircraftDamageLevel))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (AircraftDamageLevel) value);
+            }
         }
+
         #endregion
 
         #region 状态
+
         public Dictionary<int, AirStructureDamageStatus> AirStructureDamageStatuses
         {
-            get { return Enum.GetValues(typeof(AirStructureDamageStatus)).Cast<object>().ToDictionary(value => (int)value, value => (AirStructureDamageStatus)value); }
+            get
+            {
+                return
+                    Enum.GetValues(typeof (AirStructureDamageStatus))
+                        .Cast<object>()
+                        .ToDictionary(value => (int) value, value => (AirStructureDamageStatus) value);
+            }
         }
+
         #endregion
+
         #endregion
 
         #region 加载数据
@@ -150,15 +175,20 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
         }
 
         #region 结构损伤
-        /// <summary>
-        ///     结构损伤集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<AirStructureDamageDTO> AirStructureDamages { get; set; }
 
         /// <summary>
         ///     选中的结构损伤
         /// </summary>
         private AirStructureDamageDTO _airStructureDamage;
+
+        //用户能否选择
+        private bool _canSelectAirStructureDamage = true;
+
+        /// <summary>
+        ///     结构损伤集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AirStructureDamageDTO> AirStructureDamages { get; set; }
+
         public AirStructureDamageDTO AirStructureDamage
         {
             get { return _airStructureDamage; }
@@ -182,8 +212,6 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
             }
         }
 
-        //用户能否选择
-        private bool _canSelectAirStructureDamage = true;
         public bool CanSelectAirStructureDamage
         {
             get { return _canSelectAirStructureDamage; }
@@ -200,8 +228,10 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
         #endregion
 
         #region 飞机
-        public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; }
+
         private AircraftDTO _aircraft;
+        public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; }
+
         /// <summary>
         ///     选中的飞机
         /// </summary>

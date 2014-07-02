@@ -28,7 +28,7 @@ using UniCloud.Presentation.Service.Project.Project;
 namespace UniCloud.Presentation.Project.Template
 {
     [Export(typeof (WorkGroupVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class WorkGroupVM : EditViewModelBase
     {
         #region 声明、初始化
@@ -97,7 +97,7 @@ namespace UniCloud.Presentation.Project.Template
         public WorkGroupDTO SelWorkGroupDTO
         {
             get { return _selWorkGroupDTO; }
-            private set
+            set
             {
                 if (_selWorkGroupDTO != value)
                 {
@@ -135,7 +135,7 @@ namespace UniCloud.Presentation.Project.Template
         public UserDTO SelUserDTO
         {
             get { return _selUserDTO; }
-            private set
+            set
             {
                 if (_selUserDTO != value)
                 {

@@ -35,7 +35,7 @@ using UniCloud.Presentation.Service.Part.Part;
 namespace UniCloud.Presentation.Part.EngineConfig
 {
     [Export(typeof (InSeatAssemblyQueryVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class InSeatAssemblyQueryVm : ViewModelBase
     {
         #region 声明、初始化
@@ -114,7 +114,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public ContractAircraftDTO SelContractAircraft
         {
             get { return _selContractAircraft; }
-            private set
+            set
             {
                 if (_selContractAircraft != value)
                 {
@@ -137,7 +137,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public DateTime QueryDate
         {
             get { return _queryDate; }
-            private set
+            set
             {
                 if (_queryDate != value)
                 {
@@ -151,8 +151,8 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         #region 功能构型集合
 
-        private List<AcConfigDTO> _curLeftAcConfigs = new List<AcConfigDTO>();
-        private List<AcConfigDTO> _curRightAcConfigs = new List<AcConfigDTO>();
+        private readonly List<AcConfigDTO> _curLeftAcConfigs = new List<AcConfigDTO>();
+        private readonly List<AcConfigDTO> _curRightAcConfigs = new List<AcConfigDTO>();
         private List<AcConfigDTO> _leftViewAcConfigs = new List<AcConfigDTO>();
 
         private List<AcConfigDTO> _rightViewAcConfigs = new List<AcConfigDTO>();
@@ -163,7 +163,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public List<AcConfigDTO> LeftViewAcConfigs
         {
             get { return _leftViewAcConfigs; }
-            private set
+            set
             {
                 if (_leftViewAcConfigs != value)
                 {
@@ -179,7 +179,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public List<AcConfigDTO> RightViewAcConfigs
         {
             get { return _rightViewAcConfigs; }
-            private set
+            set
             {
                 if (_rightViewAcConfigs != value)
                 {
@@ -242,7 +242,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
@@ -254,10 +254,10 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public void GenerateLeftAcConfigStructure(AcConfigDTO acConfig)
         {
             acConfig.SubAcConfigs.Clear();
-            IOrderedEnumerable<AcConfigDTO> temp =
+            var temp =
                 _curLeftAcConfigs.Where(p => p.ParentId == acConfig.Id).ToList().OrderBy(p => p.Position);
             acConfig.SubAcConfigs.AddRange(temp);
-            foreach (AcConfigDTO subItem in acConfig.SubAcConfigs)
+            foreach (var subItem in acConfig.SubAcConfigs)
             {
                 GenerateLeftAcConfigStructure(subItem);
             }
@@ -266,10 +266,10 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public void GenerateRightAcConfigStructure(AcConfigDTO acConfig)
         {
             acConfig.SubAcConfigs.Clear();
-            IOrderedEnumerable<AcConfigDTO> temp =
+            var temp =
                 _curRightAcConfigs.Where(p => p.ParentId == acConfig.Id).ToList().OrderBy(p => p.Position);
             acConfig.SubAcConfigs.AddRange(temp);
-            foreach (AcConfigDTO subItem in acConfig.SubAcConfigs)
+            foreach (var subItem in acConfig.SubAcConfigs)
             {
                 GenerateRightAcConfigStructure(subItem);
             }

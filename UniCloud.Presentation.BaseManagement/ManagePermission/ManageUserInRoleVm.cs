@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/2/11 14:52:18
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -19,7 +21,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -30,21 +31,19 @@ using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 
 namespace UniCloud.Presentation.BaseManagement.ManagePermission
 {
-    [Export(typeof(ManageUserInRoleVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ManageUserInRoleVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageUserInRoleVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly BaseManagementData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IBaseManagementService _service;
 
         [ImportingConstructor]
-        public ManageUserInRoleVm(IRegionManager regionManager, IBaseManagementService service)
+        public ManageUserInRoleVm(IBaseManagementService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -100,9 +99,10 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         }
 
         #region 用户
-        public QueryableDataServiceCollectionView<UserDTO> Users { get; set; }
 
         private UserDTO _user;
+        public QueryableDataServiceCollectionView<UserDTO> Users { get; set; }
+
         public UserDTO User
         {
             get { return _user; }
@@ -112,16 +112,25 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 if (_user != null)
                 {
                     var tempUserRoles = new ObservableCollection<RoleDTO>();
-                    _user.UserRoles.ToList().ForEach(p => tempUserRoles.Add(Roles.FirstOrDefault(t => t.Id == p.RoleId)));
+                    _user.UserRoles.ToList()
+                        .ForEach(p => tempUserRoles.Add(Roles.FirstOrDefault(t => t.Id == p.RoleId)));
                     UserRoles = tempUserRoles;
                 }
                 RaisePropertyChanged(() => User);
             }
         }
+
         #endregion
 
         #region 用户功能
+
+        /// <summary>
+        ///     选中的角色
+        /// </summary>
+        private RoleDTO _userRole;
+
         private ObservableCollection<RoleDTO> _userRoles;
+
         public ObservableCollection<RoleDTO> UserRoles
         {
             get { return _userRoles; }
@@ -132,10 +141,6 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             }
         }
 
-        /// <summary>
-        /// 选中的角色
-        /// </summary>
-        private RoleDTO _userRole;
         public RoleDTO UserRole
         {
             get { return _userRole; }
@@ -151,12 +156,16 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 RaisePropertyChanged(() => UserRole);
             }
         }
+
         #endregion
 
         #region 功能菜单
+
+        private ObservableCollection<FunctionItemDTO> _functionItemStructures =
+            new ObservableCollection<FunctionItemDTO>();
+
         public QueryableDataServiceCollectionView<FunctionItemDTO> FunctionItems { get; set; }
 
-        private ObservableCollection<FunctionItemDTO> _functionItemStructures = new ObservableCollection<FunctionItemDTO>();
         public ObservableCollection<FunctionItemDTO> FunctionItemStructures
         {
             get { return _functionItemStructures; }
@@ -166,12 +175,15 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 RaisePropertyChanged(() => FunctionItemStructures);
             }
         }
+
         #endregion
 
         #region 应用集合
+
         private List<FunctionItemDTO> _applications;
 
         private List<FunctionItemDTO> _displayFunctionItems;
+
         public List<FunctionItemDTO> DisplayFunctionItems
         {
             get { return _displayFunctionItems; }
@@ -181,15 +193,18 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 RaisePropertyChanged(() => DisplayFunctionItems);
             }
         }
+
         #endregion
 
         #region 角色
-        public QueryableDataServiceCollectionView<RoleDTO> Roles { get; set; }
 
         /// <summary>
-        /// 选中的角色
+        ///     选中的角色
         /// </summary>
         private RoleDTO _role;
+
+        public QueryableDataServiceCollectionView<RoleDTO> Roles { get; set; }
+
         public RoleDTO Role
         {
             get { return _role; }
@@ -205,13 +220,17 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 RaisePropertyChanged(() => Role);
             }
         }
+
         #endregion
+
         #endregion
 
         #endregion
 
         #region 操作
+
         #region 重组成有层次结构的菜单
+
         private void GenerateFunctionItemStructure(FunctionItemDTO functionItem)
         {
             var temp = FunctionItems.Where(p => p.ParentItemId == functionItem.Id).ToList().OrderBy(p => p.Sort);
@@ -221,6 +240,68 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 GenerateFunctionItemStructure(subItem);
             }
         }
+
+        #endregion
+
+        #region 添加用户角色
+
+        public void AddUserRole()
+        {
+            if (User != null && Role != null)
+            {
+                if (User.UserRoles.All(p => p.RoleId != Role.Id))
+                {
+                    var userRole = new UserRoleDTO
+                    {
+                        Id = RandomHelper.Next(),
+                        UserId = User.Id,
+                        RoleId = Role.Id
+                    };
+                    User.UserRoles.Add(userRole);
+                    UserRole = new RoleDTO
+                    {
+                        Name = Role.Name,
+                        RoleFunctions = Role.RoleFunctions
+                    };
+                    var tempUserRoles = UserRoles ?? new ObservableCollection<RoleDTO>();
+                    tempUserRoles.Add(UserRole);
+                    UserRoles = tempUserRoles;
+                }
+                else
+                {
+                    MessageAlert("当前用户已有该角色！");
+                }
+            }
+        }
+
+        #endregion
+
+        #region 删除角色
+
+        public DelegateCommand<object> RemoveRoleCommand { get; set; }
+
+        protected void OnRemoveRole(object obj)
+        {
+            if (UserRole == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+            {
+                if (arg.DialogResult != true) return;
+                var userRole = User.UserRoles.FirstOrDefault(p => p.RoleId == UserRole.Id);
+                User.UserRoles.Remove(userRole);
+                UserRoles.Remove(UserRole);
+                UserRole = UserRoles.FirstOrDefault();
+            });
+        }
+
+        protected bool CanRemoveRole(object obj)
+        {
+            return true;
+        }
+
         #endregion
 
         //#region 筛选角色功能
@@ -253,62 +334,6 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         //}
         //#endregion
 
-        #region 添加用户角色
-        public void AddUserRole()
-        {
-            if (User != null && Role != null)
-            {
-                if (User.UserRoles.All(p => p.RoleId != Role.Id))
-                {
-                    var userRole = new UserRoleDTO
-                               {
-                                   Id = RandomHelper.Next(),
-                                   UserId = User.Id,
-                                   RoleId = Role.Id
-                               };
-                    User.UserRoles.Add(userRole);
-                    UserRole = new RoleDTO
-                               {
-                                   Name = Role.Name,
-                                   RoleFunctions = Role.RoleFunctions
-                               };
-                    var tempUserRoles = UserRoles ?? new ObservableCollection<RoleDTO>();
-                    tempUserRoles.Add(UserRole);
-                    UserRoles = tempUserRoles;
-                }
-                else
-                {
-                    MessageAlert("当前用户已有该角色！");
-                }
-            }
-        }
-        #endregion
-
-        #region 删除角色
-        public DelegateCommand<object> RemoveRoleCommand { get; set; }
-
-        protected void OnRemoveRole(object obj)
-        {
-            if (UserRole == null)
-            {
-                MessageAlert("请选择一条记录！");
-                return;
-            }
-            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-            {
-                if (arg.DialogResult != true) return;
-                var userRole = User.UserRoles.FirstOrDefault(p => p.RoleId == UserRole.Id);
-                User.UserRoles.Remove(userRole);
-                UserRoles.Remove(UserRole);
-                UserRole = UserRoles.FirstOrDefault();
-            });
-        }
-
-        protected bool CanRemoveRole(object obj)
-        {
-            return true;
-        }
-        #endregion
         #endregion
     }
 }

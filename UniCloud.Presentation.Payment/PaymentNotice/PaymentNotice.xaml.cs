@@ -25,22 +25,13 @@ using Telerik.Windows.Controls;
 
 namespace UniCloud.Presentation.Payment.PaymentNotice
 {
-    [Export(typeof(PaymentNotice))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class PaymentNotice
     {
         public PaymentNotice()
         {
             InitializeComponent();
             this.AddHandler(Selector.SelectionChangedEvent, new SelectionChangedEventHandler(OnSelectionChanged), true);
-        }
-
-        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems != null && e.AddedItems.Count > 0)
-            {
-                ViewModel.SelectedChanged(e.AddedItems[0]);
-            }
         }
 
         [Import]
@@ -50,6 +41,12 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             set { DataContext = value; }
         }
 
-        
+        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems != null && e.AddedItems.Count > 0)
+            {
+                ViewModel.SelectedChanged(e.AddedItems[0]);
+            }
+        }
     }
 }

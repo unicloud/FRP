@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/5/4 10:37:51
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -20,7 +22,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -33,21 +34,19 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(MaintainPrepayInvoiceManagerVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (MaintainPrepayInvoiceManagerVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MaintainPrepayInvoiceManagerVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PaymentData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public MaintainPrepayInvoiceManagerVm(IRegionManager regionManager, IPaymentService service)
+        public MaintainPrepayInvoiceManagerVm(IPaymentService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -64,15 +63,17 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             PrepaymentInvoices = _service.CreateCollection(_context.MaintainPrepaymentInvoices, o => o.InvoiceLines);
             PrepaymentInvoices.LoadedData += (o, e) =>
-                                             {
-                                                 if (SelPrepaymentInvoice == null)
-                                                     SelPrepaymentInvoice = PrepaymentInvoices.FirstOrDefault();
-                                             };
+            {
+                if (SelPrepaymentInvoice == null)
+                    SelPrepaymentInvoice = PrepaymentInvoices.FirstOrDefault();
+            };
             _service.RegisterCollectionView(PrepaymentInvoices); //注册查询集合。
 
-            MaintainPaymentSchedules = new QueryableDataServiceCollectionView<MaintainPaymentScheduleDTO>(_context, _context.MaintainPaymentSchedules);
+            MaintainPaymentSchedules = new QueryableDataServiceCollectionView<MaintainPaymentScheduleDTO>(_context,
+                _context.MaintainPaymentSchedules);
 
-            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context, _context.PaymentSchedules);
+            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context,
+                _context.PaymentSchedules);
         }
 
         /// <summary>
@@ -96,13 +97,20 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 数据
 
         #region 公共属性
+
         /// <summary>
-        ///   项名称
+        ///     项名称
         /// </summary>
         public Dictionary<int, ItemNameType> ItemNameTypes
         {
-            get { return Enum.GetValues(typeof(ItemNameType)).Cast<object>().ToDictionary(value => (int)value, value => (ItemNameType)value); }
+            get
+            {
+                return Enum.GetValues(typeof (ItemNameType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (ItemNameType) value);
+            }
         }
+
         #region 币种集合
 
         /// <summary>
@@ -264,7 +272,8 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 关联的付款计划及付款计划行
 
-        private ObservableCollection<PaymentScheduleDTO> _relatedPaymentSchedule = new ObservableCollection<PaymentScheduleDTO>();
+        private ObservableCollection<PaymentScheduleDTO> _relatedPaymentSchedule =
+            new ObservableCollection<PaymentScheduleDTO>();
 
         private PaymentScheduleLineDTO _relatedPaymentScheduleLine;
 
@@ -357,17 +366,17 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void OnDelete(object obj)
         {
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                PrepaymentInvoices.Remove(SelPrepaymentInvoice);
-                                                SelPrepaymentInvoice = PrepaymentInvoices.FirstOrDefault();
-                                                if (SelPrepaymentInvoice == null)
-                                                {
-                                                    //删除完，若没有记录了，则也要删除界面明细
-                                                    InvoiceLines.Clear();
-                                                    RelatedPaymentSchedule.Clear();
-                                                }
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                PrepaymentInvoices.Remove(SelPrepaymentInvoice);
+                SelPrepaymentInvoice = PrepaymentInvoices.FirstOrDefault();
+                if (SelPrepaymentInvoice == null)
+                {
+                    //删除完，若没有记录了，则也要删除界面明细
+                    InvoiceLines.Clear();
+                    RelatedPaymentSchedule.Clear();
+                }
+            });
         }
 
         private bool CanDelete(object obj)
@@ -429,12 +438,12 @@ namespace UniCloud.Presentation.Payment.Invoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SelPrepaymentInvoice.InvoiceLines.Remove(SelInvoiceLine);
-                                                InvoiceLines.Remove(SelInvoiceLine);
-                                                SelInvoiceLine = SelPrepaymentInvoice.InvoiceLines.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SelPrepaymentInvoice.InvoiceLines.Remove(SelInvoiceLine);
+                InvoiceLines.Remove(SelInvoiceLine);
+                SelInvoiceLine = SelPrepaymentInvoice.InvoiceLines.FirstOrDefault();
+            });
         }
 
         private bool CanRemove(object obj)
@@ -499,7 +508,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "TotalLine"))
                 {
-                    decimal totalCount = SelPrepaymentInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
+                    var totalCount = SelPrepaymentInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
                     SelPrepaymentInvoice.InvoiceValue = totalCount;
                 }
             }
@@ -511,10 +520,13 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 子窗体相关操作
 
-        [Import]
-        public MaintainPrepayPayscheduleChildView PrepayPayscheduleChildView; //初始化子窗体
+        [Import] public MaintainPrepayPayscheduleChildView PrepayPayscheduleChildView; //初始化子窗体
 
         #region 付款计划集合
+
+        private MaintainPaymentScheduleDTO _selectMaintainPaymentSchedule;
+        private PaymentScheduleLineDTO _selectPaymentScheduleLine;
+
         /// <summary>
         ///     所有付款计划集合
         /// </summary>
@@ -525,7 +537,6 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         public QueryableDataServiceCollectionView<MaintainPaymentScheduleDTO> MaintainPaymentSchedules { get; set; }
 
-        private MaintainPaymentScheduleDTO _selectMaintainPaymentSchedule;
         /// <summary>
         ///     选择的维修付款计划
         /// </summary>
@@ -542,7 +553,6 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
-        private PaymentScheduleLineDTO _selectPaymentScheduleLine;
         public PaymentScheduleLineDTO SelectPaymentScheduleLine
         {
             get { return _selectPaymentScheduleLine; }
@@ -552,6 +562,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 RaisePropertyChanged(() => SelectPaymentScheduleLine);
             }
         }
+
         #endregion
 
         #region 命令

@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.BaseManagement.ManagePermission
 {
-    [Export(typeof(ManageOrganizationInRole))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class ManageOrganizationInRole 
+    [Export]
+    public partial class ManageOrganizationInRole
     {
         public ManageOrganizationInRole()
         {
             InitializeComponent();
         }
+
         [Import]
         public ManageOrganizationInRoleVm ViewModel
         {

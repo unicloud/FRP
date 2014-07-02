@@ -14,8 +14,8 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.FleetPlan.QueryPlans
 {
-    [Export(typeof(QueryPlanVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (QueryPlanVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryPlanVM : ViewModelBase
     {
         private readonly FleetPlanData _context;
@@ -218,10 +218,13 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
             //遍历原始计划，用原始计划与对比的计划进行对比
             PlanHistories.OrderBy(p => p.Year).ThenBy(p => p.PerformMonth).ToList().ForEach(p =>
             {
-                if (ComparePlanHistories.Any(c => c.PlanAircraftId == p.PlanAircraftId && c.ActionCategoryId == p.ActionCategoryId))
+                if (
+                    ComparePlanHistories.Any(
+                        c => c.PlanAircraftId == p.PlanAircraftId && c.ActionCategoryId == p.ActionCategoryId))
                 {
                     var comparedPlanHistory =
-                        ComparePlanHistories.First(c => c.PlanAircraftId == p.PlanAircraftId && c.ActionCategoryId == p.ActionCategoryId);
+                        ComparePlanHistories.First(
+                            c => c.PlanAircraftId == p.PlanAircraftId && c.ActionCategoryId == p.ActionCategoryId);
                     var clonePlanHistory = p.Clone(); //克隆出一份新的计划历史，用于处理颜色的改变，而不会影响到原有的值
                     var cloneComparedPlanHistory = comparedPlanHistory.Clone(); //克隆出一份新的计划历史，用于处理颜色的改变，而不会影响到原有的值
                     //判断是否发生变更
@@ -245,7 +248,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
             //遍历对比计划，用对比的计划与原始的计划进行对比
             ComparePlanHistories.OrderBy(p => p.Year).ThenBy(p => p.PerformMonth).ToList().ForEach(p =>
             {
-                if (PlanHistories.All(c => c.PlanAircraftId != p.PlanAircraftId || c.ActionCategoryId != p.ActionCategoryId))
+                if (
+                    PlanHistories.All(
+                        c => c.PlanAircraftId != p.PlanAircraftId || c.ActionCategoryId != p.ActionCategoryId))
                 {
                     var removedPlanHistory = new PlanHistoryDTO
                     {
@@ -339,7 +344,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
         }
 
         /// <summary>
-        /// 加载初始计划历史
+        ///     加载初始计划历史
         /// </summary>
         private void GetInitialPlanHistory()
         {

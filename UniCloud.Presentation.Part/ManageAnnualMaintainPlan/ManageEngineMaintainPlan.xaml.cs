@@ -7,14 +7,14 @@ using Telerik.Windows.Controls;
 
 namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
 {
-    [Export(typeof(ManageEngineMaintainPlan))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class ManageEngineMaintainPlan
     {
         public ManageEngineMaintainPlan()
         {
             InitializeComponent();
         }
+
         [Import]
         public ManageEngineMaintainPlanVm ViewModel
         {

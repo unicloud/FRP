@@ -18,15 +18,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
 using Microsoft.Practices.Prism;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Part;
@@ -37,21 +34,19 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.EngineConfig
 {
-    [Export(typeof(ConfigCompareVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ConfigCompareVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ConfigCompareVm : ViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
 
         [ImportingConstructor]
-        public ConfigCompareVm(IRegionManager regionManager, IPartService service)
+        public ConfigCompareVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -65,8 +60,10 @@ namespace UniCloud.Presentation.Part.EngineConfig
         /// </summary>
         private void InitializeVM()
         {
-            ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_context, _context.ContractAircrafts);
-            ContractAircrafts.FilterDescriptors.Add(new FilterDescriptor("SerialNumber",FilterOperator.IsNotEqualTo,null));
+            ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_context,
+                _context.ContractAircrafts);
+            ContractAircrafts.FilterDescriptors.Add(new FilterDescriptor("SerialNumber", FilterOperator.IsNotEqualTo,
+                null));
 
             CompareCommand = new DelegateCommand<object>(OnCompare);
         }
@@ -93,11 +90,12 @@ namespace UniCloud.Presentation.Part.EngineConfig
         {
             get
             {
-                return Enum.GetValues(typeof(Position))
+                return Enum.GetValues(typeof (Position))
                     .Cast<object>()
-                    .ToDictionary(value => (int)value, value => (Position)value);
+                    .ToDictionary(value => (int) value, value => (Position) value);
             }
         }
+
         #endregion
 
         #region 加载数据
@@ -123,16 +121,16 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
 
         /// <summary>
-        /// 界面左边所选合同飞机
+        ///     界面左边所选合同飞机
         /// </summary>
         public ContractAircraftDTO LeftContractAircraft
         {
-            get { return this._leftContractAircraft; }
-            private set
+            get { return _leftContractAircraft; }
+            set
             {
-                if (this._leftContractAircraft != value)
+                if (_leftContractAircraft != value)
                 {
-                    this._leftContractAircraft = value;
+                    _leftContractAircraft = value;
                     if (value != null)
                     {
                         LoadLeftAcConfigs();
@@ -143,16 +141,16 @@ namespace UniCloud.Presentation.Part.EngineConfig
         }
 
         /// <summary>
-        /// 界面右边所选合同飞机
+        ///     界面右边所选合同飞机
         /// </summary>
         public ContractAircraftDTO RightContractAircraft
         {
-            get { return this._rightContractAircraft; }
-            private set
+            get { return _rightContractAircraft; }
+            set
             {
-                if (this._rightContractAircraft != value)
+                if (_rightContractAircraft != value)
                 {
-                    this._rightContractAircraft = value;
+                    _rightContractAircraft = value;
                     if (value != null)
                     {
                         LoadRightAcConfigs();
@@ -161,6 +159,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 }
             }
         }
+
         #endregion
 
         #region 界面所选日期
@@ -170,16 +169,16 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
 
         /// <summary>
-        /// 界面左边所选日期
+        ///     界面左边所选日期
         /// </summary>
         public DateTime LeftDate
         {
-            get { return this._leftDate; }
-            private set
+            get { return _leftDate; }
+            set
             {
-                if (this._leftDate != value)
+                if (_leftDate != value)
                 {
-                    this._leftDate = value;
+                    _leftDate = value;
                     LoadLeftAcConfigs();
                     RaisePropertyChanged(() => LeftDate);
                 }
@@ -187,29 +186,31 @@ namespace UniCloud.Presentation.Part.EngineConfig
         }
 
         /// <summary>
-        /// 界面右边所选日期
+        ///     界面右边所选日期
         /// </summary>
         public DateTime RightDate
         {
-            get { return this._rightDate; }
-            private set
+            get { return _rightDate; }
+            set
             {
-                if (this._rightDate != value)
+                if (_rightDate != value)
                 {
-                    this._rightDate = value;
+                    _rightDate = value;
                     LoadRightAcConfigs();
                     RaisePropertyChanged(() => RightDate);
                 }
             }
         }
+
         #endregion
 
         #region 功能构型集合
 
-        private List<AcConfigDTO> _leftViewAcConfigs = new List<AcConfigDTO>();
-
         private List<AcConfigDTO> _curLeftAcConfigs = new List<AcConfigDTO>();
         private List<AcConfigDTO> _curRightAcConfigs = new List<AcConfigDTO>();
+        private List<AcConfigDTO> _leftViewAcConfigs = new List<AcConfigDTO>();
+
+        private List<AcConfigDTO> _rightViewAcConfigs = new List<AcConfigDTO>();
 
         /// <summary>
         ///     左边功能构型集合
@@ -227,8 +228,6 @@ namespace UniCloud.Presentation.Part.EngineConfig
             }
         }
 
-        private List<AcConfigDTO> _rightViewAcConfigs = new List<AcConfigDTO>();
-
         /// <summary>
         ///     右边功能构型集合
         /// </summary>
@@ -244,6 +243,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 }
             }
         }
+
         #endregion
 
         #endregion
@@ -254,8 +254,8 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         #region 操作
 
-        private bool _loadForLeft = false;
-        private bool _loadForRight = false;
+        private bool _loadForLeft;
+        private bool _loadForRight;
 
         private void LoadLeftAcConfigs()
         {
@@ -290,6 +290,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
             return new Uri(string.Format("QueryAcConfigs?contractAircraftId={0}&date='{1}'", contractAircraftId, date),
                 UriKind.Relative);
         }
+
         private void LoadAcConfigs(Uri path)
         {
             //查询
@@ -314,7 +315,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                                 });
 
                                 //得到需要界面展示的功能构型集合
-                                List<AcConfigDTO> acs = _curLeftAcConfigs.Where(p => p.ParentId == null).ToList();
+                                var acs = _curLeftAcConfigs.Where(p => p.ParentId == null).ToList();
                                 LeftViewAcConfigs = acs;
                             }
                             if (_loadForRight)
@@ -330,10 +331,9 @@ namespace UniCloud.Presentation.Part.EngineConfig
                                 });
 
                                 //得到需要界面展示的功能构型集合
-                                List<AcConfigDTO> acs = _curRightAcConfigs.Where(p => p.ParentId == null).ToList();
+                                var acs = _curRightAcConfigs.Where(p => p.ParentId == null).ToList();
 
                                 RightViewAcConfigs = acs;
-
                             }
                             _loadForLeft = false;
                             _loadForRight = false;
@@ -341,7 +341,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
@@ -353,10 +353,10 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public void GenerateLeftAcConfigStructure(AcConfigDTO acConfig)
         {
             acConfig.SubAcConfigs.Clear();
-            IOrderedEnumerable<AcConfigDTO> temp =
+            var temp =
                 _curLeftAcConfigs.Where(p => p.ParentId == acConfig.Id).ToList().OrderBy(p => p.Position);
             acConfig.SubAcConfigs.AddRange(temp);
-            foreach (AcConfigDTO subItem in acConfig.SubAcConfigs)
+            foreach (var subItem in acConfig.SubAcConfigs)
             {
                 GenerateLeftAcConfigStructure(subItem);
             }
@@ -365,14 +365,15 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public void GenerateRightAcConfigStructure(AcConfigDTO acConfig)
         {
             acConfig.SubAcConfigs.Clear();
-            IOrderedEnumerable<AcConfigDTO> temp =
+            var temp =
                 _curRightAcConfigs.Where(p => p.ParentId == acConfig.Id).ToList().OrderBy(p => p.Position);
             acConfig.SubAcConfigs.AddRange(temp);
-            foreach (AcConfigDTO subItem in acConfig.SubAcConfigs)
+            foreach (var subItem in acConfig.SubAcConfigs)
             {
                 GenerateRightAcConfigStructure(subItem);
             }
         }
+
         #endregion
 
         #region 比较构型差异
@@ -387,19 +388,20 @@ namespace UniCloud.Presentation.Part.EngineConfig
             if (_curLeftAcConfigs != null && _curRightAcConfigs != null)
             {
                 _curLeftAcConfigs.ForEach(p =>
-                 {
-                     if (!_curRightAcConfigs.Any(l=>l.ItemId==p.ItemId && l.Position==p.Position))
-                         p.Color = "Green";
-                 });
+                {
+                    if (!_curRightAcConfigs.Any(l => l.ItemId == p.ItemId && l.Position == p.Position))
+                        p.Color = "Green";
+                });
                 _curRightAcConfigs.ForEach(p =>
                 {
-                    if (!_curLeftAcConfigs.Any(l=>l.ItemId==p.ItemId && l.Position==p.Position))
+                    if (!_curLeftAcConfigs.Any(l => l.ItemId == p.ItemId && l.Position == p.Position))
                         p.Color = "Red";
                 });
             }
         }
 
         #endregion
+
         #endregion
     }
 }

@@ -24,7 +24,6 @@ using System.Data.Services.Client;
 using System.Linq;
 using System.Windows;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -37,21 +36,19 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.EngineConfig
 {
-    [Export(typeof(BasicConfigGroupVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (BasicConfigGroupVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class BasicConfigGroupVm : EditViewModelBase
     {
         #region 声明、初始化
 
-        private readonly IRegionManager _regionManager;
-        private readonly IPartService _service;
         private readonly PartData _context;
+        private readonly IPartService _service;
 
         [ImportingConstructor]
-        public BasicConfigGroupVm(IRegionManager regionManager, IPartService service)
+        public BasicConfigGroupVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -66,13 +63,13 @@ namespace UniCloud.Presentation.Part.EngineConfig
         /// </summary>
         private void InitializeVM()
         {
-            BasicConfigGroups = _service.CreateCollection(_context.BasicConfigGroups);//TODO按机型分组
+            BasicConfigGroups = _service.CreateCollection(_context.BasicConfigGroups); //TODO按机型分组
             BasicConfigGroups.LoadedData += (o, e) =>
-                                            {
-                                                if (SelBasicConfigGroup == null)
-                                                    SelBasicConfigGroup = BasicConfigGroups.FirstOrDefault();
-                                            };
-            _service.RegisterCollectionView(BasicConfigGroups);//注册查询集合
+            {
+                if (SelBasicConfigGroup == null)
+                    SelBasicConfigGroup = BasicConfigGroups.FirstOrDefault();
+            };
+            _service.RegisterCollectionView(BasicConfigGroups); //注册查询集合
 
             BasicConfigs = _service.CreateCollection(_context.BasicConfigs);
             BasicConfigs.LoadedData += (o, e) =>
@@ -82,7 +79,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 if (SelBasicConfigGroup != null)
                 {
                     ViewBasicConfigs.Clear();
-                    List<BasicConfigDTO> bcs =
+                    var bcs =
                         BasicConfigs.SourceCollection.Cast<BasicConfigDTO>()
                             .Where(p => p.BasicConfigGroupId == SelBasicConfigGroup.Id && p.ParentId == null).ToList();
                     foreach (var bc in bcs)
@@ -92,7 +89,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                     ViewBasicConfigs.Distinct();
                 }
             };
-            _service.RegisterCollectionView(BasicConfigs);//注册查询集合
+            _service.RegisterCollectionView(BasicConfigs); //注册查询集合
 
             AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_context, _context.AircraftTypes);
         }
@@ -121,11 +118,12 @@ namespace UniCloud.Presentation.Part.EngineConfig
         {
             get
             {
-                return Enum.GetValues(typeof(Position))
+                return Enum.GetValues(typeof (Position))
                     .Cast<object>()
-                    .ToDictionary(value => (int)value, value => (Position)value);
+                    .ToDictionary(value => (int) value, value => (Position) value);
             }
         }
+
         #endregion
 
         #region 加载数据
@@ -165,25 +163,25 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         #region 基本构型集合
 
+        private ObservableCollection<BasicConfigDTO> _viewBasicConfigs = new ObservableCollection<BasicConfigDTO>();
+
         /// <summary>
         ///     基本构型集合
         /// </summary>
         public QueryableDataServiceCollectionView<BasicConfigDTO> BasicConfigs { get; set; }
 
-        private ObservableCollection<BasicConfigDTO> _viewBasicConfigs = new ObservableCollection<BasicConfigDTO>();
-
         /// <summary>
-        /// 基本构型集合
+        ///     基本构型集合
         /// </summary>
         public ObservableCollection<BasicConfigDTO> ViewBasicConfigs
         {
-            get { return this._viewBasicConfigs; }
-            private set
+            get { return _viewBasicConfigs; }
+            set
             {
-                if (this._viewBasicConfigs != value)
+                if (_viewBasicConfigs != value)
                 {
                     _viewBasicConfigs = value;
-                    this.RaisePropertyChanged(() => this.ViewBasicConfigs);
+                    RaisePropertyChanged(() => ViewBasicConfigs);
                 }
             }
         }
@@ -218,7 +216,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                     if (value != null)
                     {
                         ViewBasicConfigs.Clear();
-                        List<BasicConfigDTO> bcs =
+                        var bcs =
                             BasicConfigs.SourceCollection.Cast<BasicConfigDTO>()
                                 .Where(p => p.BasicConfigGroupId == value.Id && p.ParentId == null).ToList();
                         foreach (var bc in bcs)
@@ -251,7 +249,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public BasicConfigDTO SelBasicConfig
         {
             get { return _selBasicConfig; }
-            private set
+            set
             {
                 if (_selBasicConfig != value)
                 {
@@ -267,38 +265,37 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         #region 查询机型对应的项的集合
 
+        private ItemDTO _selItem;
         private ObservableCollection<ItemDTO> _viewItems = new ObservableCollection<ItemDTO>();
 
         /// <summary>
-        /// 机型对应的项的集合
+        ///     机型对应的项的集合
         /// </summary>
         public ObservableCollection<ItemDTO> ViewItems
         {
-            get { return this._viewItems; }
+            get { return _viewItems; }
             private set
             {
-                if (!this._viewItems.Equals(value))
+                if (!_viewItems.Equals(value))
                 {
                     _viewItems = value;
-                    this.RaisePropertyChanged(() => this.ViewItems);
+                    RaisePropertyChanged(() => ViewItems);
                 }
             }
         }
 
-        private ItemDTO _selItem;
-
         /// <summary>
-        /// 选择的附件项
+        ///     选择的附件项
         /// </summary>
         public ItemDTO SelItem
         {
-            get { return this._selItem; }
-            private set
+            get { return _selItem; }
+            set
             {
-                if (this._selItem != value)
+                if (_selItem != value)
                 {
                     _selItem = value;
-                    this.RaisePropertyChanged(() => this.SelItem);
+                    RaisePropertyChanged(() => SelItem);
                 }
             }
         }
@@ -339,12 +336,13 @@ namespace UniCloud.Presentation.Part.EngineConfig
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
                 }), _context);
         }
+
         #endregion
 
         #endregion
@@ -366,6 +364,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 GenerateBasicConfigStructure(subItem);
             }
         }
+
         #endregion
 
         #region 刷新按钮状态
@@ -389,7 +388,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         private void OnNew(object obj)
         {
-            SelBasicConfigGroup = new BasicConfigGroupDTO()
+            SelBasicConfigGroup = new BasicConfigGroupDTO
             {
                 Id = RandomHelper.Next(),
             };
@@ -420,17 +419,17 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                var bcs = BasicConfigs.Where(
-                                                        p => p.BasicConfigGroupId == _selbBasicConfigGroup.Id).ToList();
-                                                foreach (var bc in bcs)
-                                                {
-                                                    BasicConfigs.Remove(bc);
-                                                }
-                                                BasicConfigGroups.Remove(SelBasicConfigGroup);
-                                                SelBasicConfigGroup = BasicConfigGroups.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                var bcs = BasicConfigs.Where(
+                    p => p.BasicConfigGroupId == _selbBasicConfigGroup.Id).ToList();
+                foreach (var bc in bcs)
+                {
+                    BasicConfigs.Remove(bc);
+                }
+                BasicConfigGroups.Remove(SelBasicConfigGroup);
+                SelBasicConfigGroup = BasicConfigGroups.FirstOrDefault();
+            });
         }
 
         private bool CanRemove(object obj)
@@ -455,8 +454,9 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 ViewBasicConfigs.Clear();
                 BasicConfigs.ToList().ForEach(p => p.SubBasicConfigs.Clear());
                 BasicConfigs.ToList().ForEach(GenerateBasicConfigStructure);
-                List<BasicConfigDTO> bcs =
-                    BasicConfigs.Where(p => p.BasicConfigGroupId == SelBasicConfigGroup.Id && p.ParentId == null).ToList();
+                var bcs =
+                    BasicConfigs.Where(p => p.BasicConfigGroupId == SelBasicConfigGroup.Id && p.ParentId == null)
+                        .ToList();
                 foreach (var bc in bcs)
                 {
                     ViewBasicConfigs.Add(bc);
@@ -515,6 +515,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         }
 
         #endregion
+
         #endregion
     }
 }

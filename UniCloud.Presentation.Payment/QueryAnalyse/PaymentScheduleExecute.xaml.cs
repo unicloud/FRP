@@ -1,16 +1,19 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Payment.QueryAnalyse
 {
-    [Export(typeof(PaymentScheduleExecute))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class PaymentScheduleExecute : UserControl
+    [Export]
+    public partial class PaymentScheduleExecute
     {
         public PaymentScheduleExecute()
         {
             InitializeComponent();
         }
+
         [Import]
         public PaymentScheduleExecuteVm ViewModel
         {

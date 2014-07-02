@@ -40,7 +40,8 @@
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
                                         <telerik:GridViewDataColumn Header="登录名" DataMemberBinding="{Binding UserName}" />
-                                        <telerik:GridViewExpressionColumn Header="姓名" Expression="LastName+FirstName"/>
+                                        <telerik:GridViewDataColumn Header="姓名"
+                                                                    DataMemberBinding="{Binding DisplayName}" />
                                         <telerik:GridViewDataColumn Header="机构代码"
                                                                     DataMemberBinding="{Binding OrganizationNo}" />
                                         <telerik:GridViewDataColumn Header="机构名称"
@@ -49,7 +50,8 @@
                                         <telerik:GridViewDataColumn Header="手机号码" DataMemberBinding="{Binding Mobile}" />
                                         <telerik:GridViewDataColumn Header="系统用户"
                                                                     DataMemberBinding="{Binding IsSystemUser}" />
-                                        <telerik:GridViewDataColumn Header="备注" DataMemberBinding="{Binding Description}" Width="*"/>
+                                        <telerik:GridViewDataColumn Header="备注"
+                                                                    DataMemberBinding="{Binding Description}" Width="*" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </telerik:RadPane>

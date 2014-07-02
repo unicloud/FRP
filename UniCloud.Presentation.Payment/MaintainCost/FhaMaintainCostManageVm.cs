@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/5/19 9:28:58
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -29,13 +31,13 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
-    [Export(typeof(FhaMaintainCostManageVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (FhaMaintainCostManageVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FhaMaintainCostManageVm : EditViewModelBase
     {
-        private readonly IPaymentService _service;
         private readonly PaymentData _context;
         private readonly IFleetPlanService _fleetPlanService;
+        private readonly IPaymentService _service;
         private FilterDescriptor _annualFilter;
 
         /// <summary>
@@ -49,11 +51,13 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             _service = service;
             _context = _service.Context;
             InitialVm(); //初始化Fha维修成本
-
         }
+
         #region 年度
-        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
         private AnnualDTO _annual;
+        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
         public AnnualDTO Annual
         {
             get { return _annual; }
@@ -68,12 +72,15 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 RaisePropertyChanged(() => Annual);
             }
         }
+
         #endregion
 
         public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypes { get; set; }
 
         #region 发票
+
         public QueryableDataServiceCollectionView<EngineMaintainInvoiceDTO> EngineMaintainInvoices { get; set; }
+
         #endregion
 
         #region 加载Fha维修成本
@@ -107,7 +114,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         private void InitialVm()
         {
             CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
-            EngineMaintainInvoices = new QueryableDataServiceCollectionView<EngineMaintainInvoiceDTO>(_context, _context.EngineMaintainInvoices);
+            EngineMaintainInvoices = new QueryableDataServiceCollectionView<EngineMaintainInvoiceDTO>(_context,
+                _context.EngineMaintainInvoices);
             FhaMaintainCosts = _service.CreateCollection(_context.FhaMaintainCosts);
             FhaMaintainCosts.PageSize = 20;
             _annualFilter = new FilterDescriptor("Year", FilterOperator.IsEqualTo, 0);
@@ -120,13 +128,15 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             };
             _service.RegisterCollectionView(FhaMaintainCosts);
 
-            Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
+            Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context,
+                _fleetPlanService.Context.Annuals);
             Annuals.LoadedData += (o, e) =>
             {
                 if (Annual == null)
                     Annual = Annuals.FirstOrDefault(p => p.Year == DateTime.Now.Year);
             };
-            AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_fleetPlanService.Context, _fleetPlanService.Context.AircraftTypes);
+            AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_fleetPlanService.Context,
+                _fleetPlanService.Context.AircraftTypes);
         }
 
         #endregion
@@ -153,24 +163,25 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         {
             if (sender is EngineMaintainInvoiceDTO)
             {
-
             }
         }
 
         #region 单元格编辑事件
+
         public DelegateCommand<object> CellEditEndCommand { get; set; }
 
         private void CellEditEnd(object sender)
         {
-            FhaMaintainCost.Hour = FhaMaintainCost.AirHour * FhaMaintainCost.HourPercent * 2;
-            FhaMaintainCost.FhaFeeUsd = FhaMaintainCost.Hour * FhaMaintainCost.YearBudgetRate;
-            FhaMaintainCost.FhaFeeRmb = FhaMaintainCost.FhaFeeUsd * FhaMaintainCost.Rate;
-            FhaMaintainCost.CustomAddedRmb = FhaMaintainCost.FhaFeeRmb * FhaMaintainCost.Custom;
+            FhaMaintainCost.Hour = FhaMaintainCost.AirHour*FhaMaintainCost.HourPercent*2;
+            FhaMaintainCost.FhaFeeUsd = FhaMaintainCost.Hour*FhaMaintainCost.YearBudgetRate;
+            FhaMaintainCost.FhaFeeRmb = FhaMaintainCost.FhaFeeUsd*FhaMaintainCost.Rate;
+            FhaMaintainCost.CustomAddedRmb = FhaMaintainCost.FhaFeeRmb*FhaMaintainCost.Custom;
             FhaMaintainCost.TotalTax = FhaMaintainCost.FhaFeeRmb + FhaMaintainCost.CustomAddedRmb;
-            FhaMaintainCost.AddedValue = FhaMaintainCost.AddedValueRate * FhaMaintainCost.TotalTax;
+            FhaMaintainCost.AddedValue = FhaMaintainCost.AddedValueRate*FhaMaintainCost.TotalTax;
             FhaMaintainCost.IncludeAddedValue = FhaMaintainCost.AddedValue + FhaMaintainCost.TotalTax;
             FhaMaintainCost.CustomAdded = FhaMaintainCost.CustomAddedRmb + FhaMaintainCost.AddedValue;
         }
+
         #endregion
     }
 }

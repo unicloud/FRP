@@ -17,12 +17,9 @@
 
 #region 命名空间
 
-using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
@@ -31,9 +28,9 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.Requests
 {
-    [Export(typeof(QueryRequestVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public class QueryRequestVM : MVVM.ViewModelBase
+    [Export(typeof (QueryRequestVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class QueryRequestVM : ViewModelBase
     {
         private readonly FleetPlanData _context;
         private readonly IFleetPlanService _service;
@@ -47,7 +44,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             _service = service;
             _context = _service.Context;
-            InitialRequest();//初始化申请
+            InitialRequest(); //初始化申请
         }
 
         #region 加载申请
@@ -80,7 +77,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         private void InitialRequest()
         {
-            RequestsView = new QueryableDataServiceCollectionView<RequestDTO>(_context, _context.Requests.Expand(p => p.RelatedDocs));
+            RequestsView = new QueryableDataServiceCollectionView<RequestDTO>(_context,
+                _context.Requests.Expand(p => p.RelatedDocs));
             var requestDescriptor = new FilterDescriptor("Note", FilterOperator.IsNotEqualTo, "指标飞机申请（系统添加）");
             RequestsView.FilterDescriptors.Add(requestDescriptor);
             RequestsView.PageSize = 20;

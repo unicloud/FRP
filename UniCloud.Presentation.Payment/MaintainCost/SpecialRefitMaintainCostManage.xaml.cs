@@ -6,9 +6,8 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
-    [Export(typeof(SpecialRefitMaintainCostManage))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class SpecialRefitMaintainCostManage 
+    [Export]
+    public partial class SpecialRefitMaintainCostManage
     {
         public SpecialRefitMaintainCostManage()
         {

@@ -37,7 +37,7 @@ using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
     [Export(typeof (AgeDeployVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AgeDeployVm : ViewModelBase
     {
         #region 声明、初始化
@@ -262,7 +262,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             var selectedAgeDeploy = _ageDeployGridView.SelectedItem as AgeDeployClass;
             if (selectedAgeDeploy != null)
             {
-                int selectIndex = AgeDeployCollection.IndexOf(selectedAgeDeploy);
+                var selectIndex = AgeDeployCollection.IndexOf(selectedAgeDeploy);
                 var collection = new List<AgeDeployClass>();
                 collection.AddRange(AgeDeployCollection);
                 collection.Remove(selectedAgeDeploy);
@@ -386,7 +386,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("机龄配置", StringComparison.OrdinalIgnoreCase));
                     if (xmlConfig != null)
                     {
-                        XElement xelement = XElement.Parse(xmlConfig.ConfigContent);
+                        var xelement = XElement.Parse(xmlConfig.ConfigContent);
 
                         XElement ageColor = null;
                         var colorConfig =
@@ -444,9 +444,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             var ageDeploy = new XElement("AgeDeploy");
             //机龄范围的颜色节点
             var colorNode = new XElement("Type", new XAttribute("TypeName", "机龄"));
-            foreach (AgeDeployClass agedeploy in AgeDeployCollection)
+            foreach (var agedeploy in AgeDeployCollection)
             {
-                string name = agedeploy.StartYear + "至" + agedeploy.EndYear + "年之间";
+                var name = agedeploy.StartYear + "至" + agedeploy.EndYear + "年之间";
                 //供应商节点
                 var itemNode = new XElement("Item", new XAttribute("Start", agedeploy.StartYear),
                     new XAttribute("End", agedeploy.EndYear), name);

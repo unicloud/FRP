@@ -35,7 +35,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 namespace UniCloud.Presentation.Purchase.Contract
 {
     [Export(typeof (AircraftPurchaseVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AircraftPurchaseVM : EditViewModelBase
     {
         #region 声明、初始化

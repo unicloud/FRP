@@ -50,8 +50,7 @@ namespace UniCloud.Application.BaseManagementBC.Query.UserQueries
             return query.ApplyTo(_unitOfWork.CreateSet<User>()).Select(p => new UserDTO
             {
                 Id = p.Id,
-                FirstName = p.FirstName,
-                LastName = p.LastName,
+                DisplayName = p.DisplayName,
                 CreateDate = p.CreateDate,
                 Description = p.Comment,
                 Email = p.Email,

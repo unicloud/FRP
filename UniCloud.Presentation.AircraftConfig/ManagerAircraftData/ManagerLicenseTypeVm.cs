@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,13 +11,13 @@
 // 修改者：linxw 时间：2014/1/16 15:22:36
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
 using System.ComponentModel.Composition;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -27,21 +28,19 @@ using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig;
 
 namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
 {
-    [Export(typeof(ManagerLicenseTypeVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ManagerLicenseTypeVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManagerLicenseTypeVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly AircraftConfigData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IAircraftConfigService _service;
 
         [ImportingConstructor]
-        public ManagerLicenseTypeVm(IRegionManager regionManager, IAircraftConfigService service)
+        public ManagerLicenseTypeVm(IAircraftConfigService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -74,7 +73,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
                     CanSelectLicenseType = !LicenseTypes.HasChanges;
                 }
             };
-
         }
 
         #endregion
@@ -82,6 +80,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         #region 数据
 
         #region 公共属性
+
         #endregion
 
         #region 加载数据
@@ -102,15 +101,19 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         }
 
         #region 证照类型
-        /// <summary>
-        ///     证照类型集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<LicenseTypeDTO> LicenseTypes { get; set; }
+
+        private bool _canSelectLicenseType = true;
 
         /// <summary>
         ///     选中的证照类型
         /// </summary>
         private LicenseTypeDTO _licenseType;
+
+        /// <summary>
+        ///     证照类型集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<LicenseTypeDTO> LicenseTypes { get; set; }
+
         public LicenseTypeDTO LicenseType
         {
             get { return _licenseType; }
@@ -125,7 +128,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         }
 
         //用户能否选择
-        private bool _canSelectLicenseType = true;
+
         public bool CanSelectLicenseType
         {
             get { return _canSelectLicenseType; }
@@ -140,7 +143,9 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         }
 
         #endregion
+
         #endregion
+
         #endregion
 
         #region 操作

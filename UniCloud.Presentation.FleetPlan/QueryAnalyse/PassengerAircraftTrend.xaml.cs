@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
-    [Export(typeof(PassengerAircraftTrend))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class PassengerAircraftTrend 
+    [Export]
+    public partial class PassengerAircraftTrend
     {
         public PassengerAircraftTrend()
         {
             InitializeComponent();
         }
+
         [Import]
         public PassengerAircraftTrendVm ViewModel
         {

@@ -23,8 +23,7 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Purchase.Supplier
 {
-    [Export(typeof (SupplierRoleManager))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class SupplierRoleManager
     {
         public SupplierRoleManager()

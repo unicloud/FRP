@@ -6,8 +6,7 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.Guarantees
 {
-    [Export(typeof (MaintainGuarantee))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class MaintainGuarantee
     {
         public MaintainGuarantee()

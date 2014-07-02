@@ -17,7 +17,6 @@
 #region 命名空间
 
 using System.ComponentModel.Composition;
-using Microsoft.Practices.Prism.Regions;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
@@ -27,19 +26,17 @@ using UniCloud.Presentation.Service.Payment.Payment;
 namespace UniCloud.Presentation.Payment.QueryAnalyse
 {
     [Export(typeof (AnalyseMaintenanceCostsVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AnalyseMaintenanceCostsVM : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PaymentData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public AnalyseMaintenanceCostsVM(IRegionManager regionManager, IPaymentService service) : base(service)
+        public AnalyseMaintenanceCostsVM(IPaymentService service) : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();

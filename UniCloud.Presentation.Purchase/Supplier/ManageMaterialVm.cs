@@ -33,7 +33,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
     ///     基础配置，包括维修工作单元、BFEMaterial的维护
     /// </summary>
     [Export(typeof (ManageMaterialVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageMaterialVm : EditViewModelBase
     {
         #region 声明、初始化
@@ -188,7 +188,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #region BFEMaterial
 
-        private BFEMaterialDTO _BFEMaterial;
+        private BFEMaterialDTO _bfeMaterial;
         private bool _canSelectBFEMaterial = true;
 
         /// <summary>
@@ -201,12 +201,12 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         public BFEMaterialDTO BFEMaterial
         {
-            get { return _BFEMaterial; }
+            get { return _bfeMaterial; }
             set
             {
-                if (value != null && _BFEMaterial != value)
+                if (value != null && _bfeMaterial != value)
                 {
-                    _BFEMaterial = value;
+                    _bfeMaterial = value;
                     RaisePropertyChanged(() => BFEMaterial);
                 }
             }

@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
-    [Export(typeof(AgeDeploy))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class AgeDeploy 
+    [Export]
+    public partial class AgeDeploy
     {
         public AgeDeploy()
         {
             InitializeComponent();
         }
+
         [Import]
         public AgeDeployVm ViewModel
         {

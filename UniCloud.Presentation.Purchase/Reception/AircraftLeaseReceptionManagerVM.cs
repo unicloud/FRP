@@ -4,7 +4,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ScheduleView;
 using Telerik.Windows.Data;
@@ -17,21 +16,19 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof(AircraftLeaseReceptionManagerVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (AircraftLeaseReceptionManagerVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AircraftLeaseReceptionManagerVM : ReceptionVm
     {
         #region 声明、初始化
 
         private readonly PurchaseData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
 
         [ImportingConstructor]
-        public AircraftLeaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service)
+        public AircraftLeaseReceptionManagerVM(IPurchaseService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -47,15 +44,16 @@ namespace UniCloud.Presentation.Purchase.Reception
         private void InitializeVM()
         {
             LeaseContractAircrafts = new QueryableDataServiceCollectionView<LeaseContractAircraftDTO>(_context,
-                    _context.LeaseContractAircrafts);
+                _context.LeaseContractAircrafts);
 
-            AircraftLeaseReceptions = _service.CreateCollection(_context.AircraftLeaseReceptions.Expand(p => p.RelatedDocs),
-                o => o.ReceptionLines, o => o.ReceptionSchedules, o => o.RelatedDocs);
+            AircraftLeaseReceptions =
+                _service.CreateCollection(_context.AircraftLeaseReceptions.Expand(p => p.RelatedDocs),
+                    o => o.ReceptionLines, o => o.ReceptionSchedules, o => o.RelatedDocs);
             AircraftLeaseReceptions.LoadedData += (o, e) =>
-                                                  {
-                                                      if (SelAircraftLeaseReception == null)
-                                                          SelAircraftLeaseReception = AircraftLeaseReceptions.FirstOrDefault();
-                                                  };
+            {
+                if (SelAircraftLeaseReception == null)
+                    SelAircraftLeaseReception = AircraftLeaseReceptions.FirstOrDefault();
+            };
             _service.RegisterCollectionView(AircraftLeaseReceptions); //注册查询集合。
         }
 
@@ -178,8 +176,8 @@ namespace UniCloud.Presentation.Purchase.Reception
                     {
                         SelAircraftLeaseReceptionLine = _selAircraftLeaseReception.ReceptionLines.FirstOrDefault();
                         var viewLeaseContractAircrafts = LeaseContractAircrafts.Where(
-                                p => p.SupplierId == SelAircraftLeaseReception.SupplierId && p.SerialNumber != null)
-                                .ToList();
+                            p => p.SupplierId == SelAircraftLeaseReception.SupplierId && p.SerialNumber != null)
+                            .ToList();
                         foreach (var lca in viewLeaseContractAircrafts)
                         {
                             ViewLeaseContractAircrafts.Add(lca);
@@ -259,6 +257,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 重载操作
 
         #region 添加附件
+
         protected override bool CanAddAttach(object obj)
         {
             return _selAircraftLeaseReception != null;
@@ -350,16 +349,16 @@ namespace UniCloud.Presentation.Purchase.Reception
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                AircraftLeaseReceptions.Remove(SelAircraftLeaseReception);
-                                                SelAircraftLeaseReception = AircraftLeaseReceptions.FirstOrDefault();
-                                                if (SelAircraftLeaseReception == null)
-                                                {
-                                                    //删除完，若没有记录了，则也要删除界面明细
-                                                    Appointments.Clear();
-                                                }
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                AircraftLeaseReceptions.Remove(SelAircraftLeaseReception);
+                SelAircraftLeaseReception = AircraftLeaseReceptions.FirstOrDefault();
+                if (SelAircraftLeaseReception == null)
+                {
+                    //删除完，若没有记录了，则也要删除界面明细
+                    Appointments.Clear();
+                }
+            });
         }
 
         protected override bool CanRemove(object obj)
@@ -411,11 +410,11 @@ namespace UniCloud.Presentation.Purchase.Reception
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SelAircraftLeaseReception.ReceptionLines.Remove(SelAircraftLeaseReceptionLine);
-                                                SelAircraftLeaseReceptionLine = SelAircraftLeaseReception.ReceptionLines.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SelAircraftLeaseReception.ReceptionLines.Remove(SelAircraftLeaseReceptionLine);
+                SelAircraftLeaseReceptionLine = SelAircraftLeaseReception.ReceptionLines.FirstOrDefault();
+            });
         }
 
         protected override bool CanRemoveEntity(object obj)

@@ -22,7 +22,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -35,21 +34,19 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(LeaseInvoiceManagerVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (LeaseInvoiceManagerVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class LeaseInvoiceManagerVM : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PaymentData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public LeaseInvoiceManagerVM(IRegionManager regionManager, IPaymentService service)
+        public LeaseInvoiceManagerVM(IPaymentService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -66,21 +63,26 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             LeaseInvoices = _service.CreateCollection(_context.LeaseInvoices, o => o.InvoiceLines);
             LeaseInvoices.LoadedData += (o, e) =>
-                                        {
-                                            if (SelLeaseInvoice == null)
-                                                SelLeaseInvoice = LeaseInvoices.FirstOrDefault();
-                                        };
+            {
+                if (SelLeaseInvoice == null)
+                    SelLeaseInvoice = LeaseInvoices.FirstOrDefault();
+            };
             _service.RegisterCollectionView(LeaseInvoices); //注册查询集合。
 
-            AcPaymentSchedules = new QueryableDataServiceCollectionView<AcPaymentScheduleDTO>(_context, _context.AcPaymentSchedules);
+            AcPaymentSchedules = new QueryableDataServiceCollectionView<AcPaymentScheduleDTO>(_context,
+                _context.AcPaymentSchedules);
 
-            EnginePaymentSchedules = new QueryableDataServiceCollectionView<EnginePaymentScheduleDTO>(_context, _context.EnginePaymentSchedules);
+            EnginePaymentSchedules = new QueryableDataServiceCollectionView<EnginePaymentScheduleDTO>(_context,
+                _context.EnginePaymentSchedules);
 
-            AircraftLeaseOrders = new QueryableDataServiceCollectionView<AircraftLeaseOrderDTO>(_context, _context.AircraftLeaseOrders);
+            AircraftLeaseOrders = new QueryableDataServiceCollectionView<AircraftLeaseOrderDTO>(_context,
+                _context.AircraftLeaseOrders);
 
-            EngineLeaseOrders = new QueryableDataServiceCollectionView<EngineLeaseOrderDTO>(_context, _context.EngineLeaseOrders);
+            EngineLeaseOrders = new QueryableDataServiceCollectionView<EngineLeaseOrderDTO>(_context,
+                _context.EngineLeaseOrders);
 
-            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context, _context.PaymentSchedules);
+            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context,
+                _context.PaymentSchedules);
 
             var fd = new FilterDescriptor("ImportType", FilterOperator.Contains, "引进");
             var fd2 = new FilterDescriptor("ImportType", FilterOperator.DoesNotContain, "购买");
@@ -115,13 +117,20 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 数据
 
         #region 公共属性
+
         /// <summary>
-        ///   项名称
+        ///     项名称
         /// </summary>
         public Dictionary<int, ItemNameType> ItemNameTypes
         {
-            get { return Enum.GetValues(typeof(ItemNameType)).Cast<object>().ToDictionary(value => (int)value, value => (ItemNameType)value); }
+            get
+            {
+                return Enum.GetValues(typeof (ItemNameType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (ItemNameType) value);
+            }
         }
+
         #region 币种集合
 
         /// <summary>
@@ -265,7 +274,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         public ObservableCollection<InvoiceLineDTO> InvoiceLines
         {
             get { return _invoiceLines; }
-            private set
+            set
             {
                 if (_invoiceLines != value)
                 {
@@ -375,7 +384,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnNew(object obj)
         {
-            LeasePayscheduleChildView.ShowDialog();
+            leasePayscheduleChildView.ShowDialog();
         }
 
         private bool CanNew(object obj)
@@ -395,17 +404,17 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void OnDelete(object obj)
         {
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                LeaseInvoices.Remove(SelLeaseInvoice);
-                                                SelLeaseInvoice = LeaseInvoices.FirstOrDefault();
-                                                if (SelLeaseInvoice == null)
-                                                {
-                                                    //删除完，若没有记录了，则也要删除界面明细
-                                                    InvoiceLines.Clear();
-                                                    RelatedPaymentSchedule.Clear();
-                                                }
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                LeaseInvoices.Remove(SelLeaseInvoice);
+                SelLeaseInvoice = LeaseInvoices.FirstOrDefault();
+                if (SelLeaseInvoice == null)
+                {
+                    //删除完，若没有记录了，则也要删除界面明细
+                    InvoiceLines.Clear();
+                    RelatedPaymentSchedule.Clear();
+                }
+            });
         }
 
         private bool CanDelete(object obj)
@@ -466,12 +475,12 @@ namespace UniCloud.Presentation.Payment.Invoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SelLeaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
-                                                InvoiceLines.Remove(SelInvoiceLine);
-                                                SelInvoiceLine = SelLeaseInvoice.InvoiceLines.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SelLeaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
+                InvoiceLines.Remove(SelInvoiceLine);
+                SelInvoiceLine = SelLeaseInvoice.InvoiceLines.FirstOrDefault();
+            });
         }
 
         private bool CanRemove(object obj)
@@ -536,7 +545,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "TotalLine"))
                 {
-                    decimal totalCount = SelLeaseInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
+                    var totalCount = SelLeaseInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
                     SelLeaseInvoice.InvoiceValue = totalCount;
                 }
             }
@@ -548,8 +557,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 子窗体相关操作
 
-        [Import]
-        public LeasePayscheduleChildView LeasePayscheduleChildView; //初始化子窗体
+        [Import] public LeasePayscheduleChildView leasePayscheduleChildView; //初始化子窗体
 
         #region 付款计划集合
 
@@ -759,7 +767,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <param name="sender"></param>
         public void OnCancelExecute(object sender)
         {
-            LeasePayscheduleChildView.Close();
+            leasePayscheduleChildView.Close();
         }
 
         /// <summary>
@@ -790,7 +798,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 CreateDate = DateTime.Now,
                 InvoiceDate = DateTime.Now,
             };
-            string selectedPane = LeasePayscheduleChildView.PaneGroups.SelectedPane.Title.ToString();
+            var selectedPane = leasePayscheduleChildView.PaneGroups.SelectedPane.Title.ToString();
             if (selectedPane == "租赁的飞机对应的付款计划")
             {
                 if (SelContractAircraft == null)
@@ -833,7 +841,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                         };
                         invoice.InvoiceLines.Add(invoiceLine);
                         LeaseInvoices.AddNew(invoice);
-                        LeasePayscheduleChildView.Close();
+                        leasePayscheduleChildView.Close();
                     }
                 }
             }
@@ -879,7 +887,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                         };
                         invoice.InvoiceLines.Add(invoiceLine);
                         LeaseInvoices.AddNew(invoice);
-                        LeasePayscheduleChildView.Close();
+                        leasePayscheduleChildView.Close();
                     }
                 }
             }

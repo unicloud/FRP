@@ -25,9 +25,7 @@ using System.Data.Services.Client;
 using System.Linq;
 using System.Windows;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
-using Telerik.Windows.Controls.GridView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -39,22 +37,20 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.EngineConfig
 {
-    [Export(typeof(AircraftConfigVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (AircraftConfigVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AircraftConfigVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
         private FilterDescriptor _bcGroupDescriptor;
 
         [ImportingConstructor]
-        public AircraftConfigVm(IRegionManager regionManager, IPartService service)
+        public AircraftConfigVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -69,19 +65,21 @@ namespace UniCloud.Presentation.Part.EngineConfig
         /// </summary>
         private void InitializeVM()
         {
-            ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_context, _context.ContractAircrafts);
-            var sort = new SortDescriptor { Member = "CSCNumber", SortDirection = ListSortDirection.Ascending };
+            ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_context,
+                _context.ContractAircrafts);
+            var sort = new SortDescriptor {Member = "CSCNumber", SortDirection = ListSortDirection.Ascending};
             ContractAircrafts.SortDescriptors.Add(sort);
             ContractAircrafts.LoadedData += (o, e) =>
-                                            {
-                                                if (SelContractAircraft == null)
-                                                    SelContractAircraft = ContractAircrafts.FirstOrDefault();
-                                            };
+            {
+                if (SelContractAircraft == null)
+                    SelContractAircraft = ContractAircrafts.FirstOrDefault();
+            };
 
-            BasicConfigGroups = new QueryableDataServiceCollectionView<BasicConfigGroupDTO>(_context, _context.BasicConfigGroups);
+            BasicConfigGroups = new QueryableDataServiceCollectionView<BasicConfigGroupDTO>(_context,
+                _context.BasicConfigGroups);
             _bcGroupDescriptor = new FilterDescriptor("AircraftTypeId", FilterOperator.IsEqualTo, Guid.Empty);
             BasicConfigGroups.FilterDescriptors.Add(_bcGroupDescriptor);
-            BasicConfigGroups.LoadedData += (o, e) => RaisePropertyChanged(()=>BasicConfigGroups);
+            BasicConfigGroups.LoadedData += (o, e) => RaisePropertyChanged(() => BasicConfigGroups);
 
             BasicConfigHistories = _service.CreateCollection(_context.BasicConfigHistories);
             _service.RegisterCollectionView(BasicConfigHistories);
@@ -94,10 +92,10 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 if (SelContractAircraft != null)
                 {
                     ViewSpecialConfigs.Clear();
-                    List<SpecialConfigDTO> bcs =
+                    var bcs =
                         SpecialConfigs.SourceCollection.Cast<SpecialConfigDTO>()
                             .Where(p => p.ContractAircraftId == SelContractAircraft.Id && p.ParentId == null).ToList();
-                    foreach (SpecialConfigDTO bc in bcs)
+                    foreach (var bc in bcs)
                     {
                         ViewSpecialConfigs.Add(bc);
                     }
@@ -133,11 +131,11 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public QueryableDataServiceCollectionView<ContractAircraftDTO> ContractAircrafts { get; set; }
 
         /// <summary>
-        /// 选择的合同飞机
+        ///     选择的合同飞机
         /// </summary>
         public ContractAircraftDTO SelContractAircraft
         {
-            get { return this._selContractAircraft; }
+            get { return _selContractAircraft; }
             private set
             {
                 if (_selContractAircraft != value)
@@ -163,10 +161,11 @@ namespace UniCloud.Presentation.Part.EngineConfig
                         }
                         SelBasicConfigHistory = ViewBasicConfigHistories.FirstOrDefault();
                         //加载特定选型集合
-                        List<SpecialConfigDTO> bcs =
+                        var bcs =
                             SpecialConfigs.SourceCollection.Cast<SpecialConfigDTO>()
-                                .Where(p => p.ContractAircraftId == SelContractAircraft.Id && p.ParentId == null).ToList();
-                        foreach (SpecialConfigDTO bc in bcs)
+                                .Where(p => p.ContractAircraftId == SelContractAircraft.Id && p.ParentId == null)
+                                .ToList();
+                        foreach (var bc in bcs)
                         {
                             ViewSpecialConfigs.Add(bc);
                         }
@@ -195,11 +194,12 @@ namespace UniCloud.Presentation.Part.EngineConfig
         {
             get
             {
-                return Enum.GetValues(typeof(Position))
+                return Enum.GetValues(typeof (Position))
                     .Cast<object>()
-                    .ToDictionary(value => (int)value, value => (Position)value);
+                    .ToDictionary(value => (int) value, value => (Position) value);
             }
         }
+
         #endregion
 
         #region 加载数据
@@ -231,7 +231,9 @@ namespace UniCloud.Presentation.Part.EngineConfig
         #region 基本构型历史集合
 
         private BasicConfigHistoryDTO _selBasicConfigHistory;
-        private ObservableCollection<BasicConfigHistoryDTO> _viewBasicConfigHistories = new ObservableCollection<BasicConfigHistoryDTO>();
+
+        private ObservableCollection<BasicConfigHistoryDTO> _viewBasicConfigHistories =
+            new ObservableCollection<BasicConfigHistoryDTO>();
 
         /// <summary>
         ///     基本构型历史集合
@@ -256,11 +258,11 @@ namespace UniCloud.Presentation.Part.EngineConfig
         }
 
         /// <summary>
-        /// 选择的基本构型历史
+        ///     选择的基本构型历史
         /// </summary>
         public BasicConfigHistoryDTO SelBasicConfigHistory
         {
-            get { return this._selBasicConfigHistory; }
+            get { return _selBasicConfigHistory; }
             private set
             {
                 if (_selBasicConfigHistory != value)
@@ -270,11 +272,13 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 }
             }
         }
+
         #endregion
 
         #region 特定选型集合
 
-        private ObservableCollection<SpecialConfigDTO> _viewSpecialConfigs = new ObservableCollection<SpecialConfigDTO>();
+        private ObservableCollection<SpecialConfigDTO> _viewSpecialConfigs =
+            new ObservableCollection<SpecialConfigDTO>();
 
         /// <summary>
         ///     特定选型集合
@@ -309,7 +313,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public SpecialConfigDTO SelSpecialConfig
         {
             get { return _selSpecialConfig; }
-            private set
+            set
             {
                 if (_selSpecialConfig != value)
                 {
@@ -351,7 +355,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public ItemDTO SelItem
         {
             get { return _selItem; }
-            private set
+            set
             {
                 if (_selItem != value)
                 {
@@ -387,7 +391,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                         if (context != null)
                         {
                             ViewItems = new ObservableCollection<ItemDTO>();
-                            foreach (ItemDTO item in context.EndExecute<ItemDTO>(result))
+                            foreach (var item in context.EndExecute<ItemDTO>(result))
                             {
                                 ViewItems.Add(item);
                             }
@@ -397,7 +401,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
@@ -418,10 +422,10 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         public void GenerateSpecialConfigStructure(SpecialConfigDTO specialConfig)
         {
-            IOrderedEnumerable<SpecialConfigDTO> temp =
+            var temp =
                 SpecialConfigs.Where(p => p.ParentId == specialConfig.Id).ToList().OrderBy(p => p.Position);
             specialConfig.SubSpecialConfigs.Load(temp);
-            foreach (SpecialConfigDTO subItem in specialConfig.SubSpecialConfigs)
+            foreach (var subItem in specialConfig.SubSpecialConfigs)
             {
                 GenerateSpecialConfigStructure(subItem);
             }
@@ -445,8 +449,9 @@ namespace UniCloud.Presentation.Part.EngineConfig
         #region 创建基本构型历史
 
         private DateTime? _startDisplayDate;
+
         /// <summary>
-        /// 创建基本构型历史开始时间 
+        ///     创建基本构型历史开始时间
         /// </summary>
         public DateTime? StartDisplayDate
         {
@@ -469,13 +474,16 @@ namespace UniCloud.Presentation.Part.EngineConfig
         private void OnNew(object obj)
         {
             StartDisplayDate =
-            ViewBasicConfigHistories.Select(p => p.StartDate).OrderBy(p => p).LastOrDefault();
+                ViewBasicConfigHistories.Select(p => p.StartDate).OrderBy(p => p).LastOrDefault();
 
             SelBasicConfigHistory = new BasicConfigHistoryDTO
             {
                 Id = RandomHelper.Next(),
                 ContractAircraftId = SelContractAircraft.Id,
-                StartDate = (StartDisplayDate == null || StartDisplayDate.Value == DateTime.MinValue) ? DateTime.Now : StartDisplayDate.Value.AddDays(1),
+                StartDate =
+                    (StartDisplayDate == null || StartDisplayDate.Value == DateTime.MinValue)
+                        ? DateTime.Now
+                        : StartDisplayDate.Value.AddDays(1),
             };
             ViewBasicConfigHistories.Add(SelBasicConfigHistory);
             BasicConfigHistories.AddNew(SelBasicConfigHistory);
@@ -504,12 +512,12 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                ViewBasicConfigHistories.Remove(SelBasicConfigHistory);
-                                                BasicConfigHistories.Remove(SelBasicConfigHistory);
-                                                SelBasicConfigHistory = ViewBasicConfigHistories.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                ViewBasicConfigHistories.Remove(SelBasicConfigHistory);
+                BasicConfigHistories.Remove(SelBasicConfigHistory);
+                SelBasicConfigHistory = ViewBasicConfigHistories.FirstOrDefault();
+            });
         }
 
         private bool CanRemove(object obj)
@@ -534,8 +542,9 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 ViewSpecialConfigs.Clear();
                 SpecialConfigs.ToList().ForEach(p => p.SubSpecialConfigs.Clear());
                 SpecialConfigs.ToList().ForEach(GenerateSpecialConfigStructure);
-                List<SpecialConfigDTO> bcs =
-                    SpecialConfigs.Where(p => p.ContractAircraftId == SelContractAircraft.Id && p.ParentId == null).ToList();
+                var bcs =
+                    SpecialConfigs.Where(p => p.ContractAircraftId == SelContractAircraft.Id && p.ParentId == null)
+                        .ToList();
                 foreach (var bc in bcs)
                 {
                     ViewSpecialConfigs.Add(bc);
@@ -576,15 +585,15 @@ namespace UniCloud.Presentation.Part.EngineConfig
             var gridView = sender as RadGridView;
             if (gridView != null)
             {
-                GridViewCell cell = gridView.CurrentCell;
+                var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "BasicConfigGroup"))
                 {
-                    int value = SelBasicConfigHistory.BasicConfigGroupId;
-                    BasicConfigGroupDTO basicConfigGroup =
+                    var value = SelBasicConfigHistory.BasicConfigGroupId;
+                    var basicConfigGroup =
                         BasicConfigGroups.FirstOrDefault(p => p.Id == value);
                     if (basicConfigGroup != null)
                     {
-                        Uri path = CreateItemQueryPath(basicConfigGroup.AircraftTypeId.ToString());
+                        var path = CreateItemQueryPath(basicConfigGroup.AircraftTypeId.ToString());
                         OnLoadItems(path);
                     }
                 }

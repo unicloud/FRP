@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Part.ManageOnBoardSn
 {
-    [Export(typeof (ManageOnBoardSn))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class ManageOnBoardSn : UserControl
+    [Export]
+    public partial class ManageOnBoardSn
     {
         public ManageOnBoardSn()
         {

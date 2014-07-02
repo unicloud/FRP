@@ -40,14 +40,9 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         public string OrganizationNo { get; set; }
 
         /// <summary>
-        ///     名字
+        ///     显示名称
         /// </summary>
-        public string FirstName { get; set; }
-
-        /// <summary>
-        ///     姓氏
-        /// </summary>
-        public string LastName { get; set; }
+        public string DisplayName { get; set; }
 
         /// <summary>
         ///     密码

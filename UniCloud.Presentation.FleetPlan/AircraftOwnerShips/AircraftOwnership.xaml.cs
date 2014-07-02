@@ -6,8 +6,7 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
 {
-    [Export(typeof(AircraftOwnership))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class AircraftOwnership
     {
         public AircraftOwnership()

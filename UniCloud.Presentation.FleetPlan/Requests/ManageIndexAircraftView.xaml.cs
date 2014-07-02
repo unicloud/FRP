@@ -1,19 +1,21 @@
-﻿using System.ComponentModel.Composition;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
 using System.Windows;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.GridView;
 using Telerik.Windows.DragDrop;
-using Telerik.Windows.DragDrop.Behaviors;
 using UniCloud.Presentation.Input;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 using DragEventArgs = Telerik.Windows.DragDrop.DragEventArgs;
 using DragVisual = Telerik.Windows.DragDrop.DragVisual;
 
+#endregion
+
 namespace UniCloud.Presentation.FleetPlan.Requests
 {
-    [Export(typeof (ManageIndexAircraftView))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class ManageIndexAircraftView
     {
         public ManageIndexAircraftView()
@@ -38,16 +40,16 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void OnPlanDatailDragInitialize(object sender, DragInitializeEventArgs e)
         {
             var details = new DropIndicationDetails();
-            GridViewRow row = e.OriginalSource as GridViewRow ??
-                              (e.OriginalSource as FrameworkElement).ParentOfType<GridViewRow>();
+            var row = e.OriginalSource as GridViewRow ??
+                      (e.OriginalSource as FrameworkElement).ParentOfType<GridViewRow>();
 
             var gridView = sender as RadGridView;
             if (gridView == null) return;
 
-            object item = row != null ? row.Item : gridView.SelectedItem;
+            var item = row != null ? row.Item : gridView.SelectedItem;
             details.CurrentDraggedItem = item;
 
-            IDragPayload dragPayload = DragDropPayloadManager.GeneratePayload(null);
+            var dragPayload = DragDropPayloadManager.GeneratePayload(null);
 
             dragPayload.SetData("DraggedData", item);
             dragPayload.SetData("DropDetails", details);
@@ -77,7 +79,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         private void OnPlanDetailDrop(object sender, DragEventArgs e)
         {
-            object draggedItem = DragDropPayloadManager.GetDataFromObject(e.Data, "DraggedData");
+            var draggedItem = DragDropPayloadManager.GetDataFromObject(e.Data, "DraggedData");
             var details = DragDropPayloadManager.GetDataFromObject(e.Data, "DropDetails") as DropIndicationDetails;
 
             if (details == null || draggedItem == null)
@@ -99,7 +101,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         private void OnPlanDetailDragOver(object sender, DragEventArgs e)
         {
-            object draggedItem = DragDropPayloadManager.GetDataFromObject(e.Data, "DraggedData");
+            var draggedItem = DragDropPayloadManager.GetDataFromObject(e.Data, "DraggedData");
             if (draggedItem == null || ApprovalDetail == null) return;
 
             var dropDetails = DragDropPayloadManager.GetDataFromObject(e.Data, "DropDetails") as DropIndicationDetails;
@@ -113,16 +115,16 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void OnApprovalDetailDragInitialize(object sender, DragInitializeEventArgs e)
         {
             var details = new DropIndicationDetails();
-            GridViewRow row = e.OriginalSource as GridViewRow ??
-                              (e.OriginalSource as FrameworkElement).ParentOfType<GridViewRow>();
+            var row = e.OriginalSource as GridViewRow ??
+                      (e.OriginalSource as FrameworkElement).ParentOfType<GridViewRow>();
 
             var gridView = sender as RadGridView;
             if (gridView == null) return;
 
-            object item = row != null ? row.Item : gridView.SelectedItem;
+            var item = row != null ? row.Item : gridView.SelectedItem;
             details.CurrentDraggedItem = item;
 
-            IDragPayload dragPayload = DragDropPayloadManager.GeneratePayload(null);
+            var dragPayload = DragDropPayloadManager.GeneratePayload(null);
 
             dragPayload.SetData("DraggedData", item);
             dragPayload.SetData("DropDetails", details);
@@ -149,7 +151,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         private void OnApprovalDetailDrop(object sender, DragEventArgs e)
         {
-            object draggedItem = DragDropPayloadManager.GetDataFromObject(e.Data, "DraggedData");
+            var draggedItem = DragDropPayloadManager.GetDataFromObject(e.Data, "DraggedData");
             var details = DragDropPayloadManager.GetDataFromObject(e.Data, "DropDetails") as DropIndicationDetails;
 
             if (details == null || draggedItem == null)
@@ -171,7 +173,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         private void OnApprovalDetailDragOver(object sender, DragEventArgs e)
         {
-            object draggedItem = DragDropPayloadManager.GetDataFromObject(e.Data, "DraggedData");
+            var draggedItem = DragDropPayloadManager.GetDataFromObject(e.Data, "DraggedData");
             if (draggedItem == null || PlanDetail == null) return;
 
             var dropDetails = DragDropPayloadManager.GetDataFromObject(e.Data, "DropDetails") as DropIndicationDetails;

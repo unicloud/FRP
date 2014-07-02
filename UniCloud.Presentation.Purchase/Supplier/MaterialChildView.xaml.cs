@@ -6,8 +6,7 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Purchase.Supplier
 {
-    [Export(typeof(MaterialChildView))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class MaterialChildView
     {
         public MaterialChildView()

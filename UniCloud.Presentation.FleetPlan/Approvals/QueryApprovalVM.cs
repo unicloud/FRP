@@ -29,7 +29,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 namespace UniCloud.Presentation.FleetPlan.Approvals
 {
     [Export(typeof (QueryApprovalVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryApprovalVM : ViewModelBase
     {
         private readonly FleetPlanData _context;

@@ -6,9 +6,8 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Part.ManageSCN
 {
-    [Export(typeof(MaintainScn))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class MaintainScn 
+    [Export]
+    public partial class MaintainScn
     {
         public MaintainScn()
         {

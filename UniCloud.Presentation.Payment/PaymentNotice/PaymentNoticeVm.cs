@@ -20,7 +20,6 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -33,24 +32,21 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.PaymentNotice
 {
-    [Export(typeof(PaymentNoticeVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (PaymentNoticeVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PaymentNoticeVm : InvoiceVm
     {
         #region 声明、初始化
 
         private readonly PaymentData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
-        [Import]
-        public BankAccountWindow BankAccountWindow;
-        public SelectInvoices SelectInvoicesWindow;
+        [Import] public BankAccountWindow bankAccountWindow;
+        public SelectInvoices selectInvoicesWindow;
 
         [ImportingConstructor]
-        public PaymentNoticeVm(IRegionManager regionManager, IPaymentService service)
+        public PaymentNoticeVm(IPaymentService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -69,10 +65,10 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             PaymentNotices = _service.CreateCollection(_context.PaymentNotices, o => o.PaymentNoticeLines);
             PaymentNotices.PageSize = 6;
             PaymentNotices.LoadedData += (o, e) =>
-                                         {
-                                             if (PaymentNotice == null)
-                                                 PaymentNotice = PaymentNotices.FirstOrDefault();
-                                         };
+            {
+                if (PaymentNotice == null)
+                    PaymentNotice = PaymentNotices.FirstOrDefault();
+            };
             _service.RegisterCollectionView(PaymentNotices);
             ViewReportCommand = new DelegateCommand<object>(OnViewReport);
         }
@@ -227,9 +223,9 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 return;
             }
 
-            SelectInvoicesWindow = new SelectInvoices();
-            SelectInvoicesWindow.ViewModel.InitData(PaymentNotice);
-            SelectInvoicesWindow.ShowDialog();
+            selectInvoicesWindow = new SelectInvoices();
+            selectInvoicesWindow.ViewModel.InitData(PaymentNotice);
+            selectInvoicesWindow.ShowDialog();
 
             //var maintainInvoiceLine = new PaymentNoticeLineDTO
             //{
@@ -279,7 +275,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 MessageAlert("请选择一条付款通知记录！");
                 return;
             }
-            PaymentNotice.Status = (int)PaymentNoticeStatus.待审核;
+            PaymentNotice.Status = (int) PaymentNoticeStatus.待审核;
         }
 
         protected override bool CanSubmitInvoice(object obj)
@@ -298,7 +294,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 MessageAlert("请选择一条付款通知记录！");
                 return;
             }
-            PaymentNotice.Status = (int)PaymentNoticeStatus.已审核;
+            PaymentNotice.Status = (int) PaymentNoticeStatus.已审核;
             PaymentNotice.Reviewer = "admin";
             PaymentNotice.ReviewDate = DateTime.Now;
         }
@@ -311,10 +307,12 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         #endregion
 
         #region 完成付款通知
+
         /// <summary>
         ///     完成付款通知
         /// </summary>
         public DelegateCommand<object> CompleteNoticeCommand { get; set; }
+
         protected void OnCompleteNotice(object obj)
         {
             if (PaymentNotice == null)
@@ -341,7 +339,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 
         protected virtual void OnViewReport(object obj)
         {
-            var noticeReport = new PaymentNoticeReport { WindowStartupLocation = WindowStartupLocation.CenterScreen };
+            var noticeReport = new PaymentNoticeReport {WindowStartupLocation = WindowStartupLocation.CenterScreen};
             noticeReport.ShowDialog();
         }
 
@@ -360,10 +358,10 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                     if (supplier != null)
                     {
                         PaymentNotice.SupplierName = supplier.Name;
-                        BankAccountWindow.ViewModel.InitBankAccounts(supplier.BankAccounts);
-                        BankAccountWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                        BankAccountWindow.Closed += BankAccountWindowClosed;
-                        BankAccountWindow.ShowDialog();
+                        bankAccountWindow.ViewModel.InitBankAccounts(supplier.BankAccounts);
+                        bankAccountWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        bankAccountWindow.Closed += BankAccountWindowClosed;
+                        bankAccountWindow.ShowDialog();
                     }
                 }
             }
@@ -376,11 +374,11 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             }
         }
 
-        void BankAccountWindowClosed(object sender, WindowClosedEventArgs e)
+        private void BankAccountWindowClosed(object sender, WindowClosedEventArgs e)
         {
-            if (BankAccountWindow.Tag is BankAccountDTO)
+            if (bankAccountWindow.Tag is BankAccountDTO)
             {
-                var bankAccount = BankAccountWindow.Tag as BankAccountDTO;
+                var bankAccount = bankAccountWindow.Tag as BankAccountDTO;
                 PaymentNotice.BankAccountId = bankAccount.BankAccountId;
                 PaymentNotice.BankAccountName = bankAccount.Account + "/" + bankAccount.Bank + bankAccount.Branch;
             }

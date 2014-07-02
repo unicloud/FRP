@@ -1,19 +1,20 @@
 ﻿#region 命名空间
 
 using System.ComponentModel.Composition;
+using Telerik.Windows.Controls.ColorEditor;
 
 #endregion
 
 namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
 {
-    [Export(typeof(ManageSystemConfig))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class ManageSystemConfig
     {
         public ManageSystemConfig()
         {
             InitializeComponent();
         }
+
         [Import]
         public ManageSystemConfigVm ViewModel
         {
@@ -21,10 +22,9 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
             set { DataContext = value; }
         }
 
-        private void ColorEditorSelectedColorChanged(object sender, Telerik.Windows.Controls.ColorEditor.ColorChangeEventArgs e)
+        private void ColorEditorSelectedColorChanged(object sender, ColorChangeEventArgs e)
         {
             ViewModel.ColorEditorSelectedColorChanged(sender, e);
         }
-
     }
 }

@@ -6,14 +6,14 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(MaintainCreditNoteManager))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class MaintainCreditNoteManager 
+    [Export]
+    public partial class MaintainCreditNoteManager
     {
         public MaintainCreditNoteManager()
         {
             InitializeComponent();
         }
+
         [Import]
         public MaintainCreditNoteManagerVm ViewModel
         {

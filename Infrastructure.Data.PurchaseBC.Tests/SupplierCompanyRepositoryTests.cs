@@ -25,8 +25,6 @@ using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
-using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
-using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -106,7 +104,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             var srRep = UniContainer.Resolve<ISupplierRoleRepository>();
 
             // Act
-            var result=srRep.GetAll().ToList();
+            var result = srRep.GetAll().ToList();
 
             // Assert
             Assert.IsTrue(result.Any());

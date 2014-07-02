@@ -37,8 +37,8 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
-    [Export(typeof(AcPaymentScheduleVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (AcPaymentScheduleVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AcPaymentScheduleVM : EditViewModelBase
     {
         private readonly PaymentData _context;
@@ -62,6 +62,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         #region 加载合同飞机
 
         private ContractAircraftDTO _selectedContractAircraft;
+
         /// <summary>
         ///     选择合同飞机。
         /// </summary>
@@ -155,7 +156,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         private void InitialAcPaymentSchedule()
         {
             AcPaymentSchedulesView =
-                _service.CreateCollection(_context.AcPaymentSchedules.Expand(p => p.PaymentScheduleLines), o => o.PaymentScheduleLines);
+                _service.CreateCollection(_context.AcPaymentSchedules.Expand(p => p.PaymentScheduleLines),
+                    o => o.PaymentScheduleLines);
             _paymnetFilterOperator = new FilterDescriptor("ContractAcId", FilterOperator.IsEqualTo, 0);
             AcPaymentSchedulesView.FilterDescriptors.Add(_paymnetFilterOperator);
             AcPaymentSchedulesView.LoadedData += (sender, e) =>

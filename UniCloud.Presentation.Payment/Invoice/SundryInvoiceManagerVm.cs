@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/5/4 14:28:26
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -20,7 +22,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -33,21 +34,19 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(SundryInvoiceManagerVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (SundryInvoiceManagerVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SundryInvoiceManagerVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PaymentData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public SundryInvoiceManagerVm(IRegionManager regionManager, IPaymentService service)
+        public SundryInvoiceManagerVm(IPaymentService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -64,12 +63,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             SundryInvoices = _service.CreateCollection(_context.SundryInvoices, o => o.InvoiceLines);
             SundryInvoices.LoadedData += (o, e) =>
-                                         {
-                                             if (SelectSundryInvoice == null)
-                                                 SelectSundryInvoice = SundryInvoices.FirstOrDefault();
-                                         };
+            {
+                if (SelectSundryInvoice == null)
+                    SelectSundryInvoice = SundryInvoices.FirstOrDefault();
+            };
             _service.RegisterCollectionView(SundryInvoices); //注册查询集合。
-
         }
 
         /// <summary>
@@ -91,13 +89,20 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 数据
 
         #region 公共属性
+
         /// <summary>
-        ///   项名称
+        ///     项名称
         /// </summary>
         public Dictionary<int, ItemNameType> ItemNameTypes
         {
-            get { return Enum.GetValues(typeof(ItemNameType)).Cast<object>().ToDictionary(value => (int)value, value => (ItemNameType)value); }
+            get
+            {
+                return Enum.GetValues(typeof (ItemNameType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (ItemNameType) value);
+            }
         }
+
         #region 币种集合
 
         /// <summary>
@@ -294,16 +299,16 @@ namespace UniCloud.Presentation.Payment.Invoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SundryInvoices.Remove(SelectSundryInvoice);
-                                                SelectSundryInvoice = SundryInvoices.FirstOrDefault();
-                                                if (SelectSundryInvoice == null)
-                                                {
-                                                    //删除完，若没有记录了，则也要删除界面明细
-                                                    InvoiceLines.Clear();
-                                                }
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SundryInvoices.Remove(SelectSundryInvoice);
+                SelectSundryInvoice = SundryInvoices.FirstOrDefault();
+                if (SelectSundryInvoice == null)
+                {
+                    //删除完，若没有记录了，则也要删除界面明细
+                    InvoiceLines.Clear();
+                }
+            });
         }
 
         private bool CanDelete(object obj)
@@ -358,12 +363,12 @@ namespace UniCloud.Presentation.Payment.Invoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SelectSundryInvoice.InvoiceLines.Remove(SelInvoiceLine);
-                                                InvoiceLines.Remove(SelInvoiceLine);
-                                                SelInvoiceLine = SelectSundryInvoice.InvoiceLines.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SelectSundryInvoice.InvoiceLines.Remove(SelInvoiceLine);
+                InvoiceLines.Remove(SelInvoiceLine);
+                SelInvoiceLine = SelectSundryInvoice.InvoiceLines.FirstOrDefault();
+            });
         }
 
         private bool CanRemove(object obj)
@@ -428,7 +433,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "TotalLine", StringComparison.OrdinalIgnoreCase))
                 {
-                    decimal totalCount = SelectSundryInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
+                    var totalCount = SelectSundryInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
                     SelectSundryInvoice.InvoiceValue = totalCount;
                 }
             }

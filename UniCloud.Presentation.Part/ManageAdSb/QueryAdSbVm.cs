@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,12 +11,12 @@
 // 修改者：linxw 时间：2014/2/28 17:38:25
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System.ComponentModel.Composition;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Part;
@@ -25,22 +26,20 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Part.ManageAdSb
 {
-    [Export(typeof(QueryAdSbVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public class QueryAdSbVm: EditViewModelBase
+    [Export(typeof (QueryAdSbVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class QueryAdSbVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
 
 
         [ImportingConstructor]
-        public QueryAdSbVm(IRegionManager regionManager, IPartService service)
+        public QueryAdSbVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -66,6 +65,7 @@ namespace UniCloud.Presentation.Part.ManageAdSb
         #region 公共属性
 
         #region AdSbSCN/MSCN
+
         /// <summary>
         ///     AdSb集合
         /// </summary>

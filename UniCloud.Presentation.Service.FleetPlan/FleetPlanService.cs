@@ -22,7 +22,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Xml.Linq;
 using Telerik.Windows.Data;
@@ -32,8 +31,8 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.Service.FleetPlan
 {
-    [Export(typeof(IFleetPlanService))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (IFleetPlanService))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FleetPlanService : ServiceBase, IFleetPlanService
     {
         public FleetPlanService()
@@ -42,23 +41,15 @@ namespace UniCloud.Presentation.Service.FleetPlan
             context.WritingEntity += context_WritingEntity;
         }
 
-        /// <summary>
-        /// Properties marked with this Attribute are not serialized in the payload when sent to the server
-        /// </summary>
-        [AttributeUsage(AttributeTargets.Property)]
-        public class DoNotSerializeAttribute : Attribute
-        {
-        }
-
         private void context_WritingEntity(object sender, ReadingWritingEntityEventArgs e)
         {
             // e.Data gives you the XElement for the Serialization of the Entity 
             //Using XLinq  , you can  add/Remove properties to the element Payload  
-            XName xnEntityProperties = XName.Get("properties", e.Data.GetNamespaceOfPrefix("m").NamespaceName);
+            var xnEntityProperties = XName.Get("properties", e.Data.GetNamespaceOfPrefix("m").NamespaceName);
             XElement xePayload = null;
-            foreach (PropertyInfo property in e.Entity.GetType().GetProperties())
+            foreach (var property in e.Entity.GetType().GetProperties())
             {
-                object[] doNotSerializeAttributes = property.GetCustomAttributes(typeof(DoNotSerializeAttribute), false);
+                var doNotSerializeAttributes = property.GetCustomAttributes(typeof (DoNotSerializeAttribute), false);
                 if (doNotSerializeAttributes.Length > 0)
                 {
                     if (xePayload == null)
@@ -67,9 +58,9 @@ namespace UniCloud.Presentation.Service.FleetPlan
                             e.Data.Descendants().First(xe => xe.Name == xnEntityProperties);
                     }
                     //The XName of the property we are going to remove from the payload
-                    XName xnProperty = XName.Get(property.Name, e.Data.GetNamespaceOfPrefix("d").NamespaceName);
+                    var xnProperty = XName.Get(property.Name, e.Data.GetNamespaceOfPrefix("d").NamespaceName);
                     //Get the Property of the entity  you don't want sent to the server
-                    foreach (XElement xeRemoveThisProperty in xePayload.Descendants(xnProperty).ToList())
+                    foreach (var xeRemoveThisProperty in xePayload.Descendants(xnProperty).ToList())
                     {
                         //Remove this property from the Payload sent to the server 
                         xeRemoveThisProperty.Remove();
@@ -150,6 +141,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         {
             return GetStaticData(Context.AircraftSeries, loaded, forceLoad);
         }
+
         #endregion
 
         #region 公共属性
@@ -171,7 +163,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 活动类型集合
+        ///     活动类型集合
         /// </summary>
         public List<ActionCategoryDTO> ActionCategories
         {
@@ -179,7 +171,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 机型集合
+        ///     机型集合
         /// </summary>
         public List<AircraftTypeDTO> AircraftTypes
         {
@@ -187,12 +179,13 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 座级集合
+        ///     座级集合
         /// </summary>
         public List<AircraftCategoryDTO> AircraftCategories
         {
             get { return GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().ToList(); }
         }
+
         #endregion
 
         #region 业务逻辑
@@ -200,7 +193,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         #region 计划
 
         /// <summary>
-        /// 获取计划明细中集合属性ActionCategories的值
+        ///     获取计划明细中集合属性ActionCategories的值
         /// </summary>
         /// <param name="ph"></param>
         public ObservableCollection<ActionCateDTO> GetActionCategoriesForPlanHistory(PlanHistoryDTO ph)
@@ -225,7 +218,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 获取计划明细中集合属性AircraftCategories的值
+        ///     获取计划明细中集合属性AircraftCategories的值
         /// </summary>
         /// <param name="ph"></param>
         public ObservableCollection<AircraftCateDTO> GetAircraftCategoriesForPlanHistory(PlanHistoryDTO ph)
@@ -247,13 +240,15 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 获取计划明细中集合属性AircraftTypes的值
+        ///     获取计划明细中集合属性AircraftTypes的值
         /// </summary>
         /// <param name="ph"></param>
         /// <returns></returns>
         public ObservableCollection<AircraftTyDTO> GetAircraftTypesForPlanHistory(PlanHistoryDTO ph)
         {
-            List<AircraftTypeDTO> aircraftTypes = ph.Regional != null ? AircraftTypes.Where(p => p.Regional == ph.Regional).ToList() : AircraftTypes.ToList();
+            var aircraftTypes = ph.Regional != null
+                ? AircraftTypes.Where(p => p.Regional == ph.Regional).ToList()
+                : AircraftTypes.ToList();
             var aircraftTys = new ObservableCollection<AircraftTyDTO>();
             aircraftTypes.ForEach(p => aircraftTys.Add(new AircraftTyDTO
             {
@@ -267,7 +262,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 当计划明细中活动类型发生变化的时候，需要改变相应属性：目标类型、净增座位、净增商载
+        ///     当计划明细中活动类型发生变化的时候，需要改变相应属性：目标类型、净增座位、净增商载
         /// </summary>
         /// <param name="ph"></param>
         public void OnChangedActionCategory(PlanHistoryDTO ph)
@@ -316,7 +311,6 @@ namespace UniCloud.Presentation.Service.FleetPlan
                                 if (ph.TargetCategoryId == aircraftImport) return;
                                 ph.TargetCategoryId = aircraftImport;
                                 ph.AircraftTypeId = Guid.Empty;
-
                             }
                             break;
                         case "货改客":
@@ -335,8 +329,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                             if (actionCategoryDto != null)
                             {
                                 if (ph.TargetCategoryId == actionCategoryDto.Id) return;
-                                else
-                                    ph.TargetCategoryId = actionCategoryDto.Id;
+                                ph.TargetCategoryId = actionCategoryDto.Id;
                             }
 
                             break;
@@ -345,8 +338,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                             if (actionCategoryDto != null)
                             {
                                 if (ph.TargetCategoryId == actionCategoryDto.Id) return;
-                                else
-                                    ph.TargetCategoryId = actionCategoryDto.Id;
+                                ph.TargetCategoryId = actionCategoryDto.Id;
                             }
                             break;
                         case "租转购":
@@ -354,8 +346,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                             if (actionCategoryDto != null)
                             {
                                 if (ph.TargetCategoryId == actionCategoryDto.Id) return;
-                                else
-                                    ph.TargetCategoryId = actionCategoryDto.Id;
+                                ph.TargetCategoryId = actionCategoryDto.Id;
                             }
                             break;
                     }
@@ -364,13 +355,16 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 创建新年度的初始化计划
+        ///     创建新年度的初始化计划
         /// </summary>
         /// <param name="lastPlan"></param>
         /// <param name="allPlanHistories"></param>
         /// <param name="newAnnual"></param>
-        /// <returns><see cref="IFleetPlanService"/></returns>
-        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, AnnualDTO newAnnual)
+        /// <returns>
+        ///     <see cref="IFleetPlanService" />
+        /// </returns>
+        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan,
+            QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, AnnualDTO newAnnual)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
@@ -379,12 +373,15 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 创建新版本的运力增减计划
+        ///     创建新版本的运力增减计划
         /// </summary>
         /// <param name="lastPlan"></param>
         /// <param name="allPlanHistories"></param>
-        /// <returns><see cref="IFleetPlanService"/></returns>
-        public PlanDTO CreateNewVersionPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories)
+        /// <returns>
+        ///     <see cref="IFleetPlanService" />
+        /// </returns>
+        public PlanDTO CreateNewVersionPlan(PlanDTO lastPlan,
+            QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
@@ -393,7 +390,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 创建运力增减计划明细
+        ///     创建运力增减计划明细
         /// </summary>
         /// <param name="plan">计划</param>
         /// <param name="allPlanHistories"></param>
@@ -402,18 +399,40 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="actionType">活动类型</param>
         /// <param name="planType">判断是否运营\变更计划</param>
         /// <returns></returns>
-        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, ref PlanAircraftDTO planAircraft, AircraftDTO aircraft, string actionType, int planType)
+        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan,
+            QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, ref PlanAircraftDTO planAircraft,
+            AircraftDTO aircraft, string actionType, int planType)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreatePlanHistory(plan, allPlanHistories, ref planAircraft, aircraft, actionType, planType, this);
+                return pb.CreatePlanHistory(plan, allPlanHistories, ref planAircraft, aircraft, actionType, planType,
+                    this);
             }
         }
 
         /// <summary>
-        ///  移除运力增减计划明细
+        ///     完成运力增减计划
         /// </summary>
-        /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
+        /// <param name="planDetail">计划明细</param>
+        /// <param name="aircraft">飞机</param>
+        /// <param name="editAircraft">飞机</param>
+        /// <returns>
+        ///     <see cref="IFleetPlanService" />
+        /// </returns>
+        public void CompletePlan(PlanHistoryDTO planDetail, AircraftDTO aircraft, ref AircraftDTO editAircraft)
+        {
+            using (var pb = new FleetPlanServiceHelper())
+            {
+                pb.CompletePlan(planDetail, aircraft, ref editAircraft, this);
+            }
+        }
+
+        /// <summary>
+        ///     移除运力增减计划明细
+        /// </summary>
+        /// <param name="planDetail">
+        ///     <see cref="IFleetPlanService" />
+        /// </param>
         public void RemovePlanDetail(PlanHistoryDTO planDetail)
         {
             using (var pb = new FleetPlanServiceHelper())
@@ -423,24 +442,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 完成运力增减计划
+        ///     获取所有有效的计划
         /// </summary>
-        /// <param name="planDetail">计划明细</param>
-        /// <param name="aircraft">飞机</param>
-        /// <param name="editAircraft">飞机</param>
-        /// <returns><see cref="IFleetPlanService"/></returns>
-        public void CompletePlan(PlanHistoryDTO planDetail, AircraftDTO aircraft, ref AircraftDTO editAircraft)
-        {
-            using (var pb = new FleetPlanServiceHelper())
-            {
-                pb.CompletePlan(planDetail, aircraft, ref  editAircraft, this);
-            }
-        }
-
-        /// <summary>
-        /// 获取所有有效的计划
-        /// </summary>
-        /// <returns><see cref="IFleetPlanService"/></returns>
+        /// <returns>
+        ///     <see cref="IFleetPlanService" />
+        /// </returns>
         public ObservableCollection<PlanDTO> GetAllValidPlan()
         {
             using (var pb = new FleetPlanServiceHelper())
@@ -458,10 +464,14 @@ namespace UniCloud.Presentation.Service.FleetPlan
         #region 运营管理
 
         /// <summary>
-        /// 创建所有权历史
+        ///     创建所有权历史
         /// </summary>
-        /// <param name="aircraft"><see cref="IFleetPlanService"/></param>
-        /// <returns><see cref="IFleetPlanService"/></returns>
+        /// <param name="aircraft">
+        ///     <see cref="IFleetPlanService" />
+        /// </param>
+        /// <returns>
+        ///     <see cref="IFleetPlanService" />
+        /// </returns>
         public OwnershipHistoryDTO CreateNewOwnership(AircraftDTO aircraft)
         {
             using (var pb = new FleetPlanServiceHelper())
@@ -471,9 +481,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 移除所有权历史
+        ///     移除所有权历史
         /// </summary>
-        /// <param name="ownership"><see cref="IFleetPlanService"/></param>
+        /// <param name="ownership">
+        ///     <see cref="IFleetPlanService" />
+        /// </param>
         public void RemoveOwnership(OwnershipHistoryDTO ownership)
         {
             using (var pb = new FleetPlanServiceHelper())
@@ -489,15 +501,18 @@ namespace UniCloud.Presentation.Service.FleetPlan
         #region 数据传输
 
         /// <summary>
-        ///  发送申请
+        ///     发送申请
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentRequest"></param>
         /// <param name="fleetContext"></param>
         public void TransferRequest(Guid currentAirlines, Guid currentRequest, FleetPlanData fleetContext)
         {
-            var path = new Uri(string.Format("TransferRequest?currentAirlines='{0}'&currentRequest='{1}'", currentAirlines, currentRequest),
-                UriKind.Relative);
+            var path =
+                new Uri(
+                    string.Format("TransferRequest?currentAirlines='{0}'&currentRequest='{1}'", currentAirlines,
+                        currentRequest),
+                    UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
                 result => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -507,13 +522,13 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     {
                         if (asynvContext != null)
                         {
-                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
                             MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
@@ -521,15 +536,16 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentPlan"></param>
         /// <param name="fleetContext"></param>
         public void TransferPlan(Guid currentAirlines, Guid currentPlan, FleetPlanData fleetContext)
         {
-            var path = new Uri(string.Format("TransferPlan?currentAirlines='{0}'&currentPlan='{1}'", currentAirlines, currentPlan),
-                UriKind.Relative);
+            var path =
+                new Uri(
+                    string.Format("TransferPlan?currentAirlines='{0}'&currentPlan='{1}'", currentAirlines, currentPlan),
+                    UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
                 result => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -539,13 +555,13 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     {
                         if (asynvContext != null)
                         {
-                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
                             MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
@@ -553,15 +569,17 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentApprovalDoc"></param>
         /// <param name="fleetContext"></param>
         public void TransferApprovalDoc(Guid currentAirlines, Guid currentApprovalDoc, FleetPlanData fleetContext)
         {
-            var path = new Uri(string.Format("TransferApprovalDoc?currentAirlines='{0}'&currentApprovalDoc='{1}'", currentAirlines, currentApprovalDoc),
-                UriKind.Relative);
+            var path =
+                new Uri(
+                    string.Format("TransferApprovalDoc?currentAirlines='{0}'&currentApprovalDoc='{1}'", currentAirlines,
+                        currentApprovalDoc),
+                    UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
                 result => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -571,13 +589,13 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     {
                         if (asynvContext != null)
                         {
-                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
                             MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
@@ -585,15 +603,17 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentPlanHistory"></param>
         /// <param name="fleetContext"></param>
         public void TransferPlanHistory(Guid currentAirlines, Guid currentPlanHistory, FleetPlanData fleetContext)
         {
-            var path = new Uri(string.Format("TransferPlanHistory?currentAirlines='{0}'&currentPlanHistory='{1}'", currentAirlines, currentPlanHistory),
-                UriKind.Relative);
+            var path =
+                new Uri(
+                    string.Format("TransferPlanHistory?currentAirlines='{0}'&currentPlanHistory='{1}'", currentAirlines,
+                        currentPlanHistory),
+                    UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
                 result => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -603,13 +623,13 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     {
                         if (asynvContext != null)
                         {
-                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
                             MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
@@ -617,15 +637,18 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentOwnershipHistory"></param>
         /// <param name="fleetContext"></param>
-        public void TransferOwnershipHistory(Guid currentAirlines, Guid currentOwnershipHistory, FleetPlanData fleetContext)
+        public void TransferOwnershipHistory(Guid currentAirlines, Guid currentOwnershipHistory,
+            FleetPlanData fleetContext)
         {
-            var path = new Uri(string.Format("TransferOwnershipHistory?currentAirlines='{0}'&currentOwnershipHistory='{1}'", currentAirlines, currentOwnershipHistory),
-                UriKind.Relative);
+            var path =
+                new Uri(
+                    string.Format("TransferOwnershipHistory?currentAirlines='{0}'&currentOwnershipHistory='{1}'",
+                        currentAirlines, currentOwnershipHistory),
+                    UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
                 result => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -635,13 +658,13 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     {
                         if (asynvContext != null)
                         {
-                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
                             MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
@@ -649,16 +672,20 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="currentAirlines"></param>
         /// <param name="currentPlan"></param>
         /// <param name="currentRequest"></param>
         /// <param name="fleetContext"></param>
-        public void TransferPlanAndRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest, FleetPlanData fleetContext)
+        public void TransferPlanAndRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest,
+            FleetPlanData fleetContext)
         {
-            var path = new Uri(string.Format("TransferPlanAndRequest?currentAirlines='{0}'&currentPlan='{1}'&currentRequest='{2}'", currentAirlines, currentPlan, currentRequest),
-                UriKind.Relative);
+            var path =
+                new Uri(
+                    string.Format(
+                        "TransferPlanAndRequest?currentAirlines='{0}'&currentPlan='{1}'&currentRequest='{2}'",
+                        currentAirlines, currentPlan, currentRequest),
+                    UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
                 result => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -668,23 +695,28 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     {
                         if (asynvContext != null)
                         {
-                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
                             MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
                 }), Context);
         }
 
-        public void TransferApprovalRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest, Guid currentApprovalDoc, FleetPlanData fleetContext)
+        public void TransferApprovalRequest(Guid currentAirlines, Guid currentPlan, Guid currentRequest,
+            Guid currentApprovalDoc, FleetPlanData fleetContext)
         {
-            var path = new Uri(string.Format("TransferApprovalRequest?currentAirlines='{0}'&currentPlan='{1}'&currentRequest='{2}'&currentApprovalDoc='{3}'", currentAirlines, currentPlan, currentRequest, currentApprovalDoc),
-                UriKind.Relative);
+            var path =
+                new Uri(
+                    string.Format(
+                        "TransferApprovalRequest?currentAirlines='{0}'&currentPlan='{1}'&currentRequest='{2}'&currentApprovalDoc='{3}'",
+                        currentAirlines, currentPlan, currentRequest, currentApprovalDoc),
+                    UriKind.Relative);
 
             fleetContext.BeginExecute<bool>(path,
                 result => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -694,13 +726,13 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     {
                         if (asynvContext != null)
                         {
-                            bool sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
+                            var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
                             MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
@@ -708,6 +740,15 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         #endregion
+
         #endregion
+
+        /// <summary>
+        ///     Properties marked with this Attribute are not serialized in the payload when sent to the server
+        /// </summary>
+        [AttributeUsage(AttributeTargets.Property)]
+        public class DoNotSerializeAttribute : Attribute
+        {
+        }
     }
 }

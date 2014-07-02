@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：  时间：2014/5/27 14:15:58
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -18,19 +20,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
+using System.Globalization;
 using System.Linq;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Xml.Linq;
-using Microsoft.Data.OData.Query.SemanticAst;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -43,24 +36,22 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.MaintainControl
 {
-    [Export(typeof(QueryMaintainCtrlVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (QueryMaintainCtrlVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryMaintainCtrlVm : ViewModelBase
     {
         #region 声明、初始化
 
-        private readonly IRegionManager _regionManager;
-        private readonly IPartService _service;
         private readonly PartData _context;
-        private FilterDescriptor _snDescriptor;
+        private readonly IPartService _service;
         private FilterDescriptor _itemCtrlDescriptor;
         private FilterDescriptor _pnCtrlDescriptor;
+        private FilterDescriptor _snDescriptor;
 
         [ImportingConstructor]
-        public QueryMaintainCtrlVm(IRegionManager regionManager, IPartService service)
+        public QueryMaintainCtrlVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -77,20 +68,19 @@ namespace UniCloud.Presentation.Part.MaintainControl
             Items = new QueryableDataServiceCollectionView<ItemDTO>(_context, _context.Items);
             var itemDescriptor = new FilterDescriptor("IsLife", FilterOperator.IsEqualTo, true);
             Items.FilterDescriptors.Add(itemDescriptor);
-            Items.LoadedData += (s, e) =>
-            {
-                SelItem = Items.FirstOrDefault();
-            };
+            Items.LoadedData += (s, e) => { SelItem = Items.FirstOrDefault(); };
 
             SnRegs = new QueryableDataServiceCollectionView<SnRegDTO>(_context, _context.SnRegs);
             _snDescriptor = new FilterDescriptor("PnRegId", FilterOperator.IsEqualTo, -1);
             SnRegs.FilterDescriptors.Add(_snDescriptor);
 
-            ItemMaintainCtrls = new QueryableDataServiceCollectionView<ItemMaintainCtrlDTO>(_context, _context.ItemMaintainCtrls);
+            ItemMaintainCtrls = new QueryableDataServiceCollectionView<ItemMaintainCtrlDTO>(_context,
+                _context.ItemMaintainCtrls);
             _itemCtrlDescriptor = new FilterDescriptor("ItemId", FilterOperator.IsEqualTo, -1);
             ItemMaintainCtrls.FilterDescriptors.Add(_itemCtrlDescriptor);
 
-            PnMaintainCtrls = new QueryableDataServiceCollectionView<PnMaintainCtrlDTO>(_context, _context.PnMaintainCtrls);
+            PnMaintainCtrls = new QueryableDataServiceCollectionView<PnMaintainCtrlDTO>(_context,
+                _context.PnMaintainCtrls);
             _pnCtrlDescriptor = new FilterDescriptor("PnRegId", FilterOperator.IsEqualTo, -1);
             PnMaintainCtrls.FilterDescriptors.Add(_pnCtrlDescriptor);
 
@@ -121,11 +111,12 @@ namespace UniCloud.Presentation.Part.MaintainControl
         {
             get
             {
-                return Enum.GetValues(typeof(ControlStrategy))
+                return Enum.GetValues(typeof (ControlStrategy))
                     .Cast<object>()
-                    .ToDictionary(value => (int)value, value => (ControlStrategy)value);
+                    .ToDictionary(value => (int) value, value => (ControlStrategy) value);
             }
         }
+
         #endregion
 
         #region 加载数据
@@ -167,7 +158,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         public List<PnRegDTO> PnRegs
         {
             get { return _pnRegs; }
-            private set
+            set
             {
                 if (_pnRegs != value)
                 {
@@ -190,14 +181,13 @@ namespace UniCloud.Presentation.Part.MaintainControl
 
         #region 项维修控制组集合
 
+        private IEnumerable<ItemVm.CtrlLine> _itemCtrlLines;
+        private ItemMaintainCtrlDTO _selItemMaintainCtrl;
+
         /// <summary>
         ///     项维修控制组集合
         /// </summary>
         public QueryableDataServiceCollectionView<ItemMaintainCtrlDTO> ItemMaintainCtrls { get; set; }
-
-
-        private ItemMaintainCtrlDTO _selItemMaintainCtrl;
-        private IEnumerable<ItemVm.CtrlLine> _itemCtrlLines; 
 
         /// <summary>
         ///     选择的项维修控制组
@@ -227,24 +217,25 @@ namespace UniCloud.Presentation.Part.MaintainControl
             get { return _itemCtrlLines; }
             private set
             {
-                if (_itemCtrlLines != value)
+                if (!(_itemCtrlLines.Equals(value)))
                 {
                     _itemCtrlLines = value;
                     RaisePropertyChanged(() => ItemCtrlLines);
                 }
             }
         }
+
         #endregion
 
         #region 部件维修控制组集合
+
+        private IEnumerable<ItemVm.CtrlLine> _pnCtrlLines;
+        private PnMaintainCtrlDTO _selPnMaintainCtrl;
 
         /// <summary>
         ///     部件维修控制组集合
         /// </summary>
         public QueryableDataServiceCollectionView<PnMaintainCtrlDTO> PnMaintainCtrls { get; set; }
-
-        private PnMaintainCtrlDTO _selPnMaintainCtrl;
-        private IEnumerable<ItemVm.CtrlLine> _pnCtrlLines; 
 
         /// <summary>
         ///     选择的部件维修控制组
@@ -273,13 +264,14 @@ namespace UniCloud.Presentation.Part.MaintainControl
             get { return _pnCtrlLines; }
             private set
             {
-                if (_pnCtrlLines != value)
+                if (!(_pnCtrlLines.Equals(value)))
                 {
                     _pnCtrlLines = value;
                     RaisePropertyChanged(() => PnCtrlLines);
                 }
             }
         }
+
         #endregion
 
         #region 选择的附件项
@@ -342,6 +334,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         #endregion
 
         #region 创建查询路径
+
         /// <summary>
         ///     创建查询路径
         /// </summary>
@@ -372,7 +365,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                     }
                     catch (DataServiceQueryException ex)
                     {
-                        QueryOperationResponse response = ex.Response;
+                        var response = ex.Response;
 
                         Console.WriteLine(response.Error.Message);
                     }
@@ -380,11 +373,13 @@ namespace UniCloud.Presentation.Part.MaintainControl
         }
 
         #endregion
+
         #endregion
 
         #endregion
 
         #region 方法
+
         private IEnumerable<ItemVm.CtrlLine> ConvertXmlToString(XElement xmlContent)
         {
             if (xmlContent != null)
@@ -401,14 +396,19 @@ namespace UniCloud.Presentation.Part.MaintainControl
                         }
                         else if (ctrlType.Attribute("Name").Value == "Action")
                         {
+                            var type = ctrlType;
                             var maintainWork =
-                                MaintainWorks.FirstOrDefault(p => p.Id.ToString() == ctrlType.Attribute("Value").Value);
+                                MaintainWorks.FirstOrDefault(
+                                    p => p.Id.ToString(CultureInfo.InvariantCulture) == type.Attribute("Value").Value);
                             if (maintainWork != null)
                                 str += "自上次" + maintainWork.WorkCode + "起，当";
                         }
 
                         //控制单位
-                        var ctrlUnit = CtrlUnits.FirstOrDefault(p => p.Id.ToString() == ctrlDetail.Attribute("Type").Value);
+                        var detail = ctrlDetail;
+                        var ctrlUnit =
+                            CtrlUnits.FirstOrDefault(
+                                p => p.Id.ToString(CultureInfo.InvariantCulture) == detail.Attribute("Type").Value);
                         if (ctrlUnit != null)
                             str += ctrlUnit.Name + "(" + ctrlUnit.Description + ")";
                         else str += ctrlDetail.Attribute("Type").Value;
@@ -419,7 +419,8 @@ namespace UniCloud.Presentation.Part.MaintainControl
                             var max = ctrlDetail.Descendants("Max").First();
                             var min = ctrlDetail.Descendants("Min").First();
 
-                            str += "处于(最小间隔)" + min.Attribute("Value").Value + "和(最大间隔)" + max.Attribute("Value").Value + "之间";
+                            str += "处于(最小间隔)" + min.Attribute("Value").Value + "和(最大间隔)" + max.Attribute("Value").Value +
+                                   "之间";
                         }
                         else if (ctrlDetail.Descendants("Standard").Count() != 0)
                         {
@@ -442,6 +443,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
             }
             return null;
         }
+
         #endregion
 
         #endregion

@@ -37,8 +37,8 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
-    [Export(typeof(EnginePaymentScheduleVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (EnginePaymentScheduleVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class EnginePaymentScheduleVM : EditViewModelBase
     {
         private readonly PaymentData _context;
@@ -156,7 +156,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialEnginePaymentSchedule()
         {
-            EnginePaymentSchedulesView = _service.CreateCollection(_context.EnginePaymentSchedules, o => o.PaymentScheduleLines);
+            EnginePaymentSchedulesView = _service.CreateCollection(_context.EnginePaymentSchedules,
+                o => o.PaymentScheduleLines);
             _paymnetFilterOperator = new FilterDescriptor("ContractEngineId", FilterOperator.IsEqualTo, 0);
             EnginePaymentSchedulesView.FilterDescriptors.Add(_paymnetFilterOperator);
             EnginePaymentSchedulesView.LoadedData += (sender, e) =>

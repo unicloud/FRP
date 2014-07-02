@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Part.ManageItem
 {
-    [Export(typeof (ItemControlView))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class ItemControlView : UserControl
+    [Export]
+    public partial class ItemControlView
     {
         public ItemControlView()
         {

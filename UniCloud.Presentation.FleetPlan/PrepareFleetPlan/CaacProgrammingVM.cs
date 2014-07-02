@@ -22,9 +22,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
-using Telerik.Windows.Controls.GridView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
@@ -35,21 +33,19 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof(CaacProgrammingVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (CaacProgrammingVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class CaacProgrammingVM : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly FleetPlanData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
 
         [ImportingConstructor]
-        public CaacProgrammingVM(IRegionManager regionManager, IFleetPlanService service)
+        public CaacProgrammingVM(IFleetPlanService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -64,17 +60,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            var sort = new SortDescriptor { Member = "CreateDate", SortDirection = ListSortDirection.Ascending };
-            var group = new GroupDescriptor { Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending };
+            var sort = new SortDescriptor {Member = "CreateDate", SortDirection = ListSortDirection.Ascending};
+            var group = new GroupDescriptor {Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending};
 
             CaacProgrammings = _service.CreateCollection(_context.CaacProgrammings, o => o.CaacProgrammingLines);
             CaacProgrammings.SortDescriptors.Add(sort);
             CaacProgrammings.GroupDescriptors.Add(group);
             CaacProgrammings.LoadedData += (o, e) =>
-                                           {
-                                               if (SelCaacProgramming == null)
-                                                   SelCaacProgramming = CaacProgrammings.FirstOrDefault();
-                                           };
+            {
+                if (SelCaacProgramming == null)
+                    SelCaacProgramming = CaacProgrammings.FirstOrDefault();
+            };
             _service.RegisterCollectionView(CaacProgrammings); //注册查询集合
 
             ProgrammingFiles = _service.CreateCollection(_context.ProgrammingFiles);
@@ -361,11 +357,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                CaacProgrammings.Remove(SelCaacProgramming);
-                                                SelCaacProgramming = CaacProgrammings.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                CaacProgrammings.Remove(SelCaacProgramming);
+                SelCaacProgramming = CaacProgrammings.FirstOrDefault();
+            });
         }
 
         private bool CanRemove(object obj)
@@ -418,11 +414,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SelCaacProgramming.CaacProgrammingLines.Remove(SelCaacProgrammingLine);
-                                                SelCaacProgrammingLine = SelCaacProgramming.CaacProgrammingLines.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SelCaacProgramming.CaacProgrammingLines.Remove(SelCaacProgrammingLine);
+                SelCaacProgrammingLine = SelCaacProgramming.CaacProgrammingLines.FirstOrDefault();
+            });
         }
 
         private bool CanRemoveEntity(object obj)
@@ -515,18 +511,18 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var gridView = sender as RadGridView;
             if (gridView != null)
             {
-                GridViewCell cell = gridView.CurrentCell;
+                var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "ProgrammingNameForCaac"))
                 {
-                    Guid value = SelCaacProgramming.ProgrammingId;
-                    ProgrammingDTO programming = Programmings.FirstOrDefault(p => p.Id == value);
+                    var value = SelCaacProgramming.ProgrammingId;
+                    var programming = Programmings.FirstOrDefault(p => p.Id == value);
                     if (programming != null)
                         SelCaacProgramming.ProgrammingName = programming.Name;
                 }
                 else if (string.Equals(cell.Column.UniqueName, "ProgrammingNameForFile"))
                 {
-                    Guid value = SelProgrammingFile.ProgrammingId;
-                    ProgrammingDTO programming = Programmings.FirstOrDefault(p => p.Id == value);
+                    var value = SelProgrammingFile.ProgrammingId;
+                    var programming = Programmings.FirstOrDefault(p => p.Id == value);
                     if (programming != null)
                         SelProgrammingFile.ProgrammingName = programming.Name;
                 }

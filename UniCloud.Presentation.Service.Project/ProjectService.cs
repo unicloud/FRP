@@ -25,7 +25,7 @@ using UniCloud.Presentation.Service.Project.Project;
 namespace UniCloud.Presentation.Service.Project
 {
     [Export(typeof (IProjectService))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ProjectService : ServiceBase, IProjectService
     {
         public ProjectService()

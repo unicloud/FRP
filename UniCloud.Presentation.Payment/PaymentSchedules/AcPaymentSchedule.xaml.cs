@@ -18,16 +18,12 @@
 #region 命名空间
 
 using System.ComponentModel.Composition;
-using System.Windows;
-using System.Windows.Controls;
-using Telerik.Windows.Controls;
 
 #endregion
 
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
-    [Export(typeof (AcPaymentSchedule))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class AcPaymentSchedule
     {
         public AcPaymentSchedule()

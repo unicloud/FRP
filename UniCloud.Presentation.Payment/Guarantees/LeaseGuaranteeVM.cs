@@ -33,12 +33,12 @@ using UniCloud.Presentation.SessionExtension;
 
 namespace UniCloud.Presentation.Payment.Guarantees
 {
-    [Export(typeof(LeaseGuaranteeVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (LeaseGuaranteeVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class LeaseGuaranteeVM : EditViewModelBase
     {
-        private readonly IPaymentService _service;
         private readonly PaymentData _context;
+        private readonly IPaymentService _service;
 
         /// <summary>
         ///     构造函数。
@@ -198,13 +198,13 @@ namespace UniCloud.Presentation.Payment.Guarantees
         public void OndAddGuarantee(object sender)
         {
             SelectedLeaseGuarantee = new LeaseGuaranteeDTO
-                                     {
-                                         GuaranteeId = RandomHelper.Next(),
-                                         CreateDate = DateTime.Now,
-                                         StartDate = DateTime.Now,
-                                         EndDate = DateTime.Now.AddDays(7),
-                                         OperatorName = SessionUser.UserName,
-                                     };
+            {
+                GuaranteeId = RandomHelper.Next(),
+                CreateDate = DateTime.Now,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(7),
+                OperatorName = SessionUser.UserName,
+            };
             var firstOrDefault = LeaseOrdersView.FirstOrDefault();
             if (firstOrDefault != null)
             {
@@ -250,12 +250,12 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                LeaseGuaranteesView.Remove(SelectedLeaseGuarantee);
-                                                SelectedLeaseGuarantee = LeaseGuaranteesView.FirstOrDefault();
-                                                RefreshCommandState();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                LeaseGuaranteesView.Remove(SelectedLeaseGuarantee);
+                SelectedLeaseGuarantee = LeaseGuaranteesView.FirstOrDefault();
+                RefreshCommandState();
+            });
         }
 
         /// <summary>
@@ -289,7 +289,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 MessageAlert("提示", "请选择需要提交审核的记录");
                 return;
             }
-            SelectedLeaseGuarantee.Status = (int)GuaranteeStatus.待审核;
+            SelectedLeaseGuarantee.Status = (int) GuaranteeStatus.待审核;
             RefreshCommandState();
         }
 
@@ -304,7 +304,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
             {
                 return false;
             }
-            return SelectedLeaseGuarantee != null && SelectedLeaseGuarantee.Status < (int)GuaranteeStatus.待审核;
+            return SelectedLeaseGuarantee != null && SelectedLeaseGuarantee.Status < (int) GuaranteeStatus.待审核;
         }
 
         #endregion
@@ -324,7 +324,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 MessageAlert("提示", "请选择需要审核的记录");
                 return;
             }
-            SelectedLeaseGuarantee.Status = (int)GuaranteeStatus.已审核;
+            SelectedLeaseGuarantee.Status = (int) GuaranteeStatus.已审核;
             SelectedLeaseGuarantee.Reviewer = SessionUser.UserName;
             RefreshCommandState();
         }
@@ -340,8 +340,8 @@ namespace UniCloud.Presentation.Payment.Guarantees
             {
                 return false;
             }
-            return SelectedLeaseGuarantee != null && SelectedLeaseGuarantee.Status < (int)GuaranteeStatus.已审核
-                   && SelectedLeaseGuarantee.Status > (int)GuaranteeStatus.草稿;
+            return SelectedLeaseGuarantee != null && SelectedLeaseGuarantee.Status < (int) GuaranteeStatus.已审核
+                   && SelectedLeaseGuarantee.Status > (int) GuaranteeStatus.草稿;
         }
 
         #endregion

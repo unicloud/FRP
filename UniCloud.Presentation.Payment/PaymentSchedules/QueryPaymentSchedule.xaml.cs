@@ -1,16 +1,19 @@
-﻿using System.ComponentModel.Composition;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
-    [Export(typeof(QueryPaymentSchedule))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-
-    public partial class QueryPaymentSchedule 
+    [Export]
+    public partial class QueryPaymentSchedule
     {
         public QueryPaymentSchedule()
         {
             InitializeComponent();
         }
+
         [Import]
         public QueryPaymentScheduleVM ViewModel
         {

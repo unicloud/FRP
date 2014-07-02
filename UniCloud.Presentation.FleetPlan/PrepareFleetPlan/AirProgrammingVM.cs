@@ -22,9 +22,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
-using Telerik.Windows.Controls.GridView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
@@ -35,21 +33,19 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof(AirProgrammingVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (AirProgrammingVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AirProgrammingVM : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly FleetPlanData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
 
         [ImportingConstructor]
-        public AirProgrammingVM(IRegionManager regionManager, IFleetPlanService service)
+        public AirProgrammingVM(IFleetPlanService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -64,16 +60,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            var sort = new SortDescriptor { Member = "CreateDate", SortDirection = ListSortDirection.Ascending };
-            var group = new GroupDescriptor { Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending };
+            var sort = new SortDescriptor {Member = "CreateDate", SortDirection = ListSortDirection.Ascending};
+            var group = new GroupDescriptor {Member = "ProgrammingName", SortDirection = ListSortDirection.Ascending};
             AirProgrammings = _service.CreateCollection(_context.AirProgrammings, o => o.AirProgrammingLines);
             AirProgrammings.SortDescriptors.Add(sort);
             AirProgrammings.GroupDescriptors.Add(group);
             AirProgrammings.LoadedData += (o, e) =>
-                                          {
-                                              if (SelAirProgramming == null)
-                                                  SelAirProgramming = AirProgrammings.FirstOrDefault();
-                                          };
+            {
+                if (SelAirProgramming == null)
+                    SelAirProgramming = AirProgrammings.FirstOrDefault();
+            };
             _service.RegisterCollectionView(AirProgrammings); //注册查询集合
 
             ProgrammingFiles = _service.CreateCollection(_context.ProgrammingFiles);
@@ -359,11 +355,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                AirProgrammings.Remove(SelAirProgramming);
-                                                SelAirProgramming = AirProgrammings.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                AirProgrammings.Remove(SelAirProgramming);
+                SelAirProgramming = AirProgrammings.FirstOrDefault();
+            });
         }
 
         private bool CanRemove(object obj)
@@ -419,11 +415,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                SelAirProgramming.AirProgrammingLines.Remove(SelAirProgrammingLine);
-                                                SelAirProgrammingLine = SelAirProgramming.AirProgrammingLines.FirstOrDefault();
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                SelAirProgramming.AirProgrammingLines.Remove(SelAirProgrammingLine);
+                SelAirProgrammingLine = SelAirProgramming.AirProgrammingLines.FirstOrDefault();
+            });
         }
 
         private bool CanRemoveEntity(object obj)
@@ -516,18 +512,18 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var gridView = sender as RadGridView;
             if (gridView != null)
             {
-                GridViewCell cell = gridView.CurrentCell;
+                var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "ProgrammingNameForAir"))
                 {
-                    Guid value = SelAirProgramming.ProgrammingId;
-                    ProgrammingDTO programming = Programmings.FirstOrDefault(p => p.Id == value);
+                    var value = SelAirProgramming.ProgrammingId;
+                    var programming = Programmings.FirstOrDefault(p => p.Id == value);
                     if (programming != null)
                         SelAirProgramming.ProgrammingName = programming.Name;
                 }
                 else if (string.Equals(cell.Column.UniqueName, "ProgrammingNameForFile"))
                 {
-                    Guid value = SelProgrammingFile.ProgrammingId;
-                    ProgrammingDTO programming = Programmings.FirstOrDefault(p => p.Id == value);
+                    var value = SelProgrammingFile.ProgrammingId;
+                    var programming = Programmings.FirstOrDefault(p => p.Id == value);
                     if (programming != null)
                         SelProgrammingFile.ProgrammingName = programming.Name;
                 }

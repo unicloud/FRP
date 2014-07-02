@@ -6,9 +6,8 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
-    [Export(typeof(NonFhaMaintainCostManage))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class NonFhaMaintainCostManage 
+    [Export]
+    public partial class NonFhaMaintainCostManage
     {
         public NonFhaMaintainCostManage()
         {

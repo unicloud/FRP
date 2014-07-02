@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/3/12 15:16:04
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -21,7 +23,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Data;
 using Telerik.Windows.Media.Imaging;
@@ -37,21 +38,19 @@ using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 
 namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 {
-    [Export(typeof(ManagerAircraftConfigurationVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ManagerAircraftConfigurationVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManagerAircraftConfigurationVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly AircraftConfigData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IAircraftConfigService _service;
 
         [ImportingConstructor]
-        public ManagerAircraftConfigurationVm(IRegionManager regionManager, IAircraftConfigService service)
+        public ManagerAircraftConfigurationVm(IAircraftConfigService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -76,10 +75,10 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             AircraftConfigurations = _service.CreateCollection(_context.AircraftConfigurations, o => o.AircraftCabins);
             AircraftConfigurations.PageSize = 6;
             AircraftConfigurations.LoadedData += (o, e) =>
-                                                 {
-                                                     if (AircraftConfiguration == null)
-                                                         AircraftConfiguration = AircraftConfigurations.FirstOrDefault();
-                                                 };
+            {
+                if (AircraftConfiguration == null)
+                    AircraftConfiguration = AircraftConfigurations.FirstOrDefault();
+            };
             _service.RegisterCollectionView(AircraftConfigurations);
             var baseManagementService = ServiceLocator.Current.GetInstance<IBaseManagementService>();
             AircraftCabinTypes = _service.CreateCollection(baseManagementService.Context.AircraftCabinTypes);
@@ -90,10 +89,12 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         #region 数据
 
         #region 公共属性
+
         /// <summary>
-        ///    飞机舱位
+        ///     飞机舱位
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftCabinTypeDTO> AircraftCabinTypes { get; set; }
+
         #endregion
 
         #region 加载数据
@@ -116,8 +117,10 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         }
 
         #region 飞机配置
-        public QueryableDataServiceCollectionView<AircraftConfigurationDTO> AircraftConfigurations { get; set; }
+
         private AircraftConfigurationDTO _aircraftConfiguration;
+        public QueryableDataServiceCollectionView<AircraftConfigurationDTO> AircraftConfigurations { get; set; }
+
         public AircraftConfigurationDTO AircraftConfiguration
         {
             get { return _aircraftConfiguration; }
@@ -129,8 +132,8 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                     AircraftCabin = _aircraftConfiguration.AircraftCabins.FirstOrDefault();
                     if (_aircraftConfiguration.FileContent != null)
                     {
-                        IImageFormatProvider providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(
-                                Path.GetExtension(_aircraftConfiguration.FileName));
+                        var providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(
+                            Path.GetExtension(_aircraftConfiguration.FileName));
                         if (providerByExtension == null)
                         {
                             MessageAlert("不支持文件格式！");
@@ -149,10 +152,13 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 RaisePropertyChanged(() => AircraftConfiguration);
             }
         }
+
         #endregion
 
         #region 舱位
+
         private AircraftCabinDTO _aircraftCabin;
+
         public AircraftCabinDTO AircraftCabin
         {
             get { return _aircraftCabin; }
@@ -162,42 +168,50 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 RaisePropertyChanged(() => AircraftCabin);
             }
         }
+
         #endregion
 
         #region 机型
+
         /// <summary>
         ///     机型集合
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypes { get; set; }
+
         #endregion
 
         #region 飞机系列
+
         /// <summary>
-        /// 飞机系列
+        ///     飞机系列
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftSeriesDTO> AircraftSerieses { get; set; }
+
         #endregion
 
         #region 图片缩放
+
+        private RadBitmap _image;
+        private double _percent;
+
         public Dictionary<double, string> Percents
         {
             get
             {
                 return new Dictionary<double, string>
-                         {
-                             {0,"适应"},
-                             {0.1,"10%"},
-                             {0.25,"25%"},
-                             {0.5,"50%"},
-                             {1,"100%"},
-                             {1.5,"150%"},
-                             {2,"200%"},
-                             {5,"500%"},
-                         };
+                {
+                    {0, "适应"},
+                    {0.1, "10%"},
+                    {0.25, "25%"},
+                    {0.5, "50%"},
+                    {1, "100%"},
+                    {1.5, "150%"},
+                    {2, "200%"},
+                    {5, "500%"},
+                };
             }
         }
 
-        private double _percent;
         public double Percent
         {
             get { return _percent; }
@@ -208,7 +222,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             }
         }
 
-        private RadBitmap _image;
         public RadBitmap Image
         {
             get { return _image; }
@@ -218,17 +231,22 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 RaisePropertyChanged(() => Image);
             }
         }
+
         #endregion
+
         #endregion
 
         #endregion
 
         #region 操作
+
         #region 创建新飞机配置
+
         /// <summary>
         ///     创建新飞机配置
         /// </summary>
         public DelegateCommand<object> AddAircraftConfigCommand { get; set; }
+
         protected void OnAddAircraftConfig(object obj)
         {
             AircraftConfiguration = new AircraftConfigurationDTO
@@ -237,12 +255,13 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             };
             var aircraftTypeDto = AircraftTypes.FirstOrDefault();
             if (aircraftTypeDto != null)
-            { 
+            {
                 AircraftConfiguration.AircraftTypeId = aircraftTypeDto.AircraftTypeId;
                 AircraftConfiguration.AircraftSeriesId = aircraftTypeDto.AircraftSeriesId;
             }
             AircraftConfigurations.AddNew(AircraftConfiguration);
         }
+
         protected bool CanAddAircraftConfig(object obj)
         {
             return true;
@@ -251,10 +270,12 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         #endregion
 
         #region 删除飞机配置
+
         /// <summary>
         ///     删除飞机配置
         /// </summary>
         public DelegateCommand<object> RemoveAircraftConfigCommand { get; set; }
+
         protected void OnRemoveAircraftConfig(object obj)
         {
             if (AircraftConfiguration == null)
@@ -269,6 +290,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 AircraftConfiguration = AircraftConfigurations.FirstOrDefault();
             });
         }
+
         protected bool CanRemoveAircraftConfig(object obj)
         {
             return true;
@@ -277,10 +299,12 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         #endregion
 
         #region 增加舱位
+
         /// <summary>
         ///     增加舱位
         /// </summary>
         public DelegateCommand<object> AddCabinCommand { get; set; }
+
         protected void OnAddCabin(object obj)
         {
             if (AircraftConfiguration == null)
@@ -291,13 +315,14 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 
             var aircraftCabinTypeDto = AircraftCabinTypes.FirstOrDefault();
             AircraftCabin = new AircraftCabinDTO
-                            {
-                                Id = RandomHelper.Next(),
-                            };
+            {
+                Id = RandomHelper.Next(),
+            };
             if (aircraftCabinTypeDto != null)
                 AircraftCabin.AircraftCabinTypeId = aircraftCabinTypeDto.Id;
             AircraftConfiguration.AircraftCabins.Add(AircraftCabin);
         }
+
         protected bool CanAddCabin(object obj)
         {
             return true;
@@ -306,10 +331,12 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         #endregion
 
         #region 移除舱位
+
         /// <summary>
         ///     移除舱位
         /// </summary>
         public DelegateCommand<object> RemoveCabinCommand { get; set; }
+
         protected void OnRemoveCabin(object obj)
         {
             if (AircraftCabin == null)
@@ -324,6 +351,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 AircraftCabin = AircraftConfiguration.AircraftCabins.FirstOrDefault();
             });
         }
+
         protected bool CanRemoveCabin(object obj)
         {
             return true;
@@ -332,16 +360,20 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         #endregion
 
         #region 打开文档
+
         public DelegateCommand<object> AddDocumentCommand { get; set; }
+
         private void AddDocument(object sender)
         {
             try
             {
-                var openFileDialog = new OpenFileDialog { Filter = "PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp" };//暂不支持 JPG Files (*.jpg, *.jpeg)|*.jpg;*.jpeg
+                var openFileDialog = new OpenFileDialog {Filter = "PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp"};
+                    //暂不支持 JPG Files (*.jpg, *.jpeg)|*.jpg;*.jpeg
                 if (openFileDialog.ShowDialog() == true)
                 {
-                    var stream = (Stream)openFileDialog.File.OpenRead();
-                    IImageFormatProvider providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(openFileDialog.File.Extension);
+                    var stream = (Stream) openFileDialog.File.OpenRead();
+                    var providerByExtension =
+                        ImageFormatProviderManager.GetFormatProviderByExtension(openFileDialog.File.Extension);
                     if (providerByExtension == null)
                     {
                         MessageAlert("不支持文件格式！");
@@ -359,13 +391,16 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 MessageAlert(e.Message);
             }
         }
+
         private bool CanAddDocument(object obj)
         {
             return AircraftConfiguration != null;
         }
+
         #endregion
 
         #region Combobox SelectedChanged
+
         public void SelectedChanged(object comboboxSelectedItem)
         {
             if (comboboxSelectedItem is AircraftTypeDTO)
@@ -374,7 +409,9 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 AircraftConfiguration.AircraftSeriesId = temp.AircraftSeriesId;
             }
         }
+
         #endregion
+
         #region 重载操作
 
         #endregion

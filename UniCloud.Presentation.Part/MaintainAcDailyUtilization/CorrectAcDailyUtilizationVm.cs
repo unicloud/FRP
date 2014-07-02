@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/3/4 9:53:09
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -19,7 +21,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Part;
@@ -29,22 +30,20 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Part.MaintainAcDailyUtilization
 {
-    [Export(typeof(CorrectAcDailyUtilizationVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (CorrectAcDailyUtilizationVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class CorrectAcDailyUtilizationVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
 
 
         [ImportingConstructor]
-        public CorrectAcDailyUtilizationVm(IRegionManager regionManager, IPartService service)
+        public CorrectAcDailyUtilizationVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -60,7 +59,7 @@ namespace UniCloud.Presentation.Part.MaintainAcDailyUtilization
         {
             // 创建并注册CollectionView
             Aircrafts = _service.CreateCollection(_context.Aircrafts);
-            var sort = new SortDescriptor { Member = "RegNumber", SortDirection = ListSortDirection.Ascending };
+            var sort = new SortDescriptor {Member = "RegNumber", SortDirection = ListSortDirection.Ascending};
             Aircrafts.SortDescriptors.Add(sort);
             AcDailyUtilizations = _service.CreateCollection(_context.AcDailyUtilizations);
             _service.RegisterCollectionView(AcDailyUtilizations);
@@ -73,12 +72,14 @@ namespace UniCloud.Presentation.Part.MaintainAcDailyUtilization
         #region 公共属性
 
         #region Aircraft
+
+        private AircraftDTO _aircraft;
+
         /// <summary>
         ///     Aircraft集合
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; }
 
-        private AircraftDTO _aircraft;
         public AircraftDTO Aircraft
         {
             get { return _aircraft; }
@@ -86,16 +87,22 @@ namespace UniCloud.Presentation.Part.MaintainAcDailyUtilization
             {
                 _aircraft = value;
                 AcDailyUtilizationDtos = AcDailyUtilizations.Where(p => p.AircraftId == _aircraft.Id);
-                AcDailyUtilization = AcDailyUtilizationDtos.FirstOrDefault(p => p.Year == DateTime.Now.Year && p.Month == DateTime.Now.Month);
+                AcDailyUtilization =
+                    AcDailyUtilizationDtos.FirstOrDefault(
+                        p => p.Year == DateTime.Now.Year && p.Month == DateTime.Now.Month);
                 RaisePropertyChanged(() => Aircraft);
             }
         }
+
         #endregion
 
         #region 飞机日利用率
-        public QueryableDataServiceCollectionView<AcDailyUtilizationDTO> AcDailyUtilizations { get; set; }
 
         private AcDailyUtilizationDTO _acDailyUtilization;
+
+        private IEnumerable<AcDailyUtilizationDTO> _acDailyUtilizationDtos;
+        public QueryableDataServiceCollectionView<AcDailyUtilizationDTO> AcDailyUtilizations { get; set; }
+
         public AcDailyUtilizationDTO AcDailyUtilization
         {
             get { return _acDailyUtilization; }
@@ -106,7 +113,6 @@ namespace UniCloud.Presentation.Part.MaintainAcDailyUtilization
             }
         }
 
-        private IEnumerable<AcDailyUtilizationDTO> _acDailyUtilizationDtos;
         public IEnumerable<AcDailyUtilizationDTO> AcDailyUtilizationDtos
         {
             get { return _acDailyUtilizationDtos; }
@@ -116,7 +122,9 @@ namespace UniCloud.Presentation.Part.MaintainAcDailyUtilization
                 RaisePropertyChanged(() => AcDailyUtilizationDtos);
             }
         }
+
         #endregion
+
         #endregion
 
         #region 加载数据

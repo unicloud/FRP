@@ -1,15 +1,19 @@
-﻿using System.ComponentModel.Composition;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Purchase.Supplier
 {
-    [Export(typeof(QuerySupplier))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class QuerySupplier
     {
         public QuerySupplier()
         {
             InitializeComponent();
         }
+
         [Import]
         public QuerySupplierVM ViewModel
         {

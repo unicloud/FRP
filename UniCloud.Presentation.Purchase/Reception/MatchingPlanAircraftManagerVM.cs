@@ -14,8 +14,8 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof(MatchingPlanAircraftManagerVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (MatchingPlanAircraftManagerVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MatchingPlanAircraftManagerVM : EditViewModelBase
     {
         #region 声明、初始化
@@ -23,6 +23,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
+
         [ImportingConstructor]
         public MatchingPlanAircraftManagerVM(IRegionManager regionManager, IPurchaseService service) : base(service)
         {

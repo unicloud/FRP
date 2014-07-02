@@ -17,19 +17,14 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
-using System.Windows;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -40,25 +35,23 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof(FleetPlanSendVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (FleetPlanSendVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FleetPlanSendVM : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly FleetPlanData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
         private FilterDescriptor _annualDescriptor;
+        private AnnualDTO _curAnnual = new AnnualDTO();
         private FilterDescriptor _planDescriptor;
         private FilterDescriptor _planHistoryDescriptor;
-        private AnnualDTO _curAnnual = new AnnualDTO();
 
         [ImportingConstructor]
-        public FleetPlanSendVM(IRegionManager regionManager, IFleetPlanService service)
+        public FleetPlanSendVM(IFleetPlanService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -92,13 +85,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
             Plans = _service.CreateCollection(_context.Plans);
             _planDescriptor = new FilterDescriptor("Year", FilterOperator.IsEqualTo, -1);
-            var sort = new SortDescriptor { Member = "VersionNumber", SortDirection = ListSortDirection.Ascending };
+            var sort = new SortDescriptor {Member = "VersionNumber", SortDirection = ListSortDirection.Ascending};
             Plans.SortDescriptors.Add(sort);
             Plans.FilterDescriptors.Add(_planDescriptor);
             Plans.LoadedData += (sender, e) =>
             {
-                CurPlan=new ObservableCollection<PlanDTO>();
-                CurPlan.Add(Plans.OrderBy(p => p.VersionNumber).LastOrDefault());
+                CurPlan = new ObservableCollection<PlanDTO> {Plans.OrderBy(p => p.VersionNumber).LastOrDefault()};
                 SelPlan = CurPlan.FirstOrDefault();
                 if (SelPlan != null)
                 {
@@ -110,7 +102,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 }
                 RefreshCommandState();
             };
-            _service.RegisterCollectionView(Plans);//注册查询集合
+            _service.RegisterCollectionView(Plans); //注册查询集合
 
             CurPlanHistories = _service.CreateCollection(_context.PlanHistories);
             _planHistoryDescriptor = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
@@ -125,7 +117,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     _context.ChangeState(ph, EntityStates.Unchanged);
                 }
             };
-            _service.RegisterCollectionView(CurPlanHistories);//注册查询集合
+            _service.RegisterCollectionView(CurPlanHistories); //注册查询集合
         }
 
         /// <summary>
@@ -172,7 +164,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #region 当前年度运力增减计划集合
 
         /// <summary>
-        /// 当前年度运力增减计划集合
+        ///     当前年度运力增减计划集合
         /// </summary>
         public QueryableDataServiceCollectionView<PlanDTO> Plans { get; set; }
 
@@ -199,7 +191,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         }
 
         /// <summary>
-        /// 当前年度运力增减计划明细集合
+        ///     当前年度运力增减计划明细集合
         /// </summary>
         public QueryableDataServiceCollectionView<PlanHistoryDTO> CurPlanHistories { get; set; }
 
@@ -239,7 +231,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public PlanHistoryDTO SelPlanHistory
         {
             get { return _selPlanHistory; }
-            private set
+            set
             {
                 if (_selPlanHistory != value)
                 {
@@ -278,9 +270,9 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var ph = CurPlanHistories.ToList();
             ph.ForEach(p =>
             {
-                p.ActionCategories=new ObservableCollection<ActionCateDTO>();
-                p.AircraftTypes=new ObservableCollection<AircraftTyDTO>();
-                p.AircraftCategories=new ObservableCollection<AircraftCateDTO>();
+                p.ActionCategories = new ObservableCollection<ActionCateDTO>();
+                p.AircraftTypes = new ObservableCollection<AircraftTyDTO>();
+                p.AircraftCategories = new ObservableCollection<AircraftCateDTO>();
             });
             return true;
         }
@@ -292,7 +284,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         protected override bool CanAddAttach(object obj)
         {
             // 当前计划处于审核状态时，按钮可用
-            return SelPlan != null && SelPlan.Status == (int)PlanStatus.已审核;
+            return SelPlan != null && SelPlan.Status == (int) PlanStatus.已审核;
         }
 
         /// <summary>
@@ -306,6 +298,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             SelPlan.DocumentId = doc.DocumentId;
             SelPlan.DocName = doc.Name;
         }
+
         #endregion
 
         #region 报送计划
@@ -319,32 +312,34 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             var content = "计划选择了" + CurPlanHistories.Count(p => p.IsSubmit) + "项报送的明细项，是否向【民航局】报送该计划？";
             MessageConfirm("确认报送计划", content, (o, e) =>
-             {
-                 if (e.DialogResult == true)
-                 {
-                     // 审核、已提交状态下可以发送。如果已处于提交状态，需要重新发送的，不必改变状态。
-                     if (SelPlan != null)
-                     {
-                         if (SelPlan.Status != (int) PlanStatus.已提交)
-                         {
-                             SelPlan.Status = (int)PlanStatus.已提交;
-                             SelPlan.IsFinished = true;
-                             SelPlan.SubmitDate = DateTime.Now;
-                         }
-                         CurPlanHistories.Where(p=>p.IsSubmit &&  p.NeedRequest).ToList().ForEach(l=>l.CanRequest=(int)CanRequest.可申请);
-                     }
-                     this._service.SubmitChanges(sc =>
-                     {
-                         if (sc.Error == null)
-                         {
-                             this.AddAttachCommand.RaiseCanExecuteChanged();
-                             // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
-                             _service.TransferPlan(SelPlan.AirlinesId, SelPlan.Id, _context);
-                             RefreshCommandState();
-                         }
-                     }, null);
-                 }
-             });
+            {
+                if (e.DialogResult == true)
+                {
+                    // 审核、已提交状态下可以发送。如果已处于提交状态，需要重新发送的，不必改变状态。
+                    if (SelPlan != null)
+                    {
+                        if (SelPlan.Status != (int) PlanStatus.已提交)
+                        {
+                            SelPlan.Status = (int) PlanStatus.已提交;
+                            SelPlan.IsFinished = true;
+                            SelPlan.SubmitDate = DateTime.Now;
+                        }
+                        CurPlanHistories.Where(p => p.IsSubmit && p.NeedRequest)
+                            .ToList()
+                            .ForEach(l => l.CanRequest = (int) CanRequest.可申请);
+                    }
+                    _service.SubmitChanges(sc =>
+                    {
+                        if (sc.Error == null)
+                        {
+                            AddAttachCommand.RaiseCanExecuteChanged();
+                            // 发送不成功的，也认为是已经做了发送操作，不回滚状态。始终可以重新发送。
+                            _service.TransferPlan(SelPlan.AirlinesId, SelPlan.Id, _context);
+                            RefreshCommandState();
+                        }
+                    });
+                }
+            });
         }
 
         private bool CanSend(object obj)
@@ -359,7 +354,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             {
                 return false;
             }
-            if (SelPlan.Status != (int)PlanStatus.已审核 && SelPlan.Status != (int)PlanStatus.已提交)
+            if (SelPlan.Status != (int) PlanStatus.已审核 && SelPlan.Status != (int) PlanStatus.已提交)
             {
                 return false;
             }

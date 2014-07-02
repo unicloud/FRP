@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,26 +11,15 @@
 // 修改者：  时间：2014/6/19 14:08:23
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Part;
@@ -40,21 +30,19 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.ManageOnBoardSn
 {
-    [Export(typeof(ManageOnBoardSnVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ManageOnBoardSnVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageOnBoardSnVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
 
         [ImportingConstructor]
-        public ManageOnBoardSnVm(IRegionManager regionManager, IPartService service)
+        public ManageOnBoardSnVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -73,10 +61,10 @@ namespace UniCloud.Presentation.Part.ManageOnBoardSn
             MaintainWorks = new QueryableDataServiceCollectionView<MaintainWorkDTO>(_context, _context.MaintainWorks);
 
             SnRegs = _service.CreateCollection(_context.SnRegs);
-            var cfd = new CompositeFilterDescriptor { LogicalOperator = FilterCompositionLogicalOperator.Or };
-            cfd.FilterDescriptors.Add(new FilterDescriptor("Status", FilterOperator.IsEqualTo, (int)SnStatus.在库));
-            cfd.FilterDescriptors.Add(new FilterDescriptor("Status", FilterOperator.IsEqualTo, (int)SnStatus.在修));
-            cfd.FilterDescriptors.Add(new FilterDescriptor("Status", FilterOperator.IsEqualTo, (int)SnStatus.出租));
+            var cfd = new CompositeFilterDescriptor {LogicalOperator = FilterCompositionLogicalOperator.Or};
+            cfd.FilterDescriptors.Add(new FilterDescriptor("Status", FilterOperator.IsEqualTo, (int) SnStatus.在库));
+            cfd.FilterDescriptors.Add(new FilterDescriptor("Status", FilterOperator.IsEqualTo, (int) SnStatus.在修));
+            cfd.FilterDescriptors.Add(new FilterDescriptor("Status", FilterOperator.IsEqualTo, (int) SnStatus.出租));
             SnRegs.FilterDescriptors.Add(cfd);
             SnRegs.PageSize = 20;
             _service.RegisterCollectionView(SnRegs);
@@ -134,6 +122,7 @@ namespace UniCloud.Presentation.Part.ManageOnBoardSn
         #region 业务
 
         #region 序号件集合
+
         /// <summary>
         ///     序号件集合
         /// </summary>
@@ -144,16 +133,16 @@ namespace UniCloud.Presentation.Part.ManageOnBoardSn
         private SnRegDTO _selSnReg;
 
         /// <summary>
-        /// 选择的序号件
+        ///     选择的序号件
         /// </summary>
         public SnRegDTO SelSnReg
         {
-            get { return this._selSnReg; }
-            private set
+            get { return _selSnReg; }
+            set
             {
-                if (this._selSnReg != value)
+                if (_selSnReg != value)
                 {
-                    this._selSnReg = value;
+                    _selSnReg = value;
                     ViewSnHistories.Clear();
                     if (value != null)
                     {
@@ -164,15 +153,17 @@ namespace UniCloud.Presentation.Part.ManageOnBoardSn
                         }
                     }
                     RaisePropertyChanged(() => ViewSnHistories);
-                    this.RaisePropertyChanged(() => this.SelSnReg);
+                    RaisePropertyChanged(() => SelSnReg);
                 }
             }
         }
 
         #endregion
+
         #endregion
 
         #region 装机历史集合
+
         /// <summary>
         ///     所有的装机历史集合
         /// </summary>
@@ -180,20 +171,20 @@ namespace UniCloud.Presentation.Part.ManageOnBoardSn
 
         #region 选择的序号的装机历史记录
 
-        private ObservableCollection<SnHistoryDTO> _viewSnHistories=new ObservableCollection<SnHistoryDTO>();
+        private ObservableCollection<SnHistoryDTO> _viewSnHistories = new ObservableCollection<SnHistoryDTO>();
 
         /// <summary>
-        /// 选择的序号的装机历史记录
+        ///     选择的序号的装机历史记录
         /// </summary>
         public ObservableCollection<SnHistoryDTO> ViewSnHistories
         {
-            get { return this._viewSnHistories; }
-            private set
+            get { return _viewSnHistories; }
+            set
             {
-                if (this._viewSnHistories != value)
+                if (_viewSnHistories != value)
                 {
-                    this._viewSnHistories = value;
-                    this.RaisePropertyChanged(() => this.ViewSnHistories);
+                    _viewSnHistories = value;
+                    RaisePropertyChanged(() => ViewSnHistories);
                 }
             }
         }
@@ -205,23 +196,25 @@ namespace UniCloud.Presentation.Part.ManageOnBoardSn
         private SnHistoryDTO _selSnHistory;
 
         /// <summary>
-        /// 选择的装机历史
+        ///     选择的装机历史
         /// </summary>
         public SnHistoryDTO SelSnHistory
         {
-            get { return this._selSnHistory; }
-            private set
+            get { return _selSnHistory; }
+            set
             {
-                if (this._selSnHistory != value)
+                if (_selSnHistory != value)
                 {
-                    this._selSnHistory = value;
-                    this.RaisePropertyChanged(() => this.SelSnHistory);
+                    _selSnHistory = value;
+                    RaisePropertyChanged(() => SelSnHistory);
                 }
             }
         }
+
         #endregion
 
         #endregion
+
         #endregion
 
         #endregion

@@ -39,11 +39,12 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
 {
-    [Export(typeof(ManageContractVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ManageContractVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageContractVm : ViewModelBase
     {
         #region 初始化
+
         private readonly PurchaseData _context; //域上下文
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
@@ -95,7 +96,7 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
         }
 
         /// <summary>
-        /// 初始化命令
+        ///     初始化命令
         /// </summary>
         private void InitialCommad()
         {
@@ -132,9 +133,32 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                 }
             };
         }
+
         #endregion
 
         #region 属性
+
+        /// <summary>
+        ///     TreeView绑定集合
+        /// </summary>
+        private readonly ObservableCollection<ListBoxDocumentItem> _listBoxDocumentItems =
+            new ObservableCollection<ListBoxDocumentItem>();
+
+        /// <summary>
+        ///     RadBreadcrumb控件中当前选中ListBox中的当前路径
+        /// </summary>
+        private ListBoxDocumentItem _currentPathItem;
+
+        /// <summary>
+        ///     根路径
+        /// </summary>
+        private ListBoxDocumentItem _rootPath;
+
+        /// <summary>
+        ///     Lisbox控件中，选择的当前项
+        /// </summary>
+        private ListBoxDocumentItem _selectDocumentPath;
+
         /// <summary>
         ///     文档路径View
         /// </summary>
@@ -145,10 +169,6 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
         /// </summary>
         public QueryableDataServiceCollectionView<ContractDocumentDTO> ContractDocuments { get; set; }
 
-        /// <summary>
-        ///     RadBreadcrumb控件中当前选中ListBox中的当前路径
-        /// </summary>
-        private ListBoxDocumentItem _currentPathItem;
         public ListBoxDocumentItem CurrentPathItem
         {
             get { return _currentPathItem; }
@@ -169,10 +189,6 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             }
         }
 
-        /// <summary>
-        ///     根路径
-        /// </summary>
-        private ListBoxDocumentItem _rootPath;
         public ListBoxDocumentItem RootPath
         {
             get { return _rootPath; }
@@ -186,10 +202,6 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             }
         }
 
-        /// <summary>
-        ///     Lisbox控件中，选择的当前项
-        /// </summary>
-        private ListBoxDocumentItem _selectDocumentPath;
         public ListBoxDocumentItem SelectDocumentPath
         {
             get { return _selectDocumentPath; }
@@ -205,10 +217,6 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             }
         }
 
-        /// <summary>
-        ///     TreeView绑定集合
-        /// </summary>
-        private readonly ObservableCollection<ListBoxDocumentItem> _listBoxDocumentItems = new ObservableCollection<ListBoxDocumentItem>();
         public ObservableCollection<ListBoxDocumentItem> ListBoxDocumentItems
         {
             get { return _listBoxDocumentItems; }
@@ -249,6 +257,7 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
         #endregion
 
         #region 方法
+
         /// <summary>
         ///     获取ListBoxItem
         /// </summary>
@@ -258,7 +267,9 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             if (DocumentPathsView.Any(p => p.ParentId == null))
             {
                 //获取顶层文件夹文档          
-                RootPath = ListBoxItemHelper.TransformToRootListBoxItem(DocumentPathsView.FirstOrDefault(p => p.ParentId == null));
+                RootPath =
+                    ListBoxItemHelper.TransformToRootListBoxItem(
+                        DocumentPathsView.FirstOrDefault(p => p.ParentId == null));
                 //为Treeview集合
                 _listBoxDocumentItems.Clear();
                 _listBoxDocumentItems.Add(RootPath);
@@ -270,10 +281,11 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                     if (SelectDocumentPath != null && !SelectDocumentPath.IsLeaf)
                     {
                         //子项文档集合
-                        var childDocuments = DocumentPathsView.Where(p => p.ParentId == SelectDocumentPath.DocumentPathId);
+                        var childDocuments =
+                            DocumentPathsView.Where(p => p.ParentId == SelectDocumentPath.DocumentPathId);
                         //设置当前选中项
                         _currentPathItem = CurrentPathItem.SubDocumentPaths.FirstOrDefault(
-                                p => p.DocumentPathId == SelectDocumentPath.DocumentPathId);
+                            p => p.DocumentPathId == SelectDocumentPath.DocumentPathId);
                         //子项文档转化为ListBoxItem
                         ListBoxItemHelper.TransformToSubListBoxItem(_currentPathItem, childDocuments);
                         RaisePropertyChanged(() => CurrentPathItem);
@@ -361,8 +373,10 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
 
         private Uri ModifyDocumentPath(int documentPathId, string name, int? parentId)
         {
-            return new Uri(string.Format("ModifyDocPath?docPathId={0}&name='{1}'&parentId={2}", documentPathId, name, parentId),
-                UriKind.Relative);
+            return
+                new Uri(
+                    string.Format("ModifyDocPath?docPathId={0}&name='{1}'&parentId={2}", documentPathId, name, parentId),
+                    UriKind.Relative);
         }
 
         /// <summary>
@@ -380,6 +394,7 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
         #region 命令
 
         #region 打开文档
+
         /// <summary>
         ///     打开文档通过右击ListBoxItem，选择的RadContextMenu触发的事件
         /// </summary>
@@ -423,11 +438,14 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
         {
             return SelectDocumentPath != null;
         }
+
         #endregion
 
         #region 新建文档
+
         private bool _isRenameFolder;
         public DelegateCommand<object> CreateDocumentPathCommand { get; private set; }
+
         private void CreateDocumentPath(object sender)
         {
             if (sender.ToString().Equals("文件夹", StringComparison.OrdinalIgnoreCase))
@@ -467,13 +485,16 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                 AddDocumetChildView.ShowDialog();
             }
         }
+
         private bool CanCreateDocumentPath(object sender)
         {
             return true;
         }
+
         #endregion
 
         #region 删除文档
+
         /// <summary>
         ///     删除文档通过右击ListBoxItem，选择的RadContextMenu触发的事件
         /// </summary>
@@ -494,7 +515,7 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                 MessageAlert("提示", "请选择需要删除文件或文件夹");
                 return;
             }
-            string message = SelectDocumentPath.IsLeaf ? "确定删除此文件 " : "确定删除此文件夹 ";
+            var message = SelectDocumentPath.IsLeaf ? "确定删除此文件 " : "确定删除此文件夹 ";
             message += SelectDocumentPath.Name;
             MessageConfirm("提示", message, (o, e) =>
             {
@@ -522,7 +543,7 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                 MessageAlert("提示", "请选择需要删除文件");
                 return;
             }
-            string message = SelectDocumentPath.IsLeaf ? "确定删除此文件 " : "确定删除此文件夹 ";
+            var message = SelectDocumentPath.IsLeaf ? "确定删除此文件 " : "确定删除此文件夹 ";
             message += SelectDocumentPath.Name;
             MessageConfirm("提示", message, (o, e) =>
             {
@@ -559,24 +580,23 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
         {
             return SelectDocumentPath != null;
         }
+
         #endregion
 
         #endregion
 
         #region 子窗体相关
+
+        private ContractDocumentDTO _contractDocument; //选中的文档
         private bool _documentChildIsBusy;
         private string _documentName;
-        private ContractDocumentDTO _contractDocument; //选中的文档
 
         /// <summary>
-        /// 初始化添加文件夹子窗体
+        ///     初始化添加文件夹子窗体
         /// </summary>
         public AddDocumentPathChild AddDocumentPathChildView
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<AddDocumentPathChild>();
-            }
+            get { return ServiceLocator.Current.GetInstance<AddDocumentPathChild>(); }
         }
 
         /// <summary>
@@ -584,10 +604,7 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
         /// </summary>
         public AddDocumetChild AddDocumetChildView
         {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<AddDocumetChild>();
-            }
+            get { return ServiceLocator.Current.GetInstance<AddDocumetChild>(); }
         }
 
         /// <summary>
@@ -639,6 +656,7 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
         }
 
         #region 取消命令
+
         public DelegateCommand<object> CancelCommand { get; private set; }
 
         /// <summary>
@@ -670,9 +688,11 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             }
             return true;
         }
+
         #endregion
 
         #region 确定命令
+
         public DelegateCommand<object> CommitCommand { get; private set; }
 
         /// <summary>
@@ -730,7 +750,7 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                     return;
                 }
                 newDocPath = CreateDocumentPathQuery(DocumentName, false, null,
-                   CurrentPathItem.DocumentPathId);
+                    CurrentPathItem.DocumentPathId);
             }
             DocumentChildIsBusy = true;
             _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -744,7 +764,8 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             }), null);
         }
 
-        private IEnumerable<ListBoxDocumentItem> FindSameLevelItems(IEnumerable<ListBoxDocumentItem> subItems, int? parentId)
+        private IEnumerable<ListBoxDocumentItem> FindSameLevelItems(IEnumerable<ListBoxDocumentItem> subItems,
+            int? parentId)
         {
             var listBoxDocumentItems = subItems as ListBoxDocumentItem[] ?? subItems.ToArray();
             foreach (var listBoxDocumentItem in listBoxDocumentItems)
@@ -768,7 +789,9 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                 MessageAlert("提示", "请选择需要添加的合同");
                 return;
             }
-            if (CurrentPathItem.SubDocumentPaths.Any(p => p.Name.Contains(ContractDocument.DocumentName.Trim()) && p.IsLeaf))
+            if (
+                CurrentPathItem.SubDocumentPaths.Any(
+                    p => p.Name.Contains(ContractDocument.DocumentName.Trim()) && p.IsLeaf))
             {
                 MessageAlert("提示", "已存在同名文件");
                 return;
@@ -800,10 +823,13 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             }
             return true;
         }
+
         #endregion
+
         #endregion
 
         #region 重载基类服务
+
         /// <summary>
         ///     加载合作公司数据。
         /// </summary>
@@ -823,7 +849,19 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
         #endregion
 
         #region 搜索功能
+
+        private readonly Dictionary<int, int> _searchKeys = new Dictionary<int, int>();
+        private bool _isBusySearch;
+        private bool _openResult;
+
+        private ObservableCollection<ListBoxDocumentItem> _searchResults =
+            new ObservableCollection<ListBoxDocumentItem>();
+
+        private string _searchText;
+        private int _tempPrarentId;
+
         private string _watermarkText;
+
         public string WatermarkText
         {
             get { return _watermarkText; }
@@ -834,7 +872,6 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             }
         }
 
-        private bool _isBusySearch;
         public bool IsBusySearch
         {
             get { return _isBusySearch; }
@@ -848,7 +885,6 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             }
         }
 
-        private string _searchText;
         public string SearchText
         {
             get { return _searchText; }
@@ -859,7 +895,6 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             }
         }
 
-        private ObservableCollection<ListBoxDocumentItem> _searchResults = new ObservableCollection<ListBoxDocumentItem>();
         public ObservableCollection<ListBoxDocumentItem> SearchResults
         {
             get { return _searchResults; }
@@ -869,6 +904,12 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                 RaisePropertyChanged(() => SearchResults);
             }
         }
+
+        /// <summary>
+        ///     在搜索结果中返回上层文件夹
+        /// </summary>
+        public DelegateCommand<object> BackToParentFolderCommand { get; set; }
+
         public void RadWatermarkTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -883,40 +924,41 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                 RealSearch();
             }
         }
+
         private void RealSearch()
         {
             var searchDocumentUri = SearchDocumentUri(CurrentPathItem.DocumentPathId, SearchText);
             _context.BeginExecute<DocumentPathDTO>(searchDocumentUri,
-               result => Deployment.Current.Dispatcher.BeginInvoke(() =>
-               {
-                   var context = result.AsyncState as PurchaseData;
-                   try
-                   {
-                       if (context != null)
-                       {
-                           SearchResults.Clear();
-                           SearchResults = ListBoxItemHelper.TransformToListBoxItems(context.EndExecute<DocumentPathDTO>(result).ToList());
-                       }
-                   }
-                   catch (DataServiceQueryException ex)
-                   {
-                       QueryOperationResponse response = ex.Response;
-                       MessageAlert(response.Error.Message);
-                   }
-                   IsBusySearch = false;
-               }), _context);
+                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    var context = result.AsyncState as PurchaseData;
+                    try
+                    {
+                        if (context != null)
+                        {
+                            SearchResults.Clear();
+                            SearchResults =
+                                ListBoxItemHelper.TransformToListBoxItems(
+                                    context.EndExecute<DocumentPathDTO>(result).ToList());
+                        }
+                    }
+                    catch (DataServiceQueryException ex)
+                    {
+                        var response = ex.Response;
+                        MessageAlert(response.Error.Message);
+                    }
+                    IsBusySearch = false;
+                }), _context);
         }
+
         private Uri SearchDocumentUri(int documentPathId, string name)
         {
             return new Uri(string.Format("SearchDocumentPath?documentPathId={0}&name='{1}'", documentPathId, name),
                 UriKind.Relative);
         }
 
-        private bool _openResult;
-        private readonly Dictionary<int, int> _searchKeys = new Dictionary<int, int>();
-        private int _tempPrarentId;
         /// <summary>
-        /// 在搜索结果中打开文件夹
+        ///     在搜索结果中打开文件夹
         /// </summary>
         /// <param name="documentPathId"></param>
         public void OpenFolderInSearchResults(int documentPathId)
@@ -927,6 +969,7 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             _pathFilterDes.Value = documentPathId;
             DocumentPathsView.Load(true);
         }
+
         private void GetOpenFolderSearchResults()
         {
             IsBusySearch = false;
@@ -934,16 +977,12 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
             SearchResults = ListBoxItemHelper.TransformToListBoxItems(DocumentPathsView.ToList());
         }
 
-        /// <summary>
-        /// 在搜索结果中返回上层文件夹
-        /// </summary>
-        public DelegateCommand<object> BackToParentFolderCommand { get; set; }
         private void OnBackToParentFolder(object sender)
         {
-            if (_searchKeys.ContainsKey((int)_pathFilterDes.Value))
+            if (_searchKeys.ContainsKey((int) _pathFilterDes.Value))
             {
                 IsBusySearch = true;
-                _tempPrarentId = _searchKeys[(int)_pathFilterDes.Value];
+                _tempPrarentId = _searchKeys[(int) _pathFilterDes.Value];
                 if (_tempPrarentId == CurrentPathItem.DocumentPathId)
                 {
                     RealSearch();
@@ -955,10 +994,13 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                 }
             }
         }
+
         #endregion
 
         #region 定位Listbox中的item
+
         private string _locateText;
+
         public string LoacteText
         {
             get { return _locateText; }
@@ -967,11 +1009,13 @@ namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
                 _locateText = value;
                 if (!string.IsNullOrEmpty(_locateText))
                 {
-                    SelectDocumentPath = CurrentPathItem.SubDocumentPaths.FirstOrDefault(p => p.Name.Contains(LoacteText));
+                    SelectDocumentPath =
+                        CurrentPathItem.SubDocumentPaths.FirstOrDefault(p => p.Name.Contains(LoacteText));
                 }
                 RaisePropertyChanged(() => LoacteText);
             }
         }
+
         #endregion
     }
 }

@@ -1,15 +1,13 @@
 ﻿#region 命名空间
 
 using System.ComponentModel.Composition;
-using System.Windows.Controls;
 
 #endregion
 
 namespace UniCloud.Presentation.Part.ManageAdSb
 {
-    [Export(typeof(QueryAdSb))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class QueryAdSb : UserControl
+    [Export]
+    public partial class QueryAdSb
     {
         public QueryAdSb()
         {

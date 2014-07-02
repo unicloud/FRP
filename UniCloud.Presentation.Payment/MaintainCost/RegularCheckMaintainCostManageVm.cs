@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/5/15 14:21:24
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -31,14 +33,15 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
-    [Export(typeof(RegularCheckMaintainCostManageVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (RegularCheckMaintainCostManageVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class RegularCheckMaintainCostManageVm : EditViewModelBase
     {
-        private readonly IPaymentService _service;
         private readonly PaymentData _context;
         private readonly IFleetPlanService _fleetPlanService;
+        private readonly IPaymentService _service;
         private FilterDescriptor _annualFilter;
+
         /// <summary>
         ///     构造函数。
         /// </summary>
@@ -50,11 +53,13 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             _service = service;
             _context = _service.Context;
             InitialVm(); //初始化定检维修成本
-
         }
+
         #region 年度
-        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
         private AnnualDTO _annual;
+        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
         public AnnualDTO Annual
         {
             get { return _annual; }
@@ -69,21 +74,31 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 RaisePropertyChanged(() => Annual);
             }
         }
+
         #endregion
 
         #region 飞机
+
         public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; }
         public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypes { get; set; }
         public QueryableDataServiceCollectionView<ActionCategoryDTO> ActionCategories { get; set; }
+
         #endregion
 
         #region 发票
+
         public QueryableDataServiceCollectionView<AirframeMaintainInvoiceDTO> AirframeMaintainInvoices { get; set; }
+
         #endregion
 
         public Dictionary<int, RegularCheckType> RegularCheckTypes
         {
-            get { return Enum.GetValues(typeof(RegularCheckType)).Cast<object>().ToDictionary(value => (int)value, value => (RegularCheckType)value); }
+            get
+            {
+                return Enum.GetValues(typeof (RegularCheckType))
+                    .Cast<object>()
+                    .ToDictionary(value => (int) value, value => (RegularCheckType) value);
+            }
         }
 
         #region 加载定检维修成本
@@ -117,7 +132,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
         private void InitialVm()
         {
             CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
-            AirframeMaintainInvoices = new QueryableDataServiceCollectionView<AirframeMaintainInvoiceDTO>(_context, _context.AirframeMaintainInvoices);
+            AirframeMaintainInvoices = new QueryableDataServiceCollectionView<AirframeMaintainInvoiceDTO>(_context,
+                _context.AirframeMaintainInvoices);
             RegularCheckMaintainCosts = _service.CreateCollection(_context.RegularCheckMaintainCosts);
             RegularCheckMaintainCosts.PageSize = 20;
             _annualFilter = new FilterDescriptor("Year", FilterOperator.IsEqualTo, 0);
@@ -130,15 +146,19 @@ namespace UniCloud.Presentation.Payment.MaintainCost
             };
             _service.RegisterCollectionView(RegularCheckMaintainCosts);
 
-            Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Aircrafts);
-            AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_fleetPlanService.Context, _fleetPlanService.Context.AircraftTypes);
-            ActionCategories = new QueryableDataServiceCollectionView<ActionCategoryDTO>(_fleetPlanService.Context, _fleetPlanService.Context.ActionCategories);
-            Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context, _fleetPlanService.Context.Annuals);
+            Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanService.Context,
+                _fleetPlanService.Context.Aircrafts);
+            AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_fleetPlanService.Context,
+                _fleetPlanService.Context.AircraftTypes);
+            ActionCategories = new QueryableDataServiceCollectionView<ActionCategoryDTO>(_fleetPlanService.Context,
+                _fleetPlanService.Context.ActionCategories);
+            Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_fleetPlanService.Context,
+                _fleetPlanService.Context.Annuals);
             Annuals.LoadedData += (o, e) =>
-                                  {
-                                      if (Annual == null)
-                                          Annual = Annuals.FirstOrDefault(p => p.Year == DateTime.Now.Year);
-                                  };
+            {
+                if (Annual == null)
+                    Annual = Annuals.FirstOrDefault(p => p.Year == DateTime.Now.Year);
+            };
         }
 
         #endregion
@@ -163,8 +183,8 @@ namespace UniCloud.Presentation.Payment.MaintainCost
 
         #endregion
 
-
         #region 单元格编辑事件
+
         public DelegateCommand<object> CellEditEndCommand { get; set; }
 
         private void CellEditEnd(object sender)
@@ -175,9 +195,13 @@ namespace UniCloud.Presentation.Payment.MaintainCost
                 RegularCheckMaintainCost.ActionCategoryId = aircraft.ImportCategoryId;
                 RegularCheckMaintainCost.AircraftTypeId = aircraft.AircraftTypeId;
             }
-            RegularCheckMaintainCost.TotalDays = (RegularCheckMaintainCost.OutMaintainTime.Date - RegularCheckMaintainCost.InMaintainTime.Date).Days + 1;
-            RegularCheckMaintainCost.AcutalTotalDays = (RegularCheckMaintainCost.AcutalOutMaintainTime.Date - RegularCheckMaintainCost.AcutalInMaintainTime.Date).Days + 1;
+            RegularCheckMaintainCost.TotalDays =
+                (RegularCheckMaintainCost.OutMaintainTime.Date - RegularCheckMaintainCost.InMaintainTime.Date).Days + 1;
+            RegularCheckMaintainCost.AcutalTotalDays =
+                (RegularCheckMaintainCost.AcutalOutMaintainTime.Date -
+                 RegularCheckMaintainCost.AcutalInMaintainTime.Date).Days + 1;
         }
+
         #endregion
     }
 }

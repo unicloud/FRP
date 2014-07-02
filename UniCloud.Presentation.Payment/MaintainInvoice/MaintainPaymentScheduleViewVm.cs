@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/5/4 15:35:48
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -18,7 +20,6 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -30,21 +31,19 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
-    [Export(typeof(MaintainPaymentScheduleViewVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (MaintainPaymentScheduleViewVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MaintainPaymentScheduleViewVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PaymentData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public MaintainPaymentScheduleViewVm(IRegionManager regionManager, IPaymentService service)
+        public MaintainPaymentScheduleViewVm(IPaymentService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();
@@ -59,15 +58,17 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         /// </summary>
         private void InitializeVM()
         {
-            MaintainPaymentSchedules = _service.CreateCollection(_context.MaintainPaymentSchedules, o => o.PaymentScheduleLines);
+            MaintainPaymentSchedules = _service.CreateCollection(_context.MaintainPaymentSchedules,
+                o => o.PaymentScheduleLines);
             MaintainPaymentSchedules.LoadedData += (o, e) =>
-                                                   {
-                                                       if (SelectMaintainPaymentSchedule == null)
-                                                           SelectMaintainPaymentSchedule = MaintainPaymentSchedules.FirstOrDefault();
-                                                   };
+            {
+                if (SelectMaintainPaymentSchedule == null)
+                    SelectMaintainPaymentSchedule = MaintainPaymentSchedules.FirstOrDefault();
+            };
             _service.RegisterCollectionView(MaintainPaymentSchedules); //注册查询集合。
 
-            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context, _context.PaymentSchedules);
+            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context,
+                _context.PaymentSchedules);
         }
 
         /// <summary>
@@ -104,6 +105,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         #endregion
 
         private Type _currentType;
+
         #endregion
 
         #region 加载数据
@@ -117,20 +119,20 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         /// </summary>
         public override void LoadData()
         {
-
         }
 
         public void InitData(Type type, EventHandler<WindowClosedEventArgs> closed)
         {
-            PrepayPayscheduleChildView.Tag = null;
+            prepayPayscheduleChildView.Tag = null;
             _currentType = type;
-            PrepayPayscheduleChildView.Closed -= closed;
-            PrepayPayscheduleChildView.Closed += closed;
+            prepayPayscheduleChildView.Closed -= closed;
+            prepayPayscheduleChildView.Closed += closed;
             Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies));
             Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
             MaintainPaymentSchedules.Load(true);
             PaymentSchedules.Load(true);
         }
+
         #endregion
 
         #endregion
@@ -141,10 +143,13 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
 
         #region 子窗体相关操作
 
-        [Import]
-        public MaintainPaymentScheduleView PrepayPayscheduleChildView; //初始化子窗体
+        [Import] public MaintainPaymentScheduleView prepayPayscheduleChildView; //初始化子窗体
 
         #region 付款计划集合
+
+        private MaintainPaymentScheduleDTO _selectMaintainPaymentSchedule;
+        private PaymentScheduleLineDTO _selectPaymentScheduleLine;
+
         /// <summary>
         ///     所有付款计划集合
         /// </summary>
@@ -155,7 +160,6 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         /// </summary>
         public QueryableDataServiceCollectionView<MaintainPaymentScheduleDTO> MaintainPaymentSchedules { get; set; }
 
-        private MaintainPaymentScheduleDTO _selectMaintainPaymentSchedule;
         /// <summary>
         ///     选择的维修付款计划
         /// </summary>
@@ -176,7 +180,6 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
             }
         }
 
-        private PaymentScheduleLineDTO _selectPaymentScheduleLine;
         public PaymentScheduleLineDTO SelectPaymentScheduleLine
         {
             get { return _selectPaymentScheduleLine; }
@@ -186,6 +189,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 RaisePropertyChanged(() => SelectPaymentScheduleLine);
             }
         }
+
         #endregion
 
         #region 命令
@@ -200,7 +204,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         /// <param name="sender"></param>
         public void OnCancelExecute(object sender)
         {
-            PrepayPayscheduleChildView.Close();
+            prepayPayscheduleChildView.Close();
         }
 
         /// <summary>
@@ -233,7 +237,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                 }
                 else
                 {
-                    if (_currentType == typeof(AirframeMaintainInvoiceDTO))
+                    if (_currentType == typeof (AirframeMaintainInvoiceDTO))
                     {
                         var maintainInvoice = new AirframeMaintainInvoiceDTO
                         {
@@ -247,9 +251,9 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                             CurrencyId = SelectMaintainPaymentSchedule.CurrencyId,
                             PaymentScheduleLineId = SelectPaymentScheduleLine.PaymentScheduleLineId,
                         };
-                        PrepayPayscheduleChildView.Tag = maintainInvoice;
+                        prepayPayscheduleChildView.Tag = maintainInvoice;
                     }
-                    else if (_currentType == typeof(APUMaintainInvoiceDTO))
+                    else if (_currentType == typeof (APUMaintainInvoiceDTO))
                     {
                         var maintainInvoice = new APUMaintainInvoiceDTO
                         {
@@ -263,9 +267,9 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                             CurrencyId = SelectMaintainPaymentSchedule.CurrencyId,
                             PaymentScheduleLineId = SelectPaymentScheduleLine.PaymentScheduleLineId,
                         };
-                        PrepayPayscheduleChildView.Tag = maintainInvoice;
+                        prepayPayscheduleChildView.Tag = maintainInvoice;
                     }
-                    else if (_currentType == typeof(EngineMaintainInvoiceDTO))
+                    else if (_currentType == typeof (EngineMaintainInvoiceDTO))
                     {
                         var maintainInvoice = new EngineMaintainInvoiceDTO
                         {
@@ -279,9 +283,9 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                             CurrencyId = SelectMaintainPaymentSchedule.CurrencyId,
                             PaymentScheduleLineId = SelectPaymentScheduleLine.PaymentScheduleLineId,
                         };
-                        PrepayPayscheduleChildView.Tag = maintainInvoice;
+                        prepayPayscheduleChildView.Tag = maintainInvoice;
                     }
-                    else if (_currentType == typeof(UndercartMaintainInvoiceDTO))
+                    else if (_currentType == typeof (UndercartMaintainInvoiceDTO))
                     {
                         var maintainInvoice = new UndercartMaintainInvoiceDTO
                         {
@@ -295,7 +299,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                             CurrencyId = SelectMaintainPaymentSchedule.CurrencyId,
                             PaymentScheduleLineId = SelectPaymentScheduleLine.PaymentScheduleLineId,
                         };
-                        PrepayPayscheduleChildView.Tag = maintainInvoice;
+                        prepayPayscheduleChildView.Tag = maintainInvoice;
                     }
                     else
                     {
@@ -309,9 +313,9 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                             CurrencyId = SelectMaintainPaymentSchedule.CurrencyId,
                             PaymentScheduleLineId = SelectPaymentScheduleLine.PaymentScheduleLineId,
                         };
-                        PrepayPayscheduleChildView.Tag = maintainInvoice;
+                        prepayPayscheduleChildView.Tag = maintainInvoice;
                     }
-                    PrepayPayscheduleChildView.Close();
+                    prepayPayscheduleChildView.Close();
                 }
             }
             else
@@ -338,4 +342,3 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
         #endregion
     }
 }
-

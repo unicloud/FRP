@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/1/14 15:38:56
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -17,7 +19,6 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -29,22 +30,20 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof(AirframeMaintainVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (AirframeMaintainVm))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AirframeMaintainVm : EditViewModelBase
     {
         #region 声明、初始化
 
         private readonly PurchaseData _context;
-        private readonly IRegionManager _regionManager;
-        private readonly IPurchaseService _service;
         private readonly DocumentDTO _document = new DocumentDTO();
+        private readonly IPurchaseService _service;
 
         [ImportingConstructor]
-        public AirframeMaintainVm(IRegionManager regionManager, IPurchaseService service)
+        public AirframeMaintainVm(IPurchaseService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVm();
@@ -173,7 +172,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                         }
                         if (Suppliers != null)
                         {
-                            _supplier = Suppliers.FirstOrDefault(p => p.SupplierId == _airframeMaintainContract.SignatoryId);
+                            _supplier =
+                                Suppliers.FirstOrDefault(p => p.SupplierId == _airframeMaintainContract.SignatoryId);
                         }
                     }
                     RaisePropertyChanged(() => AirframeMaintainContract);

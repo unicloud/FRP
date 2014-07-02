@@ -8,8 +8,7 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="UserName" Type="Edm.String" />
         <Property Name="OrganizationNo" Type="Edm.String" />
-        <Property Name="FirstName" Type="Edm.String" />
-        <Property Name="LastName" Type="Edm.String" />
+        <Property Name="DisplayName" Type="Edm.String" />
         <Property Name="Password" Type="Edm.String" />
         <Property Name="Question" Type="Edm.String" />
         <Property Name="Answer" Type="Edm.String" />

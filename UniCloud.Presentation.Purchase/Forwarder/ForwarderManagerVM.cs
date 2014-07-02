@@ -1,6 +1,19 @@
-//------------------------------------------------------------------------------
-//     
-//------------------------------------------------------------------------------
+#region 版本控制
+
+// =====================================================
+// 版权所有 (C) 2014 UniCloud 
+// 【本类功能概述】
+// 
+// 作者：丁志浩 时间：2013-11-29，13:11
+// 方案：FRP
+// 项目：Purchase
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// =====================================================
+
+#endregion
 
 #region 命名空间
 
@@ -16,8 +29,8 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Forwarder
 {
-    [Export(typeof(ForwarderManagerVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export(typeof (ForwarderManagerVM))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ForwarderManagerVM : EditViewModelBase
     {
         private readonly PurchaseData _context;
@@ -36,7 +49,10 @@ namespace UniCloud.Presentation.Purchase.Forwarder
         }
 
         #region 加载Forward相关信息
+
+        private bool _canSelectForward = true;
         private ForwarderDTO _selectedForwarder;
+
         /// <summary>
         ///     选择BFE。
         /// </summary>
@@ -50,7 +66,6 @@ namespace UniCloud.Presentation.Purchase.Forwarder
             }
         }
 
-        private bool _canSelectForward = true;
         //用户能否选择
         public bool CanSelectForward
         {
