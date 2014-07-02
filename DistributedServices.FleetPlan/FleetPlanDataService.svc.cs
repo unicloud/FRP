@@ -5,6 +5,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Data.Services;
 using System.Data.Services.Common;
 using System.ServiceModel.Web;
@@ -12,6 +13,7 @@ using System.Web;
 using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.FleetTransferServices;
+using UniCloud.Application.FleetPlanBC.SupplierServices;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -33,6 +35,9 @@ namespace UniCloud.DistributedServices.FleetPlan
             #endregion
 
             #region 服务操作访问控制
+            config.SetServiceOperationAccessRule("GetEngineSuppliers", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("GetAircraftSuppliers", ServiceOperationRights.All);
+
 
             // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("PerformPlanQuery", ServiceOperationRights.All);
@@ -81,7 +86,28 @@ namespace UniCloud.DistributedServices.FleetPlan
 
         #endregion
 
-        #region 计划执行情况查询 
+        #region 获取飞机供应商
+
+        [WebGet]
+        public List<SupplierDTO> GetAircraftSuppliers()
+        {
+            var planAppService = UniContainer.Resolve<ISupplierAppService>();
+            return planAppService.GetAircraftSuppliers();
+        }
+        #endregion
+
+        #region 获取发动机供应商
+
+        [WebGet]
+        public List<SupplierDTO> GetEngineSuppliers()
+        {
+            var planAppService = UniContainer.Resolve<ISupplierAppService>();
+            return planAppService.GetEngineSuppliers();
+        }
+
+        #endregion
+        
+        #region 计划执行情况查询
 
         [WebGet]
         public PerformPlan PerformPlanQuery(string planHistoryId, string approvalHistoryId, int planType,

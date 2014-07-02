@@ -21,6 +21,7 @@ using System.Configuration;
 using System.Data.Common;
 using System.Data.Entity;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql;
 using UniCloud.Infrastructure.Security;
 
@@ -228,6 +229,24 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
                 #region SupplierAgg
 
                 .Add(new SupplierEntityConfiguration())
+
+                #endregion
+
+                #region SupplierRoleAgg
+
+                .Add(new SupplierRoleEntityConfiguration())
+                .Add(new AircraftPurchaseSupplierEntityConfiguration())
+                .Add(new AircraftLeaseSupplierEntityConfiguration())
+                .Add(new EngineLeaseSupplierEntityConfiguration())
+                .Add(new EnginePurchaseSupplierEntityConfiguration())
+                .Add(new BFEPurchaseSupplierEntityConfiguration())
+                .Add(new MaintainSupplierEntityConfiguration())
+                .Add(new OtherSupplierEntityConfiguration())
+                #endregion
+
+                #region SupplierCompanyAgg
+
+                .Add(new SupplierCompanyEntityConfiguration())
 
                 #endregion
 

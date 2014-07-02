@@ -630,6 +630,8 @@
         <EntitySet Name="RelatedDocs" EntityType="UniCloud.Application.FleetPlanBC.DTO.RelatedDocDTO" />
         <EntitySet Name="Suppliers" EntityType="UniCloud.Application.FleetPlanBC.DTO.SupplierDTO" />
         <EntitySet Name="XmlConfigs" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlConfigDTO" />
+        <FunctionImport Name="GetAircraftSuppliers" ReturnType="Collection(UniCloud.Application.FleetPlanBC.DTO.SupplierDTO)" EntitySet="Suppliers" m:HttpMethod="GET" />
+        <FunctionImport Name="GetEngineSuppliers" ReturnType="Collection(UniCloud.Application.FleetPlanBC.DTO.SupplierDTO)" EntitySet="Suppliers" m:HttpMethod="GET" />
         <FunctionImport Name="PerformPlanQuery" ReturnType="UniCloud.Application.FleetPlanBC.DTO.PerformPlan" m:HttpMethod="GET">
           <Parameter Name="planHistoryId" Type="Edm.String" />
           <Parameter Name="approvalHistoryId" Type="Edm.String" />

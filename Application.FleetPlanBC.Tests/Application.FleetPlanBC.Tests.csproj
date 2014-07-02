@@ -81,6 +81,7 @@
     <Compile Include="Services\ActionCategoryBCTest.cs" />
     <Compile Include="Services\AnnualBCTest.cs" />
     <Compile Include="Services\ProgrammingBCTest.cs" />
+    <Compile Include="Services\SupplierBCTest.cs" />
     <Compile Include="Services\TransferMailTest.cs" />
   </ItemGroup>
   <ItemGroup>
