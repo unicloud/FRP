@@ -52,11 +52,6 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public Guid AircraftCategoryId { get; set; }
 
         /// <summary>
-        ///     系列
-        /// </summary>
-        public Guid AircraftSeriesId { get; set; }
-
-        /// <summary>
         ///     制造商
         /// </summary>
         public Guid ManufacturerId { get; set; }

@@ -59,11 +59,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CAACAircraftTypeAgg
         #region 外键属性
 
         /// <summary>
-        ///     系列
-        /// </summary>
-        public Guid AircraftSeriesId { get; set; }
-
-        /// <summary>
         ///     飞机类别
         /// </summary>
         public Guid AircraftCategoryId { get; set; }
@@ -81,11 +76,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CAACAircraftTypeAgg
         ///     制造商
         /// </summary>
         public virtual Manufacturer Manufacturer { get; set; }
-
-        /// <summary>
-        ///     系列
-        /// </summary>
-        public virtual AircraftSeries AircraftSeries { get; set; }
 
         /// <summary>
         ///     飞机类别

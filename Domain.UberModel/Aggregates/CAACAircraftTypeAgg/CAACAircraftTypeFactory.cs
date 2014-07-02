@@ -35,15 +35,13 @@ namespace UniCloud.Domain.UberModel.Aggregates.CAACAircraftTypeAgg
         /// <param name="name">机型名称</param>
         /// <param name="manufacturerId">制造商</param>
         /// <param name="aircraftCategoryId">座级</param>
-        /// <param name="aircraftSeriesId">系列</param>
         /// <returns></returns>
-        public static CAACAircraftType CreateAircraftType(Guid id, string name, Guid manufacturerId, Guid aircraftCategoryId, Guid aircraftSeriesId)
+        public static CAACAircraftType CreateAircraftType(Guid id, string name, Guid manufacturerId, Guid aircraftCategoryId)
         {
             var aircraftType = new CAACAircraftType { Name = name };
             aircraftType.ChangeCurrentIdentity(id);
             aircraftType.ManufacturerId = manufacturerId;
             aircraftType.AircraftCategoryId = aircraftCategoryId;
-            aircraftType.AircraftSeriesId = aircraftSeriesId;
             return aircraftType;
         }
     }
