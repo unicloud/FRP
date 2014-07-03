@@ -314,6 +314,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
                 {
                     _selThreshold = value;
                     RaisePropertyChanged(() => SelThreshold);
+                    RefreshCommandState();
                 }
             }
         }
