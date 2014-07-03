@@ -803,6 +803,13 @@ namespace UniCloud.Presentation.Portal.Manager
         public EventsCollection EventsCollection
         {
             get { return events; }
+            set
+            {
+                if (events != null && events != value)
+                {
+                    events = value;
+                }
+            }
         }
 
         public DataTemplate DefaultTemplate { get; set; }
