@@ -300,8 +300,8 @@ namespace UniCloud.Application.BaseManagementBC
 
                 try
                 {
-                    var user = UserFactory.CreateUser(username, EncodePassword(password), email, passwordFormat,
-                        passwordQuestion, passwordAnswer, createDate);
+                    var user = UserFactory.CreateUser(username, EncodePassword(password), passwordQuestion,
+                        passwordAnswer, createDate, passwordFormat);
                     _userRepository.Add(user);
                     status = MembershipCreateStatus.Success;
                 }
@@ -589,7 +589,9 @@ namespace UniCloud.Application.BaseManagementBC
         {
             var mu = _userRepository.GetFiltered(u => u.UserName == user.UserName).FirstOrDefault();
             if (mu == null) throw new Exception("未取到用户！");
-            mu.UpdateUser(user.Email, user.Comment, user.IsApproved);
+            mu.SetApproved(user.IsApproved);
+            mu.SetContact(user.Email, string.Empty);
+            mu.SetComment(user.Comment);
         }
 
         public override bool ValidateUser(string username, string password)

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DisplayNameLabel" xml:space="preserve">
+    <value>姓名</value>
+  </data>
   <data name="EmailLabel" xml:space="preserve">
     <value>电子邮件</value>
   </data>
@@ -142,6 +145,6 @@
     <value>安全提示问题</value>
   </data>
   <data name="UserNameLabel" xml:space="preserve">
-    <value>用户名</value>
+    <value>登录名</value>
   </data>
 </root>

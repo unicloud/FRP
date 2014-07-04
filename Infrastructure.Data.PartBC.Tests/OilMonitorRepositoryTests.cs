@@ -25,8 +25,6 @@ using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
-using UniCloud.Infrastructure.Data.PartBC.Repositories;
-using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
