@@ -7,7 +7,6 @@ using System.ComponentModel.Composition;
 namespace UniCloud.Presentation.Document
 {
     [Export(typeof(ListDocuments))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
     public partial class ListDocuments 
     {
         public ListDocuments()
