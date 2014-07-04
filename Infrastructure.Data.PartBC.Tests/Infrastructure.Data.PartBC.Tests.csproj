@@ -70,6 +70,7 @@
     <Compile Include="AssemblyTestsInitialize.cs" />
     <Compile Include="BasicConfigGroupRepositoryTest\BasicConfigGroupRepositoryTest.cs" />
     <Compile Include="CtrlUnitTest.cs" />
+    <Compile Include="DataInitialize.cs" />
     <Compile Include="ItemRepositoryTest.cs" />
     <Compile Include="MaintainWorkTest.cs" />
     <Compile Include="OilMonitorRepositoryTests.cs" />
