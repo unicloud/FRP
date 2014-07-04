@@ -36,14 +36,16 @@ namespace UniCloud.Domain.UberModel.Aggregates.AnnualAgg
         /// <param name="id">ID</param>
         /// <param name="programmingId">规划期间</param>
         /// <param name="year">年份</param>
+        /// <param name="isOpen">是否打开</param>
         /// <returns></returns>
-        public static Annual CreateAnnual(Guid id, Guid programmingId, int year)
+        public static Annual CreateAnnual(Guid id, Guid programmingId, int year,bool isOpen)
         {
             var annual = new Annual
             {
                 ProgrammingId = programmingId,
                 Year = year,
             };
+            annual.SetIsOpen(isOpen);
             annual.ChangeCurrentIdentity(id);
 
             return annual;
