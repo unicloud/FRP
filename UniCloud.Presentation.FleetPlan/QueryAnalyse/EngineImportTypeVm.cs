@@ -44,7 +44,6 @@ using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
     [Export(typeof (EngineImportTypeVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class EngineImportTypeVm : ViewModelBase
     {
         #region 声明、初始化

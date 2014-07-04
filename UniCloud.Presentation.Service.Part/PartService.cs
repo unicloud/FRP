@@ -24,7 +24,6 @@ using UniCloud.Presentation.Service.Part.Part;
 namespace UniCloud.Presentation.Service.Part
 {
     [Export(typeof (IPartService))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PartService : ServiceBase, IPartService
     {
         public PartService()

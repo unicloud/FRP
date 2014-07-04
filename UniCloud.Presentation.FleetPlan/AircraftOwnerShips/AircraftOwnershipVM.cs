@@ -37,7 +37,6 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
 {
     [Export(typeof (AircraftOwnershipVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AircraftOwnershipVM : EditViewModelBase
     {
         private readonly FleetPlanData _context;

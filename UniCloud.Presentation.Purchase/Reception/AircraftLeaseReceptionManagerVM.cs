@@ -17,7 +17,6 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Reception
 {
     [Export(typeof (AircraftLeaseReceptionManagerVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AircraftLeaseReceptionManagerVM : ReceptionVm
     {
         #region 声明、初始化

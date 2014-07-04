@@ -34,7 +34,6 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
     [Export(typeof (UndercartMaintainCostManageVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class UndercartMaintainCostManageVm : EditViewModelBase
     {
         private readonly PaymentData _context;

@@ -32,7 +32,6 @@ using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 namespace UniCloud.Presentation.BaseManagement.ManagePermission
 {
     [Export(typeof (ManageFunctionsInRoleVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageFunctionsInRoleVm : EditViewModelBase
     {
         #region 声明、初始化

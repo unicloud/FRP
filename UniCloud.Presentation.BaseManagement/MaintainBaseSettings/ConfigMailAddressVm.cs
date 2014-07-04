@@ -29,7 +29,6 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
 {
     [Export(typeof (ConfigMailAddressVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ConfigMailAddressVm : EditViewModelBase
     {
         #region 声明、初始化

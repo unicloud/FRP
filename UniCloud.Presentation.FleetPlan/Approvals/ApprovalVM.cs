@@ -18,7 +18,6 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 namespace UniCloud.Presentation.FleetPlan.Approvals
 {
     [Export(typeof (ApprovalVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ApprovalVM : EditViewModelBase
     {
         #region 声明、初始化

@@ -28,7 +28,6 @@ using UniCloud.Presentation.Service.Project.Project;
 namespace UniCloud.Presentation.Project.Template
 {
     [Export(typeof (WorkGroupVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class WorkGroupVM : EditViewModelBase
     {
         #region 声明、初始化

@@ -33,7 +33,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
     ///     基础配置，包括维修工作单元、BFEMaterial的维护
     /// </summary>
     [Export(typeof (ManageMaterialVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageMaterialVm : EditViewModelBase
     {
         #region 声明、初始化

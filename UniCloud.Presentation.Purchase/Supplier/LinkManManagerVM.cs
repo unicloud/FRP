@@ -32,7 +32,6 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Supplier
 {
     [Export(typeof(LinkManManagerVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class LinkManManagerVM : EditViewModelBase
     {
         private readonly PurchaseData _context;

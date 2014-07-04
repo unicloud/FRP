@@ -35,7 +35,6 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 namespace UniCloud.Presentation.FleetPlan.Requests
 {
     [Export(typeof (ManageIndexAircraftVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageIndexAircraftVM : EditViewModelBase
     {
         #region 声明、初始化

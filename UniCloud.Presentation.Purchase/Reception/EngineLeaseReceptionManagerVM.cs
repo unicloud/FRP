@@ -33,7 +33,6 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Reception
 {
     [Export(typeof (EngineLeaseReceptionManagerVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class EngineLeaseReceptionManagerVM : ReceptionVm
     {
         #region 声明、初始化

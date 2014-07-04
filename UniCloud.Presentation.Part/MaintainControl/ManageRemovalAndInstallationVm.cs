@@ -36,7 +36,6 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 namespace UniCloud.Presentation.Part.MaintainControl
 {
     [Export(typeof (ManageRemovalAndInstallationVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageRemovalAndInstallationVm : EditViewModelBase
     {
         #region 声明、初始化

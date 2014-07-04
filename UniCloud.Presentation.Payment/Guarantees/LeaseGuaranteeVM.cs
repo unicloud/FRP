@@ -34,7 +34,6 @@ using UniCloud.Presentation.SessionExtension;
 namespace UniCloud.Presentation.Payment.Guarantees
 {
     [Export(typeof (LeaseGuaranteeVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class LeaseGuaranteeVM : EditViewModelBase
     {
         private readonly PaymentData _context;

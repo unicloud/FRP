@@ -1,7 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿#region 命名空间
+
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Windows;
-using System.Windows.Controls;
 using Telerik.Windows.Controls;
 using Telerik.Windows.DragDrop;
 using UniCloud.Presentation.CommonExtension;
@@ -9,10 +10,12 @@ using UniCloud.Presentation.Input;
 using UniCloud.Presentation.Service.Part.Part;
 using DragEventArgs = Telerik.Windows.DragDrop.DragEventArgs;
 
+#endregion
+
 namespace UniCloud.Presentation.Part.EngineConfig
 {
     [Export]
-    public partial class BasicConfigGroupView : UserControl
+    public partial class BasicConfigGroupView
     {
         public BasicConfigGroupView()
         {
@@ -31,7 +34,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         private void OnDrop(object sender, DragEventArgs e)
         {
-            object draggedItem = DragDropPayloadManager.GetDataFromObject(e.Data, "DraggedData");
+            var draggedItem = DragDropPayloadManager.GetDataFromObject(e.Data, "DraggedData");
             var details = DragDropPayloadManager.GetDataFromObject(e.Data, "DropDetails") as DropIndicationDetails;
 
             if (details == null || draggedItem == null)
@@ -81,7 +84,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
             var item = (e.OriginalSource as FrameworkElement).ParentOfType<RadTreeViewItem>();
             var dropDetails = DragDropPayloadManager.GetDataFromObject(e.Data, "DropDetails") as DropIndicationDetails;
 
-            DropPosition position = GetPosition();
+            var position = GetPosition();
             if (dropDetails != null && item != null)
             {
                 var destinationItem = item.Item as BasicConfigDTO;

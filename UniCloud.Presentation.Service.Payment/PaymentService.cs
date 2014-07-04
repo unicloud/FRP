@@ -26,7 +26,6 @@ using UniCloud.Presentation.Service.Payment.Payment;
 namespace UniCloud.Presentation.Service.Payment
 {
     [Export(typeof (IPaymentService))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PaymentService : ServiceBase, IPaymentService
     {
         public PaymentService()

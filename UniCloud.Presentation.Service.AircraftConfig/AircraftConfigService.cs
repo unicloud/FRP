@@ -26,7 +26,6 @@ using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig;
 namespace UniCloud.Presentation.Service.AircraftConfig
 {
     [Export(typeof (IAircraftConfigService))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AircraftConfigService : ServiceBase, IAircraftConfigService
     {
         public AircraftConfigService()

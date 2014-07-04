@@ -33,7 +33,6 @@ using UniCloud.Presentation.Service.Part.Part;
 namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
 {
     [Export(typeof (ManageEngineMaintainPlanVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageEngineMaintainPlanVm : EditViewModelBase
     {
         #region 声明、初始化

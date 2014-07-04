@@ -14,7 +14,6 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 {
     [Export(typeof (OperationChildVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class OperationChildVM : ViewModelBase
     {
         private readonly FleetPlanData _context;

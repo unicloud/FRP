@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,24 +11,14 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Practices.ServiceLocation;
-using Telerik.Windows.Controls;
-using Telerik.Windows.DragDrop.Behaviors;
+using Telerik.Windows.Controls.GridView;
 using UniCloud.Presentation.Input;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
@@ -36,25 +27,26 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
+
     #region 计划飞机
 
     /// <summary>
-    /// 鼠标双击逻辑
+    ///     鼠标双击逻辑
     /// </summary>
     public class FleetPlanLayPlanDoubleClickHelper : GridViewDoubleClickHelper
     {
-        protected override void GridViewDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
+        protected override void GridViewDoubleClick(GridViewCellBase cell)
         {
             var viewModel = ServiceLocator.Current.GetInstance<FleetPlanLayVM>();
             var planAircraft = cell.DataContext as PlanAircraftDTO;
             viewModel.OpenEditDialog(planAircraft, PlanDetailCreateSource.PlanAircraft);
         }
 
-        protected override bool CanDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
+        protected override bool CanDoubleClick(GridViewCellBase cell)
         {
             var viewModel = ServiceLocator.Current.GetInstance<FleetPlanLayVM>();
             // 当前计划不为空且还未审核通过的，才允许双击。
-            return viewModel.CurPlan != null && viewModel.CurPlan.Status < (int)PlanStatus.已审核;
+            return viewModel.CurPlan != null && viewModel.CurPlan.Status < (int) PlanStatus.已审核;
         }
     }
 
@@ -63,26 +55,28 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
     #region 运营中的飞机
 
     /// <summary>
-    /// 鼠标双击逻辑
+    ///     鼠标双击逻辑
     /// </summary>
     public class FleetPlanLayOperationDoubleClickHelper : GridViewDoubleClickHelper
     {
-        protected override void GridViewDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
+        protected override void GridViewDoubleClick(GridViewCellBase cell)
         {
             var viewModel = ServiceLocator.Current.GetInstance<FleetPlanLayVM>();
             var aircraft = cell.DataContext as AircraftDTO;
             if (aircraft != null)
             {
-                var planAircraft = viewModel.AllPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().FirstOrDefault(p => p.AircraftId == aircraft.AircraftId);
+                var planAircraft =
+                    viewModel.AllPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>()
+                        .FirstOrDefault(p => p.AircraftId == aircraft.AircraftId);
                 viewModel.OpenEditDialog(planAircraft, PlanDetailCreateSource.Aircraft);
             }
         }
 
-        protected override bool CanDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
+        protected override bool CanDoubleClick(GridViewCellBase cell)
         {
             var viewModel = ServiceLocator.Current.GetInstance<FleetPlanLayVM>();
             // 当前计划不为空且还未审核通过的，才允许双击。
-            return viewModel.CurPlan != null && viewModel.CurPlan.Status < (int)PlanStatus.已审核;
+            return viewModel.CurPlan != null && viewModel.CurPlan.Status < (int) PlanStatus.已审核;
         }
     }
 

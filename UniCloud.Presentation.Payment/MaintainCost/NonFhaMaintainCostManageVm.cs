@@ -35,7 +35,6 @@ using SupplierDTO = UniCloud.Presentation.Service.FleetPlan.FleetPlan.SupplierDT
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
     [Export(typeof (NonFhaMaintainCostManageVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class NonFhaMaintainCostManageVm : EditViewModelBase
     {
         private readonly PaymentData _context;

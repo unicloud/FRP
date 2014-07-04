@@ -30,7 +30,6 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Forwarder
 {
     [Export(typeof (ForwarderManagerVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ForwarderManagerVM : EditViewModelBase
     {
         private readonly PurchaseData _context;

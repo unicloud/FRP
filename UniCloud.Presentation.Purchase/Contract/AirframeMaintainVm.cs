@@ -31,7 +31,6 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Contract
 {
     [Export(typeof (AirframeMaintainVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AirframeMaintainVm : EditViewModelBase
     {
         #region 声明、初始化

@@ -1,17 +1,20 @@
-﻿using System;
+﻿#region 命名空间
+
 using System.ComponentModel.Composition;
-using System.Windows.Controls;
+
+#endregion
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
     [Export]
-    public partial class FleetPlanPublish : UserControl
+    public partial class FleetPlanPublish
     {
         public FleetPlanPublish()
         {
             InitializeComponent();
         }
-        [Import(typeof(FleetPlanPublishVM))]
+
+        [Import(typeof (FleetPlanPublishVM))]
         public FleetPlanPublishVM ViewModel
         {
             get { return DataContext as FleetPlanPublishVM; }

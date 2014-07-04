@@ -28,7 +28,6 @@ using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 namespace UniCloud.Presentation.BaseManagement.ManagePermission
 {
     [Export(typeof (ManageUserVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageUserVM : EditViewModelBase
     {
         #region 声明、初始化

@@ -36,7 +36,6 @@ using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 namespace UniCloud.Presentation.BaseManagement.ManageOperationQualification
 {
     [Export(typeof (ManageBusinessLicenseVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageBusinessLicenseVm : EditViewModelBase
     {
         #region 声明、初始化

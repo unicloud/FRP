@@ -36,7 +36,6 @@ using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 namespace UniCloud.Presentation.Portal.Manager
 {
     [Export(typeof (ManagerPortalVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManagerPortalVm : ViewModelBase
     {
         private readonly IPortalService _service;

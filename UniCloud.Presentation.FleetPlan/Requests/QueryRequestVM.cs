@@ -29,7 +29,6 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 namespace UniCloud.Presentation.FleetPlan.Requests
 {
     [Export(typeof (QueryRequestVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryRequestVM : ViewModelBase
     {
         private readonly FleetPlanData _context;

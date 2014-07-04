@@ -28,7 +28,6 @@ using System.Windows;
 namespace UniCloud.Presentation.Purchase.QueryAnalyse
 {
     [Export(typeof (AnalyseAircraftPriceVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AnalyseAircraftPriceVm : INotifyPropertyChanged
     {
         private List<FinancialData> _data;

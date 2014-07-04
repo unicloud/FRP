@@ -37,7 +37,6 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 namespace UniCloud.Presentation.Part.MaintainControl
 {
     [Export(typeof (QueryMaintainCtrlVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryMaintainCtrlVm : ViewModelBase
     {
         #region 声明、初始化

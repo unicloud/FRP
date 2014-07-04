@@ -32,7 +32,6 @@ using UniCloud.Presentation.Service.Payment.Payment;
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
     [Export(typeof (FhaMaintainCostManageVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FhaMaintainCostManageVm : EditViewModelBase
     {
         private readonly PaymentData _context;

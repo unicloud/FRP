@@ -35,7 +35,6 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 namespace UniCloud.Presentation.Part.EngineConfig
 {
     [Export(typeof (ConfigCompareVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ConfigCompareVm : ViewModelBase
     {
         #region 声明、初始化

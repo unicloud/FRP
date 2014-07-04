@@ -33,7 +33,6 @@ using UniCloud.Presentation.Service.Payment.Payment;
 namespace UniCloud.Presentation.Payment.QueryAnalyse
 {
     [Export(typeof (FinancingDemandForecastVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FinancingDemandForecastVM : EditViewModelBase
     {
         #region 声明、初始化

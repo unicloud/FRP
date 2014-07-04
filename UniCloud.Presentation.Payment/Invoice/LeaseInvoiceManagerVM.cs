@@ -35,7 +35,6 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 namespace UniCloud.Presentation.Payment.Invoice
 {
     [Export(typeof (LeaseInvoiceManagerVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class LeaseInvoiceManagerVM : EditViewModelBase
     {
         #region 声明、初始化

@@ -34,7 +34,6 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
     [Export(typeof (AirProgrammingVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AirProgrammingVM : EditViewModelBase
     {
         #region 声明、初始化

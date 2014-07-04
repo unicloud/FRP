@@ -27,7 +27,6 @@ using UniCloud.Presentation.Service.Part.Part;
 namespace UniCloud.Presentation.Part.ManageAdSb
 {
     [Export(typeof (QueryAdSbVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryAdSbVm : EditViewModelBase
     {
         #region 声明、初始化

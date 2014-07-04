@@ -29,7 +29,6 @@ using UniCloud.Presentation.Service.CommonService;
 namespace UniCloud.Presentation.Purchase.Contract.QueryContracts
 {
     [Export(typeof (QueryContractMainVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryContractMainVm : ViewModelBase
     {
         private readonly IRegionManager _regionManager;

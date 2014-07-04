@@ -24,7 +24,6 @@ using System.Linq;
 using System.Windows.Media;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ColorEditor;
-using Telerik.Windows.Controls.ScheduleView;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Service.Payment.Payment;
 
@@ -38,7 +37,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
     public static class AppointmentConvertHelper
     {
         /// <summary>
-        /// 实现Appointment转化Appointment
+        ///     实现Appointment转化Appointment
         /// </summary>
         /// <param name="schedule"></param>
         /// <returns></returns>
@@ -59,9 +58,9 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
             return appointment;
         }
 
-        public static PaymentAppointment ConvertToAppointPayment(PaymentAppointment appointment, PaymentScheduleLineDTO schedule)
+        public static PaymentAppointment ConvertToAppointPayment(PaymentAppointment appointment,
+            PaymentScheduleLineDTO schedule)
         {
-
             appointment.Subject = schedule.Subject;
             appointment.Body = schedule.Body;
             appointment.End = schedule.End;
@@ -75,14 +74,15 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
         }
 
         /// <summary>
-        /// PaymentAppointment信息复制到PaymentScheduleLineDTO
+        ///     PaymentAppointment信息复制到PaymentScheduleLineDTO
         /// </summary>
         /// <param name="appointment"></param>
         /// <param name="schedule"></param>
         /// <returns></returns>
-        public static PaymentScheduleLineDTO ConvertToPaymentScheduleLine(PaymentAppointment appointment, PaymentScheduleLineDTO schedule)
+        public static PaymentScheduleLineDTO ConvertToPaymentScheduleLine(PaymentAppointment appointment,
+            PaymentScheduleLineDTO schedule)
         {
-            if(appointment==null)
+            if (appointment == null)
                 throw new Exception("日程不能为空");
             if (schedule == null)
                 throw new Exception("付款计划行不能为空");
@@ -99,7 +99,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
                 schedule.ProcessStatus = appointment.Category.CategoryName;
             return schedule;
         }
-   
+
         /// <summary>
         ///     把Appointment转化PaymentScheduleLineDTO
         /// </summary>
@@ -126,15 +126,15 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
         }
 
         /// <summary>
-        /// 获取循环的付款计划Appointment
+        ///     获取循环的付款计划Appointment
         /// </summary>
         /// <returns></returns>
-        public static List<PaymentAppointment> GetOccurrences(PaymentAppointment appointment, IEnumerable<DateTime> occurrenceDateTimes)
+        public static List<PaymentAppointment> GetOccurrences(PaymentAppointment appointment,
+            IEnumerable<DateTime> occurrenceDateTimes)
         {
             var occurrencePaymentAppointment = new List<PaymentAppointment>();
             occurrenceDateTimes.ToList().ForEach(p =>
             {
-              
                 var subPaymentAppointment = new PaymentAppointment
                 {
                     Subject = appointment.Subject,
@@ -221,7 +221,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
         }
 
         /// <summary>
-        /// 获取任务状态集合
+        ///     获取任务状态集合
         /// </summary>
         /// <returns></returns>
         public static CategoryCollection GetCategoryCollection()

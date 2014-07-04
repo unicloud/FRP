@@ -39,7 +39,6 @@ using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 {
     [Export(typeof (ManagerAircraftConfigurationVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManagerAircraftConfigurationVm : EditViewModelBase
     {
         #region 声明、初始化

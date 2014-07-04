@@ -35,7 +35,6 @@ using UniCloud.Presentation.Service.CommonService.Common;
 namespace UniCloud.Presentation.Document
 {
     [Export(typeof(DocViewerVM))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
     public class DocViewerVM : ViewModelBase
     {
         #region 声明、初始化
@@ -46,6 +45,7 @@ namespace UniCloud.Presentation.Document
         private DocumentDTO _loadedDocument;
         private bool _fromServer;
         private byte[] _content;
+
         [ImportingConstructor]
         public DocViewerVM(ICommonService service)
             : base(service)

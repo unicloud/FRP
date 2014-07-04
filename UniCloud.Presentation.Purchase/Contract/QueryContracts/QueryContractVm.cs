@@ -33,7 +33,6 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Contract.QueryContracts
 {
     [Export(typeof (QueryContractVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryContractVm : ViewModelBase
     {
         private readonly PurchaseData _context;

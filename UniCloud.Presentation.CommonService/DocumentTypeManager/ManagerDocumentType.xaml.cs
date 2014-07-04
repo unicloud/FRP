@@ -1,21 +1,20 @@
 ﻿#region 命名空间
 
 using System.ComponentModel.Composition;
-using System.Windows.Controls;
 
 #endregion
 
 namespace UniCloud.Presentation.CommonService.DocumentTypeManager
 {
     [Export]
-    public partial class ManagerDocumentType : UserControl
+    public partial class ManagerDocumentType
     {
         public ManagerDocumentType()
         {
             InitializeComponent();
         }
 
-        [Import(typeof(ManagerDocumentTypeVm))]
+        [Import(typeof (ManagerDocumentTypeVm))]
         public ManagerDocumentTypeVm ViewModel
         {
             get { return DataContext as ManagerDocumentTypeVm; }

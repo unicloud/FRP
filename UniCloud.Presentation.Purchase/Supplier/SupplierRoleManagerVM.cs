@@ -29,7 +29,6 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Supplier
 {
     [Export(typeof (SupplierRoleManagerVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SupplierRoleManagerVM : EditViewModelBase
     {
         private readonly PurchaseData _context;

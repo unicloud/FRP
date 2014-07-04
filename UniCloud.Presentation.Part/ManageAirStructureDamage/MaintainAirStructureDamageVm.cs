@@ -34,7 +34,6 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 namespace UniCloud.Presentation.Part.ManageAirStructureDamage
 {
     [Export(typeof (MaintainAirStructureDamageVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MaintainAirStructureDamageVm : EditViewModelBase
     {
         #region 声明、初始化

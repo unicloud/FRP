@@ -1,5 +1,8 @@
-﻿
+﻿#region 命名空间
+
 using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
@@ -11,7 +14,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             InitializeComponent();
         }
 
-        [Import(typeof(FleetPlanLayVM))]
+        [Import(typeof (FleetPlanLayVM))]
         public FleetPlanLayVM ViewModel
         {
             get { return DataContext as FleetPlanLayVM; }

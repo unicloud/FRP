@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
     [Export]
-    public partial class MatchingPlanAircraftManager : UserControl
+    public partial class MatchingPlanAircraftManager
     {
         public MatchingPlanAircraftManager()
         {

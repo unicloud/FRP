@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Part.EngineConfig
 {
     [Export]
-    public partial class ConfigCompareView : UserControl
+    public partial class ConfigCompareView
     {
         public ConfigCompareView()
         {

@@ -29,12 +29,12 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
 
         partial void OnUserNameChanging(string value)
         {
-            if (string.IsNullOrWhiteSpace(value)) throw new Exception("登录名必填");
+            //if (string.IsNullOrWhiteSpace(value)) throw new Exception("登录名必填");
         }
 
         partial void OnOrganizationNoChanging(string value)
         {
-            if (string.IsNullOrWhiteSpace(value)) throw new Exception("密码必填");
+            //if (string.IsNullOrWhiteSpace(value)) throw new Exception("密码必填");
         }
 
         partial void OnEmailChanging(string value)
