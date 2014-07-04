@@ -20,7 +20,7 @@ namespace Unicloud.DocumentIndexService
         {
             _documentAppService = UniContainer.Resolve<IDocumentAppService>();
         }
-
+         
         public void UpdateIndex()
         {
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
