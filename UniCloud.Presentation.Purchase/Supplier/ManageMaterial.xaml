@@ -234,7 +234,6 @@
                             <telerik:RadPaneGroup>
                                 <telerik:RadPane Header=""
                                                  FontSize="{StaticResource HeaderFontSize}"
-                                                 IsPinned="True"
                                                  CanFloat="False"
                                                  CanUserClose="False"
                                                  CanUserPin="False"
@@ -300,11 +299,9 @@
                         <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
                             <telerik:RadPaneGroup>
                                 <telerik:RadPane Header="编辑发动机物料"
-                                                 IsPinned="True"
                                                  CanFloat="False"
-                                                 CanDockInDocumentHost="False"
                                                  CanUserClose="False"
-                                                 CanUserPin="True"
+                                                 CanUserPin="False"
                                                  ContextMenuTemplate="{x:Null}">
                                     <Grid>
                                         <telerik:RadDataForm x:Name="EngineMaterialForm"

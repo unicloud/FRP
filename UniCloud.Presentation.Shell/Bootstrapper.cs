@@ -52,7 +52,7 @@ namespace UniCloud.Presentation.Shell
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPaymentService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IProjectService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPortalService).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPartService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPartService).Assembly)); 
         }
 
         protected override void InitializeShell()

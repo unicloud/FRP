@@ -16,7 +16,7 @@
 
 #region 命名空间
 
-
+using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
 
 #endregion
 
@@ -28,5 +28,10 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
     /// </summary>
     public interface IUserRepository : IRepository<User>
     {
+        /// <summary>
+        ///     删除用户角色
+        /// </summary>
+        /// <param name="userRole">用户角色</param>
+        void DeleteUserRole(UserRole userRole);
     }
 }

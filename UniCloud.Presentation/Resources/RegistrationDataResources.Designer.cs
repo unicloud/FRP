@@ -61,6 +61,15 @@ namespace UniCloud.Presentation.Resources {
         }
         
         /// <summary>
+        ///   查找类似 姓名 的本地化字符串。
+        /// </summary>
+        public static string DisplayNameLabel {
+            get {
+                return ResourceManager.GetString("DisplayNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 电子邮件 的本地化字符串。
         /// </summary>
         public static string EmailLabel {
@@ -133,7 +142,7 @@ namespace UniCloud.Presentation.Resources {
         }
         
         /// <summary>
-        ///   查找类似 用户名 的本地化字符串。
+        ///   查找类似 登录名 的本地化字符串。
         /// </summary>
         public static string UserNameLabel {
             get {

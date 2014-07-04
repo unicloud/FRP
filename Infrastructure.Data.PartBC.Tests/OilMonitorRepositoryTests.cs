@@ -25,8 +25,6 @@ using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
-using UniCloud.Infrastructure.Data.PartBC.Repositories;
-using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -43,20 +41,21 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             var pnRep = UniContainer.Resolve<IPnRegRepository>();
             var thrustRep = UniContainer.Resolve<IThrustRepository>();
             var snRep = UniContainer.Resolve<ISnRegRepository>();
-            var pn = pnRep.GetAll().FirstOrDefault();
+            var v2527A5 = pnRep.GetFiltered(p => p.Pn == "V2527-A5").FirstOrDefault();
+            var trent772C = pnRep.GetFiltered(p => p.Pn == "Trent772C").FirstOrDefault();
             var thrust = thrustRep.GetAll().FirstOrDefault();
 
             // Act
-            var engine1 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2334");
-            engine1.SetMonitorStatus(OilMonitorStatus.关注);
-            var engine2 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2335");
-            engine2.SetMonitorStatus(OilMonitorStatus.警告);
-            var engine3 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2336");
-            engine3.SetMonitorStatus(OilMonitorStatus.正常);
-            snRep.Add(engine1);
-            snRep.Add(engine2);
-            snRep.Add(engine3);
-            snRep.UnitOfWork.Commit();
+            //var engine1 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2334");
+            //engine1.SetMonitorStatus(OilMonitorStatus.关注);
+            //var engine2 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2335");
+            //engine2.SetMonitorStatus(OilMonitorStatus.警告);
+            //var engine3 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2336");
+            //engine3.SetMonitorStatus(OilMonitorStatus.正常);
+            //snRep.Add(engine1);
+            //snRep.Add(engine2);
+            //snRep.Add(engine3);
+            //snRep.UnitOfWork.Commit();
         }
 
         [TestMethod]

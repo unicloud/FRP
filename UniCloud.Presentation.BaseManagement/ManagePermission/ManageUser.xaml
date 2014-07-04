@@ -15,51 +15,163 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="ReadTemplate">
+                <Grid Margin="7,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="65" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Text="登录名" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="0,3" telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding UserName}" IsReadOnly="True" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="姓名" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="0,3" telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding DisplayName}" IsReadOnly="True" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="机构代码" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Margin="0,3" Grid.Row="2" telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding OrganizationNo}" IsReadOnly="True" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="机构名称" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Margin="0,3" Grid.Row="3" telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding OrganizationName}" IsReadOnly="True" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="Email" TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Margin="0,3" Grid.Row="4" telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Email}" IsReadOnly="True" />
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="手机号" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Margin="0,3" Grid.Row="5" telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Mobile}" IsReadOnly="True" />
+                    <telerik:GroupBox Grid.Row="6" Grid.ColumnSpan="2" Grid.Column="0" Header="备注">
+                        <TextBox Text="{Binding Description}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                 telerik:StyleManager.Theme="Windows8" VerticalContentAlignment="Top"
+                                 BorderThickness="0" Cursor="IBeam" IsReadOnly="True" />
+                    </telerik:GroupBox>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="NewTemplate">
+                <Grid Margin="7,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="65" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Text="登录名" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="0,3" telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding UserName, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="密码" TextAlignment="Left" VerticalAlignment="Center" />
+                    <PasswordBox Grid.Row="1" Grid.Column="1" Margin="0,3" telerik:StyleManager.Theme="Windows8"
+                                 Password="{Binding Password, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="姓名" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="0,3" telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding DisplayName, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Text="机构代码" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Margin="0,3" Grid.Row="3" telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding OrganizationNo, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Text="机构名称" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Margin="0,3" Grid.Row="4" telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding OrganizationName}" IsReadOnly="True" />
+                    <TextBlock Grid.Row="5" Grid.Column="0" Text="Email" TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Margin="0,3" Grid.Row="5" telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Email, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="6" Grid.Column="0" Text="手机号" TextAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="1" Margin="0,3" Grid.Row="6" telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Mobile, Mode=TwoWay}" />
+                </Grid>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="{Binding BusyContent}">
-        <Grid>
+        <Grid x:Name="Root">
             <telerik:RadDocking BorderThickness="0" Padding="0" HasDocumentHost="False">
                 <telerik:RadSplitContainer>
                     <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
                         <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="用户信息" CanUserPin="False" CanUserClose="False" CanFloat="False"
+                            <telerik:RadPane Header="用户信息" CanFloat="False"
+                                             CanUserClose="False" CanUserPin="False"
                                              ContextMenuTemplate="{x:Null}">
-                                <telerik:RadGridView ItemsSource="{Binding ViewUserDTO}" AutoGenerateColumns="False"
-                                                     IsReadOnly="True">
-                                    <telerik:RadContextMenu.ContextMenu>
-                                        <telerik:RadContextMenu>
-                                            <telerik:RadMenuItem Header="导出Excel"
-                                                                 Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
-                                            <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
-                                        </telerik:RadContextMenu>
-                                    </telerik:RadContextMenu.ContextMenu>
-                                    <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
-                                        <telerik:GridViewDataColumn Header="登录名" DataMemberBinding="{Binding UserName}" />
-                                        <telerik:GridViewDataColumn Header="姓名"
-                                                                    DataMemberBinding="{Binding DisplayName}" />
-                                        <telerik:GridViewDataColumn Header="机构代码"
-                                                                    DataMemberBinding="{Binding OrganizationNo}" />
-                                        <telerik:GridViewDataColumn Header="机构名称"
-                                                                    DataMemberBinding="{Binding OrganizationName}" />
-                                        <telerik:GridViewDataColumn Header="Email" DataMemberBinding="{Binding Email}" />
-                                        <telerik:GridViewDataColumn Header="手机号码" DataMemberBinding="{Binding Mobile}" />
-                                        <telerik:GridViewDataColumn Header="系统用户"
-                                                                    DataMemberBinding="{Binding IsSystemUser}" />
-                                        <telerik:GridViewDataColumn Header="备注"
-                                                                    DataMemberBinding="{Binding Description}" Width="*" />
-                                    </telerik:RadGridView.Columns>
-                                </telerik:RadGridView>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
+                                    </Grid.RowDefinitions>
+                                    <telerik:RadGridView ItemsSource="{Binding ViewUserDTO}"
+                                                         AutoGenerateColumns="False" IsReadOnly="True" Margin="0,1,0,0">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu>
+                                                <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                                                <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadGridView.Columns>
+                                            <uc:DataPageSerialColumn Header="序号" />
+                                            <telerik:GridViewDataColumn Header="登录名"
+                                                                        DataMemberBinding="{Binding UserName}" />
+                                            <telerik:GridViewDataColumn Header="姓名"
+                                                                        DataMemberBinding="{Binding DisplayName}" />
+                                            <telerik:GridViewDataColumn Header="机构代码"
+                                                                        DataMemberBinding="{Binding OrganizationNo}" />
+                                            <telerik:GridViewDataColumn Header="机构名称"
+                                                                        DataMemberBinding="{Binding OrganizationName}" />
+                                            <telerik:GridViewDataColumn Header="Email"
+                                                                        DataMemberBinding="{Binding Email}" />
+                                            <telerik:GridViewDataColumn Header="手机号码"
+                                                                        DataMemberBinding="{Binding Mobile}" />
+                                            <telerik:GridViewDataColumn Header="系统用户"
+                                                                        DataMemberBinding="{Binding IsSystemUser}" />
+                                            <telerik:GridViewDataColumn Header="备注"
+                                                                        DataMemberBinding="{Binding Description}"
+                                                                        Width="*" />
+                                        </telerik:RadGridView.Columns>
+                                    </telerik:RadGridView>
+                                    <Grid Grid.Row="1">
+                                        <telerik:RadDataPager Name="EngineMaterialRadPage" BorderThickness="1,0,1,1"
+                                                              AutoEllipsisMode="Both" DisplayMode="All"
+                                                              Source="{Binding ViewUserDTO}" />
+                                    </Grid>
+                                </Grid>
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>
                     </telerik:RadSplitContainer>
                     <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
                         <telerik:RadPaneGroup>
-                            <telerik:RadPane />
+                            <telerik:RadPane Header="注册用户" IsPinned="True" CanFloat="False" CanUserClose="False"
+                                             CanUserPin="True" ContextMenuTemplate="{x:Null}">
+                                <telerik:RadDataForm x:Name="RegisterUser" CancelButtonContent="取消"
+                                                     CommitButtonContent="确定" ItemsSource="{Binding ViewUserDTO}"
+                                                     AutoGenerateFields="False" AutoCommit="True"
+                                                     ReadOnlyTemplate="{StaticResource ReadTemplate}"
+                                                     NewItemTemplate="{StaticResource NewTemplate}">
+                                    <telerik:RadDataForm.CommandProvider>
+                                        <uc:MasterCommandProvider DataForm="{Binding ElementName=RegisterUser}"
+                                                                  QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=RegisterUser}" />
+                                    </telerik:RadDataForm.CommandProvider>
+                                </telerik:RadDataForm>
+                            </telerik:RadPane>
+                            <telerik:RadPane Header="修改密码" IsPinned="True" CanFloat="False" CanUserClose="False"
+                                             CanUserPin="True" ContextMenuTemplate="{x:Null}" />
                         </telerik:RadPaneGroup>
                     </telerik:RadSplitContainer>
                 </telerik:RadSplitContainer>

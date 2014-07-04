@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{95FA7B6F-617D-4ED2-A827-13C912A4F2DF}</ProjectGuid>
+    <ProjectGuid>{F926F3F8-80A6-4799-827D-02981248653E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UniCloud.Infrastructure.Data.PartBC.Tests</RootNamespace>
-    <AssemblyName>UniCloud.Infrastructure.Data.PartBC.Tests</AssemblyName>
+    <RootNamespace>UniCloud.DistributedServices.Part.BackgroundWorker.Tests</RootNamespace>
+    <AssemblyName>UniCloud.DistributedServices.Part.BackgroundWorker.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -37,22 +37,21 @@
   <ItemGroup>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
       <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -68,29 +67,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AssemblyTestsInitialize.cs" />
-    <Compile Include="BasicConfigGroupRepositoryTest\BasicConfigGroupRepositoryTest.cs" />
-    <Compile Include="CtrlUnitTest.cs" />
-    <Compile Include="DataInitialize.cs" />
-    <Compile Include="ItemRepositoryTest.cs" />
-    <Compile Include="MaintainWorkTest.cs" />
-    <Compile Include="OilMonitorRepositoryTests.cs" />
-    <Compile Include="PnRegRepositoryTests.cs" />
+    <Compile Include="DataSyncTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ThrustRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
-      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
-      <Name>Domain.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Domain.PartBC\Domain.PartBC.csproj">
-      <Project>{c8c80cbf-f4c4-4c7a-a19c-52fb09aec87d}</Project>
-      <Name>Domain.PartBC</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
       <Name>Domain</Name>
@@ -106,6 +90,10 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}</Project>
       <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.DataService\DataService.csproj">
+      <Project>{947FE4A9-3058-46C5-9859-47EEEC400D72}</Project>
+      <Name>DataService</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

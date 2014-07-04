@@ -14,12 +14,16 @@
 
 #endregion
 
+#region 命名空间
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using Dapper;
 using IBM.Data.DB2.iSeries;
+
+#endregion
 
 namespace UniCloud.DataService.Connection
 {
@@ -45,8 +49,7 @@ namespace UniCloud.DataService.Connection
         public void SetConnectionString(string strConn)
         {
             _connString = strConn;
-            _conn =
-                new iDB2Connection(_connString);
+            _conn = new iDB2Connection(_connString);
         }
 
         public DataTable GetDataTable(string strSql)
@@ -78,7 +81,7 @@ namespace UniCloud.DataService.Connection
             {
                 return _conn.TryExecute(connection =>
                 {
-                    IEnumerable<T> items = connection.QueryAll<T>(sql);
+                    var items = connection.QueryAll<T>(sql);
                     return items;
                 });
             }

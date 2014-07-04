@@ -28,16 +28,25 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
     /// </summary>
     public static class UserFactory
     {
-        public static User CreateUser(string username, string password, string email, int passwordFormat,
-            string passwordQuestion, string passwordAnswer, DateTime createDate)
+        /// <summary>
+        ///     创建用户。
+        /// </summary>
+        /// <param name="username">登录名</param>
+        /// <param name="password">加密后的密码</param>
+        /// <param name="passwordQuestion">密码问题</param>
+        /// <param name="passwordAnswer">密码问题答案</param>
+        /// <param name="createDate">创建日期</param>
+        /// <param name="passwordFormat">密码格式：0-Clear；1-Hashed；2-Encrypted</param>
+        /// <returns>创建的用户</returns>
+        public static User CreateUser(string username, string password, string passwordQuestion, string passwordAnswer,
+            DateTime createDate, int passwordFormat = 1)
         {
             var user = new User
             {
                 UserName = username,
                 LoweredUserName = username.ToLower(),
-                Email = email,
                 PasswordFormat = passwordFormat,
-                CreateDate = DateTime.Now,
+                CreateDate = createDate,
                 IsLockedOut = false,
                 IsValid = true,
                 LastLockoutDate = createDate,

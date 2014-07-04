@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,6 +12,7 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -21,18 +23,18 @@ using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
 
 namespace UniCloud.Infrastructure.Data.BaseManagementBC.Repositories
 {
-   /// <summary>
-   /// UserRole仓储实现
-   /// </summary>
-   public class UserRoleRepository: Repository<UserRole>, IUserRoleRepository
-   {
-      public UserRoleRepository(IQueryableUnitOfWork unitOfWork)
-      : base(unitOfWork)
-      {
-         
-      }
-      
-         #region 方法重载
-      #endregion
-   }
+    /// <summary>
+    ///     UserRole仓储实现
+    /// </summary>
+    public class UserRoleRepository : Repository<UserRole>, IUserRoleRepository
+    {
+        public UserRoleRepository(IQueryableUnitOfWork unitOfWork)
+            : base(unitOfWork)
+        {
+        }
+
+        #region 方法重载
+
+        #endregion
+    }
 }

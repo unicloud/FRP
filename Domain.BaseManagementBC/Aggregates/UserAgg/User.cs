@@ -202,18 +202,35 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         #region 操作
 
         /// <summary>
-        ///     设置组织与姓名
+        ///     设置组织代码
         /// </summary>
         /// <param name="organizationNo">机构代码</param>
-        /// <param name="firstName">名</param>
-        /// <param name="lastName">姓</param>
-        /// <param name="mobile">手机号</param>
-        public void SetOrganizationAndName(string organizationNo, string firstName, string lastName, string mobile)
+        public void SetOrganization(string organizationNo)
         {
             OrganizationNo = organizationNo;
+        }
+
+        /// <summary>
+        ///     设置姓名
+        /// </summary>
+        /// <param name="firstName">名字</param>
+        /// <param name="lastName">姓氏</param>
+        /// <param name="displayName">显示名称</param>
+        public void SetName(string firstName, string lastName, string displayName)
+        {
             FirstName = firstName;
             LastName = lastName;
-            DisplayName = lastName + firstName;
+            DisplayName = displayName;
+        }
+
+        /// <summary>
+        ///     设置联系方式
+        /// </summary>
+        /// <param name="email">Email</param>
+        /// <param name="mobile">手机号</param>
+        public void SetContact(string email, string mobile)
+        {
+            Email = email;
             Mobile = mobile;
         }
 
@@ -239,16 +256,21 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         }
 
         /// <summary>
-        ///     更新用户
+        ///     设置批准状态
         /// </summary>
-        /// <param name="email">邮箱</param>
-        /// <param name="comment">备注</param>
         /// <param name="isApproved">是否批准</param>
-        public void UpdateUser(string email, string comment, bool isApproved)
+        public void SetApproved(bool isApproved)
         {
-            Email = email;
-            Comment = comment;
             IsApproved = isApproved;
+        }
+
+        /// <summary>
+        ///     添加备注
+        /// </summary>
+        /// <param name="comment">备注</param>
+        public void SetComment(string comment)
+        {
+            Comment = comment;
         }
 
         /// <summary>
@@ -272,12 +294,14 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         /// <summary>
         ///     新增用户角色
         /// </summary>
+        /// <param name="roleId">角色ID</param>
         /// <returns>用户角色</returns>
-        public UserRole AddNewUserRole()
+        public UserRole AddNewUserRole(int roleId)
         {
             var userRole = new UserRole
             {
                 UserId = Id,
+                RoleId = roleId
             };
             userRole.GenerateNewIdentity();
             UserRoles.Add(userRole);
