@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class Database : DbMigration
     {
         public override void Up()
         {
@@ -208,15 +208,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         ID = c.Guid(nullable: false),
                         Name = c.String(),
                         Description = c.String(),
-                        AircraftSeriesId = c.Guid(nullable: false),
                         AircraftCategoryId = c.Guid(nullable: false),
                         ManufacturerId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.AircraftCategory", t => t.AircraftCategoryId)
-                .ForeignKey("FRP.AircraftSeries", t => t.AircraftSeriesId)
                 .ForeignKey("FRP.Manufacturer", t => t.ManufacturerId)
-                .Index(t => t.AircraftSeriesId)
                 .Index(t => t.AircraftCategoryId)
                 .Index(t => t.ManufacturerId);
             
@@ -3422,7 +3419,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.AircraftType", "ManufacturerId", "FRP.Manufacturer");
             DropForeignKey("FRP.AircraftType", "CaacAircraftTypeId", "FRP.CAACAircraftType");
             DropForeignKey("FRP.CAACAircraftType", "ManufacturerId", "FRP.Manufacturer");
-            DropForeignKey("FRP.CAACAircraftType", "AircraftSeriesId", "FRP.AircraftSeries");
             DropForeignKey("FRP.CAACAircraftType", "AircraftCategoryId", "FRP.AircraftCategory");
             DropForeignKey("FRP.AircraftType", "AircraftSeriesId", "FRP.AircraftSeries");
             DropForeignKey("FRP.AircraftType", "AircraftCategoryId", "FRP.AircraftCategory");
@@ -3674,7 +3670,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.AircraftLicense", new[] { "AircraftId" });
             DropIndex("FRP.CAACAircraftType", new[] { "ManufacturerId" });
             DropIndex("FRP.CAACAircraftType", new[] { "AircraftCategoryId" });
-            DropIndex("FRP.CAACAircraftType", new[] { "AircraftSeriesId" });
             DropIndex("FRP.AircraftType", new[] { "CaacAircraftTypeId" });
             DropIndex("FRP.AircraftType", new[] { "ManufacturerId" });
             DropIndex("FRP.AircraftType", new[] { "AircraftCategoryId" });

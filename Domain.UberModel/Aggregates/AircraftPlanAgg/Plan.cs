@@ -49,57 +49,57 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     计划标题
         /// </summary>
-        public string Title { get; private set; }
+        public string Title { get; set; }
 
         /// <summary>
         ///     是否有效版本
         /// </summary>
-        public bool IsValid { get; private set; }
+        public bool IsValid { get; set; }
 
         /// <summary>
         ///     版本号
         /// </summary>
-        public int VersionNumber { get; internal set; }
+        public int VersionNumber { get; set; }
 
         /// <summary>
         ///     是否当前版本
         /// </summary>
-        public bool IsCurrentVersion { get; private set; }
+        public bool IsCurrentVersion { get; set; }
 
         /// <summary>
         ///     提交日期
         /// </summary>
-        public DateTime? SubmitDate { get; private set; }
+        public DateTime? SubmitDate { get; set; }
 
         /// <summary>
         ///     创建日期
         /// </summary>
-        public DateTime CreateDate { get; internal set; }
+        public DateTime CreateDate { get; set; }
 
         /// <summary>
         ///     计划文号
         /// </summary>
-        public string DocNumber { get; private set; }
+        public string DocNumber { get; set; }
 
         /// <summary>
         ///     是否完成
         /// </summary>
-        public bool IsFinished { get; private set; }
+        public bool IsFinished { get; set; }
 
         /// <summary>
         ///     计划编辑处理状态
         /// </summary>
-        public PlanStatus Status { get; private set; }
+        public PlanStatus Status { get; set; }
 
         /// <summary>
         ///     发布计划处理状态
         /// </summary>
-        public PlanPublishStatus PublishStatus { get; private set; }
+        public PlanPublishStatus PublishStatus { get; set; }
 
         /// <summary>
         /// 文档名称
         /// </summary>
-        public string DocName { get; private set; }
+        public string DocName { get; set; }
         #endregion
 
         #region 外键属性
@@ -107,17 +107,17 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     航空公司外键
         /// </summary>
-        public Guid AirlinesId { get; private set; }
+        public Guid AirlinesId { get; set; }
 
         /// <summary>
         ///     计划年度外键
         /// </summary>
-        public Guid AnnualId { get; private set; }
+        public Guid AnnualId { get; set; }
 
         /// <summary>
         ///     文档Id
         /// </summary>
-        public Guid? DocumentId { get; private set; }
+        public Guid? DocumentId { get; set; }
 
         #endregion
 
@@ -125,12 +125,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// <summary>
         /// 航空公司
         /// </summary>
-        public virtual Airlines Airlines { get; private set; }
+        public virtual Airlines Airlines { get; set; }
 
         /// <summary>
         /// 计划年度
         /// </summary>
-        public virtual Annual Annual { get; private set; }
+        public virtual Annual Annual { get; set; }
 
         #endregion
 
