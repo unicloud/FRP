@@ -47,6 +47,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             _service = service;
             _context = _service.Context;
+
             InitializeVM();
             InitializerCommand();
         }

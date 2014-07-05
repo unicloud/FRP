@@ -38,11 +38,10 @@ namespace UniCloud.Presentation.MVVM
     /// </summary>
     public abstract class ViewModelBase : NotificationObject, INavigationAware, ILoadData
     {
-        //[Import]
-        public ListDocuments listDocuments;
-        protected Action<DocumentDTO> windowClosed;
         [Import] public DocViewer docViewer;
         [Import] public DocViewerVM docViewerVM;
+        public ListDocuments listDocuments;
+        protected Action<DocumentDTO> windowClosed;
 
         #region ctor
 
@@ -64,6 +63,7 @@ namespace UniCloud.Presentation.MVVM
                     BusyContent = string.Empty;
                 };
             }
+            DocTypeIds = new int[0];
         }
 
         #endregion
@@ -134,6 +134,8 @@ namespace UniCloud.Presentation.MVVM
 
         public DelegateCommand<object> AddAttachCommand { get; set; }
 
+        protected int[] DocTypeIds { get; set; }
+
         /// <summary>
         ///     服务器添加附件
         /// </summary>
@@ -146,13 +148,13 @@ namespace UniCloud.Presentation.MVVM
                 MessageConfirm("附件已存在，继续操作将有可能替换当前附件。是否继续？", (o, e) =>
                 {
                     if (e.DialogResult == null || e.DialogResult != true) return;
-                    listDocuments.ViewModel.InitData(d => WindowClosed(d, sender));
+                    listDocuments.ViewModel.InitData(d => WindowClosed(d, sender), DocTypeIds);
                     listDocuments.ShowDialog();
                 });
             }
             else
             {
-                listDocuments.ViewModel.InitData(d => WindowClosed(d, sender));
+                listDocuments.ViewModel.InitData(d => WindowClosed(d, sender), DocTypeIds);
                 listDocuments.ShowDialog();
             }
         }
@@ -190,7 +192,7 @@ namespace UniCloud.Presentation.MVVM
             listDocuments.Close();
 
             docViewer.ShowDialog();
-            docViewerVM.InitDocument(openFileDialog.File, windowClosed);
+            docViewerVM.InitDocument(openFileDialog.File, windowClosed, DocTypeIds);
         }
 
 
