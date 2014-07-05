@@ -1034,7 +1034,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         UpdateDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         ItemId = c.Int(),
                     })
-                .PrimaryKey(t => t.ID);
+                .PrimaryKey(t => t.ID)
+                .Index(t => t.Pn, unique: true);
             
             CreateTable(
                 "FRP.Trade",
@@ -3604,6 +3605,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.Document", new[] { "DocumentTypeId" });
             DropIndex("FRP.DocumentPath", new[] { "ParentId" });
             DropIndex("FRP.Trade", new[] { "SupplierId" });
+            DropIndex("FRP.PnReg", new[] { "Pn" });
             DropIndex("FRP.ContractEngine", new[] { "SupplierId" });
             DropIndex("FRP.ContractEngine", new[] { "ImportCategoryId" });
             DropIndex("FRP.ContractEngine", new[] { "PartID" });
