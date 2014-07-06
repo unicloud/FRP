@@ -91,9 +91,11 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         {
             var newUser = UserFactory.CreateUser(dto.UserName, EncodePassword(dto.Password), dto.Question,
                 EncodePassword(dto.Answer), DateTime.Now);
-            newUser.SetName(string.Empty, string.Empty, dto.DisplayName);
+            newUser.SetName(null, null, dto.DisplayName);
+            newUser.SetOrganization(dto.OrganizationNo);
             newUser.SetContact(dto.Email, dto.Mobile);
             newUser.SetComment(dto.Description);
+            newUser.SetApproved(true);
             _userRepository.Add(newUser);
         }
 

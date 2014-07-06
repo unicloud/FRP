@@ -10,6 +10,7 @@
         <Property Name="OrganizationNo" Type="Edm.String" />
         <Property Name="DisplayName" Type="Edm.String" />
         <Property Name="Password" Type="Edm.String" />
+        <Property Name="PasswordConfirm" Type="Edm.String" />
         <Property Name="Question" Type="Edm.String" />
         <Property Name="Answer" Type="Edm.String" />
         <Property Name="Email" Type="Edm.String" />
