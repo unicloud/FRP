@@ -77,8 +77,8 @@
                     </telerik:RadSplitContainer>
                     <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
                         <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="注册用户" IsPinned="True" CanFloat="False" CanUserClose="False"
-                                             CanUserPin="True" ContextMenuTemplate="{x:Null}">
+                            <telerik:RadPane Header="注册用户" CanFloat="False" CanUserClose="False"
+                                             CanUserPin="False" ContextMenuTemplate="{x:Null}">
                                 <telerik:RadDataForm x:Name="RegisterUser" CancelButtonContent="取消"
                                                      CommitButtonContent="确定" ItemsSource="{Binding ViewUserDTO}"
                                                      AutoGenerateFields="False">
@@ -196,8 +196,6 @@
                                     </telerik:RadDataForm.NewItemTemplate>
                                 </telerik:RadDataForm>
                             </telerik:RadPane>
-                            <telerik:RadPane Header="修改密码" IsPinned="True" CanFloat="False" CanUserClose="False"
-                                             CanUserPin="True" ContextMenuTemplate="{x:Null}" />
                         </telerik:RadPaneGroup>
                     </telerik:RadSplitContainer>
                 </telerik:RadSplitContainer>
