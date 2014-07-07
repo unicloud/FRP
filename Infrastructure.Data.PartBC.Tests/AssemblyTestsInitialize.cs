@@ -18,6 +18,7 @@
 #region 命名空间
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
 using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
@@ -48,6 +49,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
                 .Register<IModelConfiguration, SqlConfigurations>("Sql")
                 .Register<IItemRepository, ItemRepository>()
                 .Register<IMaintainWorkRepository, MaintainWorkRepository>()
+                .Register<IAircraftRepository, AircraftRepository>()
                 .Register<ISnRegRepository, SnRegRepository>()
                 .Register<IPnRegRepository, PnRegRepository>()
                 .Register<IThrustRepository, ThrustRepository>()

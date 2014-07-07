@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -42,323 +44,215 @@ namespace UniCloud.Domain.FlightLogBC.Aggregates.FlightLogAgg
         #region 属性
 
         /// <summary>
-        /// 航班号
+        ///     航班号
         /// </summary>
-        public string FlightNum
-        {
-            get;
-            set;
-        }
-
-        ///日志号
-        public string LogNo
-        {
-            get;
-            set;
-        }
-
-        ///航段号
-        public string LegNo
-        {
-            get;
-            set;
-        }
+        public string FlightNum { get; internal set; }
 
         /// <summary>
-        /// 飞机注册号
+        ///     日志号
         /// </summary>
-        public string AcReg
-        {
-            get;
-            set;
-        }
+        public string LogNo { get; internal set; }
 
         /// <summary>
-        /// 飞机序列号
+        ///     航段号
         /// </summary>
-        public string MSN
-        {
-            get;
-            set;
-        }
+        public string LegNo { get; internal set; }
 
         /// <summary>
-        /// 飞行类别
+        ///     飞机注册号
         /// </summary>
-        public string FlightType
-        {
-            get;
-            set;
-        }
+        public string AcReg { get; internal set; }
 
         /// <summary>
-        /// 航班日期
+        ///     飞机序列号
         /// </summary>
-        public DateTime FlightDate
-        {
-            get;
-            set;
-        }
+        public string MSN { get; internal set; }
 
         /// <summary>
-        /// 开车时间
+        ///     飞行类别
         /// </summary>
-        public string BlockOn
-        {
-            get;
-            set;
-        }
+        public string FlightType { get; internal set; }
 
         /// <summary>
-        /// 实际起飞时间
+        ///     航班日期
         /// </summary>
-        public string TakeOff
-        {
-            get;
-            set;
-        }
+        public DateTime FlightDate { get; internal set; }
 
         /// <summary>
-        /// 着陆时间
+        ///     开车时间
         /// </summary>
-        public string Landing
-        {
-            get;
-            set;
-        }
+        public string BlockOn { get; internal set; }
 
         /// <summary>
-        /// 关车时间
+        ///     实际起飞时间
         /// </summary>
-        public string BlockStop
-        {
-            get;
-            set;
-        }
+        public string TakeOff { get; internal set; }
 
         /// <summary>
-        /// 累计飞行时间
+        ///     着陆时间
         /// </summary>
-        public decimal TotalFH
-        {
-            get;
-            set;
-        }
+        public string Landing { get; internal set; }
 
         /// <summary>
-        /// 累计开车时间
+        ///     关车时间
         /// </summary>
-        public decimal TotalBH
-        {
-            get;
-            set;
-        }
+        public string BlockStop { get; internal set; }
 
         /// <summary>
-        /// 飞行时间
+        ///     累计飞行时间
         /// </summary>
-        public decimal FlightHours
-        {
-            get;
-            set;
-        }
+        public decimal TotalFH { get; internal set; }
 
         /// <summary>
-        /// 开车时长
+        ///     累计开车时间
         /// </summary>
-        public decimal BlockHours
-        {
-            get;
-            set;
-        }
+        public decimal TotalBH { get; internal set; }
 
         /// <summary>
-        /// 累计循环数
+        ///     飞行时间
         /// </summary>
-        public int TotalCycles
-        {
-            get;
-            set;
-        }
+        public decimal FlightHours { get; internal set; }
 
         /// <summary>
-        /// 飞行循环
+        ///     开车时长
         /// </summary>
-        public int Cycle
-        {
-            get;
-            set;
-        }
+        public decimal BlockHours { get; internal set; }
 
         /// <summary>
-        /// 起始机场
+        ///     累计循环数
         /// </summary>
-        public string DepartureAirport
-        {
-            get;
-            set;
-        }
+        public int TotalCycles { get; internal set; }
 
         /// <summary>
-        /// 目的机场
+        ///     飞行循环
         /// </summary>
-        public string ArrivalAirport
-        {
-            get;
-            set;
-        }
+        public int Cycle { get; internal set; }
 
         /// <summary>
-        /// 训练循环数
+        ///     出发机场
         /// </summary>
-        public int ToGoNumber
-        {
-            get;
-            set;
-        }
+        public string DepartureAirport { get; internal set; }
 
         /// <summary>
-        /// APU累计使用次数
+        ///     目的机场
         /// </summary>
-        public int ApuCycle
-        {
-            get;
-            set;
-        }
+        public string ArrivalAirport { get; internal set; }
 
         /// <summary>
-        /// APU累计使用分钟数
+        ///     训练循环数
         /// </summary>
-        public int ApuMM
-        {
-            get;
-            set;
-        }
+        public int ToGoNumber { get; internal set; }
 
         /// <summary>
-        /// 航前发动机1滑油添加量
+        ///     APU累计使用次数
         /// </summary>
-        public decimal ENG1OilDep
-        {
-            get;
-            set;
-        }
+        public int ApuCycle { get; internal set; }
 
         /// <summary>
-        /// 航后发动机1滑油添加量
+        ///     APU累计使用分钟数
         /// </summary>
-        public decimal ENG1OilArr
-        {
-            get;
-            set;
-        }
+        public int ApuMM { get; internal set; }
 
         /// <summary>
-        /// 航前发动机2滑油添加量
+        ///     航前发动机1滑油添加量
         /// </summary>
-        public decimal ENG2OilDep
-        {
-            get;
-            set;
-        }
+        public decimal ENG1OilDep { get; private set; }
 
         /// <summary>
-        /// 航后发动机2滑油添加量
+        ///     航后发动机1滑油添加量
         /// </summary>
-        public decimal ENG2OilArr
-        {
-            get;
-            set;
-        }
+        public decimal ENG1OilArr { get; private set; }
 
         /// <summary>
-        /// 航前发动机3滑油添加量
+        ///     航前发动机2滑油添加量
         /// </summary>
-        public decimal ENG3OilDep
-        {
-            get;
-            set;
-        }
+        public decimal ENG2OilDep { get; private set; }
 
         /// <summary>
-        /// 航后发动机3滑油添加量
+        ///     航后发动机2滑油添加量
         /// </summary>
-        public decimal ENG3OilArr
-        {
-            get;
-            set;
-        }
+        public decimal ENG2OilArr { get; private set; }
 
         /// <summary>
-        /// 航前发动机4滑油添加量
+        ///     航前发动机3滑油添加量
         /// </summary>
-        public decimal ENG4OilDep
-        {
-            get;
-            set;
-        }
+        public decimal ENG3OilDep { get; private set; }
 
         /// <summary>
-        /// 航后发动机4滑油添加量
+        ///     航后发动机3滑油添加量
         /// </summary>
-        public decimal ENG4OilArr
-        {
-            get;
-            set;
-        }
+        public decimal ENG3OilArr { get; private set; }
 
         /// <summary>
-        /// 航前APU滑油添加量
+        ///     航前发动机4滑油添加量
         /// </summary>
-        public decimal ApuOilDep
-        {
-            get;
-            set;
-        }
+        public decimal ENG4OilDep { get; private set; }
 
         /// <summary>
-        /// 航后APU滑油添加量
+        ///     航后发动机4滑油添加量
         /// </summary>
-        public decimal ApuOilArr
-        {
-            get;
-            set;
-        }
+        public decimal ENG4OilArr { get; private set; }
 
         /// <summary>
-        /// 创建日期
+        ///     航前APU滑油添加量
         /// </summary>
-        public DateTime CreateDate
-        {
-            get;
-            set;
-        }
+        public decimal ApuOilDep { get; private set; }
 
         /// <summary>
-        /// 最近一次更新日期
+        ///     航后APU滑油添加量
         /// </summary>
-        public DateTime? UpdateDate
-        {
-            get;
-            set;
-        }
+        public decimal ApuOilArr { get; private set; }
+
+        /// <summary>
+        ///     创建日期
+        /// </summary>
+        public DateTime CreateDate { get; internal set; }
+
+        /// <summary>
+        ///     最近一次更新日期
+        /// </summary>
+        public DateTime? UpdateDate { get; internal set; }
+
         #endregion
 
         #region 外键属性
-
-
 
         #endregion
 
         #region 导航属性
 
-
-
         #endregion
 
         #region 操作
 
-
+        /// <summary>
+        ///     设置滑油添加量数据
+        /// </summary>
+        /// <param name="eng1OilDep">1发航前添加量</param>
+        /// <param name="eng1OilArr">1发航后添加量</param>
+        /// <param name="eng2OilDep">2发航前添加量</param>
+        /// <param name="eng2OilArr">2发航后添加量</param>
+        /// <param name="eng3OilDep">3发航前添加量</param>
+        /// <param name="eng3OilArr">3发航后添加量</param>
+        /// <param name="eng4OilDep">4发航前添加量</param>
+        /// <param name="eng4OilArr">4发航后添加量</param>
+        /// <param name="apuOilDep">航前添加量</param>
+        /// <param name="apuOilArr">航后添加量</param>
+        public void SetOil(decimal eng1OilDep, decimal eng1OilArr, decimal eng2OilDep, decimal eng2OilArr,
+            decimal eng3OilDep, decimal eng3OilArr, decimal eng4OilDep, decimal eng4OilArr, decimal apuOilDep,
+            decimal apuOilArr)
+        {
+            ENG1OilDep = eng1OilDep;
+            ENG1OilArr = eng1OilArr;
+            ENG2OilDep = eng2OilDep;
+            ENG2OilArr = eng2OilArr;
+            ENG3OilDep = eng3OilDep;
+            ENG3OilArr = eng3OilArr;
+            ENG4OilDep = eng4OilDep;
+            ENG4OilArr = eng4OilArr;
+            ApuOilDep = apuOilDep;
+            ApuOilArr = apuOilArr;
+        }
 
         #endregion
 

@@ -56,6 +56,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -70,11 +71,35 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AssemblyTestsInitialize.cs" />
+    <Compile Include="FlightLogTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.FlightLogBC\Domain.FlightLogBC.csproj">
+      <Project>{2E3CA0C8-057A-4817-87ED-28A63AFF50D2}</Project>
+      <Name>Domain.FlightLogBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.FlightLogBC\Infrastructure.Data.FlightLogBC.csproj">
+      <Project>{728B5133-A465-47AF-99E6-E3A9F4B908FF}</Project>
+      <Name>Infrastructure.Data.FlightLogBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{CAD91A38-6B90-4A18-83CA-0215CE512F4D}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -20,8 +20,7 @@
 using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCloud.Domain.Common.Enums;
-using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
+using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
@@ -35,66 +34,49 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
     public class OilMonitorRepositoryTests
     {
         [TestMethod]
-        public void CreateEngineRegTest()
+        public void OilMonitorDataInitialize()
         {
             // Arrange
+            var trRep = UniContainer.Resolve<IThrustRepository>();
             var pnRep = UniContainer.Resolve<IPnRegRepository>();
-            var thrustRep = UniContainer.Resolve<IThrustRepository>();
+            var acRep = UniContainer.Resolve<IAircraftRepository>();
             var snRep = UniContainer.Resolve<ISnRegRepository>();
-            var v2527A5 = pnRep.GetFiltered(p => p.Pn == "V2527-A5").FirstOrDefault();
-            var trent772C = pnRep.GetFiltered(p => p.Pn == "Trent772C").FirstOrDefault();
-            var thrust = thrustRep.GetAll().FirstOrDefault();
+
+            var ac1 = acRep.GetFiltered(ac => ac.RegNumber == "B-6323").FirstOrDefault();
+            var ac2 = acRep.GetFiltered(ac => ac.RegNumber == "B-6517").FirstOrDefault();
+
+            var tr1 = ThrustFactory.CreateThrust("24K", "推力24K");
+            var tr2 = ThrustFactory.CreateThrust("25K", "推力25K");
+            var tr3 = ThrustFactory.CreateThrust("27K", "推力27K");
+            trRep.Add(tr1);
+            trRep.Add(tr2);
+            trRep.Add(tr3);
+
+            var pn1 = PnRegFactory.CreatePnReg(true, "V2527-A5", string.Empty);
+            var pn2 = PnRegFactory.CreatePnReg(true, "Trent772C", string.Empty);
+            pnRep.Add(pn1);
+            pnRep.Add(pn2);
+
+            var eng1 = SnRegFactory.CreateEngineReg(new DateTime(2010, 1, 1), pn1, tr2, "V15749");
+            var eng2 = SnRegFactory.CreateEngineReg(new DateTime(2010, 1, 1), pn1, tr2, "V15089");
+            var eng3 = SnRegFactory.CreateEngineReg(new DateTime(2010, 1, 1), pn1, tr2, "41715");
+            var eng4 = SnRegFactory.CreateEngineReg(new DateTime(2010, 1, 1), pn1, tr2, "41736");
+            eng1.SetAircraft(ac1);
+            eng2.SetAircraft(ac1);
+            eng3.SetAircraft(ac2);
+            eng4.SetAircraft(ac2);
+            snRep.Add(eng1);
+            snRep.Add(eng2);
+            snRep.Add(eng3);
+            snRep.Add(eng4);
 
             // Act
-            //var engine1 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2334");
-            //engine1.SetMonitorStatus(OilMonitorStatus.关注);
-            //var engine2 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2335");
-            //engine2.SetMonitorStatus(OilMonitorStatus.警告);
-            //var engine3 = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2336");
-            //engine3.SetMonitorStatus(OilMonitorStatus.正常);
-            //snRep.Add(engine1);
-            //snRep.Add(engine2);
-            //snRep.Add(engine3);
-            //snRep.UnitOfWork.Commit();
+            trRep.UnitOfWork.Commit();
+
+            // Assert
+            Assert.IsTrue(true);
         }
 
-        [TestMethod]
-        public void CreateOilMonitor()
-        {
-            // Arrange
-            var monitorRep = UniContainer.Resolve<IOilMonitorRepository>();
-            var snRep = UniContainer.Resolve<ISnRegRepository>();
-            var rTsn = new Random();
-            var rTsr = new Random();
-            var rOil = new Random();
-            var rDelta = new Random();
 
-            var snReg1 = snRep.GetAll().OfType<EngineReg>().FirstOrDefault(r => r.MonitorStatus == OilMonitorStatus.正常);
-            for (var i = -90; i < 0; i++)
-            {
-                var oil = OilMonitorFactory.CreateEngineOil(snReg1, DateTime.Now.AddDays(i), rTsn.Next(90, 110),
-                    rTsr.Next(10, 30), rOil.Next(10, 30), rOil.Next(10, 30), rDelta.Next(-5, 5));
-                monitorRep.Add(oil);
-            }
-
-            var snReg2 = snRep.GetAll().OfType<EngineReg>().FirstOrDefault(r => r.MonitorStatus == OilMonitorStatus.关注);
-            for (var i = -90; i < 0; i++)
-            {
-                var oil = OilMonitorFactory.CreateEngineOil(snReg2, DateTime.Now.AddDays(i), rTsn.Next(90, 110),
-                    rTsr.Next(10, 30), rOil.Next(10, 30), rOil.Next(10, 30), rDelta.Next(-5, 5));
-                monitorRep.Add(oil);
-            }
-
-            var snReg3 = snRep.GetAll().OfType<EngineReg>().FirstOrDefault(r => r.MonitorStatus == OilMonitorStatus.警告);
-            for (var i = -90; i < 0; i++)
-            {
-                var oil = OilMonitorFactory.CreateEngineOil(snReg3, DateTime.Now.AddDays(i), rTsn.Next(90, 110),
-                    rTsr.Next(10, 30), rOil.Next(10, 30), rOil.Next(10, 30), rDelta.Next(-5, 5));
-                monitorRep.Add(oil);
-            }
-
-            // Act
-            monitorRep.UnitOfWork.Commit();
-        }
     }
 }
