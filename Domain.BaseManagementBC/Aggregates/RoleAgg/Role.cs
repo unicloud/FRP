@@ -75,6 +75,24 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg
 
         #region 操作
 
+        /// <summary>
+        ///     更新角色
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="decription">描述</param>
+        /// <param name="isSystemRole">是否系统角色</param>
+        /// <param name="code">代码</param>
+        /// <param name="levelCode">层级代码</param>
+        public void UpdateRole(string name, string decription = null, bool isSystemRole = false,
+            string code = null, string levelCode = null)
+        {
+            Name = name;
+            Code = code;
+            LevelCode = levelCode;
+            Description = decription;
+            IsSystemRole = isSystemRole;
+        }
+
         #endregion
 
         #region IValidatableObject 成员

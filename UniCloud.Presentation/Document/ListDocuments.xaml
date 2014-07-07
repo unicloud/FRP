@@ -41,7 +41,7 @@
                 <uc:DataPageSerialColumn Header="序号" HeaderTextAlignment="Center" />
                 <telerik:GridViewDataColumn Header="文档名称" HeaderTextAlignment="Center"
                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                            DataMemberBinding="{Binding Name}" />
+                                            DataMemberBinding="{Binding Name}" IsGroupable="False" />
                 <telerik:GridViewComboBoxColumn Header="文档类型" HeaderTextAlignment="Center"
                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                 ItemsSource="{Binding DataContext.DocumentTypes, ElementName=DocumentsWindow,Mode=TwoWay}"

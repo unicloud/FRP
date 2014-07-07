@@ -91,9 +91,11 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         {
             var newUser = UserFactory.CreateUser(dto.UserName, EncodePassword(dto.Password), dto.Question,
                 EncodePassword(dto.Answer), DateTime.Now);
-            newUser.SetName(string.Empty, string.Empty, dto.DisplayName);
+            newUser.SetName(null, null, dto.DisplayName);
+            newUser.SetOrganization(dto.OrganizationNo);
             newUser.SetContact(dto.Email, dto.Mobile);
             newUser.SetComment(dto.Description);
+            newUser.SetApproved(true);
             _userRepository.Add(newUser);
         }
 
@@ -109,6 +111,7 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
             updateUser.SetOrganization(user.OrganizationNo);
             updateUser.SetContact(user.Email, user.Mobile);
             updateUser.SetComment(user.Description);
+            updateUser.SetPassword(EncodePassword(user.Password));
 
             var dtoUserRoles = user.UserRoles;
             var userRoles = updateUser.UserRoles;

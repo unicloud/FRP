@@ -51,9 +51,15 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg
 
         #region 外键
 
-        public int FunctionItemId { get; internal set; }
+        /// <summary>
+        ///     功能ID
+        /// </summary>
+        public int FunctionItemId { get; private set; }
 
-        public int RoleId { get; internal set; }
+        /// <summary>
+        ///     角色ID
+        /// </summary>
+        public int RoleId { get; private set; }
 
         #endregion
 
@@ -71,6 +77,17 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     更新角色功能
+        /// </summary>
+        /// <param name="roleId">角色ID</param>
+        /// <param name="functionItemId">功能ID</param>
+        public void UpdateRoleFunction(int roleId, int functionItemId)
+        {
+            RoleId = roleId;
+            FunctionItemId = functionItemId;
+        }
 
         #endregion
 

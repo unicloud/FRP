@@ -58,6 +58,7 @@ namespace UniCloud.Application.BaseManagementBC.Query.UserQueries
                 OrganizationNo = p.OrganizationNo,
                 Mobile = p.Mobile,
                 Password = p.Password,
+                PasswordConfirm = p.Password,
                 OrganizationName = dbOrganization.FirstOrDefault(t => p.OrganizationNo.Equals(t.Code)).Name,
                 IsSystemUser = p.IsSystemUser,
                 UserRoles = p.UserRoles.Select(q => new UserRoleDTO

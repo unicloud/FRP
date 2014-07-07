@@ -140,7 +140,7 @@ namespace UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries
                 Sort = functionItem.Sort,
             }));
 
-            return tempFunctionItems;
+            return tempFunctionItems.OrderBy(fi => fi.Sort);
         }
 
         private FunctionItemDTO GenerateFunctionItem(FunctionItem functionItem)

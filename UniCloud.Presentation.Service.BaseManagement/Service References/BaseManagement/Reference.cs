@@ -9,7 +9,10 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014-7-3 0:07:45
+// 生成日期: 2014-7-6 21:33:22
+
+using System.ComponentModel.DataAnnotations;
+
 namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
 {
     
@@ -249,88 +252,89 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
                 "\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name" +
                 "=\"UserName\" Type=\"Edm.String\" /><Property Name=\"OrganizationNo\" Type=\"Edm.String" +
                 "\" /><Property Name=\"DisplayName\" Type=\"Edm.String\" /><Property Name=\"Password\" T" +
-                "ype=\"Edm.String\" /><Property Name=\"Question\" Type=\"Edm.String\" /><Property Name=" +
-                "\"Answer\" Type=\"Edm.String\" /><Property Name=\"Email\" Type=\"Edm.String\" /><Propert" +
-                "y Name=\"Mobile\" Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"Edm.Strin" +
-                "g\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Propert" +
-                "y Name=\"OrganizationName\" Type=\"Edm.String\" /><Property Name=\"IsSystemUser\" Type" +
-                "=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"UserRoles\" Type=\"Collection(Un" +
-                "iCloud.Application.BaseManagementBC.DTO.UserRoleDTO)\" Nullable=\"false\" /></Entit" +
-                "yType><ComplexType Name=\"UserRoleDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nulla" +
-                "ble=\"false\" /><Property Name=\"UserId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
-                "rty Name=\"RoleId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType " +
-                "Name=\"OrganizationDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" T" +
-                "ype=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Code\" Type=\"Edm.String\" /><Pr" +
-                "operty Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"LastUpdateTime\" Type=\"Edm" +
-                ".DateTime\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Pro" +
-                "perty Name=\"ParentCode\" Type=\"Edm.Int32\" /><Property Name=\"Sort\" Type=\"Edm.Int32" +
-                "\" Nullable=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"f" +
-                "alse\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"Organiz" +
-                "ationRoles\" Type=\"Collection(UniCloud.Application.BaseManagementBC.DTO.Organizat" +
-                "ionRoleDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"OrganizationRole" +
-                "DTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Org" +
-                "anizationId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RoleId\" Type=\"E" +
-                "dm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"FunctionItemDTO\"><K" +
-                "ey><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=" +
-                "\"false\" /><Property Name=\"ParentItemId\" Type=\"Edm.Int32\" /><Property Name=\"IsLea" +
-                "f\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Sort\" Type=\"Edm.Int32\" " +
-                "Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Des" +
-                "cription\" Type=\"Edm.String\" /><Property Name=\"NaviUrl\" Type=\"Edm.String\" /><Prop" +
-                "erty Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Create" +
-                "Date\" Type=\"Edm.DateTime\" /><Property Name=\"ImageUrl\" Type=\"Edm.String\" /><Prope" +
-                "rty Name=\"IsButton\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"IsChec" +
-                "ked\" Type=\"Edm.Boolean\" Nullable=\"false\" /><NavigationProperty Name=\"SubFunction" +
-                "Items\" Relationship=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_S" +
-                "ubFunctionItems\" ToRole=\"SubFunctionItems\" FromRole=\"FunctionItemDTO\" /></Entity" +
-                "Type><EntityType Name=\"RoleDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Na" +
-                "me=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.Stri" +
-                "ng\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"CreateDat" +
-                "e\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"IsSystemRole\" Type=\"Ed" +
-                "m.Boolean\" Nullable=\"false\" /><Property Name=\"RoleFunctions\" Type=\"Collection(Un" +
-                "iCloud.Application.BaseManagementBC.DTO.RoleFunctionDTO)\" Nullable=\"false\" /></E" +
-                "ntityType><ComplexType Name=\"RoleFunctionDTO\"><Property Name=\"Id\" Type=\"Edm.Int3" +
-                "2\" Nullable=\"false\" /><Property Name=\"FunctionItemId\" Type=\"Edm.Int32\" Nullable=" +
-                "\"false\" /><Property Name=\"RoleId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexT" +
-                "ype><EntityType Name=\"BusinessLicenseDTO\"><Key><PropertyRef Name=\"Id\" /></Key><P" +
-                "roperty Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type" +
-                "=\"Edm.String\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=" +
-                "\"IssuedUnit\" Type=\"Edm.String\" /><Property Name=\"IssuedDate\" Type=\"Edm.DateTime\"" +
-                " Nullable=\"false\" /><Property Name=\"ValidMonths\" Type=\"Edm.Int32\" Nullable=\"fals" +
-                "e\" /><Property Name=\"ExpireDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Propert" +
-                "y Name=\"State\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"FileContent\" " +
-                "Type=\"Edm.Binary\" /><Property Name=\"FileName\" Type=\"Edm.String\" /></EntityType><" +
-                "EntityType Name=\"AircraftCabinTypeDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Prop" +
-                "erty Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"E" +
-                "dm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /></EntityType><EntityType " +
-                "Name=\"XmlSettingDTO\"><Key><PropertyRef Name=\"XmlSettingId\" /></Key><Property Nam" +
-                "e=\"XmlSettingId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SettingType\"" +
-                " Type=\"Edm.String\" /><Property Name=\"SettingContent\" Type=\"Edm.String\" /></Entit" +
-                "yType><Association Name=\"FunctionItemDTO_SubFunctionItems\"><End Type=\"UniCloud.A" +
-                "pplication.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"SubFunctionItems\" Multipl" +
-                "icity=\"*\" /><End Type=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" +
-                "\" Role=\"FunctionItemDTO\" Multiplicity=\"*\" /></Association></Schema><Schema Names" +
-                "pace=\"UniCloud.DistributedServices.BaseManagement\" xmlns=\"http://schemas.microso" +
-                "ft.com/ado/2009/11/edm\"><EntityContainer Name=\"BaseManagementData\" m:IsDefaultEn" +
-                "tityContainer=\"true\"><EntitySet Name=\"Users\" EntityType=\"UniCloud.Application.Ba" +
-                "seManagementBC.DTO.UserDTO\" /><EntitySet Name=\"Organizations\" EntityType=\"UniClo" +
-                "ud.Application.BaseManagementBC.DTO.OrganizationDTO\" /><EntitySet Name=\"Function" +
-                "Items\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO\" />" +
-                "<EntitySet Name=\"Roles\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.Ro" +
-                "leDTO\" /><EntitySet Name=\"BusinessLicenses\" EntityType=\"UniCloud.Application.Bas" +
-                "eManagementBC.DTO.BusinessLicenseDTO\" /><EntitySet Name=\"AircraftCabinTypes\" Ent" +
-                "ityType=\"UniCloud.Application.BaseManagementBC.DTO.AircraftCabinTypeDTO\" /><Enti" +
-                "tySet Name=\"XmlSettings\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.X" +
-                "mlSettingDTO\" /><FunctionImport Name=\"GetFunctionItemsWithHierarchy\" ReturnType=" +
-                "\"Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySe" +
-                "t=\"FunctionItems\" m:HttpMethod=\"GET\"><Parameter Name=\"userName\" Type=\"Edm.String" +
-                "\" /></FunctionImport><FunctionImport Name=\"GetFunctionItemsByUser\" ReturnType=\"C" +
-                "ollection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySet=" +
-                "\"FunctionItems\" m:HttpMethod=\"GET\"><Parameter Name=\"userName\" Type=\"Edm.String\" " +
-                "/></FunctionImport><AssociationSet Name=\"FunctionItemDTO_SubFunctionItems\" Assoc" +
-                "iation=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionIte" +
-                "ms\"><End Role=\"FunctionItemDTO\" EntitySet=\"FunctionItems\" /><End Role=\"SubFuncti" +
-                "onItems\" EntitySet=\"FunctionItems\" /></AssociationSet></EntityContainer></Schema" +
-                "></edmx:DataServices></edmx:Edmx>";
+                "ype=\"Edm.String\" /><Property Name=\"PasswordConfirm\" Type=\"Edm.String\" /><Propert" +
+                "y Name=\"Question\" Type=\"Edm.String\" /><Property Name=\"Answer\" Type=\"Edm.String\" " +
+                "/><Property Name=\"Email\" Type=\"Edm.String\" /><Property Name=\"Mobile\" Type=\"Edm.S" +
+                "tring\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"Create" +
+                "Date\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"OrganizationName\" T" +
+                "ype=\"Edm.String\" /><Property Name=\"IsSystemUser\" Type=\"Edm.Boolean\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"UserRoles\" Type=\"Collection(UniCloud.Application.BaseMana" +
+                "gementBC.DTO.UserRoleDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"Us" +
+                "erRoleDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Nam" +
+                "e=\"UserId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RoleId\" Type=\"Edm" +
+                ".Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"OrganizationDTO\"><Key" +
+                "><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"f" +
+                "alse\" /><Property Name=\"Code\" Type=\"Edm.String\" /><Property Name=\"Name\" Type=\"Ed" +
+                "m.String\" /><Property Name=\"LastUpdateTime\" Type=\"Edm.DateTime\" /><Property Name" +
+                "=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"ParentCode\" Typ" +
+                "e=\"Edm.Int32\" /><Property Name=\"Sort\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Des" +
+                "cription\" Type=\"Edm.String\" /><Property Name=\"OrganizationRoles\" Type=\"Collectio" +
+                "n(UniCloud.Application.BaseManagementBC.DTO.OrganizationRoleDTO)\" Nullable=\"fals" +
+                "e\" /></EntityType><ComplexType Name=\"OrganizationRoleDTO\"><Property Name=\"Id\" Ty" +
+                "pe=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OrganizationId\" Type=\"Edm.Int3" +
+                "2\" Nullable=\"false\" /><Property Name=\"RoleId\" Type=\"Edm.Int32\" Nullable=\"false\" " +
+                "/></ComplexType><EntityType Name=\"FunctionItemDTO\"><Key><PropertyRef Name=\"Id\" /" +
+                "></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"P" +
+                "arentItemId\" Type=\"Edm.Int32\" /><Property Name=\"IsLeaf\" Type=\"Edm.Boolean\" Nulla" +
+                "ble=\"false\" /><Property Name=\"Sort\" Type=\"Edm.Int32\" Nullable=\"false\" /><Propert" +
+                "y Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"Edm.String\"" +
+                " /><Property Name=\"NaviUrl\" Type=\"Edm.String\" /><Property Name=\"IsValid\" Type=\"E" +
+                "dm.Boolean\" Nullable=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" /" +
+                "><Property Name=\"ImageUrl\" Type=\"Edm.String\" /><Property Name=\"IsButton\" Type=\"E" +
+                "dm.Boolean\" Nullable=\"false\" /><Property Name=\"IsChecked\" Type=\"Edm.Boolean\" Nul" +
+                "lable=\"false\" /><NavigationProperty Name=\"SubFunctionItems\" Relationship=\"UniClo" +
+                "ud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems\" ToRole=\"Su" +
+                "bFunctionItems\" FromRole=\"FunctionItemDTO\" /></EntityType><EntityType Name=\"Role" +
+                "DTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nu" +
+                "llable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Descr" +
+                "iption\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Null" +
+                "able=\"false\" /><Property Name=\"IsSystemRole\" Type=\"Edm.Boolean\" Nullable=\"false\"" +
+                " /><Property Name=\"RoleFunctions\" Type=\"Collection(UniCloud.Application.BaseMana" +
+                "gementBC.DTO.RoleFunctionDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name" +
+                "=\"RoleFunctionDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"FunctionItemId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"R" +
+                "oleId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"Busin" +
+                "essLicenseDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm" +
+                ".Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property N" +
+                "ame=\"Description\" Type=\"Edm.String\" /><Property Name=\"IssuedUnit\" Type=\"Edm.Stri" +
+                "ng\" /><Property Name=\"IssuedDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Proper" +
+                "ty Name=\"ValidMonths\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Expire" +
+                "Date\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"State\" Type=\"Edm.In" +
+                "t32\" Nullable=\"false\" /><Property Name=\"FileContent\" Type=\"Edm.Binary\" /><Proper" +
+                "ty Name=\"FileName\" Type=\"Edm.String\" /></EntityType><EntityType Name=\"AircraftCa" +
+                "binTypeDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.In" +
+                "t32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name" +
+                "=\"Note\" Type=\"Edm.String\" /></EntityType><EntityType Name=\"XmlSettingDTO\"><Key><" +
+                "PropertyRef Name=\"XmlSettingId\" /></Key><Property Name=\"XmlSettingId\" Type=\"Edm." +
+                "Guid\" Nullable=\"false\" /><Property Name=\"SettingType\" Type=\"Edm.String\" /><Prope" +
+                "rty Name=\"SettingContent\" Type=\"Edm.String\" /></EntityType><Association Name=\"Fu" +
+                "nctionItemDTO_SubFunctionItems\"><End Type=\"UniCloud.Application.BaseManagementBC" +
+                ".DTO.FunctionItemDTO\" Role=\"SubFunctionItems\" Multiplicity=\"*\" /><End Type=\"UniC" +
+                "loud.Application.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"FunctionItemDTO\" Mu" +
+                "ltiplicity=\"*\" /></Association></Schema><Schema Namespace=\"UniCloud.DistributedS" +
+                "ervices.BaseManagement\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><En" +
+                "tityContainer Name=\"BaseManagementData\" m:IsDefaultEntityContainer=\"true\"><Entit" +
+                "ySet Name=\"Users\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.UserDTO\"" +
+                " /><EntitySet Name=\"Organizations\" EntityType=\"UniCloud.Application.BaseManageme" +
+                "ntBC.DTO.OrganizationDTO\" /><EntitySet Name=\"FunctionItems\" EntityType=\"UniCloud" +
+                ".Application.BaseManagementBC.DTO.FunctionItemDTO\" /><EntitySet Name=\"Roles\" Ent" +
+                "ityType=\"UniCloud.Application.BaseManagementBC.DTO.RoleDTO\" /><EntitySet Name=\"B" +
+                "usinessLicenses\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.BusinessL" +
+                "icenseDTO\" /><EntitySet Name=\"AircraftCabinTypes\" EntityType=\"UniCloud.Applicati" +
+                "on.BaseManagementBC.DTO.AircraftCabinTypeDTO\" /><EntitySet Name=\"XmlSettings\" En" +
+                "tityType=\"UniCloud.Application.BaseManagementBC.DTO.XmlSettingDTO\" /><FunctionIm" +
+                "port Name=\"GetFunctionItemsWithHierarchy\" ReturnType=\"Collection(UniCloud.Applic" +
+                "ation.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySet=\"FunctionItems\" m:HttpMet" +
+                "hod=\"GET\"><Parameter Name=\"userName\" Type=\"Edm.String\" /></FunctionImport><Funct" +
+                "ionImport Name=\"GetFunctionItemsByUser\" ReturnType=\"Collection(UniCloud.Applicat" +
+                "ion.BaseManagementBC.DTO.FunctionItemDTO)\" EntitySet=\"FunctionItems\" m:HttpMetho" +
+                "d=\"GET\"><Parameter Name=\"userName\" Type=\"Edm.String\" /></FunctionImport><Associa" +
+                "tionSet Name=\"FunctionItemDTO_SubFunctionItems\" Association=\"UniCloud.Applicatio" +
+                "n.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems\"><End Role=\"FunctionItem" +
+                "DTO\" EntitySet=\"FunctionItems\" /><End Role=\"SubFunctionItems\" EntitySet=\"Functio" +
+                "nItems\" /></AssociationSet></EntityContainer></Schema></edmx:DataServices></edmx" +
+                ":Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -516,6 +520,7 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         /// 架构中不存在属性 UserName 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        [CustomValidation(typeof(UserValidator), "ValidateUserName")]
         public string UserName
         {
             get
@@ -582,6 +587,7 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         /// 架构中不存在属性 Password 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        [CustomValidation(typeof(UserValidator), "ValidatePassword")]
         public string Password
         {
             get
@@ -600,6 +606,29 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         private string _Password;
         partial void OnPasswordChanging(string value);
         partial void OnPasswordChanged();
+        /// <summary>
+        /// 架构中不存在属性 PasswordConfirm 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        [CustomValidation(typeof(UserValidator), "ValidatePasswordConfirm")]
+        public string PasswordConfirm
+        {
+            get
+            {
+                return this._PasswordConfirm;
+            }
+            set
+            {
+                this.OnPasswordConfirmChanging(value);
+                this._PasswordConfirm = value;
+                this.OnPasswordConfirmChanged();
+                this.OnPropertyChanged("PasswordConfirm");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _PasswordConfirm;
+        partial void OnPasswordConfirmChanging(string value);
+        partial void OnPasswordConfirmChanged();
         /// <summary>
         /// 架构中不存在属性 Question 的注释。
         /// </summary>

@@ -81,8 +81,8 @@ namespace UniCloud.Application.BaseManagementBC.RoleServices
         [Update(typeof (RoleDTO))]
         public void ModifyRole(RoleDTO role)
         {
-            var updateRole = RoleFactory.UpdateRole(role.Name, role.Description);
-            updateRole.ChangeCurrentIdentity(role.Id);
+            var updateRole = _roleRepository.Get(role.Id);
+            updateRole.UpdateRole(role.Name, role.Description, role.IsSystemRole);
 
             var dtoRoleFunctions = role.RoleFunctions;
             var roleFunctions = updateRole.RoleFunctions;
@@ -125,9 +125,8 @@ namespace UniCloud.Application.BaseManagementBC.RoleServices
         /// <param name="roleFunctionDto">RoleFunctionDTO</param>
         private void UpdateRoleFunction(RoleFunctionDTO roleFunctionDto)
         {
-            var roleFunction = new RoleFunction(roleFunctionDto.RoleId, roleFunctionDto.FunctionItemId);
-            roleFunction.ChangeCurrentIdentity(roleFunctionDto.Id);
-            _roleFunctionRepository.Modify(roleFunction);
+            var roleFunction = _roleFunctionRepository.Get(roleFunctionDto.Id);
+            roleFunction.UpdateRoleFunction(roleFunctionDto.RoleId, roleFunctionDto.FunctionItemId);
         }
 
         #endregion

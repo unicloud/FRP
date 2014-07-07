@@ -73,6 +73,36 @@ namespace UniCloud.Presentation.ControlExtension.DataForm
             Cancel();
         }
 
+        protected override void AddNew()
+        {
+            if (DataForm == null) return;
+            DataForm.AddNewItem();
+        }
+
+        protected override void MoveCurrentToFirst()
+        {
+            if (DataForm == null) return;
+            DataForm.MoveCurrentToFirst();
+        }
+
+        protected override void MoveCurrentToPrevious()
+        {
+            if (DataForm == null) return;
+            DataForm.MoveCurrentToPrevious();
+        }
+
+        protected override void MoveCurrentToNext()
+        {
+            if (DataForm == null) return;
+            DataForm.MoveCurrentToNext();
+        }
+
+        protected override void MoveCurrentToLast()
+        {
+            if (DataForm == null) return;
+            DataForm.MoveCurrentToLast();
+        }
+
         protected override bool CanMoveCurrentToFirstExecute()
         {
             return QueryableDataServiceCollectionView == null
