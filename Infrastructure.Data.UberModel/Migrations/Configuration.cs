@@ -46,6 +46,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 //.Register(new DocumentData(context))
                 .Register(new IssuedUnitData(context))
                 .Register(new EngineTypeData(context))
+                .Register(new PlanData(context))
                 .InitialData();
         }
     }
