@@ -59,8 +59,8 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
 
             var eng1 = SnRegFactory.CreateEngineReg(new DateTime(2010, 1, 1), pn1, tr2, "V15749");
             var eng2 = SnRegFactory.CreateEngineReg(new DateTime(2010, 1, 1), pn1, tr2, "V15089");
-            var eng3 = SnRegFactory.CreateEngineReg(new DateTime(2010, 1, 1), pn1, tr2, "41715");
-            var eng4 = SnRegFactory.CreateEngineReg(new DateTime(2010, 1, 1), pn1, tr2, "41736");
+            var eng3 = SnRegFactory.CreateEngineReg(new DateTime(2010, 1, 1), pn2, tr2, "41715");
+            var eng4 = SnRegFactory.CreateEngineReg(new DateTime(2010, 1, 1), pn2, tr2, "41736");
             eng1.SetAircraft(ac1);
             eng2.SetAircraft(ac1);
             eng3.SetAircraft(ac2);
@@ -76,6 +76,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             // Assert
             Assert.IsTrue(true);
         }
+
 
 
     }

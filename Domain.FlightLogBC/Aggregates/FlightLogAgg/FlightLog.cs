@@ -226,6 +226,15 @@ namespace UniCloud.Domain.FlightLogBC.Aggregates.FlightLogAgg
         #region 操作
 
         /// <summary>
+        ///     设置飞行小时
+        /// </summary>
+        /// <param name="flightHour">飞行小时</param>
+        public void SetFlightHour(decimal flightHour)
+        {
+            FlightHours = flightHour;
+        }
+
+        /// <summary>
         ///     设置滑油添加量数据
         /// </summary>
         /// <param name="eng1OilDep">1发航前添加量</param>

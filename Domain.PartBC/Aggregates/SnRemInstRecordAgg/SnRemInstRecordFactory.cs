@@ -61,5 +61,27 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg
             snRemInstRecord.SetAircraft(aircraft);
             return snRemInstRecord;
         }
+
+        /// <summary>
+        ///     创建序号件拆装记录
+        /// </summary>
+        /// <param name="actionNo">拆装指令号</param>
+        /// <param name="actionDate">拆装日期</param>
+        /// <param name="actionType">拆装类型</param>
+        /// <param name="reason">拆装原因</param>
+        /// <param name="aircraft">飞机</param>
+        /// <returns>拆装指令</returns>
+        public static SnRemInstRecord CreateSnRemInstRecord(string actionNo, DateTime actionDate, ActionType actionType,
+            string reason, Aircraft aircraft)
+        {
+            var snRemInstRecord = new SnRemInstRecord();
+            snRemInstRecord.GenerateNewIdentity();
+            snRemInstRecord.SetActionDate(actionDate);
+            snRemInstRecord.SetActionNo(actionNo);
+            snRemInstRecord.SetActionType(actionType);
+            snRemInstRecord.SetReason(reason);
+            snRemInstRecord.SetAircraft(aircraft);
+            return snRemInstRecord;
+        }
     }
 }

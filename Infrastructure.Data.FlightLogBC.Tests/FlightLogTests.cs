@@ -64,6 +64,7 @@ namespace UniCloud.Infrastructure.Data.FlightLogBC.Tests
                     E2Arr = !string.IsNullOrWhiteSpace(x[9]) ? decimal.Parse(x[9].Trim()) : 0M,
                     ApuDep = !string.IsNullOrWhiteSpace(x[10]) ? decimal.Parse(x[10].Trim()) : 0M,
                     ApuArr = !string.IsNullOrWhiteSpace(x[11]) ? decimal.Parse(x[11].Trim()) : 0M,
+                    FH = decimal.Parse(x[12])
                 };
             fls.ToList()
                 .ForEach(
@@ -72,6 +73,7 @@ namespace UniCloud.Infrastructure.Data.FlightLogBC.Tests
                         var flightLog = FlightLogFactory.CreateFlightLog(fl.AcReg, fl.Msn, fl.FlightNo, fl.FlightDate,
                             fl.Departure, fl.Arrival);
                         flightLog.SetOil(fl.E1Dep, fl.E1Arr, fl.E2Dep, fl.E2Arr, 0, 0, 0, 0, fl.ApuDep, fl.ApuArr);
+                        flightLog.SetFlightHour(fl.FH);
                         flRep.Add(flightLog);
                     });
 

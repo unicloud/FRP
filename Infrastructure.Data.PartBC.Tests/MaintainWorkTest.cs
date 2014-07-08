@@ -19,8 +19,6 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
-using UniCloud.Infrastructure.Data.PartBC.Repositories;
-using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 using UniCloud.Infrastructure.Unity;
 
 #endregion

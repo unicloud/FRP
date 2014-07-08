@@ -76,6 +76,7 @@
     <Compile Include="OilMonitorRepositoryTests.cs" />
     <Compile Include="PnRegRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SnHistoryTests.cs" />
     <Compile Include="ThrustRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -24,7 +24,9 @@ using UniCloud.Domain.PartBC.Aggregates.ItemAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnHistoryAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnRemInstRecordAgg;
 using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
@@ -51,6 +53,8 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
                 .Register<IMaintainWorkRepository, MaintainWorkRepository>()
                 .Register<IAircraftRepository, AircraftRepository>()
                 .Register<ISnRegRepository, SnRegRepository>()
+                .Register<ISnHistoryRepository, SnHistoryRepository>()
+                .Register<ISnRemInstRecordRepository, SnRemInstRecordRepository>()
                 .Register<IPnRegRepository, PnRegRepository>()
                 .Register<IThrustRepository, ThrustRepository>()
                 .Register<IOilMonitorRepository, OilMonitorRepository>()
