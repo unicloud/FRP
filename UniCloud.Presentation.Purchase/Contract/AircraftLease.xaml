@@ -195,6 +195,10 @@
                                                                     TextAlignment="Center"
                                                                     DataMemberBinding="{Binding Version}"
                                                                     IsReadOnly="True" />
+                                        <telerik:GridViewDataColumn Header="合同号"
+                                                                    TextAlignment="Center"
+                                                                    DataMemberBinding="{Binding ContractNumber}"
+                                                                    />
                                         <telerik:GridViewDataColumn Header="合同名称"
                                                                     DataMemberBinding="{Binding Name}" />
                                         <telerik:GridViewComboBoxColumn Header="币种"

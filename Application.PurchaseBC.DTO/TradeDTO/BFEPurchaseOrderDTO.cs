@@ -47,6 +47,10 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public int TradeId { get; set; }
 
         /// <summary>
+        ///     合同号
+        /// </summary>
+        public string ContractNumber { get; set; }
+        /// <summary>
         ///     合同名称
         /// </summary>
         public string Name { get; set; }
