@@ -171,7 +171,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <input:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="机型"
                                                                     IsReadOnly="True"
@@ -204,7 +204,7 @@
                             </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
-                    <telerik:RadPaneGroup VerticalAlignment="Stretch"
+                    <!--<telerik:RadPaneGroup VerticalAlignment="Stretch"
                                           telerik:ProportionalStackPanel.RelativeSize="150,800">
                         <telerik:RadPane Header="拆换依赖的附件"
                                          PaneHeaderVisibility="Collapsed"
@@ -259,7 +259,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <input:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="依赖项件号"
                                                                     IsReadOnly="True"
@@ -275,7 +275,7 @@
                                 </telerik:RadGridView>
                             </Grid>
                         </telerik:RadPane>
-                    </telerik:RadPaneGroup>
+                   </telerik:RadPaneGroup>-->
                 </telerik:RadSplitContainer>
             </telerik:RadDocking>
         </Grid>

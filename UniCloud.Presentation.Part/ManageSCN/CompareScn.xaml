@@ -104,7 +104,7 @@
                                                                                   Header="空客" />
                                                 </telerik:RadGridView.ColumnGroups>
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              HeaderTextAlignment="Center" />
                                                     <telerik:GridViewDataColumn Header="编号"
                                                                                 ColumnGroupName="ChuanAir"
@@ -215,7 +215,7 @@
                                                     </telerik:RadContextMenu>
                                                 </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              HeaderTextAlignment="Center" />
                                                     <telerik:GridViewDataColumn Header="编号"
                                                                                 ColumnGroupName="ChuanAir"

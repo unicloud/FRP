@@ -196,7 +196,7 @@
                                                 <telerik:GridViewDataColumn Header="机型"
                                                                             DataMemberBinding="{Binding AircraftType}"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}" />
-                                                <input:DataPageSerialColumn Header="序号"
+                                                <input:DataPageSerialColumn Header="编号"
                                                                             HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="定检级别"
                                                                             DataMemberBinding="{Binding Level}"

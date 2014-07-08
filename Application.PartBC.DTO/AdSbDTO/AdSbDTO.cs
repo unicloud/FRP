@@ -43,6 +43,15 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
+        /// Mod号
+        /// </summary>
+        public string ModNumber
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 文件类型
         /// </summary>
         public string FileType

@@ -56,7 +56,7 @@
                         </telerik:RadContextMenu>
                     </telerik:RadContextMenu.ContextMenu>
                     <telerik:RadGridView.Columns>
-                        <uc:DataPageSerialColumn Header="序号" />
+                        <uc:DataPageSerialColumn Header="编号" />
                         <telerik:GridViewDataColumn Header="序列号" TextAlignment="Center"
                                                     DataMemberBinding="{Binding Sn}">
                             <telerik:GridViewDataColumn.AggregateFunctions>
@@ -87,7 +87,7 @@
                         </telerik:RadContextMenu>
                     </telerik:RadContextMenu.ContextMenu>
                     <telerik:RadGridView.Columns>
-                        <uc:DataPageSerialColumn Header="序号" />
+                        <uc:DataPageSerialColumn Header="编号" />
                         <telerik:GridViewDataColumn Header="日期" TextAlignment="Center"
                                                     DataMemberBinding="{Binding Date}"
                                                     DataFormatString="{StaticResource DateStringFormat}" />

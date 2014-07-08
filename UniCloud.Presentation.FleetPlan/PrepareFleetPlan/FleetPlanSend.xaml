@@ -98,7 +98,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号"
+                                            <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="计划文号"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -173,7 +173,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号"
+                                            <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="计划文号"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -250,7 +250,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号"
+                                            <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
                                             <telerik:GridViewCheckBoxColumn Header="是否上报"
                                                                             DataMemberBinding="{Binding IsSubmit}"

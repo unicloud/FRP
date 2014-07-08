@@ -90,7 +90,7 @@
                                                              ValidatesOnDataErrors="InEditMode"
                                                              RowIndicatorVisibility="Visible">
                                             <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号" />
+                                                <uc:DataPageSerialColumn Header="编号" />
                                                 <telerik:GridViewComboBoxColumn Header="供应商"
                                                                                 UniqueName="Supplier"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -209,7 +209,7 @@
                                                                  CanUserFreezeColumns="False"
                                                                  IsReadOnly="True">
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              IsGroupable="False"
                                                                              CellStyle="{StaticResource CellStyle}" />
                                                     <telerik:GridViewDataColumn Header="操作"

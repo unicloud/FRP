@@ -86,7 +86,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="交易编号"
                                                                     DataMemberBinding="{Binding TradeNumber}"
                                                                     IsReadOnly="True" />
@@ -196,7 +196,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="版本"
                                                                     TextAlignment="Center"
                                                                     DataMemberBinding="{Binding Version}"
@@ -334,7 +334,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewComboBoxColumn Header="BFE件号"
                                                                         DataMemberBinding="{Binding BFEMaterialId}"
                                                                         ItemsSource="{Binding DataContext.BFEMaterials, ElementName=LayoutRoot}"

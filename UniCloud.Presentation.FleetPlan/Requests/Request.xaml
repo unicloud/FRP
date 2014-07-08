@@ -120,7 +120,7 @@
                                                                  ShowGroupPanel="False"
                                                                  ValidatesOnDataErrors="InEditMode">
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号" />
+                                                    <uc:DataPageSerialColumn Header="编号" />
                                                     <telerik:GridViewDataColumn Header="申请标题"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 HeaderTextAlignment="Center"
@@ -277,7 +277,7 @@
                                         </DataTemplate>
                                     </telerik:RadGridView.Resources>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="航空公司"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding AirlinesName}">
@@ -369,6 +369,7 @@
                                                      ItemsSource="{Binding SelRequest.ApprovalHistories}"
                                                      SelectedItem="{Binding SelApprovalHistory,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
+                                                     IsFilteringAllowed="True"
                                                      ShowColumnFooters="True"
                                                      EditTriggers="CellClick"
                                                      RowStyle="{StaticResource DraggedRowStyle}">
@@ -388,7 +389,7 @@
                                         </DataTemplate>
                                     </telerik:RadGridView.Resources>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="座级"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -407,9 +408,9 @@
                                         <telerik:GridViewComboBoxColumn Header="执行年度"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
-                                                                        IsFilterable="True"
                                                                         ItemsSource="{Binding DataContext.Annuals,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
                                                                         DisplayMemberPath="Year"
+                                                                        FilterMemberPath="Year"
                                                                         DataMemberBinding="{Binding RequestDeliverAnnualId}"
                                                                         SelectedValueMemberPath="ID"
                                                                         EditTriggers="CellClick" />

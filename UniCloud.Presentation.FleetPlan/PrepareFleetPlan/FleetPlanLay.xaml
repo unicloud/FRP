@@ -142,13 +142,14 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号"
+                                            <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
                                             <telerik:GridViewComboBoxColumn Header="活动类别"
                                                                             ItemsSourceBinding="{Binding ActionCategories,Mode=TwoWay}"
                                                                             DisplayMemberPath="ActionCategoryOperation"
                                                                             DataMemberBinding="{Binding ActionCategoryId}"
                                                                             SelectedValueMemberPath="Id"
+                                                                            FilterMemberPath="ActionCategoryOperation"
                                                                             EditorStyle="{StaticResource EditComboBox}"
                                                                             UniqueName="ActionType">
                                             </telerik:GridViewComboBoxColumn>
@@ -158,6 +159,7 @@
                                                                             DataMemberBinding="{Binding Regional}"
                                                                             DisplayMemberPath="Regional"
                                                                             SelectedValueMemberPath="Regional"
+                                                                            FilterMemberPath="Regional"
                                                                             EditorStyle="{StaticResource EditComboBox}"
                                                                             UniqueName="Regional">
                                             </telerik:GridViewComboBoxColumn>
@@ -167,6 +169,7 @@
                                                                             DataMemberBinding="{Binding AircraftTypeId}"
                                                                             DisplayMemberPath="Name"
                                                                             SelectedValueMemberPath="Id"
+                                                                            FilterMemberPath="Name"
                                                                             EditorStyle="{StaticResource EditComboBox}"
                                                                             UniqueName="AircraftType">
                                             </telerik:GridViewComboBoxColumn>
@@ -279,7 +282,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号"
+                                            <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="航空公司"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -317,7 +320,7 @@
                                                          CanUserFreezeColumns="False"
                                                          RowIndicatorVisibility="Collapsed"
                                                          CanUserResizeColumns="False"
-                                                         IsFilteringAllowed="False"
+                                                         IsFilteringAllowed="true"
                                                          ItemsSource="{Binding Aircrafts,Mode=TwoWay}"
                                                          SelectedItem="{Binding SelAircraft,Mode=TwoWay}"
                                                          IsBusy="{Binding Aircrafts.IsBusy}"
@@ -374,7 +377,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号"
+                                            <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="机型"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"

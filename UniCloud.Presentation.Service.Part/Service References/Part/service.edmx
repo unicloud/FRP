@@ -426,6 +426,7 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="AircraftSeries" Type="Edm.String" />
+        <Property Name="ModNumber" Type="Edm.String" />
         <Property Name="FileType" Type="Edm.String" />
         <Property Name="FileNo" Type="Edm.String" />
         <Property Name="FileVersion" Type="Edm.String" />

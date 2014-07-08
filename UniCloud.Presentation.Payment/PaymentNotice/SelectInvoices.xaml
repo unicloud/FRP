@@ -62,7 +62,7 @@
                                     <uc:GridViewSelectedItemsBehavior SelectedItems="{Binding SelectInvoices,Mode=TwoWay}" />
                                 </i:Interaction.Behaviors>
                                 <telerik:RadGridView.Columns>
-                                    <uc:DataPageSerialColumn Header="序号" />
+                                    <uc:DataPageSerialColumn Header="编号" />
                                     <telerik:GridViewSelectColumn />
                                     <telerik:GridViewDataColumn Header="发票类型"
                                                                 IsSortable="True"

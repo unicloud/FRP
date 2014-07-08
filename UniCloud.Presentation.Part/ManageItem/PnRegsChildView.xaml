@@ -40,7 +40,7 @@
                                  CanUserFreezeColumns="False"
                                  SelectionMode="Extended">
                 <telerik:RadGridView.Columns>
-                    <uc:DataPageSerialColumn Header="序号"
+                    <uc:DataPageSerialColumn Header="编号"
                                              IsReadOnly="True"
                                              CellStyle="{StaticResource CellStyle}"
                                              HeaderTextAlignment="Center" />

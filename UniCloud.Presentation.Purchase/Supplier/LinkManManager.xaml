@@ -49,7 +49,7 @@
                                                              RowIndicatorVisibility="Visible"
                                                              CanUserFreezeColumns="False">
                                             <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号"
+                                                <uc:DataPageSerialColumn Header="编号"
                                                                          CellStyle="{StaticResource CellStyle}"
                                                                          HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="名称"
@@ -57,7 +57,7 @@
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             DataMemberBinding="{Binding Name}" />
-                                                <telerik:GridViewDataColumn Header="组织机构代码"
+                                                <telerik:GridViewDataColumn Header="供应商编码"
                                                                             IsReadOnly="True"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -141,7 +141,7 @@
                                                          RowIndicatorVisibility="Visible"
                                                          CanUserFreezeColumns="False">
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
+                                            <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="名称*"
