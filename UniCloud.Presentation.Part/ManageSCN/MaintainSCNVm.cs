@@ -403,6 +403,11 @@ namespace UniCloud.Presentation.Part.ManageSCN
             {
                 Scn.ScnDocumentId = doc.DocumentId;
                 Scn.ScnDocName = doc.Name;
+                if (Scn.ScnDocName!=Scn.ScnNumber+doc.Extension)
+                {
+                    MessageAlert("SCN编号与文件名不一致！");
+                }
+                
             }
         }
 
@@ -416,8 +421,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             {
                 if (Scn.ScnType == 0)
                 {
-                    var average = Scn.Cost/Scn.ApplicableAircrafts.Count;
-                    Scn.ApplicableAircrafts.ToList().ForEach(p => p.Cost = average);
+                    Scn.ApplicableAircrafts.ToList().ForEach(p => p.Cost = Scn.Cost);
                 }
                 else
                 {

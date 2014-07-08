@@ -127,7 +127,7 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号" />
+                                            <uc:DataPageSerialColumn Header="编号" />
                                             <telerik:GridViewDataColumn Header="通知编号"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         TextAlignment="Right"
@@ -265,7 +265,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="发票类型"
                                                                     IsSortable="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"

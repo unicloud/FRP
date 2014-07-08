@@ -34,6 +34,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(p => p.AircraftSeries).HasColumnName("AircraftSeries");
+            Property(p => p.ModNumber).HasColumnName("ModNumber");
             Property(p => p.ComplyAircraft).HasColumnName("ComplyAircraft");
             Property(p => p.ComplyClose).HasColumnName("ComplyClose");
             Property(p => p.ComplyDate).HasColumnName("ComplyDate").HasColumnType("datetime2");

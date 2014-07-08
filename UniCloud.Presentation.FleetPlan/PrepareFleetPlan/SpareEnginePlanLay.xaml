@@ -125,12 +125,13 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <input:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewComboBoxColumn Header="年度"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         ItemsSource="{Binding DataContext.Annuals,ElementName=SpareEngineView}"
                                                                         DisplayMemberPath="Year"
+                                                                        FilterMemberPath="Year"
                                                                         DataMemberBinding="{Binding AnnualId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
                                                                         EditorStyle="{StaticResource EditComboBox}" />
@@ -214,7 +215,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <input:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewComboBoxColumn Header="发动机型号"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"

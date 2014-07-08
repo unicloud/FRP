@@ -107,7 +107,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号" />
+                                            <uc:DataPageSerialColumn Header="编号" />
                                             <telerik:GridViewDataColumn Header="开始时间"
                                                                         IsSortable="True"
                                                                         TextAlignment="Center"

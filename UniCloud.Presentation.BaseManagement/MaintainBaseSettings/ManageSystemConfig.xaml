@@ -147,7 +147,7 @@
                                                                  CanUserFreezeColumns="False"
                                                                  IsFilteringAllowed="True">
                                                 <telerik:RadGridView.Columns>
-                                                    <input:DataPageSerialColumn Header="序号" />
+                                                    <input:DataPageSerialColumn Header="编号" />
                                                     <telerik:GridViewDataColumn Header="航空公司"
                                                                                 IsReadOnly="True"
                                                                                 HeaderTextAlignment="Center"
@@ -211,7 +211,7 @@
                                                                  CanUserFreezeColumns="False"
                                                                  IsFilteringAllowed="True">
                                                 <telerik:RadGridView.Columns>
-                                                    <input:DataPageSerialColumn Header="序号"
+                                                    <input:DataPageSerialColumn Header="编号"
                                                                                 HeaderTextAlignment="Center" />
                                                     <telerik:GridViewDataColumn Header="座级"
                                                                                 IsReadOnly="True"
@@ -276,7 +276,7 @@
                                                                  CanUserFreezeColumns="False"
                                                                  IsFilteringAllowed="True">
                                                 <telerik:RadGridView.Columns>
-                                                    <input:DataPageSerialColumn Header="序号" />
+                                                    <input:DataPageSerialColumn Header="编号" />
                                                     <telerik:GridViewDataColumn Header="机型"
                                                                                 IsReadOnly="True"
                                                                                 HeaderTextAlignment="Center"
@@ -340,7 +340,7 @@
                                                                  CanUserFreezeColumns="False"
                                                                  IsFilteringAllowed="True">
                                                 <telerik:RadGridView.Columns>
-                                                    <input:DataPageSerialColumn Header="序号" />
+                                                    <input:DataPageSerialColumn Header="编号" />
                                                     <telerik:GridViewDataColumn Header="引进方式"
                                                                                 IsReadOnly="True"
                                                                                 HeaderTextAlignment="Center"
@@ -404,7 +404,7 @@
                                                                  CanUserFreezeColumns="False"
                                                                  IsFilteringAllowed="True">
                                                 <telerik:RadGridView.Columns>
-                                                    <input:DataPageSerialColumn Header="序号" />
+                                                    <input:DataPageSerialColumn Header="编号" />
                                                     <telerik:GridViewDataColumn Header="机龄区间"
                                                                                 IsReadOnly="True"
                                                                                 HeaderTextAlignment="Center"
@@ -468,7 +468,7 @@
                                                                  CanUserFreezeColumns="False"
                                                                  IsFilteringAllowed="True">
                                                 <telerik:RadGridView.Columns>
-                                                    <input:DataPageSerialColumn Header="序号" />
+                                                    <input:DataPageSerialColumn Header="编号" />
                                                     <telerik:GridViewDataColumn Header="运力变化项"
                                                                                 IsReadOnly="True"
                                                                                 HeaderTextAlignment="Center"
@@ -551,7 +551,7 @@
                                                              ValidatesOnDataErrors="InEditMode"
                                                              RowIndicatorVisibility="Visible">
                                             <telerik:RadGridView.Columns>
-                                                <input:DataPageSerialColumn  Header="序号" />
+                                                <input:DataPageSerialColumn  Header="编号" />
                                                 <telerik:GridViewDataColumn Header="名称"
                                                                             IsSortable="True"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"

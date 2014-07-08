@@ -104,8 +104,13 @@
                                                                                   Header="空客" />
                                                 </telerik:RadGridView.ColumnGroups>
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              HeaderTextAlignment="Center" />
+                                                    <telerik:GridViewDataColumn Header="类型"
+                                                                                ColumnGroupName="ChuanAir"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding Type}" />
                                                     <telerik:GridViewDataColumn Header="编号"
                                                                                 ColumnGroupName="ChuanAir"
                                                                                 HeaderTextAlignment="Center"
@@ -137,6 +142,11 @@
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 DataMemberBinding="{Binding SysModNo}" />
+                                                    <telerik:GridViewDataColumn Header="类型"
+                                                                                ColumnGroupName="AirBus"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding Type}" />
                                                     <telerik:GridViewDataColumn Header="编号"
                                                                                 ColumnGroupName="AirBus"
                                                                                 HeaderTextAlignment="Center"
@@ -215,8 +225,13 @@
                                                     </telerik:RadContextMenu>
                                                 </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              HeaderTextAlignment="Center" />
+                                                    <telerik:GridViewDataColumn Header="类型"
+                                                                                ColumnGroupName="ChuanAir"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                DataMemberBinding="{Binding Type}" />
                                                     <telerik:GridViewDataColumn Header="编号"
                                                                                 ColumnGroupName="ChuanAir"
                                                                                 HeaderTextAlignment="Center"

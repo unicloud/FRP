@@ -582,6 +582,7 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractNumber" Type="Edm.String" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
@@ -626,6 +627,7 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractNumber" Type="Edm.String" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
@@ -667,6 +669,7 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractNumber" Type="Edm.String" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
@@ -703,6 +706,7 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractNumber" Type="Edm.String" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
@@ -739,6 +743,7 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractNumber" Type="Edm.String" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />

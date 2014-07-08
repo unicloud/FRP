@@ -85,7 +85,7 @@
                                         <telerik:SortDescriptor Member="VersionNumber" SortDirection="Ascending"></telerik:SortDescriptor>
                                     </telerik:RadGridView.SortDescriptors>
                                        <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号"
+                                        <uc:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="计划文号"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -173,7 +173,7 @@
                                         <telerik:SortDescriptor Member="VersionNumber" SortDirection="Ascending"></telerik:SortDescriptor>
                                     </telerik:RadGridView.SortDescriptors>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号"
+                                        <uc:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="计划文号"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -248,7 +248,7 @@
                                                      ItemsSource="{Binding PlanHistories,Mode=TwoWay}"
                                                      RowStyleSelector="{StaticResource PlanHistoryStyleRule}">
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号"
+                                        <uc:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewCheckBoxColumn Header="是否上报"
                                                                         DataMemberBinding="{Binding IsSubmit}"
@@ -325,7 +325,7 @@
                                                      ItemsSource="{Binding ComparePlanHistories,Mode=TwoWay}"
                                                      RowStyleSelector="{StaticResource PlanHistoryStyleRule}">
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号"
+                                        <uc:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewCheckBoxColumn Header="是否上报"
                                                                         DataMemberBinding="{Binding IsSubmit}"

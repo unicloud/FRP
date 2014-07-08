@@ -111,7 +111,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <input:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
 
                                         <telerik:GridViewDataColumn Header="计划文号"
@@ -165,7 +165,7 @@
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
-                                                     IsFilteringAllowed="False"
+                                                     IsFilteringAllowed="True"
                                                      ItemsSource="{Binding PlanHistories}"
                                                      IsBusy="{Binding PlanHistories.IsBusy}"
                                                      AutoGenerateColumns="False"
@@ -181,7 +181,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <input:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewCheckBoxColumn Header="是否上报"
                                                                         DataMemberBinding="{Binding IsSubmit}" />

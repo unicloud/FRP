@@ -136,7 +136,7 @@
                                                                                   Header="实际执行信息" />
                                                 </telerik:RadGridView.ColumnGroups>
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号" />
+                                                    <uc:DataPageSerialColumn Header="编号" />
                                                     <telerik:GridViewDataColumn Header="项目"
                                                                                 ColumnGroupName="BasicInfo"
                                                                                 TextAlignment="Center"

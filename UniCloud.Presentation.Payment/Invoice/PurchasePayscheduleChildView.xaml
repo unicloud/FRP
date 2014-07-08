@@ -68,7 +68,7 @@
                                                              RowIndicatorVisibility="Visible"
                                                              CanUserFreezeColumns="False">
                                             <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号"
+                                                <uc:DataPageSerialColumn Header="编号"
                                                                          CellStyle="{StaticResource CellStyle}"
                                                                          HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="序列号"
@@ -107,7 +107,7 @@
                                                                  RowIndicatorVisibility="Visible"
                                                                  CanUserFreezeColumns="False">
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              CellStyle="{StaticResource CellStyle}"
                                                                              HeaderTextAlignment="Center" />
                                                     <telerik:GridViewDataColumn Header="供应商"
@@ -155,7 +155,7 @@
                                                              RowIndicatorVisibility="Visible"
                                                              CanUserFreezeColumns="False">
                                             <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号"
+                                                <uc:DataPageSerialColumn Header="编号"
                                                                          CellStyle="{StaticResource CellStyle}"
                                                                          HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="付款金额"
@@ -208,7 +208,7 @@
                                                              RowIndicatorVisibility="Visible"
                                                              CanUserFreezeColumns="False">
                                             <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号"
+                                                <uc:DataPageSerialColumn Header="编号"
                                                                          CellStyle="{StaticResource CellStyle}"
                                                                          HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="序列号"
@@ -247,7 +247,7 @@
                                                              RowIndicatorVisibility="Visible"
                                                              CanUserFreezeColumns="False">
                                             <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号"
+                                                <uc:DataPageSerialColumn Header="编号"
                                                                          CellStyle="{StaticResource CellStyle}"
                                                                          HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="供应商"
@@ -295,7 +295,7 @@
                                                              RowIndicatorVisibility="Visible"
                                                              CanUserFreezeColumns="False">
                                             <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号"
+                                                <uc:DataPageSerialColumn Header="编号"
                                                                          CellStyle="{StaticResource CellStyle}"
                                                                          HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="付款金额"
@@ -347,7 +347,7 @@
                                                          RowIndicatorVisibility="Visible"
                                                          CanUserFreezeColumns="False">
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
+                                            <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="供应商"
@@ -395,7 +395,7 @@
                                                          RowIndicatorVisibility="Visible"
                                                          CanUserFreezeColumns="False">
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
+                                            <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="付款金额"

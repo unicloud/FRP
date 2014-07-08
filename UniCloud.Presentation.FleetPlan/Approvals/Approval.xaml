@@ -116,7 +116,7 @@
                                                              ShowGroupPanel="False"
                                                              ValidatesOnDataErrors="InEditMode">
                                             <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号" />
+                                                <uc:DataPageSerialColumn Header="编号" />
                                                 <telerik:GridViewDataColumn Header="民航局批文文号"
                                                                             DataMemberBinding="{Binding CaacApprovalNumber}" />
                                                 <telerik:GridViewDataColumn Header="民航局审批日期"
@@ -193,7 +193,7 @@
                                         </telerik:GroupDescriptor>
                                     </telerik:RadGridView.GroupDescriptors>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="申请标题"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     HeaderTextAlignment="Center"
@@ -271,7 +271,7 @@
                                         </DataTemplate>
                                     </telerik:RadGridView.Resources>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="申请标题"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     HeaderTextAlignment="Center"
@@ -324,7 +324,7 @@
                                                      ShowGroupPanel="False"
                                                      Margin="3,-4,-3,4">
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="是否批准"
                                                                     EditTriggers="CellClick"
                                                                     DataMemberBinding="{Binding IsApproved}"

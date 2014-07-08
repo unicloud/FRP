@@ -68,7 +68,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="员工号"
                                                                     DataMemberBinding="{Binding EmployeeCode}"
                                                                     IsFilterable="true" />

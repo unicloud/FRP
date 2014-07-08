@@ -90,7 +90,7 @@
                                                                  ItemsSource="{Binding Users,Mode=TwoWay}"
                                                                  SelectedItem="{Binding User, Mode=TwoWay}">
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              HeaderTextAlignment="Center" />
                                                     <telerik:GridViewDataColumn Header="用户"
                                                                                 HeaderTextAlignment="Center"
@@ -182,7 +182,7 @@
                                                                  ItemsSource="{Binding UserRoles,Mode=TwoWay}"
                                                                  SelectedItem="{Binding UserRole, Mode=TwoWay}">
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              HeaderTextAlignment="Center" />
                                                     <telerik:GridViewDataColumn Header="角色名"
                                                                                 HeaderTextAlignment="Center"
@@ -241,7 +241,7 @@
                                                     <uc:UserRoleDoubleClickHelper />
                                                 </uc:GridViewDoubleClick.Helper>
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              HeaderTextAlignment="Center" />
                                                     <telerik:GridViewDataColumn Header="角色名"
                                                                                 HeaderTextAlignment="Center"

@@ -86,7 +86,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="交易编号"
                                                                     DataMemberBinding="{Binding TradeNumber}"
                                                                     IsReadOnly="True" />
@@ -196,11 +196,15 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="版本"
                                                                     TextAlignment="Center"
                                                                     DataMemberBinding="{Binding Version}"
                                                                     IsReadOnly="True" />
+                                        <telerik:GridViewDataColumn Header="合同号"
+                                                                    TextAlignment="Center"
+                                                                    DataMemberBinding="{Binding ContractNumber}"
+                                                                    />
                                         <telerik:GridViewDataColumn Header="合同名称"
                                                                     DataMemberBinding="{Binding Name}" />
                                         <telerik:GridViewComboBoxColumn Header="币种"
@@ -334,7 +338,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewComboBoxColumn Header="发动机型号"
                                                                         DataMemberBinding="{Binding EngineMaterialId}"
                                                                         ItemsSource="{Binding DataContext.EngineMaterials, ElementName=LayoutRoot}"

@@ -293,10 +293,14 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var id = dto.TradeId;
             var version = _orderRepository.GetFiltered(o => o.TradeId == id).Count() + 1;
 
+            var date = DateTime.Now.Date;
+            var seq = _orderRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+
             // 创建订单
             var order = OrderFactory.CreateAircraftLeaseOrder(version, dto.OperatorName, dto.OrderDate);
             order.SetTrade(dto.TradeId);
             order.SetCurrency(dto.CurrencyId);
+            order.SetContractNumber(seq);
             order.SetLinkman(dto.LinkmanId);
             order.SetSourceGuid(dto.SourceGuid);
             order.SetName(dto.Name);
@@ -499,11 +503,15 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var id = dto.TradeId;
             var version = _orderRepository.GetFiltered(o => o.TradeId == id).Count() + 1;
 
+            var date = DateTime.Now.Date;
+            var seq = _orderRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+
             // 创建订单
             var order = OrderFactory.CreateAircraftPurchaseOrder(version, dto.OperatorName,
                 dto.OrderDate);
             order.SetTrade(dto.TradeId);
             order.SetCurrency(dto.CurrencyId);
+            order.SetContractNumber(seq);
             order.SetLinkman(dto.LinkmanId);
             order.SetSourceGuid(dto.SourceGuid);
             order.SetName(dto.Name);
@@ -669,10 +677,14 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var id = dto.TradeId;
             var version = _orderRepository.GetFiltered(o => o.TradeId == id).Count() + 1;
 
+            var date = DateTime.Now.Date;
+            var seq = _orderRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+
             // 创建订单
             var order = OrderFactory.CreateBFEPurchaseOrder(version, dto.OperatorName, dto.OrderDate);
             order.SetTrade(dto.TradeId);
             order.SetCurrency(dto.CurrencyId);
+            order.SetContractNumber(seq);
             order.SetLinkman(dto.LinkmanId);
             order.SetSourceGuid(dto.SourceGuid);
             order.SetName(dto.Name);
@@ -861,10 +873,14 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var id = dto.TradeId;
             var version = _orderRepository.GetFiltered(o => o.TradeId == id).Count() + 1;
 
+            var date = DateTime.Now.Date;
+            var seq = _orderRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+
             // 创建订单
             var order = OrderFactory.CreateEngineLeaseOrder(version, dto.OperatorName, dto.OrderDate);
             order.SetTrade(dto.TradeId);
             order.SetCurrency(dto.CurrencyId);
+            order.SetContractNumber(seq);
             order.SetLinkman(dto.LinkmanId);
             order.SetSourceGuid(dto.SourceGuid);
             order.SetName(dto.Name);
@@ -1054,10 +1070,14 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var id = dto.TradeId;
             var version = _orderRepository.GetFiltered(o => o.TradeId == id).Count() + 1;
 
+            var date = DateTime.Now.Date;
+            var seq = _orderRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+
             // 创建订单
             var order = OrderFactory.CreateEnginePurchaseOrder(version, dto.OperatorName, dto.OrderDate);
             order.SetTrade(dto.TradeId);
             order.SetCurrency(dto.CurrencyId);
+            order.SetContractNumber(seq);
             order.SetLinkman(dto.LinkmanId);
             order.SetSourceGuid(dto.SourceGuid);
             order.SetName(dto.Name);

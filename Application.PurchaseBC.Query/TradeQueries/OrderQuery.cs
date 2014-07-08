@@ -58,6 +58,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 {
                     Id = o.Id,
                     TradeId = o.TradeId,
+                    ContractNumber=o.ContractNumber,
                     Name = o.Name,
                     Version = o.Version,
                     CurrencyId = o.Currency.Id,
@@ -125,6 +126,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 {
                     Id = o.Id,
                     TradeId = o.TradeId,
+                    ContractNumber=o.ContractNumber,
                     Name = o.Name,
                     Version = o.Version,
                     CurrencyId = o.Currency.Id,
@@ -195,6 +197,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 {
                     Id = o.Id,
                     TradeId = o.TradeId,
+                    ContractNumber = o.ContractNumber,
                     Name = o.Name,
                     Version = o.Version,
                     CurrencyId = o.Currency.Id,
@@ -259,6 +262,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 {
                     Id = o.Id,
                     TradeId = o.TradeId,
+                    ContractNumber = o.ContractNumber,
                     Name = o.Name,
                     Version = o.Version,
                     CurrencyId = o.Currency.Id,
@@ -322,6 +326,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 {
                     Id = o.Id,
                     TradeId = o.TradeId,
+                    ContractNumber=o.ContractNumber,
                     Name = o.Name,
                     Version = o.Version,
                     CurrencyId = o.Currency.Id,

@@ -124,7 +124,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <input:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="计划标题"
                                                                     DataMemberBinding="{Binding Title}"
@@ -178,7 +178,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <input:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="航空公司"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"

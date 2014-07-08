@@ -139,7 +139,7 @@
                                                      ValidatesOnDataErrors="InEditMode"
                                                      RowIndicatorVisibility="Visible">
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn  Header="序号" />
+                                        <input:DataPageSerialColumn  Header="编号" />
                                         <telerik:GridViewDataColumn Header="名称"
                                                                     IsSortable="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
