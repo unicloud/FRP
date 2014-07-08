@@ -13,6 +13,7 @@
 // =====================================================
 #endregion
 
+using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
@@ -34,6 +35,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Tests
             var plRep = UniContainer.Resolve<IPlanRepository>();
             var airlines = alRep.GetFiltered(a => a.CnShortName == "川航").FirstOrDefault();
             var annual = anRep.GetFiltered(a => a.Year == 2013).FirstOrDefault();
+            if(annual==null)throw new Exception("年度不能为空！");
             annual.SetIsOpen(true);
             var plan = PlanFactory.CreatePlan(1);
             plan.SetAirlines(airlines);

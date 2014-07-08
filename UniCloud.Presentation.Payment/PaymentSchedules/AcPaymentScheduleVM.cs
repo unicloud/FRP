@@ -38,7 +38,6 @@ using UniCloud.Presentation.Service.Payment.Payment;
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
     [Export(typeof (AcPaymentScheduleVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AcPaymentScheduleVM : EditViewModelBase
     {
         private readonly PaymentData _context;

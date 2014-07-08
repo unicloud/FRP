@@ -80,7 +80,7 @@ namespace UniCloud.DataService.DataSync
             {
                 var datas = _unitOfWork.CreateSet<FlightLog>();
                 var times = AmasisDatas.Count()/Size;
-                for (var i = 0; i < times + 1; i++)
+                for (var i = 7; i < times + 1; i++)
                 {
                     var count = i == times ? AmasisDatas.Count() - i*Size : Size;
                     foreach (var flightLog in AmasisDatas.Skip(i*Size).Take(count))

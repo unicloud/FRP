@@ -24,7 +24,6 @@ using System.Linq;
 using System.Windows;
 using Microsoft.Practices.Prism;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Part;
@@ -35,20 +34,17 @@ using UniCloud.Presentation.Service.Part.Part;
 namespace UniCloud.Presentation.Part.EngineConfig
 {
     [Export(typeof (InSeatAssemblyQueryVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class InSeatAssemblyQueryVm : ViewModelBase
     {
         #region 声明、初始化
 
         private readonly PartData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
 
         [ImportingConstructor]
-        public InSeatAssemblyQueryVm(IRegionManager regionManager, IPartService service)
+        public InSeatAssemblyQueryVm(IPartService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();

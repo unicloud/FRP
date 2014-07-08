@@ -33,7 +33,6 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
     [Export(typeof (UndercartMaintainVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class UndercartMaintainVm : InvoiceVm
     {
         #region 声明、初始化

@@ -37,7 +37,6 @@ using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
     [Export(typeof (AgeDeployVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AgeDeployVm : ViewModelBase
     {
         #region 声明、初始化

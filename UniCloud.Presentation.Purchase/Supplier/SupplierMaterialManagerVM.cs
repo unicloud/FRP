@@ -34,7 +34,6 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Supplier
 {
     [Export(typeof (SupplierMaterialManagerVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SupplierMaterialManagerVM : EditViewModelBase
     {
         private readonly PurchaseData _context;

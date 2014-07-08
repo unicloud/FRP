@@ -34,7 +34,6 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
     [Export(typeof (CaacProgrammingVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class CaacProgrammingVM : EditViewModelBase
     {
         #region 声明、初始化
@@ -48,6 +47,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             _service = service;
             _context = _service.Context;
+
             InitializeVM();
             InitializerCommand();
         }

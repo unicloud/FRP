@@ -31,7 +31,6 @@ using UniCloud.Presentation.Service.Part.Part;
 namespace UniCloud.Presentation.Part.MaintainAcDailyUtilization
 {
     [Export(typeof (CorrectAcDailyUtilizationVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class CorrectAcDailyUtilizationVm : EditViewModelBase
     {
         #region 声明、初始化

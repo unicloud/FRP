@@ -7,6 +7,7 @@
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:input="clr-namespace:UniCloud.Presentation.Purchase.Input"
              d:DataContext="{d:DesignInstance uc:MatchingPlanAircraftManagerVM}"
              mc:Ignorable="d"
              d:DesignHeight="600"
@@ -54,7 +55,7 @@
                                                  RowIndicatorVisibility="Visible"
                                                  CanUserFreezeColumns="False">
                                 <uc:GridViewDoubleClick.Helper>
-                                    <uc:ContractAircraftClickHelper />
+                                    <input:ContractAircraftClickHelper />
                                 </uc:GridViewDoubleClick.Helper>
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号"
@@ -139,7 +140,7 @@
                                                  RowIndicatorVisibility="Collapsed"
                                                  CanUserFreezeColumns="False">
                                 <uc:GridViewDoubleClick.Helper>
-                                    <uc:ContractAircraftClickHelper />
+                                    <input:ContractAircraftClickHelper />
                                 </uc:GridViewDoubleClick.Helper>
                                 <telerik:RadGridView.Columns>
                                     <telerik:GridViewColumn>

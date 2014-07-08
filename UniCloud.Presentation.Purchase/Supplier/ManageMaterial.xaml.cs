@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Purchase.Supplier
 {
     [Export]
-    public partial class ManageMaterial : UserControl
+    public partial class ManageMaterial
     {
         public ManageMaterial()
         {

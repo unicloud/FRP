@@ -479,6 +479,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5.00-Seedwork", "5.00-Seedw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistributedServices.Part.BackgroundWorker.Tests", "DistributedServices.Part.BackgroundWorker.Tests\DistributedServices.Part.BackgroundWorker.Tests.csproj", "{F926F3F8-80A6-4799-827D-02981248653E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1053,6 +1055,10 @@ Global
 		{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{865EC95E-3EFF-4DFE-B45A-B9238FB731B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F926F3F8-80A6-4799-827D-02981248653E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F926F3F8-80A6-4799-827D-02981248653E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F926F3F8-80A6-4799-827D-02981248653E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F926F3F8-80A6-4799-827D-02981248653E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1281,5 +1287,6 @@ Global
 		{3D2368B0-9E27-4DC8-997D-DF7A07503D82} = {7977609C-5235-42F2-8986-916B9FB166BB}
 		{C00860FF-D2D2-4E42-9A93-B98082079F8D} = {AEBED98E-12A5-45D6-AD8C-FA6326592688}
 		{865EC95E-3EFF-4DFE-B45A-B9238FB731B4} = {C00860FF-D2D2-4E42-9A93-B98082079F8D}
+		{F926F3F8-80A6-4799-827D-02981248653E} = {C4D9D5D2-651A-4CD7-821F-0FCAB3623E53}
 	EndGlobalSection
 EndGlobal

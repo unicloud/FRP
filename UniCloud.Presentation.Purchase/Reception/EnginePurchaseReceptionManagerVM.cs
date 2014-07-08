@@ -20,7 +20,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ScheduleView;
 using Telerik.Windows.Data;
@@ -34,20 +33,17 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Reception
 {
     [Export(typeof (EnginePurchaseReceptionManagerVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class EnginePurchaseReceptionManagerVM : ReceptionVm
     {
         #region 声明、初始化
 
         private readonly PurchaseData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
 
         [ImportingConstructor]
-        public EnginePurchaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service)
+        public EnginePurchaseReceptionManagerVM(IPurchaseService service)
             : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
             InitializeVM();

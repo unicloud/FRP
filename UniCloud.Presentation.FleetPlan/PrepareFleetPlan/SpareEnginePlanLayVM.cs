@@ -35,7 +35,6 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
     [Export(typeof (SpareEnginePlanLayVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SpareEnginePlanLayVM : EditViewModelBase
     {
         #region 声明、初始化

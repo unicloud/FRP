@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,21 +11,12 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Telerik.Windows.Controls;
 
 #endregion
@@ -35,20 +27,20 @@ namespace UniCloud.Presentation.Purchase.Reception.SchdeuleExtension
     {
         private CategoryCollection categories;
         private TimeMarkerCollection timeMarkers;
-        private ResourceTypeCollection workGroups; 
+        private ResourceTypeCollection workGroups;
 
         public CategoryCollection Categories
         {
             get
             {
-                if (this.categories == null)
+                if (categories == null)
                 {
-                    this.categories = new CategoryCollection();
-                    this.categories.Add(new Category("已完成", new SolidColorBrush(Colors.Green)));
-                    this.categories.Add(new Category("正在进行中…", new SolidColorBrush(Colors.Brown)));
-                    this.categories.Add(new Category("未启动", new SolidColorBrush(Colors.Gray)));
+                    categories = new CategoryCollection();
+                    categories.Add(new Category("已完成", new SolidColorBrush(Colors.Green)));
+                    categories.Add(new Category("正在进行中…", new SolidColorBrush(Colors.Brown)));
+                    categories.Add(new Category("未启动", new SolidColorBrush(Colors.Gray)));
                 }
-                return this.categories;
+                return categories;
             }
         }
 
@@ -56,14 +48,14 @@ namespace UniCloud.Presentation.Purchase.Reception.SchdeuleExtension
         {
             get
             {
-                if (this.timeMarkers == null)
+                if (timeMarkers == null)
                 {
-                    this.timeMarkers = new TimeMarkerCollection();
-                    this.timeMarkers.Add(new TimeMarker("高级别", new SolidColorBrush(Colors.Red)));
-                    this.timeMarkers.Add(new TimeMarker("中级别" ,new SolidColorBrush(Colors.Green)));
-                    this.timeMarkers.Add(new TimeMarker("低级别", new SolidColorBrush(Colors.Gray)));
+                    timeMarkers = new TimeMarkerCollection();
+                    timeMarkers.Add(new TimeMarker("高级别", new SolidColorBrush(Colors.Red)));
+                    timeMarkers.Add(new TimeMarker("中级别", new SolidColorBrush(Colors.Green)));
+                    timeMarkers.Add(new TimeMarker("低级别", new SolidColorBrush(Colors.Gray)));
                 }
-                return this.timeMarkers;
+                return timeMarkers;
             }
         }
 
@@ -72,8 +64,8 @@ namespace UniCloud.Presentation.Purchase.Reception.SchdeuleExtension
             get
             {
                 var resourceType = new ResourceTypeCollection();
-                
-                if (this.workGroups == null)
+
+                if (workGroups == null)
                 {
                     var reType = new ResourceType();
                     reType.Resources.Add(new Resource("机务组", "WorkGroup"));

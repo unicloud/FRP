@@ -17,7 +17,6 @@
 
 #region 命名空间
 
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using UniCloud.Presentation.Service.Payment.Payment;
@@ -27,12 +26,12 @@ using UniCloud.Presentation.Service.Payment.Payment;
 namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtension
 {
     /// <summary>
-    /// 付款计划Appointment集合
+    ///     付款计划Appointment集合
     /// </summary>
     public class PaymentAppointmentCollection : ObservableCollection<PaymentAppointment>
     {
         /// <summary>
-        /// 付款计划转化为Appointment同时，添加到集合中
+        ///     付款计划转化为Appointment同时，添加到集合中
         /// </summary>
         /// <param name="paymentScheduleLines"></param>
         public void ConvertAppointmentAndAdd(ObservableCollection<PaymentScheduleLineDTO> paymentScheduleLines)
@@ -42,7 +41,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
                 var paymentAppoint = AppointmentConvertHelper.ConvertToAppointPayment(p);
                 Add(paymentAppoint);
             });
-          
         }
     }
 }

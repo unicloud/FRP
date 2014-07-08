@@ -38,7 +38,6 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 namespace UniCloud.Presentation.Part.ManageItem
 {
     [Export(typeof (ItemVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ItemVm : EditViewModelBase
     {
         #region 声明、初始化

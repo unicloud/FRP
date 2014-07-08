@@ -29,7 +29,6 @@ using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig;
 namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
 {
     [Export(typeof (ManagerLicenseTypeVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManagerLicenseTypeVm : EditViewModelBase
     {
         #region 声明、初始化

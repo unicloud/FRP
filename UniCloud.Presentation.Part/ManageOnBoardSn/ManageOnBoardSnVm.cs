@@ -31,7 +31,6 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 namespace UniCloud.Presentation.Part.ManageOnBoardSn
 {
     [Export(typeof (ManageOnBoardSnVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageOnBoardSnVm : EditViewModelBase
     {
         #region 声明、初始化

@@ -23,7 +23,6 @@ using System.ComponentModel.Composition;
 namespace UniCloud.Presentation.BaseManagement.ManageSubsidiary
 {
     [Export(typeof (BranchCompanyVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class BranchCompanyVm
     {
     }

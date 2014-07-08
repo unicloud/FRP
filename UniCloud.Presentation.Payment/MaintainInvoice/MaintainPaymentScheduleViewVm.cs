@@ -32,7 +32,6 @@ using UniCloud.Presentation.Service.Payment.Payment;
 namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
     [Export(typeof (MaintainPaymentScheduleViewVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MaintainPaymentScheduleViewVm : EditViewModelBase
     {
         #region 声明、初始化

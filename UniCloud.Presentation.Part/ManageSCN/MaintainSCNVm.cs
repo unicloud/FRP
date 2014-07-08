@@ -35,7 +35,6 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 namespace UniCloud.Presentation.Part.ManageSCN
 {
     [Export(typeof (MaintainScnVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MaintainScnVm : EditViewModelBase
     {
         #region 声明、初始化

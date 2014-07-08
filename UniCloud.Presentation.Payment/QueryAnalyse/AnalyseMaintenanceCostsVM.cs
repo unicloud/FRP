@@ -26,7 +26,6 @@ using UniCloud.Presentation.Service.Payment.Payment;
 namespace UniCloud.Presentation.Payment.QueryAnalyse
 {
     [Export(typeof (AnalyseMaintenanceCostsVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AnalyseMaintenanceCostsVM : EditViewModelBase
     {
         #region 声明、初始化

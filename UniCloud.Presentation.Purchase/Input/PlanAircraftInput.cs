@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,36 +11,34 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
 using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.GridView;
 using Telerik.Windows.DragDrop.Behaviors;
 using UniCloud.Presentation.Input;
 using UniCloud.Presentation.Purchase.Reception;
 using UniCloud.Presentation.Service.Purchase.Purchase;
+using DragVisual = Telerik.Windows.DragDrop.DragVisual;
 
 #endregion
 
-namespace UniCloud.Presentation.Input
+namespace UniCloud.Presentation.Purchase.Input
 {
+
     #region 计划飞机
 
     /// <summary>
-    /// 拖放行为
+    ///     拖放行为
     /// </summary>
     public class PlanAircraftDragDrop : GridViewDragDropBehavior
     {
@@ -75,13 +74,13 @@ namespace UniCloud.Presentation.Input
     }
 
     /// <summary>
-    /// 拖放展示
+    ///     拖放展示
     /// </summary>
     public class PlanAircraftDragVisual : IDragVisualProvider
     {
         public FrameworkElement CreateDragVisual(DragVisualProviderState state)
         {
-            var visual = new Telerik.Windows.DragDrop.DragVisual
+            var visual = new DragVisual
             {
                 Content = state.DraggedItems.OfType<object>().FirstOrDefault(),
                 ContentTemplate = state.Host.Resources["PlanAircraftDraggedItemTemplate"] as DataTemplate
@@ -98,16 +97,16 @@ namespace UniCloud.Presentation.Input
     }
 
     /// <summary>
-    /// 鼠标双击逻辑
+    ///     鼠标双击逻辑
     /// </summary>
     public class ContractAircraftClickHelper : GridViewDoubleClickHelper
     {
-        protected override void GridViewDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
+        protected override void GridViewDoubleClick(GridViewCellBase cell)
         {
             var viewModel = ServiceLocator.Current.GetInstance<MatchingPlanAircraftManagerVM>();
             var contractAircraft = cell.DataContext as ContractAircraftDTO;
             if (viewModel.SelContractAircraft == null)
-                RadWindow.Alert(this.SetAlter("提醒", "确认", "请选中未匹配的合同飞机！", 13, 250, () => { }));
+                RadWindow.Alert(SetAlter("提醒", "确认", "请选中未匹配的合同飞机！", 13, 250, () => { }));
             else if (viewModel.SelContractAircraft != null && viewModel.SelContractAircraft.PlanAircraftID == null)
             {
                 viewModel.PlanAircraftChildView.ShowDialog();
@@ -122,7 +121,7 @@ namespace UniCloud.Presentation.Input
             else if (viewModel.SelContractAircraft != null &&
                      viewModel.SelContractAircraft.PlanAircraftID != null)
             {
-                RadWindow.Confirm(this.SetConfirm("重新匹配", "确认", "取消", "此合同飞机已匹配计划飞机，是否重新匹配！", 13, 250, (o, e) =>
+                RadWindow.Confirm(SetConfirm("重新匹配", "确认", "取消", "此合同飞机已匹配计划飞机，是否重新匹配！", 13, 250, (o, e) =>
                 {
                     if (e.DialogResult == true)
                     {
@@ -132,13 +131,13 @@ namespace UniCloud.Presentation.Input
             }
         }
 
-        protected override bool CanDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
+        protected override bool CanDoubleClick(GridViewCellBase cell)
         {
             return true;
         }
 
         /// <summary>
-        /// 设置提醒对话框
+        ///     设置提醒对话框
         /// </summary>
         /// <param name="header">对话框标题</param>
         /// <param name="okContent">Ok按钮显示内容</param>
@@ -173,7 +172,7 @@ namespace UniCloud.Presentation.Input
         }
 
         /// <summary>
-        /// 设置确认对话框
+        ///     设置确认对话框
         /// </summary>
         /// <param name="header">对话框标题</param>
         /// <param name="okContent">Ok按钮显示内容</param>

@@ -45,7 +45,6 @@ using WindowStartupLocation = Telerik.Windows.Controls.WindowStartupLocation;
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
     [Export(typeof (FleetAgeVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FleetAgeVm : ViewModelBase
     {
         #region 声明、初始化

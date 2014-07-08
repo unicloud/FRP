@@ -75,6 +75,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Enums\OrderStatus.cs" />
+    <Compile Include="Enums\PasswordFormat.cs" />
     <Compile Include="Enums\PathSource.cs" />
     <Compile Include="Enums\PaymentNoticeStatus.cs" />
     <Compile Include="Enums\PlanPublishStatus.cs">

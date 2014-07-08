@@ -1,21 +1,20 @@
 ﻿#region 命名空间
 
 using System.ComponentModel.Composition;
-using System.Windows.Controls;
 
 #endregion
 
 namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
 {
     [Export]
-    public partial class ManagerLicenseType : UserControl
+    public partial class ManagerLicenseType
     {
         public ManagerLicenseType()
         {
             InitializeComponent();
         }
 
-        [Import(typeof(ManagerLicenseTypeVm))]
+        [Import(typeof (ManagerLicenseTypeVm))]
         public ManagerLicenseTypeVm ViewModel
         {
             get { return DataContext as ManagerLicenseTypeVm; }

@@ -15,7 +15,6 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Reception
 {
     [Export(typeof (MatchingPlanAircraftManagerVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MatchingPlanAircraftManagerVM : EditViewModelBase
     {
         #region 声明、初始化

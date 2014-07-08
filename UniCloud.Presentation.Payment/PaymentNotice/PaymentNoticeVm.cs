@@ -33,7 +33,6 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 namespace UniCloud.Presentation.Payment.PaymentNotice
 {
     [Export(typeof (PaymentNoticeVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PaymentNoticeVm : InvoiceVm
     {
         #region 声明、初始化

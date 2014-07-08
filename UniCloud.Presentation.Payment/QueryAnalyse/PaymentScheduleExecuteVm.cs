@@ -23,7 +23,6 @@ using System.ComponentModel.Composition;
 namespace UniCloud.Presentation.Payment.QueryAnalyse
 {
     [Export(typeof (PaymentScheduleExecuteVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PaymentScheduleExecuteVm
     {
     }

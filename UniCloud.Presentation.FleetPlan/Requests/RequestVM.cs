@@ -19,7 +19,6 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 namespace UniCloud.Presentation.FleetPlan.Requests
 {
     [Export(typeof (RequestVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class RequestVM : EditViewModelBase
     {
         #region 声明、初始化

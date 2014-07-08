@@ -34,7 +34,6 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 namespace UniCloud.Presentation.Payment.MaintainCost
 {
     [Export(typeof (RegularCheckMaintainCostManageVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class RegularCheckMaintainCostManageVm : EditViewModelBase
     {
         private readonly PaymentData _context;

@@ -21,7 +21,6 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
     ///     基础配置，包括维修工作单元、控制单位的维护
     /// </summary>
     [Export(typeof (BaseConfigurationVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class BaseConfigurationVm : EditViewModelBase
     {
         #region 声明、初始化

@@ -30,7 +30,6 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Contract
 {
     [Export(typeof (MatchPlanAircraftVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MatchPlanAircraftVM : NotificationObject
     {
         #region 声明、初始化

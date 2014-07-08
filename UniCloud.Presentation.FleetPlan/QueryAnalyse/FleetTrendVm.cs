@@ -42,7 +42,6 @@ using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
     [Export(typeof (FleetTrendVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FleetTrendVm : ViewModelBase
     {
         #region 声明、初始化

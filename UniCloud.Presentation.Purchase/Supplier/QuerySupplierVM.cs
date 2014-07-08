@@ -34,7 +34,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
     ///     查询供应商信息
     /// </summary>
     [Export(typeof (QuerySupplierVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QuerySupplierVM : EditViewModelBase
     {
         private readonly PurchaseData _context;

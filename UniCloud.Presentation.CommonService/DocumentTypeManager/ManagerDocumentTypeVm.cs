@@ -29,7 +29,6 @@ using UniCloud.Presentation.Service.CommonService.Common;
 namespace UniCloud.Presentation.CommonService.DocumentTypeManager
 {
     [Export(typeof (ManagerDocumentTypeVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManagerDocumentTypeVm : EditViewModelBase
     {
         #region 声明、初始化

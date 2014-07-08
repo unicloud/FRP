@@ -6,12 +6,10 @@
                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
                    xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
                    WindowStartupLocation="CenterScreen"
-                   Header="文档列表"
-                   Name="DocumentsWindow"
-                   mc:Ignorable="d"
-                   Height="500"
-                   Width="700"
+                   Header="文档列表" Name="DocumentsWindow"
+                   mc:Ignorable="d" Height="500" Width="700"
                    d:DataContext="{d:DesignInstance uc:ListDocumentsVm}">
+
     <telerik:RadWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,75 +17,42 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </telerik:RadWindow.Resources>
-    <telerik:RadDocking BorderThickness="0"
-                        Padding="0"
-                        HasDocumentHost="False">
-        <telerik:RadSplitContainer>
-            <telerik:RadPaneGroup Name="PaneGroups">
-                <telerik:RadPane Header="文档列表"
-                                 FontSize="{StaticResource HeaderFontSize}"
-                                 IsPinned="True"
-                                 CanFloat="False"
-                                 CanUserClose="False"
-                                 CanUserPin="False"
-                                 TabIndex="1"
-                                 ContextMenuTemplate="{x:Null}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                            Margin="0 0 0 -1"
-                                            OverflowButtonVisibility="Collapsed">
-                            <telerik:RadButton Margin="2,2,2,-2"
-                                               Command="{Binding AddLocalAttachCommand}">
-                                <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
-                                       Stretch="Fill"
-                                       ToolTipService.ToolTip="添加新文档" />
-                            </telerik:RadButton>
-                        </telerik:RadToolBar>
-                        <telerik:RadGridView x:Name="DocumentInfos"
-                                             Grid.Row="1"
-                                             ItemsSource="{Binding Documents,Mode=TwoWay}"
-                                             IsBusy="{Binding Documents.IsBusy}"
-                                             IsReadOnly="True"
-                                             AutoGenerateColumns="False"
-                                             ShowGroupPanel="True"
-                                             CanUserSortColumns="True"
-                                             RowIndicatorVisibility="Visible"
-                                             CanUserFreezeColumns="False"
-                                             SelectionMode="Extended">
-                            <uc:GridViewDoubleClick.Helper>
-                                <uc:DocumentDoubleClickHelper />
-                            </uc:GridViewDoubleClick.Helper>
-                            <telerik:RadGridView.Columns>
-                                <uc:DataPageSerialColumn Header="序号"
-                                                         HeaderTextAlignment="Center" />
-                                <telerik:GridViewDataColumn Header="文档名称"
-                                                            HeaderTextAlignment="Center"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            DataMemberBinding="{Binding Name}" />
-                                <telerik:GridViewComboBoxColumn Header="文档类型"
-                                                                HeaderTextAlignment="Center"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                ItemsSource="{Binding DataContext.DocumentTypes, ElementName=DocumentsWindow,Mode=TwoWay}"
-                                                                DataMemberBinding="{Binding DocumentTypeId,Mode=TwoWay}"
-                                                                SelectedValueMemberPath="DocumentTypeId"
-                                                                DisplayMemberPath="Name" />
-                            </telerik:RadGridView.Columns>
-                        </telerik:RadGridView>
-                        <Grid Row="2">
-                            <telerik:RadDataPager Name="DocumentsRadPage"
-                                                  BorderThickness="1,0,1,1"
-                                                  AutoEllipsisMode="Both"
-                                                  DisplayMode="All"
-                                                  Source="{Binding Documents}" />
-                        </Grid>
-                    </Grid>
-                </telerik:RadPane>
-            </telerik:RadPaneGroup>
-        </telerik:RadSplitContainer>
-    </telerik:RadDocking>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="0 0 0 -1" OverflowButtonVisibility="Collapsed">
+            <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddLocalAttachCommand}">
+                <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png" Stretch="Fill"
+                       ToolTipService.ToolTip="添加新文档" />
+            </telerik:RadButton>
+        </telerik:RadToolBar>
+        <telerik:RadGridView x:Name="DocumentInfos" Grid.Row="1" ItemsSource="{Binding Documents,Mode=TwoWay}"
+                             IsBusy="{Binding Documents.IsBusy}" IsReadOnly="True" AutoGenerateColumns="False"
+                             ShowGroupPanel="True" CanUserSortColumns="True" RowIndicatorVisibility="Visible"
+                             CanUserFreezeColumns="False" SelectionMode="Extended">
+            <uc:GridViewDoubleClick.Helper>
+                <uc:DocumentDoubleClickHelper />
+            </uc:GridViewDoubleClick.Helper>
+            <telerik:RadGridView.Columns>
+                <uc:DataPageSerialColumn Header="序号" HeaderTextAlignment="Center" />
+                <telerik:GridViewDataColumn Header="文档名称" HeaderTextAlignment="Center"
+                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                            DataMemberBinding="{Binding Name}" IsGroupable="False" />
+                <telerik:GridViewComboBoxColumn Header="文档类型" HeaderTextAlignment="Center"
+                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                ItemsSource="{Binding DataContext.DocumentTypes, ElementName=DocumentsWindow,Mode=TwoWay}"
+                                                DataMemberBinding="{Binding DocumentTypeId,Mode=TwoWay}"
+                                                SelectedValueMemberPath="DocumentTypeId" DisplayMemberPath="Name" />
+            </telerik:RadGridView.Columns>
+        </telerik:RadGridView>
+        <Grid Row="2">
+            <telerik:RadDataPager Name="DocumentsRadPage" BorderThickness="1,0,1,1" AutoEllipsisMode="Both"
+                                  DisplayMode="All" Source="{Binding Documents}" />
+        </Grid>
+    </Grid>
+
 </telerik:RadWindow>

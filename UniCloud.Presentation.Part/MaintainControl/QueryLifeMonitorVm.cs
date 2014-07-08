@@ -28,7 +28,6 @@ using UniCloud.Presentation.Service.Part.Part;
 namespace UniCloud.Presentation.Part.MaintainControl
 {
     [Export(typeof (QueryLifeMonitorVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryLifeMonitorVm : ViewModelBase
     {
         #region 声明、初始化

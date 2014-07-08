@@ -50,6 +50,11 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         public string Password { get; set; }
 
         /// <summary>
+        ///     密码确认
+        /// </summary>
+        public string PasswordConfirm { get; set; }
+
+        /// <summary>
         ///     密码问题
         /// </summary>
         public string Question { get; set; }

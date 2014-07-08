@@ -18,7 +18,6 @@ using CollectionExtensions = Telerik.Windows.Controls.CollectionExtensions;
 namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 {
     [Export(typeof (QueryPerformPlanVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryPerformPlanVM : ViewModelBase
     {
         private readonly FleetPlanData _context;

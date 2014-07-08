@@ -15,7 +15,6 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 namespace UniCloud.Presentation.FleetPlan.QueryPlans
 {
     [Export(typeof (QueryPlanVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class QueryPlanVM : ViewModelBase
     {
         private readonly FleetPlanData _context;

@@ -1,14 +1,13 @@
-﻿#region NameSpace
+﻿#region 命名空间
 
 using System.ComponentModel.Composition;
-using System.Windows.Controls;
 
 #endregion
 
 namespace UniCloud.Presentation.Part.BaseConfigurations
 {
     [Export]
-    public partial class BaseConfiguration : UserControl
+    public partial class BaseConfiguration
     {
         public BaseConfiguration()
         {

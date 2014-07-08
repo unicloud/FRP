@@ -33,7 +33,6 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 namespace UniCloud.Presentation.Part.OilMonitor
 {
     [Export(typeof (EngineOilVM))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class EngineOilVM : ViewModelBase
     {
         #region 声明、初始化

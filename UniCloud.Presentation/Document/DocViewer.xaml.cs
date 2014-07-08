@@ -24,7 +24,6 @@ using System.ComponentModel.Composition;
 namespace UniCloud.Presentation.Document
 {
     [Export(typeof (DocViewer))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
     public partial class DocViewer
     {
         public DocViewer()

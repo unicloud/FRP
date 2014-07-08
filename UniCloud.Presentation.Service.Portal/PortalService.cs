@@ -26,7 +26,6 @@ using UniCloud.Presentation.Service.Portal.Portal;
 namespace UniCloud.Presentation.Service.Portal
 {
     [Export(typeof (IPortalService))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PortalService : ServiceBase, IPortalService
     {
         public PortalService()

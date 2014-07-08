@@ -38,7 +38,6 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 namespace UniCloud.Presentation.Part.EngineConfig
 {
     [Export(typeof (AircraftConfigVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AircraftConfigVm : EditViewModelBase
     {
         #region 声明、初始化

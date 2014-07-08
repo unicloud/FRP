@@ -32,7 +32,6 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 namespace UniCloud.Presentation.Payment.MaintainInvoice
 {
     [Export(typeof (APUMaintainVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class APUMaintainVm : InvoiceVm
     {
         #region 声明、初始化

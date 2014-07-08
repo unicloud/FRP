@@ -32,7 +32,6 @@ using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
 namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
 {
     [Export(typeof (ManageSystemConfigVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageSystemConfigVm : EditViewModelBase
     {
         #region 声明、初始化

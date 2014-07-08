@@ -36,7 +36,6 @@ using UniCloud.Presentation.Service.Part.Part;
 namespace UniCloud.Presentation.Part.ManageSCN
 {
     [Export(typeof (CompareScnVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class CompareScnVm : EditViewModelBase
     {
         #region 声明、初始化

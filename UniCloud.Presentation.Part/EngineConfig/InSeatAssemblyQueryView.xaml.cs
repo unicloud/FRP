@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Part.EngineConfig
 {
     [Export]
-    public partial class InSeatAssemblyQueryView : UserControl
+    public partial class InSeatAssemblyQueryView
     {
         public InSeatAssemblyQueryView()
         {

@@ -35,7 +35,6 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 namespace UniCloud.Presentation.Payment.Invoice
 {
     [Export(typeof (MaintainCreditNoteManagerVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class MaintainCreditNoteManagerVm : EditViewModelBase
     {
         #region 声明、初始化

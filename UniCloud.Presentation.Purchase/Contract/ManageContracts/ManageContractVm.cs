@@ -40,7 +40,6 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
 {
     [Export(typeof (ManageContractVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class ManageContractVm : ViewModelBase
     {
         #region 初始化

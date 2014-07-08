@@ -26,7 +26,6 @@ using UniCloud.Presentation.Service.Payment.Payment;
 namespace UniCloud.Presentation.Payment.PaymentNotice
 {
     [Export(typeof (BankAccountWindowVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class BankAccountWindowVm : INotifyPropertyChanged
     {
         private IEnumerable<BankAccountDTO> _bankAccounts;

@@ -20,8 +20,7 @@ using ListBox = System.Windows.Controls.ListBox;
 
 namespace UniCloud.Presentation.Purchase.Contract.ManageContracts
 {
-    [Export(typeof (ManageContract))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
+    [Export]
     public partial class ManageContract
     {
         public ManageContract()

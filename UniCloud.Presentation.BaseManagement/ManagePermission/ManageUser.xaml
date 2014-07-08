@@ -19,47 +19,183 @@
     </UserControl.Resources>
 
     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="{Binding BusyContent}">
-        <Grid>
+        <Grid x:Name="Root">
             <telerik:RadDocking BorderThickness="0" Padding="0" HasDocumentHost="False">
                 <telerik:RadSplitContainer>
                     <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
                         <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="用户信息" CanUserPin="False" CanUserClose="False" CanFloat="False"
+                            <telerik:RadPane Header="用户信息" CanFloat="False"
+                                             CanUserClose="False" CanUserPin="False"
                                              ContextMenuTemplate="{x:Null}">
-                                <telerik:RadGridView ItemsSource="{Binding ViewUserDTO}" AutoGenerateColumns="False"
-                                                     IsReadOnly="True">
-                                    <telerik:RadContextMenu.ContextMenu>
-                                        <telerik:RadContextMenu>
-                                            <telerik:RadMenuItem Header="导出Excel"
-                                                                 Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
-                                            <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
-                                        </telerik:RadContextMenu>
-                                    </telerik:RadContextMenu.ContextMenu>
-                                    <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
-                                        <telerik:GridViewDataColumn Header="登录名" DataMemberBinding="{Binding UserName}" />
-                                        <telerik:GridViewDataColumn Header="姓名"
-                                                                    DataMemberBinding="{Binding DisplayName}" />
-                                        <telerik:GridViewDataColumn Header="机构代码"
-                                                                    DataMemberBinding="{Binding OrganizationNo}" />
-                                        <telerik:GridViewDataColumn Header="机构名称"
-                                                                    DataMemberBinding="{Binding OrganizationName}" />
-                                        <telerik:GridViewDataColumn Header="Email" DataMemberBinding="{Binding Email}" />
-                                        <telerik:GridViewDataColumn Header="手机号码" DataMemberBinding="{Binding Mobile}" />
-                                        <telerik:GridViewDataColumn Header="系统用户"
-                                                                    DataMemberBinding="{Binding IsSystemUser}" />
-                                        <telerik:GridViewDataColumn Header="备注"
-                                                                    DataMemberBinding="{Binding Description}" Width="*" />
-                                    </telerik:RadGridView.Columns>
-                                </telerik:RadGridView>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
+                                    </Grid.RowDefinitions>
+                                    <telerik:RadGridView ItemsSource="{Binding ViewUserDTO}"
+                                                         AutoGenerateColumns="False" IsReadOnly="True" Margin="0,1,0,0"
+                                                         ValidatesOnDataErrors="InEditMode">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu>
+                                                <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                                                <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadGridView.Columns>
+                                            <uc:DataPageSerialColumn Header="序号" />
+                                            <telerik:GridViewDataColumn Header="登录名"
+                                                                        DataMemberBinding="{Binding UserName}" />
+                                            <telerik:GridViewDataColumn Header="姓名"
+                                                                        DataMemberBinding="{Binding DisplayName}" />
+                                            <telerik:GridViewDataColumn Header="机构代码"
+                                                                        DataMemberBinding="{Binding OrganizationNo}" />
+                                            <telerik:GridViewDataColumn Header="机构名称"
+                                                                        DataMemberBinding="{Binding OrganizationName}" />
+                                            <telerik:GridViewDataColumn Header="Email"
+                                                                        DataMemberBinding="{Binding Email}" />
+                                            <telerik:GridViewDataColumn Header="手机号码"
+                                                                        DataMemberBinding="{Binding Mobile}" />
+                                            <telerik:GridViewDataColumn Header="系统用户"
+                                                                        DataMemberBinding="{Binding IsSystemUser}" />
+                                            <telerik:GridViewDataColumn Header="备注"
+                                                                        DataMemberBinding="{Binding Description}"
+                                                                        Width="*" />
+                                        </telerik:RadGridView.Columns>
+                                    </telerik:RadGridView>
+                                    <Grid Grid.Row="1">
+                                        <telerik:RadDataPager Name="EngineMaterialRadPage" BorderThickness="1,0,1,1"
+                                                              AutoEllipsisMode="Both" DisplayMode="All"
+                                                              Source="{Binding ViewUserDTO}" />
+                                    </Grid>
+                                </Grid>
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>
                     </telerik:RadSplitContainer>
                     <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
                         <telerik:RadPaneGroup>
-                            <telerik:RadPane />
+                            <telerik:RadPane Header="注册用户" CanFloat="False" CanUserClose="False"
+                                             CanUserPin="False" ContextMenuTemplate="{x:Null}">
+                                <telerik:RadDataForm x:Name="RegisterUser" CancelButtonContent="取消"
+                                                     CommitButtonContent="确定" ItemsSource="{Binding ViewUserDTO}"
+                                                     AutoGenerateFields="False">
+                                    <telerik:RadDataForm.CommandProvider>
+                                        <uc:MasterCommandProvider DataForm="{Binding ElementName=RegisterUser}"
+                                                                  QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=RegisterUser}" />
+                                    </telerik:RadDataForm.CommandProvider>
+                                    <telerik:RadDataForm.ReadOnlyTemplate>
+                                        <DataTemplate>
+                                            <telerik:RadDockPanel>
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding UserName, Mode=TwoWay}"
+                                                                           Label="登录名" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding DisplayName, Mode=TwoWay}"
+                                                                           Label="姓名" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding OrganizationNo, Mode=TwoWay}"
+                                                                           Label="机构代码" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding OrganizationName, Mode=TwoWay}"
+                                                                           Label="机构名称" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding Email, Mode=TwoWay}"
+                                                                           Label="Email" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding Mobile, Mode=TwoWay}"
+                                                                           Label="手机号" />
+                                                <telerik:GroupBox Header="备注" telerik:RadDockPanel.Dock="Top"
+                                                                  VerticalContentAlignment="Stretch">
+                                                    <TextBox Text="{Binding Description}" TextWrapping="Wrap"
+                                                             VerticalScrollBarVisibility="Auto"
+                                                             telerik:StyleManager.Theme="Windows8"
+                                                             VerticalContentAlignment="Top" BorderThickness="0"
+                                                             Cursor="IBeam" IsReadOnly="True" />
+                                                </telerik:GroupBox>
+                                            </telerik:RadDockPanel>
+                                        </DataTemplate>
+                                    </telerik:RadDataForm.ReadOnlyTemplate>
+                                    <telerik:RadDataForm.EditTemplate>
+                                        <DataTemplate>
+                                            <telerik:RadDockPanel>
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding UserName, Mode=TwoWay}"
+                                                                           Label="登录名" IsReadOnly="True" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding DisplayName, Mode=TwoWay}"
+                                                                           Label="姓名" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding OrganizationNo, Mode=TwoWay}"
+                                                                           Label="机构代码" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding OrganizationName, Mode=TwoWay}"
+                                                                           Label="机构名称" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding Email, Mode=TwoWay}"
+                                                                           Label="Email" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding Mobile, Mode=TwoWay}"
+                                                                           Label="手机号" />
+                                                <telerik:GroupBox Header="备注" VerticalContentAlignment="Stretch">
+                                                    <TextBox Text="{Binding Description}" TextWrapping="Wrap"
+                                                             VerticalScrollBarVisibility="Auto"
+                                                             telerik:StyleManager.Theme="Windows8"
+                                                             VerticalContentAlignment="Top" BorderThickness="0"
+                                                             Cursor="IBeam" />
+                                                </telerik:GroupBox>
+                                            </telerik:RadDockPanel>
+                                        </DataTemplate>
+                                    </telerik:RadDataForm.EditTemplate>
+                                    <telerik:RadDataForm.NewItemTemplate>
+                                        <DataTemplate>
+                                            <telerik:RadDockPanel>
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding UserName, BindsDirectlyToSource=True, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"
+                                                                           Label="登录名" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding DisplayName, Mode=TwoWay}"
+                                                                           Label="姓名" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding Password, Mode=TwoWay}"
+                                                                           Label="密码">
+                                                    <telerik:DataFormDataField.Content>
+                                                        <PasswordBox
+                                                            Password="{Binding Password, Mode=TwoWay, ValidatesOnExceptions=True, NotifyOnValidationError=True}" />
+                                                    </telerik:DataFormDataField.Content>
+                                                </telerik:DataFormDataField>
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding PasswordConfirm, Mode=TwoWay}"
+                                                                           Label="密码确认">
+                                                    <PasswordBox
+                                                        Password="{Binding PasswordConfirm, Mode=TwoWay, ValidatesOnExceptions=True, NotifyOnValidationError=True}" />
+                                                </telerik:DataFormDataField>
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding OrganizationNo, Mode=TwoWay}"
+                                                                           Label="机构代码" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding OrganizationName, Mode=TwoWay}"
+                                                                           Label="机构名称" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding Email, Mode=TwoWay}"
+                                                                           Label="Email" />
+                                                <telerik:DataFormDataField telerik:RadDockPanel.Dock="Top"
+                                                                           DataMemberBinding="{Binding Mobile, Mode=TwoWay}"
+                                                                           Label="手机号" />
+                                                <telerik:GroupBox Header="备注">
+                                                    <TextBox Text="{Binding Description}" TextWrapping="Wrap"
+                                                             VerticalScrollBarVisibility="Auto"
+                                                             telerik:StyleManager.Theme="Windows8"
+                                                             VerticalContentAlignment="Top" BorderThickness="0"
+                                                             Cursor="IBeam" IsReadOnly="True" />
+                                                </telerik:GroupBox>
+                                            </telerik:RadDockPanel>
+                                        </DataTemplate>
+                                    </telerik:RadDataForm.NewItemTemplate>
+                                </telerik:RadDataForm>
+                            </telerik:RadPane>
                         </telerik:RadPaneGroup>
                     </telerik:RadSplitContainer>
                 </telerik:RadSplitContainer>

@@ -1,17 +1,20 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
     [Export]
-    public partial class EngineMaintain : UserControl
+    public partial class EngineMaintain
     {
         public EngineMaintain()
         {
             InitializeComponent();
         }
 
-        [Import(typeof(EngineMaintainVm))]
+        [Import(typeof (EngineMaintainVm))]
         public EngineMaintainVm ViewModel
         {
             get { return DataContext as EngineMaintainVm; }

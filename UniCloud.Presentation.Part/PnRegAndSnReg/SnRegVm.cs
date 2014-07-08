@@ -34,7 +34,6 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 namespace UniCloud.Presentation.Part.PnRegAndSnReg
 {
     [Export(typeof (SnRegVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SnRegVm : EditViewModelBase
     {
         #region 声明、初始化

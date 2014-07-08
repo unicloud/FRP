@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
     [Export]
-    public partial class CaacProgramming : UserControl
+    public partial class CaacProgramming
     {
         public CaacProgramming()
         {

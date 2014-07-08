@@ -33,7 +33,6 @@ using UniCloud.Presentation.Service.CommonService.Common;
 namespace UniCloud.Presentation.CommonService.SearchDocument
 {
     [Export(typeof (SearchDocumentVm))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class SearchDocumentVm : ViewModelBase
     {
         #region 声明、初始化
