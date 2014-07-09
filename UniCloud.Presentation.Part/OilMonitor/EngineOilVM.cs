@@ -94,11 +94,9 @@ namespace UniCloud.Presentation.Part.OilMonitor
             get { return _zoom; }
             private set
             {
-                if (_zoom != value)
-                {
-                    _zoom = value;
-                    RaisePropertyChanged(() => Zoom);
-                }
+                if (_zoom == value) return;
+                _zoom = value;
+                RaisePropertyChanged(() => Zoom);
             }
         }
 
@@ -116,11 +114,9 @@ namespace UniCloud.Presentation.Part.OilMonitor
             get { return _panOffset; }
             private set
             {
-                if (_panOffset != value)
-                {
-                    _panOffset = value;
-                    RaisePropertyChanged(() => PanOffset);
-                }
+                if (_panOffset == value) return;
+                _panOffset = value;
+                RaisePropertyChanged(() => PanOffset);
             }
         }
 
@@ -138,11 +134,9 @@ namespace UniCloud.Presentation.Part.OilMonitor
             get { return _currentOil; }
             private set
             {
-                if (_currentOil != value)
-                {
-                    _currentOil = value;
-                    RaisePropertyChanged(() => CurrentOil);
-                }
+                if (_currentOil == value) return;
+                _currentOil = value;
+                RaisePropertyChanged(() => CurrentOil);
             }
         }
 
@@ -232,12 +226,10 @@ namespace UniCloud.Presentation.Part.OilMonitor
             get { return _selEngineOilDTO; }
             set
             {
-                if (_selEngineOilDTO != value)
-                {
-                    _selEngineOilDTO = value;
-                    RaisePropertyChanged(() => SelEngineOilDTO);
-                    _oilUserDescriptor.Value = _selEngineOilDTO.Id;
-                }
+                if (_selEngineOilDTO == value) return;
+                _selEngineOilDTO = value;
+                RaisePropertyChanged(() => SelEngineOilDTO);
+                _oilUserDescriptor.Value = _selEngineOilDTO.Id;
             }
         }
 
@@ -276,11 +268,9 @@ namespace UniCloud.Presentation.Part.OilMonitor
             get { return _selOilMonitorDTO; }
             set
             {
-                if (_selOilMonitorDTO != value)
-                {
-                    _selOilMonitorDTO = value;
-                    RaisePropertyChanged(() => SelOilMonitorDTO);
-                }
+                if (_selOilMonitorDTO == value) return;
+                _selOilMonitorDTO = value;
+                RaisePropertyChanged(() => SelOilMonitorDTO);
             }
         }
 
