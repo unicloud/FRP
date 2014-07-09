@@ -50,7 +50,7 @@
                                                          RowIndicatorVisibility="Visible"
                                                          CanUserFreezeColumns="False">
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
+                                            <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}" />
                                             <telerik:GridViewDataColumn Header="引进方式"
                                                                         IsReadOnly="True"
@@ -282,7 +282,7 @@
                                                                  CanUserFreezeColumns="False"
                                                                  IsReadOnly="True">
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              IsGroupable="False"
                                                                              CellStyle="{StaticResource CellStyle}" />
                                                     <telerik:GridViewDataColumn Header="操作"

@@ -115,7 +115,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <input:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="接机编号"
                                                                     IsReadOnly="True"
@@ -226,7 +226,7 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <input:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="交付数量"
                                                                     IsReadOnly="True"
@@ -337,7 +337,7 @@
                                                 </DataTemplate>
                                             </telerik:GridViewColumn.CellTemplate>
                                         </telerik:GridViewColumn>
-                                        <input:DataPageSerialColumn Header="序号"
+                                        <input:DataPageSerialColumn Header="编号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="标题"
                                                                     IsReadOnly="True"

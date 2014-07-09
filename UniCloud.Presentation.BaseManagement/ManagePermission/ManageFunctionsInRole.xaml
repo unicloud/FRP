@@ -122,7 +122,7 @@
                                                              ItemsSource="{Binding Roles,Mode=TwoWay}"
                                                              SelectedItem="{Binding Role,Mode=TwoWay}">
                                             <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号"
+                                                <uc:DataPageSerialColumn Header="编号"
                                                                          HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="角色名"
                                                                             HeaderTextAlignment="Center"
@@ -171,7 +171,7 @@
                                                      ItemsSource="{Binding Applications,Mode=TwoWay}"
                                                      SelectedItem="{Binding Application,Mode=TwoWay}">
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号"
+                                        <uc:DataPageSerialColumn Header="编号"
                                                                  HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="应用名称"
                                                                     HeaderTextAlignment="Center"

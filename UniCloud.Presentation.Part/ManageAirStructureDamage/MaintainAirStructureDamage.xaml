@@ -524,7 +524,7 @@
                                                 </telerik:RadContextMenu>
                                             </telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadGridView.Columns>
-                                                <input:DataPageSerialColumn  Header="序号" />
+                                                <input:DataPageSerialColumn  Header="编号" />
                                                 <telerik:GridViewDataColumn Header="机号"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"

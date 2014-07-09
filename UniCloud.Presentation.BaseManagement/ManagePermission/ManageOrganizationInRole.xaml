@@ -90,7 +90,7 @@
                                                                  ItemsSource="{Binding Organizations,Mode=TwoWay}"
                                                                  SelectedItem="{Binding Organization, Mode=TwoWay}">
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              HeaderTextAlignment="Center" />
                                                     <telerik:GridViewDataColumn Header="部门"
                                                                                 HeaderTextAlignment="Center"
@@ -166,7 +166,7 @@
                                                                  ItemsSource="{Binding OrganizationRoles,Mode=TwoWay}"
                                                                  SelectedItem="{Binding OrganizationRole, Mode=TwoWay}">
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              HeaderTextAlignment="Center" />
                                                     <telerik:GridViewDataColumn Header="角色名"
                                                                                 HeaderTextAlignment="Center"
@@ -225,7 +225,7 @@
                                                     <uc:OrganizationRoleDoubleClickHelper />
                                                 </uc:GridViewDoubleClick.Helper>
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号"
+                                                    <uc:DataPageSerialColumn Header="编号"
                                                                              HeaderTextAlignment="Center" />
                                                     <telerik:GridViewDataColumn Header="角色名"
                                                                                 HeaderTextAlignment="Center"

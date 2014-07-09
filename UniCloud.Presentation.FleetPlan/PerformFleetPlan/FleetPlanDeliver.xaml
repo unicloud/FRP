@@ -133,7 +133,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
+                                            <uc:DataPageSerialColumn Header="编号"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="航空公司"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -244,7 +244,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
+                                            <uc:DataPageSerialColumn Header="编号"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="机型"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -332,7 +332,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
+                                            <uc:DataPageSerialColumn Header="编号"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewComboBoxColumn Header="引进方式"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -427,7 +427,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
+                                            <uc:DataPageSerialColumn Header="编号"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewComboBoxColumn Header="座级"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"

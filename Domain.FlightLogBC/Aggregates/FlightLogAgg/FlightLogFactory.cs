@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,66 +11,46 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 #endregion
 
 namespace UniCloud.Domain.FlightLogBC.Aggregates.FlightLogAgg
 {
     /// <summary>
-    /// FlightLog工厂。
+    ///     FlightLog工厂。
     /// </summary>
     public static class FlightLogFactory
     {
         /// <summary>
-        /// 创建FlightLog。
+        ///     创建飞行日志。
         /// </summary>
-        ///  <returns>FlightLog</returns>
-        public static FlightLog CreateFlightLog()
+        /// <param name="acReg">机号</param>
+        /// <param name="msn">飞机序列号</param>
+        /// <param name="flightNum">航班号</param>
+        /// <param name="flightDate">航班日期</param>
+        /// <param name="departure">出发机场</param>
+        /// <param name="arrival">到达机场</param>
+        /// <returns>飞行日志</returns>
+        public static FlightLog CreateFlightLog(string acReg, string msn, string flightNum, DateTime flightDate,
+            string departure, string arrival)
         {
             var flightLog = new FlightLog
             {
+                AcReg = acReg,
+                MSN = msn,
+                FlightNum = flightNum,
+                FlightDate = flightDate,
+                DepartureAirport = departure,
+                ArrivalAirport = arrival
             };
             flightLog.GenerateNewIdentity();
             return flightLog;
         }
-
-        ///// <summary>
-        ///// 创建飞机日利用率
-        ///// </summary>
-        ///// <param name="aircraft">运营飞机</param>
-        ///// <param name="amendValue">修正日利用率</param>
-        ///// <param name="calculatedValue">计算日利用率</param>
-        ///// <param name="isCurrent">是否当前</param>
-        ///// <param name="month">月份</param>
-        ///// <param name="regNumber">飞机注册号</param>
-        ///// <param name="year">年度</param>
-        ///// <returns></returns>
-        //public static FlightLog CreateFlightLog(string acReg, int apuCycle, int apuMm,
-        //    bool isCurrent,int month,string regNumber,int year)
-        //{
-        //    var flightLog = new FlightLog
-        //    {
-        //    };
-        //    flightLog.GenerateNewIdentity();
-        //    flightLog.AcReg = acReg;
-        //    flightLog.ApuCycle=1;
-        //    flightLog.ApuMM = apuMm;
-        //    flightLog.ApuOilArr(isCurrent);
-        //    flightLog.ApuOilDep(month);
-        //    flightLog.ArrivalAirport(regNumber);
-        //    flightLog.DepartureAirport(year);
-        //    flightLog.BlockHours=
-        //    return flightLog;
-        //}
     }
 }

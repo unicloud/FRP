@@ -174,24 +174,22 @@ namespace UniCloud.Presentation.Part.OilMonitor
             get { return _selPeriod; }
             private set
             {
-                if (_selPeriod != value)
+                if (_selPeriod == value) return;
+                _selPeriod = value;
+                RaisePropertyChanged(() => SelPeriod);
+                switch (_selPeriod)
                 {
-                    _selPeriod = value;
-                    RaisePropertyChanged(() => SelPeriod);
-                    switch (_selPeriod)
-                    {
-                        case OilMonitorPeriod.最近90天:
-                            _startDateDescriptor.Value = DateTime.Now.AddDays(-90);
-                            break;
-                        case OilMonitorPeriod.最近30天:
-                            _startDateDescriptor.Value = DateTime.Now.AddDays(-30);
-                            break;
-                        case OilMonitorPeriod.最近一周:
-                            _startDateDescriptor.Value = DateTime.Now.AddDays(-7);
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
+                    case OilMonitorPeriod.最近90天:
+                        _startDateDescriptor.Value = DateTime.Now.AddDays(-90);
+                        break;
+                    case OilMonitorPeriod.最近30天:
+                        _startDateDescriptor.Value = DateTime.Now.AddDays(-30);
+                        break;
+                    case OilMonitorPeriod.最近一周:
+                        _startDateDescriptor.Value = DateTime.Now.AddDays(-7);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }

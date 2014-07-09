@@ -118,7 +118,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
+                                            <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="发票编号"
@@ -251,7 +251,7 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
+                                            <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}" />
                                             <telerik:GridViewComboBoxColumn Header="项名称"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -301,7 +301,7 @@
                                                          RowIndicatorVisibility="Visible"
                                                          CanUserFreezeColumns="False">
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
+                                            <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="供应商"
@@ -348,7 +348,7 @@
                                                                      RowIndicatorVisibility="Visible"
                                                                      CanUserFreezeColumns="False">
                                                     <telerik:RadGridView.Columns>
-                                                        <uc:DataPageSerialColumn Header="序号"
+                                                        <uc:DataPageSerialColumn Header="编号"
                                                                                  CellStyle="{StaticResource CellStyle}"
                                                                                  HeaderTextAlignment="Center" />
                                                         <telerik:GridViewDataColumn Header="付款金额"

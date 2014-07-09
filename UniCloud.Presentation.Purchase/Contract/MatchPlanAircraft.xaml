@@ -36,7 +36,7 @@
                     </telerik:RadContextMenu>
                 </telerik:RadContextMenu.ContextMenu>
                 <telerik:RadGridView.Columns>
-                    <uc:DataPageSerialColumn Header="序号" />
+                    <uc:DataPageSerialColumn Header="编号" />
                     <telerik:GridViewDataColumn Header="匹配" DataMemberBinding="{Binding IsMatched}" />
                     <telerik:GridViewDataColumn Header="座级" DataMemberBinding="{Binding Regional}" />
                     <telerik:GridViewDataColumn Header="机型" DataMemberBinding="{Binding AircraftTypeName}" />
@@ -56,7 +56,7 @@
                     </telerik:RadContextMenu>
                 </telerik:RadContextMenu.ContextMenu>
                 <telerik:RadGridView.Columns>
-                    <uc:DataPageSerialColumn Header="序号" />
+                    <uc:DataPageSerialColumn Header="编号" />
                     <telerik:GridViewDataColumn Header="计划年度" DataMemberBinding="{Binding PlanYear}" />
                     <telerik:GridViewDataColumn Header="版本号" DataMemberBinding="{Binding VersionNumber}" />
                     <telerik:GridViewDataColumn Header="执行年度" DataMemberBinding="{Binding PerformAnnual}" />

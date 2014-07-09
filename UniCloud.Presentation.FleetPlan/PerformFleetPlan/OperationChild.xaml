@@ -38,7 +38,7 @@
                                          AutoGenerateColumns="False"
                                          ShowColumnFooters="True">
                         <telerik:RadGridView.Columns>
-                            <uc:DataPageSerialColumn Header="序号" />
+                            <uc:DataPageSerialColumn Header="编号" />
                             <telerik:GridViewDataColumn Header="座级"
                                                         HeaderTextAlignment="Center"
                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -90,7 +90,7 @@
                                          IsReadOnly="True"
                                          ItemsSource="{Binding OperationHistories,Mode=TwoWay}">
                         <telerik:RadGridView.Columns>
-                            <uc:DataPageSerialColumn Header="序号"
+                            <uc:DataPageSerialColumn Header="编号"
                                                      HeaderTextAlignment="Center" />
                             <telerik:GridViewDataColumn Header="引进方式"
                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -155,7 +155,7 @@
                                          AutoGenerateColumns="False"
                                          ShowColumnFooters="True">
                         <telerik:RadGridView.Columns>
-                            <uc:DataPageSerialColumn Header="序号"
+                            <uc:DataPageSerialColumn Header="编号"
                                                      HeaderTextAlignment="Center" />
                             <telerik:GridViewDataColumn Header="座级"
                                                         MinWidth="{StaticResource GridViewColumnsWidth}"

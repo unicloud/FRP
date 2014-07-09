@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="AssemblyTestsInitialize.cs" />
     <Compile Include="DataSyncTest.cs" />
+    <Compile Include="OilDataProcessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +76,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain.PartBC\Domain.PartBC.csproj">
+      <Project>{C8C80CBF-F4C4-4C7A-A19C-52FB09AEC87D}</Project>
+      <Name>Domain.PartBC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
       <Name>Domain</Name>

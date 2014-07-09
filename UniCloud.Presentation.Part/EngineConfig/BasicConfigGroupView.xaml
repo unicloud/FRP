@@ -151,7 +151,7 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
+                                            <uc:DataPageSerialColumn Header="编号"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewComboBoxColumn Header="机型"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"

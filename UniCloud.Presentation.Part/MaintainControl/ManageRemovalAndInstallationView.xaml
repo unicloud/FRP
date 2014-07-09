@@ -116,7 +116,7 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号"
+                                            <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="拆装指令"
                                                                         HeaderTextAlignment="Center"
@@ -224,7 +224,7 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号"
+                                            <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="附件序号"
                                                                         IsReadOnly="True"
@@ -335,7 +335,7 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号"
+                                            <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="附件序号"
                                                                         IsReadOnly="True"

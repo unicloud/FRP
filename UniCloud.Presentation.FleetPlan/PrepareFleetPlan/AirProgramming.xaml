@@ -123,7 +123,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号"
+                                            <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="规划名称"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -225,7 +225,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号"
+                                            <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
                                             <telerik:GridViewComboBoxColumn Header="年份"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -349,7 +349,7 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号"
+                                            <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
                                             <telerik:GridViewComboBoxColumn Header="规划期间"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"

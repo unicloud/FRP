@@ -147,6 +147,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.AdSbAgg
             get;
             private set;
         }
+        
+        /// <summary>
+        /// Mod号
+        /// </summary>
+        public string ModNumber
+        {
+            get;
+            private set;
+        }
 
         #endregion
 
@@ -231,6 +240,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.AdSbAgg
             ComplyFeeCurrency = complyFeeCurrency;
         }
 
+        /// <summary>
+        ///     设置MOD号
+        /// </summary>
+        /// <param name="modNumber">MOD号</param>
+        public void SetModNumber(string modNumber)
+        {
+            if (string.IsNullOrWhiteSpace(modNumber))
+            {
+                throw new ArgumentException("MOD号参数为空！");
+            }
+
+            ModNumber = modNumber;
+        }
         #endregion
 
         #region IValidatableObject 成员

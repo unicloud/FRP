@@ -94,7 +94,7 @@
                                 <uc:SearchContractDocumentDoubleClickHelper />
                             </uc:GridViewDoubleClick.Helper>
                             <telerik:RadGridView.Columns>
-                                <uc:DataPageSerialColumn  Header="序号" />
+                                <uc:DataPageSerialColumn  Header="编号" />
                                 <telerik:GridViewDataColumn Header="名称"
                                                             IsSortable="True"
                                                             MinWidth="{StaticResource GridViewColumnsWidth}"

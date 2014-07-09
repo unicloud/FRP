@@ -4,7 +4,7 @@
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：18:36
+// 作者：丁志浩 时间：14:50
 // 方案：FRP
 // 项目：Infrastructure.Data.AircraftConfigBC.Tests
 // 版本：V1.0.0
@@ -18,7 +18,10 @@
 #region 命名空间
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AirlinesAgg;
 using UniCloud.Infrastructure.Data.AircraftConfigBC.Repositories;
 using UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork;
 using UniCloud.Infrastructure.Unity;
@@ -28,29 +31,31 @@ using UniCloud.Infrastructure.Unity;
 namespace UniCloud.Infrastructure.Data.AircraftConfigBC.Tests
 {
     [TestClass]
-    public class AircraftTypeRepositoryTests
+    public class AssemblyTestsInitialize
     {
-        #region 基础配置
-
-        [TestInitialize]
-        public void TestInitialize()
+        /// <summary>
+        ///     初始化测试用的Unity容器
+        /// </summary>
+        /// <param name="context">MS TEST 上下文</param>
+        [AssemblyInitialize]
+        public static void InitializeContainer(TestContext context)
         {
             UniContainer.Create()
                 .Register<IQueryableUnitOfWork, AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .Register<IModelConfiguration, SqlConfigurations>("Sql")
-                .Register<IAircraftTypeRepository, AircraftTypeRepository>();
+                .Register<IAirlinesRepository, AirlinesRepository>()
+                .Register<IAircraftSeriesRepository, AircraftSeriesRepository>()
+                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
+                .Register<IAircraftRepository, AircraftRepository>();
         }
 
-        [TestCleanup]
-        public void TestCleanup()
+        /// <summary>
+        ///     清理测试用的Unity容器
+        /// </summary>
+        [AssemblyCleanup]
+        public static void CleanupContainer()
         {
-        }
-
-        #endregion
-
-        [TestMethod]
-        public void GetAircraftTypesTest()
-        {
+            UniContainer.Cleanup();
         }
     }
 }

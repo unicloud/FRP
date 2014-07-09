@@ -129,7 +129,7 @@
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                             <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号" />
+                                                <uc:DataPageSerialColumn Header="编号" />
                                                 <telerik:GridViewComboBoxColumn Header="所有权人"
                                                                                 FilterMemberPath="CnName"
                                                                                 IsReadOnlyBinding="{Binding IsOwnershipReadOnly}"
@@ -228,7 +228,7 @@
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                             <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号" />
+                                                <uc:DataPageSerialColumn Header="编号" />
                                                 <telerik:GridViewComboBoxColumn Header="配置"
                                                                                 FilterMemberPath="ConfigCode"
                                                                                 ItemsSource="{Binding DataContext.AircraftConfigurations,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl,Mode=FindAncestor}}"
@@ -288,7 +288,7 @@
                                                          AutoExpandGroups="True"
                                                          ShowColumnFooters="True">
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号" />
+                                            <uc:DataPageSerialColumn Header="编号" />
                                             <telerik:GridViewDataColumn Header="机型"
                                                                         DataMemberBinding="{Binding AircraftTypeName}" />
                                             <telerik:GridViewDataColumn Header="机号"

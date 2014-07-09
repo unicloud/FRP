@@ -46,6 +46,7 @@ namespace UniCloud.Application.PartBC.Query.AdSbQueries
             {
                 Id = p.Id,
                 AircraftSeries = p.AircraftSeries,
+                ModNumber = p.ModNumber,
                 ComplyAircraft = p.ComplyAircraft,
                 ComplyClose = p.ComplyClose,
                 ComplyDate = p.ComplyDate,

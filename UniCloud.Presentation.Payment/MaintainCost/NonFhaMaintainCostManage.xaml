@@ -135,7 +135,7 @@
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                                 <telerik:RadGridView.Columns>
-                                                    <uc:DataPageSerialColumn Header="序号" />
+                                                    <uc:DataPageSerialColumn Header="编号" />
                                                     <telerik:GridViewDataColumn Header="发动机"
                                                                                 ColumnGroupName="BasicInfo"
                                                                                 TextAlignment="Center"

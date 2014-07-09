@@ -190,7 +190,7 @@
                                                                                       Header="1）预计非FHA送修费" />
                                                     </telerik:RadGridView.ColumnGroups>
                                                     <telerik:RadGridView.Columns>
-                                                        <input:DataPageSerialColumn Header="序号"
+                                                        <input:DataPageSerialColumn Header="编号"
                                                                                     HeaderTextAlignment="Center" />
                                                         <telerik:GridViewDataColumn Header="发动机"
                                                                                     ColumnGroupName="BasicInfo"
@@ -560,7 +560,7 @@
                                                                                       Header="1)预计超包修修理费" />
                                                     </telerik:RadGridView.ColumnGroups>
                                                     <telerik:RadGridView.Columns>
-                                                        <input:DataPageSerialColumn Header="序号"
+                                                        <input:DataPageSerialColumn Header="编号"
                                                                                     HeaderTextAlignment="Center" />
                                                         <telerik:GridViewDataColumn Header="发动机"
                                                                                     ColumnGroupName="BasicInfo1"

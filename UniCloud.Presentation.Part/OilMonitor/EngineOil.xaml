@@ -56,7 +56,7 @@
                         </telerik:RadContextMenu>
                     </telerik:RadContextMenu.ContextMenu>
                     <telerik:RadGridView.Columns>
-                        <uc:DataPageSerialColumn Header="序号" />
+                        <uc:DataPageSerialColumn Header="编号" />
                         <telerik:GridViewDataColumn Header="序列号" TextAlignment="Center"
                                                     DataMemberBinding="{Binding Sn}">
                             <telerik:GridViewDataColumn.AggregateFunctions>
@@ -87,7 +87,7 @@
                         </telerik:RadContextMenu>
                     </telerik:RadContextMenu.ContextMenu>
                     <telerik:RadGridView.Columns>
-                        <uc:DataPageSerialColumn Header="序号" />
+                        <uc:DataPageSerialColumn Header="编号" />
                         <telerik:GridViewDataColumn Header="日期" TextAlignment="Center"
                                                     DataMemberBinding="{Binding Date}"
                                                     DataFormatString="{StaticResource DateStringFormat}" />
@@ -156,7 +156,9 @@
                         <telerik:LineSeries.TrackBallInfoTemplate>
                             <DataTemplate>
                                 <StackPanel Background="Transparent">
-                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=总消耗率：\{0:0\}}" />
+                                    <TextBlock Text="{Binding DataPoint.Category, StringFormat=日期：\{0:yyyy/MM/dd\}}"
+                                               Foreground="{StaticResource AccentBrush}" />
+                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=总消耗率：\{0:n\}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </telerik:LineSeries.TrackBallInfoTemplate>
@@ -169,7 +171,7 @@
                         <telerik:LineSeries.TrackBallInfoTemplate>
                             <DataTemplate>
                                 <StackPanel Background="Transparent">
-                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=区间消耗率：\{0:0\}}" />
+                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=区间消耗率：\{0:n\}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </telerik:LineSeries.TrackBallInfoTemplate>
@@ -182,7 +184,7 @@
                         <telerik:LineSeries.TrackBallInfoTemplate>
                             <DataTemplate>
                                 <StackPanel Background="Transparent">
-                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=3日移动平均：\{0:0\}}" />
+                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=3日移动平均：\{0:n\}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </telerik:LineSeries.TrackBallInfoTemplate>
@@ -195,12 +197,12 @@
                         <telerik:LineSeries.TrackBallInfoTemplate>
                             <DataTemplate>
                                 <StackPanel Background="Transparent">
-                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=7日移动平均：\{0:0\}}" />
+                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=7日移动平均：\{0:n\}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </telerik:LineSeries.TrackBallInfoTemplate>
                         <telerik:LineSeries.VerticalAxis>
-                            <telerik:LinearAxis HorizontalLocation="Right" Minimum="10" Maximum="50" MajorStep="5"
+                            <telerik:LinearAxis HorizontalLocation="Right" Minimum="-6" Maximum="6" MajorStep="2"
                                                 LabelStyle="{StaticResource RightLabelStyle}"
                                                 MajorTickStyle="{StaticResource TickStyle}" />
                         </telerik:LineSeries.VerticalAxis>
@@ -209,7 +211,7 @@
                         <telerik:DateTimeCategoricalAxis Visibility="Collapsed" />
                     </telerik:RadCartesianChart.HorizontalAxis>
                     <telerik:RadCartesianChart.VerticalAxis>
-                        <telerik:LinearAxis Minimum="10" Maximum="50" MajorStep="5"
+                        <telerik:LinearAxis Minimum="-6" Maximum="6" MajorStep="2"
                                             LabelStyle="{StaticResource LeftLabelStyle}"
                                             MajorTickStyle="{StaticResource TickStyle}" />
                     </telerik:RadCartesianChart.VerticalAxis>
@@ -261,18 +263,18 @@
                                         ValueBinding="DeltaIntervalRate" Stroke="{StaticResource AccentBrush}"
                                         TrackBallTemplate="{StaticResource TrackBallTemplate}">
                         <telerik:LineSeries.VerticalAxis>
-                            <telerik:LinearAxis HorizontalLocation="Right" Minimum="-10" Maximum="10" MajorStep="5"
+                            <telerik:LinearAxis HorizontalLocation="Right" Minimum="-3" Maximum="3" MajorStep="1"
                                                 LabelStyle="{StaticResource RightLabelStyle}"
                                                 MajorTickStyle="{StaticResource TickStyle}" />
                         </telerik:LineSeries.VerticalAxis>
                     </telerik:LineSeries>
                     <telerik:RadCartesianChart.HorizontalAxis>
-                        <telerik:DateTimeCategoricalAxis PlotMode="OnTicks" MajorTickInterval="30"
+                        <telerik:DateTimeCategoricalAxis PlotMode="OnTicks" MajorTickInterval="7"
                                                          LabelTemplate="{StaticResource DayAxisLabelTemplate}"
                                                          MajorTickStyle="{StaticResource TickStyle}" />
                     </telerik:RadCartesianChart.HorizontalAxis>
                     <telerik:RadCartesianChart.VerticalAxis>
-                        <telerik:LinearAxis Minimum="-10" Maximum="10" MajorStep="5"
+                        <telerik:LinearAxis Minimum="-3" Maximum="3" MajorStep="1"
                                             LabelStyle="{StaticResource LeftLabelStyle}"
                                             MajorTickStyle="{StaticResource TickStyle}" />
                     </telerik:RadCartesianChart.VerticalAxis>

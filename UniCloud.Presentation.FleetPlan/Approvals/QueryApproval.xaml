@@ -55,7 +55,7 @@
                                                 </telerik:GroupDescriptor>
                                             </telerik:RadGridView.GroupDescriptors>
                                             <telerik:RadGridView.Columns>
-                                                <uc:DataPageSerialColumn Header="序号" />
+                                                <uc:DataPageSerialColumn Header="编号" />
                                                 <telerik:GridViewDataColumn Header="民航局批文文号"
                                                                             DataMemberBinding="{Binding CaacApprovalNumber}" />
                                                 <telerik:GridViewDataColumn Header="民航局审批日期"
@@ -140,7 +140,7 @@
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True">
                                     <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="是否批准"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"

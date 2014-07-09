@@ -37,7 +37,7 @@
                 <uc:BankAccountDoubleClickHelper />
             </uc:GridViewDoubleClick.Helper>
             <telerik:RadGridView.Columns>
-                <uc:DataPageSerialColumn Header="序号" />
+                <uc:DataPageSerialColumn Header="编号" />
                 <telerik:GridViewDataColumn Header="账号"
                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                             TextAlignment="Right"
