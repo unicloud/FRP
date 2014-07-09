@@ -156,9 +156,9 @@
                         <telerik:LineSeries.TrackBallInfoTemplate>
                             <DataTemplate>
                                 <StackPanel Background="Transparent">
-                                    <TextBlock Text="{Binding DataPoint.Category, StringFormat=日期：\{0:yyyy/MM/dd\}}"
-                                               Foreground="{StaticResource AccentBrush}" />
-                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=总消耗率：\{0:n\}}" />
+                                    <TextBlock Text="{Binding DataPoint.Category, StringFormat=\{0:yyyy/MM/dd\}}"
+                                               TextDecorations="Underline" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=总消耗率：\{0:f4\}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </telerik:LineSeries.TrackBallInfoTemplate>
@@ -171,7 +171,7 @@
                         <telerik:LineSeries.TrackBallInfoTemplate>
                             <DataTemplate>
                                 <StackPanel Background="Transparent">
-                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=区间消耗率：\{0:n\}}" />
+                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=区间消耗率：\{0:f4\}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </telerik:LineSeries.TrackBallInfoTemplate>
@@ -184,7 +184,7 @@
                         <telerik:LineSeries.TrackBallInfoTemplate>
                             <DataTemplate>
                                 <StackPanel Background="Transparent">
-                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=3日移动平均：\{0:n\}}" />
+                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=3日移动平均：\{0:f4\}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </telerik:LineSeries.TrackBallInfoTemplate>
@@ -197,7 +197,7 @@
                         <telerik:LineSeries.TrackBallInfoTemplate>
                             <DataTemplate>
                                 <StackPanel Background="Transparent">
-                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=7日移动平均：\{0:n\}}" />
+                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=7日移动平均：\{0:f4\}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </telerik:LineSeries.TrackBallInfoTemplate>
@@ -231,12 +231,12 @@
                              FontFamily="{StaticResource EnFontFamily}" FontSize="{StaticResource TitleFontSize}"
                              Foreground="{StaticResource AccentBrush}" />
                     </TextBlock>
-                    <TextBlock Margin="10,0,0,0" Width="110">
+                    <TextBlock Margin="10,0,0,0" Width="130">
                         <Run Text="区间耗率：" />
                         <Run Text="{Binding CurrentOil.IntervalRate}" FontFamily="{StaticResource EnFontFamily}"
                              FontSize="{StaticResource TitleFontSize}" Foreground="{StaticResource AccentBrush}" />
                     </TextBlock>
-                    <TextBlock Margin="10,0,0,0" Width="130">
+                    <TextBlock Margin="10,0,0,0" Width="150">
                         <Run Text="区间耗率增量：" />
                         <Run Text="{Binding CurrentOil.DeltaIntervalRate}" FontFamily="{StaticResource EnFontFamily}"
                              FontSize="{StaticResource TitleFontSize}" Foreground="{StaticResource AccentBrush}" />

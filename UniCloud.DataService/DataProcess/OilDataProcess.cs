@@ -63,12 +63,13 @@ namespace UniCloud.DataService.DataProcess
                 // 计算添加滑油监控记录
                 var newOilMonitors = CreateEngineOils(lastTSR, engine, flights);
                 if (newOilMonitors.Count == 0) continue;
-                newOilMonitors.ForEach(eo => _unitOfWork.OilMonitors.Add(eo));
                 // 计算3日、7日均值
                 CalAverageRate3(lastTSR, ref newOilMonitors);
                 CalAverageRate7(lastTSR, ref newOilMonitors);
                 // 根据超限情况修改监控对象的滑油监控状态
                 SetEngineOilStatus(engine);
+                // 持久化计算结果
+                PersistOilMonitor(ref newOilMonitors);
 
                 _unitOfWork.Commit();
             }
@@ -96,12 +97,13 @@ namespace UniCloud.DataService.DataProcess
                 // 计算添加滑油监控记录
                 var newOilMonitors = CreateAPUOils(lastTSR, apu, flights);
                 if (newOilMonitors.Count == 0) continue;
-                newOilMonitors.ForEach(ao => _unitOfWork.OilMonitors.Add(ao));
                 // 计算3日、7日均值
                 CalAverageRate3(lastTSR, ref newOilMonitors);
                 CalAverageRate7(lastTSR, ref newOilMonitors);
                 // 根据超限情况修改监控对象的滑油监控状态
                 SetAPUOilStatus(apu);
+                // 持久化计算结果
+                PersistOilMonitor(ref newOilMonitors);
 
                 _unitOfWork.Commit();
             }
@@ -363,6 +365,28 @@ namespace UniCloud.DataService.DataProcess
         }
 
         /// <summary>
+        ///     持久化滑油监控。
+        /// </summary>
+        /// <param name="oilMonitors">计算的滑油监控记录集合</param>
+        private void PersistOilMonitor(ref List<OilMonitor> oilMonitors)
+        {
+            var snRegId = oilMonitors[0].SnRegID;
+            var start = oilMonitors[0].Date;
+            var persists =
+                _unitOfWork.CreateSet<OilMonitor>().Where(om => om.SnRegID == snRegId && om.Date >= start).ToList();
+            oilMonitors.ForEach(ao =>
+            {
+                var persist = persists.FirstOrDefault(om => om.Date == ao.Date);
+                if (persist == null) _unitOfWork.OilMonitors.Add(ao);
+                else
+                {
+                    ao.ChangeCurrentIdentity(persist.Id);
+                    _unitOfWork.ApplyCurrentValues(persist, ao);
+                }
+            });
+        }
+
+        /// <summary>
         ///     计算滑油耗率3日均线
         /// </summary>
         /// <param name="lastTSR">最近一次装上记录</param>
@@ -370,10 +394,11 @@ namespace UniCloud.DataService.DataProcess
         private void CalAverageRate3(SnHistory lastTSR, ref List<OilMonitor> currents)
         {
             if (currents.Count == 0) return;
+            var endDate = currents.First().Date;
             var startDate = currents.First().Date.AddDays(-3);
             var oilMonitors =
                 _unitOfWork.CreateSet<OilMonitor>()
-                    .Where(o => o.SnRegID == lastTSR.SnRegId && o.Date > startDate)
+                    .Where(o => o.SnRegID == lastTSR.SnRegId && o.Date > startDate && o.Date < endDate)
                     .OrderBy(o => o.Date)
                     .ToList();
             var count = oilMonitors.Count;
@@ -394,10 +419,11 @@ namespace UniCloud.DataService.DataProcess
         private void CalAverageRate7(SnHistory lastTSR, ref List<OilMonitor> currents)
         {
             if (currents.Count == 0) return;
+            var endDate = currents.First().Date;
             var startDate = currents.First().Date.AddDays(-7);
             var oilMonitors =
                 _unitOfWork.CreateSet<OilMonitor>()
-                    .Where(o => o.SnRegID == lastTSR.SnRegId && o.Date > startDate)
+                    .Where(o => o.SnRegID == lastTSR.SnRegId && o.Date > startDate && o.Date < endDate)
                     .OrderBy(o => o.Date)
                     .ToList();
             var count = oilMonitors.Count;
@@ -442,7 +468,9 @@ namespace UniCloud.DataService.DataProcess
                         o.AverageRate3 > threshold.Average3Threshold || o.AverageRate7 > threshold.Average7Threshold))
             {
                 engineReg.SetMonitorStatus(OilMonitorStatus.关注);
+                return;
             }
+            engineReg.SetMonitorStatus(OilMonitorStatus.正常);
         }
 
         /// <summary>
@@ -477,7 +505,9 @@ namespace UniCloud.DataService.DataProcess
                         o.AverageRate3 > threshold.Average3Threshold || o.AverageRate7 > threshold.Average7Threshold))
             {
                 apuReg.SetMonitorStatus(OilMonitorStatus.关注);
+                return;
             }
+            apuReg.SetMonitorStatus(OilMonitorStatus.正常);
         }
     }
 }

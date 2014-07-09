@@ -40,11 +40,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.Date).HasColumnName("Date").HasColumnType("datetime2");
             Property(p => p.TSN).HasColumnName("TSN");
             Property(p => p.TSR).HasColumnName("TSR");
-            Property(p => p.TotalRate).HasColumnName("TotalRate");
-            Property(p => p.IntervalRate).HasColumnName("IntervalRate");
-            Property(p => p.DeltaIntervalRate).HasColumnName("DeltaIntervalRate");
-            Property(p => p.AverageRate3).HasColumnName("AverageRate3");
-            Property(p => p.AverageRate7).HasColumnName("AverageRate7");
+            Property(p => p.TotalRate).HasColumnName("TotalRate").HasPrecision(7, 4);
+            Property(p => p.IntervalRate).HasColumnName("IntervalRate").HasPrecision(7, 4);
+            Property(p => p.DeltaIntervalRate).HasColumnName("DeltaIntervalRate").HasPrecision(7, 4);
+            Property(p => p.AverageRate3).HasColumnName("AverageRate3").HasPrecision(7, 4);
+            Property(p => p.AverageRate7).HasColumnName("AverageRate7").HasPrecision(7, 4);
 
             Property(p => p.SnRegID).HasColumnName("SnRegID");
         }
