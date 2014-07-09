@@ -98,18 +98,18 @@
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="编号"
                                                                          HeaderTextAlignment="Center" />
-                                                <telerik:GridViewDataColumn Header="配置代码"
+                                                <telerik:GridViewDataColumn Header="*配置代码"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
                                                                             DataMemberBinding="{Binding ConfigCode}" />
-                                                <telerik:GridViewComboBoxColumn Header="机型"
+                                                <telerik:GridViewComboBoxColumn Header="*机型"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 HeaderTextAlignment="Center"
                                                                                 ItemsSource="{Binding DataContext.AircraftTypes, Mode=TwoWay, ElementName=AircraftConfigurationView}"
                                                                                 DataMemberBinding="{Binding AircraftTypeId}"
                                                                                 SelectedValueMemberPath="AircraftTypeId"
                                                                                 DisplayMemberPath="Name" />
-                                                <telerik:GridViewComboBoxColumn Header="系列"
+                                                <telerik:GridViewComboBoxColumn Header="*系列"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 HeaderTextAlignment="Center"
                                                                                 IsReadOnly="True"
@@ -237,7 +237,7 @@
                                                 </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
                                                     <input:DataPageSerialColumn Header="编号" />
-                                                    <telerik:GridViewComboBoxColumn Header="飞机舱位"
+                                                    <telerik:GridViewComboBoxColumn Header="*飞机舱位"
                                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                     HeaderTextAlignment="Center"
                                                                                     ItemsSource="{Binding DataContext.AircraftCabinTypes, Mode=TwoWay, ElementName=AircraftConfigurationView}"

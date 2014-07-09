@@ -313,6 +313,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     RaisePropertyChanged(() => ViewPlanHistories);
                     RaisePropertyChanged(() => CurPlan);
                     RaisePropertyChanged(() => PlanTitle);
+                    RefreshCommandState();
                 }
             }
         }

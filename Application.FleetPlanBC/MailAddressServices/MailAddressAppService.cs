@@ -24,6 +24,7 @@ using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.MailAddressQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg;
+using UniCloud.Infrastructure.Security;
 
 #endregion
 
@@ -68,13 +69,15 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
         {
             //创建邮箱账号
             MailAddress newMailAddress = MailAddressFactory.CreateMailAddress();
+            newMailAddress.ChangeCurrentIdentity(dto.Id);
             newMailAddress.SetAddress(dto.Address);
             newMailAddress.SetDisplayName(dto.DisplayName);
-            newMailAddress.SetLoginPassword(dto.LoginPassword);
+            string password = Cryptography.EncryptString(dto.LoginPassword);//密码进行加密存储
+            newMailAddress.SetLoginPassword(password);
             newMailAddress.SetLoginUser(dto.LoginUser);
-            //newMailAddress.SetPop3Host(dto.Pop3Host);
-            //newMailAddress.SetReceivePort(dto.ReceivePort);
-            //newMailAddress.SetReceiveSSL(dto.ReceiveSSL);
+            newMailAddress.SetPop3Host(dto.Pop3Host);
+            newMailAddress.SetReceivePort(dto.ReceivePort);
+            newMailAddress.SetReceiveSSL(dto.ReceiveSSL);
             newMailAddress.SetSendPort(dto.SendPort);
             newMailAddress.SetSendSSL(dto.SendSSL);
             newMailAddress.SetServerType(dto.ServerType);
@@ -99,11 +102,12 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
                 //更新主表：
                 updateMailAddress.SetAddress(dto.Address);
                 updateMailAddress.SetDisplayName(dto.DisplayName);
-                updateMailAddress.SetLoginPassword(dto.LoginPassword);
+                string password = Cryptography.EncryptString(dto.LoginPassword);//密码进行加密存储
+                updateMailAddress.SetLoginPassword(password);
                 updateMailAddress.SetLoginUser(dto.LoginUser);
-                //updateMailAddress.SetPop3Host(dto.Pop3Host);
-                //updateMailAddress.SetReceivePort(dto.ReceivePort);
-                //updateMailAddress.SetReceiveSSL(dto.ReceiveSSL);
+                updateMailAddress.SetPop3Host(dto.Pop3Host);
+                updateMailAddress.SetReceivePort(dto.ReceivePort);
+                updateMailAddress.SetReceiveSSL(dto.ReceiveSSL);
                 updateMailAddress.SetSendPort(dto.SendPort);
                 updateMailAddress.SetSendSSL(dto.SendSSL);
                 updateMailAddress.SetServerType(dto.ServerType);

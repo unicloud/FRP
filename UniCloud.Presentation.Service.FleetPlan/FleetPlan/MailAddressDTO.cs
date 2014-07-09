@@ -24,6 +24,12 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             SendPort = SendSSL ? 465 : 25;
         }
 
+        partial void OnAddressChanged()
+        {
+            if (DisplayName == null) DisplayName = Address;
+            if (LoginUser == null) LoginUser = Address;
+        }
+
         partial void OnAddressChanging(string value)
         {
             if (!string.IsNullOrEmpty(value) &&

@@ -332,7 +332,7 @@ namespace UniCloud.Application.FleetPlanBC.FleetTransferServices
         private BaseMailAccount TransformMailAddress(MailAddress dbMail)
         {
             var mailAddress = MailAccountHelper.GetMailAccountFromAddr(dbMail.Address, dbMail.DisplayName,
-                dbMail.LoginUser, dbMail.LoginPassword,
+                dbMail.LoginUser, Cryptography.DecryptString(dbMail.LoginPassword),
                 dbMail.Pop3Host, dbMail.ReceivePort, dbMail.ReceiveSSL, dbMail.SmtpHost, dbMail.SendPort, dbMail.SendSSL,
                 dbMail.StartTLS);
             return mailAddress;

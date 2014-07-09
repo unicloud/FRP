@@ -19,6 +19,8 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
+using Microsoft.Practices.Prism.Commands;
+using Telerik.Windows;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -35,7 +37,8 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
 
         private readonly FleetPlanData _context;
         private readonly IFleetPlanService _service;
-
+        private readonly CompositeFilterDescriptor cfd = new CompositeFilterDescriptor { LogicalOperator = FilterCompositionLogicalOperator.Or };
+       
         [ImportingConstructor]
         public ConfigMailAddressVm(IFleetPlanService service)
             : base(service)
@@ -55,16 +58,24 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
         {
             // 创建并注册CollectionView
             MailAddresses = _service.CreateCollection(_context.MailAddresses);
+            cfd.FilterDescriptors.Add(new FilterDescriptor("Id", FilterOperator.IsEqualTo, Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F")));
+            cfd.FilterDescriptors.Add(new FilterDescriptor("Id", FilterOperator.IsEqualTo, Guid.Parse("31A9DE51-C207-4A73-919C-21521F17FEF9")));
             MailAddresses.LoadedData += (o, e) =>
             {
                 MailAddress = MailAddresses.FirstOrDefault();
-                if (MailAddress == null)
+
+                if (MailAddresses.SourceCollection.Cast<MailAddressDTO>().Count() != 0)
                 {
-                    MailAddress = new MailAddressDTO {SendPort = 25};
-                    MailAddresses.AddNewItem(MailAddress);
+                    MailAddress = MailAddresses.SourceCollection.Cast<MailAddressDTO>().FirstOrDefault(p => p.Id == Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"));
+                    CAACMailAddress = MailAddresses.SourceCollection.Cast<MailAddressDTO>().FirstOrDefault(p => p.Id == Guid.Parse("31A9DE51-C207-4A73-919C-21521F17FEF9"));
                 }
+                IsReadOnly = true;
+                RaisePropertyChanged(()=>IsReadOnly);
+                RefreshCommandState();
             };
             _service.RegisterCollectionView(MailAddresses);
+
+            EditCommand = new DelegateCommand<object>(OnEdit, CanEdit);
         }
 
         #endregion
@@ -72,6 +83,24 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
         #region 数据
 
         #region 公共属性
+
+        private bool _isReadOnly;
+
+        /// <summary>
+        /// 界面只读控制
+        /// </summary>
+        public bool IsReadOnly
+        {
+            get { return this._isReadOnly; }
+            private set
+            {
+                if (this._isReadOnly != value)
+                {
+                    this._isReadOnly = value;
+                    this.RaisePropertyChanged(() => this.IsReadOnly);
+                }
+            }
+        }
 
         private string _confirmPassword;
 
@@ -112,6 +141,7 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
         #region 邮箱账号
 
         private MailAddressDTO _mailAddress;
+        private MailAddressDTO _caacMailAddress;
 
         /// <summary>
         ///     邮箱账号集合
@@ -119,7 +149,7 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
         public QueryableDataServiceCollectionView<MailAddressDTO> MailAddresses { get; set; }
 
         /// <summary>
-        ///     选中的邮箱账号
+        ///     航空公司发送邮箱账号
         /// </summary>
         public MailAddressDTO MailAddress
         {
@@ -134,6 +164,22 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
             }
         }
 
+        /// <summary>
+        ///     民航局接收邮箱账号
+        /// </summary>
+        public MailAddressDTO CAACMailAddress
+        {
+            get { return _caacMailAddress; }
+            set
+            {
+                if (_caacMailAddress != value)
+                {
+                    _caacMailAddress = value;
+                    RaisePropertyChanged(() => CAACMailAddress);
+                }
+            }
+        }
+
         #endregion
 
         #endregion
@@ -142,7 +188,57 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
 
         #region 操作
 
+        #region 刷新按钮状态
+
+        protected override void RefreshCommandState()
+        {
+            EditCommand.RaiseCanExecuteChanged();
+        }
+
+        #endregion
+
         #region 重载操作
+
+        #endregion
+
+        #region 编辑邮箱账号
+
+        /// <summary>
+        ///     创建新申请
+        /// </summary>
+        public DelegateCommand<object> EditCommand { get; private set; }
+
+        private void OnEdit(object obj)
+        {
+            IsReadOnly = false;
+            RaisePropertyChanged(()=>IsReadOnly);
+            if (MailAddress == null)
+            {
+                MailAddress = new MailAddressDTO()
+                {
+                    Id = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"),
+                    SendPort = 25,
+                    SendSSL = false,
+                };
+                MailAddresses.AddNew(MailAddress);
+            }
+            if (CAACMailAddress == null)
+            {
+                CAACMailAddress = new MailAddressDTO()
+                {
+                    Id = Guid.Parse("31A9DE51-C207-4A73-919C-21521F17FEF9"),
+                    ReceivePort = 110,
+                    ReceiveSSL = false,
+                };
+                MailAddresses.AddNew(CAACMailAddress);
+            }
+            RefreshCommandState();
+        }
+
+        private bool CanEdit(object obj)
+        {
+            return IsReadOnly;
+        }
 
         #endregion
 

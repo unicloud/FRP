@@ -20,6 +20,7 @@ using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg;
 using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Security;
 
 #endregion
 
@@ -47,7 +48,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.MailAddressQueries
                 Id = p.Id,
                 Address = p.Address,
                 DisplayName = p.DisplayName,
-                LoginPassword = p.LoginPassword,
+                LoginPassword = Cryptography.DecryptString(p.LoginPassword),
                 LoginUser = p.LoginUser,
                 Pop3Host = p.Pop3Host,
                 ReceivePort = p.ReceivePort,

@@ -126,10 +126,10 @@
                                         <telerik:RadGridView.Columns>
                                             <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn Header="规划名称"
+                                            <telerik:GridViewDataColumn Header="*规划名称"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding Name}" />
-                                            <telerik:GridViewComboBoxColumn Header="规划"
+                                            <telerik:GridViewComboBoxColumn Header="*规划"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             ItemsSource="{Binding DataContext.Programmings, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                             DisplayMemberPath="Name"
@@ -137,7 +137,7 @@
                                                                             SelectedValueMemberPath="Id"
                                                                             EditorStyle="{StaticResource EditComboBox}"
                                                                             UniqueName="ProgrammingNameForCaac" />
-                                            <telerik:GridViewComboBoxColumn Header="发文单位"
+                                            <telerik:GridViewComboBoxColumn Header="*发文单位"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             ItemsSource="{Binding DataContext.IssuedUnits, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                             DisplayMemberPath="CnName"
@@ -153,7 +153,7 @@
                                             <telerik:GridViewDataColumn Header="创建日期"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}" />
-                                            <telerik:GridViewDataColumn Header="规划文档"
+                                            <telerik:GridViewDataColumn Header="*规划文档"
                                                                         IsReadOnly="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         TextAlignment="Right"
@@ -231,12 +231,12 @@
                                         <telerik:RadGridView.Columns>
                                             <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
-                                            <telerik:GridViewComboBoxColumn Header="年份"
+                                            <telerik:GridViewComboBoxColumn Header="*年份"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             ItemsSourceBinding="{Binding DataContext.Years,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                             DataMemberBinding="{Binding Year,Mode=TwoWay}"
                                                                             EditorStyle="{StaticResource EditComboBox}" />
-                                            <telerik:GridViewComboBoxColumn Header="座级"
+                                            <telerik:GridViewComboBoxColumn Header="*座级"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             ItemsSource="{Binding DataContext.AircraftCategories, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                             DisplayMemberPath="Regional"
@@ -328,7 +328,7 @@
                                         <telerik:RadGridView.Columns>
                                             <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
-                                            <telerik:GridViewComboBoxColumn Header="规划期间"
+                                            <telerik:GridViewComboBoxColumn Header="*规划期间"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             ItemsSource="{Binding DataContext.Programmings, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                             DisplayMemberPath="Name"
@@ -336,7 +336,7 @@
                                                                             SelectedValueMemberPath="Id"
                                                                             EditorStyle="{StaticResource EditComboBox}"
                                                                             UniqueName="ProgrammingNameForFile" />
-                                            <telerik:GridViewComboBoxColumn Header="发文单位"
+                                            <telerik:GridViewComboBoxColumn Header="*发文单位"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             ItemsSource="{Binding DataContext.IssuedUnits, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                             DisplayMemberPath="CnName"
@@ -352,7 +352,7 @@
                                             <telerik:GridViewDataColumn Header="创建日期"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}" />
-                                            <telerik:GridViewDataColumn Header="附件名称"
+                                            <telerik:GridViewDataColumn Header="*附件名称"
                                                                         IsReadOnly="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         TextAlignment="Right"

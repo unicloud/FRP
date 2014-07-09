@@ -625,7 +625,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             // 选中批文对应的申请为空时，按钮不可用
             if (CurRequest == null) return false;
             // 有没保存的修改时，按钮不可用
-            if (_service.HasChanges) return false;
+            //if (_service.HasChanges) return false;
             // 选中申请的状态处于已审核或已提交时，按钮可用
             return SelApprovalDoc.Status == (int) OperationStatus.已审核 ||
                    SelApprovalDoc.Status == (int) OperationStatus.已提交;
