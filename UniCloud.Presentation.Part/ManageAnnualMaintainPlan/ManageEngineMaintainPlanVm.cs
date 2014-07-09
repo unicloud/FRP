@@ -32,7 +32,7 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
 {
-    [Export(typeof (ManageEngineMaintainPlanVm))]
+    [Export(typeof(ManageEngineMaintainPlanVm))]
     public class ManageEngineMaintainPlanVm : EditViewModelBase
     {
         #region 声明、初始化
@@ -131,7 +131,7 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 EngineMaintainPlan.DollarRate = _dollarRate;
                 EngineMaintainPlan.EngineMaintainPlanDetails.ToList().ForEach(p =>
                 {
-                    p.FeeTotalSum = p.FeeLittleSum*DollarRate;
+                    p.FeeTotalSum = p.FeeLittleSum * DollarRate;
                     p.BudgetToalSum = p.FeeTotalSum + p.CustomsTax + p.FreightFee;
                 });
                 RaisePropertyChanged(() => DollarRate);
@@ -323,7 +323,12 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
                 return;
             }
 
-            EngineMaintainPlanDetail = new EngineMaintainPlanDetailDTO {Id = RandomHelper.Next()};
+            EngineMaintainPlanDetail = new EngineMaintainPlanDetailDTO
+            {
+                Id = RandomHelper.Next(),
+                InMaintainDate = DateTime.Now,
+                OutMaintainDate = DateTime.Now,
+            };
             EngineMaintainPlan.EngineMaintainPlanDetails.Add(EngineMaintainPlanDetail);
         }
 
@@ -374,7 +379,7 @@ namespace UniCloud.Presentation.Part.ManageAnnualMaintainPlan
             EngineMaintainPlanDetail.FeeLittleSum = EngineMaintainPlanDetail.NonFhaFee +
                                                     EngineMaintainPlanDetail.PartFee +
                                                     EngineMaintainPlanDetail.ChangeLlpFee;
-            EngineMaintainPlanDetail.FeeTotalSum = EngineMaintainPlanDetail.FeeLittleSum*DollarRate;
+            EngineMaintainPlanDetail.FeeTotalSum = EngineMaintainPlanDetail.FeeLittleSum * DollarRate;
             EngineMaintainPlanDetail.BudgetToalSum = EngineMaintainPlanDetail.FeeTotalSum +
                                                      EngineMaintainPlanDetail.CustomsTax +
                                                      EngineMaintainPlanDetail.FreightFee;

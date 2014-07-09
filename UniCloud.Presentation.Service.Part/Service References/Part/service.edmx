@@ -455,8 +455,8 @@
       <ComplexType Name="EngineMaintainPlanDetailDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="EngineNumber" Type="Edm.String" />
-        <Property Name="InMaintainDate" Type="Edm.String" />
-        <Property Name="OutMaintainDate" Type="Edm.String" />
+        <Property Name="InMaintainDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="OutMaintainDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="MaintainLevel" Type="Edm.String" />
         <Property Name="ChangeLlpNumber" Type="Edm.Int32" Nullable="false" />
         <Property Name="TsnCsn" Type="Edm.String" />

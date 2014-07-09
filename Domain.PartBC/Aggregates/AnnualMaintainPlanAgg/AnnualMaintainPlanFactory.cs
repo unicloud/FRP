@@ -56,7 +56,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.AnnualMaintainPlanAgg
         }
 
         public static void SetEngineMaintainPlanDetail(EngineMaintainPlanDetail engineMaintainPlanDetail, decimal changeLlpFee, int changeLlpNumber, decimal customsTax,
-            string engineNumber, decimal freightFee, string inMaintainDate, string maintainLevel, decimal nonFhaFee, string note, string outMaintainDate, decimal partFee,
+            string engineNumber, decimal freightFee, DateTime inMaintainDate, string maintainLevel, decimal nonFhaFee, string note, DateTime outMaintainDate, decimal partFee,
             string tsnCsn, string tsrCsr, decimal feeLittleSum, decimal feeTotalSum, decimal budgetToalSum)
         {
             engineMaintainPlanDetail.ChangeLlpFee = changeLlpFee;

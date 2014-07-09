@@ -14,6 +14,7 @@
 
 #region 命名空间
 
+using System;
 using System.Data.Services.Common;
 
 #endregion
@@ -39,11 +40,11 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         /// 送修日期
         /// </summary>
-        public string InMaintainDate { get; set; }
+        public DateTime InMaintainDate { get; set; }
         /// <summary>
         /// 返回日期
         /// </summary>
-        public string OutMaintainDate { get; set; }
+        public DateTime OutMaintainDate { get; set; }
         /// <summary>
         /// 修理级别
         /// </summary>

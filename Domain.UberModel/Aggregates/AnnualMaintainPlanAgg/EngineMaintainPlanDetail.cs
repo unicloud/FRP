@@ -14,6 +14,7 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -47,11 +48,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.AnnualMaintainPlanAgg
         /// <summary>
         /// 送修日期
         /// </summary>
-        public string InMaintainDate { get; internal set; }
+        public DateTime InMaintainDate { get; internal set; }
         /// <summary>
         /// 返回日期
         /// </summary>
-        public string OutMaintainDate { get; internal set; }
+        public DateTime OutMaintainDate { get; internal set; }
         /// <summary>
         /// 修理级别
         /// </summary>
