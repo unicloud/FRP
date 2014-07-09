@@ -117,12 +117,12 @@
                                                              ValidatesOnDataErrors="InEditMode">
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="编号" />
-                                                <telerik:GridViewDataColumn Header="民航局批文文号"
+                                                <telerik:GridViewDataColumn Header="*民航局批文文号"
                                                                             DataMemberBinding="{Binding CaacApprovalNumber}" />
-                                                <telerik:GridViewDataColumn Header="民航局审批日期"
+                                                <telerik:GridViewDataColumn Header="*民航局审批日期"
                                                                             DataMemberBinding="{Binding CaacExamineDate}"
                                                                             DataFormatString="{StaticResource DateStringFormat}" />
-                                                <telerik:GridViewColumn Header="民航局批文文档">
+                                                <telerik:GridViewColumn Header="*民航局批文文档">
                                                     <telerik:GridViewColumn.CellTemplate>
                                                         <DataTemplate>
                                                             <HyperlinkButton Content="{Binding CaacDocumentName}"

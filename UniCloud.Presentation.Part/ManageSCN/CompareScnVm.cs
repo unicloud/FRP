@@ -35,7 +35,7 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Part.ManageSCN
 {
-    [Export(typeof (CompareScnVm))]
+    [Export(typeof(CompareScnVm))]
     public class CompareScnVm : EditViewModelBase
     {
         #region 声明、初始化
@@ -45,9 +45,12 @@ namespace UniCloud.Presentation.Part.ManageSCN
         private readonly FilterDescriptor _descriptor = new FilterDescriptor("CSCNumber", FilterOperator.IsEqualTo,
             string.Empty);
 
+        private CompositeFilterDescriptor cfd = new CompositeFilterDescriptor { LogicalOperator = FilterCompositionLogicalOperator.Or };
+
         private readonly IPartService _service;
 
-        [Import] public CompareScn currentCompareScn;
+        [Import]
+        public CompareScn currentCompareScn;
 
         [ImportingConstructor]
         public CompareScnVm(IPartService service)
@@ -73,7 +76,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             CompareAircraftScnCommand = new DelegateCommand<object>(OnCompareAircraftScn);
             // 创建并注册CollectionView
             Scns = new QueryableDataServiceCollectionView<ScnDTO>(_context, _context.Scns);
-            Scns.FilterDescriptors.Add(_descriptor);
+            Scns.FilterDescriptors.Add(cfd);
             Scns.LoadedData += (o, e) =>
             {
                 if (_currentTabName.Equals("Same", StringComparison.OrdinalIgnoreCase))
@@ -198,7 +201,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 MessageAlert("请输入批次号！");
                 return;
             }
-            var openFileDialog = new OpenFileDialog {Filter = "可用文档|*.csv"};
+            var openFileDialog = new OpenFileDialog { Filter = "可用文档|*.csv" };
             if (openFileDialog.ShowDialog() == true)
             {
                 using (var reader = openFileDialog.File.OpenText())
@@ -257,7 +260,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
 
         protected void OnCompareMscnList(object obj)
         {
-            var aa = new MonthlyUtilizationReport {WindowStartupLocation = WindowStartupLocation.CenterScreen};
+            var aa = new MonthlyUtilizationReport { WindowStartupLocation = WindowStartupLocation.CenterScreen };
             aa.ShowDialog();
             //if (string.IsNullOrEmpty(CscNumber))
             //{
@@ -385,13 +388,13 @@ namespace UniCloud.Presentation.Part.ManageSCN
 
         protected void OnSelectAircraft(object obj)
         {
-            if (string.IsNullOrEmpty(CscNumber))
-            {
-                MessageAlert("请输入批次号！");
-                return;
-            }
+            //if (string.IsNullOrEmpty(CscNumber))
+            //{
+            //    MessageAlert("请输入批次号！");
+            //    return;
+            //}
             var aircrafts = new SelectAircrafts();
-            aircrafts.ViewModel.InitData(CscNumber, _aircrafts);
+            aircrafts.ViewModel.InitData(_aircrafts);
             aircrafts.ShowDialog();
         }
 
@@ -425,7 +428,15 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 return;
             }
             _currentTabName = "Different";
-            _descriptor.Value = CscNumber;
+            var cscNumberList = new List<string>();
+            _aircrafts.ForEach(p => cscNumberList.Add(p.CSCNumber));
+            cscNumberList = cscNumberList.Distinct().ToList();
+            if (cscNumberList.Count != 0)
+            {
+                cfd.FilterDescriptors.Clear();
+                cscNumberList.ForEach(str => cfd.FilterDescriptors.Add(new FilterDescriptor("CSCNumber", FilterOperator.IsEqualTo, str)));
+            }
+            //_descriptor.Value = CscNumber;
             Scns.Load(true);
         }
 

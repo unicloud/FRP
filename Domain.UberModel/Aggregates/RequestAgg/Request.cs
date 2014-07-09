@@ -190,18 +190,16 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         /// <param name="note"></param>
         public void SetNote(string note)
         {
-            if (string.IsNullOrWhiteSpace(note))
+            if (!string.IsNullOrWhiteSpace(note))
             {
-                throw new ArgumentException("民航局申请说明参数为空！");
+                var sb = new StringBuilder();
+                sb.AppendLine(DateTime.Now.Date.ToShortDateString());
+                sb.AppendLine(note);
+                sb.AppendLine();
+                sb.Append(Note);
+
+                Note = sb.ToString();
             }
-
-            var sb = new StringBuilder();
-            sb.AppendLine(DateTime.Now.Date.ToShortDateString());
-            sb.AppendLine(note);
-            sb.AppendLine();
-            sb.Append(Note);
-
-            Note = sb.ToString();
         }
 
         /// <summary>

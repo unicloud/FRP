@@ -198,12 +198,12 @@
                                                                                     MinWidth="{StaticResource GridViewColumnsWidth}" />
                                                         <telerik:GridViewDataColumn Header="送修日期"
                                                                                     ColumnGroupName="BasicInfo"
-                                                                                    DataMemberBinding="{Binding InMaintainDate}"
+                                                                                    DataMemberBinding="{Binding InMaintainDate,StringFormat={StaticResource DateStringFormat}}"
                                                                                     MinWidth="{StaticResource GridViewColumnsWidth}" />
                                                         <telerik:GridViewDataColumn Header="返回日期"
                                                                                     ColumnGroupName="BasicInfo"
                                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                    DataMemberBinding="{Binding OutMaintainDate}" />
+                                                                                    DataMemberBinding="{Binding OutMaintainDate,StringFormat={StaticResource DateStringFormat}}" />
                                                         <telerik:GridViewDataColumn Header="修理级别"
                                                                                     ColumnGroupName="BasicInfo"
                                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -568,12 +568,12 @@
                                                                                     MinWidth="{StaticResource GridViewColumnsWidth}" />
                                                         <telerik:GridViewDataColumn Header="送修日期"
                                                                                     ColumnGroupName="BasicInfo1"
-                                                                                    DataMemberBinding="{Binding InMaintainDate}"
+                                                                                    DataMemberBinding="{Binding InMaintainDate,StringFormat={StaticResource DateStringFormat}}"
                                                                                     MinWidth="{StaticResource GridViewColumnsWidth}" />
                                                         <telerik:GridViewDataColumn Header="返回日期"
                                                                                     ColumnGroupName="BasicInfo1"
                                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                    DataMemberBinding="{Binding OutMaintainDate}" />
+                                                                                    DataMemberBinding="{Binding OutMaintainDate,StringFormat={StaticResource DateStringFormat}}" />
                                                         <telerik:GridViewDataColumn Header="修理级别"
                                                                                     ColumnGroupName="BasicInfo1"
                                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"

@@ -171,6 +171,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                           AirlinesName = q.AirlinesName,
                           Regional = q.Regional,
                           AircraftTypeName = q.AircraftTypeName,
+                          CaacAircraftTypeName = q.CaacAircraftTypeName,
                           ActionType = q.ActionType,
                           ActionName = q.ActionName,
                           TargetType = q.TargetType,

@@ -44,7 +44,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg
         /// <param name="description">描述</param>
         public static void SetLicenseType(LicenseType licenseType, string name, bool hasFile, string description)
         {
-            licenseType.Type = name;
+            licenseType.SetType(name);
             licenseType.HasFile = hasFile;
             licenseType.Description = description;
         }

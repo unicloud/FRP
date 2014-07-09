@@ -103,12 +103,12 @@
                                                          SelectedItem="{Binding SelApprovalDoc, Mode=TwoWay}">
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号" />
-                                            <telerik:GridViewDataColumn Header="发改委指标批文文号"
+                                            <telerik:GridViewDataColumn Header="*发改委指标批文文号"
                                                                         DataMemberBinding="{Binding NdrcApprovalNumber}" />
-                                            <telerik:GridViewDataColumn Header="发改委审批日期"
+                                            <telerik:GridViewDataColumn Header="*发改委审批日期"
                                                                         DataMemberBinding="{Binding NdrcExamineDate}"
                                                                         DataFormatString="{StaticResource DateStringFormat}" />
-                                            <telerik:GridViewColumn Header="发改委批文文档">
+                                            <telerik:GridViewColumn Header="*发改委批文文档">
                                                 <telerik:GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <HyperlinkButton Content="{Binding NdrcDocumentName}"

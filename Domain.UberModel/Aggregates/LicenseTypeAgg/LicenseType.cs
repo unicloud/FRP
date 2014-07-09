@@ -12,6 +12,8 @@
 // ========================================================================*/
 #endregion
 
+using System;
+
 namespace UniCloud.Domain.UberModel.Aggregates.LicenseTypeAgg
 {
     /// <summary>
@@ -35,7 +37,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.LicenseTypeAgg
         /// <summary>
         /// 类型
         /// </summary>
-        public string Type { get; internal set; }
+        public string Type { get; private set; }
 
         /// <summary>
         /// 描述
@@ -46,6 +48,24 @@ namespace UniCloud.Domain.UberModel.Aggregates.LicenseTypeAgg
         /// 是否有文件
         /// </summary>
         public bool HasFile { get; internal set; }
+        #endregion
+
+        #region 操作
+
+        /// <summary>
+        ///     设置证照类型
+        /// </summary>
+        /// <param name="type">注册号</param>
+        public void SetType(string type)
+        {
+            if (string.IsNullOrWhiteSpace(type))
+            {
+                throw new ArgumentException("名称参数为空！");
+            }
+
+            Type = type;
+        }
+
         #endregion
     }
 }

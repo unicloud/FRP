@@ -60,7 +60,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.MailAddressAgg
         public int ReceivePort { get; private set; }
 
         /// <summary>
-        /// 邮箱登陆名
+        /// 邮箱登录名
         /// </summary>
         public string LoginUser { get; private set; }
 
@@ -117,10 +117,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.MailAddressAgg
         /// <param name="smtpHost">发送服务器</param>
         public void SetSmtpHost(string smtpHost)
         {
-            if (string.IsNullOrWhiteSpace(smtpHost))
-            {
-                throw new ArgumentException("发送服务器参数为空！");
-            }
+            //if (string.IsNullOrWhiteSpace(smtpHost))
+            //{
+            //    throw new ArgumentException("发送服务器参数为空！");
+            //}
 
             SmtpHost = smtpHost;
         }
@@ -131,10 +131,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.MailAddressAgg
         /// <param name="pop3Host">接收服务器</param>
         public void SetPop3Host(string pop3Host)
         {
-            if (string.IsNullOrWhiteSpace(pop3Host))
-            {
-                throw new ArgumentException("接收服务器参数为空！");
-            }
+            //if (string.IsNullOrWhiteSpace(pop3Host))
+            //{
+            //    throw new ArgumentException("接收服务器参数为空！");
+            //}
 
             Pop3Host = pop3Host;
         }
@@ -158,15 +158,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.MailAddressAgg
         }
 
         /// <summary>
-        ///   设置邮箱登陆名
+        ///   设置邮箱登录名
         /// </summary>
-        /// <param name="loginUser">邮箱登陆名</param>
+        /// <param name="loginUser">邮箱登录名</param>
         public void SetLoginUser(string loginUser)
         {
-            if (string.IsNullOrWhiteSpace(loginUser))
-            {
-                throw new ArgumentException("邮箱登陆名参数为空！");
-            }
+            //if (string.IsNullOrWhiteSpace(loginUser))
+            //{
+            //    throw new ArgumentException("邮箱登录名参数为空！");
+            //}
 
             LoginUser = loginUser;
         }
@@ -177,10 +177,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.MailAddressAgg
         /// <param name="loginPassword">邮箱密码</param>
         public void SetLoginPassword(string loginPassword)
         {
-            if (string.IsNullOrWhiteSpace(loginPassword))
-            {
-                throw new ArgumentException("邮箱密码参数为空！");
-            }
+            //if (string.IsNullOrWhiteSpace(loginPassword))
+            //{
+            //    throw new ArgumentException("邮箱密码参数为空！");
+            //}
 
             LoginPassword = loginPassword;
         }
@@ -205,10 +205,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.MailAddressAgg
         /// <param name="displayName">账号显示名称</param>
         public void SetDisplayName(string displayName)
         {
-            if (string.IsNullOrWhiteSpace(displayName))
-            {
-                throw new ArgumentException("账号显示名称参数为空！");
-            }
+            //if (string.IsNullOrWhiteSpace(displayName))
+            //{
+            //    throw new ArgumentException("账号显示名称参数为空！");
+            //}
 
             DisplayName = displayName;
         }

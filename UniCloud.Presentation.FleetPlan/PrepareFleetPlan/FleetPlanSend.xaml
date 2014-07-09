@@ -100,10 +100,10 @@
                                         <telerik:RadGridView.Columns>
                                             <input:DataPageSerialColumn Header="编号"
                                                                         HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn Header="计划文号"
+                                            <telerik:GridViewDataColumn Header="*计划文号"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding DocNumber}" />
-                                            <telerik:GridViewColumn Header="计划文档"
+                                            <telerik:GridViewColumn Header="*计划文档"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}">
                                                 <telerik:GridViewColumn.CellTemplate>
                                                     <DataTemplate>

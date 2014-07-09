@@ -389,6 +389,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var category = AircraftCategories.FirstOrDefault();
             if (category != null)
                 SelCaacProgrammingLine.AircraftCategoryId = category.Id;
+            var year = Years.FirstOrDefault();
+            SelCaacProgrammingLine.Year = year;
             SelCaacProgramming.CaacProgrammingLines.Add(SelCaacProgrammingLine);
         }
 
