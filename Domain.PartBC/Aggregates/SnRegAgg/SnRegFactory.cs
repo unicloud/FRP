@@ -32,6 +32,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
     public static class SnRegFactory
     {
         #region 创建
+
         /// <summary>
         ///     创建序号件
         /// </summary>
@@ -47,6 +48,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
             snReg.CreateDate = DateTime.Now;
             return snReg;
         }
+
         /// <summary>
         ///     创建序号件
         /// </summary>
@@ -210,6 +212,5 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         }
 
         #endregion
-
     }
 }

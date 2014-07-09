@@ -71,24 +71,26 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
         public Guid AircraftCategoryId { get; internal set; }
 
         /// <summary>
-        /// 制造商
+        ///     制造商
         /// </summary>
         public Guid ManufacturerId { get; internal set; }
 
         /// <summary>
-        /// 民航机型
+        ///     民航机型
         /// </summary>
         public Guid CaacAircraftTypeId { get; internal set; }
+
         #endregion
 
         #region 导航属性
+
         /// <summary>
-        /// 民航机型
+        ///     民航机型
         /// </summary>
         public virtual CAACAircraftType CaacAircraftType { get; set; }
 
         /// <summary>
-        /// 制造商
+        ///     制造商
         /// </summary>
         public virtual Manufacturer Manufacturer { get; set; }
 

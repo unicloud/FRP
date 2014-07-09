@@ -34,6 +34,8 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg
     /// </summary>
     public class Aircraft : EntityGuid
     {
+        private HashSet<AircraftLicense> _licenses;
+
         #region 构造函数
 
         /// <summary>
@@ -51,12 +53,12 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg
         /// <summary>
         ///     注册号
         /// </summary>
-        public string RegNumber { get; private set; }
+        public string RegNumber { get; internal set; }
 
         /// <summary>
         ///     序列号
         /// </summary>
-        public string SerialNumber { get; private set; }
+        public string SerialNumber { get; internal set; }
 
         /// <summary>
         ///     运营状态
@@ -92,39 +94,31 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg
         ///     商载量（吨）
         /// </summary>
         public decimal CarryingCapacity { get; private set; }
+
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        /// 所有权人外键
+        ///     所有权人外键
         /// </summary>
         public int? SupplierId { get; private set; }
 
         /// <summary>
         ///     机型外键
         /// </summary>
-        public Guid AircraftTypeId { get; private set; }
+        public Guid AircraftTypeId { get; internal set; }
 
         /// <summary>
         ///     运营权人外键
         /// </summary>
-        public Guid AirlinesId { get; private set; }
+        public Guid AirlinesId { get; internal set; }
 
         /// <summary>
         ///     引进方式
         /// </summary>
-        public Guid ImportCategoryId { get; private set; }
+        public Guid ImportCategoryId { get; internal set; }
 
-        private HashSet<AircraftLicense> _licenses; 
-        /// <summary>
-        /// 飞机证照
-        /// </summary>
-        public virtual ICollection<AircraftLicense> Licenses
-        {
-            get { return _licenses ?? (_licenses = new HashSet<AircraftLicense>()); }
-            set { _licenses = new HashSet<AircraftLicense>(value); }
-        }
         #endregion
 
         #region 导航属性
@@ -149,45 +143,25 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg
         /// </summary>
         public virtual ActionCategory ImportCategory { get; private set; }
 
+        /// <summary>
+        ///     飞机证照
+        /// </summary>
+        public virtual ICollection<AircraftLicense> Licenses
+        {
+            get { return _licenses ?? (_licenses = new HashSet<AircraftLicense>()); }
+            set { _licenses = new HashSet<AircraftLicense>(value); }
+        }
 
         #endregion
 
         #region 操作
-        /// <summary>
-        ///     设置飞机机号
-        /// </summary>
-        /// <param name="regNumber">注册号</param>
-        public void SetRegNumber(string regNumber)
-        {
-            if (string.IsNullOrWhiteSpace(regNumber))
-            {
-                throw new ArgumentException("注册号参数为空！");
-            }
-
-            RegNumber = regNumber;
-        }
 
         /// <summary>
-        ///     设置飞机序列号
+        ///     设置飞机运营状态
         /// </summary>
-        /// <param name="serialNumber">注册号</param>
-        public void SetSerialNumber(string serialNumber)
+        public void SetOperation(bool isOperation)
         {
-            if (string.IsNullOrWhiteSpace(serialNumber))
-            {
-                throw new ArgumentException("序列号参数为空！");
-            }
-
-            SerialNumber = serialNumber;
-        }
-
-        /// <summary>
-        /// 设置飞机运营状态
-        /// </summary>
-        public void SetOperation()
-        {
-            // TODO：待完善
-            IsOperation = true;
+            IsOperation = isOperation;
         }
 
         /// <summary>
@@ -218,7 +192,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg
         }
 
         /// <summary>
-        /// 设置座位数
+        ///     设置座位数
         /// </summary>
         /// <param name="seatingCapacity"></param>
         public void SetSeatingCapacity(int seatingCapacity)
@@ -227,7 +201,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg
         }
 
         /// <summary>
-        /// 设置商载量
+        ///     设置商载量
         /// </summary>
         /// <param name="carryingCapacity"></param>
         public void SetCarryingCapacity(decimal carryingCapacity)
@@ -263,6 +237,15 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg
 
             AircraftType = aircraftType;
             AircraftTypeId = aircraftType.Id;
+        }
+
+        /// <summary>
+        ///     设置机型
+        /// </summary>
+        /// <param name="aircraftTypeId">机型</param>
+        public void SetAircraftType(Guid aircraftTypeId)
+        {
+            AircraftTypeId = aircraftTypeId;
         }
 
         /// <summary>

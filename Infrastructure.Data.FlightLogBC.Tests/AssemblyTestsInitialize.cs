@@ -4,9 +4,9 @@
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：10:06
+// 作者：丁志浩 时间：14:26
 // 方案：FRP
-// 项目：DistributedServices.Part.BackgroundWorker.Tests
+// 项目：Infrastructure.Data.FlightLogBC.Tests
 // 版本：V1.0.0
 // 
 // 修改者： 时间： 
@@ -18,16 +18,14 @@
 #region 命名空间
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCloud.DataService.DataProcess;
-using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
-using UniCloud.Infrastructure.Data;
-using UniCloud.Infrastructure.Data.PartBC.Repositories;
-using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+using UniCloud.Domain.FlightLogBC.Aggregates.FlightLogAgg;
+using UniCloud.Infrastructure.Data.FlightLogBC.Repositories;
+using UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
 
-namespace UniCloud.DistributedServices.Part.BackgroundWorker.Tests
+namespace UniCloud.Infrastructure.Data.FlightLogBC.Tests
 {
     [TestClass]
     public class AssemblyTestsInitialize
@@ -40,8 +38,9 @@ namespace UniCloud.DistributedServices.Part.BackgroundWorker.Tests
         public static void InitializeContainer(TestContext context)
         {
             UniContainer.Create()
-                .Register<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IModelConfiguration, SqlConfigurations>("Sql");
+                .Register<IQueryableUnitOfWork, FlightLogBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IModelConfiguration, SqlConfigurations>("Sql")
+                .Register<IFlightLogRepository, FlightLogRepository>();
         }
 
         /// <summary>

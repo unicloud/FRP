@@ -35,8 +35,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.EngineNumber).HasColumnName("EngineNumber");
-            Property(p => p.InMaintainDate).HasColumnName("InMaintainDate");
-            Property(p => p.OutMaintainDate).HasColumnName("OutMaintainDate");
+            Property(p => p.InMaintainDate).HasColumnName("InMaintainDate").HasColumnType("datetime2");
+            Property(p => p.OutMaintainDate).HasColumnName("OutMaintainDate").HasColumnType("datetime2");
             Property(p => p.MaintainLevel).HasColumnName("MaintainLevel");
             Property(p => p.ChangeLlpNumber).HasColumnName("ChangeLlpNumber");
             Property(p => p.TsnCsn).HasColumnName("TsnCsn");
