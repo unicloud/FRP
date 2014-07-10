@@ -37,7 +37,7 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.PnRegAndSnReg
 {
-    [Export(typeof (PnRegVm))]
+    [Export(typeof(PnRegVm))]
     public class PnRegVm : EditViewModelBase
     {
         #region 声明、初始化
@@ -114,9 +114,9 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         {
             get
             {
-                return Enum.GetValues(typeof (ControlStrategy))
+                return Enum.GetValues(typeof(ControlStrategy))
                     .Cast<object>()
-                    .ToDictionary(value => (int) value, value => (ControlStrategy) value);
+                    .ToDictionary(value => (int)value, value => (ControlStrategy)value);
             }
         }
 
@@ -128,9 +128,9 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         {
             get
             {
-                return Enum.GetValues(typeof (SinceNewType))
+                return Enum.GetValues(typeof(SinceNewType))
                     .Cast<object>()
-                    .ToDictionary(value => (int) value, value => (SinceNewType) value);
+                    .ToDictionary(value => (int)value, value => (SinceNewType)value);
             }
         }
 
@@ -236,7 +236,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                 if (_selPnMaintainCtrl != value)
                 {
                     _selPnMaintainCtrl = value;
-                    CtrlLines = null;
+                    _ctrlLines = new List<CtrlLine>();
                     if (value != null && value.XmlContent != null)
                     {
                         CtrlLines = ConvertXmlToString(value.XmlContent);
@@ -482,9 +482,9 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                 return true;
             if (SixVisible == Visibility.Visible && SelMaintainWork != null && SelCtrlUnit != null && Standard > 0)
                 return true;
-            if (SevenVisible == Visibility.Visible && (int) SelSnType >= 0 && Max > 0 && Min > 0) return true;
-            if (EightVisible == Visibility.Visible && (int) SelSnType >= 0 && Standard > 0) return true;
-            if (NineVisible == Visibility.Visible && (int) SelSnType >= 0 && Standard > 0) return true;
+            if (SevenVisible == Visibility.Visible && (int)SelSnType >= 0 && Max > 0 && Min > 0) return true;
+            if (EightVisible == Visibility.Visible && (int)SelSnType >= 0 && Standard > 0) return true;
+            if (NineVisible == Visibility.Visible && (int)SelSnType >= 0 && Standard > 0) return true;
             return false;
         }
 
@@ -955,7 +955,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                             str += "(浮动比率为" + rate.Attribute("Value").Value + ")";
                         }
                         str += "时";
-                        var ctrlLine = new CtrlLine {Id = RandomHelper.Next(), Description = str};
+                        var ctrlLine = new CtrlLine { Id = RandomHelper.Next(), Description = str };
                         result.Add(ctrlLine);
                     }
                 }

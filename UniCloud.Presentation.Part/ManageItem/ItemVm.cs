@@ -255,7 +255,7 @@ namespace UniCloud.Presentation.Part.ManageItem
                 if (_selItemMaintaiinCtrl != value)
                 {
                     _selItemMaintaiinCtrl = value;
-                    CtrlLines = null;
+                    _ctrlLines =new List<CtrlLine>();
                     if (value != null && value.XmlContent != null)
                     {
                         CtrlLines = ConvertXmlToString(value.XmlContent);
