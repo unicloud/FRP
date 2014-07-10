@@ -57,6 +57,12 @@
                                            ToolTipService.ToolTip="放弃更改" />
                                 </telerik:RadButton>
                                 <telerik:RadToolBarSeparator />
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding EditCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Edit.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="编辑邮箱账号" />
+                                </telerik:RadButton>
                             </telerik:RadToolBar>
                             <telerik:GroupBox Grid.Row="1"
                                               Margin="5"
@@ -83,11 +89,12 @@
                                                VerticalAlignment="Center"
                                                Height="20"
                                                Name="LbAddress"
-                                               Text="Email地址："></TextBlock>
+                                               Text="*Email地址："></TextBlock>
                                     <TextBox Grid.Row="0"
                                              Grid.Column="1"
                                              Name="TbAddress"
                                              Height="25"
+                                             IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
                                              Text="{Binding MailAddress.Address, Mode=TwoWay}"></TextBox>
                                     <TextBlock Grid.Row="1"
                                                Grid.Column="0"
@@ -100,6 +107,7 @@
                                              Grid.Column="1"
                                              Name="TbDisplayName"
                                              Height="25"
+                                             IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
                                              Text="{Binding MailAddress.DisplayName, Mode=TwoWay}"></TextBox>
                                     <TextBlock Grid.Row="2"
                                                Grid.Column="0"
@@ -112,6 +120,7 @@
                                              Grid.Column="1"
                                              Name="TbAccountName"
                                              Height="25"
+                                             IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
                                              Text="{Binding MailAddress.LoginUser, Mode=TwoWay}"></TextBox>
                                     <TextBlock Grid.Row="3"
                                                Grid.Column="0"
@@ -119,7 +128,7 @@
                                                VerticalAlignment="Center"
                                                Name="LbPassword"
                                                Height="20"
-                                               Text="密  码："></TextBlock>
+                                               Text="*密  码："></TextBlock>
                                     <PasswordBox Grid.Row="3"
                                                  Grid.Column="1"
                                                  Name="TbPassword"
@@ -131,7 +140,7 @@
                                                VerticalAlignment="Center"
                                                Name="LbConfirmPassword"
                                                Height="20"
-                                               Text="确认密码："></TextBlock>
+                                               Text="*确认密码："></TextBlock>
                                     <PasswordBox Grid.Row="4"
                                                  Grid.Column="1"
                                                  Name="TbConfirmPassword"
@@ -143,12 +152,13 @@
                                                VerticalAlignment="Center"
                                                Height="24"
                                                Name="LbSmtpHost"
-                                               Text="发送服务器："></TextBlock>
+                                               Text="*发送服务器："></TextBlock>
                                     <TextBox Grid.Row="5"
                                              Grid.Column="1"
                                              Name="TbSmtpHost"
                                              VerticalAlignment="top"
                                              Height="25"
+                                             IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
                                              Text="{Binding MailAddress.SmtpHost, Mode=TwoWay}"></TextBox>
                                     <TextBlock Grid.Row="6"
                                                Grid.Column="0"
@@ -200,13 +210,14 @@
                                                VerticalAlignment="Center"
                                                Height="20"
                                                Name="LbCaacAccount"
-                                               Text="账  号："></TextBlock>
+                                               Text="*账  号："></TextBlock>
                                     <TextBox Grid.Row="0"
                                              Grid.Column="1"
                                              VerticalAlignment="Center"
                                              Name="TbCaacAccount"
                                              Height="25"
-                                             Text="{Binding CAACMailAddress, Mode=TwoWay}"></TextBox>
+                                             IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                                             Text="{Binding CAACMailAddress.Address, Mode=TwoWay}"></TextBox>
                                 </Grid>
                             </telerik:GroupBox>
                         </Grid>

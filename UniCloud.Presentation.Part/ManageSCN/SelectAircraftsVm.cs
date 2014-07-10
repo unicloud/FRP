@@ -65,9 +65,10 @@ namespace UniCloud.Presentation.Part.ManageSCN
             #endregion
         }
 
-        public void InitData(string cscNumber, List<ContractAircraftDTO> aircrafts)
+        public void InitData( List<ContractAircraftDTO> aircrafts)
         {
-            _descriptor.Value = cscNumber;
+            //_descriptor.Value = cscNumber;
+            AircraftQueries.FilterDescriptors.Remove(_descriptor);
             Aircrafts = aircrafts;
             AircraftQueries.Load(true);
         }

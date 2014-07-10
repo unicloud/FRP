@@ -128,7 +128,7 @@
                         <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1"
-                               Text="川航机型"
+                               Text="*川航机型"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Row="0"
@@ -138,7 +138,7 @@
                              Text="{Binding Name, Mode=TwoWay}" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
-                               Text="民航机型"
+                               Text="*民航机型"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <telerik:RadComboBox Name="CaacAircraftTypeBox"
@@ -155,7 +155,7 @@
                                          DisplayMemberPath="Name" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
-                               Text="座级"
+                               Text="*座级"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <telerik:RadComboBox Name="AircraftCategoryBox"
@@ -173,7 +173,7 @@
                                          DisplayMemberPath="Regional" />
                     <TextBlock Grid.Row="3"
                                Grid.Column="1"
-                               Text="系列"
+                               Text="*系列"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <telerik:RadComboBox Name="AircraftSeriesBox"
@@ -190,7 +190,7 @@
                                          DisplayMemberPath="Name" />
                     <TextBlock Grid.Row="4"
                                Grid.Column="1"
-                               Text="制造商"
+                               Text="*制造商"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <telerik:RadComboBox Name="ManufactureComboBox"

@@ -246,11 +246,11 @@
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号"
                                                                      HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn Header="机型"
+                                            <telerik:GridViewDataColumn Header="*机型"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         IsReadOnly="True"
                                                                         DataMemberBinding="{Binding AircraftTypeName}" />
-                                            <telerik:GridViewDataColumn Header="机号"
+                                            <telerik:GridViewDataColumn Header="*机号"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         IsReadOnly="True"
                                                                         DataMemberBinding="{Binding RegNumber}">
@@ -258,18 +258,18 @@
                                                     <telerik:CountFunction ResultFormatString="总计：{0}架" />
                                                 </telerik:GridViewDataColumn.AggregateFunctions>
                                             </telerik:GridViewDataColumn>
-                                            <telerik:GridViewDataColumn Header="序列号"
+                                            <telerik:GridViewDataColumn Header="*序列号"
                                                                         IsReadOnly="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding SerialNumber}" />
-                                            <telerik:GridViewComboBoxColumn Header="引进方式"
+                                            <telerik:GridViewComboBoxColumn Header="*引进方式"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             FilterMemberPath="ActionName"
                                                                             ItemsSource="{Binding DataContext.ActionCategories,ElementName=DeliverUserControl,Mode=TwoWay}"
                                                                             DisplayMemberPath="ActionCategoryOperation"
                                                                             DataMemberBinding="{Binding ImportCategoryId}"
                                                                             SelectedValueMemberPath="Id" />
-                                            <telerik:GridViewComboBoxColumn Header="供应商"
+                                            <telerik:GridViewComboBoxColumn Header="*供应商"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             ItemsSource="{Binding DataContext.Suppliers,ElementName=DeliverUserControl,Mode=TwoWay}"
                                                                             DisplayMemberPath="CnName"
@@ -280,11 +280,11 @@
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding CreateDate}"
                                                                         DataFormatString="{StaticResource DateStringFormat}" />
-                                            <telerik:GridViewDataColumn Header="出厂日期"
+                                            <telerik:GridViewDataColumn Header="*出厂日期"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding FactoryDate}"
                                                                         DataFormatString="{StaticResource DateStringFormat}" />
-                                            <telerik:GridViewDataColumn Header="引进日期"
+                                            <telerik:GridViewDataColumn Header="*引进日期"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding ImportDate}"
                                                                         DataFormatString="{StaticResource DateStringFormat}" />
@@ -334,14 +334,14 @@
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号"
                                                                      HeaderTextAlignment="Center" />
-                                            <telerik:GridViewComboBoxColumn Header="引进方式"
+                                            <telerik:GridViewComboBoxColumn Header="*引进方式"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             FilterMemberPath="ActionName"
                                                                             ItemsSource="{Binding DataContext.ActionCategories,ElementName=DeliverUserControl,Mode=TwoWay}"
                                                                             DisplayMemberPath="ActionCategoryOperation"
                                                                             DataMemberBinding="{Binding ImportCategoryId}"
                                                                             SelectedValueMemberPath="Id" />
-                                            <telerik:GridViewDataColumn Header="机号"
+                                            <telerik:GridViewDataColumn Header="*机号"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding RegNumber}" />
                                             <telerik:GridViewDataColumn Header="技术接收日期"
@@ -352,7 +352,7 @@
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding ReceiptDate}"
                                                                         DataFormatString="{StaticResource DateStringFormat}" />
-                                            <telerik:GridViewDataColumn Header="开始日期"
+                                            <telerik:GridViewDataColumn Header="*开始日期"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding StartDate}"
                                                                         DataFormatString="{StaticResource DateStringFormat}" />
@@ -429,7 +429,7 @@
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号"
                                                                      HeaderTextAlignment="Center" />
-                                            <telerik:GridViewComboBoxColumn Header="座级"
+                                            <telerik:GridViewComboBoxColumn Header="*座级"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             FilterMemberPath="Regional"
                                                                             IsReadOnly="True"
@@ -437,27 +437,27 @@
                                                                             DisplayMemberPath="Regional"
                                                                             DataMemberBinding="{Binding Regional}"
                                                                             SelectedValueMemberPath="Regional" />
-                                            <telerik:GridViewComboBoxColumn Header="机型"
+                                            <telerik:GridViewComboBoxColumn Header="*机型"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             FilterMemberPath="AircraftTypeName"
                                                                             ItemsSource="{Binding DataContext.AircraftTypes,ElementName=DeliverUserControl,Mode=TwoWay}"
                                                                             DisplayMemberPath="Name"
                                                                             DataMemberBinding="{Binding AircraftTypeId}"
                                                                             SelectedValueMemberPath="Id" />
-                                            <telerik:GridViewComboBoxColumn Header="引进方式"
+                                            <telerik:GridViewComboBoxColumn Header="*引进方式"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             FilterMemberPath="ActionName"
                                                                             ItemsSource="{Binding DataContext.ActionCategories,ElementName=DeliverUserControl,Mode=TwoWay}"
                                                                             DisplayMemberPath="ActionName"
                                                                             DataMemberBinding="{Binding ImportCategoryId}"
                                                                             SelectedValueMemberPath="Id" />
-                                            <telerik:GridViewDataColumn Header="座位"
+                                            <telerik:GridViewDataColumn Header="*座位"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding SeatingCapacity}" />
-                                            <telerik:GridViewDataColumn Header="商载（吨）"
+                                            <telerik:GridViewDataColumn Header="*商载（吨）"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding CarryingCapacity}" />
-                                            <telerik:GridViewDataColumn Header="开始日期"
+                                            <telerik:GridViewDataColumn Header="*开始日期"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding StartDate}"
                                                                         DataFormatString="{StaticResource DateStringFormat}" />

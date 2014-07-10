@@ -280,9 +280,6 @@
     </Compile>
     <Compile Include="ManageSCN\MaintainScnVm.cs" />
     <Compile Include="ManageSCN\SelectAircraftsVm.cs" />
-    <Compile Include="OilMonitor\EngineOil.xaml.cs">
-      <DependentUpon>EngineOil.xaml</DependentUpon>
-    </Compile>
     <Compile Include="OilMonitor\EngineOilVM.cs" />
     <Compile Include="PartModule.cs" />
     <Compile Include="PnRegAndSnReg\PnRegView.xaml.cs">
@@ -420,8 +417,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OilMonitor\EngineOil.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PnRegAndSnReg\PnRegView.xaml">
       <Generator>MSBuild:Compile</Generator>

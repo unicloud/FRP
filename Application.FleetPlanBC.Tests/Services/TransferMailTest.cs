@@ -73,14 +73,14 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         }
 
         [TestMethod]
-        public void GetRequests()
+        public void TransferPlan()
         {
             // Arrange
             var service = UniContainer.Resolve<IFleetTransferService>();
             var curAirlines = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F");
-            var curReq = Guid.Parse("A729C166-BA4B-401D-BD72-B5A3DC6B44F1");
+            var curPlan = Guid.Parse("3791B2DA-1E62-47CD-8115-0DC248765B89");
             // Act
-            var result = service.TransferRequest(curAirlines, curReq);
+            var result = service.TransferPlan(curAirlines, curPlan);
 
             // Assert
             Assert.IsTrue(result);

@@ -18,10 +18,7 @@
 #region 命名空间
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCloud.DataService.DataProcess;
-using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
 using UniCloud.Infrastructure.Data;
-using UniCloud.Infrastructure.Data.PartBC.Repositories;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 using UniCloud.Infrastructure.Unity;
 

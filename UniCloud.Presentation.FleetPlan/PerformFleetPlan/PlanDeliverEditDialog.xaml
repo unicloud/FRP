@@ -70,13 +70,13 @@
             </Grid.RowDefinitions>
 
 
-            <TextBlock Text="机号"
+            <TextBlock Text="*机号"
                        VerticalAlignment="Center" />
             <TextBox Grid.Row="0"
                      Grid.Column="1"
                      Text="{Binding SelAircraft.RegNumber,Mode=TwoWay}" />
 
-            <TextBlock Text="序列号"
+            <TextBlock Text="*序列号"
                        Grid.Row="0"
                        Grid.Column="2"
                        VerticalAlignment="Center" />
@@ -84,7 +84,7 @@
                      Grid.Column="3"
                      Text="{Binding SelAircraft.SerialNumber,Mode=TwoWay}" />
 
-            <TextBlock Text="机型"
+            <TextBlock Text="*机型"
                        Grid.Row="1"
                        Grid.Column="0"
                        VerticalAlignment="Center" />
@@ -92,7 +92,7 @@
                      Grid.Column="1"
                      Text="{Binding SelAircraft.AircraftTypeName,Mode=TwoWay}" />
 
-            <TextBlock Text="引进方式"
+            <TextBlock Text="*引进方式"
                        Grid.Row="1"
                        Grid.Column="2"
                        VerticalAlignment="Center" />
@@ -103,19 +103,27 @@
                                   SelectedValuePath="Id"
                                   SelectedValue="{Binding SelAircraft.ImportCategoryId,Mode=TwoWay}" />
 
-            <TextBlock Text="出厂日期"
+            <TextBlock Text="*出厂日期"
                        Grid.Row="2"
                        Grid.Column="0"
                        VerticalAlignment="Center" />
             <telerik:RadDatePicker Grid.Row="2"
                                    Grid.Column="1"
                                    SelectedDate="{Binding SelAircraft.FactoryDate,Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}" />
-            <TextBlock Text="供应商"
+            <TextBlock Text="*引进日期"
                        Grid.Row="2"
                        Grid.Column="2"
                        VerticalAlignment="Center" />
-            <telerik:RadComboBox  Grid.Row="2"
-                                  Grid.Column="3"
+            <telerik:RadDatePicker Grid.Row="2"
+                                   Grid.Column="3"
+                                   SelectedDate="{Binding SelAircraft.ImportDate,Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}" />
+
+            <TextBlock Text="*供应商"
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       VerticalAlignment="Center" />
+            <telerik:RadComboBox  Grid.Row="3"
+                                  Grid.Column="1"
                                   ItemsSource="{Binding Suppliers}"
                                   DisplayMemberPath="CnName"
                                   SelectedValuePath="Id"
@@ -142,7 +150,7 @@
             </Grid.RowDefinitions>
 
 
-            <TextBlock Text="引进方式"
+            <TextBlock Text="*引进方式"
                        VerticalAlignment="Center" />
             <telerik:RadComboBox  Grid.Row="0"
                                   Grid.Column="1"
@@ -151,7 +159,7 @@
                                   SelectedValuePath="Id"
                                   SelectedValue="{Binding SelOperationHistory.ImportCategoryId,Mode=TwoWay}" />
 
-            <TextBlock Text="机号"
+            <TextBlock Text="*机号"
                        Grid.Row="0"
                        Grid.Column="2"
                        VerticalAlignment="Center" />
@@ -175,7 +183,7 @@
                                    Grid.Column="3"
                                    SelectedDate="{Binding SelOperationHistory.ReceiptDate,Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}" />
 
-            <TextBlock Text="开始日期"
+            <TextBlock Text="*开始日期"
                        Grid.Row="2"
                        Grid.Column="0"
                        VerticalAlignment="Center" />
@@ -262,7 +270,7 @@
             </Grid.RowDefinitions>
 
 
-            <TextBlock Text="座级"
+            <TextBlock Text="*座级"
                        VerticalAlignment="Center" />
             <telerik:RadComboBox Grid.Row="0"
                                  Grid.Column="1"
@@ -271,7 +279,7 @@
                                  SelectedValuePath="Regional"
                                  SelectedValue="{Binding SelAircraftBusiness.Regional,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" />
 
-            <TextBlock Text="机型"
+            <TextBlock Text="*机型"
                        Grid.Row="0"
                        Grid.Column="2"
                        VerticalAlignment="Center" />
@@ -282,7 +290,7 @@
                                   SelectedValuePath="Id"
                                   SelectedValue="{Binding SelAircraftBusiness.AircraftTypeId, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
 
-            <TextBlock Text="引进方式"
+            <TextBlock Text="*引进方式"
                        Grid.Row="1"
                        Grid.Column="0"
                        VerticalAlignment="Center" />
@@ -293,7 +301,7 @@
                                   SelectedValuePath="Id"
                                   SelectedValue="{Binding SelAircraftBusiness.ImportCategoryId,Mode=TwoWay}" />
 
-            <TextBlock Text="座位"
+            <TextBlock Text="*座位"
                        Grid.Row="1"
                        Grid.Column="2"
                        VerticalAlignment="Center" />
@@ -301,7 +309,7 @@
                      Grid.Column="3"
                      Text="{Binding SelAircraftBusiness.SeatingCapacity, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
 
-            <TextBlock Text="商载（吨）"
+            <TextBlock Text="*商载（吨）"
                        Grid.Row="2"
                        Grid.Column="0"
                        VerticalAlignment="Center" />
@@ -309,7 +317,7 @@
                       Grid.Column="1"
                       Text="{Binding SelAircraftBusiness.CarryingCapacity, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
 
-            <TextBlock Text="开始日期"
+            <TextBlock Text="*开始日期"
                        Grid.Row="2"
                        Grid.Column="2"
                        VerticalAlignment="Center" />

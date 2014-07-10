@@ -522,7 +522,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
+                            MessageDialogs.Alert(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -555,7 +555,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
+                            MessageDialogs.Alert(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -589,7 +589,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
+                            MessageDialogs.Alert(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -623,7 +623,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
+                            MessageDialogs.Alert(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -658,7 +658,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
+                            MessageDialogs.Alert(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -695,7 +695,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
+                            MessageDialogs.Alert(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)
@@ -726,7 +726,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         if (asynvContext != null)
                         {
                             var sendSuccess = context.EndExecute<bool>(result).FirstOrDefault();
-                            MessageBox.Show(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
+                            MessageDialogs.Alert(!sendSuccess ? "提交失败，请检查！" : "提交成功！");
                         }
                     }
                     catch (DataServiceQueryException ex)

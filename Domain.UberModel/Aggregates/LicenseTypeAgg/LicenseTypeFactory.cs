@@ -33,10 +33,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.LicenseTypeAgg
         {
             var licenseType = new LicenseType
                                  {
-                                     Type = name,
                                      Description = description,
                                      HasFile = hasFile,
                                  };
+            licenseType.SetType(name);
             licenseType.ChangeCurrentIdentity(id);
 
             return licenseType;
