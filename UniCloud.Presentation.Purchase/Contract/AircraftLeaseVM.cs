@@ -24,6 +24,7 @@ using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
@@ -506,7 +507,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                     OrderDate = DateTime.Now,
                     TradeId = _selTradeDTO.Id,
                     SourceGuid = Guid.NewGuid(),
-                    SupplierId = _selTradeDTO.SupplierId
+                    SupplierId = _selTradeDTO.SupplierId,
+                    OperatorName = StatusData.curUser
                 };
                 var currency = Currencies.FirstOrDefault();
                 if (currency != null)
@@ -530,7 +532,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                     CurrencyId = order.CurrencyId,
                     LinkmanId = order.LinkmanId,
                     SourceGuid = Guid.NewGuid(),
-                    SupplierId = order.SupplierId
+                    SupplierId = order.SupplierId,
+                    OperatorName = StatusData.curUser
                 };
                 var currency = Currencies.FirstOrDefault();
                 if (currency != null)
@@ -556,6 +559,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SelAircraftLeaseOrderDTO.AircraftLeaseOrderLines.Add(newLine);
                 });
             }
+            RefreshCommandState();
         }
 
         private bool CanAddOrder(object obj)

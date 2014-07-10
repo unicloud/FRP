@@ -110,7 +110,8 @@
                                             </telerik:RadButton>
                                         </telerik:RadToolBar>
                                         <Grid Row="1">
-                                            <telerik:RadGridView CanUserSortColumns="True"
+                                            <telerik:RadGridView Name="Requests" 
+                                                                 CanUserSortColumns="True"
                                                                  CanUserFreezeColumns="False"
                                                                  IsFilteringAllowed="True"
                                                                  EditTriggers="CellClick"
@@ -119,6 +120,16 @@
                                                                  SelectedItem="{Binding SelRequest,Mode=TwoWay}"
                                                                  ShowGroupPanel="False"
                                                                  ValidatesOnDataErrors="InEditMode">
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu>
+                                                        <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=Requests, Mode=OneWay}" />
+                                                        <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=Requests, Mode=OneWay}" />
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
                                                     <uc:DataPageSerialColumn Header="编号" />
                                                     <telerik:GridViewDataColumn Header="*申请标题"
@@ -261,6 +272,16 @@
                                                      RowIndicatorVisibility="Visible"
                                                      AutoExpandGroups="True"
                                                      RowStyle="{StaticResource DraggedRowStyle}">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=PlanDetail, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=PlanDetail, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
                                     <uc:GridViewDoubleClick.Helper>
                                         <uc:PlanHistoryDoubleClickHelper />
                                     </uc:GridViewDoubleClick.Helper>
@@ -373,6 +394,16 @@
                                                      ShowColumnFooters="True"
                                                      EditTriggers="CellClick"
                                                      RowStyle="{StaticResource DraggedRowStyle}">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=RequestDetail, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=RequestDetail, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
                                     <uc:GridViewDoubleClick.Helper>
                                         <uc:ApprovalHistoryDoubleClickHelper />
                                     </uc:GridViewDoubleClick.Helper>

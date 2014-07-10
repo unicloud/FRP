@@ -24,6 +24,7 @@ using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 
@@ -249,6 +250,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                             SupplierName = SelectMaintainPaymentSchedule.SupplierName,
                             CurrencyId = SelectMaintainPaymentSchedule.CurrencyId,
                             PaymentScheduleLineId = SelectPaymentScheduleLine.PaymentScheduleLineId,
+                            OperatorName = StatusData.curUser
                         };
                         prepayPayscheduleChildView.Tag = maintainInvoice;
                     }

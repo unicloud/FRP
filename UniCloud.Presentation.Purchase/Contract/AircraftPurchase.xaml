@@ -196,9 +196,10 @@
                                                                         IsReadOnly="True" />
                                             <telerik:GridViewDataColumn Header="合同号"
                                                                         TextAlignment="Center"
+                                                                        IsReadOnly="True"
                                                                         DataMemberBinding="{Binding ContractNumber}"
                                                                         />
-                                            <telerik:GridViewDataColumn Header="合同名称"
+                                            <telerik:GridViewDataColumn Header="*合同名称"
                                                                         DataMemberBinding="{Binding Name}" />
                                             <telerik:GridViewComboBoxColumn Header="币种"
                                                                             TextAlignment="Center"
@@ -337,7 +338,7 @@
                                             <telerik:GridViewDataColumn Header="匹配"
                                                                         DataMemberBinding="{Binding IsMatched}"
                                                                         IsReadOnly="true" />
-                                            <telerik:GridViewComboBoxColumn Header="机型"
+                                            <telerik:GridViewComboBoxColumn Header="*机型"
                                                                             DataMemberBinding="{Binding AircraftMaterialId}"
                                                                             ItemsSource="{Binding DataContext.AircraftMaterials, ElementName=LayoutRoot}"
                                                                             SelectedValueMemberPath="MaterialId"

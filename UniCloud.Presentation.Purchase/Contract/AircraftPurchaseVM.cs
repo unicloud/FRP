@@ -534,7 +534,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                     CurrencyId = order.CurrencyId,
                     LinkmanId = order.LinkmanId,
                     SourceGuid = Guid.NewGuid(),
-                    SupplierId = order.SupplierId
+                    SupplierId = order.SupplierId,
+                    OperatorName = StatusData.curUser
                 };
                 var currency = Currencies.FirstOrDefault();
                 if (currency != null)
@@ -563,6 +564,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Add(newLine);
                 });
             }
+            RefreshCommandState();
         }
 
         private bool CanAddOrder(object obj)

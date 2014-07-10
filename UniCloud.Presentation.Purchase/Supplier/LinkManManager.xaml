@@ -40,7 +40,8 @@
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <telerik:RadGridView ItemsSource="{Binding SupplierCompanies}"
+                                        <telerik:RadGridView Name="SupplierCompanies" 
+                                                             ItemsSource="{Binding SupplierCompanies}"
                                                              AutoGenerateColumns="False"
                                                              SelectedItem="{Binding SelectedSupplierCompany, Mode=TwoWay}"
                                                              AutoExpandGroups="True"
@@ -48,6 +49,16 @@
                                                              CanUserSortColumns="True"
                                                              RowIndicatorVisibility="Visible"
                                                              CanUserFreezeColumns="False">
+                                            <telerik:RadContextMenu.ContextMenu>
+                                                <telerik:RadContextMenu>
+                                                    <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=SupplierCompanies, Mode=OneWay}" />
+                                                    <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=SupplierCompanies, Mode=OneWay}" />
+                                                </telerik:RadContextMenu>
+                                            </telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="编号"
                                                                          CellStyle="{StaticResource CellStyle}"
@@ -140,11 +151,21 @@
                                                          CanUserSortColumns="True"
                                                          RowIndicatorVisibility="Visible"
                                                          CanUserFreezeColumns="False">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu>
+                                                <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=LinkMan, Mode=OneWay}" />
+                                                <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=LinkMan, Mode=OneWay}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}"
                                                                      HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn Header="名称*"
+                                            <telerik:GridViewDataColumn Header="*名称"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding Name}" />

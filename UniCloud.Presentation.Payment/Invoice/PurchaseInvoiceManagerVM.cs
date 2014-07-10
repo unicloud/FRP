@@ -825,6 +825,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 PurchaseInvoiceId = RandomHelper.Next(),
                 CreateDate = DateTime.Now,
                 InvoiceDate = DateTime.Now,
+                OperatorName = StatusData.curUser
             };
             var selectedPane = purchasePayscheduleChildView.PaneGroups.SelectedPane.Title.ToString();
             if (selectedPane == "采购的飞机对应的付款计划")

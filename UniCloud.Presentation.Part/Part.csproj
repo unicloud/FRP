@@ -280,6 +280,9 @@
     </Compile>
     <Compile Include="ManageSCN\MaintainScnVm.cs" />
     <Compile Include="ManageSCN\SelectAircraftsVm.cs" />
+    <Compile Include="OilMonitor\EngineOil.xaml.cs">
+      <DependentUpon>EngineOil.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OilMonitor\EngineOilVM.cs" />
     <Compile Include="PartModule.cs" />
     <Compile Include="PnRegAndSnReg\PnRegView.xaml.cs">

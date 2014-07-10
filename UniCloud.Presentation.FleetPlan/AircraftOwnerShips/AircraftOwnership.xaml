@@ -109,7 +109,8 @@
                                              FontSize="18"
                                              Foreground="{StaticResource AccentBrush}" />
                                         </TextBlock>
-                                        <telerik:RadGridView Grid.Row="1"
+                                        <telerik:RadGridView Name="OwnershipHistories" 
+                                                             Grid.Row="1"
                                                              Grid.Column="0"
                                                              Grid.ColumnSpan="2"
                                                              CanUserSortColumns="True"
@@ -123,6 +124,16 @@
                                                              IsBusy="{Binding AircraftsView.IsBusy}"
                                                              SelectedItem="{Binding SelectedOwnershipHistory,Mode=TwoWay}"
                                                              ValidatesOnDataErrors="InEditMode">
+                                            <telerik:RadContextMenu.ContextMenu>
+                                                <telerik:RadContextMenu>
+                                                    <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=OwnershipHistories, Mode=OneWay}" />
+                                                    <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=OwnershipHistories, Mode=OneWay}" />
+                                                </telerik:RadContextMenu>
+                                            </telerik:RadContextMenu.ContextMenu>
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="CellEditEnded">
                                                     <i:InvokeCommandAction Command="{Binding CellEditEndCommand}" />
@@ -208,7 +219,8 @@
                                              FontSize="18"
                                              Foreground="{StaticResource AccentBrush}" />
                                         </TextBlock>
-                                        <telerik:RadGridView Grid.Row="1"
+                                        <telerik:RadGridView Name="AcConfigHistories"
+                                                             Grid.Row="1"
                                                              Grid.Column="0"
                                                              Grid.ColumnSpan="2"
                                                              CanUserSortColumns="True"
@@ -222,6 +234,16 @@
                                                              IsBusy="{Binding AircraftsView.IsBusy}"
                                                              SelectedItem="{Binding SelectedAcConfigHistory,Mode=TwoWay}"
                                                              ValidatesOnDataErrors="InEditMode">
+                                            <telerik:RadContextMenu.ContextMenu>
+                                                <telerik:RadContextMenu>
+                                                    <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=AcConfigHistories, Mode=OneWay}" />
+                                                    <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=AcConfigHistories, Mode=OneWay}" />
+                                                </telerik:RadContextMenu>
+                                            </telerik:RadContextMenu.ContextMenu>
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="CellEditEnded">
                                                     <i:InvokeCommandAction Command="{Binding CellEditEndCommand}" />
@@ -287,6 +309,16 @@
                                                          SelectedItem="{Binding SelectedAircraft, Mode=TwoWay}"
                                                          AutoExpandGroups="True"
                                                          ShowColumnFooters="True">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu>
+                                                <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=Aircraft, Mode=OneWay}" />
+                                                <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=Aircraft, Mode=OneWay}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号" />
                                             <telerik:GridViewDataColumn Header="机型"

@@ -50,7 +50,7 @@
                             <telerik:RadGridView Name="MaintainInvoiceGridView"
                                                  Grid.Row="0"
                                                  IsReadOnly="True"
-                                                 ItemsSource="{Binding InvoiceList,Mode=TwoWay}"
+                                                 ItemsSource="{Binding DataContext.InvoiceList, ElementName=InvoicesWindow,Mode=TwoWay}"
                                                  IsBusy="{Binding Invoices.IsBusy}"
                                                  AutoGenerateColumns="False"
                                                  ShowGroupPanel="True"

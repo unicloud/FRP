@@ -37,7 +37,7 @@
                                         <RowDefinition Height="30" />
                                     </Grid.RowDefinitions>
                                     <Grid>
-                                        <telerik:RadGridView CanUserSortColumns="True"
+                                        <telerik:RadGridView Name="RequestsView" CanUserSortColumns="True"
                                                              CanUserFreezeColumns="False"
                                                              ShowGroupPanel="False"
                                                              IsFilteringAllowed="True"
@@ -46,6 +46,16 @@
                                                              FontSize="{StaticResource TextFontSize}"
                                                              ItemsSource="{Binding RequestsView}"
                                                              SelectedItem="{Binding SelectedRequest,Mode=TwoWay}">
+                                            <telerik:RadContextMenu.ContextMenu>
+                                                <telerik:RadContextMenu>
+                                                    <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=RequestsView, Mode=OneWay}" />
+                                                    <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=RequestsView, Mode=OneWay}" />
+                                                </telerik:RadContextMenu>
+                                            </telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadGridView.GroupDescriptors>
                                                 <telerik:GroupDescriptor Member="NdrcApprovalNumber"
                                                                          SortDirection="Ascending">
@@ -139,6 +149,16 @@
                                                      ItemsSource="{Binding SelectedRequest.ApprovalHistories}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=RequestDetail, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=RequestDetail, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="是否批准"

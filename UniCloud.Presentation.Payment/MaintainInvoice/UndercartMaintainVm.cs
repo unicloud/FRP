@@ -23,6 +23,7 @@ using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
+using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
@@ -186,6 +187,7 @@ namespace UniCloud.Presentation.Payment.MaintainInvoice
                         InvoiceDate = DateTime.Now,
                         InMaintainTime = DateTime.Now,
                         OutMaintainTime = DateTime.Now,
+                        OperatorName = StatusData.curUser
                     };
                     var currency = Currencies.FirstOrDefault();
                     if (currency != null)

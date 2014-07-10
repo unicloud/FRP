@@ -88,7 +88,7 @@
                         <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1"
-                               Text="件号"
+                               Text="*件号"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <telerik:RadAutoCompleteBox x:Name="Pn" Grid.Row="0" Grid.Column="2" WatermarkContent="输入件号..."
@@ -127,7 +127,7 @@
                              Text="{Binding Name, Mode=TwoWay}" />
                     <TextBlock Grid.Row="3"
                                Grid.Column="1"
-                               Text="制造商"
+                               Text="*制造商"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <telerik:RadComboBox
@@ -198,7 +198,7 @@
                         <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1"
-                               Text="件号"
+                               Text="*件号"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Row="0"
@@ -258,6 +258,16 @@
                                                                  FontSize="{StaticResource TextFontSize}"
                                                                  ValidatesOnDataErrors="InEditMode"
                                                                  RowIndicatorVisibility="Visible">
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu>
+                                                        <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=EngineMaterialLists, Mode=OneWay}" />
+                                                        <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=EngineMaterialLists, Mode=OneWay}" />
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
                                                     <input:DataPageSerialColumn Header="编号" />
                                                     <telerik:GridViewDataColumn Header="件号"
@@ -360,6 +370,16 @@
                                                                  FontSize="{StaticResource TextFontSize}"
                                                                  ValidatesOnDataErrors="InEditMode"
                                                                  RowIndicatorVisibility="Visible">
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu>
+                                                        <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=BFEMaterialLists, Mode=OneWay}" />
+                                                        <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=BFEMaterialLists, Mode=OneWay}" />
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
                                                     <input:DataPageSerialColumn Header="编号" />
                                                     <telerik:GridViewDataColumn Header="件号"

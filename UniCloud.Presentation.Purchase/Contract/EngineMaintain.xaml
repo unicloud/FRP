@@ -39,7 +39,7 @@
                         <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1"
-                               Text="合同号"
+                               Text="*合同号"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Row="0"
@@ -50,7 +50,7 @@
                              IsReadOnly="True" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
-                               Text="合同名称"
+                               Text="*合同名称"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"

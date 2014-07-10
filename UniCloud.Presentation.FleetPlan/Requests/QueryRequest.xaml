@@ -39,7 +39,8 @@
                                             <RowDefinition Height="30" />
                                         </Grid.RowDefinitions>
                                         <Grid>
-                                            <telerik:RadGridView CanUserSortColumns="True"
+                                            <telerik:RadGridView Name="RequestsView" 
+                                                                 CanUserSortColumns="True"
                                                                  CanUserFreezeColumns="False"
                                                                  IsFilteringAllowed="True"
                                                                  EditTriggers="CellClick"
@@ -50,6 +51,16 @@
                                                                  SelectedItem="{Binding SelectedRequest,Mode=TwoWay}"
                                                                  ShowGroupPanel="False"
                                                                  ValidatesOnDataErrors="InEditMode">
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu>
+                                                        <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=RequestsView, Mode=OneWay}" />
+                                                        <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=RequestsView, Mode=OneWay}" />
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
                                                     <uc:DataPageSerialColumn Header="编号" />
                                                     <telerik:GridViewDataColumn Header="申请标题"
@@ -165,6 +176,16 @@
                                                      ShowColumnFooters="True"
                                                      EditTriggers="CellClick"
                                                      RowStyle="{StaticResource DraggedRowStyle}">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=RequestDetail, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=RequestDetail, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="编号" />
                                         <telerik:GridViewDataColumn Header="座级"
