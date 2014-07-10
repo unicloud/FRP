@@ -1125,8 +1125,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         EngineNumber = c.String(),
-                        InMaintainDate = c.String(),
-                        OutMaintainDate = c.String(),
+                        InMaintainDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        OutMaintainDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         MaintainLevel = c.String(),
                         ChangeLlpNumber = c.Int(nullable: false),
                         TsnCsn = c.String(),

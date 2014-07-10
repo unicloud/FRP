@@ -52,28 +52,50 @@ namespace UniCloud.Infrastructure.Data.FlightLogBC.Tests
                 let x = fl.Split(',')
                 select new
                 {
-                    AcReg = x[0].Trim(),
-                    Msn = x[1].Trim(),
-                    FlightNo = x[2].Trim(),
-                    FlightDate = DateTime.ParseExact(x[3].Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture),
-                    Departure = x[4].Trim(),
-                    Arrival = x[5].Trim(),
-                    E1Dep = !string.IsNullOrWhiteSpace(x[6]) ? decimal.Parse(x[6].Trim()) : 0M,
-                    E1Arr = !string.IsNullOrWhiteSpace(x[7]) ? decimal.Parse(x[7].Trim()) : 0M,
-                    E2Dep = !string.IsNullOrWhiteSpace(x[8]) ? decimal.Parse(x[8].Trim()) : 0M,
-                    E2Arr = !string.IsNullOrWhiteSpace(x[9]) ? decimal.Parse(x[9].Trim()) : 0M,
-                    ApuDep = !string.IsNullOrWhiteSpace(x[10]) ? decimal.Parse(x[10].Trim()) : 0M,
-                    ApuArr = !string.IsNullOrWhiteSpace(x[11]) ? decimal.Parse(x[11].Trim()) : 0M,
-                    FH = decimal.Parse(x[12])
+                    FlightNo = x[1].Trim(),
+                    LogNo = x[2].Trim(),
+                    LegNo = x[3].Trim(),
+                    AcReg = x[4].Trim(),
+                    Msn = x[5].Trim(),
+                    FlightDate = DateTime.Parse(x[7].Trim()),
+                    BlockOn = x[8].Trim(),
+                    TakeOff = x[9].Trim(),
+                    Landing = x[10].Trim(),
+                    BlockStop = x[11].Trim(),
+                    TotalFH = decimal.Parse(x[12].Trim()),
+                    TotalBH = decimal.Parse(x[13].Trim()),
+                    FlightHours = decimal.Parse(x[14].Trim()),
+                    BlockHours = decimal.Parse(x[15].Trim()),
+                    TotalCycle = int.Parse(x[16].Trim()),
+                    Cycle = int.Parse(x[17].Trim()),
+                    Departure = x[18].Trim(),
+                    Arrival = x[19].Trim(),
+                    ToGoNum = int.Parse(x[20].Trim()),
+                    ApuCycle = int.Parse(x[21].Trim()),
+                    ApuMM = int.Parse(x[22].Trim()),
+                    E1Dep = !string.IsNullOrWhiteSpace(x[23]) ? decimal.Parse(x[23].Trim()) : 0M,
+                    E1Arr = !string.IsNullOrWhiteSpace(x[24]) ? decimal.Parse(x[24].Trim()) : 0M,
+                    E2Dep = !string.IsNullOrWhiteSpace(x[25]) ? decimal.Parse(x[25].Trim()) : 0M,
+                    E2Arr = !string.IsNullOrWhiteSpace(x[26]) ? decimal.Parse(x[26].Trim()) : 0M,
+                    E3Dep = !string.IsNullOrWhiteSpace(x[27]) ? decimal.Parse(x[27].Trim()) : 0M,
+                    E3Arr = !string.IsNullOrWhiteSpace(x[28]) ? decimal.Parse(x[28].Trim()) : 0M,
+                    E4Dep = !string.IsNullOrWhiteSpace(x[29]) ? decimal.Parse(x[29].Trim()) : 0M,
+                    E4Arr = !string.IsNullOrWhiteSpace(x[30]) ? decimal.Parse(x[30].Trim()) : 0M,
+                    ApuDep = !string.IsNullOrWhiteSpace(x[31]) ? decimal.Parse(x[31].Trim()) : 0M,
+                    ApuArr = !string.IsNullOrWhiteSpace(x[32]) ? decimal.Parse(x[32].Trim()) : 0M,
                 };
+
             fls.ToList()
                 .ForEach(
                     fl =>
                     {
                         var flightLog = FlightLogFactory.CreateFlightLog(fl.AcReg, fl.Msn, fl.FlightNo, fl.FlightDate,
                             fl.Departure, fl.Arrival);
-                        flightLog.SetOil(fl.E1Dep, fl.E1Arr, fl.E2Dep, fl.E2Arr, 0, 0, 0, 0, fl.ApuDep, fl.ApuArr);
-                        flightLog.SetFlightHour(fl.FH);
+                        flightLog.SetOil(fl.E1Dep, fl.E1Arr, fl.E2Dep, fl.E2Arr, fl.E3Dep, fl.E3Arr, fl.E4Dep, fl.E4Arr,
+                            fl.ApuDep, fl.ApuArr);
+                        flightLog.SetFlightTime(fl.BlockOn, fl.TakeOff, fl.Landing, fl.BlockStop);
+                        flightLog.SetFlightConsume(fl.FlightHours, fl.BlockHours, fl.TotalFH, fl.TotalBH, fl.TotalCycle,
+                            fl.Cycle, fl.ToGoNum, fl.ApuCycle, fl.ApuMM);
                         flRep.Add(flightLog);
                     });
 
