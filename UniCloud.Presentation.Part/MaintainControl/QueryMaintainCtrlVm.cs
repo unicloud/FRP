@@ -199,7 +199,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                 if (_selItemMaintainCtrl != value)
                 {
                     _selItemMaintainCtrl = value;
-                    ItemCtrlLines = null;
+                    _itemCtrlLines = new List<ItemVm.CtrlLine>();
                     if (value != null && value.XmlContent != null)
                     {
                         ItemCtrlLines = ConvertXmlToString(value.XmlContent);
@@ -247,7 +247,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
                 if (_selPnMaintainCtrl != value)
                 {
                     _selPnMaintainCtrl = value;
-                    PnCtrlLines = null;
+                    _pnCtrlLines = new List<ItemVm.CtrlLine>();
                     if (value != null && value.XmlContent != null)
                     {
                         PnCtrlLines = ConvertXmlToString(value.XmlContent);

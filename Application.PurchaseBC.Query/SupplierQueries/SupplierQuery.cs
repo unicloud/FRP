@@ -190,6 +190,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                 IsDefault = p.IsDefault,
                 LinkmanId = p.Id,
                 Fax = p.Fax,
+                TelePhone=p.TelePhone,
                 Mobile = p.Mobile,
                 Name = p.Name,
                 Note = p.Note,
