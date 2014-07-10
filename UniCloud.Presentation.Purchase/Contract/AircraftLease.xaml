@@ -273,7 +273,7 @@
                                                                            BorderThickness="0"
                                                                            Background="Transparent"
                                                                            Command="{Binding DataContext.RemoveDocCommand, ElementName=LayoutRoot}"
-                                                                           CommandParameter="{Binding DocumentId}">
+                                                                           CommandParameter="{Binding}">
                                                             <Image
                                                                 Source="/UniCloud.Presentation;component/Images/DeleteRed.png"
                                                                 ToolTipService.ToolTip="移除关联文档" />
