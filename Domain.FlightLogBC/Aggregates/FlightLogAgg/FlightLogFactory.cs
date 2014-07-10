@@ -47,7 +47,8 @@ namespace UniCloud.Domain.FlightLogBC.Aggregates.FlightLogAgg
                 FlightNum = flightNum,
                 FlightDate = flightDate,
                 DepartureAirport = departure,
-                ArrivalAirport = arrival
+                ArrivalAirport = arrival,
+                CreateDate = DateTime.Now
             };
             flightLog.GenerateNewIdentity();
             return flightLog;

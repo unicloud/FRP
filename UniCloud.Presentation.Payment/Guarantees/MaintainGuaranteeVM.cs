@@ -28,6 +28,7 @@ using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
 using UniCloud.Presentation.SessionExtension;
+using UniCloud.Presentation.Service;
 
 #endregion
 
@@ -202,7 +203,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 CreateDate = DateTime.Now,
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddDays(7),
-                OperatorName = SessionUser.UserName,
+                OperatorName = StatusData.curUser,
             };
             var firstOrDefault = MaintainContractView.FirstOrDefault();
             if (firstOrDefault != null)
@@ -289,6 +290,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 return;
             }
             SelectedMaintainGuarantee.Status = (int) GuaranteeStatus.待审核;
+            
             RefreshCommandState();
         }
 
@@ -324,7 +326,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 return;
             }
             SelectedMaintainGuarantee.Status = (int) GuaranteeStatus.已审核;
-            SelectedMaintainGuarantee.Reviewer = SessionUser.UserName;
+            SelectedMaintainGuarantee.Reviewer = StatusData.curUser;
             RefreshCommandState();
         }
 

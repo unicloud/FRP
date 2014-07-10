@@ -30,6 +30,7 @@ using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
+using UniCloud.Presentation.Service;
 
 #endregion
 
@@ -337,6 +338,18 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 操作
 
+        protected override void RefreshCommandState()
+        {
+            SaveCommand.RaiseCanExecuteChanged();
+            AbortCommand.RaiseCanExecuteChanged();
+            NewCommand.RaiseCanExecuteChanged();
+            DeleteCommand.RaiseCanExecuteChanged();
+            AddCommand.RaiseCanExecuteChanged();
+            RemoveCommand.RaiseCanExecuteChanged();
+            SubmitCommand.RaiseCanExecuteChanged();
+            CheckCommand.RaiseCanExecuteChanged();
+        }
+
         #region 新建预付款发票
 
         /// <summary>
@@ -462,12 +475,19 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnSubmit(object obj)
         {
-            IsSubmited = true;
+            if (SelPrepaymentInvoice == null)
+            {
+                MessageAlert("提示", "请选择需要提交的审核记录！");
+                return;
+            }
+            SelPrepaymentInvoice.Status = (int)InvoiceStatus.待审核;
+            //IsSubmited = true;
+            RefreshCommandState();
         }
 
         private bool CanSubmit(object obj)
         {
-            return true;
+            return SelPrepaymentInvoice != null && SelPrepaymentInvoice.Status < (int)InvoiceStatus.待审核;
         }
 
         #endregion
@@ -481,13 +501,20 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnCheck(object obj)
         {
-            SelPrepaymentInvoice.Reviewer = "HQB";
+            if (SelPrepaymentInvoice == null)
+            {
+                MessageAlert("提示", "请选择需要提交的审核记录！");
+                return;
+            }
+            SelPrepaymentInvoice.Status = (int)InvoiceStatus.已审核;
+            SelPrepaymentInvoice.Reviewer = StatusData.curUser;
             SelPrepaymentInvoice.ReviewDate = DateTime.Now;
+            RefreshCommandState();
         }
 
         private bool CanCheck(object obj)
         {
-            return true;
+            return SelPrepaymentInvoice != null && SelPrepaymentInvoice.Status == (int)InvoiceStatus.待审核;
         }
 
         #endregion

@@ -297,7 +297,7 @@ namespace UniCloud.DataService.DataProcess
             decimal qsr, decimal interval, decimal deltaInterval)
         {
             var tsn = lastTSR.TSN + tsr;
-            var toc = tsr == 0 ? 0 : Math.Round(qsr/tsr, 2);
+            var toc = tsr == 0 ? 0 : Math.Round(qsr/tsr, 4);
             var oilMonitor = OilMonitorFactory.CreateEngineOil(engineReg, calDate, tsn, tsr, toc, interval,
                 deltaInterval);
             return oilMonitor;
@@ -318,7 +318,7 @@ namespace UniCloud.DataService.DataProcess
             decimal qsr, decimal interval, decimal deltaInterval)
         {
             var tsn = lastTSR.TSN + tsr;
-            var toc = tsr == 0 ? 0 : Math.Round(qsr/tsr, 2);
+            var toc = tsr == 0 ? 0 : Math.Round(qsr/tsr, 4);
             var oilMonitor = OilMonitorFactory.CreateAPUOil(apuReg, calDate, tsn, tsr, toc, interval, deltaInterval);
             return oilMonitor;
         }
