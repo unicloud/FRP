@@ -99,22 +99,22 @@ namespace UniCloud.Domain.FlightLogBC.Aggregates.FlightLogAgg
         public string BlockStop { get; internal set; }
 
         /// <summary>
-        ///     累计飞行时间
+        ///     累计飞行时间（以起飞落地计）
         /// </summary>
         public decimal TotalFH { get; internal set; }
 
         /// <summary>
-        ///     累计开车时间
+        ///     累计飞行时间（以开关车计）
         /// </summary>
         public decimal TotalBH { get; internal set; }
 
         /// <summary>
-        ///     飞行时间
+        ///     飞行时间（以起飞落地计）
         /// </summary>
         public decimal FlightHours { get; internal set; }
 
         /// <summary>
-        ///     开车时长
+        ///     飞行时间（以开关车计）
         /// </summary>
         public decimal BlockHours { get; internal set; }
 
@@ -226,12 +226,44 @@ namespace UniCloud.Domain.FlightLogBC.Aggregates.FlightLogAgg
         #region 操作
 
         /// <summary>
+        ///     设置飞行时刻
+        /// </summary>
+        /// <param name="blockOn">开车时刻</param>
+        /// <param name="takeOff">起飞时刻</param>
+        /// <param name="landing">落地时刻</param>
+        /// <param name="blockStop">关车时刻</param>
+        public void SetFlightTime(string blockOn, string takeOff, string landing, string blockStop)
+        {
+            BlockOn = blockOn;
+            TakeOff = takeOff;
+            Landing = landing;
+            BlockStop = blockStop;
+        }
+
+        /// <summary>
         ///     设置飞行小时
         /// </summary>
-        /// <param name="flightHour">飞行小时</param>
-        public void SetFlightHour(decimal flightHour)
+        /// <param name="flightHour">飞行小时（以起飞落地计）</param>
+        /// <param name="blockHour">飞行小时（以开关车计）</param>
+        /// <param name="totalFH">累计飞行时间（以起飞落地计）</param>
+        /// <param name="totalBH">累计飞行时间（以开关车计）</param>
+        /// <param name="totalCycle">累计使用循环</param>
+        /// <param name="cycle">使用循环</param>
+        /// <param name="toGoNum">训练循环数</param>
+        /// <param name="apuCycle">累计APU使用循环</param>
+        /// <param name="apuMM">累计APU使用分钟</param>
+        public void SetFlightConsume(decimal flightHour, decimal blockHour, decimal totalFH, decimal totalBH,
+            int totalCycle, int cycle, int toGoNum, int apuCycle, int apuMM)
         {
             FlightHours = flightHour;
+            BlockHours = blockHour;
+            TotalFH = totalFH;
+            TotalBH = totalBH;
+            TotalCycles = totalCycle;
+            Cycle = cycle;
+            ToGoNumber = toGoNum;
+            ApuCycle = apuCycle;
+            ApuMM = apuMM;
         }
 
         /// <summary>
