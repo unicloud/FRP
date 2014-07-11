@@ -50,9 +50,9 @@
                         <telerik:RadContextMenu>
                             <telerik:RadMenuItem Header="导出Excel"
                                                  Command="{Binding ExcelExportCommand}"
-                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                                                 CommandParameter="{Binding ElementName=OilUser, Mode=OneWay}" />
                             <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
-                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                                                 CommandParameter="{Binding ElementName=OilUser, Mode=OneWay}" />
                         </telerik:RadContextMenu>
                     </telerik:RadContextMenu.ContextMenu>
                     <telerik:RadGridView.Columns>
@@ -81,9 +81,9 @@
                     <telerik:RadContextMenu.ContextMenu>
                         <telerik:RadContextMenu>
                             <telerik:RadMenuItem Header="导出Excel" Command="{Binding ExcelExportCommand}"
-                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                                                 CommandParameter="{Binding ElementName=OilMonitor, Mode=OneWay}" />
                             <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
-                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                                                 CommandParameter="{Binding ElementName=OilMonitor, Mode=OneWay}" />
                         </telerik:RadContextMenu>
                     </telerik:RadContextMenu.ContextMenu>
                     <telerik:RadGridView.Columns>
@@ -202,7 +202,7 @@
                             </DataTemplate>
                         </telerik:LineSeries.TrackBallInfoTemplate>
                         <telerik:LineSeries.VerticalAxis>
-                            <telerik:LinearAxis HorizontalLocation="Right" Minimum="-6" Maximum="6" MajorStep="2"
+                            <telerik:LinearAxis HorizontalLocation="Right" Minimum="-1" Maximum="1" MajorStep=".5"
                                                 LabelStyle="{StaticResource RightLabelStyle}"
                                                 MajorTickStyle="{StaticResource TickStyle}" />
                         </telerik:LineSeries.VerticalAxis>
@@ -211,7 +211,7 @@
                         <telerik:DateTimeCategoricalAxis Visibility="Collapsed" />
                     </telerik:RadCartesianChart.HorizontalAxis>
                     <telerik:RadCartesianChart.VerticalAxis>
-                        <telerik:LinearAxis Minimum="-6" Maximum="6" MajorStep="2"
+                        <telerik:LinearAxis Minimum="-1" Maximum="1" MajorStep=".5"
                                             LabelStyle="{StaticResource LeftLabelStyle}"
                                             MajorTickStyle="{StaticResource TickStyle}" />
                     </telerik:RadCartesianChart.VerticalAxis>
@@ -263,7 +263,7 @@
                                         ValueBinding="DeltaIntervalRate" Stroke="{StaticResource AccentBrush}"
                                         TrackBallTemplate="{StaticResource TrackBallTemplate}">
                         <telerik:LineSeries.VerticalAxis>
-                            <telerik:LinearAxis HorizontalLocation="Right" Minimum="-3" Maximum="3" MajorStep="1"
+                            <telerik:LinearAxis HorizontalLocation="Right" Minimum="-1" Maximum="1" MajorStep=".5"
                                                 LabelStyle="{StaticResource RightLabelStyle}"
                                                 MajorTickStyle="{StaticResource TickStyle}" />
                         </telerik:LineSeries.VerticalAxis>
@@ -274,7 +274,7 @@
                                                          MajorTickStyle="{StaticResource TickStyle}" />
                     </telerik:RadCartesianChart.HorizontalAxis>
                     <telerik:RadCartesianChart.VerticalAxis>
-                        <telerik:LinearAxis Minimum="-3" Maximum="3" MajorStep="1"
+                        <telerik:LinearAxis Minimum="-1" Maximum="1" MajorStep=".5"
                                             LabelStyle="{StaticResource LeftLabelStyle}"
                                             MajorTickStyle="{StaticResource TickStyle}" />
                     </telerik:RadCartesianChart.VerticalAxis>

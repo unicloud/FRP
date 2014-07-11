@@ -133,7 +133,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Column="1"
-                               Text="名称"
+                               Text="*名称"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"

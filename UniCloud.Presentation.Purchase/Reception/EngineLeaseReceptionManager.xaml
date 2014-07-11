@@ -108,10 +108,10 @@
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=EngineLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=Reception, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=EngineLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=Reception, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
@@ -219,10 +219,10 @@
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=SelEngineLeaseReception.ReceptionLines, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=ReceptionLines, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=SelEngineLeaseReception.ReceptionLines, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=ReceptionLines, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>

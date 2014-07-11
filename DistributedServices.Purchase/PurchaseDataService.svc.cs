@@ -25,6 +25,7 @@ using System.Web;
 using UniCloud.Application.PurchaseBC.ContractDocumentServices;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.DTO;
+using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Infrastructure.Unity;
 
 #endregion
@@ -52,6 +53,16 @@ namespace UniCloud.DistributedServices.Purchase
             config.SetServiceOperationAccessRule("ModifyDocPath", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("SearchDocumentPath", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("SearchContractDocument", ServiceOperationRights.All);
+
+            config.SetServiceOperationAccessRule("GetEngineSuppliers", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("GetAircraftSuppliers", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("GetAircraftPurchaseSuppliers", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("GetAircraftLeaseSuppliers", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("GetEnginePurchaseSuppliers", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("GetEngineLeaseSuppliers", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("GetBfeSuppliers", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("GetMaintainSuppliers", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("GetOtherSuppliers", ServiceOperationRights.All);
 
             #endregion
 
@@ -136,6 +147,88 @@ namespace UniCloud.DistributedServices.Purchase
             return searchDocument.Search(keyword);
         }
 
+        #endregion
+
+        #region 获取飞机供应商
+
+        [WebGet]
+        public List<SupplierDTO> GetAircraftSuppliers()
+        {
+            var planAppService = UniContainer.Resolve<ISupplierAppService>();
+            return planAppService.GetAircraftSuppliers();
+        }
+
+        [WebGet]
+        public List<SupplierDTO> GetAircraftPurchaseSuppliers()
+        {
+            var planAppService = UniContainer.Resolve<ISupplierAppService>();
+            return planAppService.GetAircraftPurchaseSuppliers();
+        }
+
+        [WebGet]
+        public List<SupplierDTO> GetAircraftLeaseSuppliers()
+        {
+            var planAppService = UniContainer.Resolve<ISupplierAppService>();
+            return planAppService.GetAircraftLeaseSuppliers();
+        }
+        #endregion
+
+        #region 获取发动机供应商
+
+        [WebGet]
+        public List<SupplierDTO> GetEngineSuppliers()
+        {
+            var planAppService = UniContainer.Resolve<ISupplierAppService>();
+            return planAppService.GetEngineSuppliers();
+        }
+
+        [WebGet]
+        public List<SupplierDTO> GetEnginePurchaseSuppliers()
+        {
+            var planAppService = UniContainer.Resolve<ISupplierAppService>();
+            return planAppService.GetEnginePurchaseSuppliers();
+        }
+
+        [WebGet]
+        public List<SupplierDTO> GetEngineLeaseSuppliers()
+        {
+            var planAppService = UniContainer.Resolve<ISupplierAppService>();
+            return planAppService.GetEngineLeaseSuppliers();
+        }
+
+        #endregion
+
+        #region 获取航材供应商
+
+        [WebGet]
+        public List<SupplierDTO> GetBfeSuppliers()
+        {
+            var planAppService = UniContainer.Resolve<ISupplierAppService>();
+            return planAppService.GetBfeSuppliers();
+        }
+
+        #endregion
+
+        #region 获取维修供应商
+
+        [WebGet]
+        public List<SupplierDTO> GetMaintainSuppliers()
+        {
+            var planAppService = UniContainer.Resolve<ISupplierAppService>();
+            return planAppService.GetMaintainSuppliers();
+        }
+
+
+        #endregion
+
+        #region 获取其他供应商
+
+        [WebGet]
+        public List<SupplierDTO> GetOtherSuppliers()
+        {
+            var planAppService = UniContainer.Resolve<ISupplierAppService>();
+            return planAppService.GetOtherSuppliers();
+        }
         #endregion
     }
 }

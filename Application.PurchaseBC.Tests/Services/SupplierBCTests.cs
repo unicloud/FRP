@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PurchaseBC.Query.AircraftTypeQueries;
@@ -165,6 +166,34 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
             var result = service.GetSupplierCompanyBFEMaterials().ToList();
             // Assert
             Assert.IsTrue(result.Any());
+        }
+
+
+        /// <summary>
+        ///     获取分类型的供应商
+        /// </summary>
+        [TestMethod]
+        public void GetPartSupplier()
+        {
+            var service = UniContainer.Resolve<ISupplierAppService>();
+
+            var result = service.GetAircraftSuppliers().ToList();
+
+            var result2 = service.GetEngineSuppliers().ToList();
+
+            var result3 = service.GetAircraftLeaseSuppliers().ToList();
+
+            var result4 = service.GetAircraftPurchaseSuppliers().ToList();
+
+            var result5 = service.GetEngineLeaseSuppliers().ToList();
+
+            var result6 = service.GetEnginePurchaseSuppliers().ToList();
+
+            var result7 = service.GetMaintainSuppliers().ToList();
+
+            var result8 = service.GetOtherSuppliers().ToList();
+
+            Assert.IsNotNull(result);
         }
     }
 }

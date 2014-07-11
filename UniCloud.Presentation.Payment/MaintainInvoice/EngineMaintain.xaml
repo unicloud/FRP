@@ -126,7 +126,7 @@
                                                                                 DataMemberBinding="{Binding Type}"
                                                                                 SelectedValueMemberPath="Key"
                                                                                 DisplayMemberPath="Value" />
-                                                <telerik:GridViewDataColumn Header="序列号"
+                                                <telerik:GridViewDataColumn Header="*序列号"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             TextAlignment="Right"
                                                                             HeaderTextAlignment="Center"
@@ -137,7 +137,7 @@
                                                                             TextAlignment="Right"
                                                                             HeaderTextAlignment="Center"
                                                                             DataMemberBinding="{Binding InvoiceNumber}" />
-                                                <telerik:GridViewDataColumn Header="发票号码"
+                                                <telerik:GridViewDataColumn Header="*发票号码"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             TextAlignment="Right"
                                                                             HeaderTextAlignment="Center"
@@ -147,7 +147,7 @@
                                                                          TextAlignment="Right"
                                                                          HeaderTextAlignment="Center"
                                                                          DataMemberBinding="{Binding InvoiceDate, StringFormat={StaticResource DateStringFormat}}" />
-                                                <telerik:GridViewComboBoxColumn Header="供应商"
+                                                <telerik:GridViewComboBoxColumn Header="*供应商"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 TextAlignment="Right"
                                                                                 HeaderTextAlignment="Center"
@@ -155,7 +155,7 @@
                                                                                 DataMemberBinding="{Binding SupplierId}"
                                                                                 SelectedValueMemberPath="SupplierId"
                                                                                 DisplayMemberPath="Name" />
-                                                <telerik:GridViewComboBoxColumn Header="币种"
+                                                <telerik:GridViewComboBoxColumn Header="*币种"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 TextAlignment="Right"
                                                                                 HeaderTextAlignment="Center"
@@ -163,7 +163,7 @@
                                                                                 DataMemberBinding="{Binding CurrencyId}"
                                                                                 SelectedValueMemberPath="Id"
                                                                                 DisplayMemberPath="Name" />
-                                                <telerik:GridViewMaskedInputColumn Header="发票金额"
+                                                <telerik:GridViewMaskedInputColumn Header="*发票金额"
                                                                                    IsReadOnly="True"
                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                    TextAlignment="Right"
@@ -191,9 +191,10 @@
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
                                                                             DataMemberBinding="{Binding OutMaintainTime,StringFormat={StaticResource DateStringFormat }}" />
-                                                <telerik:GridViewDataColumn Header="经办人"
+                                                <telerik:GridViewDataColumn Header="*经办人"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             TextAlignment="Right"
+                                                                            IsReadOnly="True"
                                                                             HeaderTextAlignment="Center"
                                                                             DataMemberBinding="{Binding OperatorName}" />
                                                 <telerik:GridViewDataColumn Header="审核人"
@@ -327,7 +328,7 @@
                                         </i:Interaction.Triggers>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号" />
-                                            <telerik:GridViewComboBoxColumn Header="维修项"
+                                            <telerik:GridViewComboBoxColumn Header="*维修项"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             TextAlignment="Right"
                                                                             HeaderTextAlignment="Center"
@@ -335,7 +336,7 @@
                                                                             DataMemberBinding="{Binding MaintainItem}"
                                                                             SelectedValueMemberPath="Key"
                                                                             DisplayMemberPath="Value" />
-                                            <telerik:GridViewComboBoxColumn Header="项名称"
+                                            <telerik:GridViewComboBoxColumn Header="*项名称"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             TextAlignment="Right"
                                                                             HeaderTextAlignment="Center"
@@ -343,14 +344,14 @@
                                                                             DataMemberBinding="{Binding ItemName}"
                                                                             SelectedValueMemberPath="Key"
                                                                             DisplayMemberPath="Value" />
-                                            <telerik:GridViewMaskedInputColumn Header="单价"
+                                            <telerik:GridViewMaskedInputColumn Header="*单价"
                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                TextAlignment="Right"
                                                                                HeaderTextAlignment="Center"
                                                                                DataMemberBinding="{Binding UnitPrice,StringFormat={StaticResource CurrencyStringFormat}}"
                                                                                MaskType="Numeric"
                                                                                Mask="###,###,###.##" />
-                                            <telerik:GridViewMaskedInputColumn Header="数量"
+                                            <telerik:GridViewMaskedInputColumn Header="*数量"
                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                TextAlignment="Right"
                                                                                HeaderTextAlignment="Center"

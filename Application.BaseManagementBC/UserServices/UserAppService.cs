@@ -111,7 +111,6 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
             updateUser.SetOrganization(user.OrganizationNo);
             updateUser.SetContact(user.Email, user.Mobile);
             updateUser.SetComment(user.Description);
-            updateUser.SetPassword(EncodePassword(user.Password));
 
             var dtoUserRoles = user.UserRoles;
             var userRoles = updateUser.UserRoles;

@@ -68,8 +68,9 @@ namespace UniCloud.Application.BaseManagementBC.RoleServices
         public void InsertRole(RoleDTO role)
         {
             var newRole = RoleFactory.CreateRole(role.Name);
+            newRole.ChangeCurrentIdentity(role.Id);
             role.RoleFunctions.ToList()
-                .ForEach(roleFunction => _roleFunctionRepository.Add(new RoleFunction(role.Id, roleFunction.Id)));
+                .ForEach(roleFunction => _roleFunctionRepository.Add(new RoleFunction(role.Id, roleFunction.FunctionItemId)));
             _roleRepository.Add(newRole);
         }
 

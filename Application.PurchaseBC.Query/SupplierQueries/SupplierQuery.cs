@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.Common.Enums;
@@ -35,10 +36,13 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
     public class SupplierQuery : ISupplierQuery
     {
         private readonly IQueryableUnitOfWork _unitOfWork;
+        private readonly ISupplierCompanyRepository _supplierCompanyRepository;
 
-        public SupplierQuery(IQueryableUnitOfWork unitOfWork)
+        public SupplierQuery(IQueryableUnitOfWork unitOfWork,            
+            ISupplierCompanyRepository supplierCompanyRepository)
         {
             _unitOfWork = unitOfWork;
+            _supplierCompanyRepository = supplierCompanyRepository;
         }
 
         public IQueryable<SupplierCompanyDTO> SupplierCompanysQuery(QueryBuilder<SupplierCompany> query)
@@ -269,5 +273,269 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                        MaterialId = c.MaterialId
                    };
         }
+
+        #region 获取供应商信息
+        /// <summary>
+        /// 获取所有的飞机供应商（飞机采购和租赁供应商）
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetAircraftSuppliers()
+        {
+            var results = new List<Supplier>();
+            var dbAcPurSuppliers = _unitOfWork.CreateSet<AircraftPurchaseSupplier>().ToList();
+            var dbAcLeaseSuppliers = _unitOfWork.CreateSet<AircraftLeaseSupplier>().ToList();
+            if (dbAcPurSuppliers.ToList().Count != 0)
+            {
+                dbAcPurSuppliers.ToList().ForEach(p =>
+                {
+                    var supplierCompany = _supplierCompanyRepository.Get(p.SupplierCompanyId);
+                    results.AddRange(supplierCompany.Suppliers);
+                });
+            }
+            if (dbAcLeaseSuppliers.ToList().Count != 0)
+            {
+                dbAcLeaseSuppliers.ToList().ForEach(p =>
+                {
+                    var supplierCompany = _supplierCompanyRepository.Get(p.SupplierCompanyId);
+                    results.AddRange(supplierCompany.Suppliers);
+                });
+            }
+            results = results.Distinct().ToList();
+            return results.Select(p => new SupplierDTO
+            {
+                SupplierId = p.Id,
+                Name = p.CnName,
+                ShortName = p.CnShortName,
+                Code = p.Code,
+                Note = p.Note,
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 获取所有的发动机供应商（发动机采购和租赁供应商）
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetEngineSuppliers()
+        {
+            var results = new List<Supplier>();
+            var dbEnginePurSuppliers = _unitOfWork.CreateSet<SupplierRole>().OfType<EnginePurchaseSupplier>().ToList();
+            var dbEngineLeaseSuppliers = _unitOfWork.CreateSet<SupplierRole>().OfType<EngineLeaseSupplier>().ToList();
+            if (dbEnginePurSuppliers.Count != 0)
+            {
+                dbEnginePurSuppliers.ForEach(p =>
+                {
+                    var supplierCompany = _supplierCompanyRepository.Get(p.SupplierCompanyId);
+                    results.AddRange(supplierCompany.Suppliers);
+                });
+            }
+            if (dbEngineLeaseSuppliers.Count != 0)
+            {
+                dbEngineLeaseSuppliers.ForEach(p =>
+                {
+                    var supplierCompany = _supplierCompanyRepository.Get(p.SupplierCompanyId);
+                    results.AddRange(supplierCompany.Suppliers);
+                });
+            }
+            results = results.Distinct().ToList();
+            return results.Select(p => new SupplierDTO
+            {
+                SupplierId = p.Id,
+                Name = p.CnName,
+                ShortName = p.CnShortName,
+                Code = p.Code,
+                Note = p.Note,
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 获取所有的飞机采购供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetAircraftPurchaseSuppliers()
+        {
+            var results = new List<Supplier>();
+            var dbAcPurSuppliers = _unitOfWork.CreateSet<AircraftPurchaseSupplier>().ToList();
+            if (dbAcPurSuppliers.ToList().Count != 0)
+            {
+                dbAcPurSuppliers.ToList().ForEach(p =>
+                {
+                    var supplierCompany = _supplierCompanyRepository.Get(p.SupplierCompanyId);
+                    results.AddRange(supplierCompany.Suppliers);
+                });
+            }
+            results = results.Distinct().ToList();
+            return results.Select(p => new SupplierDTO
+            {
+                SupplierId = p.Id,
+                Name = p.CnName,
+                ShortName = p.CnShortName,
+                Code = p.Code,
+                Note = p.Note,
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 获取所有的飞机租赁供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetAircraftLeaseSuppliers()
+        {
+            var results = new List<Supplier>();
+            var dbAcLeaseSuppliers = _unitOfWork.CreateSet<AircraftLeaseSupplier>().ToList();
+            if (dbAcLeaseSuppliers.ToList().Count != 0)
+            {
+                dbAcLeaseSuppliers.ToList().ForEach(p =>
+                {
+                    var supplierCompany = _supplierCompanyRepository.Get(p.SupplierCompanyId);
+                    results.AddRange(supplierCompany.Suppliers);
+                });
+            }
+            results = results.Distinct().ToList();
+            return results.Select(p => new SupplierDTO
+            {
+                SupplierId = p.Id,
+                Name = p.CnName,
+                ShortName = p.CnShortName,
+                Code = p.Code,
+                Note = p.Note,
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 获取所有的发动机采购供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetEnginePurchaseSuppliers()
+        {
+            var results = new List<Supplier>();
+            var dbEnginePurSuppliers = _unitOfWork.CreateSet<SupplierRole>().OfType<EnginePurchaseSupplier>().ToList();
+            if (dbEnginePurSuppliers.Count != 0)
+            {
+                dbEnginePurSuppliers.ForEach(p =>
+                {
+                    var supplierCompany = _supplierCompanyRepository.Get(p.SupplierCompanyId);
+                    results.AddRange(supplierCompany.Suppliers);
+                });
+            }
+            results = results.Distinct().ToList();
+            return results.Select(p => new SupplierDTO
+            {
+                SupplierId = p.Id,
+                Name = p.CnName,
+                ShortName = p.CnShortName,
+                Code = p.Code,
+                Note = p.Note,
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 获取所有的发动机租赁供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetEngineLeaseSuppliers()
+        {
+            var results = new List<Supplier>();
+            var dbEngineLeaseSuppliers = _unitOfWork.CreateSet<SupplierRole>().OfType<EngineLeaseSupplier>().ToList();
+            if (dbEngineLeaseSuppliers.Count != 0)
+            {
+                dbEngineLeaseSuppliers.ForEach(p =>
+                {
+                    var supplierCompany = _supplierCompanyRepository.Get(p.SupplierCompanyId);
+                    results.AddRange(supplierCompany.Suppliers);
+                });
+            }
+            results = results.Distinct().ToList();
+            return results.Select(p => new SupplierDTO
+            {
+                SupplierId = p.Id,
+                Name = p.CnName,
+                ShortName = p.CnShortName,
+                Code = p.Code,
+                Note = p.Note,
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 获取所有的BFE供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetBfeSuppliers()
+        {
+            var results = new List<Supplier>();
+            var dbBfeSuppliers = _unitOfWork.CreateSet<SupplierRole>().OfType<BFEPurchaseSupplier>().ToList();
+            if (dbBfeSuppliers.Count != 0)
+            {
+                dbBfeSuppliers.ForEach(p =>
+                {
+                    var supplierCompany = _supplierCompanyRepository.Get(p.SupplierCompanyId);
+                    results.AddRange(supplierCompany.Suppliers);
+                });
+            }
+            results = results.Distinct().ToList();
+            return results.Select(p => new SupplierDTO
+            {
+                SupplierId = p.Id,
+                Name = p.CnName,
+                ShortName = p.CnShortName,
+                Code = p.Code,
+                Note = p.Note,
+            }).ToList();
+        }
+
+
+        /// <summary>
+        /// 获取所有的维修供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetMaintainSuppliers()
+        {
+            var results = new List<Supplier>();
+            var dbBfeSuppliers = _unitOfWork.CreateSet<SupplierRole>().OfType<MaintainSupplier>().ToList();
+            if (dbBfeSuppliers.Count != 0)
+            {
+                dbBfeSuppliers.ForEach(p =>
+                {
+                    var supplierCompany = _supplierCompanyRepository.Get(p.SupplierCompanyId);
+                    results.AddRange(supplierCompany.Suppliers);
+                });
+            }
+            results = results.Distinct().ToList();
+            return results.Select(p => new SupplierDTO
+            {
+                SupplierId = p.Id,
+                Name = p.CnName,
+                ShortName = p.CnShortName,
+                Code = p.Code,
+                Note = p.Note,
+            }).ToList();
+        }
+
+        /// <summary>
+        /// 获取所有的"其他"供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetOtherSuppliers()
+        {
+            var results = new List<Supplier>();
+            var dbBfeSuppliers = _unitOfWork.CreateSet<SupplierRole>().OfType<OtherSupplier>().ToList();
+            if (dbBfeSuppliers.Count != 0)
+            {
+                dbBfeSuppliers.ForEach(p =>
+                {
+                    var supplierCompany = _supplierCompanyRepository.Get(p.SupplierCompanyId);
+                    results.AddRange(supplierCompany.Suppliers);
+                });
+            }
+            results = results.Distinct().ToList();
+            return results.Select(p => new SupplierDTO
+            {
+                SupplierId = p.Id,
+                Name = p.CnName,
+                ShortName = p.CnShortName,
+                Code = p.Code,
+                Note = p.Note,
+            }).ToList();
+        }
+        #endregion
     }
 }

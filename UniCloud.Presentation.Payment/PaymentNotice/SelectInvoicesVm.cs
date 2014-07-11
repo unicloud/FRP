@@ -52,6 +52,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             {
                 InvoiceList = new ObservableCollection<BaseInvoiceDTO>();
                 Invoices.ToList().ForEach(InvoiceList.Add);
+               
                 SelectInvoices = new ObservableCollection<BaseInvoiceDTO>();
                 if (!InvoiceList.Any()) return;
                 _paymentNotice.PaymentNoticeLines.ToList().ForEach(p =>

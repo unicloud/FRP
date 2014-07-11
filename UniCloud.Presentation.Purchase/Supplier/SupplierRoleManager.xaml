@@ -60,6 +60,7 @@
                                         </telerik:RadButton>
                                     </telerik:RadToolBar>
                                     <telerik:RadGridView Grid.Row="1"
+                                                         Name="SupplierCompanies"
                                                          ItemsSource="{Binding SupplierCompanies}"
                                                          AutoGenerateColumns="False"
                                                          SelectedItem="{Binding SelectedSupplierCompany, Mode=TwoWay}"
@@ -68,6 +69,16 @@
                                                          CanUserSortColumns="True"
                                                          RowIndicatorVisibility="Visible"
                                                          CanUserFreezeColumns="False">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu>
+                                                <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=SupplierCompanies, Mode=OneWay}" />
+                                                <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=SupplierCompanies, Mode=OneWay}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}"

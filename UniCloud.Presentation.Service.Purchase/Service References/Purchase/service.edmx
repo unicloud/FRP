@@ -951,6 +951,15 @@
         <FunctionImport Name="SearchContractDocument" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.ContractDocumentDTO)" EntitySet="ContractDocuments" m:HttpMethod="GET">
           <Parameter Name="keyword" Type="Edm.String" />
         </FunctionImport>
+        <FunctionImport Name="GetAircraftSuppliers" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierDTO)" EntitySet="Suppliers" m:HttpMethod="GET" />
+        <FunctionImport Name="GetAircraftPurchaseSuppliers" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierDTO)" EntitySet="Suppliers" m:HttpMethod="GET" />
+        <FunctionImport Name="GetAircraftLeaseSuppliers" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierDTO)" EntitySet="Suppliers" m:HttpMethod="GET" />
+        <FunctionImport Name="GetEngineSuppliers" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierDTO)" EntitySet="Suppliers" m:HttpMethod="GET" />
+        <FunctionImport Name="GetEnginePurchaseSuppliers" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierDTO)" EntitySet="Suppliers" m:HttpMethod="GET" />
+        <FunctionImport Name="GetEngineLeaseSuppliers" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierDTO)" EntitySet="Suppliers" m:HttpMethod="GET" />
+        <FunctionImport Name="GetBfeSuppliers" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierDTO)" EntitySet="Suppliers" m:HttpMethod="GET" />
+        <FunctionImport Name="GetMaintainSuppliers" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierDTO)" EntitySet="Suppliers" m:HttpMethod="GET" />
+        <FunctionImport Name="GetOtherSuppliers" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierDTO)" EntitySet="Suppliers" m:HttpMethod="GET" />
         <AssociationSet Name="PlanAircraftDTO_PlanHistories" Association="UniCloud.Application.PurchaseBC.DTO.PlanAircraftDTO_PlanHistories">
           <End Role="PlanAircraftDTO" EntitySet="PlanAircrafts" />
           <End Role="PlanHistories" EntitySet="PlanHistories" />

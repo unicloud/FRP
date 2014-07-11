@@ -140,6 +140,26 @@ namespace UniCloud.Presentation.Document
 
         #endregion
 
+        #region Excel文档可见
+
+        private Visibility _excelVisibility;
+
+        /// <summary>
+        ///     Excel文档可见
+        /// </summary>
+        public Visibility ExcelVisibility
+        {
+            get { return _excelVisibility; }
+            set
+            {
+                if (_excelVisibility == value) return;
+                _excelVisibility = value;
+                RaisePropertyChanged(() => ExcelVisibility);
+            }
+        }
+
+        #endregion
+
         #region PDF文档可见
 
         private Visibility _pdfVisibility;

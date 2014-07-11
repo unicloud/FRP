@@ -101,6 +101,16 @@
                                                          EditTriggers="CellClick"
                                                          CanUserFreezeColumns="False"
                                                          SelectedItem="{Binding SelApprovalDoc, Mode=TwoWay}">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu>
+                                                <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=ApprovalDoc, Mode=OneWay}" />
+                                                <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=ApprovalDoc, Mode=OneWay}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号" />
                                             <telerik:GridViewDataColumn Header="*发改委指标批文文号"
@@ -144,6 +154,16 @@
                                                      IsFilteringAllowed="True"
                                                      uc:GridViewDragAndDropBehavior.IsEnabled="True"
                                                      RowStyle="{StaticResource DraggedRowStyle}">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=ApprovalDetail, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=ApprovalDetail, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
                                     <uc:GridViewDoubleClick.Helper>
                                         <uc:ApprovalDetailDoubleClickHelper />
                                     </uc:GridViewDoubleClick.Helper>
@@ -233,6 +253,16 @@
                                                      RowIndicatorVisibility="Visible"
                                                      AutoExpandGroups="True"
                                                      RowStyle="{StaticResource DraggedRowStyle}">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=PlanDetail, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=PlanDetail, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
                                     <uc:GridViewDoubleClick.Helper>
                                         <uc:PlanDetailDoubleClickHelper />
                                     </uc:GridViewDoubleClick.Helper>
