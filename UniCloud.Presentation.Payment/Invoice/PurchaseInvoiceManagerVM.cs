@@ -385,7 +385,17 @@ namespace UniCloud.Presentation.Payment.Invoice
         #endregion
 
         #region 操作
-
+        protected override void RefreshCommandState()
+        {
+            SaveCommand.RaiseCanExecuteChanged();
+            AbortCommand.RaiseCanExecuteChanged();
+            NewCommand.RaiseCanExecuteChanged();
+            DeleteCommand.RaiseCanExecuteChanged();
+            AddCommand.RaiseCanExecuteChanged();
+            RemoveCommand.RaiseCanExecuteChanged();
+            SubmitCommand.RaiseCanExecuteChanged();
+            CheckCommand.RaiseCanExecuteChanged();
+        }
         #region 新建采购发票
 
         /// <summary>
@@ -510,7 +520,14 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnSubmit(object obj)
         {
-            IsSubmited = true;
+            if (SelPurchaseInvoice == null)
+            {
+                MessageAlert("提示","请选择需要提交的审核记录！");
+                return;
+            }
+            SelPurchaseInvoice.Status = (int)InvoiceStatus.待审核;
+            RefreshCommandState();
+            //IsSubmited = true;
         }
 
         private bool CanSubmit(object obj)
@@ -529,13 +546,20 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnCheck(object obj)
         {
+            if(SelPurchaseInvoice==null)
+            {
+                MessageAlert("提示","请选择需要审核的记录！");
+                return;
+            }
+            SelPurchaseInvoice.Status = (int)InvoiceStatus.已审核;
             SelPurchaseInvoice.Reviewer = StatusData.curUser;
             SelPurchaseInvoice.ReviewDate = DateTime.Now;
+            RefreshCommandState();
         }
 
         private bool CanCheck(object obj)
         {
-            return true;
+            return SelPurchaseInvoice != null && SelPurchaseInvoice.Status == (int)InvoiceStatus.待审核;
         }
 
         #endregion

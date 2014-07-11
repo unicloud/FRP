@@ -29,6 +29,7 @@ using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
+using UniCloud.Presentation.Service;
 
 #endregion
 
@@ -251,6 +252,17 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 操作
 
+        protected override void RefreshCommandState()
+        {
+            SaveCommand.RaiseCanExecuteChanged();
+            AbortCommand.RaiseCanExecuteChanged();
+            NewCommand.RaiseCanExecuteChanged();
+            DeleteCommand.RaiseCanExecuteChanged();
+            AddCommand.RaiseCanExecuteChanged();
+            RemoveCommand.RaiseCanExecuteChanged();
+            SubmitCommand.RaiseCanExecuteChanged();
+            CheckCommand.RaiseCanExecuteChanged();
+        }
         #region 新建杂项发票
 
         /// <summary>
@@ -386,12 +398,20 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnSubmit(object obj)
         {
-            IsSubmited = true;
+            if (SelectSundryInvoice == null)
+            {
+                MessageAlert("提示","请选择需要提交审核的记录！");
+                return;
+            }
+            SelectSundryInvoice.Status = (int)InvoiceStatus.待审核;
+            RefreshCommandState();
+            //IsSubmited = true;
+
         }
 
         private bool CanSubmit(object obj)
         {
-            return true;
+            return SelectSundryInvoice != null && SelectSundryInvoice.Status < (int)InvoiceStatus.待审核;
         }
 
         #endregion
@@ -405,13 +425,19 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnCheck(object obj)
         {
-            SelectSundryInvoice.Reviewer = "HQB";
+            if (SelectSundryInvoice == null)
+            {
+                MessageAlert("提示","请选择需要审核的记录！");
+            }
+            SelectSundryInvoice.Status = (int)InvoiceStatus.已审核;
+            SelectSundryInvoice.Reviewer = StatusData.curUser;
             SelectSundryInvoice.ReviewDate = DateTime.Now;
+            RefreshCommandState();
         }
 
         private bool CanCheck(object obj)
         {
-            return true;
+            return SelectSundryInvoice != null && SelectSundryInvoice.Status == (int)InvoiceStatus.待审核;
         }
 
         #endregion

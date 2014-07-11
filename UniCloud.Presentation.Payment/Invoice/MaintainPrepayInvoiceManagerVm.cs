@@ -502,7 +502,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             if (SelPrepaymentInvoice == null)
             {
-                MessageAlert("提示", "请选择需要提交的审核记录！");
+                MessageAlert("提示", "请选择需要审核的记录！");
                 return;
             }
             SelPrepaymentInvoice.Status = (int)InvoiceStatus.已审核;
