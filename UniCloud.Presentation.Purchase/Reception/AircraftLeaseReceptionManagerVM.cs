@@ -54,6 +54,10 @@ namespace UniCloud.Presentation.Purchase.Reception
                     SelAircraftLeaseReception = AircraftLeaseReceptions.FirstOrDefault();
             };
             _service.RegisterCollectionView(AircraftLeaseReceptions); //注册查询集合。
+
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
+            var supplierFilter = new FilterDescriptor("AircraftLeaseSupplier", FilterOperator.IsEqualTo, true);
+            Suppliers.FilterDescriptors.Add(supplierFilter);
         }
 
         /// <summary>
@@ -110,7 +114,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                 AircraftLeaseReceptions.Load(true);
 
             LeaseContractAircrafts.Load(true);
-            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
+            Suppliers.Load(true);
         }
 
         #region 业务

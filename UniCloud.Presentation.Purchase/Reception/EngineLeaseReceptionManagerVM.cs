@@ -69,6 +69,10 @@ namespace UniCloud.Presentation.Purchase.Reception
                     SelEngineLeaseReception = EngineLeaseReceptions.FirstOrDefault();
             };
             _service.RegisterCollectionView(EngineLeaseReceptions); //注册查询集合。
+
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
+            var supplierFilter = new FilterDescriptor("EngineLeaseSupplier", FilterOperator.IsEqualTo, true);
+            Suppliers.FilterDescriptors.Add(supplierFilter);
         }
 
         /// <summary>
@@ -125,7 +129,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                 EngineLeaseReceptions.Load(true);
 
             LeaseContractEngines.Load(true);
-            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
+            Suppliers.Load(true);
         }
 
         #region 业务

@@ -78,6 +78,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             InitializeViewTradeDTO();
             InitializeViewBFEPurchaseOrderDTO();
+            InitializeSupplierDTO();
         }
 
         #endregion
@@ -86,10 +87,20 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 公共属性
 
+        #region 供应商
         /// <summary>
         ///     供应商
         /// </summary>
         public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+
+        private void InitializeSupplierDTO()
+        {
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
+            var supplierFilter = new FilterDescriptor("BFEPurchaseSupplier", FilterOperator.IsEqualTo, true);
+            Suppliers.FilterDescriptors.Add(supplierFilter);
+        }
+
+        #endregion
 
         /// <summary>
         ///     币种
@@ -142,7 +153,8 @@ namespace UniCloud.Presentation.Purchase.Contract
             if (!ViewTradeDTO.AutoLoad) ViewTradeDTO.AutoLoad = true;
             else ViewTradeDTO.Load(true);
 
-            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers), true);
+            Suppliers.Load(true);
+
             Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies), true);
             Linkmen = _service.GetLinkman(() => RaisePropertyChanged(() => Linkmen), true);
             BFEMaterials = _service.GetBfeMaterial(() => RaisePropertyChanged(() => BFEMaterials), true);

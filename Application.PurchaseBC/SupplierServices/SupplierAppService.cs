@@ -634,5 +634,89 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
             }
             _bankAccountRepository.UnitOfWork.CommitAndRefreshChanges();
         }
+
+        #region 获取供应商信息
+
+        /// <summary>
+        /// 获取所有的飞机供应商（飞机采购和租赁供应商）
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetAircraftSuppliers()
+        {
+            return _supplierQuery.GetAircraftSuppliers();
+        }
+
+        /// <summary>
+        /// 获取所有的发动机供应商（发动机采购和租赁供应商）
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetEngineSuppliers()
+        {
+            return _supplierQuery.GetEngineSuppliers();
+        }
+
+        /// <summary>
+        /// 获取所有的飞机采购供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetAircraftPurchaseSuppliers()
+        {
+            return _supplierQuery.GetAircraftPurchaseSuppliers();
+        }
+
+        /// <summary>
+        /// 获取所有的飞机租赁供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetAircraftLeaseSuppliers()
+        {
+            return _supplierQuery.GetAircraftLeaseSuppliers();
+        }
+
+        /// <summary>
+        /// 获取所有的发动机采购供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetEnginePurchaseSuppliers()
+        {
+            return _supplierQuery.GetEnginePurchaseSuppliers();
+        }
+
+        /// <summary>
+        /// 获取所有的发动机租赁供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetEngineLeaseSuppliers()
+        {
+            return _supplierQuery.GetEngineLeaseSuppliers();
+        }
+
+        /// <summary>
+        /// 获取所有的BFE供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetBfeSuppliers()
+        {
+            return _supplierQuery.GetBfeSuppliers();
+        }
+
+        /// <summary>
+        /// 获取所有的维修供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetMaintainSuppliers()
+        {
+            return _supplierQuery.GetMaintainSuppliers();
+        }
+
+        /// <summary>
+        /// 获取所有的"其他"供应商
+        /// </summary>
+        /// <returns></returns>
+        public List<SupplierDTO> GetOtherSuppliers()
+        {
+            return _supplierQuery.GetOtherSuppliers();
+        }
+        #endregion
     }
 }
