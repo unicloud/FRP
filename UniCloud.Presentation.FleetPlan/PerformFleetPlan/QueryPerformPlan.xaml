@@ -224,7 +224,8 @@
                                         <RowDefinition />
                                         <RowDefinition Height="30" />
                                     </Grid.RowDefinitions>
-                                    <telerik:RadGridView AutoExpandGroups="True"
+                                    <telerik:RadGridView Name="PlansView"  
+                                                         AutoExpandGroups="True"
                                                          ShowGroupPanel="False"
                                                          AutoGenerateColumns="False"
                                                          CanUserSortColumns="True"
@@ -236,6 +237,16 @@
                                                          ItemsSource="{Binding PlansView}"
                                                          SelectedItem="{Binding SelectedPlan,Mode=TwoWay}"
                                                          IsBusy="{Binding PlansView.IsBusy}">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu>
+                                                <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=PlansView, Mode=OneWay}" />
+                                                <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=PlansView, Mode=OneWay}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.GroupDescriptors>
                                             <telerik:GroupDescriptor Member="Year"
                                                                      SortDirection="Ascending">
@@ -310,7 +321,8 @@
                                              ContextMenuTemplate="{x:Null}"
                                              FontSize="{StaticResource TextFontSize}">
                                 <Grid>
-                                    <telerik:RadGridView AutoExpandGroups="True"
+                                    <telerik:RadGridView Name="PlanHistories" 
+                                                         AutoExpandGroups="True"
                                                          ShowGroupPanel="False"
                                                          AutoGenerateColumns="False"
                                                          CanUserSortColumns="False"
@@ -322,6 +334,16 @@
                                                          IsReadOnly="True"
                                                          ItemsSource="{Binding PlanHistories}"
                                                          SelectedItem="{Binding SelectedPlanHistory,Mode=TwoWay}">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu>
+                                                <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=PlanHistories, Mode=OneWay}" />
+                                                <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=PlanHistories, Mode=OneWay}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.GroupDescriptors>
                                             <telerik:GroupDescriptor Member="ActionType"
                                                                      DisplayContent="引进/退出"

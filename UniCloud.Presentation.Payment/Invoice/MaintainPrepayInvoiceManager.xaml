@@ -125,7 +125,7 @@
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding InvoiceNumber}" />
-                                            <telerik:GridViewDataColumn Header="发票号码"
+                                            <telerik:GridViewDataColumn Header="*发票号码"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding InvoideCode}" />
@@ -134,7 +134,7 @@
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding InvoiceDate}"
                                                                         DataFormatString="{StaticResource DateStringFormat}" />
-                                            <telerik:GridViewComboBoxColumn Header="供应商"
+                                            <telerik:GridViewComboBoxColumn Header="*供应商"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsFilterable="True"
@@ -143,7 +143,7 @@
                                                                             DataMemberBinding="{Binding SupplierId,Mode=TwoWay}"
                                                                             SelectedValueMemberPath="SupplierId"
                                                                             EditorStyle="{StaticResource EditComboBox}" />
-                                            <telerik:GridViewDataColumn Header="发票金额"
+                                            <telerik:GridViewDataColumn Header="*发票金额"
                                                                         IsReadOnly="True"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -153,7 +153,7 @@
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding PaidAmount}" />
-                                            <telerik:GridViewComboBoxColumn Header="币种"
+                                            <telerik:GridViewComboBoxColumn Header="*币种"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsFilterable="True"
@@ -162,8 +162,9 @@
                                                                             DataMemberBinding="{Binding CurrencyId,Mode=TwoWay}"
                                                                             SelectedValueMemberPath="Id"
                                                                             EditorStyle="{StaticResource EditComboBox}" />
-                                            <telerik:GridViewDataColumn Header="经办人"
+                                            <telerik:GridViewDataColumn Header="*经办人"
                                                                         HeaderTextAlignment="Center"
+                                                                        IsReadOnly="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding OperatorName}" />
                                             <telerik:GridViewDataColumn Header="审核人"
@@ -262,7 +263,7 @@
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}" />
-                                            <telerik:GridViewComboBoxColumn Header="项名称"
+                                            <telerik:GridViewComboBoxColumn Header="*项名称"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             TextAlignment="Right"
                                                                             HeaderTextAlignment="Center"
@@ -270,7 +271,7 @@
                                                                             DataMemberBinding="{Binding ItemName}"
                                                                             SelectedValueMemberPath="Key"
                                                                             DisplayMemberPath="Value" />
-                                            <telerik:GridViewDataColumn Header="金额"
+                                            <telerik:GridViewDataColumn Header="*金额"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding Amount}"
                                                                         UniqueName="TotalLine" />

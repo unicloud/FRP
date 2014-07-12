@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
@@ -38,7 +39,14 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Repositories
         }
 
         #region 方法重载
+        public override SupplierCompany Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as PurchaseBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<SupplierCompany>();
 
+            return set.Include(p => p.Suppliers).SingleOrDefault(l => l.Id == (int)id);
+        }
         #endregion
 
         public SupplierCompany GetSupplierCompany(Expression<Func<SupplierCompany, bool>> condition)

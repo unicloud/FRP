@@ -126,10 +126,10 @@
                                             <telerik:RadContextMenu>
                                                 <telerik:RadMenuItem Header="导出Excel"
                                                                      Command="{Binding ExcelExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
                                                 <telerik:RadMenuItem Header="导出Word"
                                                                      Command="{Binding WordExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
@@ -237,10 +237,10 @@
                                             <telerik:RadContextMenu>
                                                 <telerik:RadMenuItem Header="导出Excel"
                                                                      Command="{Binding ExcelExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=SelAircraftLeaseReception.ReceptionLines, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=Aircraft, Mode=OneWay}" />
                                                 <telerik:RadMenuItem Header="导出Word"
                                                                      Command="{Binding WordExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=SelAircraftLeaseReception.ReceptionLines, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=Aircraft, Mode=OneWay}" />
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
@@ -325,10 +325,10 @@
                                             <telerik:RadContextMenu>
                                                 <telerik:RadMenuItem Header="导出Excel"
                                                                      Command="{Binding ExcelExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=OperationHistory, Mode=OneWay}" />
                                                 <telerik:RadMenuItem Header="导出Word"
                                                                      Command="{Binding WordExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=OperationHistory, Mode=OneWay}" />
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
@@ -420,10 +420,10 @@
                                             <telerik:RadContextMenu>
                                                 <telerik:RadMenuItem Header="导出Excel"
                                                                      Command="{Binding ExcelExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=SelAircraftLeaseReception.ReceptionLines, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=AircraftBusiness, Mode=OneWay}" />
                                                 <telerik:RadMenuItem Header="导出Word"
                                                                      Command="{Binding WordExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=SelAircraftLeaseReception.ReceptionLines, Mode=OneWay}" />
+                                                                     CommandParameter="{Binding ElementName=AircraftBusiness, Mode=OneWay}" />
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>

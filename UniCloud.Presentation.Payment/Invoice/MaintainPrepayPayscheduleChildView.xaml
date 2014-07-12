@@ -60,7 +60,7 @@
                                 <uc:DataPageSerialColumn Header="编号"
                                                          CellStyle="{StaticResource CellStyle}"
                                                          HeaderTextAlignment="Center" />
-                                <telerik:GridViewDataColumn Header="供应商"
+                                <telerik:GridViewDataColumn Header="*供应商"
                                                             HeaderTextAlignment="Center"
                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                             DataMemberBinding="{Binding SupplierName}" />
@@ -69,7 +69,7 @@
                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                             DataMemberBinding="{Binding CreateDate}"
                                                             DataFormatString="{StaticResource DateStringFormat}" />
-                                <telerik:GridViewComboBoxColumn Header="币种"
+                                <telerik:GridViewComboBoxColumn Header="*币种"
                                                                 IsReadOnly="True"
                                                                 HeaderTextAlignment="Center"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"

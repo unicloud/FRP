@@ -39,7 +39,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <telerik:RadGridView ItemsSource="{Binding SupplierCompanies}"
+                                    <telerik:RadGridView Name="SupplierCompanies" ItemsSource="{Binding SupplierCompanies}"
                                                          AutoGenerateColumns="False"
                                                          IsReadOnly="True"
                                                          SelectedItem="{Binding SelectedSupplierCompany, Mode=TwoWay}"
@@ -48,6 +48,16 @@
                                                          CanUserSortColumns="True"
                                                          RowIndicatorVisibility="Visible"
                                                          CanUserFreezeColumns="False">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu>
+                                                <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=SupplierCompanies, Mode=OneWay}" />
+                                                <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=SupplierCompanies, Mode=OneWay}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}"
@@ -95,7 +105,7 @@
                                         <RowDefinition Height="0.5*"></RowDefinition>
                                         <RowDefinition Height="0.5*"></RowDefinition>
                                     </Grid.RowDefinitions>
-                                    <telerik:RadGridView ItemsSource="{Binding Suppliers}"
+                                    <telerik:RadGridView Name="Suppliers" ItemsSource="{Binding Suppliers}"
                                                          IsBusy="{Binding Suppliers.IsBusy}"
                                                          AutoGenerateColumns="False"
                                                          SelectedItem="{Binding SelectedSupplier, Mode=TwoWay}"
@@ -105,6 +115,16 @@
                                                          CanUserSortColumns="True"
                                                          RowIndicatorVisibility="Visible"
                                                          CanUserFreezeColumns="False">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu>
+                                                <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=Suppliers, Mode=OneWay}" />
+                                                <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=Suppliers, Mode=OneWay}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}"
@@ -131,7 +151,8 @@
                                     <telerik:RadTabControl  Grid.Row="1">
                                         <telerik:RadTabItem Header="银行信息">
                                             <Grid>
-                                                <telerik:RadGridView ItemsSource="{Binding SelectedSupplier.BankAccounts}"
+                                                <telerik:RadGridView Name="BankAccounts" 
+                                                                     ItemsSource="{Binding SelectedSupplier.BankAccounts}"
                                                                      IsBusy="{Binding Suppliers.IsBusy}"
                                                                      AutoGenerateColumns="False"
                                                                      AutoExpandGroups="True"
@@ -139,6 +160,16 @@
                                                                      CanUserSortColumns="True"
                                                                      RowIndicatorVisibility="Visible"
                                                                      CanUserFreezeColumns="False">
+                                                    <telerik:RadContextMenu.ContextMenu>
+                                                        <telerik:RadContextMenu>
+                                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=BankAccounts, Mode=OneWay}" />
+                                                            <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=BankAccounts, Mode=OneWay}" />
+                                                        </telerik:RadContextMenu>
+                                                    </telerik:RadContextMenu.ContextMenu>
                                                     <telerik:RadGridView.Columns>
                                                         <uc:DataPageSerialColumn Header="编号"
                                                                                  CellStyle="{StaticResource CellStyle}"
@@ -198,6 +229,16 @@
                                                          RowIndicatorVisibility="Visible"
                                                          CanUserFreezeColumns="False"
                                                          IsReadOnly="True">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu>
+                                                <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=LinkMan, Mode=OneWay}" />
+                                                <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=LinkMan, Mode=OneWay}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="编号"
                                                                      CellStyle="{StaticResource CellStyle}"
@@ -248,6 +289,16 @@
                                                                  CanUserSortColumns="True"
                                                                  RowIndicatorVisibility="Visible"
                                                                  CanUserFreezeColumns="False">
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu>
+                                                        <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=AircraftMaterial, Mode=OneWay}" />
+                                                        <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=AircraftMaterial, Mode=OneWay}" />
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
                                                     <uc:DataPageSerialColumn Header="编号"
                                                                              CellStyle="{StaticResource CellStyle}"
@@ -275,6 +326,16 @@
                                                                  CanUserSortColumns="True"
                                                                  RowIndicatorVisibility="Visible"
                                                                  CanUserFreezeColumns="False">
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu>
+                                                        <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=EnginetMaterial, Mode=OneWay}" />
+                                                        <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=EnginetMaterial, Mode=OneWay}" />
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
                                                     <uc:DataPageSerialColumn Header="编号"
                                                                              CellStyle="{StaticResource CellStyle}"
@@ -302,6 +363,16 @@
                                                                  CanUserSortColumns="True"
                                                                  RowIndicatorVisibility="Visible"
                                                                  CanUserFreezeColumns="False">
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu>
+                                                        <telerik:RadMenuItem Header="导出Excel"
+                                                                     Command="{Binding ExcelExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=BfeMaterial, Mode=OneWay}" />
+                                                        <telerik:RadMenuItem Header="导出Word"
+                                                                     Command="{Binding WordExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=BfeMaterial, Mode=OneWay}" />
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadGridView.Columns>
                                                     <uc:DataPageSerialColumn Header="编号"
                                                                              CellStyle="{StaticResource CellStyle}"

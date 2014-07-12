@@ -66,6 +66,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
@@ -171,6 +172,7 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
 
                 .Register<IPnRegQuery, PnRegQuery>()
                 .Register<IPnRegAppService, PnRegAppService>()
+                .Register<IPnRegRepository,PnRegRepository>()
                 #endregion
 
                 #region 活动类型相关配置，包括查询，应用服务，仓储注册

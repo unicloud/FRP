@@ -81,6 +81,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             InitializeViewTradeDTO();
             InitializeViewAircraftPurchaseOrderDTO();
             InitializeViewPlanAircraftDTO();
+            InitializeSupplierDTO();
         }
 
         #endregion
@@ -89,10 +90,20 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 公共属性
 
+        #region 供应商
         /// <summary>
         ///     供应商
         /// </summary>
         public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+
+        private void InitializeSupplierDTO()
+        {
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
+            var supplierFilter = new FilterDescriptor("AircraftPurchaseSupplier", FilterOperator.IsEqualTo, true);
+            Suppliers.FilterDescriptors.Add(supplierFilter);
+        }
+
+        #endregion
 
         /// <summary>
         ///     币种
@@ -147,7 +158,8 @@ namespace UniCloud.Presentation.Purchase.Contract
             if (!ViewPlanAircraftDTO.AutoLoad) ViewPlanAircraftDTO.AutoLoad = true;
             else ViewPlanAircraftDTO.Load(true);
 
-            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers), true);
+            Suppliers.Load(true);
+
             Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies), true);
             Linkmen = _service.GetLinkman(() => RaisePropertyChanged(() => Linkmen), true);
             AircraftMaterials = _service.GetAircraftMaterial(() => RaisePropertyChanged(() => AircraftMaterials), true);
@@ -534,7 +546,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                     CurrencyId = order.CurrencyId,
                     LinkmanId = order.LinkmanId,
                     SourceGuid = Guid.NewGuid(),
-                    SupplierId = order.SupplierId
+                    SupplierId = order.SupplierId,
+                    OperatorName = StatusData.curUser
                 };
                 var currency = Currencies.FirstOrDefault();
                 if (currency != null)
@@ -563,6 +576,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Add(newLine);
                 });
             }
+            RefreshCommandState();
         }
 
         private bool CanAddOrder(object obj)
