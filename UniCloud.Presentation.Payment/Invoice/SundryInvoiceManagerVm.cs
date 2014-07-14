@@ -404,14 +404,14 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("提示", "请选择需要提交审核的记录！");
                 return;
             }
-            SelectSundryInvoice.Status = (int) InvoiceStatus.待审核;
+            SelectSundryInvoice.Status = (int)InvoiceStatus.待审核;
             RefreshCommandState();
             //IsSubmited = true;
         }
 
         private bool CanSubmit(object obj)
         {
-            return SelectSundryInvoice != null && SelectSundryInvoice.Status < (int) InvoiceStatus.待审核;
+            return SelectSundryInvoice != null && SelectSundryInvoice.Status < (int)InvoiceStatus.待审核;
         }
 
         #endregion
@@ -430,7 +430,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("提示", "请选择需要审核的记录！");
                 return;
             }
-            SelectSundryInvoice.Status = (int) InvoiceStatus.已审核;
+            SelectSundryInvoice.Status = (int)InvoiceStatus.已审核;
             SelectSundryInvoice.Reviewer = StatusData.curUser;
             SelectSundryInvoice.ReviewDate = DateTime.Now;
             RefreshCommandState();
@@ -438,7 +438,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private bool CanCheck(object obj)
         {
-            return SelectSundryInvoice != null && SelectSundryInvoice.Status == (int) InvoiceStatus.待审核;
+            return SelectSundryInvoice != null && SelectSundryInvoice.Status == (int)InvoiceStatus.待审核;
         }
 
         #endregion

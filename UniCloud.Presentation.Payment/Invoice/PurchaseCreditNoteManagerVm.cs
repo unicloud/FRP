@@ -441,14 +441,15 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("提示", "请选择需要提交审核的记录！");
                 return;
             }
-            SelCreditNote.Status = (int) InvoiceStatus.待审核;
+
+            SelCreditNote.Status = (int)InvoiceStatus.待审核;
             RefreshCommandState();
             // IsSubmited = true;
         }
 
         private bool CanSubmit(object obj)
         {
-            return SelCreditNote != null && SelCreditNote.Status < (int) InvoiceStatus.待审核;
+            return SelCreditNote != null && SelCreditNote.Status < (int)InvoiceStatus.待审核;
         }
 
         #endregion
@@ -467,7 +468,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("提示", "请选择需要审核的记录！");
                 return;
             }
-            SelCreditNote.Status = (int) InvoiceStatus.已审核;
+            SelCreditNote.Status = (int)InvoiceStatus.已审核;
             SelCreditNote.Reviewer = StatusData.curUser;
             SelCreditNote.ReviewDate = DateTime.Now;
             RefreshCommandState();
@@ -475,7 +476,8 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private bool CanCheck(object obj)
         {
-            return SelCreditNote != null && SelCreditNote.Status == (int) InvoiceStatus.待审核;
+
+            return SelCreditNote != null && SelCreditNote.Status == (int)InvoiceStatus.待审核;
         }
 
         #endregion
