@@ -1,14 +1,14 @@
-﻿#region 版本信息
+﻿#region Version Info
 
 /* ========================================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2013/12/12 9:49:20
-// 文件名：CreditNoteManagerVM
+// 作者：linxw 时间：2014/5/4 10:37:51
+// 文件名：MaintainPrepayInvoiceManagerVm
 // 版本：V1.0.0
 //
-// 修改者： 时间： 
+// 修改者：linxw 时间：2014/5/4 10:37:51
 // 修改说明：
 // ========================================================================*/
 
@@ -35,8 +35,8 @@ using UniCloud.Presentation.Service;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof (PurchaseCreditNoteManagerVm))]
-    public class PurchaseCreditNoteManagerVm : EditViewModelBase
+    [Export(typeof (MaintainPrepayInvoiceManagerVm))]
+    public class MaintainPrepayInvoiceManagerVm : EditViewModelBase
     {
         #region 声明、初始化
 
@@ -44,7 +44,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public PurchaseCreditNoteManagerVm(IPaymentService service)
+        public MaintainPrepayInvoiceManagerVm(IPaymentService service)
             : base(service)
         {
             _service = service;
@@ -61,15 +61,19 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         private void InitializeVM()
         {
-            CreditNotes = _service.CreateCollection(_context.PurchaseCreditNotes, o => o.InvoiceLines);
-            CreditNotes.LoadedData += (o, e) =>
+            PrepaymentInvoices = _service.CreateCollection(_context.MaintainPrepaymentInvoices, o => o.InvoiceLines);
+            PrepaymentInvoices.LoadedData += (o, e) =>
             {
-                if (SelCreditNote == null)
-                    SelCreditNote = CreditNotes.FirstOrDefault();
+                if (SelPrepaymentInvoice == null)
+                    SelPrepaymentInvoice = PrepaymentInvoices.FirstOrDefault();
             };
-            _service.RegisterCollectionView(CreditNotes); //注册查询集合。
+            _service.RegisterCollectionView(PrepaymentInvoices); //注册查询集合。
 
-            PurchaseOrders = new QueryableDataServiceCollectionView<PurchaseOrderDTO>(_context, _context.PurchaseOrders);
+            MaintainPaymentSchedules = new QueryableDataServiceCollectionView<MaintainPaymentScheduleDTO>(_context,
+                _context.MaintainPaymentSchedules);
+
+            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context,
+                _context.PaymentSchedules);
         }
 
         /// <summary>
@@ -125,47 +129,6 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
-        #region 关联的采购订单
-
-        private PurchaseOrderDTO _relatedOrder;
-
-        private ObservableCollection<PurchaseOrderDTO> _relatedPurchaseOrders =
-            new ObservableCollection<PurchaseOrderDTO>();
-
-        /// <summary>
-        ///     关联的采购订单集合
-        /// </summary>
-        public ObservableCollection<PurchaseOrderDTO> RelatedPurchaseOrders
-        {
-            get { return _relatedPurchaseOrders; }
-            set
-            {
-                if (_relatedPurchaseOrders != value)
-                {
-                    _relatedPurchaseOrders = value;
-                    RaisePropertyChanged(() => RelatedPurchaseOrders);
-                }
-            }
-        }
-
-        /// <summary>
-        ///     关联的订单行
-        /// </summary>
-        public PurchaseOrderDTO RelatedOrder
-        {
-            get { return _relatedOrder; }
-            set
-            {
-                if (_relatedOrder != value)
-                {
-                    _relatedOrder = value;
-                    RaisePropertyChanged(() => RelatedOrder);
-                }
-            }
-        }
-
-        #endregion
-
         #region 是否已提交审核
 
         private bool _isSubmited;
@@ -201,60 +164,74 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         public override void LoadData()
         {
-            CreditNotes.AutoLoad = true;
-
             Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies));
             Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
-            PurchaseOrders.Load(true);
+            PrepaymentInvoices.Load(true);
+            MaintainPaymentSchedules.Load(true);
+            PaymentSchedules.Load(true);
         }
 
         #region 业务
 
-        #region 贷项单集合
+        #region 预付款发票集合
 
         /// <summary>
-        ///     贷项单集合
+        ///     预付款发票集合
         /// </summary>
-        public QueryableDataServiceCollectionView<PurchaseCreditNoteDTO> CreditNotes { get; set; }
+        public QueryableDataServiceCollectionView<MaintainPrepaymentInvoiceDTO> PrepaymentInvoices { get; set; }
 
         #endregion
 
-        #region 选择的贷项单
+        #region 选择的预付款发票
 
-        private PurchaseCreditNoteDTO _selCreditNote;
+        private MaintainPrepaymentInvoiceDTO _selPrepaymentInvoice;
 
         /// <summary>
-        ///     选择的贷项单
+        ///     选择的预付款发票
         /// </summary>
-        public PurchaseCreditNoteDTO SelCreditNote
+        public MaintainPrepaymentInvoiceDTO SelPrepaymentInvoice
         {
-            get { return _selCreditNote; }
+            get { return _selPrepaymentInvoice; }
             set
             {
-                _selCreditNote = value;
+                _selPrepaymentInvoice = value;
                 _invoiceLines.Clear();
-                if (_selCreditNote != null)
+                if (value != null)
                 {
                     SelInvoiceLine = value.InvoiceLines.FirstOrDefault();
                     foreach (var invoiceLine in value.InvoiceLines)
                     {
                         InvoiceLines.Add(invoiceLine);
                     }
-                    _relatedPurchaseOrders.Clear();
-                    RelatedPurchaseOrders.Add(PurchaseOrders.FirstOrDefault(p => p.Id == value.OrderId));
+                    SelInvoiceLine = InvoiceLines.FirstOrDefault();
+                    _relatedPaymentSchedule.Clear();
+                    RelatedPaymentSchedule.Add(
+                        PaymentSchedules.FirstOrDefault(p =>
+                        {
+                            var paymentScheduleLine =
+                                p.PaymentScheduleLines.FirstOrDefault(
+                                    l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
+                            return paymentScheduleLine != null &&
+                                   paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
+                        }));
+                    SelPaymentSchedule = RelatedPaymentSchedule.FirstOrDefault();
+                    if (SelPaymentSchedule != null)
+                        RelatedPaymentScheduleLine =
+                            SelPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
+                                l => l.InvoiceId == value.PrepaymentInvoiceId);
                 }
-                RaisePropertyChanged(() => SelCreditNote);
+                RaisePropertyChanged(() => SelPrepaymentInvoice);
             }
         }
 
         #endregion
 
-        #region 贷项单行
+        #region 预付款发票行
 
         private ObservableCollection<InvoiceLineDTO> _invoiceLines = new ObservableCollection<InvoiceLineDTO>();
 
         /// <summary>
-        ///     贷项单行
+        ///     预付款发票行
         /// </summary>
         public ObservableCollection<InvoiceLineDTO> InvoiceLines
         {
@@ -271,12 +248,12 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
-        #region 选择的贷项单行
+        #region 选择的预付款发票行
 
         private InvoiceLineDTO _selInvoiceLine;
 
         /// <summary>
-        ///     选择的贷项单行
+        ///     选择的预付款发票行
         /// </summary>
         public InvoiceLineDTO SelInvoiceLine
         {
@@ -287,6 +264,65 @@ namespace UniCloud.Presentation.Payment.Invoice
                 {
                     _selInvoiceLine = value;
                     RaisePropertyChanged(() => SelInvoiceLine);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 关联的付款计划及付款计划行
+
+        private ObservableCollection<PaymentScheduleDTO> _relatedPaymentSchedule =
+            new ObservableCollection<PaymentScheduleDTO>();
+
+        private PaymentScheduleLineDTO _relatedPaymentScheduleLine;
+
+        private PaymentScheduleDTO _selPaymentSchedule;
+
+        /// <summary>
+        ///     关联的付款计划
+        /// </summary>
+        public ObservableCollection<PaymentScheduleDTO> RelatedPaymentSchedule
+        {
+            get { return _relatedPaymentSchedule; }
+            set
+            {
+                if (_relatedPaymentSchedule != value)
+                {
+                    _relatedPaymentSchedule = value;
+                    RaisePropertyChanged(() => RelatedPaymentSchedule);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     关联的付款计划
+        /// </summary>
+        public PaymentScheduleDTO SelPaymentSchedule
+        {
+            get { return _selPaymentSchedule; }
+            set
+            {
+                if (_selPaymentSchedule != value)
+                {
+                    _selPaymentSchedule = value;
+                    RaisePropertyChanged(() => SelPaymentSchedule);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     选择的付款计划行
+        /// </summary>
+        public PaymentScheduleLineDTO RelatedPaymentScheduleLine
+        {
+            get { return _relatedPaymentScheduleLine; }
+            set
+            {
+                if (_relatedPaymentScheduleLine != value)
+                {
+                    _relatedPaymentScheduleLine = value;
+                    RaisePropertyChanged(() => RelatedPaymentScheduleLine);
                 }
             }
         }
@@ -312,16 +348,17 @@ namespace UniCloud.Presentation.Payment.Invoice
             SubmitCommand.RaiseCanExecuteChanged();
             CheckCommand.RaiseCanExecuteChanged();
         }
-        #region 新建贷项单
+
+        #region 新建预付款发票
 
         /// <summary>
-        ///     新建贷项单
+        ///     新建预付款发票
         /// </summary>
         public DelegateCommand<object> NewCommand { get; private set; }
 
         private void OnNew(object obj)
         {
-            purchaseOrderChildView.ShowDialog();
+            PrepayPayscheduleChildView.ShowDialog();
         }
 
         private bool CanNew(object obj)
@@ -331,61 +368,63 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
-        #region 删除贷项单
+        #region 删除预付款发票
 
         /// <summary>
-        ///     删除贷项单
+        ///     删除预付款发票
         /// </summary>
         public DelegateCommand<object> DeleteCommand { get; private set; }
 
         private void OnDelete(object obj)
         {
-            if (SelCreditNote == null)
-            {
-                MessageAlert("请选择一条记录！");
-                return;
-            }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
             {
                 if (arg.DialogResult != true) return;
-                CreditNotes.Remove(SelCreditNote);
-                SelCreditNote = CreditNotes.FirstOrDefault();
-                if (SelCreditNote == null)
+                PrepaymentInvoices.Remove(SelPrepaymentInvoice);
+                SelPrepaymentInvoice = PrepaymentInvoices.FirstOrDefault();
+                if (SelPrepaymentInvoice == null)
                 {
                     //删除完，若没有记录了，则也要删除界面明细
                     InvoiceLines.Clear();
-                    RelatedPurchaseOrders.Clear();
+                    RelatedPaymentSchedule.Clear();
                 }
             });
         }
 
         private bool CanDelete(object obj)
         {
-            return true;
+            bool canRemove;
+            if (SelPrepaymentInvoice != null)
+                canRemove = true;
+            else if (PrepaymentInvoices != null)
+                canRemove = true;
+            else canRemove = false;
+            return canRemove;
         }
 
         #endregion
 
-        #region 新增贷项单行
+        #region 新增预付款发票行
 
         /// <summary>
-        ///     新增贷项单行
+        ///     新增预付款发票行
         /// </summary>
         public DelegateCommand<object> AddCommand { get; private set; }
 
         private void OnAdd(object obj)
         {
-            if (SelCreditNote == null)
+            if (SelPrepaymentInvoice == null)
             {
                 MessageAlert("请选择一条记录！");
                 return;
             }
+
             SelInvoiceLine = new InvoiceLineDTO
             {
                 InvoiceLineId = RandomHelper.Next(),
-                InvoiceId = SelCreditNote.CreditNoteId,
+                InvoiceId = SelPrepaymentInvoice.PrepaymentInvoiceId
             };
-            SelCreditNote.InvoiceLines.Add(SelInvoiceLine);
+            SelPrepaymentInvoice.InvoiceLines.Add(SelInvoiceLine);
             InvoiceLines.Add(SelInvoiceLine);
         }
 
@@ -396,10 +435,10 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
-        #region 删除贷项单行
+        #region 删除预付款发票行
 
         /// <summary>
-        ///     删除贷项单行
+        ///     删除预付款发票行
         /// </summary>
         public DelegateCommand<object> RemoveCommand { get; private set; }
 
@@ -413,9 +452,9 @@ namespace UniCloud.Presentation.Payment.Invoice
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
             {
                 if (arg.DialogResult != true) return;
-                SelCreditNote.InvoiceLines.Remove(SelInvoiceLine);
+                SelPrepaymentInvoice.InvoiceLines.Remove(SelInvoiceLine);
                 InvoiceLines.Remove(SelInvoiceLine);
-                SelInvoiceLine = SelCreditNote.InvoiceLines.FirstOrDefault();
+                SelInvoiceLine = SelPrepaymentInvoice.InvoiceLines.FirstOrDefault();
             });
         }
 
@@ -435,19 +474,19 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnSubmit(object obj)
         {
-            if (SelCreditNote == null)
+            if (SelPrepaymentInvoice == null)
             {
-                MessageAlert("提示", "请选择需要提交审核的记录！");
+                MessageAlert("提示", "请选择需要提交的审核记录！");
                 return;
             }
-            SelCreditNote.Status = (int)InvoiceStatus.待审核;
+            SelPrepaymentInvoice.Status = (int)InvoiceStatus.待审核;
+            //IsSubmited = true;
             RefreshCommandState();
-           // IsSubmited = true;
         }
 
         private bool CanSubmit(object obj)
         {
-            return SelCreditNote != null && SelCreditNote.Status < (int)InvoiceStatus.待审核;
+            return SelPrepaymentInvoice != null && SelPrepaymentInvoice.Status < (int)InvoiceStatus.待审核;
         }
 
         #endregion
@@ -461,20 +500,20 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnCheck(object obj)
         {
-            if (SelCreditNote == null)
+            if (SelPrepaymentInvoice == null)
             {
-                MessageAlert("提示","请选择需要审核的记录！");
+                MessageAlert("提示", "请选择需要提交的审核记录！");
                 return;
             }
-            SelCreditNote.Status = (int)InvoiceStatus.已审核;
-            SelCreditNote.Reviewer = StatusData.curUser;
-            SelCreditNote.ReviewDate = DateTime.Now;
+            SelPrepaymentInvoice.Status = (int)InvoiceStatus.已审核;
+            SelPrepaymentInvoice.Reviewer = StatusData.curUser;
+            SelPrepaymentInvoice.ReviewDate = DateTime.Now;
             RefreshCommandState();
         }
 
         private bool CanCheck(object obj)
         {
-            return SelCreditNote != null && SelCreditNote.Status == (int)InvoiceStatus.待审核;
+            return SelPrepaymentInvoice != null && SelPrepaymentInvoice.Status == (int)InvoiceStatus.待审核;
         }
 
         #endregion
@@ -495,8 +534,8 @@ namespace UniCloud.Presentation.Payment.Invoice
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "TotalLine"))
                 {
-                    var totalCount = SelCreditNote.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
-                    SelCreditNote.InvoiceValue = totalCount;
+                    var totalCount = SelPrepaymentInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
+                    SelPrepaymentInvoice.InvoiceValue = totalCount;
                 }
             }
         }
@@ -507,34 +546,46 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 子窗体相关操作
 
-        [Import] public PurchaseOrderChildView purchaseOrderChildView; //初始化子窗体
+        [Import] public MaintainPrepayPayscheduleChildView PrepayPayscheduleChildView; //初始化子窗体
 
-        #region 采购订单集合
+        #region 付款计划集合
 
-        /// <summary>
-        ///     采购订单集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<PurchaseOrderDTO> PurchaseOrders { get; set; }
-
-        #endregion
-
-        #region 选择的采购订单
-
-        private PurchaseOrderDTO _selPurchaseOrder;
+        private MaintainPaymentScheduleDTO _selectMaintainPaymentSchedule;
+        private PaymentScheduleLineDTO _selectPaymentScheduleLine;
 
         /// <summary>
-        ///     选择的采购订单
+        ///     所有付款计划集合
         /// </summary>
-        public PurchaseOrderDTO SelPurchaseOrder
+        public QueryableDataServiceCollectionView<PaymentScheduleDTO> PaymentSchedules { get; set; }
+
+        /// <summary>
+        ///     维修付款计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<MaintainPaymentScheduleDTO> MaintainPaymentSchedules { get; set; }
+
+        /// <summary>
+        ///     选择的维修付款计划
+        /// </summary>
+        public MaintainPaymentScheduleDTO SelectMaintainPaymentSchedule
         {
-            get { return _selPurchaseOrder; }
+            get { return _selectMaintainPaymentSchedule; }
             set
             {
-                if (_selPurchaseOrder != value)
+                if (_selectMaintainPaymentSchedule != value)
                 {
-                    _selPurchaseOrder = value;
-                    RaisePropertyChanged(() => SelPurchaseOrder);
+                    _selectMaintainPaymentSchedule = value;
+                    RaisePropertyChanged(() => SelectMaintainPaymentSchedule);
                 }
+            }
+        }
+
+        public PaymentScheduleLineDTO SelectPaymentScheduleLine
+        {
+            get { return _selectPaymentScheduleLine; }
+            set
+            {
+                _selectPaymentScheduleLine = value;
+                RaisePropertyChanged(() => SelectPaymentScheduleLine);
             }
         }
 
@@ -552,7 +603,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <param name="sender"></param>
         public void OnCancelExecute(object sender)
         {
-            purchaseOrderChildView.Close();
+            PrepayPayscheduleChildView.Close();
         }
 
         /// <summary>
@@ -577,24 +628,37 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <param name="sender"></param>
         public void OnCommitExecute(object sender)
         {
-            if (SelPurchaseOrder == null)
+            var invoice = new MaintainPrepaymentInvoiceDTO
             {
-                MessageAlert("请先选择一个采购订单！");
+                PrepaymentInvoiceId = RandomHelper.Next(),
+                CreateDate = DateTime.Now,
+                InvoiceDate = DateTime.Now,
+            };
+            if (SelectMaintainPaymentSchedule != null)
+            {
+                if (SelectPaymentScheduleLine == null)
+                {
+                    MessageAlert("请选择一条付款计划行！");
+                }
+                else
+                {
+                    invoice.SupplierId = SelectMaintainPaymentSchedule.SupplierId;
+                    invoice.CurrencyId = SelectMaintainPaymentSchedule.CurrencyId;
+                    invoice.SupplierName = SelectMaintainPaymentSchedule.SupplierName;
+                    invoice.PaymentScheduleLineId = SelectPaymentScheduleLine.PaymentScheduleLineId;
+                    invoice.InvoiceValue = SelectPaymentScheduleLine.Amount;
+                    var invoiceLine = new InvoiceLineDTO
+                    {
+                        Amount = SelectPaymentScheduleLine.Amount,
+                    };
+                    invoice.InvoiceLines.Add(invoiceLine);
+                    PrepaymentInvoices.AddNew(invoice);
+                    PrepayPayscheduleChildView.Close();
+                }
             }
             else
             {
-                var creditNote = new PurchaseCreditNoteDTO
-                {
-                    CreditNoteId = RandomHelper.Next(),
-                    CreateDate = DateTime.Now,
-                    InvoiceDate = DateTime.Now,
-                    OrderId = SelPurchaseOrder.Id,
-                    CurrencyId = SelPurchaseOrder.CurrencyId,
-                    SupplierId = SelPurchaseOrder.SupplierId,
-                    SupplierName = SelPurchaseOrder.SupplierName,
-                };
-                CreditNotes.AddNew(creditNote);
-                purchaseOrderChildView.Close();
+                MessageAlert("未选中维修付款计划！");
             }
         }
 
