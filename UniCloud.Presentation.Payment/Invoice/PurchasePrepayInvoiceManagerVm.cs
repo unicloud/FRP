@@ -1,4 +1,4 @@
-﻿#region 版本信息
+#region 版本信息
 
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
@@ -181,7 +181,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         public bool IsSubmited
         {
             get { return _isSubmited; }
-            private set
+            set
             {
                 if (_isSubmited != value)
                 {
@@ -386,6 +386,18 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 操作
 
+        protected override void RefreshCommandState()
+        {
+            SaveCommand.RaiseCanExecuteChanged();
+            AbortCommand.RaiseCanExecuteChanged();
+            NewCommand.RaiseCanExecuteChanged();
+            DeleteCommand.RaiseCanExecuteChanged();
+            AddCommand.RaiseCanExecuteChanged();
+            RemoveCommand.RaiseCanExecuteChanged();
+            SubmitCommand.RaiseCanExecuteChanged();
+            CheckCommand.RaiseCanExecuteChanged();
+        }
+
         #region 新建预付款发票
 
         /// <summary>
@@ -510,12 +522,19 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnSubmit(object obj)
         {
-            IsSubmited = true;
+            if (SelPrepaymentInvoice == null)
+            {
+                MessageAlert("提示", "请选择需要提交的审核记录！");
+                return;
+            }
+            SelPrepaymentInvoice.Status = (int) InvoiceStatus.待审核;
+            //IsSubmited = true;
+            RefreshCommandState();
         }
 
         private bool CanSubmit(object obj)
         {
-            return true;
+            return SelPrepaymentInvoice != null && SelPrepaymentInvoice.Status < (int)InvoiceStatus.待审核;
         }
 
         #endregion
@@ -529,13 +548,20 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnCheck(object obj)
         {
-            SelPrepaymentInvoice.Reviewer = "HQB";
+            if (SelPrepaymentInvoice == null)
+            {
+                MessageAlert("提示", "请选择需要审核的记录！");
+                return;
+            }
+            SelPrepaymentInvoice.Status = (int)InvoiceStatus.已审核;
+            SelPrepaymentInvoice.Reviewer = StatusData.curUser;
             SelPrepaymentInvoice.ReviewDate = DateTime.Now;
+            RefreshCommandState();
         }
 
         private bool CanCheck(object obj)
         {
-            return true;
+            return SelPrepaymentInvoice != null && SelPrepaymentInvoice.Status == (int)InvoiceStatus.待审核;
         }
 
         #endregion
@@ -825,7 +851,6 @@ namespace UniCloud.Presentation.Payment.Invoice
                 PrepaymentInvoiceId = RandomHelper.Next(),
                 CreateDate = DateTime.Now,
                 InvoiceDate = DateTime.Now,
-                OperatorName = StatusData.curUser
             };
             var selectedPane = prepayPayscheduleChildView.PaneGroups.SelectedPane.Title.ToString();
             if (selectedPane == "采购的飞机对应的付款计划")

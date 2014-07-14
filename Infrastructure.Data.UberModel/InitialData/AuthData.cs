@@ -459,7 +459,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var menu75 = FunctionItemFactory.CreateFunctionItem("滑油监控", menu7.Id, 705, false, false, string.Empty);
             var menu751 = FunctionItemFactory.CreateFunctionItem("管理发动机滑油", menu75.Id, 70501, true, false,
                 "UniCloud.Presentation.Part.OilMonitor.EngineOil");
-            var menu752 = FunctionItemFactory.CreateFunctionItem("管理APU滑油", menu75.Id, 70502, true, false, string.Empty);
+            var menu752 = FunctionItemFactory.CreateFunctionItem("管理APU滑油", menu75.Id, 70502, true, false, "UniCloud.Presentation.Part.OilMonitor.APUOil");
             menu75.SubFunctionItems.Add(menu751);
             menu75.SubFunctionItems.Add(menu752);
             menu7.SubFunctionItems.Add(menu75);

@@ -32,7 +32,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
-
+using UniCloud.Domain.PurchaseBC.Aggregates.PnRegAgg;
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.TradeServices
@@ -50,12 +50,12 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         private readonly ISupplierRepository _supplierRepository;
         private readonly ITradeQuery _tradeQuery;
         private readonly ITradeRepository _tradeRepository;
-
+        private readonly IPnRegRepository _pnRegRepository;
         public TradeAppService(ITradeQuery queryTrade, ITradeRepository tradeRepository, IOrderQuery orderQuery,
             IOrderRepository orderRepository, ISupplierRepository supplierRepository,
             IMaterialRepository materialRepository, IActionCategoryRepository actionCategoryRepository,
             IContractAircraftRepository contractAircraftRepository, IContractEngineRepository contractEngineRepository,
-            IRelatedDocRepository relatedDocRepository)
+            IRelatedDocRepository relatedDocRepository,IPnRegRepository pnregRepository)
         {
             _tradeQuery = queryTrade;
             _tradeRepository = tradeRepository;
@@ -67,6 +67,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             _contractAircraftRepository = contractAircraftRepository;
             _contractEngineRepository = contractEngineRepository;
             _relatedDocRepository = relatedDocRepository;
+            _pnRegRepository = pnregRepository;
         }
 
         #region ITradeAppService 成员
@@ -316,7 +317,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
 
             // 获取引进方式
             var importType =
-                _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
+                _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "经营租赁")
                     .FirstOrDefault();
 
             // 处理订单行
@@ -357,7 +358,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
 
                 // 获取引进方式
                 var importType =
-                    _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
+                    _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "经营租赁")
                         .FirstOrDefault();
 
                 var trade = _tradeRepository.Get(order.TradeId);
@@ -805,6 +806,8 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 _materialRepository.GetFiltered(m => m.Id == line.EngineMaterialId)
                     .OfType<EngineMaterial>()
                     .FirstOrDefault();
+            var pnReg = _pnRegRepository.GetFiltered(p => p.Pn == material.Pn).FirstOrDefault();
+
             if (material == null)
             {
                 throw new ArgumentException("未能获取飞机物料！");
@@ -823,6 +826,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             contractEngine.SetImportCategory(importType);
             contractEngine.SetSerialNumber(line.SerialNumber);
             contractEngine.SetSupplier(supplierId);
+            contractEngine.SetPart(pnReg);
             if (persist == null)
             {
                 orderLine.SetContractEngine(contractEngine);
@@ -846,6 +850,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 _materialRepository.GetFiltered(m => m.Id == line.EngineMaterialId)
                     .OfType<EngineMaterial>()
                     .FirstOrDefault();
+            var pnReg = _pnRegRepository.GetFiltered(p => p.Pn == material.Pn).FirstOrDefault();
             if (material == null)
             {
                 throw new ArgumentException("未能获取飞机物料！");
@@ -853,12 +858,13 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
 
             // 更新订单行
             orderLine.UpdateOrderLine(line.UnitPrice, line.Amount, line.Discount, line.EstimateDeliveryDate);
-            orderLine.SetEngineMaterial(line.EngineMaterialId);
+            orderLine.SetEngineMaterial(line.EngineMaterialId);            
 
             // 更新合同发动机
             var contractEngine = _contractEngineRepository.Get(orderLine.ContractEngineId);
             contractEngine.SetRankNumber(line.RankNumber);
             contractEngine.SetSerialNumber(line.SerialNumber);
+            contractEngine.SetPart(pnReg);
         }
 
         [Insert(typeof (EngineLeaseOrderDTO))]
@@ -896,7 +902,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
 
             // 获取引进方式
             var importType =
-                _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
+                _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "经营租赁")
                     .FirstOrDefault();
 
             // 处理订单行
@@ -937,7 +943,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
 
                 // 获取引进方式
                 var importType =
-                    _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
+                    _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "经营租赁")
                         .FirstOrDefault();
 
                 var trade = _tradeRepository.Get(order.TradeId);
@@ -1001,6 +1007,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 _materialRepository.GetFiltered(m => m.Id == line.EngineMaterialId)
                     .OfType<EngineMaterial>()
                     .FirstOrDefault();
+            var pnReg = _pnRegRepository.GetFiltered(p => p.Pn == material.Pn).FirstOrDefault();
             if (material == null)
             {
                 throw new ArgumentException("未能获取飞机物料！");
@@ -1020,6 +1027,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             contractEngine.SetImportCategory(importType);
             contractEngine.SetSerialNumber(line.SerialNumber);
             contractEngine.SetSupplier(supplierId);
+            contractEngine.SetPart(pnReg);
             if (persist == null)
             {
                 orderLine.SetContractEngine(contractEngine);
@@ -1043,6 +1051,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 _materialRepository.GetFiltered(m => m.Id == line.EngineMaterialId)
                     .OfType<EngineMaterial>()
                     .FirstOrDefault();
+            var pnReg = _pnRegRepository.GetFiltered(p => p.Pn == material.Pn).FirstOrDefault();
             if (material == null)
             {
                 throw new ArgumentException("未能获取飞机物料！");
@@ -1056,6 +1065,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var contractEngine = _contractEngineRepository.Get(orderLine.ContractEngineId);
             contractEngine.SetRankNumber(line.RankNumber);
             contractEngine.SetSerialNumber(line.SerialNumber);
+            contractEngine.SetPart(pnReg);
         }
 
         [Insert(typeof (EnginePurchaseOrderDTO))]
