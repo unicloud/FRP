@@ -25,6 +25,7 @@ namespace UniCloud.Domain.Common.Enums
         发动机1,
         发动机2,
         发动机3,
-        发动机4
+        发动机4,
+        机身
     }
 }

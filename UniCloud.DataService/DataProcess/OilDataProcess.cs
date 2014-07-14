@@ -43,6 +43,7 @@ namespace UniCloud.DataService.DataProcess
 
         public void ProcessEngine(List<FlightLog> flights = null)
         {
+            var needGetFlights = flights == null;
             var engines = _unitOfWork.CreateSet<EngineReg>().ToList();
             foreach (var engine in engines)
             {
@@ -52,7 +53,7 @@ namespace UniCloud.DataService.DataProcess
                         .Where(a => a.Id == lastTSR.AircraftId)
                         .Select(f => f.RegNumber)
                         .FirstOrDefault();
-                if (flights == null)
+                if (needGetFlights)
                 {
                     flights =
                         _unitOfWork.CreateSet<FlightLog>()
@@ -75,8 +76,9 @@ namespace UniCloud.DataService.DataProcess
             }
         }
 
-        public void ProcessAPU(List<FlightLog> flights)
+        public void ProcessAPU(List<FlightLog> flights = null)
         {
+            var needGetFlights = flights == null;
             var apus = _unitOfWork.CreateSet<APUReg>().ToList();
             foreach (var apu in apus)
             {
@@ -86,7 +88,7 @@ namespace UniCloud.DataService.DataProcess
                         .Where(a => a.Id == lastTSR.AircraftId)
                         .Select(f => f.RegNumber)
                         .FirstOrDefault();
-                if (!flights.Any())
+                if (needGetFlights)
                 {
                     flights =
                         _unitOfWork.CreateSet<FlightLog>()
@@ -275,8 +277,7 @@ namespace UniCloud.DataService.DataProcess
                     flights.Select(f => Tuple.Create(f.FlightDate, f.TakeOff, f.ApuOilDep, f.ApuOilArr, f.FlightHours))
                         .ToList(), startDate, out interval);
                 var deltaInterval = lastInterval > 0 ? interval - lastInterval : 0;
-                _unitOfWork.CreateSet<OilMonitor>()
-                    .Add(CreateAPUOil(lastTSR, apuReg, startDate, tsr, qsr, interval, deltaInterval));
+                oilMonitors.Add(CreateAPUOil(lastTSR, apuReg, startDate, tsr, qsr, interval, deltaInterval));
                 startDate = startDate.AddDays(1);
             }
             return oilMonitors;
