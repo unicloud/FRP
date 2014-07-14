@@ -128,11 +128,16 @@ namespace UniCloud.DataService.DataProcess
         /// <summary>
         ///     获取开始计算日期
         /// </summary>
+        /// <param name="lastTSR">最近一次装上记录</param>
         /// <param name="flights">最近一次装上以来的飞行日志集合</param>
         /// <returns>开始计算日期</returns>
-        private DateTime GetStartDate(IReadOnlyList<FlightLog> flights)
+        private DateTime GetStartDate(SnHistory lastTSR, IReadOnlyList<FlightLog> flights)
         {
-            var lastOilMonitor = _unitOfWork.CreateSet<OilMonitor>().OrderByDescending(o => o.Date).FirstOrDefault();
+            var lastOilMonitor =
+                _unitOfWork.CreateSet<OilMonitor>()
+                    .Where(om => om.SnRegID == lastTSR.SnRegId)
+                    .OrderByDescending(o => o.Date)
+                    .FirstOrDefault();
             // 最近滑油监控记录日期
             var lastDate = lastOilMonitor == null || DateTime.Today.AddDays(-30) < flights[0].FlightDate
                 ? flights[0].FlightDate
@@ -157,7 +162,7 @@ namespace UniCloud.DataService.DataProcess
             if (lastTSR == null) throw new ArgumentNullException("lastTSR");
             var oilMonitors = new List<OilMonitor>();
             // 开始计算日期
-            var startDate = GetStartDate(flights);
+            var startDate = GetStartDate(lastTSR, flights);
             if (!flights.Any()) return oilMonitors;
             // 计算截止日期，飞行日志最后一天的次日，最后一天为当天的则为当天。
             var endDate = flights.Last().FlightDate.Date == DateTime.Today
@@ -256,7 +261,7 @@ namespace UniCloud.DataService.DataProcess
         {
             var oilMonitors = new List<OilMonitor>();
             // 开始计算日期
-            var startDate = GetStartDate(flights);
+            var startDate = GetStartDate(lastTSR, flights);
             if (!flights.Any()) return oilMonitors;
             // 计算截止日期，飞行日志最后一天的次日，最后一天为当天的则为当天。
             var endDate = flights.Last().FlightDate.Date == DateTime.Today
