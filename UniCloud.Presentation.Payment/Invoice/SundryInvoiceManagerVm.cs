@@ -1,4 +1,4 @@
-﻿#region Version Info
+#region Version Info
 
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
@@ -26,10 +26,10 @@ using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
-using UniCloud.Presentation.Service;
 
 #endregion
 
@@ -131,7 +131,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         public bool IsSubmited
         {
             get { return _isSubmited; }
-            private set
+            set
             {
                 if (_isSubmited != value)
                 {
@@ -263,6 +263,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             SubmitCommand.RaiseCanExecuteChanged();
             CheckCommand.RaiseCanExecuteChanged();
         }
+
         #region 新建杂项发票
 
         /// <summary>
@@ -400,13 +401,12 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             if (SelectSundryInvoice == null)
             {
-                MessageAlert("提示","请选择需要提交审核的记录！");
+                MessageAlert("提示", "请选择需要提交审核的记录！");
                 return;
             }
             SelectSundryInvoice.Status = (int)InvoiceStatus.待审核;
             RefreshCommandState();
             //IsSubmited = true;
-
         }
 
         private bool CanSubmit(object obj)
@@ -427,7 +427,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             if (SelectSundryInvoice == null)
             {
-                MessageAlert("提示","请选择需要审核的记录！");
+                MessageAlert("提示", "请选择需要审核的记录！");
+                return;
             }
             SelectSundryInvoice.Status = (int)InvoiceStatus.已审核;
             SelectSundryInvoice.Reviewer = StatusData.curUser;

@@ -1,4 +1,4 @@
-﻿#region 版本信息
+#region 版本信息
 
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
@@ -181,7 +181,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         public bool IsSubmited
         {
             get { return _isSubmited; }
-            private set
+            set
             {
                 if (_isSubmited != value)
                 {
@@ -385,6 +385,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         #endregion
 
         #region 操作
+
         protected override void RefreshCommandState()
         {
             SaveCommand.RaiseCanExecuteChanged();
@@ -396,6 +397,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             SubmitCommand.RaiseCanExecuteChanged();
             CheckCommand.RaiseCanExecuteChanged();
         }
+
         #region 新建采购发票
 
         /// <summary>
@@ -546,9 +548,9 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnCheck(object obj)
         {
-            if(SelPurchaseInvoice==null)
+            if (SelPurchaseInvoice == null)
             {
-                MessageAlert("提示","请选择需要审核的记录！");
+                MessageAlert("提示", "请选择需要审核的记录！");
                 return;
             }
             SelPurchaseInvoice.Status = (int)InvoiceStatus.已审核;

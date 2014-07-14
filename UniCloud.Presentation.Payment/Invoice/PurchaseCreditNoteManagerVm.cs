@@ -1,4 +1,4 @@
-﻿#region 版本信息
+#region 版本信息
 
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
@@ -26,10 +26,10 @@ using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
-using UniCloud.Presentation.Service;
 
 #endregion
 
@@ -176,7 +176,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         public bool IsSubmited
         {
             get { return _isSubmited; }
-            private set
+            set
             {
                 if (_isSubmited != value)
                 {
@@ -312,6 +312,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             SubmitCommand.RaiseCanExecuteChanged();
             CheckCommand.RaiseCanExecuteChanged();
         }
+
         #region 新建贷项单
 
         /// <summary>
@@ -440,9 +441,10 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("提示", "请选择需要提交审核的记录！");
                 return;
             }
+
             SelCreditNote.Status = (int)InvoiceStatus.待审核;
             RefreshCommandState();
-           // IsSubmited = true;
+            // IsSubmited = true;
         }
 
         private bool CanSubmit(object obj)
@@ -463,7 +465,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             if (SelCreditNote == null)
             {
-                MessageAlert("提示","请选择需要审核的记录！");
+                MessageAlert("提示", "请选择需要审核的记录！");
                 return;
             }
             SelCreditNote.Status = (int)InvoiceStatus.已审核;
@@ -474,6 +476,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private bool CanCheck(object obj)
         {
+
             return SelCreditNote != null && SelCreditNote.Status == (int)InvoiceStatus.待审核;
         }
 

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UniCloud.Presentation.Part.OilMonitor.EngineOil"
+﻿<UserControl x:Class="UniCloud.Presentation.Part.OilMonitor.APUOil"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,9 +6,8 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:EngineOilVM}">
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" mc:Ignorable="d" d:DesignHeight="600"
+             d:DesignWidth="800" d:DataContext="{d:DesignInstance uc:APUOilVM}">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -32,14 +31,12 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock VerticalAlignment="Center" Margin="30,0,0,0">
-                    <Run Text="发动机滑油监控：" FontSize="18"
-                         Foreground="{StaticResource AccentBrush}" />
-                    <Run Text="{Binding SelEngineOilDTO.Sn}"
-                         FontFamily="{StaticResource EnFontFamily}" FontSize="18"
+                    <Run Text="APU滑油监控：" FontSize="18" Foreground="{StaticResource AccentBrush}" />
+                    <Run Text="{Binding SelAPUOilDTO.Sn}" FontFamily="{StaticResource EnFontFamily}" FontSize="18"
                          Foreground="{StaticResource AccentBrush}" />
                 </TextBlock>
-                <telerik:RadGridView Grid.Row="1" x:Name="OilUser" ItemsSource="{Binding ViewEngineOilDTO}"
-                                     SelectedItem="{Binding SelEngineOilDTO, Mode=TwoWay}" ShowGroupPanel="False"
+                <telerik:RadGridView Grid.Row="1" x:Name="OilUser" ItemsSource="{Binding ViewAPUOilDTO}"
+                                     SelectedItem="{Binding SelAPUOilDTO, Mode=TwoWay}" ShowGroupPanel="False"
                                      IsFilteringAllowed="False" IsReadOnly="True" Margin="0,7,0,0"
                                      AutoExpandGroups="True">
                     <telerik:RadGridView.GroupDescriptors>
@@ -48,11 +45,10 @@
                     </telerik:RadGridView.GroupDescriptors>
                     <telerik:RadContextMenu.ContextMenu>
                         <telerik:RadContextMenu>
-                            <telerik:RadMenuItem Header="导出Excel"
-                                                 Command="{Binding ExcelExportCommand}"
-                                                 CommandParameter="{Binding ElementName=OilUser, Mode=OneWay}" />
+                            <telerik:RadMenuItem Header="导出Excel" Command="{Binding ExcelExportCommand}"
+                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
                             <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
-                                                 CommandParameter="{Binding ElementName=OilUser, Mode=OneWay}" />
+                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
                         </telerik:RadContextMenu>
                     </telerik:RadContextMenu.ContextMenu>
                     <telerik:RadGridView.Columns>
@@ -81,9 +77,9 @@
                     <telerik:RadContextMenu.ContextMenu>
                         <telerik:RadContextMenu>
                             <telerik:RadMenuItem Header="导出Excel" Command="{Binding ExcelExportCommand}"
-                                                 CommandParameter="{Binding ElementName=OilMonitor, Mode=OneWay}" />
+                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
                             <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
-                                                 CommandParameter="{Binding ElementName=OilMonitor, Mode=OneWay}" />
+                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
                         </telerik:RadContextMenu>
                     </telerik:RadContextMenu.ContextMenu>
                     <telerik:RadGridView.Columns>
@@ -122,8 +118,8 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="时间范围" Margin="10,0,5,0" VerticalAlignment="Center" />
-                    <telerik:RadComboBox Grid.Column="1" VerticalAlignment="Center"
-                                         ItemsSource="{Binding Period}" SelectedItem="{Binding SelPeriod, Mode=TwoWay}" />
+                    <telerik:RadComboBox Grid.Column="1" VerticalAlignment="Center" ItemsSource="{Binding Period}"
+                                         SelectedItem="{Binding SelPeriod, Mode=TwoWay}" />
                     <telerik:RadLegend Grid.Column="2" Items="{Binding Path=LegendItems, ElementName=Oil}"
                                        HorizontalAlignment="Right" Margin="0,0,10,0">
                         <telerik:RadLegend.ItemsPanel>

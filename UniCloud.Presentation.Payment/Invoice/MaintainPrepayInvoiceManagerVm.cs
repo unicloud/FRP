@@ -1,4 +1,4 @@
-﻿#region Version Info
+#region Version Info
 
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
@@ -26,10 +26,10 @@ using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
-using UniCloud.Presentation.Service;
 
 #endregion
 
@@ -139,7 +139,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         public bool IsSubmited
         {
             get { return _isSubmited; }
-            private set
+            set
             {
                 if (_isSubmited != value)
                 {
@@ -358,7 +358,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnNew(object obj)
         {
-            PrepayPayscheduleChildView.ShowDialog();
+            prepayPayscheduleChildView.ShowDialog();
         }
 
         private bool CanNew(object obj)
@@ -546,7 +546,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 子窗体相关操作
 
-        [Import] public MaintainPrepayPayscheduleChildView PrepayPayscheduleChildView; //初始化子窗体
+        [Import] public MaintainPrepayPayscheduleChildView prepayPayscheduleChildView; //初始化子窗体
 
         #region 付款计划集合
 
@@ -603,7 +603,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <param name="sender"></param>
         public void OnCancelExecute(object sender)
         {
-            PrepayPayscheduleChildView.Close();
+            prepayPayscheduleChildView.Close();
         }
 
         /// <summary>
@@ -653,7 +653,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                     };
                     invoice.InvoiceLines.Add(invoiceLine);
                     PrepaymentInvoices.AddNew(invoice);
-                    PrepayPayscheduleChildView.Close();
+                    prepayPayscheduleChildView.Close();
                 }
             }
             else
