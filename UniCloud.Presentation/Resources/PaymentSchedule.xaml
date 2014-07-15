@@ -244,6 +244,7 @@
                          VerticalScrollBarVisibility="Visible"
                          Text="{Binding Occurrence.Appointment.Body, Mode=TwoWay}"
                          TextWrapping="Wrap"
+                         AcceptsReturn="True"
                          telerik:StyleManager.Theme="Windows8" />
 
                 <TextBlock Grid.Row="2"

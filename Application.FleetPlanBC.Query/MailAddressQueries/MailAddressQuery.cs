@@ -48,7 +48,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.MailAddressQueries
                 Id = p.Id,
                 Address = p.Address,
                 DisplayName = p.DisplayName,
-                LoginPassword = Cryptography.DecryptString(p.LoginPassword),
+                LoginPassword = p.LoginPassword,
                 LoginUser = p.LoginUser,
                 Pop3Host = p.Pop3Host,
                 ReceivePort = p.ReceivePort,

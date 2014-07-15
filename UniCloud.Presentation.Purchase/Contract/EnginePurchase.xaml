@@ -300,6 +300,7 @@
                                                       Header="合同说明">
                                         <TextBox Text="{Binding SelEnginePurchaseOrderDTO.LogWriter, Mode=TwoWay}"
                                                  TextWrapping="Wrap"
+                                                 AcceptsReturn="True"
                                                  VerticalScrollBarVisibility="Auto"
                                                  telerik:StyleManager.Theme="Windows8"
                                                  VerticalContentAlignment="Top"
