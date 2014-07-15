@@ -101,6 +101,7 @@
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\FRPClient.pubxml" />
     <None Include="Properties\PublishProfiles\ZFRPClient.pubxml" />
+    <None Include="Properties\PublishProfiles\FRP客户端发布.pubxml" />
     <None Include="Properties\PublishProfiles\本地测试环境.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

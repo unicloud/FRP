@@ -14,7 +14,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             InitializeComponent();
         }
 
-        [Import]
+        [Import(typeof(CompareScnVm))]
         public CompareScnVm ViewModel
         {
             get { return DataContext as CompareScnVm; }

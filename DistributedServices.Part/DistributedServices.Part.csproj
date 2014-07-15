@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\OnePart.pubxml" />
     <None Include="Properties\PublishProfiles\PartService.pubxml" />
     <None Include="Properties\PublishProfiles\ZPartService.pubxml" />
     <None Include="Properties\PublishProfiles\本地测试环境.pubxml" />

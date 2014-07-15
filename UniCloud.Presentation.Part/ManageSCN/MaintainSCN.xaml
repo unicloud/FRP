@@ -376,6 +376,8 @@
                                                          Margin="0,3"
                                                          Grid.Row="3"
                                                          Grid.RowSpan="2"
+                                                         TextWrapping="Wrap" 
+                                                         AcceptsReturn="True"
                                                          telerik:StyleManager.Theme="Windows8"
                                                          Text="{Binding Scn.AuditNotes, Mode=TwoWay}" />
                                             </Grid>

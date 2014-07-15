@@ -165,6 +165,7 @@
                                          Grid.Row="2"
                                          Grid.Column="2"
                                          Margin="0,3"
+                                         IsEditable="True"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"

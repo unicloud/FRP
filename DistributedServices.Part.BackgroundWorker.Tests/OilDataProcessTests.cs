@@ -36,6 +36,7 @@ namespace UniCloud.DistributedServices.Part.BackgroundWorker.Tests
 
             // Act
             oilProcess.ProcessEngine();
+            oilProcess.ProcessAPU();
 
             // Assert
             Assert.IsTrue(true);

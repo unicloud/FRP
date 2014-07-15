@@ -95,6 +95,7 @@
                                                                         ItemsSource="{Binding DataContext.Suppliers, ElementName=LayoutRoot}"
                                                                         SelectedValueMemberPath="SupplierId"
                                                                         DisplayMemberPath="Name"
+                                                                        telerik:IsComboBoxEditable="true"
                                                                         EditTriggers="CellClick" />
                                         <telerik:GridViewDataColumn Header="开始日期"
                                                                     TextAlignment="Center"
@@ -198,8 +199,7 @@
                                         <telerik:GridViewDataColumn Header="合同号"
                                                                     TextAlignment="Center"
                                                                     IsReadOnly="True"
-                                                                    DataMemberBinding="{Binding ContractNumber}"
-                                                                    />
+                                                                    DataMemberBinding="{Binding ContractNumber}" />
                                         <telerik:GridViewDataColumn Header="*合同名称"
                                                                     DataMemberBinding="{Binding Name}" />
                                         <telerik:GridViewComboBoxColumn Header="币种"
@@ -294,6 +294,7 @@
                                                       Header="合同说明">
                                         <TextBox Text="{Binding SelAircraftLeaseOrderDTO.LogWriter, Mode=TwoWay}"
                                                  TextWrapping="Wrap"
+                                                 AcceptsReturn="True"
                                                  VerticalScrollBarVisibility="Auto"
                                                  telerik:StyleManager.Theme="Windows8"
                                                  VerticalContentAlignment="Top"

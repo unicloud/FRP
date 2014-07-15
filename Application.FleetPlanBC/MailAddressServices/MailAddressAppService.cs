@@ -72,7 +72,7 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
             newMailAddress.ChangeCurrentIdentity(dto.Id);
             newMailAddress.SetAddress(dto.Address);
             newMailAddress.SetDisplayName(dto.DisplayName);
-            string password = Cryptography.EncryptString(dto.LoginPassword);//密码进行加密存储
+            string password = dto.LoginPassword;//密码进行加密存储
             newMailAddress.SetLoginPassword(password);
             newMailAddress.SetLoginUser(dto.LoginUser);
             newMailAddress.SetPop3Host(dto.Pop3Host);
@@ -102,7 +102,7 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
                 //更新主表：
                 updateMailAddress.SetAddress(dto.Address);
                 updateMailAddress.SetDisplayName(dto.DisplayName);
-                string password = Cryptography.EncryptString(dto.LoginPassword);//密码进行加密存储
+                string password = dto.LoginPassword;//密码进行加密存储
                 updateMailAddress.SetLoginPassword(password);
                 updateMailAddress.SetLoginUser(dto.LoginUser);
                 updateMailAddress.SetPop3Host(dto.Pop3Host);

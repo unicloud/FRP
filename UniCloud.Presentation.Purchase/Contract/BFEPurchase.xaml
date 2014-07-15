@@ -96,6 +96,7 @@
                                                                         DataMemberBinding="{Binding SupplierId}"
                                                                         ItemsSource="{Binding DataContext.Suppliers, ElementName=LayoutRoot}"
                                                                         SelectedValueMemberPath="SupplierId"
+                                                                        telerik:IsComboBoxEditable="true"
                                                                         DisplayMemberPath="Name"
                                                                         EditTriggers="CellClick" />
                                         <telerik:GridViewDataColumn Header="开始日期"
@@ -299,6 +300,7 @@
                                                       Header="合同说明">
                                         <TextBox Text="{Binding SelBFEPurchaseOrderDTO.LogWriter, Mode=TwoWay}"
                                                  TextWrapping="Wrap"
+                                                 AcceptsReturn="True"
                                                  VerticalScrollBarVisibility="Auto"
                                                  telerik:StyleManager.Theme="Windows8"
                                                  VerticalContentAlignment="Top"

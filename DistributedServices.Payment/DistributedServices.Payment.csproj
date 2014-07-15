@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\OnePayment.pubxml" />
     <None Include="Properties\PublishProfiles\PaymentService.pubxml" />
     <None Include="Properties\PublishProfiles\ZPaymentService.pubxml" />
     <None Include="Properties\PublishProfiles\本地测试环境.pubxml" />
