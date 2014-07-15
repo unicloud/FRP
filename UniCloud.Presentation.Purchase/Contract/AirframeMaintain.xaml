@@ -168,6 +168,7 @@
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"
+                                         IsEditable="true"
                                          ItemsSource="{Binding DataContext.Suppliers, Mode=TwoWay, ElementName=AirframeMaintainContract}"
                                          SelectedItem="{Binding DataContext.Supplier, Mode=TwoWay, ElementName=AirframeMaintainContract}"
                                          SelectedValue="{Binding SignatoryId, Mode=TwoWay}"

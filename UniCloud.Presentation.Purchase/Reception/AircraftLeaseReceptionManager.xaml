@@ -128,6 +128,7 @@
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         IsFilterable="True"
+                                                                        telerik:IsComboBoxEditable="true"
                                                                         ItemsSource="{Binding DataContext.Suppliers, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                         DisplayMemberPath="Name"
                                                                         DataMemberBinding="{Binding SupplierId,Mode=TwoWay}"

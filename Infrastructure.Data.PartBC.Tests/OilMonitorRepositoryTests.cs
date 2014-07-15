@@ -54,8 +54,10 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
 
             var pn1 = PnRegFactory.CreatePnReg(true, "V2527-A5", string.Empty);
             var pn2 = PnRegFactory.CreatePnReg(true, "Trent772C", string.Empty);
+            var pn3 = PnRegFactory.CreatePnReg(true, "APU1", string.Empty);
             pnRep.Add(pn1);
             pnRep.Add(pn2);
+            pnRep.Add(pn3);
 
             var eng1 = SnRegFactory.CreateEngineReg(new DateTime(2010, 1, 1), pn1, tr2, "V15749");
             var eng2 = SnRegFactory.CreateEngineReg(new DateTime(2010, 1, 1), pn1, tr2, "V15089");
@@ -69,6 +71,9 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             snRep.Add(eng2);
             snRep.Add(eng3);
             snRep.Add(eng4);
+
+            var apu1 = SnRegFactory.CreateAPUReg(new DateTime(2010, 1, 1), pn3, "APU123");
+            snRep.Add(apu1);
 
             // Act
             trRep.UnitOfWork.Commit();

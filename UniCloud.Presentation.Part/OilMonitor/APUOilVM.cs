@@ -205,8 +205,6 @@ namespace UniCloud.Presentation.Part.OilMonitor
         {
             if (!ViewAPUOilDTO.AutoLoad) ViewAPUOilDTO.AutoLoad = true;
             else ViewAPUOilDTO.Load(true);
-            if (!ViewOilMonitorDTO.AutoLoad) ViewOilMonitorDTO.AutoLoad = true;
-            else ViewOilMonitorDTO.Load(true);
         }
 
         #region 滑油监控发动机
@@ -228,8 +226,13 @@ namespace UniCloud.Presentation.Part.OilMonitor
             {
                 if (_selAPUOilDTO == value) return;
                 _selAPUOilDTO = value;
+                if (_selAPUOilDTO != null)
+                {
+                    _oilUserDescriptor.Value = _selAPUOilDTO.Id;
+                    if (!ViewOilMonitorDTO.AutoLoad) ViewOilMonitorDTO.AutoLoad = true;
+                    else ViewOilMonitorDTO.Load(true);
+                }
                 RaisePropertyChanged(() => SelAPUOilDTO);
-                _oilUserDescriptor.Value = _selAPUOilDTO.Id;
             }
         }
 

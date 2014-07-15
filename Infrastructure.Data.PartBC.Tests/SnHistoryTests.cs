@@ -50,11 +50,13 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
 
             var pn1 = pnRep.GetFiltered(pn => pn.Pn == "V2527-A5").FirstOrDefault();
             var pn2 = pnRep.GetFiltered(pn => pn.Pn == "Trent772C").FirstOrDefault();
+            var pn3 = pnRep.GetFiltered(pn => pn.Pn == "APU1").FirstOrDefault();
 
             var sn1 = snRep.GetFiltered(sn => sn.Sn == "V15749").FirstOrDefault();
             var sn2 = snRep.GetFiltered(sn => sn.Sn == "V15089").FirstOrDefault();
             var sn3 = snRep.GetFiltered(sn => sn.Sn == "41715").FirstOrDefault();
             var sn4 = snRep.GetFiltered(sn => sn.Sn == "41736").FirstOrDefault();
+            var sn5 = snRep.GetFiltered(sn => sn.Sn == "APU123").FirstOrDefault();
 
             var snRemInst1 = SnRemInstRecordFactory.CreateSnRemInstRecord("0001", new DateTime(2010, 1, 1),
                 ActionType.装上, "装机", ac1);
@@ -75,6 +77,10 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             shRep.Add(sh2);
             shRep.Add(sh3);
             shRep.Add(sh4);
+
+            var sh5 = SnHistoryFactory.CreateSnHistory(sn5, pn3, 0, 0, 0, 0, ActionType.装上, ac1,
+                new DateTime(2010, 1, 1), snRemInst1, SnStatus.装机, Position.机身);
+            shRep.Add(sh5);
 
             // Act
             shRep.UnitOfWork.Commit();
