@@ -470,6 +470,14 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
                         }
                     }
                 }
+                if (string.Equals(cell.Column.UniqueName, "Owner"))
+                {
+                    var ownershipHistory = gridView.CurrentCellInfo.Item as OwnershipHistoryDTO;
+                    if (ownershipHistory != null)
+                    {
+                        SelectedAircraft.SupplierId = ownershipHistory.SupplierId;
+                    }
+                }
                 if (string.Equals(cell.Column.UniqueName, "AcConfigStartDate"))
                 {
                     var acConfigHistory = gridView.CurrentCellInfo.Item as AcConfigHistoryDTO;
