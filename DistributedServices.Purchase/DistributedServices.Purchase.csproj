@@ -159,6 +159,7 @@
     <None Include="Properties\PublishProfiles\PurchaseDataService.pubxml" />
     <None Include="Properties\PublishProfiles\PurchaseService.pubxml" />
     <None Include="Properties\PublishProfiles\WCFDataService.pubxml" />
+    <None Include="Properties\PublishProfiles\ZPurchaseDataService.pubxml" />
     <None Include="Properties\PublishProfiles\本地测试环境.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
