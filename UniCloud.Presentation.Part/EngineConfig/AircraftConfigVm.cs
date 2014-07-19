@@ -135,7 +135,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public ContractAircraftDTO SelContractAircraft
         {
             get { return _selContractAircraft; }
-            private set
+            set
             {
                 if (_selContractAircraft != value)
                 {
@@ -246,7 +246,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public ObservableCollection<BasicConfigHistoryDTO> ViewBasicConfigHistories
         {
             get { return _viewBasicConfigHistories; }
-            private set
+            set
             {
                 if (_viewBasicConfigHistories != value)
                 {
@@ -262,7 +262,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public BasicConfigHistoryDTO SelBasicConfigHistory
         {
             get { return _selBasicConfigHistory; }
-            private set
+            set
             {
                 if (_selBasicConfigHistory != value)
                 {
@@ -290,7 +290,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public ObservableCollection<SpecialConfigDTO> ViewSpecialConfigs
         {
             get { return _viewSpecialConfigs; }
-            private set
+            set
             {
                 if (_viewSpecialConfigs != value)
                 {
@@ -338,7 +338,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public ObservableCollection<ItemDTO> ViewItems
         {
             get { return _viewItems; }
-            private set
+            set
             {
                 if (!_viewItems.Equals(value))
                 {

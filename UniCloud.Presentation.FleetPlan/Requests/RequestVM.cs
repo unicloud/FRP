@@ -257,7 +257,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         public RequestDTO SelRequest
         {
             get { return _selRequest; }
-            private set
+            set
             {
                 if (_selRequest != value)
                 {

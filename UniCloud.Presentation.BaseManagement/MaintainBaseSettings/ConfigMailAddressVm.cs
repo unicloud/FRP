@@ -92,7 +92,7 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
         public bool IsReadOnly
         {
             get { return this._isReadOnly; }
-            private set
+            set
             {
                 if (this._isReadOnly != value)
                 {

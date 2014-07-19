@@ -190,7 +190,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public ItemDTO SelItem
         {
             get { return _selItem; }
-            private set
+            set
             {
                 if (_selItem != value)
                 {
@@ -233,7 +233,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public ObservableCollection<ItemMaintainCtrlDTO> ViewItemMaintainCtrls
         {
             get { return _viewItemMaintainCtrls; }
-            private set
+            set
             {
                 if (_viewItemMaintainCtrls != value)
                 {
@@ -250,7 +250,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public ItemMaintainCtrlDTO SelItemMaintainCtrl
         {
             get { return _selItemMaintaiinCtrl; }
-            private set
+            set
             {
                 if (_selItemMaintaiinCtrl != value)
                 {
@@ -634,7 +634,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public Visibility ButtonVisible
         {
             get { return _buttonVisible; }
-            private set
+            set
             {
                 if (_buttonVisible != value)
                 {
@@ -647,7 +647,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public Visibility FirstVisible
         {
             get { return _firstVisible; }
-            private set
+            set
             {
                 if (_firstVisible != value)
                 {
@@ -660,7 +660,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public Visibility SecondVisible
         {
             get { return _secondVisible; }
-            private set
+            set
             {
                 if (_secondVisible != value)
                 {
@@ -673,7 +673,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public Visibility ThirdVisible
         {
             get { return _thirdVisible; }
-            private set
+            set
             {
                 if (_thirdVisible != value)
                 {
@@ -686,7 +686,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public Visibility FourVisible
         {
             get { return _fourVisible; }
-            private set
+            set
             {
                 if (_fourVisible != value)
                 {
@@ -699,7 +699,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public Visibility FiveVisible
         {
             get { return _fiveVisible; }
-            private set
+            set
             {
                 if (_fiveVisible != value)
                 {
@@ -712,7 +712,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public Visibility SixVisible
         {
             get { return _sixVisible; }
-            private set
+            set
             {
                 if (_sixVisible != value)
                 {
@@ -725,7 +725,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public Visibility SevenVisible
         {
             get { return _sevenVisible; }
-            private set
+            set
             {
                 if (_sevenVisible != value)
                 {
@@ -738,7 +738,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public Visibility EightVisible
         {
             get { return _eightVisible; }
-            private set
+            set
             {
                 if (_eightVisible != value)
                 {
@@ -751,7 +751,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public Visibility NineVisible
         {
             get { return _nineVisible; }
-            private set
+            set
             {
                 if (_nineVisible != value)
                 {

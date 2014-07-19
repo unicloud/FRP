@@ -176,7 +176,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public PnRegDTO SelPnReg
         {
             get { return _selPnReg; }
-            private set
+            set
             {
                 if (_selPnReg != value)
                 {
@@ -214,7 +214,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public ObservableCollection<PnMaintainCtrlDTO> ViewPnMaintainCtrls
         {
             get { return _viewPnMaintainCtrls; }
-            private set
+            set
             {
                 if (_viewPnMaintainCtrls != value)
                 {
@@ -231,7 +231,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public PnMaintainCtrlDTO SelPnMaintainCtrl
         {
             get { return _selPnMaintainCtrl; }
-            private set
+            set
             {
                 if (_selPnMaintainCtrl != value)
                 {
@@ -557,7 +557,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public Visibility ButtonVisible
         {
             get { return _buttonVisible; }
-            private set
+            set
             {
                 if (_buttonVisible != value)
                 {
@@ -570,7 +570,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public Visibility FirstVisible
         {
             get { return _firstVisible; }
-            private set
+            set
             {
                 if (_firstVisible != value)
                 {
@@ -583,7 +583,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public Visibility SecondVisible
         {
             get { return _secondVisible; }
-            private set
+            set
             {
                 if (_secondVisible != value)
                 {
@@ -596,7 +596,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public Visibility ThirdVisible
         {
             get { return _thirdVisible; }
-            private set
+            set
             {
                 if (_thirdVisible != value)
                 {
@@ -609,7 +609,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public Visibility FourVisible
         {
             get { return _fourVisible; }
-            private set
+            set
             {
                 if (_fourVisible != value)
                 {
@@ -622,7 +622,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public Visibility FiveVisible
         {
             get { return _fiveVisible; }
-            private set
+            set
             {
                 if (_fiveVisible != value)
                 {
@@ -635,7 +635,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public Visibility SixVisible
         {
             get { return _sixVisible; }
-            private set
+            set
             {
                 if (_sixVisible != value)
                 {
@@ -648,7 +648,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public Visibility SevenVisible
         {
             get { return _sevenVisible; }
-            private set
+            set
             {
                 if (_sevenVisible != value)
                 {
@@ -661,7 +661,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public Visibility EightVisible
         {
             get { return _eightVisible; }
-            private set
+            set
             {
                 if (_eightVisible != value)
                 {
@@ -674,7 +674,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public Visibility NineVisible
         {
             get { return _nineVisible; }
-            private set
+            set
             {
                 if (_nineVisible != value)
                 {
@@ -867,7 +867,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public IEnumerable<CtrlLine> CtrlLines
         {
             get { return _ctrlLines; }
-            private set
+            set
             {
                 if (!_ctrlLines.Equals(value))
                 {

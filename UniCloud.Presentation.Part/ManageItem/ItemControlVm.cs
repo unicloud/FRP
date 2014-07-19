@@ -122,7 +122,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public ObservableCollection<PnRegDTO> ViewPnRegs
         {
             get { return _viewPnRegs; }
-            private set
+            set
             {
                 if (_viewPnRegs != value)
                 {
@@ -232,7 +232,7 @@ namespace UniCloud.Presentation.Part.ManageItem
         public InstallControllerDTO SelInstallController
         {
             get { return _selInstallController; }
-            private set
+            set
             {
                 if (_selInstallController != value)
                 {

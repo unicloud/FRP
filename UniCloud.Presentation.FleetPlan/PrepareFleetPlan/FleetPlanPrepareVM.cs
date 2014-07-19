@@ -202,7 +202,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public AnnualDTO SelAnnual
         {
             get { return _selAnnual; }
-            private set
+            set
             {
                 if (_selAnnual != value)
                 {
@@ -235,7 +235,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public ObservableCollection<PlanDTO> ViewPlans
         {
             get { return _viewPlans; }
-            private set
+            set
             {
                 if (_viewPlans != value)
                 {
@@ -262,7 +262,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public ObservableCollection<PlanHistoryDTO> ViewPlanHistories
         {
             get { return _viewPlanHistories; }
-            private set
+            set
             {
                 if (_viewPlanHistories != value)
                 {
@@ -284,7 +284,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public PlanDTO SelPlan
         {
             get { return _selPlan; }
-            private set
+            set
             {
                 if (_selPlan != value)
                 {

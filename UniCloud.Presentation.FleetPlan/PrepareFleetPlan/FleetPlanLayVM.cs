@@ -166,7 +166,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public bool IsPlanReadOnly
         {
             get { return _isPlanReadOnly; }
-            private set
+            set
             {
                 if (_isPlanReadOnly != value)
                 {
@@ -292,7 +292,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public PlanDTO CurPlan
         {
             get { return _curPlan; }
-            private set
+            set
             {
                 if (_curPlan != value)
                 {
@@ -354,7 +354,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public ObservableCollection<PlanHistoryDTO> ViewPlanHistories
         {
             get { return _viewPlanHistories; }
-            private set
+            set
             {
                 if (_viewPlanHistories != value)
                 {
@@ -376,7 +376,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public PlanHistoryDTO SelPlanHistory
         {
             get { return _selPlanHistory; }
-            private set
+            set
             {
                 if (_selPlanHistory != value)
                 {
@@ -415,7 +415,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public PlanAircraftDTO SelPlanAircraft
         {
             get { return _selPlanAircraft; }
-            private set
+            set
             {
                 if (_selPlanAircraft != value)
                 {
@@ -437,7 +437,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public AircraftDTO SelAircraft
         {
             get { return _selAircraft; }
-            private set
+            set
             {
                 if (_selAircraft != value)
                 {
@@ -804,7 +804,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public PlanHistoryDTO EditPlanHistory
         {
             get { return _editPlanHistory; }
-            private set
+            set
             {
                 if (_editPlanHistory != value)
                 {
@@ -1001,7 +1001,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public bool IsOperation
         {
             get { return _isOperation; }
-            private set
+            set
             {
                 if (_isOperation != value)
                 {
@@ -1024,7 +1024,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public bool IsChange
         {
             get { return _isChange; }
-            private set
+            set
             {
                 if (_isChange != value)
                 {
@@ -1153,7 +1153,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public bool IsOperationEnabled
         {
             get { return _isOperationEnabled; }
-            private set
+            set
             {
                 if (_isOperationEnabled != value)
                 {
@@ -1175,7 +1175,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public bool IsChangeEnabled
         {
             get { return _isChangeEnabled; }
-            private set
+            set
             {
                 if (_isChangeEnabled != value)
                 {
@@ -1197,7 +1197,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public Visibility IsPlanTypeVisible
         {
             get { return _isPlanTypeVisible; }
-            private set
+            set
             {
                 if (_isPlanTypeVisible != value)
                 {
@@ -1237,7 +1237,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public bool IsChangeable
         {
             get { return _isChangeable; }
-            private set
+            set
             {
                 if (_isChangeable != value)
                 {
