@@ -258,7 +258,7 @@
                                                     <telerik:CountFunction ResultFormatString="总计：{0}架" />
                                                 </telerik:GridViewDataColumn.AggregateFunctions>
                                             </telerik:GridViewDataColumn>
-                                            <telerik:GridViewDataColumn Header="*序列号"
+                                            <telerik:GridViewDataColumn Header="*MSN"
                                                                         IsReadOnly="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding SerialNumber}" />

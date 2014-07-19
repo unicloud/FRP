@@ -76,7 +76,7 @@
                      Grid.Column="1"
                      Text="{Binding SelAircraft.RegNumber,Mode=TwoWay}" />
 
-            <TextBlock Text="*序列号"
+            <TextBlock Text="*MSN"
                        Grid.Row="0"
                        Grid.Column="2"
                        VerticalAlignment="Center" />
