@@ -88,6 +88,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 公共属性
 
         #region 供应商
+
         /// <summary>
         ///     供应商
         /// </summary>
@@ -127,7 +128,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public bool ContentReadOnly
         {
             get { return _contentReadOnly; }
-            private set
+            set
             {
                 if (_contentReadOnly == value) return;
                 _contentReadOnly = value;
@@ -174,7 +175,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public TradeDTO SelTradeDTO
         {
             get { return _selTradeDTO; }
-            private set
+            set
             {
                 if (_selTradeDTO == value) return;
                 _selTradeDTO = value;
@@ -221,7 +222,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public EnginePurchaseOrderDTO SelEnginePurchaseOrderDTO
         {
             get { return _selEnginePurchaseOrderDTO; }
-            private set
+            set
             {
                 if (_selEnginePurchaseOrderDTO == value) return;
                 _selEnginePurchaseOrderDTO = value;
@@ -258,7 +259,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public EnginePurchaseOrderLineDTO SelEnginePurchaseOrderLineDTO
         {
             get { return _selEnginePurchaseOrderLineDTO; }
-            private set
+            set
             {
                 if (_selEnginePurchaseOrderLineDTO == value) return;
                 _selEnginePurchaseOrderLineDTO = value;
@@ -280,7 +281,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public ContractContentDTO SelContractContentDTO
         {
             get { return _selContractContentDTO; }
-            private set
+            set
             {
                 if (_selContractContentDTO == value) return;
                 _selContractContentDTO = value;
