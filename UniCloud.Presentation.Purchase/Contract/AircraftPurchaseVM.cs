@@ -91,6 +91,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 公共属性
 
         #region 供应商
+
         /// <summary>
         ///     供应商
         /// </summary>
@@ -130,7 +131,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public bool ContentReadOnly
         {
             get { return _contentReadOnly; }
-            private set
+            set
             {
                 if (_contentReadOnly == value) return;
                 _contentReadOnly = value;
@@ -180,17 +181,17 @@ namespace UniCloud.Presentation.Purchase.Contract
         public TradeDTO SelTradeDTO
         {
             get { return _selTradeDTO; }
-            private set
+            set
             {
                 if (_selTradeDTO == value) return;
                 _selTradeDTO = value;
                 if (_selTradeDTO != null)
                 {
                     _orderDescriptor.Value = _selTradeDTO.Id;
+                    if (!ViewAircraftPurchaseOrderDTO.AutoLoad) ViewAircraftPurchaseOrderDTO.AutoLoad = true;
+                    else ViewAircraftPurchaseOrderDTO.Load(true);
                     RaisePropertyChanged(() => AircraftMaterials);
                 }
-                if (!ViewAircraftPurchaseOrderDTO.AutoLoad)
-                    ViewAircraftPurchaseOrderDTO.AutoLoad = true;
                 RaisePropertyChanged(() => SelTradeDTO);
                 // 刷新按钮状态
                 RefreshCommandState();
@@ -203,11 +204,15 @@ namespace UniCloud.Presentation.Purchase.Contract
         private void InitializeViewTradeDTO()
         {
             ViewTradeDTO = _service.CreateCollection(_context.Trades);
-            _tradeDescriptor1 = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
-            _tradeDescriptor2 = new FilterDescriptor("TradeType", FilterOperator.IsEqualTo, TradeType);
-            ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor1);
-            ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor2);
             _service.RegisterCollectionView(ViewTradeDTO);
+
+            // 添加过滤条件
+            var cfd = new CompositeFilterDescriptor {LogicalOperator = FilterCompositionLogicalOperator.And};
+            _tradeDescriptor1 = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
+            cfd.FilterDescriptors.Add(_tradeDescriptor1);
+            _tradeDescriptor2 = new FilterDescriptor("TradeType", FilterOperator.IsEqualTo, TradeType);
+            cfd.FilterDescriptors.Add(_tradeDescriptor2);
+            ViewTradeDTO.FilterDescriptors.Add(cfd);
         }
 
         #endregion
@@ -227,7 +232,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public AircraftPurchaseOrderDTO SelAircraftPurchaseOrderDTO
         {
             get { return _selAircraftPurchaseOrderDTO; }
-            private set
+            set
             {
                 if (_selAircraftPurchaseOrderDTO == value) return;
                 _selAircraftPurchaseOrderDTO = value;
@@ -248,9 +253,10 @@ namespace UniCloud.Presentation.Purchase.Contract
             ViewAircraftPurchaseOrderDTO = _service.CreateCollection(
                 _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs),
                 o => o.AircraftPurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
+            _service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
+
             _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
             ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
-            _service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
         }
 
         #endregion
@@ -265,7 +271,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public AircraftPurchaseOrderLineDTO SelAircraftPurchaseOrderLineDTO
         {
             get { return _selAircraftPurchaseOrderLineDTO; }
-            private set
+            set
             {
                 if (_selAircraftPurchaseOrderLineDTO == value) return;
                 _selAircraftPurchaseOrderLineDTO = value;
@@ -287,7 +293,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public ContractContentDTO SelContractContentDTO
         {
             get { return _selContractContentDTO; }
-            private set
+            set
             {
                 if (_selContractContentDTO == value) return;
                 _selContractContentDTO = value;
