@@ -24,16 +24,24 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="0 0 0 -1" OverflowButtonVisibility="Collapsed">
-            <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddLocalAttachCommand}">
-                <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png" Stretch="Fill"
-                       ToolTipService.ToolTip="添加新文档" />
+        <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="-2,0" OverflowButtonVisibility="Collapsed" Height="40">
+            <telerik:RadButton Margin="2,1" Command="{Binding AddLocalAttachCommand}">
+                <Image Source="/UniCloud.Presentation;component/Images/FilePdf.png" Stretch="Fill"
+                       ToolTipService.ToolTip="添加PDF文档" />
+            </telerik:RadButton>
+            <telerik:RadButton Margin="2,1" Command="{Binding AddLocalAttachCommand}">
+                <Image Source="/UniCloud.Presentation;component/Images/FileWord.png" Stretch="Fill"
+                       ToolTipService.ToolTip="添加WORD文档" />
+            </telerik:RadButton>
+            <telerik:RadButton Margin="2,1" Command="{Binding AddLocalAttachCommand}">
+                <Image Source="/UniCloud.Presentation;component/Images/FileExcel.png" Stretch="Fill"
+                       ToolTipService.ToolTip="添加EXCEL文档" />
             </telerik:RadButton>
         </telerik:RadToolBar>
         <telerik:RadGridView x:Name="DocumentInfos" Grid.Row="1" ItemsSource="{Binding Documents,Mode=TwoWay}"
                              IsBusy="{Binding Documents.IsBusy}" IsReadOnly="True" AutoGenerateColumns="False"
                              ShowGroupPanel="True" CanUserSortColumns="True" RowIndicatorVisibility="Visible"
-                             CanUserFreezeColumns="False" SelectionMode="Extended">
+                             CanUserFreezeColumns="False" SelectionMode="Extended" Margin="-2,0">
             <uc:GridViewDoubleClick.Helper>
                 <uc:DocumentDoubleClickHelper />
             </uc:GridViewDoubleClick.Helper>
@@ -51,7 +59,7 @@
         </telerik:RadGridView>
         <Grid Row="2">
             <telerik:RadDataPager Name="DocumentsRadPage" BorderThickness="1,0,1,1" AutoEllipsisMode="Both"
-                                  DisplayMode="All" Source="{Binding Documents}" />
+                                  DisplayMode="All" Source="{Binding Documents}" Margin="-2,0,-2,-2" />
         </Grid>
     </Grid>
 

@@ -384,6 +384,7 @@ namespace UniCloud.Presentation.Document
             DocumentTypeVisibility = Visibility.Collapsed;
             Title = string.Empty;
             PDFVisibility = Visibility.Collapsed;
+            ExcelVisibility = Visibility.Collapsed;
             WordVisibility = Visibility.Collapsed;
             if (_loadedDocument != null && docId == _loadedDocument.DocumentId)
             {

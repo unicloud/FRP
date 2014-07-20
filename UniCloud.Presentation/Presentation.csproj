@@ -502,6 +502,11 @@
   <ItemGroup>
     <Folder Include="DataServieExtension\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FileExcel.png" />
+    <Resource Include="Images\FilePdf.png" />
+    <Resource Include="Images\FileWord.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

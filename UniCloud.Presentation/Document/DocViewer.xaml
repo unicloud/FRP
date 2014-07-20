@@ -19,8 +19,7 @@
         </ResourceDictionary>
     </telerik:RadWindow.Resources>
 
-    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
-                              BusyContent="{x:Null}">
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="{Binding BusyContent}">
         <Grid x:Name="LayoutRoot">
             <Grid x:Name="WordLayout"
                   Visibility="{Binding WordVisibility}">

@@ -8,9 +8,7 @@
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:input="clr-namespace:UniCloud.Presentation.Input;assembly=UniCloud.Presentation"
-             mc:Ignorable="d"
-             d:DesignHeight="600"
-             d:DesignWidth="800"
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance uc:CaacProgrammingVM}">
 
     <UserControl.Resources>
@@ -32,8 +30,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
-                              BusyContent="{Binding BusyContent,Mode=TwoWay}">
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="{Binding BusyContent}">
         <Grid Background="White">
             <telerik:RadDocking BorderThickness="0"
                                 Padding="0"
@@ -103,7 +100,7 @@
                                                          IsReadOnly="False"
                                                          ItemsSource="{Binding CaacProgrammings,Mode=TwoWay}"
                                                          SelectedItem="{Binding SelCaacProgramming,Mode=TwoWay}"
-                                                         IsBusy="{Binding CaacProgrammings.IsBusy}">
+                                                         Margin="0,-1,0,0">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">
                                                 <ei:CallMethodAction TargetObject="{Binding}"
@@ -209,7 +206,6 @@
                                                          IsFilteringAllowed="False"
                                                          ItemsSource="{Binding SelCaacProgramming.CaacProgrammingLines,Mode=TwoWay}"
                                                          SelectedItem="{Binding SelCaacProgrammingLine,Mode=TwoWay}"
-                                                         IsBusy="{Binding CaacProgrammings.IsBusy}"
                                                          AutoGenerateColumns="False"
                                                          ShowColumnFooters="True">
                                         <i:Interaction.Triggers>
@@ -249,8 +245,8 @@
                                                 <telerik:GridViewColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Text="{Binding Number }"></TextBlock>
-                                                            <TextBlock Text=" 架"></TextBlock>
+                                                            <TextBlock Text="{Binding Number }" />
+                                                            <TextBlock Text=" 架" />
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </telerik:GridViewColumn.CellTemplate>
@@ -304,7 +300,7 @@
                                                          IsReadOnly="False"
                                                          ItemsSource="{Binding ProgrammingFiles,Mode=TwoWay}"
                                                          SelectedItem="{Binding SelProgrammingFile,Mode=TwoWay}"
-                                                         IsBusy="{Binding ProgrammingFiles.IsBusy}">
+                                                         Margin="0,-1,0,0">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">
                                                 <ei:CallMethodAction TargetObject="{Binding}"
