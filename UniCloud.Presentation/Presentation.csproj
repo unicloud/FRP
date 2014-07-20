@@ -289,6 +289,7 @@
       <DependentUpon>ListDocuments.xaml</DependentUpon>
     </Compile>
     <Compile Include="Document\ListDocumentsVm.cs" />
+    <Compile Include="Document\SpreadsheetAttachedProperties.cs" />
     <Compile Include="Export\ExportFormat.cs" />
     <Compile Include="Export\ExportSettings.cs" />
     <Compile Include="Export\ImageAndGridOperation.cs" />

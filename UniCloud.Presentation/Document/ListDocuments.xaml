@@ -24,16 +24,17 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="-2,0" OverflowButtonVisibility="Collapsed" Height="40">
-            <telerik:RadButton Margin="2,1" Command="{Binding AddLocalAttachCommand}">
+        <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="-2,0" OverflowButtonVisibility="Collapsed"
+                            Height="40">
+            <telerik:RadButton Margin="2,1" Command="{Binding AddPdfCommand}">
                 <Image Source="/UniCloud.Presentation;component/Images/FilePdf.png" Stretch="Fill"
                        ToolTipService.ToolTip="添加PDF文档" />
             </telerik:RadButton>
-            <telerik:RadButton Margin="2,1" Command="{Binding AddLocalAttachCommand}">
+            <telerik:RadButton Margin="2,1" Command="{Binding AddWordCommand}">
                 <Image Source="/UniCloud.Presentation;component/Images/FileWord.png" Stretch="Fill"
                        ToolTipService.ToolTip="添加WORD文档" />
             </telerik:RadButton>
-            <telerik:RadButton Margin="2,1" Command="{Binding AddLocalAttachCommand}">
+            <telerik:RadButton Margin="2,1" Command="{Binding AddExcelCommand}">
                 <Image Source="/UniCloud.Presentation;component/Images/FileExcel.png" Stretch="Fill"
                        ToolTipService.ToolTip="添加EXCEL文档" />
             </telerik:RadButton>
