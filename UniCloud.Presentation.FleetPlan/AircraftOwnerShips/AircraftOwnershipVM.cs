@@ -161,7 +161,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         public List<SupplierDTO> Suppliers 
         {
             get { return this._suppliers; }
-            private set
+            set
             {
                 if (this._suppliers != value)
                 {

@@ -179,7 +179,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public ObservableCollection<PlanDTO> CurPlan
         {
             get { return _curPlan; }
-            private set
+            set
             {
                 if (_curPlan != value)
                 {
@@ -206,7 +206,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public PlanDTO SelPlan
         {
             get { return _selPlan; }
-            private set
+            set
             {
                 if (_selPlan != value)
                 {

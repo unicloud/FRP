@@ -217,7 +217,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public List<AcConfigDTO> LeftViewAcConfigs
         {
             get { return _leftViewAcConfigs; }
-            private set
+            set
             {
                 if (_leftViewAcConfigs != value)
                 {
@@ -233,7 +233,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public List<AcConfigDTO> RightViewAcConfigs
         {
             get { return _rightViewAcConfigs; }
-            private set
+            set
             {
                 if (_rightViewAcConfigs != value)
                 {

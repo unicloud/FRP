@@ -92,7 +92,7 @@ namespace UniCloud.Presentation.Part.OilMonitor
         public Size Zoom
         {
             get { return _zoom; }
-            private set
+            set
             {
                 if (_zoom == value) return;
                 _zoom = value;
@@ -112,7 +112,7 @@ namespace UniCloud.Presentation.Part.OilMonitor
         public Point PanOffset
         {
             get { return _panOffset; }
-            private set
+            set
             {
                 if (_panOffset == value) return;
                 _panOffset = value;
@@ -132,7 +132,7 @@ namespace UniCloud.Presentation.Part.OilMonitor
         public OilMonitorDTO CurrentOil
         {
             get { return _currentOil; }
-            private set
+            set
             {
                 if (_currentOil == value) return;
                 _currentOil = value;
@@ -166,7 +166,7 @@ namespace UniCloud.Presentation.Part.OilMonitor
         public OilMonitorPeriod SelPeriod
         {
             get { return _selPeriod; }
-            private set
+            set
             {
                 if (_selPeriod == value) return;
                 _selPeriod = value;

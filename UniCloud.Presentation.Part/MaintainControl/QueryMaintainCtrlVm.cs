@@ -214,7 +214,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         public IEnumerable<ItemVm.CtrlLine> ItemCtrlLines
         {
             get { return _itemCtrlLines; }
-            private set
+            set
             {
                 if (!(_itemCtrlLines.Equals(value)))
                 {
@@ -261,7 +261,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         public IEnumerable<ItemVm.CtrlLine> PnCtrlLines
         {
             get { return _pnCtrlLines; }
-            private set
+            set
             {
                 if (!(_pnCtrlLines.Equals(value)))
                 {

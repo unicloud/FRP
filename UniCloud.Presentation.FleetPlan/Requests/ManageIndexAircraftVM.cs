@@ -285,7 +285,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         public ApprovalDocDTO SelApprovalDoc
         {
             get { return _selApprovalDoc; }
-            private set
+            set
             {
                 if (_selApprovalDoc != value)
                 {

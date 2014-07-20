@@ -206,7 +206,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public BasicConfigGroupDTO SelBasicConfigGroup
         {
             get { return _selbBasicConfigGroup; }
-            private set
+            set
             {
                 if (_selbBasicConfigGroup != value)
                 {
@@ -273,7 +273,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
         public ObservableCollection<ItemDTO> ViewItems
         {
             get { return _viewItems; }
-            private set
+            set
             {
                 if (!_viewItems.Equals(value))
                 {

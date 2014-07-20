@@ -173,7 +173,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         public bool IsSubmited
         {
             get { return _isSubmited; }
-            private set
+            set
             {
                 if (_isSubmited != value)
                 {
