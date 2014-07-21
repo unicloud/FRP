@@ -144,6 +144,7 @@
                                          Margin="0,5"
                                          Width="Auto"
                                          TextWrapping="Wrap"
+                                         AcceptsReturn="True"
                                          WatermarkContent="备注…"
                                          FontSize="{StaticResource TextFontSize}"
                                          VerticalContentAlignment="Top" />

@@ -77,7 +77,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.PlanHistoryQueries
                                     RegNumber = q.PlanAircraft.Aircraft.RegNumber,
                                     AircraftImportCategoryId = q.PlanAircraft.Aircraft.ImportCategoryId,
                                     ManageStatus = q.PlanAircraft == null ? 0 : (int)q.PlanAircraft.Status,
-                                    PaIsLock = q.PlanAircraft.IsLock,
+                                    //PaIsLock = q.PlanAircraft.IsLock,
 
                                     RelatedGuid = q.OperationHistoryId,
                                     RelatedEndDate = q.OperationHistory.EndDate,
@@ -120,7 +120,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.PlanHistoryQueries
                                     RegNumber = p.PlanAircraft.Aircraft.RegNumber,
                                     AircraftImportCategoryId = p.PlanAircraft.Aircraft.ImportCategoryId,
                                     ManageStatus = p.PlanAircraft == null ? 0 : (int)p.PlanAircraft.Status,
-                                    PaIsLock = p.PlanAircraft.IsLock,
+                                    //PaIsLock = p.PlanAircraft.IsLock,
 
                                     RelatedGuid = p.AircraftBusinessId,
                                     RelatedEndDate = p.AircraftBusiness.EndDate,

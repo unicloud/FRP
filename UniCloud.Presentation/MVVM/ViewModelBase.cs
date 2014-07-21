@@ -49,6 +49,9 @@ namespace UniCloud.Presentation.MVVM
         {
             AddAttachCommand = new DelegateCommand<object>(OnAddAttach, CanAddAttach);
             AddLocalAttachCommand = new DelegateCommand<object>(OnAddLocalAttach, CanAddLocalAttach);
+            AddWordCommand = new DelegateCommand<object>(OnAddWord, CanAddWord);
+            AddExcelCommand = new DelegateCommand<object>(OnAddExcel, CanAddExcel);
+            AddPdfCommand = new DelegateCommand<object>(OnAddPdf, CanAddPdf);
             ViewAttachCommand = new DelegateCommand<object>(OnViewAttach);
             ExcelExportCommand = new DelegateCommand<object>(OnExcelExport);
             WordExportCommand = new DelegateCommand<object>(OnWordExport);
@@ -197,6 +200,81 @@ namespace UniCloud.Presentation.MVVM
 
 
         protected virtual bool CanAddLocalAttach(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 添加Word文档
+
+        /// <summary>
+        ///     添加Word文档
+        /// </summary>
+        public DelegateCommand<object> AddWordCommand { get; private set; }
+
+        private void OnAddWord(object obj)
+        {
+            var openFileDialog = new OpenFileDialog {Filter = "WORD文档|*.docx"};
+            if (openFileDialog.ShowDialog() != true) return;
+            listDocuments = ServiceLocator.Current.GetInstance<ListDocuments>();
+            listDocuments.Close();
+
+            docViewer.ShowDialog();
+            docViewerVM.InitDocument(openFileDialog.File, windowClosed, DocTypeIds);
+        }
+
+        private bool CanAddWord(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 添加Excel文档
+
+        /// <summary>
+        ///     添加Excel文档
+        /// </summary>
+        public DelegateCommand<object> AddExcelCommand { get; private set; }
+
+        private void OnAddExcel(object obj)
+        {
+            var openFileDialog = new OpenFileDialog {Filter = "EXCEL文档|*.xlsx"};
+            if (openFileDialog.ShowDialog() != true) return;
+            listDocuments = ServiceLocator.Current.GetInstance<ListDocuments>();
+            listDocuments.Close();
+
+            docViewer.ShowDialog();
+            docViewerVM.InitDocument(openFileDialog.File, windowClosed, DocTypeIds);
+        }
+
+        private bool CanAddExcel(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 添加Pdf文档
+
+        /// <summary>
+        ///     添加Pdf文档
+        /// </summary>
+        public DelegateCommand<object> AddPdfCommand { get; private set; }
+
+        private void OnAddPdf(object obj)
+        {
+            var openFileDialog = new OpenFileDialog {Filter = "PDF文档|*.pdf"};
+            if (openFileDialog.ShowDialog() != true) return;
+            listDocuments = ServiceLocator.Current.GetInstance<ListDocuments>();
+            listDocuments.Close();
+
+            docViewer.ShowDialog();
+            docViewerVM.InitDocument(openFileDialog.File, windowClosed, DocTypeIds);
+        }
+
+        private bool CanAddPdf(object obj)
         {
             return true;
         }

@@ -92,7 +92,7 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
         public bool IsReadOnly
         {
             get { return this._isReadOnly; }
-            private set
+            set
             {
                 if (this._isReadOnly != value)
                 {
@@ -219,6 +219,7 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
                     Id = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"),
                     SendPort = 25,
                     SendSSL = false,
+                    StartTLS = true,
                 };
                 MailAddresses.AddNew(MailAddress);
             }
@@ -229,6 +230,7 @@ namespace UniCloud.Presentation.BaseManagement.MaintainBaseSettings
                     Id = Guid.Parse("31A9DE51-C207-4A73-919C-21521F17FEF9"),
                     ReceivePort = 110,
                     ReceiveSSL = false,
+                    SendPort = 25,
                 };
                 MailAddresses.AddNew(CAACMailAddress);
             }

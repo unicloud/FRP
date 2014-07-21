@@ -203,7 +203,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         public ObservableCollection<SnRegDTO> OnBoardSnRegs
         {
             get { return _onBoardSnRegs; }
-            private set
+            set
             {
                 if (_onBoardSnRegs != value)
                 {
@@ -220,7 +220,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         public ObservableCollection<SnRegDTO> InStoreSnRegs
         {
             get { return _inStoreSnRegs; }
-            private set
+            set
             {
                 if (_inStoreSnRegs != value)
                 {
@@ -247,7 +247,7 @@ namespace UniCloud.Presentation.Part.MaintainControl
         public SnRemInstRecordDTO SelSnRemInstRecord
         {
             get { return _selSnRemInstRecord; }
-            private set
+            set
             {
                 if (_selSnRemInstRecord != value)
                 {

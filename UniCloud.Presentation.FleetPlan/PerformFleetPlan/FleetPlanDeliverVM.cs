@@ -214,7 +214,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public ObservableCollection<PlanHistoryDTO> ViewPlanHistories
         {
             get { return _viewPlanHistories; }
-            private set
+            set
             {
                 if (_viewPlanHistories != value)
                 {
@@ -281,7 +281,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public List<SupplierDTO> Suppliers
         {
             get { return this._suppliers; }
-            private set
+            set
             {
                 if (this._suppliers != value)
                 {
@@ -363,7 +363,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public PlanDTO CurPlan
         {
             get { return _curPlan; }
-            private set
+            set
             {
                 if (_curPlan != value)
                 {
@@ -410,7 +410,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public PlanHistoryDTO SelPlanHistory
         {
             get { return _selPlanHistory; }
-            private set
+            set
             {
                 if (_selPlanHistory != value)
                 {
@@ -437,7 +437,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public AircraftDTO SelAircraft
         {
             get { return _selAircraft; }
-            private set
+            set
             {
                 if (_selAircraft != value)
                 {
@@ -484,7 +484,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public ObservableCollection<OperationHistoryDTO> OperationHistories
         {
             get { return _operationHistories; }
-            private set
+            set
             {
                 if (_operationHistories != value)
                 {
@@ -527,7 +527,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public OperationHistoryDTO SelOperationHistory
         {
             get { return _selOperationHistory; }
-            private set
+            set
             {
                 if (_selOperationHistory != value)
                 {
@@ -548,7 +548,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public ObservableCollection<AircraftBusinessDTO> AircraftBusinesses
         {
             get { return _aircraftBusinesses; }
-            private set
+            set
             {
                 if (_aircraftBusinesses != value)
                 {
@@ -592,7 +592,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public AircraftBusinessDTO SelAircraftBusiness
         {
             get { return _selAircraftBusiness; }
-            private set
+            set
             {
                 if (_selAircraftBusiness != value)
                 {
@@ -1002,7 +1002,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public bool IsAircraft
         {
             get { return _isAircraft; }
-            private set
+            set
             {
                 if (_isAircraft != value)
                 {
@@ -1025,7 +1025,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public bool IsOperationHistory
         {
             get { return _isOperationHistory; }
-            private set
+            set
             {
                 if (_isOperationHistory != value)
                 {
@@ -1048,7 +1048,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public bool IsAircraftBusiness
         {
             get { return _isAircraftBusiness; }
-            private set
+            set
             {
                 if (_isAircraftBusiness != value)
                 {
@@ -1071,7 +1071,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public Visibility IsAircraftVisibility
         {
             get { return _isAircraftVisibility; }
-            private set
+            set
             {
                 if (_isAircraftVisibility != value)
                 {
@@ -1093,7 +1093,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public Visibility IsOperationHistoryVisibility
         {
             get { return _isOperationHistoryVisibility; }
-            private set
+            set
             {
                 if (_isOperationHistoryVisibility != value)
                 {
@@ -1115,7 +1115,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         public Visibility IsAircraftBusinessVisibility
         {
             get { return _isAircraftBusinessVisibility; }
-            private set
+            set
             {
                 if (_isAircraftBusinessVisibility != value)
                 {

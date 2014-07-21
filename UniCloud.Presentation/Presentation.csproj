@@ -92,8 +92,12 @@
     <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Windows.Controls.Data.DataForm.Toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Windows.Controls.Data.Input, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Data.DataForm.Toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Data.Input, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Windows.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
@@ -285,6 +289,7 @@
       <DependentUpon>ListDocuments.xaml</DependentUpon>
     </Compile>
     <Compile Include="Document\ListDocumentsVm.cs" />
+    <Compile Include="Document\SpreadsheetAttachedProperties.cs" />
     <Compile Include="Export\ExportFormat.cs" />
     <Compile Include="Export\ExportSettings.cs" />
     <Compile Include="Export\ImageAndGridOperation.cs" />
@@ -501,6 +506,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataServieExtension\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FileExcel.png" />
+    <Resource Include="Images\FilePdf.png" />
+    <Resource Include="Images\FileWord.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>

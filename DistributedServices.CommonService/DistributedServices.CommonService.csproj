@@ -125,6 +125,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\CommonService.pubxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\PublishProfiles\ZCommonService.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\CommonService.pubxml" />
     <None Include="Properties\PublishProfiles\OneCommonService.pubxml" />
     <None Include="Properties\PublishProfiles\本地测试环境.pubxml" />

@@ -157,7 +157,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public PlanDTO LastPublishedPlan
         {
             get { return _lastPublishedPlan; }
-            private set
+            set
             {
                 if (_lastPublishedPlan != value)
                 {
@@ -181,7 +181,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public IEnumerable<PlanDTO> PublishingPlan
         {
             get { return _publishingPlan; }
-            private set
+            set
             {
                 if (!Equals(_publishingPlan, value))
                 {
@@ -226,7 +226,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public ObservableCollection<PlanDTO> ViewPlans
         {
             get { return _viewPlans; }
-            private set
+            set
             {
                 if (_viewPlans != null)
                 {
@@ -248,7 +248,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public PlanDTO SelPlan
         {
             get { return _selPlan; }
-            private set
+            set
             {
                 if (_selPlan != value)
                 {

@@ -159,7 +159,7 @@ namespace UniCloud.Presentation.Part.BaseConfigurations
         public PnRegDTO SelPnReg
         {
             get { return _selPnReg; }
-            private set
+            set
             {
                 if (_selPnReg != value)
                 {

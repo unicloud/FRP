@@ -26,6 +26,9 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
+using Telerik.Windows.Documents.Spreadsheet.FormatProviders;
+using Telerik.Windows.Documents.Spreadsheet.FormatProviders.OpenXml.Xlsx;
+using Telerik.Windows.Documents.Spreadsheet.Model;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService;
 using UniCloud.Presentation.Service.CommonService.Common;
@@ -155,6 +158,26 @@ namespace UniCloud.Presentation.Document
                 if (_excelVisibility == value) return;
                 _excelVisibility = value;
                 RaisePropertyChanged(() => ExcelVisibility);
+            }
+        }
+
+        #endregion
+
+        #region Excel文档内容
+
+        private Workbook _excelContent;
+
+        /// <summary>
+        /// Excel文档内容
+        /// </summary>
+        public Workbook ExcelContent
+        {
+            get { return _excelContent; }
+            set
+            {
+                if (_excelContent == value) return;
+                _excelContent = value;
+                RaisePropertyChanged(() => ExcelContent);
             }
         }
 
@@ -340,6 +363,9 @@ namespace UniCloud.Presentation.Document
         {
             _fromServer = false;
             DocumentTypeVisibility = Visibility.Visible;
+            PDFVisibility = Visibility.Collapsed;
+            ExcelVisibility = Visibility.Collapsed;
+            WordVisibility = Visibility.Collapsed;
 
             DocTypeIds = docTypeIds;
             if (docTypeIds.Length == 0)
@@ -384,6 +410,7 @@ namespace UniCloud.Presentation.Document
             DocumentTypeVisibility = Visibility.Collapsed;
             Title = string.Empty;
             PDFVisibility = Visibility.Collapsed;
+            ExcelVisibility = Visibility.Collapsed;
             WordVisibility = Visibility.Collapsed;
             if (_loadedDocument != null && docId == _loadedDocument.DocumentId)
             {
@@ -429,18 +456,27 @@ namespace UniCloud.Presentation.Document
             }
             switch (extension.ToLower())
             {
+                case ".xlsx":
+                    PDFVisibility = Visibility.Collapsed;
+                    WordVisibility = Visibility.Collapsed;
+                    ExcelVisibility = Visibility.Visible;
+                    IWorkbookFormatProvider provider = new XlsxFormatProvider();
+                    ExcelContent = provider.Import(new MemoryStream(_content));
+                    break;
                 case ".docx":
                     PDFVisibility = Visibility.Collapsed;
+                    ExcelVisibility = Visibility.Collapsed;
                     WordVisibility = Visibility.Visible;
                     WordContent = _content;
                     break;
                 case ".pdf":
                     WordVisibility = Visibility.Collapsed;
+                    ExcelVisibility = Visibility.Collapsed;
                     PDFVisibility = Visibility.Visible;
                     PDFContent = new MemoryStream(_content);
                     break;
                 default:
-                    MessageAlert("不是合法的Word文档或者PDF文档！");
+                    MessageAlert("不是合法文档！");
                     break;
             }
             Title = fi.Name;
@@ -463,18 +499,27 @@ namespace UniCloud.Presentation.Document
             _content = doc.FileStorage;
             switch (extension)
             {
+                case ".xlsx":
+                    PDFVisibility = Visibility.Collapsed;
+                    WordVisibility = Visibility.Collapsed;
+                    ExcelVisibility = Visibility.Visible;
+                    IWorkbookFormatProvider provider = new XlsxFormatProvider();
+                    ExcelContent = provider.Import(new MemoryStream(_content));
+                    break;
                 case ".docx":
                     PDFVisibility = Visibility.Collapsed;
+                    ExcelVisibility = Visibility.Collapsed;
                     WordVisibility = Visibility.Visible;
                     WordContent = _content;
                     break;
                 case ".pdf":
                     WordVisibility = Visibility.Collapsed;
+                    ExcelVisibility = Visibility.Collapsed;
                     PDFVisibility = Visibility.Visible;
                     PDFContent = new MemoryStream(_content);
                     break;
                 default:
-                    MessageAlert("不是合法的Word文档或者PDF文档！");
+                    MessageAlert("不是合法的文档！");
                     break;
             }
             Title = doc.Name;

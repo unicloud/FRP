@@ -223,6 +223,7 @@
                                                           Header="申请历史说明">
                                             <TextBox Text="{Binding SelRequest.LogWriter, Mode=TwoWay}"
                                                      TextWrapping="Wrap"
+                                                     AcceptsReturn="True"
                                                      VerticalScrollBarVisibility="Auto"
                                                      telerik:StyleManager.Theme="Windows8"
                                                      VerticalContentAlignment="Top"

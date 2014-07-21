@@ -136,7 +136,8 @@
                                             </telerik:RadContextMenu.ContextMenu>
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="CellEditEnded">
-                                                    <i:InvokeCommandAction Command="{Binding CellEditEndCommand}" />
+                                                    <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
+                                                                           CommandParameter="{Binding ElementName=OwnershipHistories}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                             <telerik:RadGridView.Columns>
@@ -147,7 +148,8 @@
                                                                                 ItemsSource="{Binding DataContext.Suppliers,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl,Mode=FindAncestor}}"
                                                                                 DisplayMemberPath="CnName"
                                                                                 DataMemberBinding="{Binding SupplierId}"
-                                                                                SelectedValueMemberPath="Id" />
+                                                                                SelectedValueMemberPath="Id" 
+                                                                                UniqueName="Owner"/>
                                                 <telerik:GridViewDataColumn Header="开始时间"
                                                                             IsReadOnlyBinding="{Binding IsOwnershipReadOnly}"
                                                                             IsSortable="True"

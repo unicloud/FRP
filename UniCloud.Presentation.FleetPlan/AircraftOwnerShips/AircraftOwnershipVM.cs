@@ -161,7 +161,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         public List<SupplierDTO> Suppliers 
         {
             get { return this._suppliers; }
-            private set
+            set
             {
                 if (this._suppliers != value)
                 {
@@ -468,6 +468,14 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
                         {
                             lastOh.EndDate = ownershipHistory.StartDate;
                         }
+                    }
+                }
+                if (string.Equals(cell.Column.UniqueName, "Owner"))
+                {
+                    var ownershipHistory = gridView.CurrentCellInfo.Item as OwnershipHistoryDTO;
+                    if (ownershipHistory != null)
+                    {
+                        SelectedAircraft.SupplierId = ownershipHistory.SupplierId;
                     }
                 }
                 if (string.Equals(cell.Column.UniqueName, "AcConfigStartDate"))

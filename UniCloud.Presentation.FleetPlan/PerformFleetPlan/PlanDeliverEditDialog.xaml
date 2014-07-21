@@ -76,7 +76,7 @@
                      Grid.Column="1"
                      Text="{Binding SelAircraft.RegNumber,Mode=TwoWay}" />
 
-            <TextBlock Text="*序列号"
+            <TextBlock Text="*MSN"
                        Grid.Row="0"
                        Grid.Column="2"
                        VerticalAlignment="Center" />
@@ -243,6 +243,7 @@
                                          Margin="0,5"
                                          Width="Auto"
                                          TextWrapping="Wrap"
+                                         AcceptsReturn="True"
                                          WatermarkContent="备注…"
                                          FontSize="{StaticResource TextFontSize}"
                                          Text="{Binding SelOperationHistory.Note, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}"

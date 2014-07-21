@@ -105,7 +105,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public SnRegDTO SelSnReg
         {
             get { return _selSnReg; }
-            private set
+            set
             {
                 if (_selSnReg != value)
                 {
@@ -199,7 +199,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         public ObservableCollection<SnHistoryDTO> ViewSnHistories
         {
             get { return _viewSnHistories; }
-            private set
+            set
             {
                 if (_viewSnHistories != value)
                 {

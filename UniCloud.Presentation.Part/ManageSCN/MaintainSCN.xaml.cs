@@ -14,7 +14,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             InitializeComponent();
         }
 
-        [Import]
+        [Import(typeof(MaintainScnVm))]
         public MaintainScnVm ViewModel
         {
             get { return DataContext as MaintainScnVm; }

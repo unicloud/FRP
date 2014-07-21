@@ -140,6 +140,7 @@
                          Margin="3"
                          Grid.Row="1"
                          TextWrapping="Wrap"
+                         AcceptsReturn="True"
                          Text="{Binding Occurrence.Appointment.Body, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnDataErrors=True}"
                          telerik:StyleManager.Theme="Windows8"
                          VerticalScrollBarVisibility="Visible"

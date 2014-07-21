@@ -211,7 +211,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public EnginePlanDTO SelEnginePlan
         {
             get { return _selEnginePlan; }
-            private set
+            set
             {
                 if (_selEnginePlan != value)
                 {
@@ -245,7 +245,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public ObservableCollection<EnginePlanHistoryDTO> EnginePlanHistories
         {
             get { return _enginePlanHistories; }
-            private set
+            set
             {
                 if (_enginePlanHistories != value)
                 {
@@ -267,7 +267,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public EnginePlanHistoryDTO SelEnginePlanHistory
         {
             get { return _selEnginePlanHistory; }
-            private set
+            set
             {
                 if (_selEnginePlanHistory != value)
                 {

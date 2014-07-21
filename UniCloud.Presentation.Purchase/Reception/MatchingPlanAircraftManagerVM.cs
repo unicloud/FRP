@@ -149,7 +149,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         public ContractAircraftDTO SelContractAircraft
         {
             get { return _selContractAircraft; }
-            private set
+            set
             {
                 if (_selContractAircraft != value)
                 {
@@ -247,7 +247,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         public PlanAircraftDTO SelPlanAircraft
         {
             get { return _selPlanAircraft; }
-            private set
+            set
             {
                 if (_selPlanAircraft != value)
                 {

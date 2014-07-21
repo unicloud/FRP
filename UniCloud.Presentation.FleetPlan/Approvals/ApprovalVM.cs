@@ -122,7 +122,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         public bool IsChecked
         {
             get { return _isChecked; }
-            private set
+            set
             {
                 if (_isChecked != value)
                 {
@@ -207,7 +207,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         public ApprovalDocDTO SelApprovalDoc
         {
             get { return _selApprovalDoc; }
-            private set
+            set
             {
                 if (_selApprovalDoc != value)
                 {
@@ -252,7 +252,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         public ObservableCollection<RequestDTO> ApprovalRequests
         {
             get { return _approvalRequests; }
-            private set
+            set
             {
                 if (_approvalRequests != value)
                 {
@@ -286,7 +286,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         public RequestDTO SelApprovalRequest
         {
             get { return _selApprovalRequest; }
-            private set
+            set
             {
                 if (_selApprovalRequest != value)
                 {

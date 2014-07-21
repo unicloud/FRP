@@ -7,8 +7,11 @@
                    xmlns:fixed="clr-namespace:Telerik.Windows.Documents.Fixed;assembly=Telerik.Windows.Controls.FixedDocumentViewers"
                    xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
                    xmlns:converters="clr-namespace:Telerik.Windows.Documents.Converters;assembly=Telerik.Windows.Controls.FixedDocumentViewers"
-                   WindowStartupLocation="CenterScreen" Name="DocViewerView" Header="{Binding Title}" mc:Ignorable="d"
-                   Height="500" Width="700" d:DataContext="{d:DesignInstance uc:DocViewerVM}">
+                   xmlns:spreadsheetControls="clr-namespace:Telerik.Windows.Controls.Spreadsheet.Controls;assembly=Telerik.Windows.Controls.Spreadsheet"
+                   xmlns:spreadsheet="clr-namespace:Telerik.Windows.Controls.Spreadsheet;assembly=Telerik.Windows.Controls.Spreadsheet"
+                   xmlns:local="clr-namespace:UniCloud.Presentation.Document" WindowStartupLocation="CenterScreen"
+                   Name="DocViewerView" Header="{Binding Title}" mc:Ignorable="d"
+                   Height="600" Width="900" d:DataContext="{d:DesignInstance uc:DocViewerVM}">
 
     <telerik:RadWindow.Resources>
         <ResourceDictionary>
@@ -19,9 +22,52 @@
         </ResourceDictionary>
     </telerik:RadWindow.Resources>
 
-    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
-                              BusyContent="{x:Null}">
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="{Binding BusyContent}">
         <Grid x:Name="LayoutRoot">
+            <Grid x:Name="ExcelLayout" Visibility="{Binding ExcelVisibility}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <telerik:RadRibbonView Title="{Binding Path=Workbook.Name, ElementName=ExcelEditor}"
+                                       x:Name="RibbonView" HeaderBackground="LightGray" ApplicationButtonContent="文件"
+                                       DataContext="{Binding Path=CommandDescriptors, ElementName=ExcelEditor}"
+                                       BackstageClippingElement="{Binding ElementName=ExcelLayout}" IsMinimized="True"
+                                       ApplicationName="">
+                    <telerik:RadRibbonView.QuickAccessToolBar>
+                        <telerik:QuickAccessToolBar>
+                            <telerik:RadRibbonButton
+                                Command="{Binding DataContext.SaveCommand, ElementName=LayoutRoot }" Text="保存"
+                                Size="Small"
+                                SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/save.png"
+                                ToolTipService.ToolTip="保存到服务器" />
+                            <telerik:RadRibbonButton Text="撤销键入"
+                                                     SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/undo.png"
+                                                     Size="Small" Command="{Binding Path=Undo.Command}"
+                                                     IsEnabled="{Binding Path=Undo.IsEnabled}" />
+                            <telerik:RadRibbonButton Text="重复键入"
+                                                     SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/redo.png"
+                                                     Size="Small" Command="{Binding Path=Redo.Command}"
+                                                     IsEnabled="{Binding Path=Redo.IsEnabled}" />
+                            <telerik:RadComboBox Name="CbExcelDocumentTypes"
+                                                 Visibility="{Binding DataContext.DocumentTypeVisibility,  ElementName=DocViewerView}"
+                                                 Width="80" telerik:StyleManager.Theme="Windows8" EmptyText="文档类型"
+                                                 ItemsSource="{Binding DataContext.DocumentTypes, Mode=TwoWay, ElementName=DocViewerView}"
+                                                 SelectedItem="{Binding DataContext.DocumentType, Mode=TwoWay, ElementName=DocViewerView}"
+                                                 DisplayMemberPath="Name" />
+                        </telerik:QuickAccessToolBar>
+                    </telerik:RadRibbonView.QuickAccessToolBar>
+                </telerik:RadRibbonView>
+                <spreadsheetControls:RadSpreadsheetFormulaBar Grid.Row="1"
+                                                              RadSpreadsheet="{Binding ElementName=ExcelEditor, Mode=OneTime}" />
+                <telerik:RadSpreadsheet x:Name="ExcelEditor" telerik:Analytics.Name="ExcelEditor" Grid.Row="2"
+                                        DataContext="{Binding Path=CommandDescriptors, ElementName=radSpreadsheet}"
+                                        local:SpreadsheetAttachedProperties.ExcelWorkbook="{Binding DataContext.ExcelContent, ElementName=LayoutRoot  }" />
+                <spreadsheetControls:RadSpreadsheetStatusBar Grid.Row="3"
+                                                             RadSpreadsheet="{Binding ElementName=ExcelEditor, Mode=OneTime}" />
+            </Grid>
             <Grid x:Name="WordLayout"
                   Visibility="{Binding WordVisibility}">
                 <Grid.RowDefinitions>
@@ -39,9 +85,9 @@
                     <telerik:RadRichTextBoxRibbonUI.Resources>
                         <telerik:FontFamiliesProvider x:Key="FontFamiliesProvider" />
                     </telerik:RadRichTextBoxRibbonUI.Resources>
-                    <!--<telerik:RadRichTextBoxRibbonUI.Backstage>
+                    <telerik:RadRichTextBoxRibbonUI.Backstage>
                         <telerik:RadRibbonBackstage>
-                            <telerik:RadRibbonBackstageItem Header="保存"
+                            <!--<telerik:RadRibbonBackstageItem Header="保存"
                                                             Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/save.png"
                                                             IsDefault="false">
                                 <StackPanel HorizontalAlignment="Stretch"
@@ -82,7 +128,7 @@
                                                        Width="300" />
                                         </StackPanel>
                                     </StackPanel>
-                                    --><!--<StackPanel Margin="0,30,0,0"
+                                    <StackPanel Margin="0,30,0,0"
                                                 Orientation="Horizontal">
                                         <telerik:RadRibbonButton BorderBrush="Gray"
                                                                  VerticalContentAlignment="Center"
@@ -107,9 +153,9 @@
                                                        TextWrapping="Wrap"
                                                        Width="300" />
                                         </StackPanel>
-                                    </StackPanel>--><!--
+                                    </StackPanel>
                                 </StackPanel>
-                            </telerik:RadRibbonBackstageItem>
+                            </telerik:RadRibbonBackstageItem>-->
                             <telerik:RadRibbonBackstageItem Header="打印"
                                                             Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/print.png">
                                 <StackPanel HorizontalAlignment="Stretch"
@@ -153,7 +199,7 @@
                                 </StackPanel>
                             </telerik:RadRibbonBackstageItem>
                         </telerik:RadRibbonBackstage>
-                    </telerik:RadRichTextBoxRibbonUI.Backstage>-->
+                    </telerik:RadRichTextBoxRibbonUI.Backstage>
                     <telerik:RadRichTextBoxRibbonUI.QuickAccessToolBar>
                         <telerik:QuickAccessToolBar CustomizationMenuVisibility="Collapsed">
                             <telerik:RadRibbonButton
@@ -164,8 +210,7 @@
                                 ToolTipService.ToolTip="保存到服务器" />
                             <telerik:RadRibbonButton
                                 Command="{Binding DataContext.SaveDocumentToLocalCommand, ElementName=LayoutRoot }"
-                                Text="保存"
-                                Size="Small"
+                                Text="保存" Size="Small"
                                 SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/save.png"
                                 ToolTipService.ToolTip="保存为Word" />
                             <telerik:RadRibbonButton Text="打印"
@@ -577,22 +622,14 @@
                                                  UseLayoutRounding="True"
                                                  AssociatedRichTextBox="{Binding ElementName=WordEditor, Mode=OneTime}" />
             </Grid>
-            <Grid x:Name="ExcelLayout" Visibility="{Binding ExcelVisibility}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-            </Grid>
-            <Grid x:Name="PDFLayout"
-                  Visibility="{Binding PDFVisibility}">
+            <Grid x:Name="PDFLayout" Visibility="{Binding PDFVisibility}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <telerik:RadToolBar x:Name="Toolbar"
                                     DataContext="{Binding ElementName=PDFViewer, Path=Commands}"
-                                    OverflowButtonVisibility="Collapsed">
+                                    OverflowButtonVisibility="Collapsed" Margin="-2,0">
                     <telerik:RadToolBar.Resources>
                         <converters:FixedDocumentViewerModeConverter x:Key="ModeConverter" />
                     </telerik:RadToolBar.Resources>

@@ -3061,4 +3061,7 @@
   <data name="GridViewFilterDistinctValueStringEmpty" xml:space="preserve">
     <value />
   </data>
+  <data name="BusyIndicatorLoading" xml:space="preserve">
+    <value />
+  </data>
 </root>

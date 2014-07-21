@@ -172,7 +172,7 @@
                                              Name="TbSmtpPort"
                                              VerticalAlignment="top"
                                              Height="25"
-                                             IsReadOnly="True"
+                                             IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
                                              Text="{Binding MailAddress.SendPort, Mode=TwoWay}"></TextBox>
                                     <TextBlock Grid.Row="7"
                                                Grid.Column="0"

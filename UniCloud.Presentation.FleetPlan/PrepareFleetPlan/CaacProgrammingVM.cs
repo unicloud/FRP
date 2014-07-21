@@ -224,7 +224,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public CaacProgrammingDTO SelCaacProgramming
         {
             get { return _selCaacProgramming; }
-            private set
+            set
             {
                 if (_selCaacProgramming != value)
                 {
@@ -250,7 +250,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public CaacProgrammingLineDTO SelCaacProgrammingLine
         {
             get { return _selCaacProgrammingLine; }
-            private set
+            set
             {
                 if (_selCaacProgrammingLine != value)
                 {
