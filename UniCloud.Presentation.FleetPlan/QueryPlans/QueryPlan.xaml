@@ -23,12 +23,12 @@
                 </uc:PlanHistoryStyleRule.AddedStyle>
                 <uc:PlanHistoryStyleRule.RemovedStyle>
                     <Style TargetType="telerik:GridViewRow">
-                        <Setter Property="Background" Value="#FFC32929" />
+                        <Setter Property="Background" Value="#FFB69542" />
                     </Style>
                 </uc:PlanHistoryStyleRule.RemovedStyle>
                 <uc:PlanHistoryStyleRule.ModifiedStyle>
                     <Style TargetType="telerik:GridViewRow">
-                        <Setter Property="Background" Value="#FF345CB0" />
+                        <Setter Property="Background" Value="#FF6FB6D8" />
                     </Style>
                 </uc:PlanHistoryStyleRule.ModifiedStyle>
             </uc:PlanHistoryStyleRule>

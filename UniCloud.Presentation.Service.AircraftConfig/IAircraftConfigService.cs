@@ -40,6 +40,8 @@ namespace UniCloud.Presentation.Service.AircraftConfig
         ///     所有民航机型
         /// </summary>
         QueryableDataServiceCollectionView<CAACAircraftTypeDTO> GetCAACAircraftTypes(Action loaded, bool forceLoad = false);
+
+
         #endregion
 
 
