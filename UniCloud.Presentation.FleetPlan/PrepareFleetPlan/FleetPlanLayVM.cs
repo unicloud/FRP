@@ -398,7 +398,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     else SelPlanAircraft = null;
 
                     if (Aircrafts.Any(pa => pa.AircraftId == value.AircraftId))
-                        SelAircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == value.AircraftId);
+                        SelAircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == value.AircraftId);
                     else SelAircraft = null;
                     RefreshCommandState();
                 }

@@ -33,9 +33,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     public partial class PlanHistoryDTO
     {
-        [Import]
-        public IFleetPlanService Service { get; set; }
-
         #region 属性
 
         #region 控制只读属性
@@ -160,53 +157,12 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         #region 客户端计算属性
 
-        private string _regional;
-        /// <summary>
-        /// 机型所对应的座级别（用来控制计划历史所对应的机型）
-        /// </summary>
-        public string Regional
-        {
-            get
-            {
-
-                return null;
-            }
-            set
-            {
-                _regional = value;
-            }
-        }
-
         /// <summary>
         ///     管理状态
         /// </summary>
         public ManageStatus ManaStatus
         {
             get { return (ManageStatus)ManageStatus; }
-        }
-
-        public string PerformTime
-        {
-            get
-            {
-                return (Year + "/" + PerformMonth);
-            }
-        }
-
-        public int DeltaPnr
-        {
-            get
-            {
-                return 0;
-            }
-        }
-
-        public int DeltaCargo
-        {
-            get
-            {
-                return 0;
-            }
         }
 
         /// <summary>
@@ -216,30 +172,21 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 3、已申请
         /// 4、无需申请
         /// </summary>
-        public string CanRequest
+        public CanRequest CanRequest
         {
             get
             {
-                if (NeedRequest)
+                if (ActionCategoryId != Guid.Empty && NeedRequest)
                 {
-                    if (ManageStatus > 1) return "3：已申请";
-                    //return (this.IsSubmit && this.Plan.Status == (int)OpStatus.Submited) ? "1：可申请" : "2：未报计划";TODO:需要重写
+                    if (ManageStatus > (int)Enums.ManageStatus.计划) return CanRequest.已申请;
+                    return (this.IsSubmit /* TODO && this.Plan.Status == (int) OperationStatus.已提交*/)
+                        ? CanRequest.可申请
+                        : CanRequest.未报计划;
                 }
-                return "4：无需申请";
+                return CanRequest.无需申请;
             }
         }
 
-        public string ActionCategoryOperation
-        {
-            get
-            {
-                if (ActionCategoryId != Guid.Empty)
-                {
-                    return ActionType + "：" + ActionName;
-                }
-                return null;
-            }
-        }
 
         /// <summary>
         /// 能否执行交付操作
@@ -251,50 +198,29 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 5、未批复
         /// 6、未批准
         /// </summary>
-        public string CanDeliver
+        public CanDeliver CanDeliver
         {
             get
             {
-                //    // 1、活动是需要申报的类型
-                //    if (this.ActionCategory != null && this.ActionCategory.NeedRequest)
-                //    {
-                //        if (this.ApprovalHistory == null) return "4：未申请";
-                //        if (this.PlanAircraft.Status == (int)ManageStatus.Request) return "5：未批复";
-                //        if (!this.ApprovalHistory.IsApproved) return "6：未批准";
-                //        if (this is OperationPlan)
-                //        {
-                //            var planDetail = this as OperationPlan;
-                //            if (planDetail == null) return "1：可交付";
-                //            if (planDetail.OperationHistory == null) return "1：可交付";
-                //            return planDetail.OperationHistory.Status == (int)OpStatus.Submited ? "3：已交付" : "2：交付中";
-                //        }
-                //        if (this is ChangePlan)
-                //        {
-                //            var planDetail = this as ChangePlan;
-                //            if (planDetail == null) return "1：可交付";
-                //            if (planDetail.AircraftBusiness == null) return "1：可交付";
-                //            return planDetail.AircraftBusiness.Status == (int)OpStatus.Submited ? "3：已交付" : "2：交付中";
-                //        }
-                //    }
-                //    // 2、活动是无需申报的类型
-                //    else
-                //    {
-                //        if (this is OperationPlan)
-                //        {
-                //            var planDetail = this as OperationPlan;
-                //            if (planDetail == null) return "1：可交付";
-                //            if (planDetail.OperationHistory == null) return "1：可交付";
-                //            return planDetail.OperationHistory.Status == (int)OpStatus.Submited ? "3：已交付" : "2：交付中";
-                //        }
-                //        if (this is ChangePlan)
-                //        {
-                //            var planDetail = this as ChangePlan;
-                //            if (planDetail == null) return "1：可交付";
-                //            if (planDetail.AircraftBusiness == null) return "1：可交付";
-                //            return planDetail.AircraftBusiness.Status == (int)OpStatus.Submited ? "3：已交付" : "2：交付中";
-                //        }
-                //    }
-                return "1：可交付";
+                // 1、活动是需要申报的类型
+                if (ActionCategoryId != Guid.Empty && NeedRequest)
+                {
+                    //if (this.ApprovalHistory == null) return CanDeliver.未申请; TODO
+                    if (ManageStatus == (int)Enums.ManageStatus.申请) return CanDeliver.未批复;
+                    //if (!this.ApprovalHistory.IsApproved) return CanDeliver.未批准; TODO
+                    var planDetail = this;
+                    if (planDetail.Id == Guid.Empty) return CanDeliver.可交付;
+                    if (planDetail.RelatedGuid == null) return CanDeliver.可交付;
+                }
+                // 2、活动是无需申报的类型
+                else
+                {
+                    var planDetail = this;
+                    if (planDetail.Id == Guid.Empty) return CanDeliver.可交付;
+                    if (planDetail.RelatedGuid == null) return CanDeliver.可交付;
+
+                }
+                return CanDeliver.可交付;
             }
         }
 
@@ -306,15 +232,15 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 3：已提交
         /// -1：无状态
         /// </summary>
-        public int CompleteStatus
+        public CompleteStatus CompleteStatus
         {
             get
             {
                 if (RelatedGuid == null)
                 {
-                    return -1;
+                    return CompleteStatus.无状态;
                 }
-                return RelatedStatus;
+                return (CompleteStatus)RelatedStatus;
             }
         }
 
@@ -322,39 +248,11 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         #region 属性绑定
 
-
-
         #endregion
 
         #endregion
 
         #region 方法
-
-        partial void OnPerformMonthChanged()
-        {
-            OnPropertyChanged("PerformTime");
-        }
-
-        /// <summary>
-        /// 机型发生变化时触发相关变化
-        /// </summary>
-        partial void OnAircraftTypeIdChanged()
-        {
-            //if (this.PlanAircraft != null)
-            //{
-            //    this.PlanAircraft.AircraftTypeID = this.AircraftTypeID;
-            //}
-            //this.RaisePropertyChanged("DeltaPnr");
-            //this.RaisePropertyChanged("DeltaCargo");
-        }
-
-        ///// <summary>
-        ///// 申请明细发生变化时触发相关变化
-        ///// </summary>
-        //partial void OnApprovalHistoryIdChanged()
-        //{
-        //    RaisePropertyChanged("CanRequest");
-        //}
 
         #endregion
     }

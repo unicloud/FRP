@@ -286,7 +286,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnUnLock(object obj)
         {
-            var newAnnual = Annuals.FirstOrDefault(a => a.Year == _curAnnual.Year + 1);
+            var newAnnual = Annuals.SourceCollection.Cast<AnnualDTO>().FirstOrDefault(a => a.Year == _curAnnual.Year + 1);
             if (newAnnual == null || _curAnnual == null)
             {
                 MessageAlert("年度不能为空！");

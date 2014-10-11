@@ -105,6 +105,9 @@
     <Compile Include="FleetPlan\ActionCategoryDTO.cs" />
     <Compile Include="FleetPlan\EnginePlanDTO.cs" />
     <Compile Include="FleetPlan\EnginePlanHistoryDTO.cs" />
+    <Compile Include="FleetPlan\Enums\CanDeliver.cs" />
+    <Compile Include="FleetPlan\Enums\CanRequest.cs" />
+    <Compile Include="FleetPlan\Enums\CompleteStatus.cs" />
     <Compile Include="FleetPlan\Enums\EnginePlanDeliverStatus.cs" />
     <Compile Include="FleetPlan\Enums\EnginePlanStatus.cs" />
     <Compile Include="FleetPlan\Enums\ManageStatus.cs" />
@@ -115,6 +118,7 @@
     <Compile Include="FleetPlan\Enums\PlanRelativeSubmitState.cs" />
     <Compile Include="FleetPlan\Enums\PlanStatus.cs" />
     <Compile Include="FleetPlan\OwnershipHistoryDTO.cs" />
+    <Compile Include="FleetPlan\PlanHistoryDTO.cs" />
     <Compile Include="FleetPlan\RequestDTO.cs" />
     <Compile Include="FleetPlan\Enums\RequestStatus.cs" />
     <Compile Include="FleetPlan\AnnualDTO.cs" />
