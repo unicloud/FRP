@@ -22,7 +22,6 @@ using System.Linq;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
@@ -32,7 +31,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof (ApuMaintainVm))]
+    [Export(typeof(ApuMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ApuMaintainVm : EditViewModelBase
     {
@@ -41,11 +40,11 @@ namespace UniCloud.Presentation.Purchase.Contract
         private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
-        [Import] public DocumentViewer DocumentView;
-        private DocumentDTO _document = new DocumentDTO();
+        private readonly DocumentDTO _document = new DocumentDTO();
 
         [ImportingConstructor]
-        public ApuMaintainVm(IRegionManager regionManager, IPurchaseService service) : base(service)
+        public ApuMaintainVm(IRegionManager regionManager, IPurchaseService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -128,7 +127,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         public override void LoadData()
         {
             // 将CollectionView的AutoLoad属性设为True
-            ApuMaintainContracts.AutoLoad = true;
+            if (ApuMaintainContracts.AutoLoad)
+                ApuMaintainContracts.AutoLoad = true;
             ApuMaintainContracts.Load(true);
             Suppliers.Load(true);
         }

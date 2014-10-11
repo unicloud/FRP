@@ -21,7 +21,6 @@ using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
@@ -31,7 +30,7 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof (AirframeMaintainVm))]
+    [Export(typeof(AirframeMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AirframeMaintainVm : InvoiceVm
     {
@@ -40,10 +39,10 @@ namespace UniCloud.Presentation.Payment.Invoice
         private readonly PaymentData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
-        [Import] public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public AirframeMaintainVm(IRegionManager regionManager, IPaymentService service) : base(service)
+        public AirframeMaintainVm(IRegionManager regionManager, IPaymentService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -60,7 +59,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            AirframeMaintainInvoices = _service.CreateCollection(_context.AirframeMaintainInvoices,o=>o.MaintainInvoiceLines);
+            AirframeMaintainInvoices = _service.CreateCollection(_context.AirframeMaintainInvoices, o => o.MaintainInvoiceLines);
             _service.RegisterCollectionView(AirframeMaintainInvoices);
         }
 
@@ -84,7 +83,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         public override void LoadData()
         {
             // 将CollectionView的AutoLoad属性设为True
-            AirframeMaintainInvoices.AutoLoad = true;
+            if (AirframeMaintainInvoices.AutoLoad)
+                AirframeMaintainInvoices.AutoLoad = true;
             AirframeMaintainInvoices.Load(true);
             Suppliers.Load(true);
             Currencies.Load(true);
@@ -240,7 +240,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            AirframeMaintainInvoice.Status = (int) InvoiceStatus.待审核;
+            AirframeMaintainInvoice.Status = (int)InvoiceStatus.待审核;
         }
 
         protected override bool CanSubmitInvoice(object obj)
@@ -259,7 +259,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            AirframeMaintainInvoice.Status = (int) InvoiceStatus.已审核;
+            AirframeMaintainInvoice.Status = (int)InvoiceStatus.已审核;
             AirframeMaintainInvoice.Reviewer = "admin";
             AirframeMaintainInvoice.ReviewDate = DateTime.Now;
             AirframeMaintainInvoice.IsValid = true;

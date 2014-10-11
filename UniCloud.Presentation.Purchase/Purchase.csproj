@@ -253,6 +253,10 @@
       <DependentUpon>AircraftPurchase.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contract\AircraftPurchaseVM.cs" />
+    <Compile Include="Contract\AirframeMaintain.xaml.cs">
+      <DependentUpon>AirframeMaintain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contract\AirframeMaintainVm.cs" />
     <Compile Include="Contract\ApuMaintain.xaml.cs">
       <DependentUpon>ApuMaintain.xaml</DependentUpon>
     </Compile>
@@ -381,6 +385,10 @@
     <Page Include="Contract\AircraftPurchase.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Contract\AirframeMaintain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contract\ApuMaintain.xaml">
       <Generator>MSBuild:Compile</Generator>

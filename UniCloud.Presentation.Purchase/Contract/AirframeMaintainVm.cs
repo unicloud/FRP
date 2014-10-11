@@ -1,17 +1,15 @@
 ﻿#region Version Info
-
 /* ========================================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2013/11/16 13:56:08
-// 文件名：EngineMaintainVm
+// 作者：linxw 时间：2014/1/14 15:38:56
+// 文件名：AirframeMaintainVm
 // 版本：V1.0.0
 //
-// 修改者： 时间： 
+// 修改者：linxw 时间：2014/1/14 15:38:56
 // 修改说明：
 // ========================================================================*/
-
 #endregion
 
 #region 命名空间
@@ -31,9 +29,9 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof(EngineMaintainVm))]
+    [Export(typeof(AirframeMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class EngineMaintainVm : EditViewModelBase
+    public class AirframeMaintainVm : EditViewModelBase
     {
         #region 声明、初始化
 
@@ -43,7 +41,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         private readonly DocumentDTO _document = new DocumentDTO();
 
         [ImportingConstructor]
-        public EngineMaintainVm(IRegionManager regionManager, IPurchaseService service)
+        public AirframeMaintainVm(IRegionManager regionManager, IPurchaseService service)
             : base(service)
         {
             _regionManager = regionManager;
@@ -61,19 +59,16 @@ namespace UniCloud.Presentation.Purchase.Contract
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            EngineMaintainContracts = _service.CreateCollection(_context.EngineMaintainContracts);
-            _service.RegisterCollectionView(EngineMaintainContracts);
-            EngineMaintainContracts.PropertyChanged += (sender, e) =>
+            AirframeMaintainContracts = _service.CreateCollection(_context.AirframeMaintainContracts);
+            _service.RegisterCollectionView(AirframeMaintainContracts);
+            AirframeMaintainContracts.PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName == "IsAddingNew")
                 {
-                    var newItem =
-                        EngineMaintainContracts.CurrentAddItem as
-                            EngineMaintainContractDTO;
+                    var newItem = AirframeMaintainContracts.CurrentAddItem as AirframeMaintainContractDTO;
                     if (newItem != null)
                     {
-                        newItem.EngineMaintainContractId =
-                            RandomHelper.Next();
+                        newItem.AirframeMaintainContractId = RandomHelper.Next();
                         newItem.SignDate = DateTime.Now;
                         newItem.CreateDate = DateTime.Now;
                         DocumentName = "添加附件";
@@ -83,8 +78,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 }
                 else if (e.PropertyName == "HasChanges")
                 {
-                    CanSelectEngineMaintain =
-                        !EngineMaintainContracts.HasChanges;
+                    CanSelectAirframeMaintain = !AirframeMaintainContracts.HasChanges;
                 }
             };
 
@@ -131,63 +125,63 @@ namespace UniCloud.Presentation.Purchase.Contract
         public override void LoadData()
         {
             // 将CollectionView的AutoLoad属性设为True
-            if (EngineMaintainContracts.AutoLoad)
-                EngineMaintainContracts.AutoLoad = true;
-            EngineMaintainContracts.Load(true);
+            if (AirframeMaintainContracts.AutoLoad)
+                AirframeMaintainContracts.AutoLoad = true;
+            AirframeMaintainContracts.Load(true);
             Suppliers.Load(true);
         }
 
-        #region 发动机维修合同
+        #region APU维修合同
 
-        private bool _canSelectEngineMaintain = true;
-        private EngineMaintainContractDTO _engineMaintainContract;
+        private AirframeMaintainContractDTO _airframeMaintainContract;
 
-        /// <summary>
-        ///     发动机维修合同集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<EngineMaintainContractDTO> EngineMaintainContracts { get; set; }
+        private bool _canSelectAirframeMaintain = true;
 
         /// <summary>
-        ///     选中的发动机维修合同
+        ///     APU维修合同集合
         /// </summary>
-        public EngineMaintainContractDTO EngineMaintainContract
+        public QueryableDataServiceCollectionView<AirframeMaintainContractDTO> AirframeMaintainContracts { get; set; }
+
+        /// <summary>
+        ///     选中的APU维修合同
+        /// </summary>
+        public AirframeMaintainContractDTO AirframeMaintainContract
         {
-            get { return _engineMaintainContract; }
+            get { return _airframeMaintainContract; }
             set
             {
-                if (_engineMaintainContract != value)
+                if (_airframeMaintainContract != value)
                 {
-                    _engineMaintainContract = value;
-                    if (_engineMaintainContract != null)
+                    _airframeMaintainContract = value;
+                    if (_airframeMaintainContract != null)
                     {
-                        _document.DocumentId = _engineMaintainContract.DocumentId;
-                        _document.Name = _engineMaintainContract.DocumentName;
-                        DocumentName = _engineMaintainContract.DocumentName;
+                        _document.DocumentId = _airframeMaintainContract.DocumentId;
+                        _document.Name = _airframeMaintainContract.DocumentName;
+                        DocumentName = _airframeMaintainContract.DocumentName;
                         if (string.IsNullOrEmpty(DocumentName))
                         {
                             DocumentName = "添加附件";
                         }
                         if (Suppliers != null)
                         {
-                            _supplier =
-                                Suppliers.FirstOrDefault(p => p.SupplierId == _engineMaintainContract.SignatoryId);
+                            _supplier = Suppliers.FirstOrDefault(p => p.SupplierId == _airframeMaintainContract.SignatoryId);
                         }
                     }
-                    RaisePropertyChanged(() => EngineMaintainContract);
+                    RaisePropertyChanged(() => AirframeMaintainContract);
                 }
             }
         }
 
         //用户能否选择
-        public bool CanSelectEngineMaintain
+        public bool CanSelectAirframeMaintain
         {
-            get { return _canSelectEngineMaintain; }
+            get { return _canSelectAirframeMaintain; }
             set
             {
-                if (_canSelectEngineMaintain != value)
+                if (_canSelectAirframeMaintain != value)
                 {
-                    _canSelectEngineMaintain = value;
-                    RaisePropertyChanged(() => CanSelectEngineMaintain);
+                    _canSelectAirframeMaintain = value;
+                    RaisePropertyChanged(() => CanSelectAirframeMaintain);
                 }
             }
         }
@@ -209,7 +203,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (value != null && _supplier != value)
                 {
                     _supplier = value;
-                    EngineMaintainContract.Signatory = _supplier.Name;
+                    AirframeMaintainContract.Signatory = _supplier.Name;
                     RaisePropertyChanged(() => Supplier);
                 }
             }
@@ -235,8 +229,8 @@ namespace UniCloud.Presentation.Purchase.Contract
             base.WindowClosed(doc, sender);
             if (sender is Guid)
             {
-                EngineMaintainContract.DocumentId = doc.DocumentId;
-                EngineMaintainContract.DocumentName = doc.Name;
+                AirframeMaintainContract.DocumentId = doc.DocumentId;
+                AirframeMaintainContract.DocumentName = doc.Name;
                 DocumentName = doc.Name;
             }
         }

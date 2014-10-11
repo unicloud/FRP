@@ -31,7 +31,7 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof (APUMaintainVm))]
+    [Export(typeof(APUMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class APUMaintainVm : InvoiceVm
     {
@@ -40,10 +40,10 @@ namespace UniCloud.Presentation.Payment.Invoice
         private readonly PaymentData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
-        [Import] public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public APUMaintainVm(IRegionManager regionManager, IPaymentService service) : base(service)
+        public APUMaintainVm(IRegionManager regionManager, IPaymentService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -61,7 +61,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            ApuMaintainInvoices = _service.CreateCollection(_context.APUMaintainInvoices,o=>o.MaintainInvoiceLines);
+            ApuMaintainInvoices = _service.CreateCollection(_context.APUMaintainInvoices, o => o.MaintainInvoiceLines);
             _service.RegisterCollectionView(ApuMaintainInvoices);
         }
 
@@ -85,7 +85,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         public override void LoadData()
         {
             // 将CollectionView的AutoLoad属性设为True
-            ApuMaintainInvoices.AutoLoad = true;
+            if (ApuMaintainInvoices.AutoLoad)
+                ApuMaintainInvoices.AutoLoad = true;
             ApuMaintainInvoices.Load(true);
             Suppliers.Load(true);
             Currencies.Load(true);
@@ -241,7 +242,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            ApuMaintainInvoice.Status = (int) InvoiceStatus.待审核;
+            ApuMaintainInvoice.Status = (int)InvoiceStatus.待审核;
         }
 
         protected override bool CanSubmitInvoice(object obj)
@@ -260,7 +261,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            ApuMaintainInvoice.Status = (int) InvoiceStatus.已审核;
+            ApuMaintainInvoice.Status = (int)InvoiceStatus.已审核;
             ApuMaintainInvoice.Reviewer = "admin";
             ApuMaintainInvoice.ReviewDate = DateTime.Now;
             ApuMaintainInvoice.IsValid = true;
