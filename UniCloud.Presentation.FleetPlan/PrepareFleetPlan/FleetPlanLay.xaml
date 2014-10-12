@@ -45,14 +45,16 @@
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
-                                         FontSize="{StaticResource TextFontSize}">
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                    Margin="-1 -2 -1 0">
+                                                    Margin="-1 -2 -1 0"
+                                                    OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
@@ -192,7 +194,7 @@
                                         <telerik:GridViewDataColumn Header="管理状态"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
-                                                                    DataMemberBinding="{Binding ManageStatus}" />
+                                                                    DataMemberBinding="{Binding ManaStatus}" />
                                         <telerik:GridViewDataColumn Header="备注"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Note}" />
@@ -210,7 +212,8 @@
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
-                                         FontSize="{StaticResource TextFontSize}">
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <telerik:RadGridView x:Name="PlanAircraft"
                                                      AutoExpandGroups="True"
@@ -285,7 +288,7 @@
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="管理状态"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding Status}" />
+                                                                    DataMemberBinding="{Binding ManaStatus}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </Grid>

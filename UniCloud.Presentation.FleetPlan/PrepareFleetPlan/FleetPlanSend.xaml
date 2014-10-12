@@ -33,13 +33,15 @@
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
-                                         FontSize="{StaticResource TextFontSize}">
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <telerik:RadToolBar HorizontalAlignment="Stretch">
+                                <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                    OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
@@ -218,7 +220,8 @@
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
-                                         FontSize="{StaticResource TextFontSize}">
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <telerik:RadGridView x:Name="PlanDetail"
                                                      AutoExpandGroups="True"
@@ -266,10 +269,9 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
                                                                     DataMemberBinding="{Binding RegNumber}" />
-                                        <telerik:GridViewDataColumn Header="活动类别"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsReadOnly="True"
-                                                                    DataMemberBinding="{Binding ActionType}" />
+                                        <telerik:GridViewExpressionColumn Header="活动类别"
+                                                                          MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                          Expression="(ActionType+'：'+ActionName)" />
                                         <telerik:GridViewDataColumn Header="引进/退出方式"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
@@ -280,7 +282,7 @@
                                         <telerik:GridViewDataColumn Header="净增客机"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
-                                                                    DataMemberBinding="{Binding }">
+                                                                    DataMemberBinding="{Binding DetaPnr}">
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="净增座位"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -295,12 +297,12 @@
                                         <telerik:GridViewDataColumn Header="净增货机"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
-                                                                    DataMemberBinding="{Binding }">
+                                                                    DataMemberBinding="{Binding DetaCargo}">
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="管理状态"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
-                                                                    DataMemberBinding="{Binding ManageStatus}" />
+                                                                    DataMemberBinding="{Binding ManaStatus}" />
                                         <telerik:GridViewDataColumn Header="备注"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"

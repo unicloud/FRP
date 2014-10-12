@@ -72,6 +72,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 _curAnnual = e.Entities.Cast<AnnualDTO>().FirstOrDefault(p => p.IsOpen);
                 _loadedAnnuals = true;
                 SetSelAnnual();
+                RefreshCommandState();
             };
             _service.RegisterCollectionView(Annuals);//注册查询集合
 

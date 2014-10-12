@@ -59,7 +59,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                 AirlinesId = p.AirlinesId,
                 AnnualId = p.AnnualId,
                 DocumentId = p.DocumentId,
-                AirlinesName = p.Airlines.CnName,
+                AirlinesName = p.Airlines.CnShortName,
                 Year = p.Annual.Year,
                 PlanHistories = p.PlanHistories.OfType<OperationPlan>().Select(q => new PlanHistoryDTO
                                 {
@@ -79,7 +79,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     AircraftTypeId = q.AircraftTypeId,
                                     AircraftTypeName = q.AircraftType.Name,
                                     AirlinesId = q.AirlinesId,
-                                    AirlinesName = q.Airlines.CnName,
+                                    AirlinesName = q.Airlines.CnShortName,
                                     NeedRequest = q.ActionCategory.NeedRequest,
                                     Year = q.PerformAnnual.Year,
 
@@ -114,7 +114,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     AircraftTypeId = q.AircraftTypeId,
                                     AircraftTypeName = q.AircraftType.Name,
                                     AirlinesId = q.AirlinesId,
-                                    AirlinesName = q.Airlines.CnName,
+                                    AirlinesName = q.Airlines.CnShortName,
                                     NeedRequest = q.ActionCategory.NeedRequest,
                                     Year = q.PerformAnnual.Year,
 
