@@ -62,9 +62,9 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 AnnualId = newAnnual,
                 Year = newYear,
                 AirlinesId = curAirline.Id,
-                AirlinesName = curAirline.CnName,
+                AirlinesName = curAirline.CnShortName,
                 VersionNumber = 1,
-                Status = 0,
+                Status = 1,
                 IsValid = false,
                 IsFinished = false,
                 PublishStatus = 0,
@@ -99,7 +99,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                           PlanType = q.PlanType,
                           TargetCategoryId = q.TargetCategoryId,
                           AirlinesName = q.AirlinesName,
-                          //Regional = q.Regional,
+                          Regional = q.Regional,
                           AircraftTypeName = q.AircraftTypeName,
                           ActionType = q.ActionType,
                           TargetType = q.TargetType,
@@ -155,7 +155,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 PlanType = q.PlanType,
                 TargetCategoryId = q.TargetCategoryId,
                 AirlinesName = q.AirlinesName,
-                //Regional = q.Regional,
+                Regional = q.Regional,
                 AircraftTypeName = q.AircraftTypeName,
                 ActionType = q.ActionType,
                 TargetType = q.TargetType,
@@ -176,7 +176,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="planType"></param>
         /// <param name="service"></param>
         /// <returns></returns>
-        internal PlanHistoryDTO CreateOperationPlan(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType,int planType, IFleetPlanService service)
+        internal PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType, int planType, IFleetPlanService service)
         {
             if (plan == null) return null;
             // 创建新的计划历史

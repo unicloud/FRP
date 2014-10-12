@@ -52,6 +52,23 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <returns>供应商集合</returns>
         QueryableDataServiceCollectionView<SupplierDTO> GetSupplier(Action loaded, bool forceLoad = false);
 
+        /// <summary>
+        ///     所有座级
+        /// </summary>
+        QueryableDataServiceCollectionView<AircraftCategoryDTO> GetAircraftCategories(Action loaded,
+            bool forceLoad = false);
+
+        /// <summary>
+        ///     所有活动类型
+        /// </summary>
+        QueryableDataServiceCollectionView<ActionCategoryDTO> GetActionCategories(Action loaded,
+            bool forceLoad = false);
+
+        /// <summary>
+        ///     所有飞机系列
+        /// </summary>
+        QueryableDataServiceCollectionView<AircraftSeriesDTO> GetAircraftSeries(Action loaded,
+            bool forceLoad = false);
         #endregion
 
         #region 公共属性
@@ -98,7 +115,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="planAircraft">计划飞机</param>
         /// <param name="actionType">活动类型</param>
         /// <returns>计划明细</returns>
-        PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType,int planType);
+        PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType, int planType);
 
 
         /// <summary>

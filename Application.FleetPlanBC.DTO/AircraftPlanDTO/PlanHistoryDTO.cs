@@ -75,6 +75,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public string AircraftTypeName { get; set; }
 
         /// <summary>
+        /// 座级
+        /// </summary>
+        public string Regional { get; set; }
+
+        /// <summary>
         /// 活动类型
         /// </summary>
         public string ActionType { get; set; }
@@ -137,6 +142,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         ///     执行年度
         /// </summary>
         public Guid PerformAnnualId { get; set; }
+
+        /// <summary>
+        /// 申请明细Id
+        /// </summary>
+        public Guid? ApprovalHistoryId { get; set; }
 
         #endregion
 

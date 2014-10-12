@@ -48,6 +48,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             Property(p => p.TargetCategoryId).HasColumnName("TargetCategoryId");
             Property(p => p.AircraftTypeId).HasColumnName("AircraftTypeId");
             Property(p => p.AirlinesId).HasColumnName("AirlinesId");
+            Property(p => p.ApprovalHistoryId).HasColumnName("ApprovalHistoryId");
 
             HasOptional(o => o.PlanAircraft).WithMany().HasForeignKey(o => o.PlanAircraftId);
             HasRequired(o => o.ActionCategory).WithMany().HasForeignKey(o => o.ActionCategoryId);

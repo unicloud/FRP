@@ -68,41 +68,37 @@
                        VerticalAlignment="Center" />
             <TextBlock Grid.Row="0"
                        HorizontalAlignment="Left"
-                       Text="{Binding PlanDetail.PlanAircraft.Aircraft.RegNumber}"
+                       Text="{Binding PlanDetail.RegNumber}"
                        Grid.Column="1" />
             <TextBlock Text="管理状态"
                        Grid.Row="0"
                        Grid.Column="2" />
             <TextBlock HorizontalAlignment="Left"
-                       Text="{Binding ManagerStatus}"
+                       Text="{Binding PlanDetail.ManaStatus}"
                        Grid.Row="0"
                        Grid.Column="3" />
             <TextBlock Text="航空公司"
                        Grid.Row="1"
                        Grid.Column="0" />
-            <telerik:RadComboBox Grid.Row="1"
-                                 Grid.Column="1"
-                                 ItemsSource="{Binding PlanDetail.AirlinesCollection}"
-                                 DisplayMemberPath="Name"
-                                 SelectedValuePath="OwnerID"
-                                 IsEnabled="{Binding PlanDetail.IsAirlineEnabled}"
-                                 SelectedValue="{Binding }">
-            </telerik:RadComboBox>
+            <TextBlock HorizontalAlignment="Left"
+                       Text="{Binding PlanDetail.AirlinesName}"
+                       Grid.Row="1"
+                       Grid.Column="1" />
             <TextBlock Text="活动类别"
                        Grid.Row="1"
                        Grid.Column="2" />
             <telerik:RadComboBox Grid.Row="1"
                                  Grid.Column="3"
                                  ItemsSource="{Binding PlanDetail.ActionCategories}"
-                                 DisplayMemberPath="ActionOperation"
-                                 SelectedValuePath="ActionCategoryID"
-                                 SelectedValue="{Binding }" />
+                                 DisplayMemberPath="ActionCategoryOperation"
+                                 SelectedValuePath="Id"
+                                 SelectedValue="{Binding PlanDetail.ActionCategoryId,Mode=TwoWay}" />
             <TextBlock Text="座级"
                      Grid.Row="2"
                      Grid.Column="0" />
             <telerik:RadComboBox Grid.Row="2"
                                  Grid.Column="1"
-                                 ItemsSource="{Binding AircraftCategories}"
+                                 ItemsSource="{Binding PlanDetail.AircraftCategories}"
                                  DisplayMemberPath="Regional"
                                  SelectedValuePath="Regional"
                                  IsEnabled="{Binding IsAicraftTypeAndRegionalChangeable}"
@@ -112,11 +108,10 @@
                        Grid.Row="2" />
             <telerik:RadComboBox Grid.Row="2"
                                  Grid.Column="3"
-                                 ItemsSource="{Binding AircraftTypes}"
+                                 ItemsSource="{Binding PlanDetail.AircraftTypes}"
                                  DisplayMemberPath="Name"
                                  SelectedValuePath="Id"
-                                 IsEnabled="{Binding IsAicraftTypeAndRegionalChangeable}"
-                                 SelectedValue="{Binding}" />
+                                 SelectedValue="{Binding PlanDetail.AircraftTypeId,Mode=TwoWay}" />
             <TextBlock Text="执行年度"
                        Grid.Row="3"
                        Grid.Column="0" />
@@ -125,7 +120,7 @@
                                  ItemsSource="{Binding Annuals}"
                                  DisplayMemberPath="Year"
                                  SelectedValuePath="Id"
-                                 SelectedValue="{Binding }" />
+                                 SelectedValue="{Binding PlanDetail.PerformAnnualId,Mode=TwoWay}" />
             <TextBlock Grid.Row="3"
                        Text="执行月份"
                        Grid.Column="2" />

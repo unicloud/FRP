@@ -57,7 +57,6 @@ namespace UniCloud.Application.FleetPlanBC.Query.AirProgrammingQueries
                 {
                     Id = q.Id,
                     AircraftSeriesId = q.AircraftSeriesId,
-                    AircraftCategoryId = q.AircraftCategoryId,
                     AirProgrammingId = q.AirProgrammingId,
                     BuyNum = q.BuyNum,
                     ExportNum = q.ExportNum,

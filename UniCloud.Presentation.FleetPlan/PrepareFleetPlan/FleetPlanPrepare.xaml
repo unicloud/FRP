@@ -203,9 +203,9 @@
                                     <telerik:GridViewDataColumn Header="净增客机"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding DetaPnr}">
-                                        <telerik:GridViewDataColumn.AggregateFunctions>
+                                        <!--<telerik:GridViewDataColumn.AggregateFunctions>
                                             <telerik:SumFunction ResultFormatString="总计：{0}架" />
-                                        </telerik:GridViewDataColumn.AggregateFunctions>
+                                        </telerik:GridViewDataColumn.AggregateFunctions>-->
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="净增座位"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -221,9 +221,9 @@
                                     <telerik:GridViewDataColumn Header="净增货机"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding DetaCargo}">
-                                        <telerik:GridViewDataColumn.AggregateFunctions>
+                                        <!--<telerik:GridViewDataColumn.AggregateFunctions>
                                             <telerik:SumFunction ResultFormatString="总计：{0}架" />
-                                        </telerik:GridViewDataColumn.AggregateFunctions>
+                                        </telerik:GridViewDataColumn.AggregateFunctions>-->
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="管理状态"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
