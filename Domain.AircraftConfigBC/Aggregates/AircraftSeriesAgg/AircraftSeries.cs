@@ -15,20 +15,15 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
 
 #endregion
 
-namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AcTypeAgg
+namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg
 {
     /// <summary>
     ///     飞机系列聚合根
     /// </summary>
-    public class AcType : EntityGuid
+    public class AircraftSeries : EntityGuid
     {
         #region 构造函数
 
@@ -36,7 +31,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AcTypeAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal AcType()
+        internal AircraftSeries()
         {
         }
 

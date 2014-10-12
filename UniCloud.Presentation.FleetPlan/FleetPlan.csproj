@@ -283,6 +283,11 @@
       <DependentUpon>PassengerAircraftTrend.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\PassengerAircraftTrendVm.cs" />
+    <Compile Include="QueryPlans\PlanHistoryStyleRule.cs" />
+    <Compile Include="QueryPlans\QueryPlan.xaml.cs">
+      <DependentUpon>QueryPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryPlans\QueryPlanVM.cs" />
     <Compile Include="Requests\QueryRequest.xaml.cs">
       <DependentUpon>QueryRequest.xaml</DependentUpon>
     </Compile>
@@ -429,6 +434,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="QueryAnalyse\PassengerAircraftTrend.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QueryPlans\QueryPlan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

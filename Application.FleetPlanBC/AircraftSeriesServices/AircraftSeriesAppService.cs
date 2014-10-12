@@ -19,22 +19,22 @@
 
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
-using UniCloud.Application.FleetPlanBC.Query.AcTypeQueries;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AcTypeAgg;
+using UniCloud.Application.FleetPlanBC.Query.AircraftSeriesQueries;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.AcTypeServices
+namespace UniCloud.Application.FleetPlanBC.AircraftSeriesServices
 {
     /// <summary>
     ///     实现飞机系列服务接口。
     ///     用于处理飞机系列相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AcTypeAppService : IAcTypeAppService
+    public class AircraftSeriesAppService : IAircraftSeriesAppService
     {
-        private readonly IAcTypeQuery _actionCategoryQuery;
+        private readonly IAircraftSeriesQuery _actionCategoryQuery;
 
-        public AcTypeAppService(IAcTypeQuery actionCategoryQuery)
+        public AircraftSeriesAppService(IAircraftSeriesQuery actionCategoryQuery)
         {
             _actionCategoryQuery = actionCategoryQuery;
         }
@@ -45,11 +45,11 @@ namespace UniCloud.Application.FleetPlanBC.AcTypeServices
         ///     获取所有飞机系列
         /// </summary>
         /// <returns></returns>
-        public IQueryable<AcTypeDTO> GetAcTypes()
+        public IQueryable<AircraftSeriesDTO> GetAircraftSeries()
         {
             var queryBuilder =
-                new QueryBuilder<AcType>();
-            return _actionCategoryQuery.AcTypeDTOQuery(queryBuilder);
+                new QueryBuilder<AircraftSeries>();
+            return _actionCategoryQuery.AircraftSeriesDTOQuery(queryBuilder);
         }
 
         #endregion

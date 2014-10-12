@@ -47,9 +47,9 @@
     <Compile Include="Aggregates\ActionCategoryAgg\ActionCategory.cs" />
     <Compile Include="Aggregates\ActionCategoryAgg\ActionCategorySpecifications.cs" />
     <Compile Include="Aggregates\ActionCategoryAgg\IActionCategoryRepository.cs" />
-    <Compile Include="Aggregates\AcTypeAgg\AcType.cs" />
-    <Compile Include="Aggregates\AcTypeAgg\AcTypeSpecifications.cs" />
-    <Compile Include="Aggregates\AcTypeAgg\IAcTypeRepository.cs" />
+    <Compile Include="Aggregates\AircraftSeriesAgg\AircraftSeries.cs" />
+    <Compile Include="Aggregates\AircraftSeriesAgg\AircraftSeriesSpecifications.cs" />
+    <Compile Include="Aggregates\AircraftSeriesAgg\IAircraftSeriesRepository.cs" />
     <Compile Include="Aggregates\AircraftAgg\Aircraft.cs" />
     <Compile Include="Aggregates\AircraftAgg\AircraftBusiness.cs" />
     <Compile Include="Aggregates\AircraftAgg\AircraftFactory.cs" />

@@ -3,7 +3,7 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2014/1/4 10:32:14
+// 作者：HuangQiBin 时间：2014/1/4 10:12:06
 // 文件名：AcType
 // 版本：V1.0.0
 //
@@ -15,22 +15,17 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
-using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
-using UniCloud.Domain.UberModel.Aggregates.ManufacturerAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg;
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.AcTypeAgg
+namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg
 {
     /// <summary>
     ///     飞机系列聚合根
     /// </summary>
-    public class AcType : EntityGuid
+    public class AircraftSeries : EntityGuid
     {
         #region 构造函数
 
@@ -38,7 +33,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcTypeAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal AcType()
+        internal AircraftSeries()
         {
         }
 
@@ -49,12 +44,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcTypeAgg
         /// <summary>
         /// 系列
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; protected set; }
 
         /// <summary>
         /// 描述
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; protected set; }
 
         #endregion
 
@@ -63,12 +58,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcTypeAgg
         /// <summary>
         /// 制造商外键
         /// </summary>
-        public Guid ManufacturerId { get; set; }
+        public Guid ManufacturerId { get; protected set; }
 
         /// <summary>
         /// 座级外键
         /// </summary>
-        public Guid AircraftCategoryId { get; set; }
+        public Guid AircraftCategoryId { get; protected set; }
 
         #endregion
 
@@ -76,12 +71,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcTypeAgg
         /// <summary>
         /// 制造商
         /// </summary>
-        public virtual Manufacturer Manufacturer { get; set; }
+        public virtual Manufacturer Manufacturer { get; protected set; }
 
         /// <summary>
         /// 座级
         /// </summary>
-        public virtual AircraftCategory AircraftCategory { get; set; }
+        public virtual AircraftCategory AircraftCategory { get; protected set; }
 
         #endregion
 
