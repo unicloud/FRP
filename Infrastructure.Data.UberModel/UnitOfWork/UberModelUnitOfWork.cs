@@ -446,7 +446,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #endregion
 
-                #region AcTypeAgg
+                #region AircraftSeriesAgg
 
                 .Add(new AircraftSeriesEntityConfiguration())
 

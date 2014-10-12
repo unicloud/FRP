@@ -5,7 +5,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQibin 时间：2014/01/04，11:01
-// 文件名：IAcTypeAppService.cs
+// 文件名：IAircraftSeriesAppService.cs
 // 程序集：UniCloud.Application.FleetPlanBC
 // 版本：V1.0.0
 //

@@ -5,7 +5,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQibin 时间：2014/01/04，11:01
-// 文件名：AcTypeAppService.cs
+// 文件名：AircraftSeriesAppService.cs
 // 程序集：UniCloud.Application.FleetPlanBC
 // 版本：V1.0.0
 //
@@ -39,7 +39,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftSeriesServices
             _actionCategoryQuery = actionCategoryQuery;
         }
 
-        #region AcTypeDTO
+        #region AircraftSeriesDTO
 
         /// <summary>
         ///     获取所有飞机系列

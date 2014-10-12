@@ -5,7 +5,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQibin 时间：2014/01/04，11:01
-// 文件名：AcTypeQuery.cs
+// 文件名：AircraftSeriesQuery.cs
 // 程序集：UniCloud.Application.FleetPlanBC.Query
 //
 // 修改者： 时间： 

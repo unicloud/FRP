@@ -237,9 +237,9 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
 
                 #endregion
 
-            #region AircraftSeriesAgg
+                #region AircraftSeriesAgg
 
-.Add(new AircraftSeriesEntityConfiguration())
+                .Add(new AircraftSeriesEntityConfiguration())
 
                 #endregion
 
