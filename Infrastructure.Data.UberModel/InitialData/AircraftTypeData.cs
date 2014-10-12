@@ -5,7 +5,7 @@
 //【本类功能概述】
 // 
 // 作者：陈春勇 时间：2013/11/21，16:11
-// 文件名：AcTypeData.cs
+// 文件名：AircraftTypeData.cs
 // 程序集：UniCloud.Infrastructure.Data.UberModel
 // 版本：V1.0.0
 //

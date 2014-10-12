@@ -4,7 +4,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQiBin 时间：2014/1/4 10:44:06
-// 文件名：AcTypeFactory
+// 文件名：AircraftSeriesFactory
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -35,11 +35,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg
         /// <returns></returns>
         public static AircraftSeries CreateAircraftSeries(Guid id, string name, Guid manufacturerId, Guid aircraftCategoryId)
         {
-            var acType = new AircraftSeries { Name = name };
-            acType.ChangeCurrentIdentity(id);
-            acType.ManufacturerId = manufacturerId;
+            var aircraftSerise = new AircraftSeries { Name = name };
+            aircraftSerise.ChangeCurrentIdentity(id);
+            aircraftSerise.ManufacturerId = manufacturerId;
 
-            return acType;
+            return aircraftSerise;
         }
     }
 }
