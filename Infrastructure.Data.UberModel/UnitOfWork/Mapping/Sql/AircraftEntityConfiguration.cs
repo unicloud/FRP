@@ -60,7 +60,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             HasMany(o => o.OperationHistories).WithRequired().HasForeignKey(o => o.AircraftId);
             HasMany(o => o.OwnershipHistories).WithRequired().HasForeignKey(o => o.AircraftId);
             HasMany(o => o.AircraftBusinesses).WithRequired().HasForeignKey(o => o.AircraftId);
-
+            HasMany(o => o.Licenses).WithRequired().HasForeignKey(o => o.AircraftId);
         }
     }
 }

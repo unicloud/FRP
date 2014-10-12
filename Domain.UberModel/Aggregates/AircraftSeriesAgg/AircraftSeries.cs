@@ -15,7 +15,9 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.AtaAgg;
 using UniCloud.Domain.UberModel.Aggregates.ManufacturerAgg;
 
 #endregion
@@ -51,6 +53,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg
         /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// 章节
+        /// </summary>
+        private HashSet<Ata> _atas;
+        public virtual ICollection<Ata> Atas
+        {
+            get { return _atas ?? (_atas = new HashSet<Ata>()); }
+            set { _atas = new HashSet<Ata>(value); }
+        }
         #endregion
 
         #region 外键属性
@@ -60,11 +71,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg
         /// </summary>
         public Guid ManufacturerId { get; set; }
 
-        /// <summary>
-        /// 座级外键
-        /// </summary>
-        public Guid AircraftCategoryId { get; set; }
-
         #endregion
 
         #region 导航属性
@@ -72,11 +78,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg
         /// 制造商
         /// </summary>
         public virtual Manufacturer Manufacturer { get; set; }
-
-        /// <summary>
-        /// 座级
-        /// </summary>
-        public virtual AircraftCategory AircraftCategory { get; set; }
 
         #endregion
 

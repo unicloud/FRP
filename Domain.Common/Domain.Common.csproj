@@ -54,6 +54,7 @@
     <Compile Include="Enums\IndexStatus.cs" />
     <Compile Include="Enums\InvoiceStatus.cs" />
     <Compile Include="Enums\InvoiceType.cs" />
+    <Compile Include="Enums\LicenseStatus.cs" />
     <Compile Include="Enums\MaintainItem.cs" />
     <Compile Include="Enums\ManageStatus.cs">
       <SubType>Code</SubType>

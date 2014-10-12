@@ -38,7 +38,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg
             var acType = new AircraftSeries { Name = name };
             acType.ChangeCurrentIdentity(id);
             acType.ManufacturerId = manufacturerId;
-            acType.AircraftCategoryId = aircraftCategoryId;
 
             return acType;
         }

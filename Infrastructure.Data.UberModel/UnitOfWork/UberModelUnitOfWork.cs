@@ -22,6 +22,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
@@ -43,6 +44,7 @@ using UniCloud.Domain.UberModel.Aggregates.EngineTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.ForwarderAgg;
 using UniCloud.Domain.UberModel.Aggregates.GuaranteeAgg;
 using UniCloud.Domain.UberModel.Aggregates.InvoiceAgg;
+using UniCloud.Domain.UberModel.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
 using UniCloud.Domain.UberModel.Aggregates.MailAddressAgg;
 using UniCloud.Domain.UberModel.Aggregates.MaintainContractAgg;
@@ -135,6 +137,18 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<WorkGroup> _workGroups;
         private IDbSet<XmlConfig> _xmlConfigs;
         private IDbSet<XmlSetting> _xmlSettings;
+        private IDbSet<AircraftLicense> _aircraftLicenses;
+        private IDbSet<LicenseType> _licenseTypes;
+
+        public IDbSet<AircraftLicense> AircraftLicenses
+        {
+            get { return _aircraftLicenses ?? (_aircraftLicenses = base.Set<AircraftLicense>()); } 
+        }
+
+        public IDbSet<LicenseType> LicenseTypes
+        {
+            get { return _licenseTypes ?? (_licenseTypes = base.Set<LicenseType>()); }
+        }
 
         public IDbSet<ActionCategory> ActionCategories
         {
@@ -440,236 +454,235 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         {
             modelBuilder.Configurations
 
-                #region ActionCategoryAgg
+            #region ActionCategoryAgg
 
-                .Add(new ActionCategoryEntityConfiguration())
+.Add(new ActionCategoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
                 #region AircraftSeriesAgg
+.Add(new AircraftSeriesEntityConfiguration())
 
-                .Add(new AircraftSeriesEntityConfiguration())
+            #endregion
 
-                #endregion
+            #region AircraftCategoryAgg
 
-                #region AircraftCategoryAgg
+.Add(new AircraftCategoryEntityConfiguration())
 
-                .Add(new AircraftCategoryEntityConfiguration())
+            #endregion
 
-                #endregion
+            #region AircraftAgg
 
-                #region AircraftAgg
-
-                .Add(new AircraftEntityConfiguration())
+.Add(new AircraftEntityConfiguration())
                 .Add(new AircraftBusinessEntityConfiguration())
                 .Add(new OperationHistoryEntityConfiguration())
                 .Add(new OwnershipHistoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AircraftPlanAgg
+            #region AircraftPlanAgg
 
-                .Add(new PlanEntityConfiguration())
+.Add(new PlanEntityConfiguration())
                 .Add(new PlanHistoryEntityConfiguration())
                 .Add(new ChangePlanEntityConfiguration())
                 .Add(new OperationPlanEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AircraftTypeAgg
+            #region AircraftTypeAgg
 
-                .Add(new AircraftTypeEntityConfiguration())
+.Add(new AircraftTypeEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AirlinesAgg
+            #region AirlinesAgg
 
-                .Add(new AirlinesEntityConfiguration())
+.Add(new AirlinesEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AirProgrammingAgg
+            #region AirProgrammingAgg
 
-                .Add(new AirProgrammingEntityConfiguration())
+.Add(new AirProgrammingEntityConfiguration())
                 .Add(new AirProgrammingLineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AnnualAgg
+            #region AnnualAgg
 
-                .Add(new AnnualEntityConfiguration())
+.Add(new AnnualEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ApprovalDocAgg
+            #region ApprovalDocAgg
 
-                .Add(new ApprovalDocEntityConfiguration())
+.Add(new ApprovalDocEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region BankAccountAgg
+            #region BankAccountAgg
 
-                .Add(new BankAccountEntityConfiguration())
+.Add(new BankAccountEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region CaacProgrammingAgg
+            #region CaacProgrammingAgg
 
-                .Add(new CaacProgrammingEntityConfiguration())
+.Add(new CaacProgrammingEntityConfiguration())
                 .Add(new CaacProgrammingLineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ContentTagAgg
+            #region ContentTagAgg
 
-                .Add(new ContentTagEntityConfiguration())
+.Add(new ContentTagEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ContractAircraftAgg
+            #region ContractAircraftAgg
 
-                .Add(new ContractAircraftEntityConfiguration())
+.Add(new ContractAircraftEntityConfiguration())
                 .Add(new LeaseContractAircraftEntityConfiguration())
                 .Add(new PurchaseContractAircraftEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ContractAircraftBFEAgg
+            #region ContractAircraftBFEAgg
 
-                .Add(new ContractAircraftBFEEntityConfiguration())
+.Add(new ContractAircraftBFEEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ContractEngineAgg
+            #region ContractEngineAgg
 
-                .Add(new ContractEngineEntityConfiguration())
+.Add(new ContractEngineEntityConfiguration())
                 .Add(new LeaseContractEngineEntityConfiguration())
                 .Add(new PurchaseContractEngineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region CurrencyAgg
+            #region CurrencyAgg
 
-                .Add(new CurrencyEntityConfiguration())
+.Add(new CurrencyEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region DocumentAgg
+            #region DocumentAgg
 
-                .Add(new DocumentEntityConfiguration())
+.Add(new DocumentEntityConfiguration())
                 .Add(new OfficialDocumentEntityConfiguration())
                 .Add(new StandardDocumentEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region DocumentPathAgg
+            #region DocumentPathAgg
 
-                .Add(new DocumentPathEntityConfiguration())
+.Add(new DocumentPathEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region EngineAgg
+            #region EngineAgg
 
-                .Add(new EngineEntityConfiguration())
+.Add(new EngineEntityConfiguration())
                 .Add(new EngineBusinessHistoryEntityConfiguration())
                 .Add(new EngineOwnershipHistoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region EnginePlanAgg
+            #region EnginePlanAgg
 
-                .Add(new EnginePlanEntityConfiguration())
+.Add(new EnginePlanEntityConfiguration())
                 .Add(new EnginePlanHistoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region EngineTypeAgg
+            #region EngineTypeAgg
 
-                .Add(new EngineTypeEntityConfiguration())
+.Add(new EngineTypeEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ForwarderAgg
+            #region ForwarderAgg
 
-                .Add(new ForwarderEntityConfiguration())
+.Add(new ForwarderEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region GuaranteeAgg
+            #region GuaranteeAgg
 
-                .Add(new GuaranteeEntityConfiguration())
+.Add(new GuaranteeEntityConfiguration())
                 .Add(new LeaseGuaranteeEntityConfiguration())
                 .Add(new MaintainGuaranteeEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region InvoiceAgg
+            #region InvoiceAgg
 
-                .Add(new InvoiceEntityConfiguration())
+.Add(new InvoiceEntityConfiguration())
                 .Add(new InvoiceLineEntityConfiguration())
                 .Add(new CreditNoteInvoiceEntityConfiguration())
                 .Add(new LeaseInvoiceEntityConfiguration())
                 .Add(new PurchaseInvoiceEntityConfiguration())
                 .Add(new PrepaymentInvoiceEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region LinkmanAgg
+            #region LinkmanAgg
 
-                .Add(new LinkmanEntityConfiguration())
+.Add(new LinkmanEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region MailAddressAgg
+            #region MailAddressAgg
 
-                .Add(new MailAddressEntityConfiguration())
+.Add(new MailAddressEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region MaintainContractAgg
+            #region MaintainContractAgg
 
-                .Add(new MaintainContractEntityConfiguration())
+.Add(new MaintainContractEntityConfiguration())
                 .Add(new APUMaintainContractEntityConfiguration())
                 .Add(new EngineMaintainContractEntityConfiguration())
                 .Add(new UndercartMaintainContractEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region MaintainInvoiceAgg
+            #region MaintainInvoiceAgg
 
-                .Add(new MaintainInvoiceEntityConfiguration())
+.Add(new MaintainInvoiceEntityConfiguration())
                 .Add(new MaintainInvoiceLineEntityConfiguration())
                 .Add(new AirframeMaintainInvoiceEntityConfiguration())
                 .Add(new APUMaintainInvoiceEntityConfiguration())
                 .Add(new EngineMaintainInvoiceEntityConfiguration())
                 .Add(new UndercartMaintainInvoiceEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ManagerAgg
+            #region ManagerAgg
 
-                .Add(new ManagerEntityConfiguration())
+.Add(new ManagerEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ManufacturerAgg
+            #region ManufacturerAgg
 
-                .Add(new ManufacturerEntityConfiguration())
+.Add(new ManufacturerEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region MaterialAgg
+            #region MaterialAgg
 
-                .Add(new MaterialEntityConfiguration())
+.Add(new MaterialEntityConfiguration())
                 .Add(new AircraftMaterialEntityConfiguration())
                 .Add(new BFEMaterialEntityConfiguration())
                 .Add(new EngineMaterialEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region OrderAgg
+            #region OrderAgg
 
-                .Add(new OrderEntityConfiguration())
+.Add(new OrderEntityConfiguration())
                 .Add(new ContractContentEntityConfiguration())
                 .Add(new OrderLineEntityConfiguration())
                 .Add(new AircraftLeaseOrderEntityConfiguration())
@@ -683,52 +696,52 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new EnginePurchaseOrderEntityConfiguration())
                 .Add(new EnginePurchaseOrderLineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PartAgg
+            #region PartAgg
 
-                .Add(new PartEntityConfiguration())
+.Add(new PartEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PaymentNoticeAgg
+            #region PaymentNoticeAgg
 
-                .Add(new PaymentNoticeEntityConfiguration())
+.Add(new PaymentNoticeEntityConfiguration())
                 .Add(new PaymentNoticeLineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PaymentScheduleAgg
+            #region PaymentScheduleAgg
 
-                .Add(new PaymentScheduleEntityConfiguration())
+.Add(new PaymentScheduleEntityConfiguration())
                 .Add(new PaymentScheduleLineEntityConfiguration())
                 .Add(new AircraftPaymentScheduleEntityConfiguration())
                 .Add(new EnginePaymentScheduleEntityConfiguration())
                 .Add(new StandardPaymentScheduleEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PlanAircraftAgg
+            #region PlanAircraftAgg
 
-                .Add(new PlanAircraftEntityConfiguration())
+.Add(new PlanAircraftEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PlanEngineAgg
+            #region PlanEngineAgg
 
-                .Add(new PlanEngineEntityConfiguration())
+.Add(new PlanEngineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ProgrammingAgg
+            #region ProgrammingAgg
 
-                .Add(new ProgrammingEntityConfiguration())
+.Add(new ProgrammingEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ReceptionAgg
+            #region ReceptionAgg
 
-                .Add(new ReceptionEntityConfiguration())
+.Add(new ReceptionEntityConfiguration())
                 .Add(new ReceptionLineEntityConfiguration())
                 .Add(new ReceptionScheduleEntityConfiguration())
                 .Add(new AircraftLeaseReceptionEntityConfiguration())
@@ -740,42 +753,42 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new EnginePurchaseReceptionEntityConfiguration())
                 .Add(new EnginePurchaseReceptionLineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region RelatedDocAgg
+            #region RelatedDocAgg
 
-                .Add(new RelatedDocEntityConfiguration())
+.Add(new RelatedDocEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region RequestAgg
+            #region RequestAgg
 
-                .Add(new RequestEntityConfiguration())
+.Add(new RequestEntityConfiguration())
                 .Add(new ApprovalHistoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region SupplierAgg
+            #region SupplierAgg
 
-                .Add(new SupplierEntityConfiguration())
+.Add(new SupplierEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region SupplierCompanyAgg
+            #region SupplierCompanyAgg
 
-                .Add(new SupplierCompanyEntityConfiguration())
+.Add(new SupplierCompanyEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region SupplierCompanyMaterialAgg
+            #region SupplierCompanyMaterialAgg
 
-                .Add(new SupplierCompanyMaterialEntityConfiguration())
+.Add(new SupplierCompanyMaterialEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region SupplierRoleAgg
+            #region SupplierRoleAgg
 
-                .Add(new SupplierRoleEntityConfiguration())
+.Add(new SupplierRoleEntityConfiguration())
                 .Add(new AircraftLeaseSupplierEntityConfiguration())
                 .Add(new AircraftPurchaseSupplierEntityConfiguration())
                 .Add(new BFEPurchaseSupplierEntityConfiguration())
@@ -783,61 +796,66 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new EnginePurchaseSupplierEntityConfiguration())
                 .Add(new MaintainSupplierEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region TradeAgg
+            #region TradeAgg
 
-                .Add(new TradeEntityConfiguration())
+.Add(new TradeEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region XmlConfigAgg
+            #region XmlConfigAgg
 
-                .Add(new XmlConfigEntityConfiguration())
+.Add(new XmlConfigEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region XmlSettingAgg
+            #region XmlSettingAgg
 
-                .Add(new XmlSettingEntityConfiguration())
+.Add(new XmlSettingEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ProjectAgg
+            #region ProjectAgg
 
-                .Add(new ProjectEntityConfiguration())
+.Add(new ProjectEntityConfiguration())
                 .Add(new TaskEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ProjectTempAgg
+            #region ProjectTempAgg
 
-                .Add(new ProjectTempEntityConfiguration())
+.Add(new ProjectTempEntityConfiguration())
                 .Add(new TaskTempEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region TaskStandardAgg
+            #region TaskStandardAgg
 
-                .Add(new TaskStandardEntityConfiguration())
+.Add(new TaskStandardEntityConfiguration())
                 .Add(new TaskCaseEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region UserAgg
+            #region UserAgg
 
-                .Add(new UserEntityConfiguration())
+.Add(new UserEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region WorkGroupAgg
+            #region WorkGroupAgg
 
-                .Add(new WorkGroupEntityConfiguration())
+.Add(new WorkGroupEntityConfiguration())
                 .Add(new MemberEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                .Add(new AddressConfiguration());
+            #region AircraftLicense
+.Add(new AircraftLicenseEntityConfiguration())
+                .Add(new LicenseTypeEntityConfiguration())
+            #endregion
+
+.Add(new AddressConfiguration());
         }
 
         #endregion

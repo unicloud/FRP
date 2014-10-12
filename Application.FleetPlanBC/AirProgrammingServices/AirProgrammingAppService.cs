@@ -161,14 +161,12 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
         {
             //获取
             var acType = _acTypeRepository.Get(line.AcTypeId);
-            var aircraftCategory = _aircraftCategoryRepository.Get(acType.AircraftCategoryId);
 
             // 添加接机行
             var newAirProgrammingLine =
                 airProgramming.AddNewAirProgrammingLine();
             newAirProgrammingLine.SetAircraftSeries(acType);
             newAirProgrammingLine.SetAirProgramming(line.Year,line.BuyNum,line.LeaseNum,line.ExportNum);
-            newAirProgrammingLine.SetAircraftCategory(aircraftCategory);
 
         }
 
@@ -181,12 +179,10 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
         {
             //获取
             var acType = _acTypeRepository.Get(line.AcTypeId);
-            var aircraftCategory = _aircraftCategoryRepository.Get(acType.AircraftCategoryId);
 
             // 更新订单行
             airProgrammingLine.SetAircraftSeries(acType);
             airProgrammingLine.SetAirProgramming(line.Year, line.BuyNum, line.LeaseNum, line.ExportNum);
-            airProgrammingLine.SetAircraftCategory(aircraftCategory);
             
         }
 
