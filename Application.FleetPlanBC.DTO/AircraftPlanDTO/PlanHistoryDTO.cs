@@ -148,6 +148,10 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public Guid? ApprovalHistoryId { get; set; }
 
+        ///// <summary>
+        ///// 申请是否审批
+        ///// </summary>
+        //public bool IsApproved { get; set; }
         #endregion
 
         #region 外加属性,用于处理运营计划\变更计划

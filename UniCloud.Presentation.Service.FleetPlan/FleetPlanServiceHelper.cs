@@ -43,6 +43,75 @@ namespace UniCloud.Presentation.Service.FleetPlan
         #region 计划
 
         /// <summary>
+        /// 创建新飞机
+        /// </summary>
+        /// <param name="planDetail">计划明细</param>
+        /// <param name="service"></param>
+        private static void CreateAircraft(PlanHistoryDTO planDetail, IFleetPlanService service)
+        {
+            //var aircraft = new AircraftDTO
+            //{
+            //    AircraftId = Guid.NewGuid(),
+            //    AircraftTypeId = planDetail.PlanAircraftId.AircraftType,
+            //    AirlinesId = planDetail.AirlinesId,
+            //    CreateDate = DateTime.Now,
+            //    IsOperation = true,
+            //    SeatingCapacity = planDetail.SeatingCapacity,
+            //    CarryingCapacity = planDetail.CarryingCapacity,
+            //};
+            //service.EntityContainer.GetEntitySet<Aircraft>().Add(aircraft);
+            //CreateOperationHistory(planDetail, aircraft, service);
+            //CreateAircraftBusiness(planDetail, aircraft, service);
+        }
+
+        /// <summary>
+        /// 创建新的运营历史
+        /// </summary>
+        /// <param name="approvalHistory">批文明细</param>
+        /// <param name="aircraft">飞机</param>
+        /// <param name="service"></param>
+        private static void CreateOperationHistory(PlanHistoryDTO planDetail, AircraftDTO aircraft, IFleetPlanService service)
+        {
+            //var operationHistory = new OperationHistory
+            //{
+            //    ApprovalHistory = planDetail.ApprovalHistory,
+            //    Airlines = service.CurrentAirlines,
+            //    Aircraft = aircraft,
+            //    ImportCategory = planDetail.ApprovalHistory.ImportCategory,
+            //    Status = (int)OpStatus.Draft,
+            //};
+            //if (planDetail is OperationPlan) (planDetail as OperationPlan).OperationHistory = operationHistory;
+            //service.EntityContainer.GetEntitySet<OperationHistory>().Add(operationHistory);
+            //// 更改运营历史状态
+            //operationHistory.Status = (int)OpStatus.Draft;
+        }
+
+        /// <summary>
+        /// 创建新的商业数据历史
+        /// </summary>
+        /// <param name="aircraft">飞机</param>
+        /// <param name="service"></param>
+        private static void CreateAircraftBusiness(PlanHistoryDTO planDetail, AircraftDTO aircraft, IFleetPlanService service)
+        {
+            //var aircraftBusiness = new AircraftBusiness
+            //{
+            //    AircraftBusinessID = Guid.NewGuid(),
+            //    Aircraft = aircraft,
+            //    AircraftType = aircraft.AircraftType,
+            //    ImportCategory = aircraft.ImportCategory,
+            //    SeatingCapacity = aircraft.SeatingCapacity,
+            //    CarryingCapacity = aircraft.CarryingCapacity,
+            //    Status = (int)OpStatus.Draft,
+            //};
+
+            //if (planDetail is ChangePlan) (planDetail as ChangePlan).AircraftBusiness = aircraftBusiness;
+            //service.EntityContainer.GetEntitySet<AircraftBusiness>().Add(aircraftBusiness);
+            //// 更改商业数据历史状态
+            //aircraftBusiness.Status = (int)OpStatus.Draft;
+        }
+
+
+        /// <summary>
         /// 创建新年度计划
         /// </summary>
         /// <param name="lastPlan"></param>
@@ -258,13 +327,13 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <returns></returns>
         internal AircraftDTO CompletePlan(PlanHistoryDTO planDetail, IFleetPlanService service)
         {
-            //Aircraft aircraft;
-            //OperationHistory operationHistory;
+            AircraftDTO aircraft;
+            //OperationHistoryDTO operationHistory;
             //if (planDetail == null)
             //{
             //    throw new ArgumentNullException("planDetail");
             //}
-            //var actionName = planDetail.ActionCategory.ActionName;
+            //var actionName = planDetail.ActionName;
             //if (actionName == null)
             //{
             //    return null;
@@ -290,11 +359,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
             //        break;
             //    case "经营租赁续租":
             //        // 创建新运营历史
-            //        CreateOperationHistory(planDetail, planDetail.PlanAircraft.Aircraft, service);
+            //        CreateOperationHistory(planDetail, aircraftId, service);
             //        break;
             //    case "湿租续租":
             //        // 创建新运营历史
-            //        CreateOperationHistory(planDetail, planDetail.PlanAircraft.Aircraft, service);
+            //        CreateOperationHistory(planDetail, aircraftId, service);
             //        break;
             //    case "出售":
             //        // 更改运营历史状态
@@ -377,7 +446,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
             //planDetail.PlanAircraft.Status = (int)ManageStatus.Operation;
             //// 刷新计划完成状态
             //RaisePropertyChanged(() => planDetail.CompleteStatus);
-
+            
             //return planDetail.PlanAircraft.Aircraft;
             return null;
         }

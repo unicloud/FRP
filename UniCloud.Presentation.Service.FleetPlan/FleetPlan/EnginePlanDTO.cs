@@ -37,7 +37,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         ///     备发计划管理状态
         /// </summary>
-        public EnginePlanStatus EnginePlanStatus
+        internal EnginePlanStatus EnginePlanStatus
         {
             get { return (EnginePlanStatus)Status; }
         }

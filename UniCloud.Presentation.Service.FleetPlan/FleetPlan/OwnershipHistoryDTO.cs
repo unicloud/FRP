@@ -14,7 +14,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     public partial class OwnershipHistoryDTO
     {
-        public bool IsOwnershipReadOnly
+        internal bool IsOwnershipReadOnly
         {
             get { return Status >= (int) OperationStatus.已审核; }
         }

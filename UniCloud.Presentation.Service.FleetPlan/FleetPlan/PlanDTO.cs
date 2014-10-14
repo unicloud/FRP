@@ -50,7 +50,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         ///     计划编制状态
         /// </summary>
-        public PlanStatus PlanStatus
+        internal PlanStatus PlanStatus
         {
             get { return (PlanStatus)Status; }
         }
@@ -58,7 +58,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         ///     发布状态
         /// </summary>
-        public PlanPublishStatus PlanPublishStatus
+        internal PlanPublishStatus PlanPublishStatus
         {
             get { return (PlanPublishStatus)PublishStatus; }
         }
