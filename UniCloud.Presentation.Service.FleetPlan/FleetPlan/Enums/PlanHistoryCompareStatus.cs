@@ -23,9 +23,9 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums
     /// </summary>
     public enum PlanHistoryCompareStatus
     {
+       UnChanged,
        Added,
        Removed,
        Modified,
-       UnChanged,
     }
 }

@@ -24,5 +24,29 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg
     /// </summary>
     public static class LicenseTypeFactory
     {
+        /// <summary>
+        /// 新建证照类型
+        /// </summary>
+        /// <returns></returns>
+        public static LicenseType CreateLicenseType()
+        {
+            var licenseType = new LicenseType();
+            licenseType.GenerateNewIdentity();
+            return licenseType;
+        }
+
+        /// <summary>
+        /// 设置证照类型属性
+        /// </summary>
+        /// <param name="licenseType"> 当前证照类型</param>
+        /// <param name="name">名字</param>
+        /// <param name="hasFile">是否有附件</param>
+        /// <param name="description">描述</param>
+        public static void SetLicenseType(LicenseType licenseType, string name, bool hasFile, string description)
+        {
+            licenseType.Type = name;
+            licenseType.HasFile = hasFile;
+            licenseType.Description = description;
+        }
     }
 }

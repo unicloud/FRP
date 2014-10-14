@@ -358,6 +358,7 @@
         <Property Name="ApprovalHistoryId" Type="Edm.Guid" />
         <Property Name="PlanType" Type="Edm.Int32" Nullable="false" />
         <Property Name="RelatedGuid" Type="Edm.Guid" />
+        <Property Name="RelatedStartDate" Type="Edm.DateTime" />
         <Property Name="RelatedEndDate" Type="Edm.DateTime" />
         <Property Name="RelatedStatus" Type="Edm.Int32" Nullable="false" />
         <Property Name="ManageStatus" Type="Edm.Int32" Nullable="false" />

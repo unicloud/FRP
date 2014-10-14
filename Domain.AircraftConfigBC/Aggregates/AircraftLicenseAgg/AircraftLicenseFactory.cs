@@ -12,6 +12,9 @@
 // ========================================================================*/
 #endregion
 
+using System;
+using UniCloud.Domain.Common.Enums;
+
 namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg
 {
     /// <summary>
@@ -19,5 +22,42 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg
     /// </summary>
     public static class AircraftLicenseFactory
     {
+        /// <summary>
+        /// 新建飞机证照
+        /// </summary>
+        /// <returns></returns>
+        public static AircraftLicense CreateAircraftLicense()
+        {
+            var aircraftLicense = new AircraftLicense();
+            aircraftLicense.GenerateNewIdentity();
+            return aircraftLicense;
+        }
+
+        /// <summary>
+        /// 设置飞机证照属性
+        /// </summary>
+        /// <param name="aircraftLicense">当前飞机证照</param>
+        /// <param name="name">名字</param>
+        /// <param name="description">描述</param>
+        /// <param name="issuedUnit">发证单位</param>
+        /// <param name="issuedDate">发证日期</param>
+        /// <param name="validMonths">有效期</param>
+        /// <param name="expireDate">到证日期</param>
+        /// <param name="state">状态</param>
+        /// <param name="fileName">扫描件名字</param>
+        /// <param name="licenseFile">证照扫描件</param>
+        public static void SetAircraftLicense(AircraftLicense aircraftLicense, string name, string description, string issuedUnit,
+            DateTime issuedDate, int validMonths, DateTime expireDate, int state, string fileName, byte[] licenseFile)
+        {
+            aircraftLicense.Name = name;
+            aircraftLicense.Description = description;
+            aircraftLicense.IssuedUnit = issuedUnit;
+            aircraftLicense.IssuedDate = issuedDate;
+            aircraftLicense.ValidMonths = validMonths;
+            aircraftLicense.ExpireDate = expireDate;
+            aircraftLicense.State = (LicenseStatus)state;
+            aircraftLicense.FileName = fileName;
+            aircraftLicense.LicenseFile = licenseFile;
+        }
     }
 }

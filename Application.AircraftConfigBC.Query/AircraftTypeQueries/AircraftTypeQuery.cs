@@ -44,10 +44,12 @@ namespace UniCloud.Application.AircraftConfigBC.Query.AircraftTypeQueries
         {
             return query.ApplyTo(_unitOfWork.CreateSet<AircraftType>()).Select(p => new AircraftTypeDTO
             {
-                Id = p.Id,
+                AircraftTypeId = p.Id,
                 Name = p.Name,
+                Description = p.Description,
                 AircraftCategoryId = p.AircraftCategoryId,
-                Regional = p.AircraftCategory.Regional,
+                AircraftSeriesId = p.AircraftSeriesId,
+                ManufacturerId = p.ManufacturerId,
             });
         }
     }

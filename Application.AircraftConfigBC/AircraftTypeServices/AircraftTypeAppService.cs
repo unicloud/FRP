@@ -20,6 +20,8 @@
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftTypeQueries;
+using UniCloud.Application.ApplicationExtension;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
 
 #endregion
@@ -33,10 +35,11 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftTypeServices
     public class AircraftTypeAppService : IAircraftTypeAppService
     {
         private readonly IAircraftTypeQuery _aircraftTypeQuery;
-
-        public AircraftTypeAppService(IAircraftTypeQuery aircraftTypeQuery)
+        private readonly IAircraftTypeRepository _aircraftTypeRepository;
+        public AircraftTypeAppService(IAircraftTypeQuery aircraftTypeQuery, IAircraftTypeRepository aircraftTypeRepository)
         {
             _aircraftTypeQuery = aircraftTypeQuery;
+            _aircraftTypeRepository = aircraftTypeRepository;
         }
 
         #region AircraftTypeDTO
@@ -52,6 +55,41 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftTypeServices
             return _aircraftTypeQuery.AircraftTypeDTOQuery(queryBuilder);
         }
 
+        /// <summary>
+        ///     新增飞机机型。
+        /// </summary>
+        /// <param name="aircraftType">飞机机型DTO。</param>
+        [Insert(typeof(AircraftTypeDTO))]
+        public void InsertAircraftType(AircraftTypeDTO aircraftType)
+        {
+            var newAircraftType = AircraftTypeFactory.CreateAircraftType();
+            AircraftTypeFactory.SetAircraftType(newAircraftType, aircraftType.Name, aircraftType.Description,aircraftType.AircraftCategoryId,aircraftType.AircraftSeriesId, aircraftType.ManufacturerId);
+            _aircraftTypeRepository.Add(newAircraftType);
+        }
+
+
+        /// <summary>
+        ///     更新飞机机型。
+        /// </summary>
+        /// <param name="aircraftType">飞机机型DTO。</param>
+        [Update(typeof(AircraftTypeDTO))]
+        public void ModifyAircraftType(AircraftTypeDTO aircraftType)
+        {
+            var updateAircraftType = _aircraftTypeRepository.Get(aircraftType.AircraftTypeId); //获取需要更新的对象。
+            AircraftTypeFactory.SetAircraftType(updateAircraftType, aircraftType.Name, aircraftType.Description, aircraftType.AircraftCategoryId, aircraftType.AircraftSeriesId, aircraftType.ManufacturerId);
+            _aircraftTypeRepository.Modify(updateAircraftType);
+        }
+
+        /// <summary>
+        ///     删除飞机机型。
+        /// </summary>
+        /// <param name="aircraftType">飞机机型DTO。</param>
+        [Delete(typeof(AircraftTypeDTO))]
+        public void DeleteAircraftType(AircraftTypeDTO aircraftType)
+        {
+            var deleteAircraftType = _aircraftTypeRepository.Get(aircraftType.AircraftTypeId); //获取需要删除的对象。
+            _aircraftTypeRepository.Remove(deleteAircraftType); //删除飞机机型。
+        }
         #endregion
     }
 }

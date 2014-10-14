@@ -131,7 +131,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public override void LoadData()
         {
             // 将CollectionView的AutoLoad属性设为True
-            if (EngineMaintainContracts.AutoLoad)
+            if (!EngineMaintainContracts.AutoLoad)
                 EngineMaintainContracts.AutoLoad = true;
             EngineMaintainContracts.Load(true);
             Suppliers.Load(true);

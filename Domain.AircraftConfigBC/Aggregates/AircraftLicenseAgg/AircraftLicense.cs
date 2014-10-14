@@ -81,6 +81,10 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg
         /// </summary>
         public byte[] LicenseFile { get; internal set; }
 
+        /// <summary>
+        /// 扫描件名字
+        /// </summary>
+        public string FileName { get; internal set; }
         #endregion
 
         #region 外键属性

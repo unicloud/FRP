@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
+using System.Security;
 
 #endregion
 
@@ -79,7 +80,43 @@ namespace UniCloud.Application.AircraftConfigBC.DTO
         ///     商载量（吨）
         /// </summary>
         public decimal CarryingCapacity { get; set; }
-   
+
+        /// <summary>
+        /// 所有权人
+        /// </summary>
+        public string SupplierName { get; set; }
+
+        /// <summary>
+        ///     机型
+        /// </summary>
+        public string AircraftTypeName { get; set; }
+
+        /// <summary>
+        ///     运营权人
+        /// </summary>
+        public string AirlinesName { get; set; }
+
+        /// <summary>
+        ///     引进方式
+        /// </summary>
+        public string ImportCategoryName { get; set; }
+
+        /// <summary>
+        /// 制造商
+        /// </summary>
+        public string ManufacturerName { get; set; }
+
+        /// <summary>
+        /// 座级
+        /// </summary>
+        public string Regional { get; set; }
+
+        private List<AircraftLicenseDTO> _aircraftLicenses;
+        public List<AircraftLicenseDTO> AircraftLicenses
+        {
+            get { return _aircraftLicenses ?? (_aircraftLicenses = new List<AircraftLicenseDTO>()); }
+            set { _aircraftLicenses = value; }
+        }
         #endregion
 
         #region 外键属性

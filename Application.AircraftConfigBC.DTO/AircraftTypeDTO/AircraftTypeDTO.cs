@@ -24,7 +24,7 @@ namespace UniCloud.Application.AircraftConfigBC.DTO
     /// <summary>
     /// 机型
     /// </summary>
-    [DataServiceKey("Id")]
+    [DataServiceKey("AircraftTypeId")]
     public class AircraftTypeDTO
     {
         #region 属性
@@ -32,7 +32,7 @@ namespace UniCloud.Application.AircraftConfigBC.DTO
         /// <summary>
         /// 主键
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid AircraftTypeId { get; set; }
 
         /// <summary>
         ///     机型名称
@@ -40,15 +40,24 @@ namespace UniCloud.Application.AircraftConfigBC.DTO
         public string Name { get; set; }
 
         /// <summary>
+        ///     描述
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
         /// 所属座级
         /// </summary>
         public Guid AircraftCategoryId { get; set; }
 
         /// <summary>
-        /// 座级
+        /// 系列
         /// </summary>
-        public string Regional { get; set; }
+        public Guid AircraftSeriesId { get; set; }
 
+        /// <summary>
+        /// 制造商
+        /// </summary>
+        public Guid ManufacturerId { get; set; }
         #endregion
     }
 }

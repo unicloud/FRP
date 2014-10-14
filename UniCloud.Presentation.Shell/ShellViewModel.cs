@@ -173,6 +173,7 @@ namespace UniCloud.Presentation.Shell
             var menu112 = new MenuItem
             {
                 Text = "维护飞机型号",
+                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig.ManagerAircraftType"
             };
             var menu113 = new MenuItem
             {
@@ -187,16 +188,23 @@ namespace UniCloud.Presentation.Shell
             {
                 Text = "管理飞机数据",
             };
-            var menu121 = new MenuItem
+            //var menu121 = new MenuItem
+            //{
+            //    Text = "维护证照种类",
+            //    NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerLicenseType"
+            //};
+            var menu122 = new MenuItem
             {
                 Text = "维护飞机证照",
+                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerAircraftLicense"
             };
-            var menu122 = new MenuItem
+            var menu123 = new MenuItem
             {
                 Text = "查询现役飞机",
             };
-            menu12.Items.Add(menu121);
+            //menu12.Items.Add(menu121);
             menu12.Items.Add(menu122);
+            menu12.Items.Add(menu123);
             menu1.Items.Add(menu12);
 
             _items.Add(menu1);
@@ -308,6 +316,7 @@ namespace UniCloud.Presentation.Shell
             var menu242 = new MenuItem
             {
                 Text = "分析规划执行",
+                NavUri = "UniCloud.Presentation.FleetPlan.PerformFleetPlan.QueryPerformPlan"
             };
             var menu243 = new MenuItem
             {

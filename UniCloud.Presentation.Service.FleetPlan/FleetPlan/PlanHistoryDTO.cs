@@ -267,6 +267,11 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             get;
             set;
         }
+        /// <summary>
+        /// 计划历史比较状态
+        /// </summary>
+        public PlanHistoryCompareStatus PlanHistoryCompareStatus
+        { get; set; }
         #endregion
 
         #endregion
@@ -294,6 +299,10 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             else AircraftTypes = FleetPlanService.GetAircraftTypes(null);
         }
 
+        public PlanHistoryDTO Clone()
+        {
+            return MemberwiseClone() as PlanHistoryDTO;
+        }
         #endregion
     }
 }
