@@ -34,13 +34,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg
         /// <param name="id">ID</param>
         /// <param name="type">活动类型</param>
         /// <param name="name">活动名称</param>
+        /// <param name="needRequest">是否需要申请</param>
         /// <returns></returns>
-        public static ActionCategory CreateActionCategory(Guid id, string type, string name)
+        public static ActionCategory CreateActionCategory(Guid id, string type, string name,bool needRequest)
         {
             var actionCategory = new ActionCategory
             {
                 ActionType = type,
                 ActionName = name,
+                NeedRequest = needRequest,
             };
             actionCategory.ChangeCurrentIdentity(id);
 
