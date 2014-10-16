@@ -209,7 +209,7 @@
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                     <telerik:RadGridView.GroupDescriptors>
-                                        <telerik:GroupDescriptor Member="AircraftTypeName"
+                                        <telerik:GroupDescriptor Member="OperateStatus"
                                                                  SortDirection="Descending">
                                         </telerik:GroupDescriptor>
                                     </telerik:RadGridView.GroupDescriptors>

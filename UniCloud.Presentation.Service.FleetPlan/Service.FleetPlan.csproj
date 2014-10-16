@@ -103,6 +103,7 @@
     <Compile Include="FleetPlanService.cs" />
     <Compile Include="FleetPlanServiceHelper.cs" />
     <Compile Include="FleetPlan\ActionCategoryDTO.cs" />
+    <Compile Include="FleetPlan\AircraftDTO.cs" />
     <Compile Include="FleetPlan\EnginePlanDTO.cs" />
     <Compile Include="FleetPlan\EnginePlanHistoryDTO.cs" />
     <Compile Include="FleetPlan\Enums\CanDeliver.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="FleetPlan\Enums\EnginePlanStatus.cs" />
     <Compile Include="FleetPlan\Enums\ManageStatus.cs" />
     <Compile Include="FleetPlan\Enums\OpenState.cs" />
+    <Compile Include="FleetPlan\Enums\OperateStatus.cs" />
     <Compile Include="FleetPlan\Enums\OperationStatus.cs" />
     <Compile Include="FleetPlan\Enums\PlanDetailCreateSource.cs" />
     <Compile Include="FleetPlan\Enums\PlanHistoryCompareStatus.cs" />

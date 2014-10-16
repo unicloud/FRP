@@ -3,8 +3,8 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2014/1/6 15:53:45
-// 文件名：PlanAircraftDTO
+// 作者：HuangQiBin 时间：2014/10/16 16:09:35
+// 文件名：AircraftDTO
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -18,20 +18,20 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 #endregion
 
+
+
 namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
-    public partial class PlanAircraftDTO
+    public partial class AircraftDTO
     {
-        #region 属性
 
-        /// <summary>
-        ///     计划飞机管理状态
-        /// </summary>
-        public ManageStatus ManaStatus
+        public OperateStatus OperateStatus
         {
-            get { return (ManageStatus)Status; }
+            get
+            {
+                if (ExportDate == null) return OperateStatus.运营中;
+                return OperateStatus.已退出;
+            }
         }
-
-        #endregion
     }
 }

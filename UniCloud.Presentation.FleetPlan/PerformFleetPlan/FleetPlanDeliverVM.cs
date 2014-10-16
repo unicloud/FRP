@@ -342,6 +342,9 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                         SelAircraftBusiness = this.AircraftBusinesses.LastOrDefault();
 
                     RaisePropertyChanged(() => SelAircraft);
+                    RaisePropertyChanged(() => OhTitle);
+                    RaisePropertyChanged(() => AbTitle);
+
                 }
             }
         }

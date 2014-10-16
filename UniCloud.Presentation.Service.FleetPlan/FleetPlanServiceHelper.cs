@@ -241,11 +241,12 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// </summary>
         /// <param name="plan"></param>
         /// <param name="planAircraft"></param>
+        /// <param name="aircraft"></param>
         /// <param name="actionType"></param>
         /// <param name="planType"></param>
         /// <param name="service"></param>
         /// <returns></returns>
-        internal PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType, int planType, IFleetPlanService service)
+        internal PlanHistoryDTO CreatePlanHistory(PlanDTO plan, ref PlanAircraftDTO planAircraft, AircraftDTO aircraft, string actionType, int planType, IFleetPlanService service)
         {
             if (plan == null) return null;
             // 创建新的计划历史
@@ -258,12 +259,20 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 PerformAnnualId = plan.AnnualId,
                 PerformMonth = 1,
                 PlanType = planType,
+                ManageStatus = (int)ManageStatus.计划,
             };
-            // 1、计划飞机为空  这种情况创建计划飞机的操作已移出到ViewModel中处理
-            // 故此处无需作其他操作
+            // 1、计划飞机为空
             if (planAircraft == null)
             {
-                
+                planAircraft = new PlanAircraftDTO
+                {
+                    Id = Guid.NewGuid(),
+                    AirlinesId = plan.AirlinesId,
+                    AirlinesName = plan.AirlinesName,
+                    Status = (int)ManageStatus.计划,
+                    IsOwn = true
+                };
+                planDetail.PlanAircraftId = planAircraft.Id;
             }
             // 2、计划飞机非空
             else
@@ -271,21 +280,21 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 // 获取计划飞机的所有计划明细集合
                 var phs = planAircraft.PlanHistories;
                 // 获取计划飞机在当前计划中的计划明细集合
-                var planDetails = plan.PlanHistories.Where(ph => ph.PlanAircraftId == planAircraft.Id).ToList();
+                PlanAircraftDTO dto = planAircraft;
+                var planDetails = plan.PlanHistories.Where(ph => ph.PlanAircraftId == dto.Id).ToList();
                 // 2.1、不是针对现有飞机的计划明细
-                if (planAircraft.AircraftId == null)
+                if (planAircraft.AircraftId == null && aircraft == null)
                 {
                     if (phs.Any())
                     {
                         // 获取计划飞机的最后一条计划明细，用于复制数据
-                        //TODO:取最后一条计划的逻辑有问题
                         var planHistory =
                             phs.OrderBy(ph => ph.Year)
                                .ThenBy(ph => ph.PerformMonth)
                                .LastOrDefault();
                         if (planHistory != null)
                         {
-                            // 1、计划飞机在当前计划中没有明细项，（20140106补充）有可能是预备状态的计划飞机
+                            // 1、计划飞机在当前计划中没有明细项，（20140106补充）是预备状态的计划飞机
                             if (!planDetails.Any())
                             {
                                 planDetail.AircraftTypeId = planAircraft.AircraftTypeId;
@@ -307,12 +316,37 @@ namespace UniCloud.Presentation.Service.FleetPlan
                         }
                     }
                 }
-                // 2.2、是针对现有飞机的计划明细，肯定是退出计划，无需改变计划飞机管理状态
+                // 2.2、是针对现有飞机的计划明细，退出或变更计划，无需改变计划飞机管理状态
                 else
                 {
-                    planDetail.AircraftTypeId = planAircraft.AircraftTypeId;
-                    //planDetail.SeatingCapacity = planAircraft.Aircraft.SeatingCapacity;
-                    //planDetail.CarryingCapacity = planAircraft.Aircraft.CarryingCapacity;
+                    if (planType == 1) //为退出计划
+                    {
+                        planDetail.Regional = aircraft.Regional;
+                        planDetail.RegNumber = aircraft.RegNumber;
+                        planDetail.AircraftTypeId = planAircraft.AircraftTypeId;
+                        planDetail.SeatingCapacity = -aircraft.SeatingCapacity;
+                        planDetail.CarryingCapacity = -aircraft.CarryingCapacity;
+                        planDetail.AircraftId = aircraft.AircraftId;
+                    }
+                    else if (planType == 2) //为变更计划
+                    {
+                        // 获取飞机的当前商业数据，赋予新创建的变更计划明细
+                        var abs = aircraft.AircraftBusinesses;
+                        if (abs.Any())
+                        {
+                            var aircraftBusiness = abs.FirstOrDefault(a => a.EndDate == null);
+                            if (aircraftBusiness != null)
+                            {
+                                planDetail.Regional = aircraft.Regional;
+                                planDetail.RegNumber = aircraft.RegNumber;
+                                planDetail.ActionCategoryId = aircraftBusiness.ImportCategoryId;
+                                planDetail.TargetCategoryId = aircraftBusiness.ImportCategoryId;
+                                planDetail.SeatingCapacity = aircraftBusiness.SeatingCapacity;
+                                planDetail.CarryingCapacity = aircraftBusiness.CarryingCapacity;
+                                planDetail.AircraftId = aircraft.AircraftId;
+                            }
+                        }
+                    }
                 }
                 planDetail.PlanAircraftId = planAircraft.Id;
             }
@@ -446,7 +480,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
             //planDetail.PlanAircraft.Status = (int)ManageStatus.Operation;
             //// 刷新计划完成状态
             //RaisePropertyChanged(() => planDetail.CompleteStatus);
-            
+
             //return planDetail.PlanAircraft.Aircraft;
             return null;
         }

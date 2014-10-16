@@ -159,14 +159,15 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// </summary>
         /// <param name="plan">计划</param>
         /// <param name="planAircraft">计划飞机</param>
+        /// <param name="aircraft">计划飞机</param>
         /// <param name="actionType">活动类型</param>
         /// <param name="planType">判断是否运营\变更计划</param>
         /// <returns></returns>
-        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType, int planType)
+        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan,ref PlanAircraftDTO planAircraft,AircraftDTO aircraft, string actionType, int planType)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreatePlanHistory(plan, planAircraft, actionType, planType, this);
+                return pb.CreatePlanHistory(plan,ref planAircraft,aircraft,actionType, planType, this);
             }
         }
 

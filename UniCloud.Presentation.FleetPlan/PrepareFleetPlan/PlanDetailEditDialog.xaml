@@ -68,20 +68,20 @@
                        VerticalAlignment="Center" />
             <TextBlock Grid.Row="0"
                        HorizontalAlignment="Left"
-                       Text="{Binding PlanDetail.RegNumber}"
+                       Text="{Binding EditPlanHistory.RegNumber}"
                        Grid.Column="1" />
             <TextBlock Text="管理状态"
                        Grid.Row="0"
                        Grid.Column="2" />
             <TextBlock HorizontalAlignment="Left"
-                       Text="{Binding PlanDetail.ManaStatus}"
+                       Text="{Binding EditPlanHistory.ManaStatus}"
                        Grid.Row="0"
                        Grid.Column="3" />
             <TextBlock Text="航空公司"
                        Grid.Row="1"
                        Grid.Column="0" />
             <TextBlock HorizontalAlignment="Left"
-                       Text="{Binding PlanDetail.AirlinesName}"
+                       Text="{Binding EditPlanHistory.AirlinesName}"
                        Grid.Row="1"
                        Grid.Column="1" />
             <TextBlock Text="活动类别"
@@ -89,29 +89,29 @@
                        Grid.Column="2" />
             <telerik:RadComboBox Grid.Row="1"
                                  Grid.Column="3"
-                                 ItemsSource="{Binding PlanDetail.ActionCategories}"
+                                 ItemsSource="{Binding EditPlanHistory.ActionCategories}"
                                  DisplayMemberPath="ActionCategoryOperation"
                                  SelectedValuePath="Id"
-                                 SelectedValue="{Binding PlanDetail.ActionCategoryId,Mode=TwoWay}" />
+                                 SelectedValue="{Binding EditPlanHistory.ActionCategoryId,Mode=TwoWay}" />
             <TextBlock Text="座级"
                      Grid.Row="2"
                      Grid.Column="0" />
             <telerik:RadComboBox Grid.Row="2"
                                  Grid.Column="1"
-                                 ItemsSource="{Binding PlanDetail.AircraftCategories}"
+                                 ItemsSource="{Binding EditPlanHistory.AircraftCategories}"
                                  DisplayMemberPath="Regional"
                                  SelectedValuePath="Regional"
                                  IsEnabled="{Binding IsAicraftTypeAndRegionalChangeable}"
-                                 SelectedValue="{Binding PlanDetail.Regional, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
+                                 SelectedValue="{Binding EditPlanHistory.Regional, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
             <TextBlock Text="机型"
                        Grid.Column="2"
                        Grid.Row="2" />
             <telerik:RadComboBox Grid.Row="2"
                                  Grid.Column="3"
-                                 ItemsSource="{Binding PlanDetail.AircraftTypes}"
+                                 ItemsSource="{Binding EditPlanHistory.AircraftTypes}"
                                  DisplayMemberPath="Name"
                                  SelectedValuePath="Id"
-                                 SelectedValue="{Binding PlanDetail.AircraftTypeId,Mode=TwoWay}" />
+                                 SelectedValue="{Binding EditPlanHistory.AircraftTypeId,Mode=TwoWay}" />
             <TextBlock Text="执行年度"
                        Grid.Row="3"
                        Grid.Column="0" />
@@ -120,29 +120,29 @@
                                  ItemsSource="{Binding Annuals}"
                                  DisplayMemberPath="Year"
                                  SelectedValuePath="Id"
-                                 SelectedValue="{Binding PlanDetail.PerformAnnualId,Mode=TwoWay}" />
+                                 SelectedValue="{Binding EditPlanHistory.PerformAnnualId,Mode=TwoWay}" />
             <TextBlock Grid.Row="3"
                        Text="执行月份"
                        Grid.Column="2" />
             <telerik:RadComboBox Grid.Row="3"
                                  Grid.Column="3"
                                  ItemsSource="{Binding Months}"
-                                 SelectedValue="{Binding PlanDetail.PerformMonth, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
+                                 SelectedValue="{Binding EditPlanHistory.PerformMonth, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
             <TextBlock Text="净增座位"
                        Grid.Row="4"
                        Grid.Column="0" />
             <TextBox Grid.Row="4"
                      Grid.Column="1"
-                     IsReadOnly="{Binding PlanDetail.IsOperationAndExportPlan}"
-                     Text="{Binding PlanDetail.SeatingCapacity, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
+                     IsReadOnly="{Binding EditPlanHistory.IsOperationAndExportPlan}"
+                     Text="{Binding EditPlanHistory.SeatingCapacity, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
             <TextBlock Grid.Row="4"
                        Text="净增商载"
                        Grid.Column="2" />
             <TextBox Grid.Row="4"
                      Grid.Column="3"
-                     IsReadOnly="{Binding PlanDetail.IsOperationAndExportPlan}"
-                     Text="{Binding PlanDetail.CarryingCapacity, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
-            <telerik:RadWatermarkTextBox Text="{Binding PlanDetail.Note, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                     IsReadOnly="{Binding EditPlanHistory.IsOperationAndExportPlan}"
+                     Text="{Binding EditPlanHistory.CarryingCapacity, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
+            <telerik:RadWatermarkTextBox Text="{Binding EditPlanHistory.Note, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
                                          Grid.Row="5"
                                          Grid.Column="0"
                                          Grid.ColumnSpan="4"
@@ -165,7 +165,7 @@
                                Margin="8 0"
                                VerticalAlignment="Center"
                                Command="{Binding OkCommand}"
-                               CommandParameter="{Binding PlanDetail}">
+                               CommandParameter="{Binding EditPlanHistory}">
                 <StackPanel Orientation="Horizontal">
                     <Path Width="15.5"
                           Height="12.3319997787476"
@@ -185,7 +185,7 @@
                                Margin="0 0 10 0"
                                VerticalAlignment="Center"
                                Command="{Binding CancelCommand}"
-                               CommandParameter="{Binding PlanDetail}">
+                               CommandParameter="{Binding EditPlanHistory}">
                 <StackPanel Orientation="Horizontal">
                     <Path Width="14"
                           Height="14"

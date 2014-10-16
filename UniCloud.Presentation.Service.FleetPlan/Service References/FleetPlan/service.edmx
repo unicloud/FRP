@@ -343,6 +343,7 @@
         <Property Name="AirlinesName" Type="Edm.String" />
         <Property Name="AircraftTypeName" Type="Edm.String" />
         <Property Name="Regional" Type="Edm.String" />
+        <Property Name="Category" Type="Edm.String" />
         <Property Name="ActionType" Type="Edm.String" />
         <Property Name="ActionName" Type="Edm.String" />
         <Property Name="TargetType" Type="Edm.String" />
@@ -365,6 +366,7 @@
         <Property Name="PaIsLock" Type="Edm.Boolean" Nullable="false" />
         <Property Name="RegNumber" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" />
+        <Property Name="AircraftImportCategoryId" Type="Edm.Guid" />
       </ComplexType>
       <EntityType Name="PlanAircraftDTO">
         <Key>

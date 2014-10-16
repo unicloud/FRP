@@ -120,7 +120,7 @@
                                             <ei:CallMethodAction TargetObject="{Binding}"
                                                                  MethodName="GridViewSelectionChanged" />
                                         </i:EventTrigger>
-                                        <i:EventTrigger EventName="CellEditEnded">
+                                        <i:EventTrigger EventName="CurrentCellChanged">
                                             <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
                                                                    CommandParameter="{Binding ElementName=PlanLay}" />
                                         </i:EventTrigger>
@@ -132,10 +132,10 @@
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=PlanHistories, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=PlanHistories, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
@@ -235,7 +235,7 @@
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="True"
-                                                     ItemsSource="{Binding ViewPlanAircrafts,Mode=TwoWay}"
+                                                     ItemsSource="{Binding PlanAircrafts,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelPlanAircraft,Mode=TwoWay}"
                                                      IsBusy="{Binding PlanAircrafts.IsBusy}">
                                     <i:Interaction.Triggers>

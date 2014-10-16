@@ -80,6 +80,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public string Regional { get; set; }
 
         /// <summary>
+        /// 座级类型
+        /// </summary>
+        public string Category { get; set; }
+
+        /// <summary>
         /// 活动类型
         /// </summary>
         public string ActionType { get; set; }
@@ -202,6 +207,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// 飞机id（取自关联的计划飞机带的飞机外键）
         /// </summary>
         public Guid? AircraftId { get; set; }
+
+        /// <summary>
+        /// 飞机的引进方式（取自关联的计划飞机带的飞机实际的引进方式）
+        /// </summary>
+        public Guid? AircraftImportCategoryId { get; set; }
         #endregion
     }
 }
