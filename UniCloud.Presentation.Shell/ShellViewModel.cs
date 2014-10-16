@@ -326,6 +326,7 @@ namespace UniCloud.Presentation.Shell
             var menu244 = new MenuItem
             {
                 Text = "查询批文",
+                NavUri = "UniCloud.Presentation.FleetPlan.Approvals.QueryApproval"
             };
 
             menu24.Items.Add(menu241);

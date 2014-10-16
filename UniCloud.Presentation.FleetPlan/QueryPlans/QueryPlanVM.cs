@@ -87,8 +87,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
             PlansView = _service.CreateCollection(_context.Plans);
             _service.RegisterCollectionView(PlansView);
             PlansView.PageSize = 20;
+            SetIsBusy();
             PlansView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -155,8 +157,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
         {
             ComparePlansView = _service.CreateCollection(_context.Plans);
             ComparePlansView.PageSize = 20;
+            SetIsBusy();
             ComparePlansView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -346,6 +350,17 @@ namespace UniCloud.Presentation.FleetPlan.QueryPlans
             {
                 PlansView.Load(true);
             }
+        }
+
+        protected override void SetIsBusy()
+        {
+            if (PlansView == null || ComparePlansView==null)
+            {
+                IsBusy = true;
+                return;
+                
+            }
+            IsBusy = PlansView.IsBusy || ComparePlansView.IsBusy;
         }
 
         #endregion

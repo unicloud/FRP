@@ -33,5 +33,16 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
         /// <returns>运力增减计划DTO集合</returns>
         IQueryable<PlanDTO> PlanDTOQuery(
             QueryBuilder<Plan> query);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="planHistoryId"></param>
+        /// <param name="approvalHistoryId"></param>
+        /// <param name="planType"></param>
+        /// <param name="relatedGuid"></param>
+        /// <returns></returns>
+        PerformPlan PerformPlanQuery(string planHistoryId, string approvalHistoryId, int planType, string relatedGuid);
+
     }
 }

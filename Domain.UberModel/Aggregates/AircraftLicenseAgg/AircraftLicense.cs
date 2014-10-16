@@ -79,7 +79,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftLicenseAgg
         /// <summary>
         /// 证照扫描件
         /// </summary>
-        public Guid DocumentId { get; internal set; }
+        public byte[] FileContent { get; internal set; }
 
         /// <summary>
         /// 扫描件名字

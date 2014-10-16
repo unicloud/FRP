@@ -4,24 +4,22 @@ using System.ComponentModel.Composition;
 
 #endregion
 
-namespace UniCloud.Presentation.FleetPlan.Requests
+namespace UniCloud.Presentation.FleetPlan.Approvals
 {
-    [Export(typeof (Request))]
+    [Export(typeof(QueryApproval))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class Request
+    public partial class QueryApproval
     {
-        public Request()
+        public QueryApproval()
         {
             InitializeComponent();
         }
 
         [Import]
-        public RequestVM ViewModel
+        public QueryApprovalVM ViewModel
         {
-            get { return DataContext as RequestVM; }
+            get { return DataContext as QueryApprovalVM; }
             set { DataContext = value; }
         }
-
-     
     }
 }

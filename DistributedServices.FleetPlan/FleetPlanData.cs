@@ -362,6 +362,17 @@ namespace UniCloud.DistributedServices.FleetPlan
             get { return _requestAppService.GetRequests(); }
         }
 
+        /// <summary>
+        /// 获取带有申请的批文
+        /// </summary>
+        public IQueryable<ApprovalRequestDTO> ApprovalRequests
+        {
+            get
+            {
+                return _requestAppService.GetApprovalRequests();
+            }
+        }
+
         #endregion
 
         #region 供应商

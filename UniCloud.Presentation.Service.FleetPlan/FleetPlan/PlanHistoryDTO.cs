@@ -27,7 +27,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
     {
         static readonly FleetPlanService FleetPlanService = new FleetPlanService();
 
-        #region 属性
+
 
         #region 控制只读属性
 
@@ -101,32 +101,32 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         #region 只读逻辑
 
-        public bool IsPlanChecked
+        internal bool IsPlanChecked
         {
             get { return this.PlanCheckedCondition; }
         }
 
-        public bool IsPlanCheckedOrLock
+        internal bool IsPlanCheckedOrLock
         {
             get { return this.PlanCheckedCondition || this.LockCondition; }
         }
 
-        public bool IsPlanCheckedOrOnlyAirlines
+        internal bool IsPlanCheckedOrOnlyAirlines
         {
             get { return this.PlanCheckedCondition || this.OnlyAirlinesCondition; }
         }
 
-        public bool IsPlanCheckedOrOperation
+        internal bool IsPlanCheckedOrOperation
         {
             get { return this.PlanCheckedCondition || this.OperationCondition; }
         }
 
-        public bool IsManageRequestOrPlanSubmitted
+        internal bool IsManageRequestOrPlanSubmitted
         {
             get { return this.ManageRequestCondition; }
         }
 
-        public bool IsOperationAndExportPlan
+        internal bool IsOperationAndExportPlan
         {
             get { return this.OperationCondition && this.ExportPlanCondition; }
         }
@@ -135,12 +135,12 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         #region 可用逻辑
 
-        public bool IsAirlineEnabled
+        internal bool IsAirlineEnabled
         {
             get { return !this.IsPlanCheckedOrOperation; }
         }
 
-        public bool IsNotOperationOrChangePlan
+        internal bool IsNotOperationOrChangePlan
         {
             get { return !this.OperationCondition || ChangePlanCondition; }
         }
@@ -159,6 +159,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             get { return (ManageStatus)ManageStatus; }
         }
 
+        private CanRequest _canRequest;
+
         /// <summary>
         /// 能否提出申请
         /// 1、可申请
@@ -166,20 +168,13 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 3、已申请
         /// 4、无需申请
         /// </summary>
-        public CanRequest CanRequest
+        internal CanRequest CanRequest
         {
             get
             {
-                if (ActionCategoryId != Guid.Empty && NeedRequest)
-                {
-                    if (ManageStatus > (int)Enums.ManageStatus.计划) return CanRequest.已申请;
-                    return (this.IsSubmit /* TODO && this.Plan.Status == (int) OperationStatus.已提交*/)
-                        ? CanRequest.可申请
-                        : CanRequest.未报计划;
+                return _canRequest;
                 }
-                return CanRequest.无需申请;
             }
-        }
 
 
         /// <summary>
@@ -324,8 +319,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             get { return FleetPlanService.GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().ToList(); }
             private set
             {
-                
-            }
+
+        }
         }
 
         /// <summary>
@@ -344,9 +339,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
             }
         }
-
         /// <summary>
-        /// 操作集合，用于属性绑定
+        /// 计划历史比较状态
         /// </summary>
         internal IEnumerable<ActionCategoryDTO> ActionCategories
         {
@@ -477,9 +471,35 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             else AircraftTypes = FleetPlanService.GetAircraftTypes(null);
         }
 
+        /// <summary>
+        /// 复制一份新的计划历史
+        /// </summary>
+        /// <returns></returns>
         public PlanHistoryDTO Clone()
         {
             return MemberwiseClone() as PlanHistoryDTO;
+        }
+
+        /// <summary>
+        /// 刷新是否申请状态
+        /// </summary>
+        /// <param name="plan"></param>
+        public void  RefrashCanRequest(PlanDTO plan)
+        {
+            if (ActionCategoryId != Guid.Empty && NeedRequest)
+            {
+                if (ManageStatus > (int)Enums.ManageStatus.计划) _canRequest= CanRequest.已申请;
+                else
+                    _canRequest = (this.IsSubmit && plan.Status == (int)OperationStatus.已提交)
+                    ? CanRequest.可申请
+                    : CanRequest.未报计划;
+            }
+            else
+            {
+                _canRequest = CanRequest.无需申请;
+            }
+            OnPropertyChanged("CanRequest");
+          
         }
         #endregion
     }

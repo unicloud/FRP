@@ -34,5 +34,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
         /// </summary>
         /// <returns></returns>
         IQueryable<PlanDTO> GetPlans();
+
+        PerformPlan PerformPlanQuery(string planHistoryId, string approvalHistoryId, int planType, string relatedGuid);
+
     }
 }

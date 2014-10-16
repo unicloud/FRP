@@ -18,6 +18,7 @@
             <uc:RequestStatusConvert x:Key="RequestStatusConvert"></uc:RequestStatusConvert>
         </ResourceDictionary>
     </UserControl.Resources>
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="">
     <Grid Background="White">
         <telerik:RadDocking BorderThickness="0"
                             Padding="0"
@@ -42,7 +43,7 @@
                                                     Margin="0 0 0 -1">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding RequestsView}">
+                                                      >
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
@@ -50,7 +51,7 @@
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding RequestsView}">
+                                                       >
                                         <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
@@ -102,7 +103,6 @@
                                                          RowDetailsVisibilityMode="VisibleWhenSelected"
                                                          FontSize="{StaticResource TextFontSize}"
                                                          ItemsSource="{Binding RequestsView}"
-                                                         IsBusy="{Binding RequestsView.IsBusy}"
                                                          SelectedItem="{Binding SelectedRequest,Mode=TwoWay}"
                                                          ValidatesOnDataErrors="InEditMode">
                                         <telerik:RadGridView.Columns>
@@ -224,7 +224,6 @@
                                                  CanUserFreezeColumns="False"
                                                  ShowGroupPanel="True"
                                                  IsReadOnly="{Binding RequestReadOnly}"
-                                                 IsBusy="{Binding RequestsView.IsBusy}"
                                                  ItemsSource="{Binding SelectedRequest.ApprovalHistories}"
                                                  SelectedItem="{Binding SelectedApprovalHistory,Mode=TwoWay}"
                                                  AutoGenerateColumns="False"
@@ -322,18 +321,26 @@
                                          ContextMenuTemplate="{x:Null}">
                             <telerik:RadGridView x:Name="PlanDetail"
                                                  ItemsSource="{Binding SelectedPlan.PlanHistories}"
-                                                 IsBusy="{Binding PlansView.IsBusy}"
                                                  SelectedItem="{Binding SelectedPlanHistory,Mode=TwoWay}"
                                                  AutoGenerateColumns="False"
-                                                 ShowGroupPanel="True"
+                                                 ShowGroupPanel="False"
                                                  IsFilteringAllowed="True"
                                                  IsReadOnly="True"
-                                                 CanUserSortColumns="True"
+                                                 CanUserSortColumns="False"
                                                  CanUserFreezeColumns="False"
                                                  RowIndicatorVisibility="Visible"
                                                  AutoExpandGroups="True"
-                                                 RowStyle="{StaticResource DraggedRowStyle}">
-                                <uc:GridViewDoubleClick.Helper>
+                                                 RowStyle="{StaticResource DraggedRowStyle}"
+                                                 >
+                                    <telerik:RadGridView.GroupDescriptors>
+                                        <telerik:GroupDescriptor Member="CanRequest"
+                                                SortDirection="Ascending">
+                                            <telerik:GroupDescriptor.AggregateFunctions>
+                                                <telerik:CountFunction Caption="总计：" />
+                                            </telerik:GroupDescriptor.AggregateFunctions>
+                                        </telerik:GroupDescriptor>
+                                    </telerik:RadGridView.GroupDescriptors>
+                                    <uc:GridViewDoubleClick.Helper>
                                     <uc:RequestPlanDoubleClickHelper />
                                 </uc:GridViewDoubleClick.Helper>
                                 <telerik:GridViewDragDrop.Behavior>
@@ -390,4 +397,5 @@
             </telerik:RadSplitContainer>
         </telerik:RadDocking>
     </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

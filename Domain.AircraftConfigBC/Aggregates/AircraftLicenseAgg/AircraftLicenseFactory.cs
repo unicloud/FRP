@@ -38,6 +38,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg
         /// </summary>
         /// <param name="aircraftLicense">当前飞机证照</param>
         /// <param name="name">名字</param>
+        /// <param name="licenseTypeId">证照种类</param>
         /// <param name="description">描述</param>
         /// <param name="issuedUnit">发证单位</param>
         /// <param name="issuedDate">发证日期</param>
@@ -45,11 +46,12 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg
         /// <param name="expireDate">到证日期</param>
         /// <param name="state">状态</param>
         /// <param name="fileName">扫描件名字</param>
-        /// <param name="documentId">证照扫描件</param>
-        public static void SetAircraftLicense(AircraftLicense aircraftLicense, string name, string description, string issuedUnit,
-            DateTime issuedDate, int validMonths, DateTime expireDate, int state, string fileName, Guid documentId)
+        /// <param name="fileContent">证照扫描件</param>
+        public static void SetAircraftLicense(AircraftLicense aircraftLicense, string name,int licenseTypeId, string description, string issuedUnit,
+            DateTime issuedDate, int validMonths, DateTime expireDate, int state, string fileName, byte[] fileContent)
         {
             aircraftLicense.Name = name;
+            aircraftLicense.LicenseTypeId = licenseTypeId;
             aircraftLicense.Description = description;
             aircraftLicense.IssuedUnit = issuedUnit;
             aircraftLicense.IssuedDate = issuedDate;
@@ -57,7 +59,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg
             aircraftLicense.ExpireDate = expireDate;
             aircraftLicense.State = (LicenseStatus)state;
             aircraftLicense.FileName = fileName;
-            aircraftLicense.DocumentId = documentId;
+            aircraftLicense.FileContent = fileContent;
         }
     }
 }

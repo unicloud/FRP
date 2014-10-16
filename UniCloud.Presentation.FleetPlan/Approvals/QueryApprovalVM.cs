@@ -4,8 +4,8 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：陈春勇 时间：2014/01/09，20:01
-// 文件名：QueryRequestVM.cs
+// 作者：陈春勇 时间：2014/01/19，16:01
+// 文件名：QueryApprovalVM.cs
 // 程序集：UniCloud.Presentation.FleetPlan
 // 版本：V1.0.0
 //
@@ -17,23 +17,20 @@
 
 #region 命名空间
 
-using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 #endregion
 
-namespace UniCloud.Presentation.FleetPlan.Requests
+namespace UniCloud.Presentation.FleetPlan.Approvals
 {
-    [Export(typeof (QueryRequestVM))]
+    [Export(typeof (QueryApprovalVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class QueryRequestVM : UniCloud.Presentation.MVVM.ViewModelBase
+    public class QueryApprovalVM : ViewModelBase
     {
         private readonly FleetPlanData _context;
         private readonly IFleetPlanService _service;
@@ -42,22 +39,22 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public QueryRequestVM(IFleetPlanService service)
+        public QueryApprovalVM(IFleetPlanService service)
             : base(service)
         {
             _service = service;
             _context = _service.Context;
-            InitialRequest();//初始化申请
+            InitialRequest(); //初始化申请
         }
 
         #region 加载申请
 
-        private RequestDTO _selectedRequest;
+        private ApprovalRequestDTO _selectedRequest;
 
         /// <summary>
         ///     选择申请。
         /// </summary>
-        public RequestDTO SelectedRequest
+        public ApprovalRequestDTO SelectedRequest
         {
             get { return _selectedRequest; }
             set
@@ -73,14 +70,14 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// <summary>
         ///     获取所有申请信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<RequestDTO> RequestsView { get; set; }
+        public QueryableDataServiceCollectionView<ApprovalRequestDTO> RequestsView { get; set; }
 
         /// <summary>
         ///     初始化申请信息。
         /// </summary>
         private void InitialRequest()
         {
-            RequestsView = _service.CreateCollection(_context.Requests);
+            RequestsView = _service.CreateCollection(_context.ApprovalRequests);
             _service.RegisterCollectionView(RequestsView);
             RequestsView.PageSize = 20;
             RequestsView.LoadedData += (sender, e) =>
@@ -93,7 +90,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 }
                 if (SelectedRequest == null)
                 {
-                    SelectedRequest = e.Entities.Cast<RequestDTO>().FirstOrDefault();
+                    SelectedRequest = e.Entities.Cast<ApprovalRequestDTO>().FirstOrDefault();
                 }
             };
         }
@@ -104,7 +101,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         public override void LoadData()
         {
-            //加载申请
             if (!RequestsView.AutoLoad)
             {
                 RequestsView.AutoLoad = true;

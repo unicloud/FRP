@@ -1,0 +1,199 @@
+﻿<telerik:RadWindow x:Class="UniCloud.Presentation.FleetPlan.PerformFleetPlan.OperationChild"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+                   mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
+                   WindowStartupLocation="CenterScreen"
+                   Height="400" Width="800"
+                   ResizeMode="NoResize"
+                   Header="申请历史/批文历史/商业数据"
+                    d:DataContext="{d:DesignInstance uc:OperationChildVM}"
+                >
+    <telerik:RadWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </telerik:RadWindow.Resources>
+    <telerik:RadBusyIndicator IsBusy="{Binding OperationIsBusy}"
+                              BusyContent="">
+    <Grid x:Name="LayoutRoot">
+      <telerik:RadTabControl>
+          <telerik:RadTabItem Header="申请历史">
+                    <telerik:RadGridView x:Name="RequestDetail"
+                                                 IsFilteringAllowed="False"
+                                                 RowIndicatorVisibility="Visible"
+                                                 CanUserSortColumns="True"
+                                                 CanUserFreezeColumns="False"
+                                                 ShowGroupPanel="False"
+                                                 IsReadOnly="True"
+                                                 ItemsSource="{Binding ApprovalHistories}"
+                                                 AutoGenerateColumns="False"
+                                                 ShowColumnFooters="True">
+                        <telerik:RadGridView.Columns>
+                            <uc:DataPageSerialColumn Header="序号" />
+                            <telerik:GridViewDataColumn Header="座级"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                IsReadOnly="True"
+                                                                DataMemberBinding="{Binding AircraftRegional}" />
+                            <telerik:GridViewDataColumn Header="机型"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                IsReadOnly="True"
+                                                                DataMemberBinding="{Binding AircraftType}" />
+                            <telerik:GridViewDataColumn Header="引进方式"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                IsReadOnly="True"
+                                                                DataMemberBinding="{Binding ImportCategoryName}" />
+                            <telerik:GridViewDataColumn Header="座位"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding SeatingCapacity}" />
+                            <telerik:GridViewDataColumn Header="商载（吨）"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding CarryingCapacity}" />
+                            <telerik:GridViewDataColumn Header="商载（吨）"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding CarryingCapacity}" />
+                            <telerik:GridViewExpressionColumn Header="执行时间"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                Expression="(RequestDeliverAnnualName+'/'+RequestDeliverMonth)"
+                                                                />
+                            <telerik:GridViewDataColumn Header="备注"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding Note}" />
+                        </telerik:RadGridView.Columns>
+                    </telerik:RadGridView>
+                </telerik:RadTabItem>
+                <telerik:RadTabItem Header="运营历史">
+                    <telerik:RadGridView x:Name="OperationHistory"
+                                                     
+                                                     AutoExpandGroups="True"
+                                                     ShowGroupPanel="False"
+                                                     AutoGenerateColumns="False"
+                                                     CanUserSortColumns="True"
+                                                     CanUserFreezeColumns="False"
+                                                     RowIndicatorVisibility="Collapsed"
+                                                     CanUserResizeColumns="False"
+                                                     IsFilteringAllowed="False"
+                                                     IsReadOnly="True"
+                                                     ItemsSource="{Binding OperationHistories,Mode=TwoWay}"
+                                                     >
+                        <telerik:RadGridView.Columns>
+                            <uc:DataPageSerialColumn Header="序号"
+                                                                    HeaderTextAlignment="Center" />
+                            <telerik:GridViewDataColumn Header="引进方式"
+                                                       MinWidth="{StaticResource GridViewColumnsWidth}" 
+                                                       DataMemberBinding="{Binding ImportActionName}">
+                            </telerik:GridViewDataColumn>
+                            <telerik:GridViewDataColumn Header="机号"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding RegNumber}" />
+                            <telerik:GridViewDataColumn Header="技术接收日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding TechReceiptDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
+                            <telerik:GridViewDataColumn Header="接收日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding ReceiptDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
+                            <telerik:GridViewDataColumn Header="开始日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding StartDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
+                            <telerik:GridViewDataColumn Header="起租日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding OnHireDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
+                            <telerik:GridViewDataColumn Header="退出方式"
+                                                       MinWidth="{StaticResource GridViewColumnsWidth}" 
+                                                       DataMemberBinding="{Binding ExportCategoryName}">
+                            </telerik:GridViewDataColumn>
+                            <telerik:GridViewDataColumn Header="退出停场日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding StopDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
+                            <telerik:GridViewDataColumn Header="技术交付日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding TechDeliveryDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
+                            <telerik:GridViewDataColumn Header="结束日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding EndDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
+                            <telerik:GridViewDataColumn Header="状态"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding Status}" />
+                            <telerik:GridViewDataColumn Header="备注"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Note}" />
+                        </telerik:RadGridView.Columns>
+                    </telerik:RadGridView>
+
+                </telerik:RadTabItem>
+                <telerik:RadTabItem Header="商业数据">
+                    <telerik:RadGridView x:Name="AircraftBusiness"
+                                                     ShowGroupPanel="False"
+                                                     AutoExpandGroups="True"
+                                                     IsReadOnly="True"
+                                                     CanUserFreezeColumns="False"
+                                                     RowIndicatorVisibility="Collapsed"
+                                                     CanUserResizeColumns="False"
+                                                     IsFilteringAllowed="False"
+                                                     ItemsSource="{Binding AircraftBusiness}"
+                                                     AutoGenerateColumns="False"
+                                                     ShowColumnFooters="True">
+                        <telerik:RadGridView.Columns>
+                            <uc:DataPageSerialColumn Header="序号"
+                                                                    HeaderTextAlignment="Center" />
+                            <telerik:GridViewDataColumn Header="座级"
+                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                        DataMemberBinding="{Binding Regional}"
+                                                        ></telerik:GridViewDataColumn>
+                            <telerik:GridViewDataColumn Header="机型"
+                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                        DataMemberBinding="{Binding AircraftTypeName}"
+                                                        ></telerik:GridViewDataColumn>
+                            <telerik:GridViewDataColumn Header="引进方式"
+                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                        DataMemberBinding="{Binding ImportCategoryName}"
+                                                        ></telerik:GridViewDataColumn>
+                            <telerik:GridViewDataColumn Header="座位"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding SeatingCapacity}" />
+                            <telerik:GridViewDataColumn Header="商载（吨）"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding CarryingCapacity}" />
+                            <telerik:GridViewDataColumn Header="开始日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding StartDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
+                            <telerik:GridViewDataColumn Header="结束日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding EndDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
+                            <telerik:GridViewDataColumn Header="状态"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding Status}" />
+                        </telerik:RadGridView.Columns>
+                    </telerik:RadGridView>
+
+                </telerik:RadTabItem>
+
+            </telerik:RadTabControl>
+    </Grid>
+    </telerik:RadBusyIndicator>
+</telerik:RadWindow>

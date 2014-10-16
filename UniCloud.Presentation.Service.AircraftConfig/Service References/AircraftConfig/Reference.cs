@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/1/16 18:21:57
+// 生成日期: 2014/1/17 13:50:18
 namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
 {
     
@@ -294,7 +294,7 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
                 "roperty Name=\"IssuedDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=" +
                 "\"ValidMonths\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ExpireDate\" Ty" +
                 "pe=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"State\" Type=\"Edm.Int32\" Nul" +
-                "lable=\"false\" /><Property Name=\"LicenseFile\" Type=\"Edm.Binary\" /><Property Name=" +
+                "lable=\"false\" /><Property Name=\"FileContent\" Type=\"Edm.Binary\" /><Property Name=" +
                 "\"FileName\" Type=\"Edm.String\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nulla" +
                 "ble=\"false\" /><Property Name=\"LicenseTypeId\" Type=\"Edm.Int32\" Nullable=\"false\" /" +
                 "></ComplexType></Schema><Schema Namespace=\"UniCloud.DistributedServices.Aircraft" +
@@ -1368,16 +1368,16 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         partial void OnStateChanging(int value);
         partial void OnStateChanged();
         /// <summary>
-        /// 架构中不存在属性 LicenseFile 的注释。
+        /// 架构中不存在属性 FileContent 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public byte[] LicenseFile
+        public byte[] FileContent
         {
             get
             {
-                if ((this._LicenseFile != null))
+                if ((this._FileContent != null))
                 {
-                    return ((byte[])(this._LicenseFile.Clone()));
+                    return ((byte[])(this._FileContent.Clone()));
                 }
                 else
                 {
@@ -1386,16 +1386,16 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
             }
             set
             {
-                this.OnLicenseFileChanging(value);
-                this._LicenseFile = value;
-                this.OnLicenseFileChanged();
-                this.OnPropertyChanged("LicenseFile");
+                this.OnFileContentChanging(value);
+                this._FileContent = value;
+                this.OnFileContentChanged();
+                this.OnPropertyChanged("FileContent");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private byte[] _LicenseFile;
-        partial void OnLicenseFileChanging(byte[] value);
-        partial void OnLicenseFileChanged();
+        private byte[] _FileContent;
+        partial void OnFileContentChanging(byte[] value);
+        partial void OnFileContentChanged();
         /// <summary>
         /// 架构中不存在属性 FileName 的注释。
         /// </summary>

@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class database : DbMigration
+    public partial class Initializer : DbMigration
     {
         public override void Up()
         {
@@ -40,8 +40,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         ValidMonths = c.Int(nullable: false),
                         ExpireDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         State = c.Int(nullable: false),
-                        DocumentId = c.Guid(nullable: false),
-                        FileName = c.String(),
+                        LicenseFile = c.Binary(),
                         AircraftId = c.Guid(nullable: false),
                         LicenseTypeId = c.Int(nullable: false),
                     })

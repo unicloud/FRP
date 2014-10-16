@@ -18,6 +18,7 @@
             <uc:RequestStatusConvert x:Key="RequestStatusConvert" />
         </ResourceDictionary>
     </UserControl.Resources>
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="">
     <Grid Background="White">
         <telerik:RadDocking BorderThickness="0" Padding="0" Margin="5" HasDocumentHost="False">
             <telerik:RadSplitContainer Orientation="Vertical">
@@ -94,7 +95,6 @@
                                                          EditTriggers="CellClick"
                                                          CanUserFreezeColumns="False"
                                                          IsReadOnly="{Binding ApprovalDocReadOnly}"
-                                                         IsBusy="{Binding ApprovalDocsView.IsBusy}"
                                                          SelectedItem="{Binding SelectedApprovalDoc, Mode=TwoWay}">
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号" />
@@ -155,7 +155,6 @@
                                                  CanUserFreezeColumns="False"
                                                  AutoExpandGroups="True"
                                                  IsReadOnly="True"
-                                                 IsBusy="{Binding RequestsView.IsBusy}"
                                                  SelectedItem="{Binding SelectedEnRouteRequest,Mode=TwoWay}"
                                                  RowStyle="{StaticResource DraggedRowStyle}">
                                 <uc:GridViewDoubleClick.Helper>
@@ -175,13 +174,13 @@
                                         </StackPanel>
                                     </DataTemplate>
                                 </telerik:RadGridView.Resources>
-                                <telerik:RadGridView.GroupDescriptors>
+                                <!--<telerik:RadGridView.GroupDescriptors>
                                     <telerik:GroupDescriptor Member="RequestStatus" SortDirection="Ascending">
                                         <telerik:GroupDescriptor.AggregateFunctions>
                                             <telerik:CountFunction ResultFormatString="小计：{0}项" />
                                         </telerik:GroupDescriptor.AggregateFunctions>
                                     </telerik:GroupDescriptor>
-                                </telerik:RadGridView.GroupDescriptors>
+                                </telerik:RadGridView.GroupDescriptors>-->
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号" />
                                     <telerik:GridViewDataColumn Header="申请标题"
@@ -289,7 +288,6 @@
                                                  ShowGroupPanel="False"
                                                  IsReadOnly="True" 
                                                  CanUserFreezeColumns="False"
-                                                 IsBusy="{Binding RequestsView.IsBusy}"
                                                  SelectedItem="{Binding SelectedRequest, Mode=TwoWay}"
                                                  RowStyle="{StaticResource DraggedRowStyle}">
                                 <uc:GridViewDoubleClick.Helper>
@@ -408,7 +406,6 @@
                                          ContextMenuTemplate="{x:Null}">
                             <telerik:RadGridView x:Name="ApprovalHistory"
                                                  ItemsSource="{Binding SelectedRequest.ApprovalHistories}"
-                                                 IsBusy="{Binding RequestsView.IsBusy}"
                                                  IsReadOnly="{Binding ApprovalDocReadOnly}"
                                                  CanUserFreezeColumns="False"
                                                  ShowGroupPanel="False" Margin="3,-4,-3,4">
@@ -459,4 +456,5 @@
             </telerik:RadSplitContainer>
         </telerik:RadDocking>
     </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

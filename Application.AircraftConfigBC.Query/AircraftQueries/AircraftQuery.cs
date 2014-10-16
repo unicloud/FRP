@@ -70,7 +70,7 @@ namespace UniCloud.Application.AircraftConfigBC.Query.AircraftQueries
                                                                               ExpireDate = q.ExpireDate,
                                                                               IssuedDate = q.IssuedDate,
                                                                               IssuedUnit = q.IssuedUnit,
-                                                                              DocumentId = q.DocumentId,
+                                                                              FileContent = q.FileContent,
                                                                               FileName = q.FileName,
                                                                               LicenseTypeId = q.LicenseTypeId,
                                                                               ValidMonths = q.ValidMonths,
