@@ -27,7 +27,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
     {
         static readonly FleetPlanService FleetPlanService = new FleetPlanService();
 
-
+        #region 属性
 
         #region 控制只读属性
 
@@ -340,7 +340,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             }
         }
         /// <summary>
-        /// 计划历史比较状态
+        /// 操作集合，用于属性绑定
         /// </summary>
         internal IEnumerable<ActionCategoryDTO> ActionCategories
         {
