@@ -21,6 +21,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
+using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentTypeAgg;
 using UniCloud.Domain.CommonServiceBC.Aggregates.RelatedDocAgg;
 using UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork.Mapping.Sql;
 
@@ -35,21 +36,26 @@ namespace UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork
         private IDbSet<DocumentPath> _documentPaths;
         private IDbSet<Document> _documents;
         private IDbSet<RelatedDoc> _relatedDocs;
+        private IDbSet<DocumentType> _documentTypes;
         public IDbSet<Document> Documents
         {
-            get { return _documents ?? (_documents = base.Set<Document>()); }
+            get { return _documents ?? (_documents = Set<Document>()); }
         }
 
         public IDbSet<DocumentPath> DocumentPaths
         {
-            get { return _documentPaths ?? (_documentPaths = base.Set<DocumentPath>()); }
+            get { return _documentPaths ?? (_documentPaths = Set<DocumentPath>()); }
         }
 
         public IDbSet<RelatedDoc> RelatedDocs
         {
-            get { return _relatedDocs ?? (_relatedDocs = base.Set<RelatedDoc>()); }
+            get { return _relatedDocs ?? (_relatedDocs = Set<RelatedDoc>()); }
         }
 
+        public IDbSet<DocumentType> DouDocumentTypes
+        {
+            get { return _documentTypes ?? (_documentTypes = Set<DocumentType>()); }
+        }
         #endregion
 
         #region DbContext 重载
@@ -86,25 +92,25 @@ namespace UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork
         {
             modelBuilder.Configurations
 
-                #region DocumentAgg
+            #region DocumentAgg
 
-                .Add(new DocumentEntityConfiguration())
+.Add(new DocumentEntityConfiguration())
                 .Add(new OfficialDocumentEntityConfiguration())
                 .Add(new StandardDocumentEntityConfiguration())
+                .Add(new DocumentTypeEntityConfiguration())
+            #endregion
 
-                #endregion
+            #region DocumentPathAgg
 
-                #region DocumentPathAgg
+.Add(new DocumentPathEntityConfiguration())
 
-                .Add(new DocumentPathEntityConfiguration())
+            #endregion
 
-                #endregion
+            #region RelatedDocAgg
 
-                #region RelatedDocAgg
+.Add(new RelatedDocEntityConfiguration());
 
-                .Add(new RelatedDocEntityConfiguration());
-
-                #endregion
+            #endregion
         }
 
         #endregion

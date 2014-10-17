@@ -21,6 +21,7 @@ using UniCloud.Application.CommonServiceBC.DocumentServices;
 using UniCloud.Application.CommonServiceBC.Query.DocumentQueries;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
+using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentTypeAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.CommonServiceBC.Repositories;
 using UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork;
@@ -42,13 +43,14 @@ namespace UniCloud.DistributedServices.CommonService.InstanceProviders
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
             #region 文档相关配置，包括查询，应用服务，仓储注册
-                         .RegisterType<IDocumentAppService, DocumentAppService>()
+.RegisterType<IDocumentAppService, DocumentAppService>()
                          .RegisterType<IDocumentQuery, DocumentQuery>()
                          .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
                          .RegisterType<IDocumentRepository, DocumentRepository>()
+                         .RegisterType<IDocumentTypeRepository, DocumentTypeRepository>()
             #endregion
 
-                ;
+;
         }
 
         #endregion

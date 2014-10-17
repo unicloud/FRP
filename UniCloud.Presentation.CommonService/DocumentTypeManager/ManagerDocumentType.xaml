@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerLicenseType"
+﻿<UserControl x:Class="UniCloud.Presentation.CommonService.DocumentTypeManager.ManagerDocumentType"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
              xmlns:input="clr-namespace:UniCloud.Presentation.Input;assembly=UniCloud.Presentation"
-             d:DataContext="{d:DesignInstance uc:ManagerLicenseTypeVm}"
+             d:DataContext="{d:DesignInstance uc:ManagerDocumentTypeVm}"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -21,7 +21,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="15"></ColumnDefinition>
-                        <ColumnDefinition Width="80"></ColumnDefinition>
+                        <ColumnDefinition Width="65"></ColumnDefinition>
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                         <ColumnDefinition Width="0.1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -51,25 +51,12 @@
                     </TextBox>
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
-                               Text="是否有附件"
-                               TextAlignment="Left"
-                               VerticalAlignment="Center" />
-                    <CheckBox Name="ManufactureComboBox"
-                              Grid.Row="1"
-                              Grid.Column="2"
-                              Margin="0,3"
-                              VerticalContentAlignment="Center"
-                              telerik:StyleManager.Theme="Windows8"
-                              IsChecked="{Binding HasFile,Mode=TwoWay}"
-                              IsEnabled="False" />
-                    <TextBlock Grid.Row="2"
-                               Grid.Column="1"
                                Text="描述"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
                              Margin="0,3"
-                             Grid.Row="2"
+                             Grid.Row="1"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Description, Mode=TwoWay}"
                              IsReadOnly="True">
@@ -81,7 +68,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="15"></ColumnDefinition>
-                        <ColumnDefinition Width="80"></ColumnDefinition>
+                        <ColumnDefinition Width="65"></ColumnDefinition>
                         <ColumnDefinition Width="3*"></ColumnDefinition>
                         <ColumnDefinition Width="0.1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -109,24 +96,12 @@
                     </TextBox>
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
-                               Text="是否有附件"
-                               TextAlignment="Left"
-                               VerticalAlignment="Center" />
-                    <CheckBox Name="ManufactureComboBox1"
-                              Grid.Row="1"
-                              Grid.Column="2"
-                              Margin="0,3"
-                              VerticalContentAlignment="Center"
-                              telerik:StyleManager.Theme="Windows8"
-                              IsChecked="{Binding HasFile,Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2"
-                               Grid.Column="1"
                                Text="描述"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
                              Margin="0,3"
-                             Grid.Row="2"
+                             Grid.Row="1"
                              Text="{Binding Description, Mode=TwoWay}">
                     </TextBox>
                 </Grid>
@@ -139,71 +114,49 @@
             <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="查询证照种类"
+                        <telerik:RadPane Header="查询文档类型"
                                          FontSize="{StaticResource HeaderFontSize}"
                                          IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
                                          ContextMenuTemplate="{x:Null}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="30" />
-                                </Grid.RowDefinitions>
-                                <Grid Row="0">
-                                    <telerik:RadGridView Name="AircraftSeriesList"
-                                                         AutoExpandGroups="True"
-                                                         AutoGenerateColumns="False"
-                                                         CanUserSortColumns="True"
-                                                         CanUserFreezeColumns="False"
-                                                         IsFilteringAllowed="True"
-                                                         IsReadOnly="True"
-                                                         ItemsSource="{Binding LicenseTypes}"
-                                                         IsBusy="{Binding LicenseTypes.IsBusy}"
-                                                         SelectedItem="{Binding LicenseType,Mode=TwoWay}"
-                                                         CanUserSelect="{Binding CanSelectLicenseType}"
-                                                         FontSize="{StaticResource TextFontSize}"
-                                                         ValidatesOnDataErrors="InEditMode"
-                                                         RowIndicatorVisibility="Visible">
-                                        <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn  Header="序号" />
-                                            <telerik:GridViewDataColumn Header="名称"
-                                                                        IsSortable="True"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding Name}" />
-                                            <telerik:GridViewDataColumn Header="是否有附件"
-                                                                        IsReadOnly="False"
-                                                                        EditTriggers="CellClick"
-                                                                        HeaderTextAlignment="Center"
-                                                                        TextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding HasFile}" />
-                                            <telerik:GridViewDataColumn Header="描述"
-                                                                        IsSortable="True"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MaxWidth="250"
-                                                                        TextWrapping="Wrap"
-                                                                        DataMemberBinding="{Binding Description}" />
-                                        </telerik:RadGridView.Columns>
-                                    </telerik:RadGridView>
-                                </Grid>
-                                <Grid Grid.Row="1">
-                                    <telerik:RadDataPager Name="RadPage"
-                                                          BorderThickness="1,0,1,1"
-                                                          AutoEllipsisMode="Both"
-                                                          DisplayMode="All"
-                                                          Source="{Binding LicenseTypes}" />
-                                </Grid>
-                            </Grid>
+                            <telerik:RadGridView Name="DocumentTypeList"
+                                                 AutoExpandGroups="True"
+                                                 AutoGenerateColumns="False"
+                                                 CanUserSortColumns="True"
+                                                 CanUserFreezeColumns="False"
+                                                 IsFilteringAllowed="True"
+                                                 IsReadOnly="True"
+                                                 ItemsSource="{Binding DocumentTypes}"
+                                                 IsBusy="{Binding DocumentTypes.IsBusy}"
+                                                 SelectedItem="{Binding DocumentType,Mode=TwoWay}"
+                                                 CanUserSelect="{Binding CanSelectDocumentType}"
+                                                 FontSize="{StaticResource TextFontSize}"
+                                                 ValidatesOnDataErrors="InEditMode"
+                                                 RowIndicatorVisibility="Visible">
+                                <telerik:RadGridView.Columns>
+                                    <input:DataPageSerialColumn  Header="序号" />
+                                    <telerik:GridViewDataColumn Header="名称"
+                                                                IsSortable="True"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding Name}" />
+                                    <telerik:GridViewDataColumn Header="描述"
+                                                                IsSortable="True"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                MaxWidth="250"
+                                                                TextWrapping="Wrap"
+                                                                DataMemberBinding="{Binding Description}" />
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
                 </telerik:RadSplitContainer>
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="编辑证照种类"
+                        <telerik:RadPane Header="编辑文档类型系列"
                                          IsPinned="True"
                                          CanFloat="False"
                                          CanDockInDocumentHost="False"
@@ -211,18 +164,18 @@
                                          CanUserPin="True"
                                          ContextMenuTemplate="{x:Null}">
                             <Grid>
-                                <telerik:RadDataForm x:Name="AircraftSeriesForm"
+                                <telerik:RadDataForm x:Name="DocumentTypeForm"
                                                      CancelButtonContent="取消"
                                                      CommitButtonContent="确定"
-                                                     ItemsSource="{Binding LicenseTypes}"
+                                                     ItemsSource="{Binding DocumentTypes}"
                                                      AutoGenerateFields="False"
                                                      AutoCommit="True"
                                                      ReadOnlyTemplate="{StaticResource ReadTemplate}"
                                                      EditTemplate="{StaticResource EditNewTemplate}"
                                                      NewItemTemplate="{StaticResource EditNewTemplate}">
                                     <telerik:RadDataForm.CommandProvider>
-                                        <uc:MasterCommandProvider  DataForm="{Binding ElementName=AircraftSeriesForm}"
-                                                                   QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=AircraftSeriesForm}"></uc:MasterCommandProvider>
+                                        <uc:MasterCommandProvider  DataForm="{Binding ElementName=DocumentTypeForm}"
+                                                                   QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=DocumentTypeForm}"></uc:MasterCommandProvider>
                                     </telerik:RadDataForm.CommandProvider>
                                 </telerik:RadDataForm>
                             </Grid>
